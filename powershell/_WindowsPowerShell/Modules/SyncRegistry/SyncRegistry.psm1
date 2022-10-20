@@ -348,7 +348,7 @@ function SyncRegistry {
         )
       };
 
-      # Explorer Settings (cont.)
+      # Explorer Settings - OneDrive shortcuts (left bar shortcuts)
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
         Props=@(
@@ -362,32 +362,36 @@ function SyncRegistry {
           }
         )
       };
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-69E8-C58E-500AB795E1FD}";
-        Props=@(
-          @{
-            Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Sharepoint' company-building icon from the left bar on Windows Explorer (shortcut to synced sharepoint directories) - Set Delete=`$False to add said icon back to explorer";
-            Name="(Default)";
-            Type="String";
-            Val_Default="Getac Video";
-            Value="Getac Video";
-            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-          }
-        )
-      };
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-439F-9D0E-BE7D32FDF154}";
-        Props=@(
-          @{
-            Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Enterprise' individual's icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
-            Name="(Default)";
-            Type="String";
-            Val_Default="OneDrive - Getac Video";
-            Value="OneDrive - Getac Video";
-            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
-          }
-        )
-      };
+
+      If ($False) {
+        # Explorer Settings - OneDrive Enterprise (left bar shortcuts)
+        $RegEdits += @{
+          Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-69E8-C58E-500AB795E1FD}";
+          Props=@(
+            @{
+              Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Sharepoint' company-building icon from the left bar on Windows Explorer (shortcut to synced sharepoint directories) - Set Delete=`$False to add said icon back to explorer";
+              Name="(Default)";
+              Type="String";
+              Val_Default="Organization Name";
+              Value="Organization Name";
+              Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+            }
+          )
+        };
+        $RegEdits += @{
+          Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{04271989-C4D2-439F-9D0E-BE7D32FDF154}";
+          Props=@(
+            @{
+              Description="Explorer Settings - Set Delete=`$True to hide the 'OneDrive Enterprise' individual's icon from the left bar on Windows Explorer - Set Delete=`$False to add said icon back to explorer";
+              Name="(Default)";
+              Type="String";
+              Val_Default="OneDrive - Organization Name";
+              Value="OneDrive - Organization Name";
+              Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+            }
+          )
+        };
+      }
 
       # Explorer Settings (cont.)
       $RegEdits += @{

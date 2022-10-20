@@ -1,0 +1,29 @@
+{
+  "load-balance": {
+    "group": {
+      "wan_failover": {
+        "interface": {
+          "eth0": {
+            "route-test": {
+              "initial-delay": "20",
+              "interval": "10"
+            }
+          },
+          "eth2": {
+            "failover-only": "''",
+            "route-test": {
+              "initial-delay": "20",
+              "interval": "10"
+            }
+          }
+        },
+        "sticky": {
+          "dest-addr": "enable",
+          "dest-port": "enable",
+          "source-addr": "enable"
+        },
+        "transition-script": "/config/scripts/wan-event-report.sh"
+      }
+    }
+  }
+}

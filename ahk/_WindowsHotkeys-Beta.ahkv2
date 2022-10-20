@@ -2130,7 +2130,7 @@ CommentCurrentLine_NoSpace() {
 ;   |--> Log given text to target file
 ;
 DoLogging(LogText) {
-  ; FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
+  ; FormatTime(TIMESTAMP,,yyyyMMddTHHmmss)
   OutputLogfile := "C:\Users\" A_UserName "\Desktop" "\debug-logging.txt"
   FileAppend(
   (
@@ -3426,7 +3426,7 @@ PrintEnv() {
   ; Note: For some reason, adding newlines to MsgBox makes it not wrap text
 
   ;
-  ; FormatTime,TIMESTAMP,,yyyyMMddTHHmmss
+  ; FormatTime(TIMESTAMP,,yyyyMMddTHHmmss)
   ; Logfile_EnvVars := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
   ; Logfile_EnvVars_Timestamp := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
   ;
@@ -3624,7 +3624,7 @@ SendHostname() {
     }
   }
   If (HostName_VerbosityLevel >= 1) {
-    FormatTime,NowTimestamp,,yyyy-MM-dd_HH-mm-ss
+    FormatTime(NowTimestamp,,"yyyy-MM-dd_HH-mm-ss")
     EchoStr := A_ComputerName " " NowTimestamp " " Win_ahk_exe
     Send {Blind}{Text}%EchoStr%
   } Else {

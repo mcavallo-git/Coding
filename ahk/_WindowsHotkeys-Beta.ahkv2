@@ -232,12 +232,12 @@ Pause::
     ; Click the "Edit" tab
     xpos := 223
     ypos := 40
-    ControlClick, x%xpos% y%ypos%, %WinTitle%
+    ControlClick x%xpos% y%ypos%, %WinTitle%
     Sleep 100
     ; Click the "Add Text" button
     xpos := 338
     ypos := 87
-    ControlClick, x%xpos% y%ypos%, %WinTitle%
+    ControlClick x%xpos% y%ypos%, %WinTitle%
     Return
   }
   ;
@@ -258,12 +258,12 @@ Pause::
     ; Click the "Edit" tab
     xpos := 223
     ypos := 40
-    ControlClick, x%xpos% y%ypos%, %WinTitle%
+    ControlClick x%xpos% y%ypos%, %WinTitle%
     Sleep 100
     ; Click the "B" (Bold) button
     xpos := 448
     ypos := 106
-    ControlClick, x%xpos% y%ypos%, %WinTitle%
+    ControlClick x%xpos% y%ypos%, %WinTitle%
     Return
   }
   ;
@@ -286,7 +286,7 @@ Pause::
     ypos := 15
     Use_ControlClick := 0
     If (Use_ControlClick == 1) {
-      ControlClick, x%xpos% y%ypos%, %WinTitle%
+      ControlClick x%xpos% y%ypos%, %WinTitle%
     } Else {
       MouseGetPos, MouseX, MouseY
       MouseClick, Left, %xpos%, %ypos%
@@ -4516,7 +4516,7 @@ Youtube_EditDraft_Submit() {
         ToolTip ( Tooltip_Header ), 1, 112
         xpos := 94
         ypos := 61
-        ControlClick, x%xpos% y%ypos%, %WinTitle%
+        ControlClick x%xpos% y%ypos%, %WinTitle%
         Sleep 2000
         Tooltip_Header := "Youtube - Click 'Edit Draft'"
         ToolTip ( Tooltip_Header ), 1, 112
@@ -4538,7 +4538,7 @@ Youtube_EditDraft_Submit() {
           }
         }
         Sleep 250
-        ControlClick, x%xpos% y%ypos%, %WinTitle%
+        ControlClick x%xpos% y%ypos%, %WinTitle%
         Sleep 100
         Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"
         ToolTip ( Tooltip_Header ), 1, 112
@@ -4560,7 +4560,7 @@ Youtube_EditDraft_Submit() {
               Break
             }
           }
-          ControlClick, x%xpos% y%ypos%, %WinTitle%
+          ControlClick x%xpos% y%ypos%, %WinTitle%
           Sleep 100
         }
         Sleep 100
@@ -4583,7 +4583,7 @@ Youtube_EditDraft_Submit() {
             Break
           }
         }
-        ControlClick, x%xpos% y%ypos%, %WinTitle%
+        ControlClick x%xpos% y%ypos%, %WinTitle%
         Sleep 250
       }
     }
@@ -4906,7 +4906,7 @@ BrightnessSetter_new() {
 ;   WinTitle := "NoxPlayer"
 ;   xpos := (A_ScreenWidth - 20)
 ;   ypos := 315
-;   ControlClick, x%xpos% y%ypos%, %WinTitle%
+;   ControlClick x%xpos% y%ypos%, %WinTitle%
 ; }
 ;
 ; ------------------------------------------------------------

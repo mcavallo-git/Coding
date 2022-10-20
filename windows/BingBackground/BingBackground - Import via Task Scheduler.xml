@@ -2,7 +2,7 @@
 <Task version="1.2" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
   <RegistrationInfo>
     <Date>2019-04-10T14:04:18.7303137</Date>
-    <Author>BONEAL\mcavallo</Author>
+    <Author>.\mcavallo</Author>
     <Description>BingBackground</Description>
     <URI>\BingBackground</URI>
   </RegistrationInfo>

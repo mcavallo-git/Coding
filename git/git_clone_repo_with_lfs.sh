@@ -12,21 +12,26 @@ cd clonefolder/
 # Following Guide "Mirroring a repository that contains Git Large File Storage objects"
 #   from: https://help.github.com/articles/duplicating-a-repository/#mirroring-a-repository-that-contains-git-large-file-storage-objects
 
-git clone --bare https://github.com/bonealnet/boneal_github
+SOURCE_REPO="https://github.com/OWNER_SOURCE/REPO_SOURCE";
 
-cd boneal_github.git
+DESTINATION_REPO="https://github.com/OWNER_DEST/REPO_DEST.git";
 
-git lfs fetch --all
+git clone --bare ${SOURCE_REPO};
 
-git push --mirror https://github.com/bonealnet/supplier_gateway.git
+cd "./$(basename "${REPO_SOURCE}";).git";
 
-git lfs push --all https://github.com/bonealnet/supplier_gateway.git
+git lfs fetch --all;
 
-cd ..
-rm -rf boneal_github.git
+git push --mirror ${DESTINATION_REPO};
 
-## End GitHub Tutorial
+git lfs push --all ${DESTINATION_REPO};
 
-cd ..
+cd ..;
 
-rm -rf clonefolder
+rm -rf "$(basename "${REPO_SOURCE}";).git";
+
+## End GitHub Tutorial;
+
+cd ..;
+
+rm -rf clonefolder;

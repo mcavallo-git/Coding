@@ -1647,10 +1647,10 @@ WheelRight::
     ExeFilepath2 := EnvGet("USERPROFILE") efs
     ; MsgBox(ExeFilepath2)
     If (FileExist(ExeFilepath)) {
-      Run(%ExeFilepath%)
+      Run(ExeFilepath)
     } Else {
       If (FileExist(ExeFilepath2)) {
-        Run(%ExeFilepath2%)
+        Run(ExeFilepath2)
       } Else {
         ; If EFS does NOT exist, offer user the URL to download it
         exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
@@ -4648,7 +4648,7 @@ Xbox_ExportCaptures() {
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Count_FilesInOutputDir = [ " Count_FilesInOutputDir " ]"
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Running metadata-timestamper script..."
       ToolTip ( Tooltip_Closer_Stats ), 1, 1
-      Run(WSL /bin/bash -c "sync_cloud_infrastructure; echo ''; bulk_rename_based_on_media_creation_date --dry-run 0;")
+      Run("wsl.exe /bin/bash -c ""sync_cloud_infrastructure; echo ''; bulk_rename_based_on_media_creation_date --dry-run 0;""")
       Sleep 2000
       ; Open the output videos directory
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."

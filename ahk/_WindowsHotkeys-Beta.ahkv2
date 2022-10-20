@@ -221,7 +221,7 @@ Pause::
   #a::
   {
     global DebugMode
-    CoordMode Mouse, Screen
+    CoordMode "Mouse", "Screen"
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
@@ -247,7 +247,7 @@ Pause::
   ^b::
   {
     global DebugMode
-    CoordMode Mouse, Screen
+    CoordMode "Mouse", "Screen"
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
@@ -273,7 +273,7 @@ Pause::
   ^y::
   {
     global DebugMode
-    ; CoordMode Mouse, Window
+    ; CoordMode "Mouse", "Window"
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
@@ -942,7 +942,7 @@ AppsKey & [::
 AppsKey & ]::
 {
   global DebugMode
-  CoordMode Mouse, Screen
+  CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetControlDelay -1
   SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
@@ -1226,7 +1226,7 @@ AppsKey & l::
 ; AppsKey & WheelUp::
 ; AppsKey & WheelDown::
 ; {
-;   CoordMode Mouse, Screen
+;   CoordMode "Mouse", "Screen"
 ;   SetDefaultMouseSpeed 0
 ;   MouseGetPos MouseX, MouseY
 ;   MouseClick Left, %MouseX%, %MouseY%
@@ -1973,7 +1973,7 @@ BrowserHover() {
   global TrayIcon_Cached
   global TrayIcon_Default
   global TrayIcon_Gray
-  CoordMode Mouse, Screen
+  CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetControlDelay -1
   AwaitModifierKeyup()
@@ -2041,7 +2041,7 @@ ClearTooltip(Period) {
 ;   |--> Send left click indefinitely until script is cancelled, with a long enough break between clicks to not make it impossible to stop
 ;
 ClickLoop(MouseX,MouseY,Timeout) {
-  CoordMode Mouse, Screen
+  CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetKeyDelay 0, -1
   If (Timeout < 250) {
@@ -3715,19 +3715,19 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
     ;
     ; Screen: "Coordinates are relative to the desktop (entire screen)."
     ;
-    CoordMode Mouse, Screen
+    CoordMode "Mouse", "Screen"
     MouseGetPos MouseX_Screen, MouseY_Screen
     Tooltip_Coords_Screen := "x" MouseX_Screen "  y" MouseY_Screen "  (Screen)"
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
-    CoordMode Mouse, Window
+    CoordMode "Mouse", "Window"
     MouseGetPos MouseX_Window, MouseY_Window
     Tooltip_Coords_Window := "x" MouseX_Window "  y" MouseY_Window "  (Window)"
     ;
     ; Client: "Coordinates are relative to the active window's client area, which excludes the window's title bar, menu (if it has a standard one) and borders. Client coordinates are less dependent on OS version and theme."
     ;
-    CoordMode Mouse, Client
+    CoordMode "Mouse", "Client"
     MouseGetPos MouseX_Client, MouseY_Client
     Tooltip_Coords_Client := "x" MouseX_Client "  y" MouseY_Client "  (Client)"
 
@@ -3746,7 +3746,7 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
 ;
 ShowCursorPixelColor(FollowDuration_Seconds:=10) {
   global DebugMode
-  CoordMode Pixel, Screen
+  CoordMode "Pixel", "Screen"
   FollowDuration_ms := (1000 * FollowDuration_Seconds)
   If (DebugMode == 1) {
     TrayTip("AHK",( DebugString ))  ; Toast Notification
@@ -3777,17 +3777,17 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     ;
     ; Screen: "Coordinates are relative to the desktop (entire screen)."
     ;
-    CoordMode Mouse, Screen
+    CoordMode "Mouse", "Screen"
     MouseGetPos MouseX_Screen, MouseY_Screen
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
-    CoordMode Mouse, Window
+    CoordMode "Mouse", "Window"
     MouseGetPos MouseX_Window, MouseY_Window
     ;
     ; Client: "Coordinates are relative to the active window's client area, which excludes the window's title bar, menu (if it has a standard one) and borders. Client coordinates are less dependent on OS version and theme."
     ;
-    CoordMode Mouse, Client
+    CoordMode "Mouse", "Client"
     MouseGetPos MouseX_Client, MouseY_Client
     Color := PixelGetColor(MouseX_Screen, MouseY_Screen)  ; PixelGetColor, Color, MouseX, MouseY
     ColorComponent_Blue := (Color & 0xFF)
@@ -3876,8 +3876,8 @@ ShowTooltip(TextToolTip:="", LoopDuration_ms:=5000) {
 ;   |--> Show a tooltip with the volume as an integer, as well as filled-bars around it to intuitively show the volume, as well as a mute icon around the integer if muted
 ;
 ShowVolumeLevel() {
-  CoordMode Mouse, Screen
-  CoordMode ToolTip, Screen
+  CoordMode "Mouse", "Screen"
+  CoordMode "ToolTip", "Screen"
   Icon_MutedSpeaker := "🔇"
   Icon_SpeakerLowVolume := "🔈"
   Icon_SpeakerMediumVolume := "🔉"
@@ -4209,7 +4209,7 @@ Win_ToggleRestoreMaximize(WinTitle:="A") {
 ;
 Xbox_ExportCaptures() {
   global DebugMode
-  CoordMode Mouse, Screen
+  CoordMode "Mouse", "Screen"
   SetControlDelay -1
   SetDefaultMouseSpeed 0
   SetKeyDelay 0, -1
@@ -4660,8 +4660,8 @@ Xbox_ExportCaptures() {
 ;
 Youtube_EditDraft_Submit() {
   global DebugMode
-  CoordMode Mouse, Screen
-  CoordMode Pixel, Screen
+  CoordMode "Mouse", "Screen"
+  CoordMode "Pixel", "Screen"
   SetControlDelay -1
   SetDefaultMouseSpeed 0
   SetKeyDelay 0, -1
@@ -5076,7 +5076,7 @@ BrightnessSetter_new() {
 ;   ;;;
 ;   ;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
 ;   ;;;
-;   CoordMode Mouse, Screen
+;   CoordMode "Mouse", "Screen"
 ;   SetDefaultMouseSpeed 0
 ;   SetControlDelay -1
 ;   ; WinGetTitle WinTitle, A

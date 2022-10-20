@@ -225,19 +225,19 @@ Pause::
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    Win_title := WinGetTitle("A")
+    WinTitle := WinGetTitle("A")
     If (DebugMode == 1) {
       TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" ))  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
     ypos := 40
-    ControlClick x%xpos% y%ypos%, %Win_title%
+    ControlClick ("x" xpos " y" ypos), WinTitle
     Sleep 100
     ; Click the "Add Text" button
     xpos := 338
     ypos := 87
-    ControlClick x%xpos% y%ypos%, %Win_title%
+    ControlClick x%xpos% y%ypos%, %WinTitle%
     Return
   }
   ;
@@ -250,20 +250,21 @@ Pause::
     CoordMode "Mouse", "Screen"
     SetDefaultMouseSpeed 0
     SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match Win_title to be a match
-    Win_title := WinGetTitle("A")
+    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
+    WinTitle := WinGetTitle("A")
     If (DebugMode == 1) {
       TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" ))  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
     ypos := 40
-    ControlClick x%xpos% y%ypos%, %Win_title%
+    ControlClick x%xpos% y%ypos%, %WinTitle%
+    
     Sleep 100
     ; Click the "B" (Bold) button
     xpos := 448
     ypos := 106
-    ControlClick x%xpos% y%ypos%, %Win_title%
+    ControlClick x%xpos% y%ypos%, %WinTitle%
     Return
   }
   ;
@@ -276,8 +277,8 @@ Pause::
     ; CoordMode "Mouse", "Window"
     SetDefaultMouseSpeed 0
     SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match Win_title to be a match
-    Win_title := WinGetTitle("A")
+    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
+    WinTitle := WinGetTitle("A")
     If (DebugMode == 1) {
       TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" ))  ; Toast Notification
     }
@@ -286,7 +287,7 @@ Pause::
     ypos := 15
     Use_ControlClick := 0
     If (Use_ControlClick == 1) {
-      ControlClick x%xpos% y%ypos%, %Win_title%
+      ControlClick x%xpos% y%ypos%, %WinTitle%
     } Else {
       MouseGetPos &MouseX, &MouseY
       MouseClick "Left", %xpos%, %ypos%
@@ -976,11 +977,10 @@ AppsKey & ]::
     StartMilliseconds := A_TickCount
     Loop {
       LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
-      WinTitle := "A"
-      Win_title := WinGetTitle(WinTitle)
+      WinTitle := WinGetTitle("A")
       Win_ahk_class := WinGetClass(WinTitle)
       Win_ahk_exe := WinGetProcessName(WinTitle)
-      If ((Win_title=="Project") && (Win_ahk_class=="Windows.UI.Core.CoreWindow") && (Win_ahk_exe=="ShellExperienceHost.exe")) {
+      If ((WinTitle=="Project") && (Win_ahk_class=="Windows.UI.Core.CoreWindow") && (Win_ahk_exe=="ShellExperienceHost.exe")) {
         ; Projection menu detected --> select related option (duplicate/extend)
         Sleep 250
         RandomSleep := Random(1000,1500)
@@ -3608,9 +3608,9 @@ SendHostname() {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   HostName_VerbosityLevel := 0
   Win_ahk_exe := WinGetProcessName("A")
-  Win_title := WinGetTitle("A")
+  WinTitle := WinGetTitle("A")
   If (Win_ahk_exe == "chrome.exe") {
-    If ( ( WinActive("LastPass") && WinActive("Duo Security") ) || ( Win_title == "" ) ) {
+    If ( ( WinActive("LastPass") && WinActive("Duo Security") ) || ( WinTitle == "" ) ) {
       ; IfWinActive   ///   https://www.autohotkey.com/docs/commands/WinActive.htm  (v1)   ///   https://lexikos.github.io/v2/docs/commands/WinActive.htm  (v2)
       HostName_VerbosityLevel := 1
     }
@@ -3972,11 +3972,11 @@ ShowWindowTitles() {
   Window := WinGetList("A")
   Loop Window {
     Id:=Window%A_Index%
-    Win_title := WinGetTitle("ahk_id " Id)
-    If (Win_title != "") {
-      LV.Add("", Win_title)
-      Window%A_Index%:=Win_title ;use this if you want an array
-      tList.=Win_title "`n" ;use this if you just want the list
+    WinTitle := WinGetTitle("ahk_id " Id)
+    If (WinTitle != "") {
+      LV.Add("", WinTitle)
+      Window%A_Index%:=WinTitle ;use this if you want an array
+      tList.=WinTitle "`n" ;use this if you just want the list
     }
   }
 
@@ -4674,7 +4674,7 @@ Youtube_EditDraft_Submit() {
         ToolTip ( Tooltip_Header ), 1, 112
         xpos := 94
         ypos := 61
-        ControlClick x%xpos% y%ypos%, %WinTitle%
+        ControlClick ("x" xpos " y" ypos), WinTitle
         Sleep 2000
         Tooltip_Header := "Youtube - Click 'Edit Draft'"
         ToolTip ( Tooltip_Header ), 1, 112
@@ -4696,7 +4696,7 @@ Youtube_EditDraft_Submit() {
           }
         }
         Sleep 250
-        ControlClick x%xpos% y%ypos%, %WinTitle%
+        ControlClick ("x" xpos " y" ypos), WinTitle
         Sleep 100
         Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"
         ToolTip ( Tooltip_Header ), 1, 112
@@ -4718,7 +4718,7 @@ Youtube_EditDraft_Submit() {
               Break
             }
           }
-          ControlClick x%xpos% y%ypos%, %WinTitle%
+          ControlClick ("x" xpos " y" ypos), WinTitle
           Sleep 100
         }
         Sleep 100
@@ -4741,7 +4741,7 @@ Youtube_EditDraft_Submit() {
             Break
           }
         }
-        ControlClick x%xpos% y%ypos%, %WinTitle%
+        ControlClick ("x" xpos " y" ypos), WinTitle
         Sleep 250
       }
     }
@@ -5076,16 +5076,16 @@ Youtube_EditDraft_Submit() {
 ;
 ; EXAMPLE_ControlClick() {
 ;   ;;;
-;   ;;; ControlClick [, Control-or-Pos, Win_title, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
+;   ;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
 ;   ;;;
 ;   CoordMode "Mouse", "Screen"
 ;   SetDefaultMouseSpeed 0
 ;   SetControlDelay -1
-;   ; Win_title := WinGetTitle("A")
-;   Win_title := "NoxPlayer"
+;   ; WinTitle := WinGetTitle("A")
+;   WinTitle := "NoxPlayer"
 ;   xpos := (A_ScreenWidth - 20)
 ;   ypos := 315
-;   ControlClick x%xpos% y%ypos%, %Win_title%
+;   ControlClick ("x" xpos " y" ypos), WinTitle
 ; }
 ;
 ; ------------------------------------------------------------

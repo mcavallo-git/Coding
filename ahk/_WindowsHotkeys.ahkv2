@@ -61,6 +61,19 @@ LF := "`n"
 
 ; ------------------------------------------------------------
 ;
+; RFC3339-Specific Variables ( Internet date-time/timestamp standardization values, https://tools.ietf.org/html/rfc3339 )
+;  |
+;  |-->  Example - RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
+;
+RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
+RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
+RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
+RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
+RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
+
+
+; ------------------------------------------------------------
+;
 ; Setup targeting [ Windows Explorer ]-classed windows
 ;
 
@@ -685,18 +698,20 @@ Pause::
 +!^#d::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
 ; +#d::  ;  Keeps bringing up start menu...?   (Shift + WinKey + D)
   Global DebugMode
+  Global RFC3339_DateAndTimeField_Separator
+  Global RFC3339_DecimalSeconds_Separator
+  Global RFC3339_HourMinuteSecond_Separator
+  Global RFC3339_UTC_ZeroHourReplacement
+  Global RFC3339_YearMonthDay_Separator
   SetKeyDelay, 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   ; ------------------------------
-  ;
-  ; RFC3339-Specific Variables ( Internet date-time/timestamp standardization values, https://tools.ietf.org/html/rfc3339 )
-  ;  |
-  ;  |-->  Example - RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
-  ;
-  RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
-  RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
-  RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
-  RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
+  AltPressed := InStr(A_ThisHotkey,"!")
+  CtrlPressed := InStr(A_ThisHotkey,"^")
+  ShiftPressed := InStr(A_ThisHotkey,"+")
+  ; ------------------------------
+  Add_Microseconds := 0
+  Add_Timezone := 0
   ; ------------------------------
   YMD_Separator := RFC3339_YearMonthDay_Separator
   HMS_Separator := RFC3339_HourMinuteSecond_Separator

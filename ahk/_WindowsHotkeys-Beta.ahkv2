@@ -2622,12 +2622,6 @@ GetWindowSpecs_OnDoubleClick(LV, RowNumber) {
   ; MyGui.Name := "WindowSpecs"
   ; ; Gui Destroy
   ; MyGui.Destroy()
-
-  If (DebugMode == 1) {
-    TooltipOutput := "A_GuiEvent=[" A_GuiEvent "], A_EventInfo=[" A_EventInfo "]"
-    ToolTip(TooltipOutput)
-    ClearTooltip(2500)
-  }
   Return
 }
 

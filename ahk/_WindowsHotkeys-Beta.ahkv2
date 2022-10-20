@@ -2421,7 +2421,7 @@ GetWindowSpecs(WinTitle:="A") {
     Win10_fullpath := WinGetProcessPath("ahk_id " Win10_ahk_id)
     Win10_control_names := WinGetControls("ahk_id " Win10_ahk_id)  ; Get all control names in this window
     Win10_size_state := WinGet_size_state("ahk_id " Win10_ahk_id)
-    WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id "Win10_ahk_id))
+    WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id " Win10_ahk_id))
 
     ; Update the longest text-field
     Win_longest_field := StrLen_Max(Win_longest_field, Win10_title)
@@ -3437,7 +3437,7 @@ RemoveToolTip() {
 RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   global DebugMode
   If (DebugMode == 1) {
-    TrayTip "AHK", ("Opening NON-Admin version of Exe [ " Execute " ]...")
+    TrayTip "AHK", ("Opening NON-Admin version of Exe [ " FullPath_RunExe " ]...")
   }
   Semicolon := ";"
   Add_Args := ""

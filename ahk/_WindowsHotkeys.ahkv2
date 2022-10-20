@@ -689,14 +689,14 @@ Pause::
 ;   HOTKEY:  WinKey + D
 ;   ACTION:  Types one of a dynamic set of timestamp-strings
 ;
-#d::     ;  20200725T080521              (Base Case + WinKey + D)
-^#d::    ;  2020-07-25T08:05:55          (Ctrl + WinKey + D)
-!#d::    ;  20200725T080550-0500         (Alt + WinKey + D)
-!^#d::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + WinKey + D)
-+^#d::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + WinKey + D)
-+!#d::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
-+!^#d::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
-; +#d::  ;  Keeps bringing up start menu...?   (Shift + WinKey + D)
+#d::     ;  20221020T045855                    (WinKey + D)
+!#d::    ;  2022-10-20T04:58:40                (Alt + WinKey + D)
+^#d::    ;  2022-10-20_04-58-53                (Ctrl + WinKey + D)
+!^#d::   ;  2022-10-20T04:58:35-04:00          (Ctrl + Alt + WinKey + D)
++!#d::   ;  2022-10-20T04:58:25.802768         (Shift + Alt + WinKey + D)
++^#d::   ;  2022-10-20_04-58-31.128721         (Shift + Ctrl + WinKey + D)
++!^#d::  ;  2022-10-20T04:58:17.412119-04:00   (Shift + Ctrl + Alt + WinKey + D)  <-- Note:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
+; +#d::  ;  20221020T045928.630393             (Shift + WinKey + D)  <-- Note:  Keeps bringing up start menu...?
   Global DebugMode
   Global RFC3339_DateAndTimeField_Separator
   Global RFC3339_DecimalSeconds_Separator

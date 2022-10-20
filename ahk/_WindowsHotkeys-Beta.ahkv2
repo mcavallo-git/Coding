@@ -327,11 +327,15 @@ Pause::
   ^CapsLock::
   !CapsLock::
   #CapsLock::
-    SetCapsLockState, Off
+  {
+    SetCapsLockState(Off)
     Return
+  }
   +CapsLock::
-    SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
+  {
+    SetCapsLockState(GetKeyState("CapsLock", "T") ? "Off" : "On")
     Return
+  }
 #HotIf
 
 
@@ -396,10 +400,12 @@ Pause::
 ; Joy30::
 ; Joy31::
 ; Joy32::
+; {
 ;   ; If (DebugMode == 1) {
 ;   Tooltip ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
 ;   ; }
 ;   Return
+; }
 
 
 ; ------------------------------------------------------------
@@ -412,8 +418,10 @@ Pause::
   ; ACTION:  Xbox - Download & delete game clips & screenshots
   ;
   #F3::
+  {
     Xbox_ExportCaptures()
     Return
+  }
 #HotIf
 ; ------------------------------------------------------------
 #HotIf !WinExist("Xbox Console Companion")
@@ -422,8 +430,10 @@ Pause::
   ; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
   ;
   #F3::
+  {
     BrowserHover()
     Return
+  }
 #HotIf
 
 
@@ -438,8 +448,10 @@ Pause::
   ; ACTION:  Youtube - Walk uploads from "Draft" to live state
   ;
   #F4::
+  {
     Youtube_EditDraft_Submit()
     Return
+  }
 #HotIf
 
 
@@ -457,16 +469,20 @@ Pause::
 ;
 #-::
 #NumpadSub::
+{
   SendDashedLine(60)
   Return
+}
 ^#-::
 !#-::
 !^#-::
 ^#NumpadSub::
 !#NumpadSub::
 !^#NumpadSub::
+{
   SendDashedLine(30)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -483,16 +499,20 @@ Pause::
 ;
 +#-::
 +#NumpadSub::
+{
   SendUnderscoreLine(60)
   Return
+}
 +^#-::
 +!#-::
 +!^#-::
 +^#NumpadSub::
 +!#NumpadSub::
 +!^#NumpadSub::
+{
   SendUnderscoreLine(30)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -504,8 +524,10 @@ Pause::
 #=::
 #+::
 #NumpadAdd::
+{
   CreateCitationsFooter()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -514,8 +536,10 @@ Pause::
 ;   ACTION:  Open VS Code
 ;
 #v::
+{
   Open_VisualStudioCode()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -528,8 +552,10 @@ Pause::
 *+^v::
 *^!v::
 *^#v::
+{
   PasteClipboardAsBinary()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -538,10 +564,12 @@ Pause::
 ;   ACTION:  Send a random string
 ;
 #p::
+{
   AwaitModifierKeyup()
   SendPseudoRandomString()
   ; SendRandomString(18, 1, 1, 0, 0, 1, 0)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -550,7 +578,9 @@ Pause::
 ;   ACTION:  Reserved for VS Code's "Command Palette..." default hotkey
 ;
 ; +^p::
+; {
 ;   Return
+; }
 
 
 ; ------------------------------------------------------------
@@ -563,9 +593,11 @@ Pause::
 ^#p::
 +#p::
 +!p::
+{
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   PasteClipboard_TextOrBinary()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -574,8 +606,10 @@ Pause::
 ;   ACTION:  Type the COMPUTERNAME
 ;
 #h::
+{
   SendHostname()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -584,6 +618,7 @@ Pause::
 ;   ACTION:  Type the DOMAIN-USERNAME
 ;
 #u::
+{
   SetKeyDelay, 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Object_WMI_Service := ComObjGet("winmgmts:{impersonationLevel=impersonate}!\\" A_ComputerName "\root\cimv2")
@@ -594,6 +629,7 @@ Pause::
   RET_VAL := A_UserName "@" Domain "_via_" USERDOMAIN
   Send %RET_VAL%
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -603,6 +639,7 @@ Pause::
 ;
 #UseHook False  ; Disable the catching of hotkeys sent by this script (stops infinite loops)  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 !z::
+{
   SetKeyDelay, 0, -1
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
@@ -618,6 +655,7 @@ Pause::
     Send +!z
   }
   Return
+}
 #UseHook True  ; Enable the catching of hotkeys sent by this script  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 
 
@@ -629,6 +667,7 @@ Pause::
 ;
 #g::
 #w::
+{
   global DebugMode
   FileToPaste_Legend := EnvGet("USERPROFILE") "\.ahk\" A_ThisHotkey
   ExeToRequire_Legend := FileToPaste_Legend "-exe"
@@ -698,6 +737,7 @@ Pause::
   ; VarSetStrCapacity(&FileToPaste_Contents,0)   ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
   ; VarSetStrCapacity(&ExeToRequire_Fullpath,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -713,6 +753,7 @@ Pause::
 +^#d::   ;  2022-10-20_04-58-31.128721         (Shift + Ctrl + WinKey + D)
 +!^#d::  ;  2022-10-20T04:58:17.412119-04:00   (Shift + Ctrl + Alt + WinKey + D)  <-- Note:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
 ; +#d::  ;  20221020T045928.630393             (Shift + WinKey + D)  <-- Note:  Keeps bringing up start menu...?
+{
   global DebugMode
   global RFC3339_DateAndTimeField_Separator
   global RFC3339_DecimalSeconds_Separator
@@ -804,6 +845,7 @@ Pause::
   ; Send the timestamp
   Send(SendKeys)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -812,8 +854,10 @@ Pause::
 ;   ACTION:  Edit this Script (the one you're reading right now)
 ;
 #F1::
+{
   Run Notepad %A_ScriptFullPath%
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -822,9 +866,11 @@ Pause::
 ;   ACTION:  Opens a window (GetKeyCodes.ahk) which displays verbose keypress info, live (allowing user to press combo keys and view how it is interpreted by AHK)
 ;
 #F2::
+{
   GetKeyCodes := A_ScriptDir "\GetKeyCodes.ahk"
   Run(GetKeyCodes)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -833,8 +879,10 @@ Pause::
 ;   ACTION:  Send duplicate keypresses
 ;
 #F8::
+{
   Duplicate_Keypress()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -845,8 +893,10 @@ Pause::
 ;
 ^#z::
 +#z::
+{
   ShowWindowTitles()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -855,8 +905,10 @@ Pause::
 ;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
 ;
 #r::
+{
   Run (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -871,9 +923,11 @@ Pause::
 !#r::
 ^#r::
 +#r::
+{
   CMD_Command := "explorer.exe shell:" ":" ":" "{2559a1f3-21d7-11d4-bdaf-00c04f60b9f0}"
   RunWaitOne(CMD_Command)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -885,6 +939,7 @@ Pause::
 AppsKey & [::
 #]::
 AppsKey & ]::
+{
   global DebugMode
   CoordMode Mouse, Screen
   SetDefaultMouseSpeed 0
@@ -1036,6 +1091,7 @@ AppsKey & ]::
     ))
   }
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1044,10 +1100,12 @@ AppsKey & ]::
 ;   ACTION:  Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
 ;
 #RButton::
+{
   FollowDuration_Seconds := 20
   ; ShowCursorCoordinates(FollowDuration_Seconds)
   ShowCursorPixelColor(FollowDuration_Seconds)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1060,10 +1118,12 @@ AppsKey & ]::
 +#RButton::
 !#RButton::
 ^#RButton::
+{
   FollowDuration_Seconds := 20
   ; ShowCursorCoordinates(FollowDuration_Seconds)
   ShowCursorPixelColor(FollowDuration_Seconds)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1073,10 +1133,12 @@ AppsKey & ]::
 ;
 #l::
 AppsKey & l::
+{
   LockWorkstation()
   ; Monitor_ShowScreenSaver()
   Reload
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1085,8 +1147,10 @@ AppsKey & l::
 ;   ACTION:  Opens "View Network Connections" (control panel window)
 ;
 #n::
+{
   Open_ControlPanel_NetworkConnections()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1094,9 +1158,11 @@ AppsKey & l::
 ; ACTION:  Opens "Sound" > "Playback" (control panel window)
 ;
 #s::
+{
   Open_ControlPanel_Sound("Playback")
   ; Open_ControlPanel_Sound("Recording")
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1108,8 +1174,10 @@ AppsKey & l::
 !#s::
 ^#s::
 +#s::
+{
   Open_ControlPanel_Sound("Recording")
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1118,8 +1186,10 @@ AppsKey & l::
 ;   ACTION:  Opens "Programs & Features" in the Control Panel
 ;
 #o::
+{
   Run "c:\windows\system32\appwiz.cpl"
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1128,8 +1198,10 @@ AppsKey & l::
 ;   ACTION:  Opens directory pointed to by Windows' USERPROFILE environment variable
 ;
 #e::
+{
   Run (EnvGet("USERPROFILE"))
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1138,8 +1210,10 @@ AppsKey & l::
 ;   ACTION:  Keyboard-Command for a Mouse-Left-Click
 ;
 #`::
+{
   MouseClick Left
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1150,12 +1224,14 @@ AppsKey & l::
 ;
 ; AppsKey & WheelUp::
 ; AppsKey & WheelDown::
+; {
 ;   CoordMode Mouse, Screen
 ;   SetDefaultMouseSpeed 0
 ;   MouseGetPos MouseX, MouseY
 ;   MouseClick Left, %MouseX%, %MouseY%
 ;   Sleep 10
 ;   Return
+; }
 
 
 ; ------------------------------------------------------------
@@ -1164,17 +1240,25 @@ AppsKey & l::
 ;   ACTION:  Replace AppsKey with RWin and send command
 ;
 AppsKey & Left::
+{
   Send {LWin up}{RWin up}{LWin down}{Left}{LWin up}
   Return
+}
 AppsKey & Right::
+{
   Send {LWin up}{RWin up}{LWin down}{Right}{LWin up}
   Return
+}
 AppsKey & Up::
+{
   Send {LWin up}{RWin up}{LWin down}{Up}{LWin up}
   Return
+}
 AppsKey & Down::
+{
   Send {LWin up}{RWin up}{LWin down}{Down}{LWin up}
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1183,8 +1267,10 @@ AppsKey & Down::
 ;   ACTION:  Keyboard-Command for a Mouse-Right-Click
 ;
 !`::
+{
   MouseClick Right
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1194,8 +1280,10 @@ AppsKey & Down::
 ;
 #XButton1::
 AppsKey & XButton1::
+{
   Send {Media_Prev}
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1205,8 +1293,10 @@ AppsKey & XButton1::
 ;
 #XButton2::
 AppsKey & XButton2::
+{
   Send {Media_Next}
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1221,56 +1311,70 @@ AppsKey & XButton2::
   Alt & Up::
   Ctrl & Up::
   Shift & Up::
+  {
     VolDelta := 2
     SoundSet , ( "+" VolDelta )
     ShowVolumeLevel()
     Return
+  }
   ;
   ;   ACTION:  Volume Down
   ;
   Alt & Down::
   Ctrl & Down::
   Shift & Down::
+  {
     VolDelta := 2
     SoundSet , ( "-" VolDelta )
     ShowVolumeLevel()
     Return
+  }
   ;
   ;   ACTION:  Goto previous track  (in active media player)
   ;
   Ctrl & Left::
   Shift & Left::
+  {
     Send {Media_Prev}
     Return
+  }
   ;
   ;   ACTION:  Goto next track  (in active media player)
   ;
   Ctrl & Right::
   Shift & Right::
+  {
     Send {Media_Next}
     Return
+  }
   ;
   ;   ACTION:  Decrease screen brightness
   ;
   Alt & Left::
+  {
     BS := new BrightnessSetter()
     BS.SetBrightness(-1)
     Return
+  }
   ;
   ;   ACTION:  Increase screen brightness
   ;
   Alt & Right::
+  {
     BS := new BrightnessSetter()
     BS.SetBrightness(+1)
     Return
+  }
   ;
   ;   ACTION:  Pause current track  (in active media player)
   ;
   Alt & Space::
   Ctrl & Space::
   Shift & Space::
+  {
     Send {Media_Play_Pause}
     Return
+  }
 #HotIf
 #F10::
 #F11::
@@ -1283,6 +1387,7 @@ AppsKey & XButton2::
 ^#WheelDown::
 AppsKey & WheelUp::
 AppsKey & WheelDown::
+{
   VolDelta := 2
   If (A_ThisHotkey=="#F10") {
     SoundSet, +1, , MUTE  ; Volume Mute (Toggle)
@@ -1324,6 +1429,7 @@ AppsKey & WheelDown::
   }
   ShowVolumeLevel()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1332,11 +1438,15 @@ AppsKey & WheelDown::
 ;   ACTION:  "SuperScroll" - scrolls 15 wheel-clicks at a time
 ;
 !WheelUp::
+{
   MouseClick,WheelUp,,,15,0,D,R
   Return
+}
 !WheelDown::
+{
   MouseClick,WheelDown,,,15,0,D,R
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1345,11 +1455,15 @@ AppsKey & WheelDown::
 ;   ACTION:  Change Tabs Left or Right
 ;
 WheelLeft::
+{
   Send ^{PgUp}
   Return
+}
 WheelRight::
+{
   Send ^{PgDn}
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1364,11 +1478,13 @@ WheelRight::
 ^!k::
 ^#k::
 >#k::
+{
   SetKeyDelay, 0, -1
   ; Send 🗸  ; Light Check Mark
   ; Send ✔  ; Heavy Check Mark
   Send ✔️  ; Heavy Check Mark (Colored)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1380,12 +1496,14 @@ WheelRight::
 ;
 ^!x::
 ^#x::
+{
   SetKeyDelay, 0, -1
   ; Send ✕  ; Multiplication X
   ; Send ✖  ; Heavy Multiplication X
   ; Send ✘  ; Heavy Ballot X
   Send ❌️   ; Cross Mark
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1394,6 +1512,7 @@ WheelRight::
 ;   ACTION:  Send a Thumbs-Up
 ;
 <#k::
+{
   SetKeyDelay, 0, -1
   Send 👍  ; Thumbs Up
   ; Send 👍🏿  ; Thumbs Up: Dark Skin Tone
@@ -1402,6 +1521,7 @@ WheelRight::
   ; Send 👍🏼  ; Thumbs Up: Medium-Light Skin Tone
   ; Send 👍🏻  ; Thumbs Up: Light Skin Tone
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1411,8 +1531,10 @@ WheelRight::
 ;   ACTION:  Open Google Chrome
 ;
 #c::
+{
   Open_Chrome()
   Return
+}
 ; #HotIf WinActive("ahk_exe HaloInfinite.exe")
 ; ;
 ; ;   HOTKEY:  Left Mouse-Click
@@ -1429,14 +1551,17 @@ WheelRight::
 ;   ACTION:  Click rapidly
 ;
 #c::
+{
   ClickLoop(731,1227,25)
   Return
+}
 #HotIf WinActive("ahk_exe Cyberpunk2077.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Cyberpunk - Farm Athletics EXP
 ;
 #c::
+{
   Loop {
     WinActivate Cyberpunk
     Send {Space}  ; Jump Spam
@@ -1444,12 +1569,14 @@ WheelRight::
     Sleep 10
   }
   Return
+}
 #HotIf WinActive("Minecraft")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Minecraft - do various actions
 ;
 #c::
+{
   SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   WinTitle := "Minecraft"
@@ -1487,6 +1614,7 @@ WheelRight::
     ClearTooltip(5000)
   }
   Return
+}
 #HotIf
 
 
@@ -1498,6 +1626,7 @@ WheelRight::
 ;
 !#c::
 ^#c::
+{
   ; WinTitle=Task Scheduler
   ; WinTitle=Visual Studio Code
   ; SpaceUp_Loop(50, WinTitle)
@@ -1506,6 +1635,7 @@ WheelRight::
   MouseGetPos MouseX, MouseY
   ClickLoop(MouseX, MouseY, 500)  ; ClickLoop(MouseX,MouseY,Timeout)
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1514,6 +1644,7 @@ WheelRight::
 ;   ACTION:  Do nothing (kills Windows "Feedback Hub", in the very least)
 ;
 #f::
+{
   If (1 == 0) {
     ; ------------------------------------------------------------
     ; OLD RUNTIME - Open "Effective File Search" (software)
@@ -1540,6 +1671,7 @@ WheelRight::
     }
   }
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1555,8 +1687,10 @@ WheelRight::
 ; <+RShift::        ;<+ = LShift (Modifier)
 RShift & LShift::
 LShift & RShift::
+{
   Win_ToggleRestoreMaximize()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1565,11 +1699,13 @@ LShift & RShift::
 ;   ACTION:  Wait a random duration of time (example)
 ;
 #8::
+{
   Random, RandomSleep_15s_to_20s, 15000, 20000
   TrayTip(AHK, ( "Sleeping for [" RandomSleep_15s_to_20s "] ms" ))  ; Toast Notification
   Sleep %RandomSleep_15s_to_20s%
   TrayTip(AHK, ( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" ))  ; Toast Notification
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1578,21 +1714,29 @@ LShift & RShift::
 ;   ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
 ;
 #9::
+{
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Send {PrintScreen}
   Return
+}
 !#9::
+{
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Send !{PrintScreen}
   Return
+}
 ^#9::
+{
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Send ^{PrintScreen}
   Return
+}
 +#9::
+{
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Send +{PrintScreen}
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1601,15 +1745,18 @@ LShift & RShift::
 ;   ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
 ;
 #0::
+{
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   WinMove, A, , 0, 0
   Return
+}
 
 
 ; ------------------------------------------------------------
 ;  Win+J - Start Node.JS (Git-Bash) && Postman
 ;
 ; #j::
+; {
 ;   ; - -
 ;   GIT_REPO=%USERPROFILE%/Documents/GitHub/repo_name
 ;   ; - -
@@ -1701,6 +1848,7 @@ LShift & RShift::
 ;     ;
 ;   }
 ;   Return
+; }
 
 
 ; ------------------------------------------------------------
@@ -1709,8 +1857,10 @@ LShift & RShift::
 ;   ACTION:  Open Windows Terminal
 ;
 #t::
+{
   Open_WindowsTerminal()
   Return
+}
 
 
 ; ------------------------------------------------------------
@@ -1721,8 +1871,10 @@ LShift & RShift::
 ;
 !#t::
 ^#t::
+{
   PrintEnv()
   Return
+}
 
 
 ; ----------------------------------------------------
@@ -1734,6 +1886,7 @@ NumLock::
 ^NumLock::
 !NumLock::
 #NumLock::
+{
   ConfigFilepath_KeepNumLockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
   If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
     ; Default - Keep NumLock enabled
@@ -1759,8 +1912,10 @@ NumLock::
     }
   }
   Return
+}
 
 +NumLock::
+{
   ConfigFilepath_KeepNumLockDisabled := USERPROFILE "\.ahk\numlock-keep-disabled.config"
   If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
     ; Default - Allow Shift+NumLock to toggle NumLock
@@ -1778,6 +1933,7 @@ NumLock::
     }
   }
   Return
+}
 
 
 ; ------------------------------------------------------------

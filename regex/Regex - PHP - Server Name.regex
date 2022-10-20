@@ -4,7 +4,7 @@
 //
 
 // Find:
-preg_match('/\A(https?:\/\/)?((www|(m|c)?dev)\.)?(boneal)\.(me|net)(.*)/', $_SERVER['REQUEST_URI'])
+preg_match('/\A(https?:\/\/)?((www|(a|b|c)?dev)\.)?(example)\.(com|net)(.*)/', $_SERVER['REQUEST_URI'])
 
 
 // ------------------------------------------------------------
@@ -13,7 +13,7 @@ preg_match('/\A(https?:\/\/)?((www|(m|c)?dev)\.)?(boneal)\.(me|net)(.*)/', $_SER
 //
 
 // Find:
-preg_match('/\A((www|(m|c)?dev)\.)?(boneal)\.(net|org|me)\Z/', $_SERVER['SERVER_ADDR'])
+preg_match('/\A((www|(a|b|c)?dev)\.)?(example)\.(com|net)\Z/', $_SERVER['SERVER_ADDR'])
 
 
 // ------------------------------------------------------------

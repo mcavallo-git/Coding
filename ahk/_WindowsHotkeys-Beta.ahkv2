@@ -1392,7 +1392,7 @@ AppsKey & WheelDown::
     } Else If (A_ThisHotkey=="^#WheelDown") {
       vDelta := "-" ( VolDelta * 2 )  ; Volume Down x2
     }
-    SoundSetVolume(%vDelta%)
+    SoundSetVolume(vDelta)
   }
   ShowVolumeLevel()
   Return
@@ -1717,8 +1717,8 @@ LShift & RShift::
 ;   ; - -
 ;   GIT_REPO := EnvGet("USERPROFILE") "\Documents\GitHub\repo_name"
 ;   ; - -
-;   POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
-;   GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
+;   POSTMAN_EXE=LOCALAPPDATA/Postman/Update.exe
+;   GIT_BASH_EXE=PROGRAMFILES\Git\git-bash.exe
 ;   ; - -
 ;   WinTitle_NodeJS=Supplier Gateway (localhost)
 ;   WinTitle_Postman=Postman
@@ -1739,9 +1739,9 @@ LShift & RShift::
 ;     BoundsBottom = -1
 ;     BoundsCenterHoriz = 0
 ;     BoundsCenterVert = 0
-;     Loop, %DesktopMonitorCount% {
+;     Loop, DesktopMonitorCount {
 ;       SysGet MonitorWorkArea, MonitorWorkArea, %A_Index%
-;       ; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
+;       ; If (MonitorWorkAreaLeft > BoundsLeft) {
 ;       If (BoundsLeft < MonitorWorkAreaLeft)
 ;       {
 ;         ; MsgBox((Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)), A_ScriptName " - " A_ThisFunc)
@@ -1782,8 +1782,8 @@ LShift & RShift::
 ;     ; Start Node.JS in Git-Bash
 ;     IfWinNotExist,%WinTitle_NodeJS%
 ;     {
-;       GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/repo_name/build/_start_frontend.sh rest-api start-localhost;"
-;       GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/repo_name/build/_start_frontend.sh project-manager start-localhost;"
+;       GIT_BASH_ARGS_API="-c '" EnvGet("USERPROFILE") "/Documents/GitHub/repo_name/build/_start_frontend.sh rest-api start-localhost;'"
+;       GIT_BASH_ARGS_SG="-c '" EnvGet("USERPROFILE") "/Documents/GitHub/repo_name/build/_start_frontend.sh project-manager start-localhost;'"
 ;       Run(%GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %GIT_REPO%)
 ;       ; Run(%GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %GIT_REPO%)
 ;       ; Run(%GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %GIT_REPO%)
@@ -1849,7 +1849,7 @@ NumLock::
       ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     } Else {
       TextToolTip := "Disable NumLock via Shift+NumLock"
-      ToolTip(%TextToolTip%)
+      ToolTip(TextToolTip)
       ClearTooltip(3000)
     }
   } Else {
@@ -1860,7 +1860,7 @@ NumLock::
       ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     } Else {
       TextToolTip := "Enable NumLock via Shift+NumLock"
-      ToolTip(%TextToolTip%)
+      ToolTip(TextToolTip)
       ClearTooltip(3000)
     }
   }

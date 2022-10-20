@@ -984,7 +984,7 @@ AppsKey & ]::
         ; Projection menu detected --> select related option (duplicate/extend)
         Sleep 250
         RandomSleep := Random(1000,1500)
-        Sleep %RandomSleep%
+        Sleep RandomSleep
         If ((A_ThisHotkey=="#[") || (A_ThisHotkey=="AppsKey & [")) {
           ; Duplicate Monitors
           xpos := (A_ScreenWidth - 20)
@@ -1000,7 +1000,7 @@ AppsKey & ]::
         Loop 30 {
           Sleep 100
           RandomSleep := Random(1000,1500)
-          Sleep %RandomSleep%
+          Sleep RandomSleep
           MonitorCountAfter := SysGet(80)
           If (MonitorCountAfter != MonitorCountBefore) {
             Break
@@ -1010,12 +1010,12 @@ AppsKey & ]::
         MouseClick "Left", %MouseX%, %MouseY%
         Sleep 100
         RandomSleep := Random(1000,1500)
-        Sleep %RandomSleep%
+        Sleep RandomSleep
         ; Send an Escape keypress to ensure the Projection menu closes
         Send "{Escape}"
         Sleep 100
         RandomSleep := Random(1000,1500)
-        Sleep %RandomSleep%
+        Sleep RandomSleep
         Break
       } Else If (LoopingForMilliseconds > 2000) {
         MsgBox("Error: Unable to locate Projection window", A_ScriptName " - " A_ThisFunc)
@@ -1023,7 +1023,7 @@ AppsKey & ]::
       } Else {
         Sleep 10
       RandomSleep := Random(1000,1500)
-      Sleep %RandomSleep%
+      Sleep RandomSleep
       }
     }
   }
@@ -1574,7 +1574,7 @@ WheelRight::
         If (WinActive(WinTitle)) {
           ToolTip "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
           MouseClick "Left"
-          Sleep %Milliseconds_BetweenClicks%
+          Sleep Milliseconds_BetweenClicks
         } Else {
           ToolTip "Stopped Minecraft auto-clicker (MC window lost focus"
           Break
@@ -1672,7 +1672,7 @@ LShift & RShift::
 {
   RandomSleep_15s_to_20s := Random(15000,20000)
   TrayTip("AHK",( "Sleeping for [" RandomSleep_15s_to_20s "] ms" ))  ; Toast Notification
-  Sleep %RandomSleep_15s_to_20s%
+  Sleep RandomSleep_15s_to_20s
   TrayTip("AHK",( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" ))  ; Toast Notification
   Return
 }
@@ -2022,7 +2022,7 @@ ClickLoop(MouseX,MouseY,Timeout) {
     Timeout := 250
   }
   Loop {
-    Sleep %Timeout%
+    Sleep Timeout
     MouseClick "Left", %MouseX%, %MouseY%
   }
   Return
@@ -3717,7 +3717,7 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
     Tooltip_Coords_Client := "x" MouseX_Client "  y" MouseY_Client "  (Client)"
 
     Tooltip( Tooltip_Coords_Screen "`n" Tooltip_Coords_Window "`n" Tooltip_Coords_Client )
-    Sleep(PollDuration_ms)
+    Sleep PollDuration_ms
 
   }
   ClearTooltip(0)
@@ -3756,7 +3756,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     If ( RemainingHover_Seconds <= 0 ) {
       Break
     } Else {
-      Sleep %PollDuration_ms%
+      Sleep PollDuration_ms
     }
     ;
     ; Screen: "Coordinates are relative to the desktop (entire screen)."
@@ -4920,7 +4920,7 @@ Youtube_EditDraft_Submit() {
 ;           Return
 ;         Sleep 100
 ;       RandomSleep := Random(1000,1500)
-;       Sleep %RandomSleep%
+;       Sleep RandomSleep
 ;       }
 ;     }
 ;   }
@@ -5048,7 +5048,7 @@ Youtube_EditDraft_Submit() {
 ;     SplashTextOn, 250, 40, Debugging, Command Sent
 ;     Sleep 500
 ;     RandomSleep := Random(1000,1500)
-;     Sleep %RandomSleep%
+;     Sleep RandomSleep
 ;     SplashTextOff
 ;     -- Remainder of your script
 ;

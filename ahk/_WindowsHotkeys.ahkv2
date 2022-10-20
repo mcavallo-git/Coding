@@ -677,13 +677,13 @@ Pause::
 ;   ACTION:  Types one of a dynamic set of timestamp-strings
 ;
 #d::     ;  20200725T080521              (Base Case + WinKey + D)
-!#d::    ;  20200725T080550-0500         (Alt + WinKey + D)
 ^#d::    ;  2020-07-25T08:05:55          (Ctrl + WinKey + D)
-+#d::    ;  20200725T080557.608027       (Shift + WinKey + D)
+!#d::    ;  20200725T080550-0500         (Alt + WinKey + D)
 !^#d::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + WinKey + D)
 +^#d::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + WinKey + D)
 +!#d::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
 +!^#d::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
+; +#d::  ;  Keeps bringing up start menu...?   (Shift + WinKey + D)
   Global DebugMode
   SetKeyDelay, 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
@@ -700,37 +700,47 @@ Pause::
   ; ------------------------------
   YMD_Separator := RFC3339_YearMonthDay_Separator
   HMS_Separator := RFC3339_HourMinuteSecond_Separator
-  Microseconds_Separator := RFC3339_DecimalSeconds_Separator
   DT_Field_Separator := RFC3339_DateAndTimeField_Separator
-  SelectedFormat := ""
+  Microseconds_Separator := RFC3339_DecimalSeconds_Separator
+  ; ------------------------------
   Add_Microseconds := 0
   Add_Timezone := 0
   ; ------------------------------
+  AltPressed := InStr(A_ThisHotkey,"!")
+  CtrlPressed := InStr(A_ThisHotkey,"^")
   ShiftPressed := InStr(A_ThisHotkey,"+")
-  If (ShiftPressed != 0) {
+  ; ------------------------------
+  ; Default format
+  ;  |--> Shorter filename friendly timestamp (must match regex pattern: [a-zA-Z0-9\+\.\-]+  )
+  YMD_Separator := ""
+  HMS_Separator := ""
+  DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+  If ((ShiftPressed != 0)) {  ; w/ Shift
+    ; Add microsecons onto timestamp
     Add_Microseconds := 1
   }
-  AltPressed := InStr(A_ThisHotkey,"!")
-  If (AltPressed != 0) {
+  ; ------------------------------
+  If ((CtrlPressed != 0) && (AltPressed != 0)) {  ; w/ Alt, w/ Ctrl
+    ; RFC3339 timestamp w/ timezone
+    YMD_Separator := RFC3339_YearMonthDay_Separator
+    HMS_Separator := RFC3339_HourMinuteSecond_Separator
+    DT_Field_Separator := RFC3339_DateAndTimeField_Separator
     Add_Timezone := 1
-  }
-  CtrlPressed := InStr(A_ThisHotkey,"^")
-  If (CtrlPressed != 0) {
-    Add_Timezone := 1
-  }
-  If (A_ThisHotkey = "#d") {  ; WinKey + D
-    ; Output a "filename-friendly" timestamp
-    ;  |--> Generally-speaking, only allow characters which are alphanumeric "[a-zA-Z0-9]", dashes "-", plus-signs "+", and periods "."
-    SelectedFormat := "Filename, Compact"
+  } Else If ((AltPressed != 0) && (CtrlPressed = 0)) {  ; w/ Alt, w/o Ctrl
+    ; RFC3339 timestamp
+    YMD_Separator := RFC3339_YearMonthDay_Separator
+    HMS_Separator := RFC3339_HourMinuteSecond_Separator
+    DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+  } Else If ((AltPressed == 0) && (CtrlPressed != 0)) {  ; w/o Alt, w/ Ctrl
+    ; Longer filename friendly timestamp (must match regex pattern: [a-zA-Z0-9\+\.\-]+  )
+    YMD_Separator := "-"
+    HMS_Separator := "-"
+    DT_Field_Separator := "_"
+  } Else { ; w/o Alt, w/o Ctrl
+    ; Shorter filename friendly timestamp (must match regex pattern: [a-zA-Z0-9\+\.\-]+  )
     YMD_Separator := ""
     HMS_Separator := ""
     DT_Field_Separator := RFC3339_DateAndTimeField_Separator
-  } Else If (A_ThisHotkey = "^#d") {  ; Ctrl + WinKey + D
-    ; Default to RFC 3339 format
-    SelectedFormat := "RFC3339"
-  } Else { ; Fallthrough
-    ; Default to RFC 3339 format
-    SelectedFormat := "RFC3339"
   }
 
   ; Get the current timestamp
@@ -739,7 +749,7 @@ Pause::
   ; Add [ fractions-of-a-second ] onto output timestamp
   If (Add_Microseconds = 1) {
     GetMicroseconds(Current_Microseconds)
-    SendKeys := SendKeys Microseconds_Separator Current_Microseconds
+    SendKeys := SendKeys "." Current_Microseconds
   }
   ; Add [ Timezone ] onto output timestamp
   If (Add_Timezone = 1) {
@@ -751,19 +761,19 @@ Pause::
     TooltipOutput := ""
     TooltipOutput := ( TooltipOutput "`n" "A_ThisHotkey = [" A_ThisHotkey "]" )
     TooltipOutput := ( TooltipOutput "`n" )
-    TooltipOutput := ( TooltipOutput "`n" "ShiftPressed = [" ShiftPressed "]" )
     TooltipOutput := ( TooltipOutput "`n" "AltPressed = [" AltPressed "]" )
+    TooltipOutput := ( TooltipOutput "`n" "CtrlPressed = [" CtrlPressed "]" )
     TooltipOutput := ( TooltipOutput "`n" )
     TooltipOutput := ( TooltipOutput "`n" "Add_Microseconds = [" Add_Microseconds "]" )
     TooltipOutput := ( TooltipOutput "`n" "Add_Timezone = [" Add_Timezone "]" )
-    TooltipOutput := ( TooltipOutput "`n" )
-    TooltipOutput := ( TooltipOutput "`n" "SelectedFormat = [" SelectedFormat "]" )
     TooltipOutput := ( TooltipOutput "`n" )
     TooltipOutput := ( TooltipOutput "`n" "SendKeys = [" SendKeys "]" )
     TooltipOutput := ( TooltipOutput "`n" )
     Tooltip, %TooltipOutput%
     ClearTooltip(7500)
   }
+
+  Sleep 2000
   Send(SendKeys)
   Return
 

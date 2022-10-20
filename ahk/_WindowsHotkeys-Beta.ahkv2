@@ -225,19 +225,19 @@ Pause::
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinGetTitle WinTitle, A
+    Win_title := WinGetTitle("A")
     If (DebugMode == 1) {
       TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" ))  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
     ypos := 40
-    ControlClick x%xpos% y%ypos%, %WinTitle%
+    ControlClick x%xpos% y%ypos%, %Win_title%
     Sleep 100
     ; Click the "Add Text" button
     xpos := 338
     ypos := 87
-    ControlClick x%xpos% y%ypos%, %WinTitle%
+    ControlClick x%xpos% y%ypos%, %Win_title%
     Return
   }
   ;
@@ -250,20 +250,20 @@ Pause::
     CoordMode "Mouse", "Screen"
     SetDefaultMouseSpeed 0
     SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinGetTitle WinTitle, A
+    SetTitleMatchMode 3  ; A window's title must exactly match Win_title to be a match
+    Win_title := WinGetTitle("A")
     If (DebugMode == 1) {
       TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" ))  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
     ypos := 40
-    ControlClick x%xpos% y%ypos%, %WinTitle%
+    ControlClick x%xpos% y%ypos%, %Win_title%
     Sleep 100
     ; Click the "B" (Bold) button
     xpos := 448
     ypos := 106
-    ControlClick x%xpos% y%ypos%, %WinTitle%
+    ControlClick x%xpos% y%ypos%, %Win_title%
     Return
   }
   ;
@@ -276,8 +276,8 @@ Pause::
     ; CoordMode "Mouse", "Window"
     SetDefaultMouseSpeed 0
     SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinGetTitle WinTitle, A
+    SetTitleMatchMode 3  ; A window's title must exactly match Win_title to be a match
+    Win_title := WinGetTitle("A")
     If (DebugMode == 1) {
       TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" ))  ; Toast Notification
     }
@@ -286,7 +286,7 @@ Pause::
     ypos := 15
     Use_ControlClick := 0
     If (Use_ControlClick == 1) {
-      ControlClick x%xpos% y%ypos%, %WinTitle%
+      ControlClick x%xpos% y%ypos%, %Win_title%
     } Else {
       MouseGetPos MouseX, MouseY
       MouseClick Left, %xpos%, %ypos%
@@ -5074,16 +5074,16 @@ BrightnessSetter_new() {
 ;
 ; EXAMPLE_ControlClick() {
 ;   ;;;
-;   ;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
+;   ;;; ControlClick [, Control-or-Pos, Win_title, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
 ;   ;;;
 ;   CoordMode "Mouse", "Screen"
 ;   SetDefaultMouseSpeed 0
 ;   SetControlDelay -1
-;   ; WinGetTitle WinTitle, A
-;   WinTitle := "NoxPlayer"
+;   ; Win_title := WinGetTitle("A")
+;   Win_title := "NoxPlayer"
 ;   xpos := (A_ScreenWidth - 20)
 ;   ypos := 315
-;   ControlClick x%xpos% y%ypos%, %WinTitle%
+;   ControlClick x%xpos% y%ypos%, %Win_title%
 ; }
 ;
 ; ------------------------------------------------------------

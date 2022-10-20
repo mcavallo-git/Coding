@@ -619,7 +619,7 @@ Pause::
 ;
 #u::
 {
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Object_WMI_Service := ComObjGet("winmgmts:{impersonationLevel=impersonate}!\\" A_ComputerName "\root\cimv2")
   For objComputer in Object_WMI_Service.ExecQuery("Select * from Win32_ComputerSystem") {
@@ -640,7 +640,7 @@ Pause::
 #UseHook False  ; Disable the catching of hotkeys sent by this script (stops infinite loops)  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 !z::
 {
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   WinTitle := " - Visual Studio Code"
@@ -760,7 +760,7 @@ Pause::
   global RFC3339_HourMinuteSecond_Separator
   global RFC3339_UTC_ZeroHourReplacement
   global RFC3339_YearMonthDay_Separator
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   ; ------------------------------
   AltPressed := InStr(A_ThisHotkey,"!")
@@ -1479,7 +1479,7 @@ WheelRight::
 ^#k::
 >#k::
 {
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   ; Send 🗸  ; Light Check Mark
   ; Send ✔  ; Heavy Check Mark
   Send ✔️  ; Heavy Check Mark (Colored)
@@ -1497,7 +1497,7 @@ WheelRight::
 ^!x::
 ^#x::
 {
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   ; Send ✕  ; Multiplication X
   ; Send ✖  ; Heavy Multiplication X
   ; Send ✘  ; Heavy Ballot X
@@ -1513,7 +1513,7 @@ WheelRight::
 ;
 <#k::
 {
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   Send 👍  ; Thumbs Up
   ; Send 👍🏿  ; Thumbs Up: Dark Skin Tone
   ; Send 👍🏾  ; Thumbs Up: Medium-Dark Skin Tone
@@ -2051,7 +2051,7 @@ ClearTooltip(Period) {
 ClickLoop(MouseX,MouseY,Timeout) {
   CoordMode Mouse, Screen
   SetDefaultMouseSpeed 0
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   If (Timeout < 250) {
     Timeout := 250
   }
@@ -2071,7 +2071,7 @@ ClickLoop(MouseX,MouseY,Timeout) {
 CreateCitationsFooter() {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Revert_A_KeyDelay := A_KeyDelay
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   LF := "`n"
   SendInput % LF
   SendInput {Space}{Shift Down}{Home}{Shift Up}{Delete}
@@ -2098,7 +2098,7 @@ CreateCitationsFooter() {
   SendInput {LControl Down}{q}{LControl Up}
   SendInput {Up 2}{Left 26}{Space 2}
   SendInput {End}{Shift Down}{Left 3}{Shift Up}
-  SetKeyDelay, %Revert_A_KeyDelay%, -1
+  SetKeyDelay %Revert_A_KeyDelay%, -1
   Return
 }
 
@@ -3190,7 +3190,7 @@ Open_WindowsTerminal() {
 ;
 PasteClipboardAsBinary() {
   global DebugMode
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Sleep, 250
   Clipboard := ClipboardAll
@@ -3212,7 +3212,7 @@ PasteClipboardAsBinary() {
 ;
 PasteClipboardAsText(StringToPaste:="") {
   global DebugMode
-  SetKeyDelay, 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
+  SetKeyDelay 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Sleep 250
   StringToPaste := % ((StrLen(StringToPaste)<=0)?(Clipboard):(StringToPaste))
@@ -3585,7 +3585,7 @@ RunWaitMany(CMD_Commands) {
 ;
 SendDashedLine(LineLength:=60) {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   ; StringToType := StringRepeat("-",60)
   SendInput {- %LineLength%}
   Return
@@ -3598,7 +3598,7 @@ SendDashedLine(LineLength:=60) {
 ;
 SendUnderscoreLine(LineLength:=60) {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   ; StringToType := StringRepeat("-",60)
   SendInput {_ %LineLength%}
   Return
@@ -3610,7 +3610,7 @@ SendUnderscoreLine(LineLength:=60) {
 ;   |--> Send (type) the current device's Hostname - intended to be used for quick form filling
 ;
 SendHostname() {
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   HostName_VerbosityLevel := 0
@@ -4191,7 +4191,7 @@ Xbox_ExportCaptures() {
   CoordMode Mouse, Screen
   SetControlDelay -1
   SetDefaultMouseSpeed 0
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   ; ------------------------------------------------------------
@@ -4643,7 +4643,7 @@ Youtube_EditDraft_Submit() {
   CoordMode Pixel, Screen
   SetControlDelay -1
   SetDefaultMouseSpeed 0
-  SetKeyDelay, 0, -1
+  SetKeyDelay 0, -1
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   WinTitle := "Channel content - YouTube Studio - Google Chrome"

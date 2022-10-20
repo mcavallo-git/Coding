@@ -1314,7 +1314,7 @@ AppsKey & XButton2::
   Shift & Up::
   {
     VolDelta := 2
-    SoundSet("+" VolDelta)
+    SoundSetVolume("+" VolDelta)
     ShowVolumeLevel()
     Return
   }
@@ -1326,7 +1326,7 @@ AppsKey & XButton2::
   Shift & Down::
   {
     VolDelta := 2
-    SoundSet("-" VolDelta)
+    SoundSetVolume("-" VolDelta)
     ShowVolumeLevel()
     Return
   }
@@ -1391,11 +1391,11 @@ AppsKey & WheelDown::
 {
   VolDelta := 2
   If (A_ThisHotkey=="#F10") {
-    SoundSet(+1,,MUTE)  ; Volume Mute (Toggle)
+    SoundSetMute -1  ; Volume Mute (Toggle)
   } Else If (A_ThisHotkey=="#MButton") {
-    SoundSet(+1,,MUTE)  ; Volume Mute (Toggle)
+    SoundSetMute -1  ; Volume Mute (Toggle)
   } Else If (A_ThisHotkey=="^#MButton") {
-    SoundSet(+1,,MUTE)  ; Volume Mute (Toggle)
+    SoundSetMute -1  ; Volume Mute (Toggle)
   } Else {
     If (A_ThisHotkey=="#F12") {
       vDelta := "+" ( VolDelta )  ; Volume Up
@@ -1426,7 +1426,7 @@ AppsKey & WheelDown::
     } Else If (A_ThisHotkey=="^#WheelDown") {
       vDelta := "-" ( VolDelta * 2 )  ; Volume Down x2
     }
-    SoundSet(%vDelta%)
+    SoundSetVolume(%vDelta%)
   }
   ShowVolumeLevel()
   Return
@@ -3885,8 +3885,8 @@ ShowVolumeLevel() {
   Icon_VolumeFilled := "⬛️"
   Icon_VolumeBlanks := "⬜️"
   ; Get the volume & mute current-settings
-  SoundGet(NewVolumeLevel)
-  SoundGet(MasterMute,,MUTE)
+  NewVolumeLevel := SoundGetVolume()
+  MasterMute := SoundGetMute()
   ; Final volume level
   NewVolumeLevel := Round( NewVolumeLevel )
   NewVolumeLevelPercentage := NewVolumeLevel "`%"
@@ -3916,7 +3916,7 @@ ShowVolumeLevel() {
   Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
   ; Show mute status next to the integer volume level
   ;   |--> Replace mute-icon w/ whitespace if un-muted
-  Mute_StatusIcon := ( ( MasterMute == "On" ) ? ( Icon_MutedSpeaker ) : ( StringRepeat( A_Space , 4 ) ) )
+  Mute_StatusIcon := ( ( MasterMute ) ? ( Icon_MutedSpeaker ) : ( StringRepeat( A_Space , 4 ) ) )
   Mute_LSpaces := ( Round( Mute_AddSpaces / 2 ) )
   Mute_RSpaces := ( Mute_AddSpaces - Mute_LSpaces )
   Mute_Padding := StringRepeat( A_Space , Mute_LSpaces ) Mute_StatusIcon StringRepeat( A_Space , Mute_RSpaces )

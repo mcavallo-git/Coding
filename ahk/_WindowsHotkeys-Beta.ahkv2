@@ -2707,7 +2707,9 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   WinHwnd := WinExist(WinTitle,WinText,ExcludeTitle,ExcludeText)
   If (!WinHwnd) {
-    TooltipOutput := "Error - No window found matching:" "`n"
+    TooltipOutput := A_ScriptName " - " A_ThisFunc "`n"
+    TooltipOutput := TooltipOutput "`n"
+    TooltipOutput := TooltipOutput "Error - No window found matching:" "`n"
     TooltipOutput := TooltipOutput "`n"
     If (WinTitle != "") {
       TooltipOutput := TooltipOutput "  WinTitle: [ " WinTitle " ]" "`n"
@@ -2948,7 +2950,7 @@ Open_Chrome() {
   WinTitle_ahk_exe := ("ahk_exe " Win_ahk_exe)
   WinTitle := " - Google Chrome"
   WinText := "Chrome Legacy Window"
-  WinWait_TimeoutSeconds := 5
+  WinWait_TimeoutSeconds := 20
   If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
     TooltipOutput := "Chrome executable not found (neither x64 or x86 version)"
     ShowTooltip(TooltipOutput,,,,4000)
@@ -2974,7 +2976,7 @@ Open_Chrome() {
         WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
       }
     } Else {
-      TooltipOutput := "Error - No window found matching [ " WinTitle " ] "
+      TooltipOutput := A_ScriptName " - " A_ThisFunc "`n`n" "Error - No window found matching [ " WinTitle " ] "
       ShowTooltip(TooltipOutput,50,50,,4000)
     }
   }
@@ -3103,7 +3105,7 @@ Open_VisualStudioCode() {
   ; WinTitle := WinGetTitle(WinTitle_ahk_exe)     ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
   WinTitle := " - Visual Studio Code"
   WinText := "Chrome Legacy Window"
-  WinWait_TimeoutSeconds := 5
+  WinWait_TimeoutSeconds := 20
   If (DebugMode == 1) {
     GetWindowSpecs(WinTitle)
     Sleep 500
@@ -3139,7 +3141,7 @@ Open_WindowsTerminal() {
   Win_ahk_exe := "WindowsTerminal.exe"
   WinTitle := ("ahk_exe " Win_ahk_exe)
   WinText := "DesktopWindowXamlSource"
-  WinWait_TimeoutSeconds := 5
+  WinWait_TimeoutSeconds := 20
   If (DebugMode == 1) {
     GetWindowSpecs(WinTitle)
     Sleep 500

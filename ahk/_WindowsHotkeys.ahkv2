@@ -754,21 +754,21 @@ Pause::
     HMS_Separator := ""
     DT_Field_Separator := RFC3339_DateAndTimeField_Separator
   }
-
-  ; Get the current timestamp
+  ; ------------------------------
+  ; Get the formatted version of the current date & time
   SendKeys := GetTimestamp(YMD_Separator, HMS_Separator, DT_Field_Separator)
-
-  ; Add [ fractions-of-a-second ] onto output timestamp
+  ; Append microseconds onto timestamp
   If (Add_Microseconds = 1) {
     GetMicroseconds(Current_Microseconds)
     SendKeys := SendKeys "." Current_Microseconds
   }
-  ; Add [ Timezone ] onto output timestamp
+  ; Append timezone onto timestamp
   If (Add_Timezone = 1) {
     Current_TZ := ""
     GetTimezoneOffset(Current_TZ, HMS_Separator)
     SendKeys := SendKeys Current_TZ
   }
+  ; ------------------------------
   If (DebugMode = 1) {
     TooltipOutput := ""
     TooltipOutput := ( TooltipOutput "`n" "A_ThisHotkey = [" A_ThisHotkey "]" )
@@ -784,8 +784,8 @@ Pause::
     Tooltip, %TooltipOutput%
     ClearTooltip(7500)
   }
-
-  Sleep 2000
+  ; ------------------------------
+  ; Send the timestamp
   Send(SendKeys)
   Return
 

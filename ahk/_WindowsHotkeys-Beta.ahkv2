@@ -2044,7 +2044,6 @@ ClickLoop(MouseX,MouseY,Timeout) {
 CreateCitationsFooter() {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Revert_A_KeyDelay := A_KeyDelay
-  MsgBox "Revert_A_KeyDelay = [ " Revert_A_KeyDelay " ]"
   SetKeyDelay 0, -1
   LF := "`n"
   SendInput LF

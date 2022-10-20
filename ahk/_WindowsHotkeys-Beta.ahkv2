@@ -1041,11 +1041,11 @@ AppsKey & ]::
     ; Read the registry to check for display scaling
     KeyName := "HKEY_CURRENT_USER\Control Panel\Desktop"
       PropertyName := "DpiScalingVer"
-        RegRead, DpiScalingVer, %KeyName%, %PropertyName%
+        RegRead DpiScalingVer, %KeyName%, %PropertyName%
       PropertyName := "Win8DpiScaling"
-        RegRead, Win8DpiScaling, %KeyName%, %PropertyName%
+        RegRead Win8DpiScaling, %KeyName%, %PropertyName%
       PropertyName := "DpiScalingVer"
-        RegRead, LogPixels, %KeyName%, %PropertyName%
+        RegRead LogPixels, %KeyName%, %PropertyName%
     ; ------------------------------------------------------------
     ;
     ; DpiScalingVer    ; originally 1000
@@ -1313,7 +1313,7 @@ AppsKey & XButton2::
   Shift & Up::
   {
     VolDelta := 2
-    SoundSet , ( "+" VolDelta )
+    SoundSet("+" VolDelta)
     ShowVolumeLevel()
     Return
   }
@@ -1325,7 +1325,7 @@ AppsKey & XButton2::
   Shift & Down::
   {
     VolDelta := 2
-    SoundSet , ( "-" VolDelta )
+    SoundSet("-" VolDelta)
     ShowVolumeLevel()
     Return
   }
@@ -1390,11 +1390,11 @@ AppsKey & WheelDown::
 {
   VolDelta := 2
   If (A_ThisHotkey=="#F10") {
-    SoundSet, +1, , MUTE  ; Volume Mute (Toggle)
+    SoundSet(+1,,MUTE)  ; Volume Mute (Toggle)
   } Else If (A_ThisHotkey=="#MButton") {
-    SoundSet, +1, , MUTE  ; Volume Mute (Toggle)
+    SoundSet(+1,,MUTE)  ; Volume Mute (Toggle)
   } Else If (A_ThisHotkey=="^#MButton") {
-    SoundSet, +1, , MUTE  ; Volume Mute (Toggle)
+    SoundSet(+1,,MUTE)  ; Volume Mute (Toggle)
   } Else {
     If (A_ThisHotkey=="#F12") {
       vDelta := "+" ( VolDelta )  ; Volume Up
@@ -1425,7 +1425,7 @@ AppsKey & WheelDown::
     } Else If (A_ThisHotkey=="^#WheelDown") {
       vDelta := "-" ( VolDelta * 2 )  ; Volume Down x2
     }
-    SoundSet , %vDelta%
+    SoundSet(%vDelta%)
   }
   ShowVolumeLevel()
   Return

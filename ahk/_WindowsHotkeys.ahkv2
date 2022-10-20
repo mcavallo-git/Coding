@@ -58,17 +58,6 @@ SetCapsLockState Off  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollC
 CR := "`r"
 LF := "`n"
 
-;
-; RFC3339-Specific Variables ( Internet date-time/timestamp standardization values, https://tools.ietf.org/html/rfc3339 )
-;  |
-;  |-->  Example - RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
-;
-RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
-RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
-RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
-RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
-RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
-
 
 ; ------------------------------------------------------------
 ;
@@ -697,18 +686,27 @@ Pause::
 +!#d::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
 +!^#d::  ;  2020-07-25T08:34:12.318040-05:00   (Shift + Ctrl + Alt + WinKey + D)  <-- NOTE:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
   Global DebugMode
-  Global RFC3339_YearMonthDay_Separator
-  Global RFC3339_HourMinuteSecond_Separator
-  Global RFC3339_DecimalSeconds_Separator
-  Global RFC3339_DateAndTimeField_Separator
   SetKeyDelay, 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  ; ------------------------------
+  ;
+  ; RFC3339-Specific Variables ( Internet date-time/timestamp standardization values, https://tools.ietf.org/html/rfc3339 )
+  ;  |
+  ;  |-->  Example - RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
+  ;
+  RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
+  RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
+  RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
+  RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
+  RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
+  ; ------------------------------
   YMD_Separator := RFC3339_YearMonthDay_Separator
   HMS_Separator := RFC3339_HourMinuteSecond_Separator
   Microseconds_Separator := RFC3339_DecimalSeconds_Separator
   DT_Field_Separator := RFC3339_DateAndTimeField_Separator
   Add_Microseconds := 0
   Add_Timezone := 0
+  ; ------------------------------
   KeysPressed := A_ThisHotkey
   If (InStr(KeysPressed, "+") = 1) {  ; Shift + [...]
     Add_Microseconds := 1
@@ -717,9 +715,6 @@ Pause::
   If (InStr(KeysPressed, "!") = 1) {  ; Alt + [...]
     Add_Timezone := 1
     KeysPressed := StrReplace(KeysPressed,"!","")
-  }
-  If (DebugMode == 1) {
-    TrayTip, AHK, % ( "A_ThisHotkey=[" A_ThisHotkey "] KeysPressed=[" KeysPressed "] Add_Microseconds=[" Add_Microseconds "] Add_Timezone=[" Add_Timezone "] ")  ; Toast Notification
   }
   If (KeysPressed = "#D") {  ; WinKey + D
     ; Output a "filename-friendly" timestamp
@@ -732,20 +727,34 @@ Pause::
   } Else { ; Fallthrough
     ; Default to RFC 3339 format
   }
+
   ; Get the current timestamp
-  Keys := GetTimestamp(YMD_Separator, HMS_Separator, DT_Field_Separator)
+  SendKeys := GetTimestamp(YMD_Separator, HMS_Separator, DT_Field_Separator)
+
   ; Add [ fractions-of-a-second ] onto output timestamp
   If (Add_Microseconds = 1) {
     GetMicroseconds(Current_Microseconds)
-    Keys := Keys Microseconds_Separator Current_Microseconds
+    SendKeys := SendKeys Microseconds_Separator Current_Microseconds
   }
   ; Add [ Timezone ] onto output timestamp
   If (Add_Timezone = 1) {
     Current_TZ := ""
     GetTimezoneOffset(Current_TZ, HMS_Separator)
-    Keys := Keys Current_TZ
+    SendKeys := SendKeys Current_TZ
   }
-  Send(Keys)
+  If (DebugMode == 1) {
+    TooltipOutput := ""
+    TooltipOutput := ( TooltipOutput "`n" "A_ThisHotkey = [" A_ThisHotkey "]" )
+    TooltipOutput := ( TooltipOutput "`n" "KeysPressed = [" KeysPressed "]" )
+    TooltipOutput := ( TooltipOutput "`n" )
+    TooltipOutput := ( TooltipOutput "`n" "Add_Microseconds = [" Add_Microseconds "]" )
+    TooltipOutput := ( TooltipOutput "`n" "Add_Timezone = [" Add_Timezone "]" )
+    TooltipOutput := ( TooltipOutput "`n" )
+    TooltipOutput := ( TooltipOutput "`n" "SendKeys = [" SendKeys "]" )
+    Tooltip, %TooltipOutput%
+    ClearTooltip(20000)
+  }
+  Send(SendKeys)
   Return
 
 
@@ -2178,9 +2187,6 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
 ;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
 ;
 GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {
-  ; Global RFC3339_YearMonthDay_Separator
-  ; Global RFC3339_HMS_Separator
-  ; Global RFC3339_DateAndTimeField_Separator
   Timestamp_Format := "yyyy" YMD_Separator "MM" YMD_Separator "dd" DT_Field_Separator "HH" HMS_Separator "mm" HMS_Separator "ss"
   Return FormatTime("",Timestamp_Format)
 }

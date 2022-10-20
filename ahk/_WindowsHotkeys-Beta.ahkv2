@@ -164,8 +164,8 @@ AppsKey::RWin
 ;
 ScrollLock::
 {
-  ; Send ^!+Z
-  Send !+{F10}
+  ; Send "^!+Z"
+  Send "!+{F10}"
   Return
 }
 
@@ -177,7 +177,7 @@ ScrollLock::
 ;
 Pause::
 {
-  Send !{F10}
+  Send "!{F10}"
   TrayTip(AHK, ( "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer" ))  ; Toast Notification
   Return
 }
@@ -627,7 +627,7 @@ Pause::
   }
   USERDOMAIN := EnvGet("USERDOMAIN")
   RET_VAL := A_UserName "@" Domain "_via_" USERDOMAIN
-  Send %RET_VAL%
+  Send(%RET_VAL%)
   Return
 }
 
@@ -645,14 +645,14 @@ Pause::
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   WinTitle := " - Visual Studio Code"
   If (WinActive(WinTitle)) {
-    Send !z
+    Send "!z"
     ; Win_ahk_id := WinGetID("A")
     ; Win_ahk_pid := WinGetPID("ahk_id %Win_ahk_id%")
     ; ControlSend,, !z, ahk_pid %Win_ahk_pid%
     ; ControlSend,, {LAlt up}{RAlt up}{LAlt down}{z}{LAlt up}, "ahk_pid %Win_ahk_pid%"
   } Else {
     ; Send [ Shift + Alt + z ] - Configure this in Geforce Experience Overlay via "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set this hotkey)
-    Send +!z
+    Send "+!z"
   }
   Return
 }
@@ -952,7 +952,7 @@ AppsKey & ]::
   ; Save current mouse coordinates
   MouseGetPos MouseX, MouseY
   ; Send an Escape keypress to close any old Projection menus
-  Send {Escape}
+  Send "{Escape}"
   Sleep 250
   If (A_OSVersion="WIN_7") {  ; Windows7
     If ((A_ThisHotkey=="#[") || (A_ThisHotkey=="AppsKey & [")) {
@@ -964,13 +964,13 @@ AppsKey & ]::
       xpos := 1044
       ypos := 520
     }
-    Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
+    Send "{LWin up}{RWin up}{LWin down}{p}{LWin up}"
     Sleep 2000
     MouseClick Left, %xpos%, %ypos%
     Sleep 100
   } Else If (SubStr(A_OSVersion, 1, 4)="10.0") {  ; Windows10
     ; Open the "Projection" window
-    Send {LWin up}{RWin up}{LWin down}{p}{LWin up}
+    Send "{LWin up}{RWin up}{LWin down}{p}{LWin up}"
     Sleep 250
     StartMilliseconds := A_TickCount
     Loop {
@@ -1011,7 +1011,7 @@ AppsKey & ]::
         Random RandomSleep, 1000, 1500
         Sleep %RandomSleep%
         ; Send an Escape keypress to ensure the Projection menu closes
-        Send {Escape}
+        Send "{Escape}"
         Sleep 100
         Random RandomSleep, 1000, 1500
         Sleep %RandomSleep%
@@ -1241,22 +1241,22 @@ AppsKey & l::
 ;
 AppsKey & Left::
 {
-  Send {LWin up}{RWin up}{LWin down}{Left}{LWin up}
+  Send "{LWin up}{RWin up}{LWin down}{Left}{LWin up}"
   Return
 }
 AppsKey & Right::
 {
-  Send {LWin up}{RWin up}{LWin down}{Right}{LWin up}
+  Send "{LWin up}{RWin up}{LWin down}{Right}{LWin up}"
   Return
 }
 AppsKey & Up::
 {
-  Send {LWin up}{RWin up}{LWin down}{Up}{LWin up}
+  Send "{LWin up}{RWin up}{LWin down}{Up}{LWin up}"
   Return
 }
 AppsKey & Down::
 {
-  Send {LWin up}{RWin up}{LWin down}{Down}{LWin up}
+  Send "{LWin up}{RWin up}{LWin down}{Down}{LWin up}"
   Return
 }
 
@@ -1281,7 +1281,7 @@ AppsKey & Down::
 #XButton1::
 AppsKey & XButton1::
 {
-  Send {Media_Prev}
+  Send "{Media_Prev}"
   Return
 }
 
@@ -1294,7 +1294,7 @@ AppsKey & XButton1::
 #XButton2::
 AppsKey & XButton2::
 {
-  Send {Media_Next}
+  Send "{Media_Next}"
   Return
 }
 
@@ -1335,7 +1335,7 @@ AppsKey & XButton2::
   Ctrl & Left::
   Shift & Left::
   {
-    Send {Media_Prev}
+    Send "{Media_Prev}"
     Return
   }
   ;
@@ -1344,7 +1344,7 @@ AppsKey & XButton2::
   Ctrl & Right::
   Shift & Right::
   {
-    Send {Media_Next}
+    Send "{Media_Next}"
     Return
   }
   ;
@@ -1372,7 +1372,7 @@ AppsKey & XButton2::
   Ctrl & Space::
   Shift & Space::
   {
-    Send {Media_Play_Pause}
+    Send "{Media_Play_Pause}"
     Return
   }
 #HotIf
@@ -1456,12 +1456,12 @@ AppsKey & WheelDown::
 ;
 WheelLeft::
 {
-  Send ^{PgUp}
+  Send "^{PgUp}"
   Return
 }
 WheelRight::
 {
-  Send ^{PgDn}
+  Send "^{PgDn}"
   Return
 }
 
@@ -1480,9 +1480,7 @@ WheelRight::
 >#k::
 {
   SetKeyDelay 0, -1
-  ; Send 🗸  ; Light Check Mark
-  ; Send ✔  ; Heavy Check Mark
-  Send ✔️  ; Heavy Check Mark (Colored)
+  Send "✔️"  ; Heavy Check Mark (Colored)
   Return
 }
 
@@ -1498,10 +1496,7 @@ WheelRight::
 ^#x::
 {
   SetKeyDelay 0, -1
-  ; Send ✕  ; Multiplication X
-  ; Send ✖  ; Heavy Multiplication X
-  ; Send ✘  ; Heavy Ballot X
-  Send ❌️   ; Cross Mark
+  Send "❌️"   ; Cross Mark
   Return
 }
 
@@ -1514,12 +1509,7 @@ WheelRight::
 <#k::
 {
   SetKeyDelay 0, -1
-  Send 👍  ; Thumbs Up
-  ; Send 👍🏿  ; Thumbs Up: Dark Skin Tone
-  ; Send 👍🏾  ; Thumbs Up: Medium-Dark Skin Tone
-  ; Send 👍🏽  ; Thumbs Up: Medium Skin Tone
-  ; Send 👍🏼  ; Thumbs Up: Medium-Light Skin Tone
-  ; Send 👍🏻  ; Thumbs Up: Light Skin Tone
+  Send "👍"  ; Thumbs Up
   Return
 }
 
@@ -1564,7 +1554,7 @@ WheelRight::
 {
   Loop {
     WinActivate Cyberpunk
-    Send {Space}  ; Jump Spam
+    Send "{Space}"  ; Jump Spam
     ; MouseClick Left  ; Attack Spam
     Sleep 10
   }
@@ -1716,25 +1706,25 @@ LShift & RShift::
 #9::
 {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send {PrintScreen}
+  Send "{PrintScreen}"
   Return
 }
 !#9::
 {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send !{PrintScreen}
+  Send "!{PrintScreen}"
   Return
 }
 ^#9::
 {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send ^{PrintScreen}
+  Send "^{PrintScreen}"
   Return
 }
 +#9::
 {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send +{PrintScreen}
+  Send "+{PrintScreen}"
   Return
 }
 
@@ -2108,7 +2098,7 @@ CreateCitationsFooter() {
 ;   |--> Uses Ctrl + Q hotkey to comment the current line (WITH a leading space) in a given IDE (Notepad++/VS-Code)
 ;
 CommentCurrentLine() {
-  Send {LControl Down}{q}{LControl Up}
+  Send "{LControl Down}{q}{LControl Up}"
   Sleep 10
   Return
 }
@@ -2119,7 +2109,7 @@ CommentCurrentLine() {
 ;   |--> Uses Ctrl + Q hotkey to comment the current line (WITHOUT a leading space) in a given IDE (Notepad++/VS-Code)
 ;
 CommentCurrentLine_NoSpace() {
-  Send {Home}{LControl Down}{q}{LControl Up}{Backspace}
+  Send "{Home}{LControl Down}{q}{LControl Up}{Backspace}"
   Sleep 10
   Return
 }
@@ -3626,9 +3616,9 @@ SendHostname() {
   If (HostName_VerbosityLevel >= 1) {
     FormatTime(NowTimestamp,,"yyyy-MM-dd_HH-mm-ss")
     EchoStr := A_ComputerName " " NowTimestamp " " Win_ahk_exe
-    Send {Blind}{Text}%EchoStr%
+    Send "{Blind}{Text}%EchoStr%"
   } Else {
-    Send {Blind}{Text}%A_ComputerName%
+    Send "{Blind}{Text}%A_ComputerName%"
   }
   Return
 }
@@ -3691,7 +3681,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
 ;   |--> For some reason, Windows 10 doesn't like Send {Space} (as-in it 'ignores' the keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
 ;
 SendSpace() {
-  Send {SC039}
+  Send "{SC039}"
   Return
 }
 
@@ -4008,10 +3998,10 @@ ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
 SpaceUp_Loop(LoopIterations) {
   Loop LoopIterations {
     Sleep 500
-    Send {SC039}
+    Send "{SC039}"
     SendSpace()
     Sleep 500
-    Send {Up}
+    Send "{Up}"
   }
   Return
 }
@@ -4067,9 +4057,9 @@ StrLenUnicode(data) {
 ;
 TabSpace_Loop(LoopIterations) {
   Loop LoopIterations {
-    Send {Tab}
+    Send "{Tab}"
     Sleep 10
-    Send {Space}
+    Send "{Space}"
     Sleep 10
   }
   Return
@@ -4376,16 +4366,16 @@ Xbox_ExportCaptures() {
               MouseClick Left, 221, 181  ; Show 'Game clips', only - (under the "Everything v" dropdown/filter - second option from the top)
               Sleep 500
               WinActivate("ahk_id %Win_ahk_id%")
-              Send {Up}
+              Send "{Up}"
               Sleep 250
               WinActivate("ahk_id %Win_ahk_id%")
-              Send {Up}
+              Send "{Up}"
               Sleep 250
               WinActivate("ahk_id %Win_ahk_id%")
-              Send {Down}
+              Send "{Down}"
               Sleep 250
               WinActivate("ahk_id %Win_ahk_id%")
-              Send {Enter}
+              Send "{Enter}"
               Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
               ToolTip ( Tooltip_StartupJobs ), 1, 1
               Sleep 1000
@@ -4400,13 +4390,13 @@ Xbox_ExportCaptures() {
               MouseClick Left, 221, 181  ; Show 'Screeshots', only - (under the "Everything v" dropdown/filter - bottom option)
               Sleep 500
               WinActivate("ahk_id %Win_ahk_id%")
-              Send {Down}
+              Send "{Down}"
               Sleep 250
               WinActivate("ahk_id %Win_ahk_id%")
-              Send {Down}
+              Send "{Down}"
               Sleep 250
               WinActivate("ahk_id %Win_ahk_id%")
-              Send {Enter}
+              Send "{Enter}"
               Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
               ToolTip ( Tooltip_StartupJobs ), 1, 1
               Sleep 1000

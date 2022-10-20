@@ -419,6 +419,14 @@ Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 
 
 // ------------------------------------------------------------
+
+Unusual/Annoying Characters
+
+“			Left Double Quotation Mark  |  https://www.compart.com/en/unicode/U+201C
+”			Right Double Quotation Mark  |  https://www.compart.com/en/unicode/U+201D
+
+
+// ------------------------------------------------------------
 //
 // Citation(s)
 //

@@ -122,12 +122,12 @@ If (FileExist(TrayIcon_Default)) {
   BlockInput("Off")  ;  Stop blocking input (e.g. restore full interaction)
   Reload  ; Reload this script
   Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
-  If (DebugMode == 1) {
-    A_MsgBoxResult := MsgBox("The script could not be reloaded. Would you like to open it for editing?", A_ScriptName " - " A_ThisFunc,4)
-    If (A_MsgBoxResult = "Yes") {
-      Edit
-    }
-  }
+  ; If (DebugMode == 1) {
+  ;   A_MsgBoxResult := MsgBox("The script could not be reloaded. Would you like to open it for editing?", A_ScriptName " - " A_ThisFunc,4)
+  ;   If (A_MsgBoxResult = "Yes") {
+  ;     Edit
+  ;   }
+  ; }
   Return
 }
 
@@ -679,7 +679,7 @@ Pause::
   If (FileExist(FileToPaste_Legend)) {
     If (FileExist(ExeToRequire_Legend)) {
       ; Get required/whitelisted exe fullpath to match active against
-      FileRead ExeToRequire_Fullpath, %ExeToRequire_Legend%
+      ExeToRequire_Fullpath := FileRead(ExeToRequire_Legend)
       Win_fullpath := WinGetProcessPath("A")
       If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == Win_fullpath)) {
         ; Exe path-matching succeeded
@@ -716,8 +716,8 @@ Pause::
     If (ExeToRequire_Fullpath != "") {
       AwaitModifierKeyup()  ; Wait until all modifier keys are released
       Sleep 10
-      SplitPath %ExeToRequire_Fullpath%, &ExeToRequire_Basename, &ExeToRequire_Dirname, &ExeToRequire_Extension, &ExeToRequire_BasenameNoExt, &ExeToRequire_Drivename
-      WinActivate "ahk_exe %ExeToRequire_Basename%"
+      SplitPath ExeToRequire_Fullpath, &ExeToRequire_Basename, &ExeToRequire_Dirname, &ExeToRequire_Extension, &ExeToRequire_BasenameNoExt, &ExeToRequire_Drivename
+      WinActivate ("ahk_exe " ExeToRequire_Basename)
       VarSetStrCapacity(&ExeToRequire_Basename,0)
       VarSetStrCapacity(&ExeToRequire_Dirname,0)
       VarSetStrCapacity(&ExeToRequire_Extension,0)
@@ -730,8 +730,8 @@ Pause::
       ; VarSetStrCapacity(&ExeToRequire_Drivename,0)      ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
     }
     ; Paste the contents of target file
-    FileRead FileToPaste_Contents, %FileToPaste_Legend%
-    SendInput %FileToPaste_Contents%
+    FileToPaste_Contents := FileRead(FileToPaste_Legend)
+    SendInput FileToPaste_Contents
   }
   ; Free variables from memory to avoid caching of secrets or large files  -  https://www.autohotkey.com/docs/commands/VarSetCapacity.htm
   VarSetStrCapacity(&FileToPaste_Contents,0)
@@ -857,7 +857,7 @@ Pause::
 ;
 #F1::
 {
-  Run "Notepad" %A_ScriptFullPath%
+  Run "Notepad" A_ScriptFullPath
   Return
 }
 
@@ -1740,7 +1740,7 @@ LShift & RShift::
 ;     BoundsCenterHoriz = 0
 ;     BoundsCenterVert = 0
 ;     Loop, DesktopMonitorCount {
-;       SysGet MonitorWorkArea, MonitorWorkArea, %A_Index%
+;       SysGet MonitorWorkArea, MonitorWorkArea, A_Index
 ;       ; If (MonitorWorkAreaLeft > BoundsLeft) {
 ;       If (BoundsLeft < MonitorWorkAreaLeft)
 ;       {
@@ -1769,35 +1769,35 @@ LShift & RShift::
 ;     WinTitle_NodeJS=Supplier Gateway (localhost)
 ;     ; - -
 ;     ; Start Postman
-;     IfWinNotExist,%WinTitle_Postman%
+;     IfWinNotExist WinTitle_Postman
 ;     {
 ;       ; Need to run the program, as no window was found for it (yet)
 ;       POSTMAN_ARGS= --processStart Postman.exe
 ;       ; POSTMAN_ARGS=--processStart Postman.exe
-;       Run(%POSTMAN_EXE% %POSTMAN_ARGS%)
+;       Run(POSTMAN_EXE POSTMAN_ARGS)
 ;     }
 ;     ; - -
 ;     Sleep 100
 ;     ; - -
 ;     ; Start Node.JS in Git-Bash
-;     IfWinNotExist,%WinTitle_NodeJS%
+;     IfWinNotExist,WinTitle_NodeJS
 ;     {
 ;       GIT_BASH_ARGS_API="-c '" EnvGet("USERPROFILE") "/Documents/GitHub/repo_name/build/_start_frontend.sh rest-api start-localhost;'"
 ;       GIT_BASH_ARGS_SG="-c '" EnvGet("USERPROFILE") "/Documents/GitHub/repo_name/build/_start_frontend.sh project-manager start-localhost;'"
-;       Run(%GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %GIT_REPO%)
-;       ; Run(%GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %GIT_REPO%)
-;       ; Run(%GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %GIT_REPO%)
+;       Run(GIT_BASH_EXE GIT_BASH_ARGS_API, GIT_REPO)
+;       ; Run(GIT_BASH_EXE GIT_BASH_ARGS_PM, GIT_REPO)
+;       ; Run(GIT_BASH_EXE GIT_BASH_ARGS_SG, GIT_REPO)
 ;     }
 ;     ;
 ;     ; Wait until the script(s)/program(s) start before moving them around
-;     ; WinWait %WinTitle_Postman%,,5
-;     ; WinWait %WinTitle_NodeJS%,,3
+;     ; WinWait WinTitle_Postman,,5
+;     ; WinWait WinTitle_NodeJS,,3
 ;     ; Move the window to occupy the right-half of the Right-Most monitor
-;     ; WinMove(%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%)
-;     ; WinMove(%WinTitle_Postman%,,953,0,974,1047)  ; (1st Monitor, Right, Actual)
+;     ; WinMove(WinTitle_Postman,,BoundsCenterHoriz,BoundsTop,BoundsWidthHalf,BoundsHeightFull)
+;     ; WinMove(WinTitle_Postman,,953,0,974,1047)  ; (1st Monitor, Right, Actual)
 ;     ; Move the window to occupy the left-half of the Right-Most monitor
-;     ; WinMove(%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%)
-;     ; WinMove(%WinTitle_NodeJS%,,-7,0,974,1047)  ; (1st Monitor, Left, Actual)
+;     ; WinMove(WinTitle_NodeJS,,BoundsLeft,BoundsTop,BoundsWidthHalf,BoundsHeightFull)
+;     ; WinMove(WinTitle_NodeJS,,-7,0,974,1047)  ; (1st Monitor, Left, Actual)
 ;     ;
 ;   }
 ;   Return
@@ -1960,9 +1960,9 @@ BrowserHover() {
         TraySetIcon(BusyIcon)
         Updated_TrayIcon := 1
       }
-      MouseMove %MoveDistance%, 0, 0, "R"
+      MouseMove MoveDistance, 0, 0, "R"
       Sleep 1000
-      MouseMove -%MoveDistance%, 0, 0, "R"
+      MouseMove (MoveDistance * -1), 0, 0, "R"
     } Else {
       If (Updated_TrayIcon==1) {
         Menu("Tray","Icon",WaitIcon)
@@ -1976,8 +1976,8 @@ BrowserHover() {
 
 ;
 ; ClearSplashText
-;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
-;   |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;   |--> If called with a positive [ Period ], wait [ Period ] milliseconds, executes [ Label ], then repeats (until explicitly cancelled)
+;   |--> If called with a negative [ Period ], wait [ Period ] milliseconds, executes [ Label ], then returns
 ;
 ClearSplashText(Period) {
   Label := "RemoveSplashText"
@@ -1988,8 +1988,8 @@ ClearSplashText(Period) {
 
 ;
 ; ClearTooltip
-;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
-;   |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;   |--> If called with a positive [ Period ], wait [ Period ] milliseconds, executes [ Label ], then repeats (until explicitly cancelled)
+;   |--> If called with a negative [ Period ], wait [ Period ] milliseconds, executes [ Label ], then returns
 ;
 ClearTooltip(Period) {
   SetTimer RemoveToolTip, (Period * -1)
@@ -2514,7 +2514,7 @@ GetWindowSpecs(WinTitle:="A") {
   ; LV.Add("", "height", Win_height)
   LV.Add("", "xpos, ypos", ( xpos ", " ypos ) )
   LV.Add("", "width, height", ( Win_width ", " Win_height ) )
-  ; LV.Add("", "Mimic in AHK", "WinMove,,,%xpos%,%ypos%,%Win_width%,%Win_height%")
+  ; LV.Add("", "Mimic in AHK", "WinMove,,,xpos,ypos,Win_width,Win_height")
 
   ; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
   LV.Add("", "", "")
@@ -2762,7 +2762,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
     WinMove_Width := -1
     WinMove_Height := -1
     Matched_MonitorNumber := -1
-    If ((Destination_MonitorNumber!="UseCurrentMonitor") && ("%Destination_MonitorNumber%"!="1") && (MonitorGetCount()==1)) {
+    If ((Destination_MonitorNumber != "UseCurrentMonitor") && (Destination_MonitorNumber != "1") && (MonitorGetCount()==1)) {
       ; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
       Destination_MonitorNumber:=1
     }
@@ -2906,7 +2906,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
       ShowTooltip(TextToolTip,60000)
     } Else {
       If (DebugMode == 1) {
-        MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( `"%WinTitle%`" , `"%WinText%`" , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
+        MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
       }
       If (Do_Maximized==False) {
         If (WinGetMinMax(WinTitle,WinText)==1) {
@@ -2918,7 +2918,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
       WinGetPos(&Win_XPos,&Win_YPos,&Win_Width,&Win_Height,WinTitle,WinText)
       If ((Win_XPos!=WinMove_XPos) || (Win_YPos!=WinMove_YPos) || (Win_Width!=WinMove_Width) || (Win_Height!=WinMove_Height)) {
         ; Move the window to specified x/y position and resize it to have specified width/height
-        WinMove("%WinTitle%","%WinText%",WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height)
+        WinMove(WinTitle,WinText,WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height)
         Sleep 500
       }
       If (Do_Maximized==True) {
@@ -2950,7 +2950,7 @@ Open_Chrome() {
     FullPath_RunExe := FullPath_RunExe_x86
   }
   Win_ahk_exe := "chrome.exe"
-  WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"
+  WinTitle_ahk_exe := ("ahk_exe " Win_ahk_exe)
   WinTitle := " - Google Chrome"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 5
@@ -2965,7 +2965,7 @@ Open_Chrome() {
     If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
       ; Run a NON-admin version of target exe
       RunExe_NON_Admin(FullPath_RunExe)
-      WinWait %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+      WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
     }
     If (MonitorGetCount()==1) {
       MoveIt("Right","Half",1,WinTitle)  ; Resize window to right-half of monitor #1
@@ -2999,9 +2999,9 @@ Open_ControlPanel_NetworkConnections() {
     ; Run (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
     ; Run (EnvGet("WINDIR") "\System32\ncpa.cpl")
     Run (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
-    WinWait %WinTitle%,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  WinActivate %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  WinActivate WinTitle  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
   Return
 }
 
@@ -3041,9 +3041,9 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
     Run (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
     ; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
     ; Run control.exe /name Microsoft.Sound
-    WinWait %WinTitle%,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  WinActivate %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  WinActivate WinTitle  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
   Return
 }
 
@@ -3055,33 +3055,33 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
 Open_Exe(ExeFullpath) {
   global DebugMode
   Timeout := 10
-  SplitPath %ExeFullpath%, &ExeBasename, &ExeDirname, &ExeExtension, &ExeBasenameNoExt, &ExeDrivename
+  SplitPath ExeFullpath, &ExeBasename, &ExeDirname, &ExeExtension, &ExeBasenameNoExt, &ExeDrivename
   If (ProcessExist(ExeBasename) == True) {
     ; Executable IS running
     If (DebugMode == 1) {
       TextToolTip := "Activating `"" ExeBasename "`""
-      ToolTip(%TextToolTip%)
+      ToolTip(TextToolTip)
       ClearTooltip(2000)
     }
     ExePID := GetPID(ExeBasename)
-    WinActivate "ahk_pid %ExePID%"
+    WinActivate ("ahk_pid " ExePID)
   } Else If (FileExist(ExeFullpath)) {
     ; Executable NOT running but IS found locally
     If (DebugMode == 1) {
       TextToolTip := "Opening `"" ExeBasename "`""
-      ToolTip(%TextToolTip%)
+      ToolTip(TextToolTip)
       ClearTooltip(2000)
     }
-    ; Run(%ExeFullpath%)
-    ExitCode := RunWait(%ExeFullpath%,,, ExePID)
+    ; Run(ExeFullpath)
+    ExitCode := RunWait(ExeFullpath,,, ExePID)
     ; WinWait "ahk_pid " ExePID
     ; ExePID := GetPID(ExeBasename)
-    WinActivate "ahk_pid %ExePID%"
+    WinActivate ("ahk_pid " ExePID)
   } Else {
     ; Executable NOT running & NOT found locally
     If (DebugMode == 1) {
-      TextToolTip := "File not found: `"" ExeFullpath "`""
-      ToolTip(%TextToolTip%)
+      TextToolTip := ("File not found: [ " ExeFullpath " ]")
+      ToolTip(TextToolTip)
       ClearTooltip(2000)
     }
   }
@@ -3100,10 +3100,10 @@ Open_VisualStudioCode() {
   FullPath_RunExe := "C:\Windows\System32\notepad.exe"  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
   Exe_Args:=""
   ; ------------------------------
-  ; Win_ahk_exe := "Code.exe"                    ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
-  ; WinTitle_ahk_exe := "ahk_exe %Win_ahk_exe%"  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
-  ; WinTitle := WinTitle_ahk_exe                 ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
-  ; WinTitle := WinGetTitle(WinTitle_ahk_exe)    ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
+  ; Win_ahk_exe := "Code.exe"                     ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
+  ; WinTitle_ahk_exe := ("ahk_exe " Win_ahk_exe)  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
+  ; WinTitle := WinTitle_ahk_exe                  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
+  ; WinTitle := WinGetTitle(WinTitle_ahk_exe)     ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
   WinTitle := " - Visual Studio Code"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 5
@@ -3114,7 +3114,7 @@ Open_VisualStudioCode() {
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
-    WinWait %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   MoveIt("Left","Half",1,WinTitle)  ; Resize window to left-half of monitor #1
   WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
@@ -3140,7 +3140,7 @@ Open_WindowsTerminal() {
   ; Exe_Args := ""
   ; ------------------------------
   Win_ahk_exe := "WindowsTerminal.exe"
-  WinTitle := "ahk_exe %Win_ahk_exe%"
+  WinTitle := ("ahk_exe " Win_ahk_exe)
   WinText := "DesktopWindowXamlSource"
   WinWait_TimeoutSeconds := 5
   If (DebugMode == 1) {
@@ -3150,7 +3150,7 @@ Open_WindowsTerminal() {
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
-    WinWait %WinTitle%,,%WinWait_TimeoutSeconds%  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   MoveIt("Right","Half",1,WinTitle,WinText)  ; Resize window to right-half of monitor #1
   If (WinExist(WinTitle,WinText)) {
@@ -3207,7 +3207,7 @@ PasteClipboardAsText(StringToPaste:="") {
       SendChar := "{" "}" "}"
     } Else If ((A_LoopField=="^")||(A_LoopField=="+")||(A_LoopField=="!")||(A_LoopField=="#")) {
       SendChar := "{" A_LoopField "}"
-      ; SendRaw %A_LoopField%
+      ; SendRaw A_LoopField
     } Else If ((A_LoopField=="`n")||(A_LoopField=="`r")) {
       SendChar := "{" "`n" "}"
       ; DoSleep := 1
@@ -3217,7 +3217,7 @@ PasteClipboardAsText(StringToPaste:="") {
     ; If (DoSleep == 1) {
     ;   Sleep 50
     ; }
-    SendInput %SendChar%
+    SendInput SendChar
     ; If (DoSleep == 1) {
       ; Sleep 50
     ; }
@@ -3247,7 +3247,7 @@ CustomMsgBox_PasteClipboard_TextOrBinary() {
   If (WinExist("Text or Binary")=0) {
     Return  ; Continue waiting for the "A_Clipboard or ClipboardAll" window to appear
   }
-  SetTimer(%A_ThisFunc%,"Off")
+  SetTimer(A_ThisFunc,"Off")
   WinActivate
   ControlSetText "Text", "Button1"
   ControlSetText "Binary", "Button2"
@@ -3290,115 +3290,114 @@ PrintEnv() {
   Viewport_Height := SysGet(79)  ; SM_CYVIRTUALSCREEN
   Monitor_Count := SysGet(80)  ; SM_CMONITORS
 
+
+  MsgBoxOutput := ""
+
+  ; ------------------------------------------------------------
   ;
   ; *** Windows Env-Vars ***
   ;
-  ; ALLUSERSPROFILE		%ALLUSERSPROFILE%
-  ; APPDATA			%APPDATA%
-  ; COMMONPROGRAMFILES	%COMMONPROGRAMFILES%
-  ; COMPUTERNAME		%COMPUTERNAME%
-  ; HOMEDRIVE		%HOMEDRIVE%
-  ; HOMEPATH		%HOMEPATH%
-  ; LOCALAPPDATA		%LOCALAPPDATA%
-  ; LOGONSERVER		%LOGONSERVER%
-  ; PROGRAMDATA		%PROGRAMDATA%
-  ; PROGRAMFILES		%PROGRAMFILES%
-  ; PUBLIC			%PUBLIC%
-  ; SYSTEMDRIVE		%SYSTEMDRIVE%
-  ; SYSTEMROOT		%SYSTEMROOT%
-  ; TEMP			%TEMP%
-  ; TMP			%TMP%
-  ; USERDOMAIN		%USERDOMAIN%
-  ; USERNAME		%USERNAME%
-  ; USERPROFILE		%USERPROFILE%
-  ; WINDIR			%WINDIR%
+  ; MsgBoxOutput := MsgBoxOutput "*** Windows Env-Vars ***" "`n"
+  ; MsgBoxOutput := MsgBoxOutput "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  ALLUSERSPROFILE:			" EnvGet("ALLUSERSPROFILE") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  APPDATA:			" EnvGet("APPDATA") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  COMMONPROGRAMFILES:			" EnvGet("COMMONPROGRAMFILES") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  COMPUTERNAME:			" EnvGet("COMPUTERNAME") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  HOMEDRIVE:			" EnvGet("HOMEDRIVE") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  HOMEPATH:			" EnvGet("HOMEPATH") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  LOCALAPPDATA:			" EnvGet("LOCALAPPDATA") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  LOGONSERVER:			" EnvGet("LOGONSERVER") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  PROGRAMDATA:			" EnvGet("PROGRAMDATA") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  PROGRAMFILES:			" EnvGet("PROGRAMFILES") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  PUBLIC:			" EnvGet("PUBLIC") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  SYSTEMDRIVE:			" EnvGet("SYSTEMDRIVE") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  SYSTEMROOT:			" EnvGet("SYSTEMROOT") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  TEMP:			" EnvGet("TEMP") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  TMP:			" EnvGet("TMP") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  USERDOMAIN:			" EnvGet("USERDOMAIN") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  USERNAME:			" EnvGet("USERNAME") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  USERPROFILE:			" EnvGet("USERPROFILE") "`n"
+  ; MsgBoxOutput := MsgBoxOutput "  WINDIR:			" EnvGet("WINDIR") "`n"
   ;
-
-  ; KnownWinEnvVars :=
-
+  ; ------------------------------------------------------------
+  ;
   ; https://lexikos.github.io/v2/docs/Variables.htm#CoordMode
-  Msgbox("
-  (LTrim
-  ----------------------------- AHK Env-Vars -----------------------------
 
-  A_AhkPath:		%A_AhkPath%
-  A_AhkVersion:		%A_AhkVersion%
-  A_AutoTrim:		%A_AutoTrim%
-  A_ControlDelay:		%A_ControlDelay%
-  A_CoordModeCaret:	%A_CoordModeCaret%
-  A_CoordModeMenu:	%A_CoordModeMenu%
-  A_CoordModeMouse:	%A_CoordModeMouse%
-  A_CoordModePixel:	%A_CoordModePixel%
-  A_CoordModeToolTip:		%A_CoordModeToolTip%
-  A_Cursor:		%A_Cursor%
-  A_DefaultGui:		%A_DefaultGui%
-  A_DefaultListView:	%A_DefaultListView%
-  A_DefaultMouseSpeed:	%A_DefaultMouseSpeed%
-  A_DefaultTreeVie:	%A_DefaultTreeView%
-  A_IconNumber:		%A_IconNumber%
-  A_IconTip:		%A_IconTip%
-  A_IsCompiled:		%A_IsCompiled%
-  A_IsUnicode:		%A_IsUnicode%
-  A_KeyDelay:		%A_KeyDelay%
-  A_KeyDuration:		%A_KeyDuration%
-  A_LineNumber:		%A_LineNumber%
-  A_MouseDelay:		%A_MouseDelay%
-  A_MSec:			%A_MSec%
-  A_Now:			%A_Now%
-  A_NowUTC:		%A_NowUTC%
-  A_PriorHotkey:		%A_PriorHotkey%
-  A_ScriptDir:		%A_ScriptDir%
-  A_ScriptFullPath:		%A_ScriptFullPath%
-  A_ScriptName:		%A_ScriptName%
-  A_SendLevel:		%A_SendLevel%
-  A_SendMode:		%A_SendMode%
-  A_StringCaseSense:	%A_StringCaseSense%
-  A_ThisFunc:		%A_ThisFunc%
-  A_ThisLabel:		%A_ThisLabel%
-  A_ThisHotkey:		%A_ThisHotkey%
-  A_TickCount:		%A_TickCount%
-  A_TimeSincePriorHotkey:	%A_TimeSincePriorHotkey%
-  A_WinDelay:		%A_WinDelay%
-  A_WorkingDir:		%A_WorkingDir%
 
-  ----------------------------- Windows Env-Vars -----------------------------
+  MsgBoxOutput := MsgBoxOutput "`n"
+  MsgBoxOutput := MsgBoxOutput "----------------------------- AHK Env-Vars -----------------------------" "`n"
+  MsgBoxOutput := MsgBoxOutput "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_AhkPath:			" A_AhkPath "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_AhkVersion:			" A_AhkVersion "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ControlDelay:			" A_ControlDelay "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_CoordModeCaret:			" A_CoordModeCaret "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_CoordModeMenu:			" A_CoordModeMenu "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_CoordModeMouse:			" A_CoordModeMouse "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_CoordModePixel:			" A_CoordModePixel "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_CoordModeToolTip:			" A_CoordModeToolTip "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_Cursor:			" A_Cursor "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_DefaultMouseSpeed:			" A_DefaultMouseSpeed "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_IconNumber:			" A_IconNumber "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_IconTip:			" A_IconTip "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_IsCompiled:			" A_IsCompiled "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_KeyDelay:			" A_KeyDelay "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_KeyDuration:			" A_KeyDuration "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_LineNumber:			" A_LineNumber "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_MouseDelay:			" A_MouseDelay "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_MSec:			" A_MSec "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_Now:			" A_Now "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_NowUTC:			" A_NowUTC "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_PriorHotkey:			" A_PriorHotkey "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ScriptDir:			" A_ScriptDir "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ScriptFullPath:			" A_ScriptFullPath "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ScriptName:			" A_ScriptName "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_SendLevel:			" A_SendLevel "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_SendMode:			" A_SendMode "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ThisFunc:			" A_ThisFunc "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ThisHotkey:			" A_ThisHotkey "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_TickCount:			" A_TickCount "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_TimeSincePriorHotkey:			" A_TimeSincePriorHotkey "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_WinDelay:			" A_WinDelay "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_WorkingDir:			" A_WorkingDir "`n"
+  MsgBoxOutput := MsgBoxOutput "`n"
+  MsgBoxOutput := MsgBoxOutput "----------------------------- Windows Env-Vars -----------------------------" "`n"
+  MsgBoxOutput := MsgBoxOutput "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_AppData:			" A_AppData "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_AppDataCommon:			" A_AppDataCommon "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ComputerName:			" A_ComputerName "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ComSpec:			" A_ComSpec "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_Desktop:			" A_Desktop "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_DesktopCommon:			" A_DesktopCommon "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_Is64bitOS:			" A_Is64bitOS "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_IsAdmin:			" A_IsAdmin "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_Language:			" A_Language "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_MyDocuments:			" A_MyDocuments "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_OSVersion:			" A_OSVersion "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ProgramFiles:			" A_ProgramFiles "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_Programs:			" A_Programs "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ProgramsCommon:			" A_ProgramsCommon "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_PtrSize:			" A_PtrSize "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ScreenDPI:			" A_ScreenDPI "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ScreenHeight:			" A_ScreenHeight "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_ScreenWidth:			" A_ScreenWidth "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_StartMenu:			" A_StartMenu "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_StartMenuCommon:			" A_StartMenuCommon "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_Startup:			" A_Startup "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_Temp:			" A_Temp "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_UserName:			" A_UserName "`n"
+  MsgBoxOutput := MsgBoxOutput "  A_WinDir:			" A_WinDir "`n"
+  MsgBoxOutput := MsgBoxOutput "`n"
+  MsgBoxOutput := MsgBoxOutput "----------------------------- SysGet Values -----------------------------" "`n"
+  MsgBoxOutput := MsgBoxOutput "`n"
+  MsgBoxOutput := MsgBoxOutput "  76 - Viewport_TopLeft_Coords_X:		" Viewport_TopLeft_Coords_X "`n"
+  MsgBoxOutput := MsgBoxOutput "  77 - Viewport_TopLeft_Coords_Y:		" Viewport_TopLeft_Coords_Y "`n"
+  MsgBoxOutput := MsgBoxOutput "  78 - Viewport_Width:		" Viewport_Width "`n"
+  MsgBoxOutput := MsgBoxOutput "  79 - Viewport_Height:		" Viewport_Height "`n"
+  MsgBoxOutput := MsgBoxOutput "  80 - Monitor_Count:		" Monitor_Count "`n"
+  MsgBoxOutput := MsgBoxOutput "`n"
+  MsgBoxOutput := MsgBoxOutput "--------------------------------------------------------------------------------------------" "`n"
 
-  A_AppData:		%A_AppData%
-  A_AppDataCommon	%A_AppDataCommon%
-  A_ComputerName:		%A_ComputerName%
-  A_ComSpec:		%A_ComSpec%
-  A_Desktop:		%A_Desktop%
-  A_DesktopCommon	%A_DesktopCommon%
-  A_IPAddress1:		%A_IPAddress1%
-  A_Is64bitOS:		%A_Is64bitOS%
-  A_IsAdmin:		%A_IsAdmin%
-  A_Language:		%A_Language%
-  A_MyDocuments:		%A_MyDocuments%
-  A_OSVersion:		%A_OSVersion%
-  A_ProgramFiles:		%A_ProgramFiles%
-  A_Programs:		%A_Programs%
-  A_ProgramsCommon	%A_ProgramsCommon%
-  A_PtrSize:		%A_PtrSize%
-  A_ScreenDPI:		%A_ScreenDPI%
-  A_ScreenHeight:		%A_ScreenHeight%
-  A_ScreenWidth:		%A_ScreenWidth%
-  A_StartMenu:		%A_StartMenu%
-  A_StartMenuCommon	%A_StartMenuCommon%
-  A_Startup:		%A_Startup%
-  A_Temp:			%A_Temp%
-  A_UserName:		%A_UserName%
-  A_WinDir:		%A_WinDir%
-
-  ----------------------------- SysGet Values -----------------------------
-
-  76 - Viewport_TopLeft_Coords_X :=	%Viewport_TopLeft_Coords_X%
-  77 - Viewport_TopLeft_Coords_Y :=	%Viewport_TopLeft_Coords_Y%
-  78 - Viewport_Width :=	%Viewport_Width%
-  79 - Viewport_Height :=	%Viewport_Height%
-  80 - Monitor_Count :=	%Monitor_Count%
-
-  --------------------------------------------------------------------------------------------
-  )", A_ScriptName " - " A_ThisFunc)
+  Msgbox(MsgBoxOutput, A_ScriptName " - " A_ThisFunc)
 
   ; Note: For some reason, adding newlines to MsgBox makes it not wrap text
 

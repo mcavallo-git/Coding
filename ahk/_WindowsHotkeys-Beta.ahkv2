@@ -2395,7 +2395,7 @@ GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {
 ; GetTimezoneOffset
 ;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
 ;
-GetTimezoneOffset(ByRef Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", StripCharacter:=".") {
+GetTimezoneOffset(&Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", StripCharacter:=".") {
   Time_CurrentTZ := A_Now
   Time_UTC := A_NowUTC
   TZ_UTC_LocalOffset := DateDiff(Time_CurrentTZ, Time_UTC, "Minutes")
@@ -2434,7 +2434,7 @@ GetTimezoneOffset(ByRef Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", 
 ; GetTimezoneOffset_P
 ;   |--> Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
 ;
-GetTimezoneOffset_P(ByRef Output_TZ_P) {
+GetTimezoneOffset_P(&Output_TZ_P) {
   Output_TZ_P := ""
   GetTimezoneOffset(Output_TZ_P)
   Output_TZ_P := StrReplace(Output_TZ_P, "+", "P")
@@ -2651,7 +2651,7 @@ LockWorkstation() {
 ;   |--> Example call:
 ;          GetMicroseconds(CurrentMicroseconds)
 ;
-GetMicroseconds(ByRef OutputVar) {
+GetMicroseconds(&OutputVar) {
   vIntervals := 0
   DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
   OutputVar := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
@@ -2665,7 +2665,7 @@ GetMicroseconds(ByRef OutputVar) {
 ;   |--> Example call:
 ;          GetMilliseconds(CurrentMilliseconds)
 ;
-GetMilliseconds(ByRef OutputVar) {
+GetMilliseconds(&OutputVar) {
   OutputVar := A_MSec
   Return
 }
@@ -2676,7 +2676,7 @@ GetMilliseconds(ByRef OutputVar) {
 ;   |--> Example call:
 ;          GetNanoseconds(CurrentNanoseconds)
 ;
-GetNanoseconds(ByRef OutputVar) {
+GetNanoseconds(&OutputVar) {
   vIntervals := 0
   DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
   ; vDate := 1601
@@ -4824,7 +4824,7 @@ class BrightnessSetter {
       DllCall("LocalFree", "Ptr", currSchemeGuid, "Ptr")
     }
   }
-  IsOnAc(ByRef acStatus)
+  IsOnAc(&acStatus)
   {
     static SystemPowerStatus
     if (!VarSetCapacity(SystemPowerStatus))
@@ -4858,7 +4858,7 @@ class BrightnessSetter {
         ret := 100
     Return ret
   }
-  _GetCurrentBrightness(schemeGuid, AC, ByRef currBrightness)
+  _GetCurrentBrightness(schemeGuid, AC, &currBrightness)
   {
     static PowerReadACValueIndex := DllCall("GetProcAddress", "Ptr", BrightnessSetter.hPowrprofMod, "AStr", "PowerReadACValueIndex", "Ptr")
         ,PowerReadDCValueIndex := DllCall("GetProcAddress", "Ptr", BrightnessSetter.hPowrprofMod, "AStr", "PowerReadDCValueIndex", "Ptr")

@@ -99,7 +99,7 @@ TrayIcon_Cached := "_WindowsHotkeys.cached.ico"
 TrayIcon_Default := "_WindowsHotkeys.ico"
 TrayIcon_Gray := "_WindowsHotkeys.gray.ico"
 If (FileExist(TrayIcon_Default)) {
-  Menu("Tray","Icon",TrayIcon_Default)
+  TraySetIcon(TrayIcon_Default)
 }
 
 
@@ -1973,11 +1973,11 @@ BrowserHover() {
   } Else {
     WaitIcon := TrayIcon_Default
   }
-  Menu("Tray","Icon",WaitIcon)
+  TraySetIcon(WaitIcon)
   Loop {
     If (A_TimeIdlePhysical >= (HoverAfter_Seconds * 1000)) {
       If (Updated_TrayIcon==0) {
-        Menu("Tray","Icon",BusyIcon)
+        TraySetIcon(BusyIcon)
         Updated_TrayIcon := 1
       }
       MouseMove %MoveDistance%, 0, 0, "R"

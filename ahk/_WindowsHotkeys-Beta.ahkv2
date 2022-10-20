@@ -38,7 +38,7 @@ DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHidden
 
 ; #UseHook True  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 
-SetWorkingDir %A_ScriptDir%  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
+SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
 
 SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
 

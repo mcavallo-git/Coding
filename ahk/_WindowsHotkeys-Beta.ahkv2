@@ -717,11 +717,11 @@ Pause::
       Sleep 10
       SplitPath %ExeToRequire_Fullpath%, &ExeToRequire_Basename, &ExeToRequire_Dirname, &ExeToRequire_Extension, &ExeToRequire_BasenameNoExt, &ExeToRequire_Drivename
       WinActivate "ahk_exe %ExeToRequire_Basename%"
-      VarSetCapacity(ExeToRequire_Basename,0)
-      VarSetCapacity(ExeToRequire_Dirname,0)
-      VarSetCapacity(ExeToRequire_Extension,0)
-      VarSetCapacity(ExeToRequire_BasenameNoExt,0)
-      VarSetCapacity(ExeToRequire_Drivename,0)
+      VarSetStrCapacity(&ExeToRequire_Basename,0)
+      VarSetStrCapacity(&ExeToRequire_Dirname,0)
+      VarSetStrCapacity(&ExeToRequire_Extension,0)
+      VarSetStrCapacity(&ExeToRequire_BasenameNoExt,0)
+      VarSetStrCapacity(&ExeToRequire_Drivename,0)
       ; VarSetStrCapacity(&ExeToRequire_Basename,0)       ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
       ; VarSetStrCapacity(&ExeToRequire_Dirname,0)        ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
       ; VarSetStrCapacity(&ExeToRequire_Extension,0)      ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
@@ -733,8 +733,8 @@ Pause::
     SendInput %FileToPaste_Contents%
   }
   ; Free variables from memory to avoid caching of secrets or large files  -  https://www.autohotkey.com/docs/commands/VarSetCapacity.htm
-  VarSetCapacity(FileToPaste_Contents,0)
-  VarSetCapacity(ExeToRequire_Fullpath,0)
+  VarSetStrCapacity(&FileToPaste_Contents,0)
+  VarSetStrCapacity(&ExeToRequire_Fullpath,0)
   ; VarSetStrCapacity(&FileToPaste_Contents,0)   ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
   ; VarSetStrCapacity(&ExeToRequire_Fullpath,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
   Return
@@ -4847,8 +4847,8 @@ class BrightnessSetter {
   IsOnAc(&acStatus)
   {
     static SystemPowerStatus
-    if (!VarSetCapacity(SystemPowerStatus))
-      VarSetCapacity(SystemPowerStatus, 12)
+    if (!VarSetStrCapacity(&SystemPowerStatus))
+      VarSetStrCapacity(&SystemPowerStatus, 12)
     if (DllCall("GetSystemPowerStatus", "Ptr", &SystemPowerStatus)) {
       acStatus := NumGet(SystemPowerStatus, 0, "UChar") == 1
       Return True
@@ -4937,8 +4937,8 @@ class BrightnessSetter {
   _GUID_VIDEO_SUBGROUP()
   {
     static GUID_VIDEO_SUBGROUP__
-    if (!VarSetCapacity(GUID_VIDEO_SUBGROUP__)) {
-       VarSetCapacity(GUID_VIDEO_SUBGROUP__, 16)
+    if (!VarSetStrCapacity(&GUID_VIDEO_SUBGROUP__)) {
+       VarSetStrCapacity(&GUID_VIDEO_SUBGROUP__, 16)
       ,NumPut(0x7516B95F, GUID_VIDEO_SUBGROUP__, 0, "UInt"), NumPut(0x4464F776, GUID_VIDEO_SUBGROUP__, 4, "UInt")
       ,NumPut(0x1606538C, GUID_VIDEO_SUBGROUP__, 8, "UInt"), NumPut(0x99CC407F, GUID_VIDEO_SUBGROUP__, 12, "UInt")
     }
@@ -4947,8 +4947,8 @@ class BrightnessSetter {
   _GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS()
   {
     static GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__
-    if (!VarSetCapacity(GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__)) {
-       VarSetCapacity(GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 16)
+    if (!VarSetStrCapacity(&GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__)) {
+       VarSetStrCapacity(&GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 16)
       ,NumPut(0xADED5E82, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 0, "UInt"), NumPut(0x4619B909, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 4, "UInt")
       ,NumPut(0xD7F54999, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 8, "UInt"), NumPut(0xCB0BAC1D, GUID_DEVICE_POWER_POLICY_VIDEO_BRIGHTNESS__, 12, "UInt")
     }
@@ -4957,8 +4957,8 @@ class BrightnessSetter {
   _GUID_ACDC_POWER_SOURCE()
   {
     static GUID_ACDC_POWER_SOURCE_
-    if (!VarSetCapacity(GUID_ACDC_POWER_SOURCE_)) {
-       VarSetCapacity(GUID_ACDC_POWER_SOURCE_, 16)
+    if (!VarSetStrCapacity(&GUID_ACDC_POWER_SOURCE_)) {
+       VarSetStrCapacity(&GUID_ACDC_POWER_SOURCE_, 16)
       ,NumPut(0x5D3E9A59, GUID_ACDC_POWER_SOURCE_, 0, "UInt"), NumPut(0x4B00E9D5, GUID_ACDC_POWER_SOURCE_, 4, "UInt")
       ,NumPut(0x34FFBDA6, GUID_ACDC_POWER_SOURCE_, 8, "UInt"), NumPut(0x486551FF, GUID_ACDC_POWER_SOURCE_, 12, "UInt")
     }

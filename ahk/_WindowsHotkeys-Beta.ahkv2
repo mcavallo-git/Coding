@@ -856,7 +856,7 @@ Pause::
 ;
 #F1::
 {
-  Run Notepad %A_ScriptFullPath%
+  Run "Notepad" %A_ScriptFullPath%
   Return
 }
 
@@ -947,9 +947,9 @@ AppsKey & ]::
   SetControlDelay -1
   SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
   ; Save current monitor config (to compare against once it's been updated)
-  SysGet MonitorCountBefore, 80
-  SysGet ViewportWidthBefore, 78
-  SysGet ViewportHeightBefore, 79
+  MonitorCountBefore := SysGet(80)
+  ViewportWidthBefore := SysGet(78)
+  ViewportHeightBefore := SysGet(79)
   ; Save current mouse coordinates
   MouseGetPos &MouseX, &MouseY
   ; Send an Escape keypress to close any old Projection menus
@@ -1001,7 +1001,7 @@ AppsKey & ]::
           Sleep 100
           Random RandomSleep, 1000, 1500
           Sleep %RandomSleep%
-          SysGet MonitorCountAfter, 80
+          MonitorCountAfter := SysGet(80)
           If (MonitorCountAfter != MonitorCountBefore) {
             Break
           }
@@ -1032,9 +1032,9 @@ AppsKey & ]::
   }
   MouseMove %MouseX%, %MouseY%
   If (DebugMode == 1) {
-    SysGet MonitorCountAfter, 80
-    SysGet ViewportWidthAfter, 78
-    SysGet ViewportHeightAfter, 79
+    MonitorCountAfter := SysGet(80)
+    ViewportWidthAfter := SysGet(78)
+    ViewportHeightAfter := SysGet(79)
     ; Check-for Windows' percentage (%) based display scaling
     Get_CurrentVerticalResolution := "PowerShell.exe -Command '([String]((Get-CimInstance -ClassName CIM_VideoController).CurrentVerticalResolution)).Trim();'"
     CurrentVerticalResolution := GetCommandOutput(Get_CurrentVerticalResolution)

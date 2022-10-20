@@ -978,8 +978,8 @@ AppsKey & ]::
     Loop {
       LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
       WinTitle := WinGetTitle("A")
-      Win_ahk_class := WinGetClass(WinTitle)
-      Win_ahk_exe := WinGetProcessName(WinTitle)
+      Win_ahk_class := WinGetClass("A")
+      Win_ahk_exe := WinGetProcessName("A")
       If ((WinTitle=="Project") && (Win_ahk_class=="Windows.UI.Core.CoreWindow") && (Win_ahk_exe=="ShellExperienceHost.exe")) {
         ; Projection menu detected --> select related option (duplicate/extend)
         Sleep 250

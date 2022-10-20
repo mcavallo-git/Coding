@@ -289,7 +289,7 @@ Pause::
       ControlClick x%xpos% y%ypos%, %Win_title%
     } Else {
       MouseGetPos &MouseX, &MouseY
-      MouseClick Left, %xpos%, %ypos%
+      MouseClick "Left", %xpos%, %ypos%
       MouseMove %MouseX%, %MouseY%
     }
     Return
@@ -967,7 +967,7 @@ AppsKey & ]::
     }
     Send "{LWin up}{RWin up}{LWin down}{p}{LWin up}"
     Sleep 2000
-    MouseClick Left, %xpos%, %ypos%
+    MouseClick "Left", %xpos%, %ypos%
     Sleep 100
   } Else If (SubStr(A_OSVersion, 1, 4)="10.0") {  ; Windows10
     ; Open the "Projection" window
@@ -995,7 +995,7 @@ AppsKey & ]::
           ypos := 315
         }
         ; Select Projection menu option
-        MouseClick Left, %xpos%, %ypos%
+        MouseClick "Left", %xpos%, %ypos%
         ; Wait until the new monitor layout is loaded
         Loop 30 {
           Sleep 100
@@ -1007,7 +1007,7 @@ AppsKey & ]::
           }
         }
         ; Click outside of the Projection menu to close it
-        MouseClick Left, %MouseX%, %MouseY%
+        MouseClick "Left", %MouseX%, %MouseY%
         Sleep 100
         Random RandomSleep, 1000, 1500
         Sleep %RandomSleep%
@@ -1212,7 +1212,7 @@ AppsKey & l::
 ;
 #`::
 {
-  MouseClick Left
+  MouseClick "Left"
   Return
 }
 
@@ -1229,7 +1229,7 @@ AppsKey & l::
 ;   CoordMode "Mouse", "Screen"
 ;   SetDefaultMouseSpeed 0
 ;   MouseGetPos &MouseX, &MouseY
-;   MouseClick Left, %MouseX%, %MouseY%
+;   MouseClick "Left", %MouseX%, %MouseY%
 ;   Sleep 10
 ;   Return
 ; }
@@ -1269,7 +1269,7 @@ AppsKey & Down::
 ;
 !`::
 {
-  MouseClick Right
+  MouseClick "Right"
   Return
 }
 
@@ -1556,7 +1556,7 @@ WheelRight::
   Loop {
     WinActivate Cyberpunk
     Send "{Space}"  ; Jump Spam
-    ; MouseClick Left  ; Attack Spam
+    ; MouseClick "Left"  ; Attack Spam
     Sleep 10
   }
   Return
@@ -1581,7 +1581,7 @@ WheelRight::
     ; Minecraft - Spam right click (for placing piston to blow through bedrock)
     Loop 500 {
       Sleep 10
-      MouseClick Right
+      MouseClick "Right"
     }
   } Else {
     ; Minecraft - Sword attack spam
@@ -1594,7 +1594,7 @@ WheelRight::
       } Else {
         If (WinActive(WinTitle)) {
           ToolTip "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
-          MouseClick Left
+          MouseClick "Left"
           Sleep %Milliseconds_BetweenClicks%
         } Else {
           ToolTip "Stopped Minecraft auto-clicker (MC window lost focus"
@@ -2049,7 +2049,7 @@ ClickLoop(MouseX,MouseY,Timeout) {
   }
   Loop {
     Sleep %Timeout%
-    MouseClick Left, %MouseX%, %MouseY%
+    MouseClick "Left", %MouseX%, %MouseY%
   }
   Return
 }
@@ -4331,7 +4331,7 @@ Xbox_ExportCaptures() {
             ;
             TickCount_LoadCaptures := A_TickCount
             WinActivate("ahk_id %Win_ahk_id%")
-            MouseClick Left, 23, 314  ; Load 'Captures' tab (left-panel)
+            MouseClick "Left", 23, 314  ; Load 'Captures' tab (left-panel)
             Sleep 500
             Loop {
               Sleep 100
@@ -4361,7 +4361,7 @@ Xbox_ExportCaptures() {
             ;
             TickCount_LoadXboxLive := A_TickCount
             WinActivate("ahk_id %Win_ahk_id%")
-            MouseClick Left, 220, 138  ; Load 'On Xbox Live' tab (top-option within 'Captures')
+            MouseClick "Left", 220, 138  ; Load 'On Xbox Live' tab (top-option within 'Captures')
             Sleep 500
             Loop {
               Sleep 100
@@ -4393,7 +4393,7 @@ Xbox_ExportCaptures() {
               Tooltip_NewStats := ( "Showing 'Game clips' (filter) ..." )
               ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               WinActivate("ahk_id %Win_ahk_id%")
-              MouseClick Left, 221, 181  ; Show 'Game clips', only - (under the "Everything v" dropdown/filter - second option from the top)
+              MouseClick "Left", 221, 181  ; Show 'Game clips', only - (under the "Everything v" dropdown/filter - second option from the top)
               Sleep 500
               WinActivate("ahk_id %Win_ahk_id%")
               Send "{Up}"
@@ -4417,7 +4417,7 @@ Xbox_ExportCaptures() {
               Tooltip_NewStats := ( "Showing 'Screenshots' (filter) ..." )
               ToolTip ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               WinActivate("ahk_id %Win_ahk_id%")
-              MouseClick Left, 221, 181  ; Show 'Screeshots', only - (under the "Everything v" dropdown/filter - bottom option)
+              MouseClick "Left", 221, 181  ; Show 'Screeshots', only - (under the "Everything v" dropdown/filter - bottom option)
               Sleep 500
               WinActivate("ahk_id %Win_ahk_id%")
               Send "{Down}"
@@ -4539,7 +4539,7 @@ Xbox_ExportCaptures() {
             Loop {
               If (A_Index == 1) {
                 WinActivate("ahk_id %Win_ahk_id%")
-                MouseClick Left, %DownloadBtn_XPos_Center%, %DownloadBtn_YPos_Center%  ; Click "Download" on currently-selected  file
+                MouseClick "Left", %DownloadBtn_XPos_Center%, %DownloadBtn_YPos_Center%  ; Click "Download" on currently-selected  file
               }
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
@@ -4574,12 +4574,12 @@ Xbox_ExportCaptures() {
             Tooltip_NewStats := "Deleting ..."
             ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id %Win_ahk_id%")
-            MouseClick Left, %DeleteBtn_XPos_TrashCan%, %DeleteBtn_YPos_Center%  ; Click "Delete" once download has finished
+            MouseClick "Left", %DeleteBtn_XPos_TrashCan%, %DeleteBtn_YPos_Center%  ; Click "Delete" once download has finished
             Sleep 1000
             Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
             ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id %Win_ahk_id%")
-            MouseClick Left, 519, 449  ; Confirm file-deletion (via "OK" button on popup)
+            MouseClick "Left", 519, 449  ; Confirm file-deletion (via "OK" button on popup)
             Sleep 500
             Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
             ToolTip ( Tooltip_EachFile_Stats ), 1, 1

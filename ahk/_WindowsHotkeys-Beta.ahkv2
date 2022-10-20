@@ -4357,7 +4357,7 @@ Xbox_ExportCaptures() {
                 ; Check the color of each pixel in a 2-D horizontal line which passes over the "On This PC" and "On Xbox Live" tab name texts
                 ;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the page has loaded)
                 ;
-                If (PixelSearch(Px, Py, 61, 140, 280, 140, Color_Loaded_CapturesPage, 0)) {
+                If (PixelSearch(&Px, &Py, 61, 140, 280, 140, Color_Loaded_CapturesPage, 0)) {
                   Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
                   ToolTip ( Tooltip_StartupJobs ), 1, 1
                   Sleep 500
@@ -4387,7 +4387,7 @@ Xbox_ExportCaptures() {
                 ;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the tab has loaded)
                 ;
                 WinActivate("ahk_id %Win_ahk_id%")
-                If ( (PixelSearch(Px, Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0)) || (WaitDuration_Seconds > 20) ) {
+                If ( (PixelSearch(&Px, &Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0)) || (WaitDuration_Seconds > 20) ) {
                   Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
                   ToolTip ( Tooltip_StartupJobs ), 1, 1
                   Sleep 500
@@ -4486,7 +4486,7 @@ Xbox_ExportCaptures() {
               ; Check the color of each pixel in a 2-D horizontal line which passes over the top Game clip / Screenshot's filename text
               ;   |--> Keep checking until a white color (0xFFFFFF) is found somewhere along said coordinate line (which denotes the file line item has become selectable)
               ;
-              If ( PixelSearch(Px, Py, 165, 280, 355, 280, 0xFFFFFF, 43) ) {
+              If ( PixelSearch(&Px, &Py, 165, 280, 355, 280, 0xFFFFFF, 43) ) {
                 NextDownloadExists_Passed := 1
                 Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
                 ToolTip ( Tooltip_EachFile_Stats ), 1, 1
@@ -4716,8 +4716,8 @@ Youtube_EditDraft_Submit() {
         Loop {
           Sleep 100
           Color_xpos_ypos := PixelGetColor(xpos, ypos)
-          PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
-          PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
+          PixelSearch_Blue1 := PixelSearch(&Px, &Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
+          PixelSearch_Blue2 := PixelSearch(&Px, &Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
           Tooltip_Debug := ( Tooltip_Header "`n" )
           Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
@@ -4739,8 +4739,8 @@ Youtube_EditDraft_Submit() {
           Loop {
             Sleep 100
             Color_xpos_ypos := PixelGetColor(xpos, ypos)
-            PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
-            PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
+            PixelSearch_Blue1 := PixelSearch(&Px, &Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
+            PixelSearch_Blue2 := PixelSearch(&Px, &Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
             Tooltip_Debug := ( Tooltip_Header "`n" )
             Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
             Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
@@ -4762,8 +4762,8 @@ Youtube_EditDraft_Submit() {
         Loop {
           Sleep 100
           Color_xpos_ypos := PixelGetColor(xpos, ypos)
-          PixelSearch_Blue1 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
-          PixelSearch_Blue2 := PixelSearch( Px, Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
+          PixelSearch_Blue1 := PixelSearch(&Px, &Py, xpos, ypos, xpos_rightedge, ypos, 0x065FD4, 50 )
+          PixelSearch_Blue2 := PixelSearch(&Px, &Py, xpos, ypos, xpos_rightedge, ypos, 0x196CD7, 50 )
           Tooltip_Debug := ( Tooltip_Header "`n" )
           Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )

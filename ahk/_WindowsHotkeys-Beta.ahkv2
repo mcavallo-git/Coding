@@ -213,7 +213,7 @@ Pause::
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Foxit PhantomPDF
 ;
-#If WinActive("ahk_exe FoxitPhantomPDF.exe")
+#HotIf WinActive("ahk_exe FoxitPhantomPDF.exe")
   ;
   ;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
   ;   ACTION:  Edit > Add Text
@@ -294,14 +294,14 @@ Pause::
     }
     Return
   }
-#If
+#HotIf
 
 
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Cyberpunk 2077
 ;
-#If WinActive("ahk_exe Cyberpunk2077.exe")
+#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
   ;
   ;   HOTKEY:  XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button)  (while [ Cyberpunk ] is active)
   ;   ACTION:  Press [ Escape ] key, instead
@@ -317,7 +317,7 @@ Pause::
   ;   ACTION:  Press [ Tab ] key, instead
   ;
   CapsLock:: Tab
-#If !WinActive("ahk_exe Cyberpunk2077.exe")
+#HotIf !WinActive("ahk_exe Cyberpunk2077.exe")
   ; ------------------------------------------------------------
   ;
   ;   HOTKEY:  CapsLock
@@ -332,33 +332,33 @@ Pause::
   +CapsLock::
     SetCapsLockState, % GetKeyState("CapsLock", "T") ? "Off" : "On"
     Return
-#If
+#HotIf
 
 
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Overwatch
 ;
-#If WinActive("ahk_exe Overwatch.exe")
+#HotIf WinActive("ahk_exe Overwatch.exe")
   ;
   ;   HOTKEY:  Numpad-Enter  (while [ Overwatch ] is active)
   ;   ACTION:  Do nothing, e.g. Ignore numpad-enter-button presses while in-game (prone to being hit by mouse while sweeping)
   ;
   NumpadEnter:: Return
-#If
+#HotIf
 
 
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Destiny 2
 ;
-#If WinActive("ahk_exe destiny2.exe")
+#HotIf WinActive("ahk_exe destiny2.exe")
   ;
   ;   HOTKEY:  Numpad-Enter  (while [ Destiny 2 ] is active)
   ;   ACTION:  Do nothing, e.g. Ignore numpad-enter-button presses while in-game (prone to being hit by mouse while sweeping)
   ;
   NumpadEnter:: Return
-#If
+#HotIf
 
 
 ;   ;
@@ -406,7 +406,7 @@ Pause::
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Xbox Console Companion
 ;
-#If WinExist("Xbox Console Companion")
+#HotIf WinExist("Xbox Console Companion")
   ;
   ; HOTKEY:  WinKey + F3  (or "#SC03D")
   ; ACTION:  Xbox - Download & delete game clips & screenshots
@@ -414,9 +414,9 @@ Pause::
   #F3::
     Xbox_ExportCaptures()
     Return
-#If
+#HotIf
 ; ------------------------------------------------------------
-#If !WinExist("Xbox Console Companion")
+#HotIf !WinExist("Xbox Console Companion")
   ;
   ; HOTKEY:  WinKey + F3
   ; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
@@ -424,15 +424,15 @@ Pause::
   #F3::
     BrowserHover()
     Return
-#If
+#HotIf
 
 
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Youtube
 ;
-; #If WinExist("Youtube")
-#If WinExist("Channel content - YouTube Studio - Google Chrome")
+; #HotIf WinExist("Youtube")
+#HotIf WinExist("Channel content - YouTube Studio - Google Chrome")
   ;
   ; HOTKEY:  WinKey + F4
   ; ACTION:  Youtube - Walk uploads from "Draft" to live state
@@ -440,7 +440,7 @@ Pause::
   #F4::
     Youtube_EditDraft_Submit()
     Return
-#If
+#HotIf
 
 
 ; ------------------------------------------------------------
@@ -1214,7 +1214,7 @@ AppsKey & XButton2::
 ;
 ; 3-Key Hotkeys  (Using AppsKey, LWin, or RWin)
 ;
-#If GetKeyState("LWin", "P") || GetKeyState("RWin", "P") || GetKeyState("AppsKey", "P")
+#HotIf GetKeyState("LWin", "P") || GetKeyState("RWin", "P") || GetKeyState("AppsKey", "P")
   ;
   ;   ACTION:  Volume Up
   ;
@@ -1271,7 +1271,7 @@ AppsKey & XButton2::
   Shift & Space::
     Send {Media_Play_Pause}
     Return
-#If
+#HotIf
 #F10::
 #F11::
 #F12::
@@ -1405,7 +1405,7 @@ WheelRight::
 
 
 ; ------------------------------------------------------------
-#If !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe Overwatch.exe") && !WinActive("ahk_exe HaloInfinite.exe")
+#HotIf !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe Overwatch.exe") && !WinActive("ahk_exe HaloInfinite.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Open Google Chrome
@@ -1413,7 +1413,7 @@ WheelRight::
 #c::
   Open_Chrome()
   Return
-; #If WinActive("ahk_exe HaloInfinite.exe")
+; #HotIf WinActive("ahk_exe HaloInfinite.exe")
 ; ;
 ; ;   HOTKEY:  Left Mouse-Click
 ; ;   ACTION:  Halo Infinite - Send XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button - Bind button as "Mark" hotkey)
@@ -1423,7 +1423,7 @@ WheelRight::
 ;   ; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
 ;   Sleep 2000
 ;   Return
-#If WinActive("ahk_exe Overwatch.exe")
+#HotIf WinActive("ahk_exe Overwatch.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Click rapidly
@@ -1431,7 +1431,7 @@ WheelRight::
 #c::
   ClickLoop(731,1227,25)
   Return
-#If WinActive("ahk_exe Cyberpunk2077.exe")
+#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Cyberpunk - Farm Athletics EXP
@@ -1444,7 +1444,7 @@ WheelRight::
     Sleep 10
   }
   Return
-#If WinActive("Minecraft")
+#HotIf WinActive("Minecraft")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Minecraft - do various actions
@@ -1487,7 +1487,7 @@ WheelRight::
     ClearTooltip(5000)
   }
   Return
-#If
+#HotIf
 
 
 ; ------------------------------------------------------------
@@ -1743,7 +1743,7 @@ NumLock::
       ; SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
     } Else {
       TextToolTip := "Disable NumLock via Shift+NumLock"
-      ToolTip, %TextToolTip%
+      ToolTip(%TextToolTip%)
       ClearTooltip(3000)
     }
   } Else {
@@ -1754,7 +1754,7 @@ NumLock::
       ; SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
     } Else {
       TextToolTip := "Enable NumLock via Shift+NumLock"
-      ToolTip, %TextToolTip%
+      ToolTip(%TextToolTip%)
       ClearTooltip(3000)
     }
   }
@@ -1996,7 +1996,7 @@ Duplicate_Keypress() {
     If (DebugMode == 1) {
       TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
     }
-    ToolTip, ( TooltipOutput )
+    ToolTip(TooltipOutput)
     ; Get the key to duplicate from the user
     Input, KeyPressed, "L1 T1"
     If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
@@ -2005,7 +2005,7 @@ Duplicate_Keypress() {
   }
   TooltipOutput := ( "Spamming the [ " KeyPressed " ] key" )
   Loop {
-    ToolTip, ( TooltipOutput )
+    ToolTip(TooltipOutput)
     Send % KeyPressed
     Sleep 10
   }
@@ -2458,7 +2458,7 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
   LV_Verbosity := 0
   If ( LV_Verbosity = 1 ) {
     TooltipOutput := "A_GuiEvent=[" A_GuiEvent "], A_EventInfo=[" A_EventInfo "]"
-    ToolTip, %TooltipOutput%
+    ToolTip(TooltipOutput)
     ClearTooltip(2500)
   }
   Return
@@ -2926,7 +2926,7 @@ Open_Exe(ExeFullpath) {
     ; Executable IS running
     If (DebugMode == 1) {
       TextToolTip := "Activating `"" ExeBasename "`""
-      ToolTip, %TextToolTip%
+      ToolTip(%TextToolTip%)
       ClearTooltip(2000)
     }
     ExePID := GetPID(ExeBasename)
@@ -2935,7 +2935,7 @@ Open_Exe(ExeFullpath) {
     ; Executable NOT running but IS found locally
     If (DebugMode == 1) {
       TextToolTip := "Opening `"" ExeBasename "`""
-      ToolTip, %TextToolTip%
+      ToolTip(%TextToolTip%)
       ClearTooltip(2000)
     }
     ; Run, %ExeFullpath%
@@ -2947,7 +2947,7 @@ Open_Exe(ExeFullpath) {
     ; Executable NOT running & NOT found locally
     If (DebugMode == 1) {
       TextToolTip := "File not found: `"" ExeFullpath "`""
-      ToolTip, %TextToolTip%
+      ToolTip(%TextToolTip%)
       ClearTooltip(2000)
     }
   }
@@ -3393,7 +3393,7 @@ RunWaitOne(CMD_Command) {
   Run_Command := A_ComSpec " /C `"" CMD_Command "`" "
   If (DebugMode == 1) {
     TooltipOutput := "Run_Command=[" Run_Command "]"
-    Tooltip, %TooltipOutput%
+    Tooltip(TooltipOutput)
     ClearTooltip(7500)
   }
   WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
@@ -3567,7 +3567,7 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
     MouseGetPos, MouseX_Client, MouseY_Client
     Tooltip_Coords_Client := "x" MouseX_Client "  y" MouseY_Client "  (Client)"
 
-    Tooltip, ( Tooltip_Coords_Screen "`n" Tooltip_Coords_Window "`n" Tooltip_Coords_Client )
+    Tooltip( Tooltip_Coords_Screen "`n" Tooltip_Coords_Window "`n" Tooltip_Coords_Client )
     Sleep % ( PollDuration_ms )
 
   }
@@ -3665,7 +3665,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
       TooltipOutput := TooltipOutput "OutputFile=[" OutputFile "] " "`n"
     }
     If ((Last_MouseX != MouseX_Screen) || (Last_MouseY != MouseY_Screen) || (Last_Blue != ColorComponent_Blue) || (Last_Green != ColorComponent_Green) || (Last_Red != ColorComponent_Red)) {
-      Tooltip, %TooltipOutput%
+      Tooltip(TooltipOutput)
       ; Only perform updates if any discernible change is detected (amongst colors & mouse position values)
       If (DebugMode == 1) {
         LogfileOutput := StrReplace(TooltipOutput,"`n"," ")
@@ -3695,7 +3695,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ShowTooltip(TextToolTip:="", LoopDuration_ms:=5000) {
   StartMilliseconds := A_TickCount
   Loop {
-    ToolTip, %TextToolTip%
+    ToolTip(%TextToolTip%)
     LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
     If (LoopingForMilliseconds > LoopDuration_ms) {
       Break

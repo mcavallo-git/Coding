@@ -4003,11 +4003,11 @@ ShowWindowTitles() {
   Window := WinGetList("A")
   Loop Window {
     Id:=Window%A_Index%
-    WinGetTitle(TVar,("ahk_id " Id))
-    If (Tvar != "") {
-      LV.Add("", TVar)
-      Window%A_Index%:=TVar ;use this if you want an array
-      tList.=TVar "`n" ;use this if you just want the list
+    Win_title := WinGetTitle("ahk_id " Id)
+    If (Win_title != "") {
+      LV.Add("", Win_title)
+      Window%A_Index%:=Win_title ;use this if you want an array
+      tList.=Win_title "`n" ;use this if you just want the list
     }
   }
 

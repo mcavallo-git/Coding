@@ -1998,9 +1998,9 @@ BrowserHover() {
         Menu("Tray","Icon",BusyIcon)
         Updated_TrayIcon := 1
       }
-      MouseMove %MoveDistance%, 0, 0, R
+      MouseMove %MoveDistance%, 0, 0, "R"
       Sleep 1000
-      MouseMove -%MoveDistance%, 0, 0, R
+      MouseMove -%MoveDistance%, 0, 0, "R"
     } Else {
       If (Updated_TrayIcon==1) {
         Menu("Tray","Icon",WaitIcon)
@@ -5060,15 +5060,15 @@ BrightnessSetter_new() {
 ;    [ClickCount]  =  { Click this many times --- DEFAULTS TO 1 CLICK, IF OMITTED }
 ;         [Speed]  =  { Movement speed of mouse across the screen - 0 is Instant --- DEFAULTS TO DEFAULT MOUSE MOVE SPEED SET BY [SetDefaultMouseSpeed Speed], OTHERWISE DEFAULTS TO 2 }
 ;           [U|D]  =  { Only do a Click-Down (D) or Click-Up (U) click-event --- DEFAULTS A *DOWN* FOLLOWED BY AN *UP* EVENT, IF OMITTED}
-;      [Relative]  =  { If set to (R), the X & Y Coordinates will be treated as an offset to mouse's current position --- DEFAULTS TO NON-RELATIVE MOVEMENT, IF OMITTED }
+;      [Relative]  =  { If set to ("R"), the X & Y Coordinates will be treated as an offset to mouse's current position --- DEFAULTS TO NON-RELATIVE MOVEMENT, IF OMITTED }
 ;
 ; ------------------------------------------------------------
 ;
-; MouseClickDrag, WhichButton, X1, Y1, X2, Y2 [, Speed, R]
+; MouseClickDrag, WhichButton, X1, Y1, X2, Y2 [, Speed, "R"]
 ;
 ; ------------------------------------------------------------
 ;
-; MouseMove X, Y [, Speed, R]
+; MouseMove X, Y [, Speed, "R"]
 ;
 ; ------------------------------------------------------------
 ;

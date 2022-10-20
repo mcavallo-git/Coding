@@ -1653,7 +1653,7 @@ WheelRight::
     efs := "\Effective File Search.efsp"
     ; iso=C:\ISO
     ExeFilepath := "C:`\ISO`\Effective File Search.efsp"
-    ExeFilepath2 := % EnvGet("USERPROFILE") efs
+    ExeFilepath2 := EnvGet("USERPROFILE") efs
     ; MsgBox(ExeFilepath2)
     If (FileExist(ExeFilepath)) {
       Run, %ExeFilepath%
@@ -2981,7 +2981,7 @@ Open_Chrome() {
     Sleep 500
   }
   If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
-    TextToolTip := % "Chrome executable not found (neither x64 or x86 version)"
+    TextToolTip := "Chrome executable not found (neither x64 or x86 version)"
     ShowTooltip(TextToolTip,5000)
   } Else {
     If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
@@ -3215,7 +3215,7 @@ PasteClipboardAsText(StringToPaste:="") {
   SetKeyDelay 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Sleep 250
-  StringToPaste := % ((StrLen(StringToPaste)<=0)?(Clipboard):(StringToPaste))
+  StringToPaste := ((StrLen(StringToPaste)<=0)?(Clipboard):(StringToPaste))
   If (StrLen(StringToPaste)>=5000) {
     MsgBox("Warning! You are about to paste [ " StrLen(StringToPaste) " ] characters. This may take some type to type. Press WinKey + ESC to cancel")
   }
@@ -3510,13 +3510,13 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   PowerShell_Script_Block := StrReplace(StrReplace(PowerShell_Script_Block,"`t",""),"`n"," ")
 
   ; Prep the output VBS script's contents
-  VbsScript_Contents := % "CreateObject( `"WScript.Shell`" ).Run `"PowerShell -Command `"`"" PowerShell_Script_Block "`"`" `", 0, True"
+  VbsScript_Contents := ("CreateObject( `"WScript.Shell`" ).Run `"PowerShell -Command `"`"" PowerShell_Script_Block "`"`" `", 0, True")
 
   ; Build the output directory
-  FullPath_RunNonAdmin_Dirname := % A_Temp "\" A_ScriptName "\" A_ThisFunc
+  FullPath_RunNonAdmin_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
   ; Build the output filename
   SplitPath %FullPath_RunExe%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
-  FullPath_RunNonAdmin_VbsScript := % FullPath_RunNonAdmin_Dirname "\"  OutFileName ".vbs"
+  FullPath_RunNonAdmin_VbsScript := (FullPath_RunNonAdmin_Dirname "\"  OutFileName ".vbs")
 
   ; Create the VBS script file (if it doesn't already exist)
   If (!FileExist(FullPath_RunNonAdmin_VbsScript)) {
@@ -3527,10 +3527,10 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
     FileAppend, %VbsScript_Contents%, %FullPath_RunNonAdmin_VbsScript%
   }
 
-  ; Run_PowerShellScript_NonAdmin := % "powershell.exe -WindowStyle Hidden -Command `"" PowerShell_Script_Block "`""
-  ; Run, %Run_PowerShellScript_NonAdmin%
+  ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PowerShell_Script_Block "`"")
+  ; Run %Run_PowerShellScript_NonAdmin%
 
-  Run_VbsScript_NonAdmin := % "C:\Windows\System32\wscript.exe `"" FullPath_RunNonAdmin_VbsScript "`""
+  Run_VbsScript_NonAdmin := ("C:\Windows\System32\wscript.exe `"" FullPath_RunNonAdmin_VbsScript "`"")
   Run, %Run_VbsScript_NonAdmin%
 
   Return

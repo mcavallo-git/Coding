@@ -3567,7 +3567,8 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 ;
 RunWaitOne(CMD_Command) {
   global DebugMode
-  WScript_Shell := ComObjCreate("WScript.Shell")
+  ; WScript_Shell := ComObjCreate("WScript.Shell")
+  WScript_Shell := ComObject("WScript.Shell")
   Run_Command := A_ComSpec " /C `"" CMD_Command "`" "
   If (DebugMode == 1) {
     TooltipOutput := "Run_Command=[" Run_Command "]"
@@ -3591,7 +3592,8 @@ RunWaitOne(CMD_Command) {
 ;          )"))
 ;
 RunWaitMany(CMD_Commands) {
-  WScript_Shell := ComObjCreate("WScript.Shell")
+  ; WScript_Shell := ComObjCreate("WScript.Shell")
+  WScript_Shell := ComObject("WScript.Shell")
   ; Open cmd.exe with echoing of commands disabled
   WScript_Shell_Exec := WScript_Shell.Exec(ComSpec " /Q /K echo off")
   ; Send the commands to execute, separated by newline
@@ -4913,7 +4915,8 @@ class BrightnessSetter {
     static IsWindow := DllCall("GetProcAddress", "Ptr", DllCall("GetModuleHandle", "Str", "user32.dll", "Ptr"), "AStr", "IsWindow", "Ptr")
     if (!DllCall(IsWindow, "Ptr", BrightnessSetter._osdHwnd) && !BrightnessSetter._FindAndSetOSDWindow()) {
       BrightnessSetter._osdHwnd := 0
-      try if ((shellProvider := ComObjCreate("{C2F03A33-21F5-47FA-B4BB-156362A2F239}", "{00000000-0000-0000-C000-000000000046}"))) {
+      ; try if ((shellProvider := ComObjCreate("{C2F03A33-21F5-47FA-B4BB-156362A2F239}", "{00000000-0000-0000-C000-000000000046}"))) {
+      try if ((shellProvider := ComObj("{C2F03A33-21F5-47FA-B4BB-156362A2F239}", "{00000000-0000-0000-C000-000000000046}"))) {
         try if ((flyoutDisp := ComObjQuery(shellProvider, "{41f9d2fb-7834-4ab6-8b1b-73e74064b465}", "{41f9d2fb-7834-4ab6-8b1b-73e74064b465}"))) {
            DllCall(NumGet(NumGet(flyoutDisp+0)+3*A_PtrSize), "Ptr", flyoutDisp, "Int", 0, "UInt", 0)
           ,ObjRelease(flyoutDisp)

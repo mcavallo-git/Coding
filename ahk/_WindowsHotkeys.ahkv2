@@ -2385,7 +2385,7 @@ GetWindowSpecs(WinTitle:="A") {
   Return
 }
 ;
-; GetWindowSpecs_OnClick_LV_WindowSpecs  ^^^ NEEDED BY GET_WINDOW_SPECS()  ^^^
+; GetWindowSpecs_OnClick_LV_WindowSpecs  ^^^ NEEDED BY GetWindowSpecs()  ^^^
 ;   |--> Sub-Function of "GetWindowSpecs()"
 ;
 GetWindowSpecs_OnClick_LV_WindowSpecs() {

@@ -2447,7 +2447,7 @@ GetWindowSpecs(WinTitle:="A") {
 
   ; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui ... ] and [ LV.Add(...) ])
   ; Gui WindowSpecs:Default
-  MyGui := Gui(Default)
+  MyGui := Gui()
   MyGui.Name := "WindowSpecs"
   ; Gui Destroy
   MyGui.Destroy()
@@ -2619,7 +2619,7 @@ GetWindowSpecs_OnDoubleClick() {
     Clipboard := ValSelected
   }
   ; ; Gui WindowSpecs:Default
-  ; MyGui := Gui(Default)
+  ; MyGui := Gui()
   ; MyGui.Name := "WindowSpecs"
   ; ; Gui Destroy
   ; MyGui.Destroy()
@@ -3998,7 +3998,7 @@ ShowVolumeLevel() {
 ;
 ShowWindowTitles() {
   ; Gui WinTitles:Default
-  MyGui := Gui(Default)
+  MyGui := Gui()
   MyGui.Name := "WinTitles"
 
   ; Create the ListView with two columns, Name and Size:
@@ -4033,7 +4033,7 @@ ShowWindowTitles() {
 ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
   If (A_GuiEvent = "DoubleClick") {
     ; Gui WinTitles:Default
-    MyGui := Gui(Default)
+    MyGui := Gui()
     MyGui.Name := "WinTitles"
     ; Gui Destroy
     MyGui.Destroy()

@@ -1439,12 +1439,12 @@ AppsKey & WheelDown::
 ;
 !WheelUp::
 {
-  MouseClick,WheelUp,,,15,0,D,R
+  MouseClick(WheelUp,,,15,0,D,R)
   Return
 }
 !WheelDown::
 {
-  MouseClick,WheelDown,,,15,0,D,R
+  MouseClick(WheelDown,,,15,0,D,R)
   Return
 }
 
@@ -1598,15 +1598,15 @@ WheelRight::
     Loop {
       Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 2)
       If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
-        ToolTip % "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
+        ToolTip "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
         Break
       } Else {
         If (WinActive(WinTitle)) {
-          ToolTip % "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
+          ToolTip "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
           MouseClick Left
           Sleep %Milliseconds_BetweenClicks%
         } Else {
-          ToolTip % "Stopped Minecraft auto-clicker (MC window lost focus"
+          ToolTip "Stopped Minecraft auto-clicker (MC window lost focus"
           Break
         }
       }
@@ -5030,7 +5030,7 @@ BrightnessSetter_new() {
 ;
 ; ------------------------------------------------------------
 ;
-; MouseClick,[Button],[X_Coord],[Y_Coord],[ClickCount],[Speed],[U|D],[Relative]
+; MouseClick([Button],[X_Coord],[Y_Coord],[ClickCount],[Speed],[U|D],[Relative])
 ;
 ;   PARAMS:
 ;        [Button]  =  { Left, Right, Middle, X1, X2, WheelUp (or WU), WheelDown (or WD), WheelLeft (or WL), WheelRight (or WR) --- DEFAULTS TO LEFT IF OMITTED }

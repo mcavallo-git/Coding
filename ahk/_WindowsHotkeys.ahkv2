@@ -3996,8 +3996,7 @@ Xbox_ExportCaptures() {
   ; Runtime Options
   ;
 
-  ; MaxFilesToDownload := 0  ; 0 = Unlimited
-  MaxFilesToDownload := 1
+  MaxFilesToDownload := 0  ; 0 = Unlimited
   ; MaxFilesToDownload := 2
 
   Download_GameClips := 0

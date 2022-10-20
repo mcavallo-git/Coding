@@ -1017,10 +1017,10 @@ AppsKey & ]::
         Sleep %RandomSleep%
         Break
       } Else If (LoopingForMilliseconds > 2000) {
-        MsgBox(
+        MsgBox("
         (LTrim
           Error: Unable to locate Projection window
-        ))
+        )")
         Break
       } Else {
         Sleep 10
@@ -1075,7 +1075,7 @@ AppsKey & ]::
     ; From:  https://superuser.com/a/1050763
     ;
     ; ------------------------------------------------------------
-    MsgBox(
+    MsgBox("
     (LTrim
       xpos = %xpos%
       ypos = %ypos%
@@ -1088,7 +1088,7 @@ AppsKey & ]::
       DpiScalingVer = %DpiScalingVer%
       Win8DpiScaling = %Win8DpiScaling%
       LogPixels = %LogPixels%
-    ))
+    )")
   }
   Return
 }
@@ -1757,11 +1757,11 @@ LShift & RShift::
 ;   WinTitle_Postman=Postman
 ;   ; - -
 ;   if ((!FileExist(GIT_REPO)) || (!InStr(FileExist(GIT_REPO), "D"))) {
-;     MsgBox(
+;     MsgBox("
 ;     (LTrim
 ;       Error: Required directory not-found:
 ;       %GIT_REPO%
-;     ))
+;     )")
 ;   } Else {
 ;     ; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
 ;     Increment_Left := -7
@@ -2588,13 +2588,13 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
   If (Obj_EventTriggers[A_GuiEvent]) {
     LV_GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
     LV_GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
-    MsgBox(4, %A_ScriptName%,
+    MsgBox(4, %A_ScriptName%,"
     (LTrim
       Value selected:
       %ValSelected%
 
       Copy this value to the clipboard?
-    ))
+    )")
     If (A_MsgBoxResult = "Yes") {
       Clipboard := ValSelected
     }
@@ -3330,7 +3330,7 @@ PrintEnv() {
   ; KnownWinEnvVars :=
 
   ; https://lexikos.github.io/v2/docs/Variables.htm#CoordMode
-  Msgbox(
+  Msgbox("
   (LTrim
   ----------------------------- AHK Env-Vars -----------------------------
 
@@ -3411,7 +3411,7 @@ PrintEnv() {
   80 - Monitor_Count :=	%Monitor_Count%
 
   --------------------------------------------------------------------------------------------
-  ))
+  )")
 
   ; Note: For some reason, adding newlines to MsgBox makes it not wrap text
 
@@ -3473,10 +3473,10 @@ RemoveToolTip() {
 RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   global DebugMode
   If (DebugMode == 1) {
-    TrayTip(AHK,
+    TrayTip(AHK,"
     (LTrim
       Opening NON-Admin version of Exe: "%Execute%"...
-    )) ; Toast Notification
+    )") ; Toast Notification
   }
   Semicolon := ";"
   Add_Args := ""

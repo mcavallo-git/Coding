@@ -677,7 +677,7 @@ Pause::
   If (FileExist(FileToPaste_Legend)) {
     If (FileExist(ExeToRequire_Legend)) {
       ; Get required/whitelisted exe fullpath to match active against
-      FileRead, ExeToRequire_Fullpath, %ExeToRequire_Legend%
+      FileRead ExeToRequire_Fullpath, %ExeToRequire_Legend%
       Win_fullpath := WinGetProcessPath("A")
       If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == Win_fullpath)) {
         ; Exe path-matching succeeded
@@ -728,8 +728,8 @@ Pause::
       ; VarSetStrCapacity(&ExeToRequire_Drivename,0)      ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
     }
     ; Paste the contents of target file
-    FileRead, FileToPaste_Contents, %FileToPaste_Legend%
-    SendInput, %FileToPaste_Contents%
+    FileRead FileToPaste_Contents, %FileToPaste_Legend%
+    SendInput %FileToPaste_Contents%
   }
   ; Free variables from memory to avoid caching of secrets or large files  -  https://www.autohotkey.com/docs/commands/VarSetCapacity.htm
   VarSetCapacity(FileToPaste_Contents,0)

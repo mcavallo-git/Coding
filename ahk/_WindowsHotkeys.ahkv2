@@ -1595,24 +1595,24 @@ LShift & RShift::
 ;
 ; #j::
 ;   ; - -
-;   SG_REPO=%USERPROFILE%/Documents/GitHub/supplier_gateway
+;   GIT_REPO=%USERPROFILE%/Documents/GitHub/repo_name
 ;   ; - -
 ;   POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
 ;   GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
 ;   ; - -
-;   SG_BUILD_SCRIPT=%SG_REPO%/build/_start_frontend.sh
-;   SG_BUILD_API_LNK=%SG_REPO%/_start_server_api.lnk
-;   SG_BUILD_PM_LNK=%SG_REPO%/_start_server_pm.lnk
-;   SG_BUILD_SG_LNK=%SG_REPO%/_start_server_sg.lnk
+;   SG_BUILD_SCRIPT=%GIT_REPO%/build/_start_frontend.sh
+;   SG_BUILD_API_LNK=%GIT_REPO%/_start_server_api.lnk
+;   SG_BUILD_PM_LNK=%GIT_REPO%/_start_server_pm.lnk
+;   SG_BUILD_SG_LNK=%GIT_REPO%/_start_server_sg.lnk
 ;   ; - -
 ;   WinTitle_NodeJS=Supplier Gateway (localhost)
 ;   WinTitle_Postman=Postman
 ;   ; - -
-;   if ((!FileExist(SG_REPO)) || (!InStr(FileExist(SG_REPO), "D"))) {
+;   if ((!FileExist(GIT_REPO)) || (!InStr(FileExist(GIT_REPO), "D"))) {
 ;     MsgBox,
 ;     (LTrim
 ;       Error: Required directory not-found:
-;       %SG_REPO%
+;       %GIT_REPO%
 ;     )
 ;   } Else {
 ;     ; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
@@ -1673,9 +1673,9 @@ LShift & RShift::
 ;     {
 ;       GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/repo_name/build/_start_frontend.sh rest-api start-localhost;"
 ;       GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/repo_name/build/_start_frontend.sh project-manager start-localhost;"
-;       Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %SG_REPO%
-;       ; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %SG_REPO%
-;       ; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%
+;       Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %GIT_REPO%
+;       ; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %GIT_REPO%
+;       ; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %GIT_REPO%
 ;     }
 ;     ;
 ;     ; Wait until the script(s)/program(s) start before moving them around

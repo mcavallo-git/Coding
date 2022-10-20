@@ -3293,8 +3293,8 @@ CustomMsgBox_PasteClipboard_TextOrBinary() {
   }
   SetTimer(%A_ThisFunc%,"Off")
   WinActivate
-  ControlSetText Button1, &Text
-  ControlSetText Button2, &Binary
+  ControlSetText "Text", "Button1"
+  ControlSetText "Binary", "Button2"
   Return
 }
 
@@ -5194,9 +5194,9 @@ BrightnessSetter_new() {
 ;   }
 ;   SetTimer(%A_ThisFunc%,"Off")
 ;   WinActivate
-;   ControlSetText Button1, &LEFT_BUTTON
-;   ControlSetText Button2, &CENTER_BUTTON
-;   ControlSetText Button3, &RIGHT_BUTTON
+;   ControlSetText "LEFT_BUTTON", "Button1"
+;   ControlSetText "CENTER_BUTTON", "Button2"
+;   ControlSetText "RIGHT_BUTTON", "Button3"
 ;   Return
 ; }
 ;

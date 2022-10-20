@@ -123,7 +123,7 @@ If (FileExist(TrayIcon_Default)) {
   Reload  ; Reload this script
   Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
   If (DebugMode == 1) {
-    MsgBox(4,, "The script could not be reloaded. Would you like to open it for editing?")
+    A_MsgBoxResult := MsgBox(4,, "The script could not be reloaded. Would you like to open it for editing?")
     If (A_MsgBoxResult = "Yes") {
       Edit
     }
@@ -1654,7 +1654,7 @@ WheelRight::
       } Else {
         ; If EFS does NOT exist, offer user the URL to download it
         exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
-        MsgBox(4, "Download EFS?", "Effective File Search not found`n`nDownload EFS Now?")
+        A_MsgBoxResult := MsgBox(4, "Download EFS?", "Effective File Search not found`n`nDownload EFS Now?")
         If (A_MsgBoxResult = "Yes") {
           Run(chrome.exe %exe_download_url%)
         }
@@ -2604,7 +2604,7 @@ GetWindowSpecs_OnDoubleClick() {
 
   LV.GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
   LV.GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
-  MsgBox(4, %A_ScriptName%,"
+  A_MsgBoxResult := MsgBox(4, %A_ScriptName%,"
   (LTrim
     Value selected:
     %ValSelected%
@@ -3262,7 +3262,7 @@ PasteClipboardAsText(StringToPaste:="") {
 ;
 PasteClipboard_TextOrBinary() {
   SetTimer(CustomMsgBox_PasteClipboard_TextOrBinary,50)
-  MsgBox(3, "Text or Binary", "Paste the Clipboard as Text or Binary?")
+  A_MsgBoxResult := MsgBox(3, "Text or Binary", "Paste the Clipboard as Text or Binary?")
   If (A_MsgBoxResult = "Yes") {
     ; Paste the Text version of the Clipboard
     PasteClipboardAsText()
@@ -3674,7 +3674,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
   If (DoConfirmationPopup==0) {
     BlockAction := 0
   } Else {
-    MsgBox(4,,"Generate Random String (overwrites clipboard contents)?")
+    A_MsgBoxResult := MsgBox(4,,"Generate Random String (overwrites clipboard contents)?")
     If (A_MsgBoxResult = "Yes") {
       BlockAction := 0
     }
@@ -4229,14 +4229,14 @@ Xbox_ExportCaptures() {
   ; ------------------------------
 
   ; Download Game clips?
-  MsgBox(3, A_ScriptName " - " A_ThisFunc, "Download Game Clips?")
+  A_MsgBoxResult := MsgBox(3, A_ScriptName " - " A_ThisFunc, "Download Game Clips?")
   If (A_MsgBoxResult = "Yes") {
     Download_GameClips := 1
   }
 
   ; Download Screenshots ?
   If (A_MsgBoxResult != "Cancel") {
-    MsgBox(3, A_ScriptName " - " A_ThisFunc, "Download Screenshots?")
+    A_MsgBoxResult := MsgBox(3, A_ScriptName " - " A_ThisFunc, "Download Screenshots?")
     If (A_MsgBoxResult = "Yes") {
       Download_Screenshots := 1
     }
@@ -4683,7 +4683,7 @@ Youtube_EditDraft_Submit() {
     Echo_Tooltip := Echo_Tooltip LF A_Space
     Echo_Tooltip := Echo_Tooltip LF A_Space
     Echo_Tooltip := Echo_Tooltip LF A_Space A_Space A_Space "Has this filter been applied?"
-    MsgBox(4,, %Echo_Tooltip%)
+    A_MsgBoxResult := MsgBox(4,, %Echo_Tooltip%)
     If (A_MsgBoxResult = "Yes") {
       Sleep 100
       ; Move the window to specified x/y position and resize it to have specified width/height
@@ -5092,7 +5092,7 @@ BrightnessSetter_new() {
 ; ...::
   ; WinGetActiveStats, WinTitle, Width, Height, X, Y
   ; WinGetText, WinText, A
-  ; MsgBox(4, , WinTitle `n%WinTitle%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, 10)  ; 10-second timeout.
+  ; A_MsgBoxResult := MsgBox(4, , WinTitle `n%WinTitle%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, 10)  ; 10-second timeout.
   ; If (A_MsgBoxResult = "Yes")
     ; Return
   ; If (A_MsgBoxResult = "No")
@@ -5160,7 +5160,7 @@ BrightnessSetter_new() {
 ;   SetTimer(CustomMsgBox_DemoCustomPopups,50)
 ;   ; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
 ;
-;   MsgBox(3, Popup_MsgBox_WindowTitle, "Popup MsgBox Question? or Statement!")
+;   A_MsgBoxResult := MsgBox(3, Popup_MsgBox_WindowTitle, "Popup MsgBox Question? or Statement!")
 ;
 ;   If (A_MsgBoxResult = "Yes") {
 ;     TrayTip("AHK",( "Leftmost Button Selected" ))  ; Toast Notification

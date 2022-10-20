@@ -601,8 +601,7 @@ Pause::
 #g::
 #w::
   Global DebugMode
-  KeysPressed := A_ThisHotkey
-  FileToPaste_Legend := EnvGet("USERPROFILE") "\.ahk\" KeysPressed
+  FileToPaste_Legend := EnvGet("USERPROFILE") "\.ahk\" A_ThisHotkey
   ExeToRequire_Legend := FileToPaste_Legend "-exe"
   FileToPaste_Contents := ""
   ExeToRequire_Fullpath := ""
@@ -680,7 +679,8 @@ Pause::
 #d::     ;  20200725T080521              (Base Case + WinKey + D)
 !#d::    ;  20200725T080550-0500         (Alt + WinKey + D)
 ^#d::    ;  2020-07-25T08:05:55          (Ctrl + WinKey + D)
-+#d::    ;  20200725T080557.608027       (Shift + WinKey + D)
+#+d::    ;  20200725T080557.608027       (Shift + WinKey + D)
+; +#d::    ;  20200725T080557.608027       (Shift + WinKey + D)
 !^#d::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + WinKey + D)
 +^#d::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + WinKey + D)
 +!#d::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
@@ -704,28 +704,34 @@ Pause::
   HMS_Separator := RFC3339_HourMinuteSecond_Separator
   Microseconds_Separator := RFC3339_DecimalSeconds_Separator
   DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+  SelectedFormat := ""
   Add_Microseconds := 0
   Add_Timezone := 0
   ; ------------------------------
-  KeysPressed := A_ThisHotkey
-  If (InStr(KeysPressed, "+") = 1) {  ; Shift + [...]
+  ShiftPressed := InStr(A_ThisHotkey,"+")
+  If (ShiftPressed != 0) {
     Add_Microseconds := 1
-    KeysPressed := StrReplace(KeysPressed,"+","")
   }
-  If (InStr(KeysPressed, "!") = 1) {  ; Alt + [...]
+  AltPressed := InStr(A_ThisHotkey,"!")
+  If (AltPressed != 0) {
     Add_Timezone := 1
-    KeysPressed := StrReplace(KeysPressed,"!","")
   }
-  If (KeysPressed = "#D") {  ; WinKey + D
+  CtrlPressed := InStr(A_ThisHotkey,"^")
+  If (CtrlPressed != 0) {
+    Add_Timezone := 1
+  }
     ; Output a "filename-friendly" timestamp
     ;  |--> Generally-speaking, only allow characters which are alphanumeric "[a-zA-Z0-9]", dashes "-", plus-signs "+", and periods "."
+    SelectedFormat := "RFC3339 Filename w/o Separators (filename)"
     YMD_Separator := ""
     HMS_Separator := ""
     DT_Field_Separator := RFC3339_DateAndTimeField_Separator
-  } Else If (KeysPressed = "^#D") {  ; Ctrl + WinKey + D
+  } Else If (A_ThisHotkey = "^#d") {  ; Ctrl + WinKey + D
     ; Default to RFC 3339 format
+    SelectedFormat := "RFC3339"
   } Else { ; Fallthrough
     ; Default to RFC 3339 format
+    SelectedFormat := "RFC3339"
   }
 
   ; Get the current timestamp
@@ -742,18 +748,22 @@ Pause::
     GetTimezoneOffset(Current_TZ, HMS_Separator)
     SendKeys := SendKeys Current_TZ
   }
-  If (DebugMode == 1) {
+  ; If (DebugMode = 1) {
     TooltipOutput := ""
     TooltipOutput := ( TooltipOutput "`n" "A_ThisHotkey = [" A_ThisHotkey "]" )
-    TooltipOutput := ( TooltipOutput "`n" "KeysPressed = [" KeysPressed "]" )
+    TooltipOutput := ( TooltipOutput "`n" )
+    TooltipOutput := ( TooltipOutput "`n" "ShiftPressed = [" ShiftPressed "]" )
+    TooltipOutput := ( TooltipOutput "`n" "AltPressed = [" AltPressed "]" )
     TooltipOutput := ( TooltipOutput "`n" )
     TooltipOutput := ( TooltipOutput "`n" "Add_Microseconds = [" Add_Microseconds "]" )
     TooltipOutput := ( TooltipOutput "`n" "Add_Timezone = [" Add_Timezone "]" )
     TooltipOutput := ( TooltipOutput "`n" )
+    TooltipOutput := ( TooltipOutput "`n" "SelectedFormat = [" SelectedFormat "]" )
+    TooltipOutput := ( TooltipOutput "`n" )
     TooltipOutput := ( TooltipOutput "`n" "SendKeys = [" SendKeys "]" )
     Tooltip, %TooltipOutput%
     ClearTooltip(20000)
-  }
+  ; }
   Send(SendKeys)
   Return
 

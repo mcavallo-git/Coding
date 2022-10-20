@@ -178,7 +178,7 @@ ScrollLock::
 Pause::
 {
   Send !{F10}
-  TrayTip(AHK, % ( "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer" ))  ; Toast Notification
+  TrayTip(AHK, ( "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer" ))  ; Toast Notification
   Return
 }
 
@@ -191,7 +191,7 @@ Pause::
 +Pause::
 {
   Fullpath_OpenInExplorer := ( EnvGet("USERPROFILE") "\Videos" )
-  TrayTip(AHK, % ( "Opening Directory [ " Fullpath_OpenInExplorer " ]" ))  ; Toast Notification
+  TrayTip(AHK, ( "Opening Directory [ " Fullpath_OpenInExplorer " ]" ))  ; Toast Notification
   Run "%Fullpath_OpenInExplorer%"  ; Open the directory
   Return
 }
@@ -227,7 +227,7 @@ Pause::
     SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
     WinGetTitle, WinTitle, A
     If (DebugMode == 1) {
-      TrayTip(AHK, % ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" ))  ; Toast Notification
+      TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" ))  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
@@ -253,7 +253,7 @@ Pause::
     SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
     WinGetTitle, WinTitle, A
     If (DebugMode == 1) {
-      TrayTip(AHK, % ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" ))  ; Toast Notification
+      TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" ))  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
@@ -279,7 +279,7 @@ Pause::
     SetTitleMatchMode, 3  ; A window's title must exactly match WinTitle to be a match
     WinGetTitle, WinTitle, A
     If (DebugMode == 1) {
-      TrayTip(AHK, % ( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" ))  ; Toast Notification
+      TrayTip(AHK, ( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" ))  ; Toast Notification
     }
     ; Click the "Redo" button
     xpos := 187
@@ -397,7 +397,7 @@ Pause::
 ; Joy31::
 ; Joy32::
 ;   ; If (DebugMode == 1) {
-;   Tooltip, % ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
+;   Tooltip, ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
 ;   ; }
 ;   Return
 
@@ -644,30 +644,30 @@ Pause::
         ; Exe path-matching succeeded
         DoPaste := 1
         If (DebugMode == 1) {
-          TrayTip(AHK, % ( "Info - Allowing paste" "`n" "Win_fullpath == '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
+          TrayTip(AHK, ( "Info - Allowing paste" "`n" "Win_fullpath == '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
         }
       } Else {
         ; Exe path-matching failed
         DoPaste := 0
         If (DebugMode == 1) {
-          TrayTip(AHK, % ( "Error (invalid exe) - Blocking paste" "`n" "Win_fullpath != '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
+          TrayTip(AHK, ( "Error (invalid exe) - Blocking paste" "`n" "Win_fullpath != '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
         } Else {
           ; !! Always show at-least the shortened form of this error !!
-          TrayTip(AHK, % ( "Error (invalid exe) - Blocking paste" ))  ; Toast Notification
+          TrayTip(AHK, ( "Error (invalid exe) - Blocking paste" ))  ; Toast Notification
         }
       }
     } Else {
       ; Skip matching on the active window's executable fullpath
       DoPaste := 1
       If (DebugMode == 1) {
-        TrayTip(AHK, % ( "Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])" ))  ; Toast Notification
+        TrayTip(AHK, ( "Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])" ))  ; Toast Notification
       }
     }
   } Else {
     ; Paste file not found
     DoPaste := 0
     If (DebugMode == 1) {
-        TrayTip(AHK, % ( "Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]" ))  ; Toast Notification
+        TrayTip(AHK, ( "Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]" ))  ; Toast Notification
     }
   }
   If (DoPaste == 1) {
@@ -823,7 +823,7 @@ Pause::
 ;
 #F2::
   GetKeyCodes := A_ScriptDir "\GetKeyCodes.ahk"
-  Run %GetKeyCodes%
+  Run(GetKeyCodes)
   Return
 
 
@@ -855,7 +855,7 @@ Pause::
 ;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
 ;
 #r::
-  Run % (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
+  Run (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
   Return
 
 
@@ -1128,7 +1128,7 @@ AppsKey & l::
 ;   ACTION:  Opens directory pointed to by Windows' USERPROFILE environment variable
 ;
 #e::
-  Run % EnvGet("USERPROFILE")
+  Run (EnvGet("USERPROFILE"))
   Return
 
 
@@ -1222,7 +1222,7 @@ AppsKey & XButton2::
   Ctrl & Up::
   Shift & Up::
     VolDelta := 2
-    SoundSet , % ( "+" VolDelta )
+    SoundSet , ( "+" VolDelta )
     ShowVolumeLevel()
     Return
   ;
@@ -1232,7 +1232,7 @@ AppsKey & XButton2::
   Ctrl & Down::
   Shift & Down::
     VolDelta := 2
-    SoundSet , % ( "-" VolDelta )
+    SoundSet , ( "-" VolDelta )
     ShowVolumeLevel()
     Return
   ;
@@ -1566,9 +1566,9 @@ LShift & RShift::
 ;
 #8::
   Random, RandomSleep_15s_to_20s, 15000, 20000
-  TrayTip(AHK, % ( "Sleeping for [" RandomSleep_15s_to_20s "] ms" ))  ; Toast Notification
+  TrayTip(AHK, ( "Sleeping for [" RandomSleep_15s_to_20s "] ms" ))  ; Toast Notification
   Sleep %RandomSleep_15s_to_20s%
-  TrayTip(AHK, % ( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" ))  ; Toast Notification
+  TrayTip(AHK, ( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" ))  ; Toast Notification
   Return
 
 
@@ -1996,7 +1996,7 @@ Duplicate_Keypress() {
     If (DebugMode == 1) {
       TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
     }
-    ToolTip, % ( TooltipOutput )
+    ToolTip, ( TooltipOutput )
     ; Get the key to duplicate from the user
     Input, KeyPressed, "L1 T1"
     If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
@@ -2005,7 +2005,7 @@ Duplicate_Keypress() {
   }
   TooltipOutput := ( "Spamming the [ " KeyPressed " ] key" )
   Loop {
-    ToolTip, % ( TooltipOutput )
+    ToolTip, ( TooltipOutput )
     Send % KeyPressed
     Sleep 10
   }
@@ -2144,9 +2144,9 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
   }
   MinimumCharacters_NeededForCharTypes := ( EnableNumbers + EnableLowercaseLetters + EnableUppercaseLetters + EnableSpecialCharacters )
   If ( DesiredStringLength < MinimumCharacters_NeededForCharTypes ) {
-    MsgBox(0, A_ThisFunc, % ( "Error - String must be at least " MinimumCharacters_NeededForCharTypes " characters long (to meet character type requirements)" ))
+    MsgBox(0, A_ThisFunc, ( "Error - String must be at least " MinimumCharacters_NeededForCharTypes " characters long (to meet character type requirements)" ))
   } Else If (StrLen(AllowedCharacters) <= 0) {
-    MsgBox(0, A_ThisFunc, % ( "Error - No character types were selected (unable to generate a random string from nothing)" ))
+    MsgBox(0, A_ThisFunc, ( "Error - No character types were selected (unable to generate a random string from nothing)" ))
   } Else {
     ; Enforce that at least 1 of each allowed character type appears in the string
     Pos_ForceNum := -1
@@ -2165,27 +2165,27 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
     ; Force at least one number (if allowed in call)
     If (EnableNumbers == 1) {
       While ((Pos_ForceNum == -1) || (Pos_ForceNum==Pos_ForceLower) || (Pos_ForceNum==Pos_ForceUpper) || (Pos_ForceNum==Pos_ForceSpecial)) {
-        Random, Pos_ForceNum, 0, % (DesiredStringLength-1)
+        Random, Pos_ForceNum, 0, (DesiredStringLength-1)
       }
     }
     ; Force at least one lowercase letter (if allowed in call)
     If (EnableLowercaseLetters == 1) {
       While ((Pos_ForceLower == -1) || (Pos_ForceLower==Pos_ForceNum) || (Pos_ForceLower==Pos_ForceUpper) || (Pos_ForceLower==Pos_ForceSpecial)) {
-        Random, Pos_ForceLower, 0, % (DesiredStringLength-1)
+        Random, Pos_ForceLower, 0, (DesiredStringLength-1)
       }
     }
     ; Force at least one uppercase letter (if allowed in call)
     Pos_ForceUpper := -1
     If (EnableUppercaseLetters == 1) {
       While ((Pos_ForceUpper == -1) || (Pos_ForceUpper==Pos_ForceNum) || (Pos_ForceUpper==Pos_ForceLower) || (Pos_ForceUpper==Pos_ForceSpecial)) {
-        Random, Pos_ForceUpper, 0, % (DesiredStringLength-1)
+        Random, Pos_ForceUpper, 0, (DesiredStringLength-1)
       }
     }
     ; Force at least one special character (if allowed in call)
     Pos_ForceSpecial := -1
     If (EnableSpecialCharacters == 1) {
       While ((Pos_ForceSpecial == -1) || (Pos_ForceSpecial==Pos_ForceNum) || (Pos_ForceSpecial==Pos_ForceLower) || (Pos_ForceSpecial==Pos_ForceUpper)) {
-        Random, Pos_ForceSpecial, 0, % (DesiredStringLength-1)
+        Random, Pos_ForceSpecial, 0, (DesiredStringLength-1)
       }
     }
     ; Build a random string
@@ -2206,7 +2206,7 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
           EachLoop_AllowedChars := AllSpecial  ; Force next char to be a special character
         }
         ; Generate a random index based off of the allowed characters' string as a character array, and use that for the 'random' component
-        Random, RandomCharacterIndex, 1, % ( StrLen(EachLoop_AllowedChars) )
+        Random, RandomCharacterIndex, 1, ( StrLen(EachLoop_AllowedChars) )
         NextChar := SubStr(EachLoop_AllowedChars, RandomCharacterIndex, 1)
         If (NextChar != PreviousChar) {  ; Only append the next character if its not a repeat of the last character
           ReturnedString .= NextChar
@@ -2860,11 +2860,11 @@ Open_ControlPanel_NetworkConnections() {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   If (!WinExist(WinTitle)) {
     If (DebugMode == 1) {
-      TrayTip(AHK, % ( "Opening '" WinTitle "'" ))  ; Toast Notification
+      TrayTip(AHK, ( "Opening '" WinTitle "'" ))  ; Toast Notification
     }
-    ; Run % (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
-    ; Run % (EnvGet("WINDIR") "\System32\ncpa.cpl")
-    Run % (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
+    ; Run (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
+    ; Run (EnvGet("WINDIR") "\System32\ncpa.cpl")
+    Run (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
     WinWait, %WinTitle%,, 10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   WinActivate, %WinTitle%  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
@@ -2902,9 +2902,9 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
   }
   If (!WinExist(WinTitle)) {
     If (DebugMode == 1) {
-      TrayTip(AHK, % ( "Opening '" WinTitle "' > '" Tab_Desc "'" ))  ; Toast Notification
+      TrayTip(AHK, ( "Opening '" WinTitle "' > '" Tab_Desc "'" ))  ; Toast Notification
     }
-    Run % (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
+    Run (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
     ; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
     ; Run control.exe /name Microsoft.Sound
     WinWait, %WinTitle%,, 10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
@@ -3567,7 +3567,7 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
     MouseGetPos, MouseX_Client, MouseY_Client
     Tooltip_Coords_Client := "x" MouseX_Client "  y" MouseY_Client "  (Client)"
 
-    Tooltip, % ( Tooltip_Coords_Screen "`n" Tooltip_Coords_Window "`n" Tooltip_Coords_Client )
+    Tooltip, ( Tooltip_Coords_Screen "`n" Tooltip_Coords_Window "`n" Tooltip_Coords_Client )
     Sleep % ( PollDuration_ms )
 
   }
@@ -3585,7 +3585,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
   CoordMode, Pixel, Screen
   FollowDuration_ms := (1000 * FollowDuration_Seconds)
   If (DebugMode == 1) {
-    TrayTip(AHK, % ( DebugString ))  ; Toast Notification
+    TrayTip(AHK, ( DebugString ))  ; Toast Notification
     OutputFile := A_Desktop "\rgblogging.txt"
     Logfile := FileOpen(OutputFile, "w")
     If (FileExist("%OutputFile%")) {
@@ -4020,7 +4020,7 @@ Win_ToggleRestoreMaximize(WinTitle:="A") {
     }
   }
   If (DebugMode == 1) {
-    TrayTip(AHK, % ( DebugString ))  ; Toast Notification
+    TrayTip(AHK, ( DebugString ))  ; Toast Notification
   }
   Return
 }
@@ -4131,7 +4131,7 @@ Xbox_ExportCaptures() {
             ; Resizing 'Xbox Console Companion' Window
             ;
             Tooltip_NewStats := ( "Prepping Xbox window..." )
-            Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+            Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id %Win_ahk_id%")
             Sleep 500
             If (Win_size_state != "restored") {
@@ -4160,7 +4160,7 @@ Xbox_ExportCaptures() {
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadCaptures)/1000), 1)
               Tooltip_NewStats := ( "Loading 'Captures' (tab): " WaitDuration_Seconds "s ..." )
-              Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+              Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
                 WinActivate("ahk_id %Win_ahk_id%")
                 ;
@@ -4169,7 +4169,7 @@ Xbox_ExportCaptures() {
                 ;
                 If (PixelSearch(Px, Py, 61, 140, 280, 140, Color_Loaded_CapturesPage, 0)) {
                   Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
-                  Tooltip, % ( Tooltip_StartupJobs ), 1, 1
+                  Tooltip, ( Tooltip_StartupJobs ), 1, 1
                   Sleep 500
                   Break
                 } Else {
@@ -4190,7 +4190,7 @@ Xbox_ExportCaptures() {
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_LoadXboxLive)/1000), 1)
               Tooltip_NewStats := ( "Loading 'On Xbox Live' (tab): " WaitDuration_Seconds "s ..." )
-              Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+              Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > 0.5 ) {  ; Wait a minimum short-duration per download
                 ;
                 ; Check the color of each pixel in a 2-D horizontal line which passes over the "By date" and "Everything" dropdown texts
@@ -4199,7 +4199,7 @@ Xbox_ExportCaptures() {
                 WinActivate("ahk_id %Win_ahk_id%")
                 If ( (PixelSearch(Px, Py, 61, 180, 280, 180, Color_Loaded_OnXboxLiveTab, 0)) || (WaitDuration_Seconds > 20) ) {
                   Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
-                  Tooltip, % ( Tooltip_StartupJobs ), 1, 1
+                  Tooltip, ( Tooltip_StartupJobs ), 1, 1
                   Sleep 500
                   Break
                 } Else {
@@ -4214,7 +4214,7 @@ Xbox_ExportCaptures() {
               ; Loading 'Game clips' (filter)...
               ;
               Tooltip_NewStats := ( "Showing 'Game clips' (filter) ..." )
-              Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+              Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               WinActivate("ahk_id %Win_ahk_id%")
               MouseClick, Left, 221, 181  ; Show 'Game clips', only - (under the "Everything v" dropdown/filter - second option from the top)
               Sleep 500
@@ -4230,7 +4230,7 @@ Xbox_ExportCaptures() {
               WinActivate("ahk_id %Win_ahk_id%")
               Send {Enter}
               Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
-              Tooltip, % ( Tooltip_StartupJobs ), 1, 1
+              Tooltip, ( Tooltip_StartupJobs ), 1, 1
               Sleep 1000
             } Else {
               ; ------------------------------
@@ -4238,7 +4238,7 @@ Xbox_ExportCaptures() {
               ; Loading 'Screenshots' (filter)...
               ;
               Tooltip_NewStats := ( "Showing 'Screenshots' (filter) ..." )
-              Tooltip, % ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
+              Tooltip, ( Tooltip_StartupJobs "`n" Tooltip_NewStats ), 1, 1
               WinActivate("ahk_id %Win_ahk_id%")
               MouseClick, Left, 221, 181  ; Show 'Screeshots', only - (under the "Everything v" dropdown/filter - bottom option)
               Sleep 500
@@ -4251,7 +4251,7 @@ Xbox_ExportCaptures() {
               WinActivate("ahk_id %Win_ahk_id%")
               Send {Enter}
               Tooltip_StartupJobs := ( Tooltip_StartupJobs "`n" Tooltip_NewStats "  Done" )
-              Tooltip, % ( Tooltip_StartupJobs ), 1, 1
+              Tooltip, ( Tooltip_StartupJobs ), 1, 1
               Sleep 1000
             }
           }
@@ -4289,7 +4289,7 @@ Xbox_ExportCaptures() {
             Sleep 100
             WaitDuration_Seconds := Round(((A_TickCount-TickCount_FileExists)/1000), 1)
             Tooltip_NewStats := ( "File-check duration: " WaitDuration_Seconds "s ..." )
-            Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+            Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
               WinActivate("ahk_id %Win_ahk_id%")
               ;
@@ -4299,7 +4299,7 @@ Xbox_ExportCaptures() {
               If ( PixelSearch(Px, Py, 165, 280, 355, 280, 0xFFFFFF, 43) ) {
                 NextDownloadExists_Passed := 1
                 Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
-                Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
+                Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
                 Break
               } Else {
                 If (WaitDuration_Seconds > 10) {
@@ -4308,7 +4308,7 @@ Xbox_ExportCaptures() {
                   ;
                   NextDownloadExists_Passed := 0
                   Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Not found" )
-                  Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
+                  Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
                   Break
                 } Else {
                   Continue
@@ -4326,7 +4326,7 @@ Xbox_ExportCaptures() {
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartBuffer)/1000), 1)
               Tooltip_NewStats := ( "Buffer duration: " WaitDuration_Seconds "s ..." )
-              Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+              Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
                 ; Check the thumbnail's 4 corners to see if they all match the gray buffering (loading) overlay's color
                 WinActivate("ahk_id %Win_ahk_id%")
@@ -4341,7 +4341,7 @@ Xbox_ExportCaptures() {
                 } Else {
                   Buffer_Passed := 1
                   Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
-                  Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
+                  Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
                   Sleep 1000
                   Break
                 }
@@ -4367,7 +4367,7 @@ Xbox_ExportCaptures() {
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
               Tooltip_NewStats := ( "Download duration: " WaitDuration_Seconds "s ..." )
-              Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+              Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
                 MouseMove, 0, 0
                 ; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
@@ -4376,7 +4376,7 @@ Xbox_ExportCaptures() {
                 If (Color_DL_Button_LeftSide == Color_DL_Button_NotDownloading) {
                   Download_Passed := 1
                   Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
-                  Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
+                  Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
                   Sleep 1500
                   Break
                 }
@@ -4395,17 +4395,17 @@ Xbox_ExportCaptures() {
               DeleteBtn_YPos_Center := 618  ; Screenshots
             }
             Tooltip_NewStats := "Deleting ..."
-            Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+            Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id %Win_ahk_id%")
             MouseClick, Left, %DeleteBtn_XPos_TrashCan%, %DeleteBtn_YPos_Center%  ; Click "Delete" once download has finished
             Sleep 1000
             Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
-            Tooltip, % ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
+            Tooltip, ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id %Win_ahk_id%")
             MouseClick, Left, 519, 449  ; Confirm file-deletion (via "OK" button on popup)
             Sleep 500
             Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats "  Done" )
-            Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
+            Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
             Sleep 1500
             Count_FilesProcessed := Count_FilesProcessed + 1
           } Else {
@@ -4421,7 +4421,7 @@ Xbox_ExportCaptures() {
               }
             }
             Tooltip_EachFile_Stats := ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats )
-            Tooltip, % ( Tooltip_EachFile_Stats ), 1, 1
+            Tooltip, ( Tooltip_EachFile_Stats ), 1, 1
             Sleep 2500
             Break
           }
@@ -4434,7 +4434,7 @@ Xbox_ExportCaptures() {
         Tooltip_Closer_Stats := Tooltip_EachFile_Stats "`n" "Net Files Processed: " Count_FilesProcessed
         Total_RuntimeDuration_Seconds := Round(((A_TickCount-TickCount_RuntimeStart)/1000), 1)
         Tooltip_Closer_Stats := Tooltip_EachFile_Stats "`n" "Net Runtime Duration: " Total_RuntimeDuration_Seconds "s"
-        Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
+        Tooltip, ( Tooltip_Closer_Stats ), 1, 1
         Sleep 2000
       }
     }
@@ -4457,16 +4457,16 @@ Xbox_ExportCaptures() {
       ; Run the timestamping script (renames files to their basename plus their metadata created-on date)
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Count_FilesInOutputDir = [ " Count_FilesInOutputDir " ]"
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Running metadata-timestamper script..."
-      Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
+      Tooltip, ( Tooltip_Closer_Stats ), 1, 1
       Run, WSL /bin/bash -c "sync_cloud_infrastructure; echo ''; bulk_rename_based_on_media_creation_date --dry-run 0;"
       Sleep 2000
       ; Open the output videos directory
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
-      Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
+      Tooltip, ( Tooltip_Closer_Stats ), 1, 1
       Run "%Fullpath_Output_XboxCaptures%"
       Sleep 2000
       Tooltip_Closer_Stats := ( Tooltip_Closer_Stats "`n" "Runtime complete for '" Download_MediaType "'" )
-      Tooltip, % ( Tooltip_Closer_Stats ), 1, 1
+      Tooltip, ( Tooltip_Closer_Stats ), 1, 1
       Sleep 2000
     }
     ClearTooltip(10000)
@@ -4513,13 +4513,13 @@ Youtube_EditDraft_Submit() {
       WinMove(WinTitle,, -7, 0, 1734, 1407)
       Loop {
         Tooltip_Header := "Chrome - Click 'Refresh'"
-        Tooltip, % ( Tooltip_Header ), 1, 112
+        Tooltip, ( Tooltip_Header ), 1, 112
         xpos := 94
         ypos := 61
         ControlClick, x%xpos% y%ypos%, %WinTitle%
         Sleep 2000
         Tooltip_Header := "Youtube - Click 'Edit Draft'"
-        Tooltip, % ( Tooltip_Header ), 1, 112
+        Tooltip, ( Tooltip_Header ), 1, 112
         xpos := 1601
         ypos := 414
         xpos_rightedge := xpos + 20
@@ -4532,7 +4532,7 @@ Youtube_EditDraft_Submit() {
           Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-          Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
+          Tooltip, ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
           If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
             Break
           }
@@ -4541,7 +4541,7 @@ Youtube_EditDraft_Submit() {
         ControlClick, x%xpos% y%ypos%, %WinTitle%
         Sleep 100
         Tooltip_Header := "Youtube - Click 'Next' > 'Next' > 'Save'"
-        Tooltip, % ( Tooltip_Header ), 1, 112
+        Tooltip, ( Tooltip_Header ), 1, 112
         xpos := 1274
         ypos := 1313
         xpos_rightedge := xpos + 20
@@ -4555,7 +4555,7 @@ Youtube_EditDraft_Submit() {
             Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
             Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
             Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-            Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
+            Tooltip, ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 1
             If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
               Break
             }
@@ -4565,7 +4565,7 @@ Youtube_EditDraft_Submit() {
         }
         Sleep 100
         Tooltip_Header := "Youtube - Click 'Close'"
-        Tooltip, % ( Tooltip_Header ), 1, 112
+        Tooltip, ( Tooltip_Header ), 1, 112
         xpos := 1056
         ypos := 955
         xpos_rightedge := xpos + 20
@@ -4578,7 +4578,7 @@ Youtube_EditDraft_Submit() {
           Tooltip_Debug := ( Tooltip_Debug "Color_xpos_ypos=[" Color_xpos_ypos "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue1=[" PixelSearch_Blue1 "]" "`n" )
           Tooltip_Debug := ( Tooltip_Debug "PixelSearch_Blue2=[" PixelSearch_Blue2 "]" "`n" )
-          Tooltip, % ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 112
+          Tooltip, ( ( DebugMode == 1 ) ? ( Tooltip_Debug ) : ( Tooltip_Header ) ), 1, 112
           If ( PixelSearch_Blue1 || PixelSearch_Blue2 ) {
             Break
           }
@@ -4985,13 +4985,13 @@ BrightnessSetter_new() {
 ;   MsgBox(3, Popup_MsgBox_WindowTitle, "Popup MsgBox Question? or Statement!")
 ;
 ;   If (A_MsgBoxResult = "Yes") {
-;     TrayTip(AHK, % ( "Leftmost Button Selected" ))  ; Toast Notification
+;     TrayTip(AHK, ( "Leftmost Button Selected" ))  ; Toast Notification
 ;   }
 ;   If (A_MsgBoxResult = "No") {
-;     TrayTip(AHK, % ( "Center Button Selected" ))  ; Toast Notification
+;     TrayTip(AHK, ( "Center Button Selected" ))  ; Toast Notification
 ;   }
 ;   If (A_MsgBoxResult = "Cancel") {
-;     TrayTip(AHK, % ( "Rightmost Button Selected" ))  ; Toast Notification
+;     TrayTip(AHK, ( "Rightmost Button Selected" ))  ; Toast Notification
 ;   }
 ;
 ;   Return

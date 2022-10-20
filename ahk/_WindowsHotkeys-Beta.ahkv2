@@ -889,20 +889,6 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  Ctrl + WinKey + Z
-;            Shift + WinKey + Z
-;   ACTION:  Show all (current) Window Titles
-;
-^#z::
-+#z::
-{
-  ShowWindowTitles()
-  Return
-}
-
-
-; ------------------------------------------------------------
-;
 ;   HOTKEY:  WinKey + R
 ;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
 ;
@@ -1980,8 +1966,7 @@ BrowserHover() {
 ;   |--> If called with a negative [ Period ], wait [ Period ] milliseconds, executes [ Label ], then returns
 ;
 ClearSplashText(Period) {
-  Label := "RemoveSplashText"
-  SetTimer(%Label%, -%Period%)
+  SetTimer RemoveSplashText, (Period * -1)
   Return
 }
 
@@ -2085,10 +2070,7 @@ CommentCurrentLine_NoSpace() {
 DoLogging(LogText) {
   ; TIMESTAMP := FormatTime("","yyyyMMddTHHmmss")
   OutputLogfile := "C:\Users\" A_UserName "\Desktop" "\debug-logging.txt"
-  FileAppend(
-  (
-%LogText%
-  ), %OutputLogfile%)
+  FileAppend LogText, OutputLogfile
   Return
 }
 
@@ -3406,7 +3388,7 @@ PrintEnv() {
   ; Logfile_EnvVars := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME ".log"
   ; Logfile_EnvVars_Timestamp := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
   ;
-  ; FileAppend(%KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%)
+  ; FileAppend KnownWinEnvVars, Logfile_EnvVars_Timestamp
   ; Run("Notepad " Logfile_EnvVars_Timestamp)
   ;
   Return
@@ -3499,9 +3481,9 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   If (!FileExist(FullPath_RunNonAdmin_VbsScript)) {
     ; Create the VBS script's directory (if it doesn't already exist)
     If (!FileExist(FullPath_RunNonAdmin_Dirname)) {
-      DirCreate %FullPath_RunNonAdmin_Dirname%
+      DirCreate FullPath_RunNonAdmin_Dirname
     }
-    FileAppend(%VbsScript_Contents%, %FullPath_RunNonAdmin_VbsScript%)
+    FileAppend VbsScript_Contents, FullPath_RunNonAdmin_VbsScript
   }
 
   ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PowerShell_Script_Block "`"")
@@ -3942,54 +3924,6 @@ ShowVolumeLevel() {
 
 
 ;
-; ShowWindowTitles
-;   |--> Lists all window-titles (in current user's environment)
-;
-ShowWindowTitles() {
-  ; Gui WinTitles:Default
-  MyGui := Gui()
-  MyGui.Name := "WinTitles"
-
-  ; Create the ListView with two columns, Name and Size:
-  ; Gui Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
-  LV := MyGui.Add("ListView","r50 w1000",["WindowTitle"])
-  LV.OnEvent("DoubleClick", ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles)
-
-  Window := WinGetList("A")
-  Loop Window {
-    Id:=Window%A_Index%
-    WinTitle := WinGetTitle("ahk_id " Id)
-    If (WinTitle != "") {
-      LV.Add("", WinTitle)
-      Window%A_Index%:=WinTitle ;use this if you want an array
-      tList.=WinTitle "`n" ;use this if you just want the list
-    }
-  }
-
-  ; Gui Add, Text,, tList
-  ; MyGui.Add(...)
-  ; Gui Show
-  MyGui.Show()
-  ; MsgBox(tList)
-  Return
-}
-
-
-;
-; ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles
-;   |--> Sub-Function of "ShowWindowTitles()"
-;
-ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles(LV, RowNumber) {
-  ; Gui WinTitles:Default
-  MyGui := Gui()
-  MyGui.Name := "WinTitles"
-  ; Gui Destroy
-  MyGui.Destroy()
-  Return
-}
-
-
-;
 ; SpaceUp_Loop
 ;   |--> Designed for Windows Task Scheduler to quickly show open all tasks on the main page, which can then be sorted (but only for the ones that've been opened)
 ;
@@ -4071,12 +4005,12 @@ TabSpace_Loop(LoopIterations) {
 ;
 TempFile() {
   TempFile_Dirname := A_Temp "\AutoHotkey\"
-  If (!FileExist("%TempFile_Dirname%")) {
-    DirCreate "%TempFile_Dirname%"
+  If (!FileExist(TempFile_Dirname)) {
+    DirCreate TempFile_Dirname
   }
   TempFile_Basename := A_Now "." A_MSec
   TempFile_Fullpath := TempFile_Dirname TempFile_Basename
-  Return %TempFile_Fullpath%
+  Return TempFile_Fullpath
 }
 
 
@@ -4144,8 +4078,8 @@ WinGet_size_state(WinTitle,WinText:="") {
 Win_ToggleRestoreMaximize(WinTitle:="A") {
   global DebugMode
   Win_MinMaxState := WinGetMinMax(WinTitle)
-  DebugString := "Win_MinMaxState=[ %Win_MinMaxState% ]"
-  If ("%Win_MinMaxState%" = "") {  ; ??? Window-state not pulled as-intended
+  DebugString := "Win_MinMaxState=[ " Win_MinMaxState " ]"
+  If (Win_MinMaxState = "") {  ; ??? Window-state not pulled as-intended
     WinMaximize(WinTitle)
     DebugString := DebugString "`n" " |--> Do WinMaximize"
   } Else {
@@ -4739,6 +4673,62 @@ Youtube_EditDraft_Submit() {
 
 ; ------------------------------------------------------------
 ;
+;   HOTKEY:  Ctrl + WinKey + Z
+;            Shift + WinKey + Z
+;   ACTION:  Show all (current) Window Titles
+;
+; ^#z::
+; +#z::
+; {
+;   ShowWindowTitles()
+;   Return
+; }
+;
+; ShowWindowTitles
+;   |--> Lists all window-titles (in current user's environment)
+;
+; ShowWindowTitles() {
+;   ; Gui WinTitles:Default
+;   MyGui := Gui()
+;   MyGui.Name := "WinTitles"
+
+;   ; Create the ListView with two columns, Name and Size:
+;   ; Gui Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
+;   LV := MyGui.Add("ListView","r50 w1000",["WindowTitle"])
+;   LV.OnEvent("DoubleClick", ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles)
+
+;   Window := WinGetList("A")
+;   Loop Window {
+;     Id := ("Window" A_Index)
+;     WinTitle := WinGetTitle("ahk_id " Id)
+;     If (WinTitle != "") {
+;       LV.Add("", WinTitle)
+;       ("Window" A_Index) := WinTitle ;use this if you want an array
+;       tList.=WinTitle "`n" ;use this if you just want the list
+;     }
+;   }
+;   ; Gui Add, Text,, tList
+;   ; MyGui.Add(...)
+;   ; Gui Show
+;   MyGui.Show()
+;   ; MsgBox(tList)
+;   Return
+; }
+; ;
+; ; ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles
+; ;   |--> Sub-Function of "ShowWindowTitles()"
+; ;
+; ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles(LV, RowNumber) {
+;   ; Gui WinTitles:Default
+;   MyGui := Gui()
+;   MyGui.Name := "WinTitles"
+;   ; Gui Destroy
+;   MyGui.Destroy()
+;   Return
+; }
+;
+; ------------------------------------------------------------
+;
 ;   ACTION:  Decrease screen brightness
 ;
 ; Alt & Left::
@@ -4956,7 +4946,6 @@ Youtube_EditDraft_Submit() {
 ; BrightnessSetter_new() {
 ;   Return new BrightnessSetter()
 ; }
-;
 ;
 ; ------------------------------------------------------------
 ;

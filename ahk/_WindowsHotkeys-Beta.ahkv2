@@ -982,7 +982,7 @@ AppsKey & ]::
       If ((Win_title=="Project") && (Win_ahk_class=="Windows.UI.Core.CoreWindow") && (Win_ahk_exe=="ShellExperienceHost.exe")) {
         ; Projection menu detected --> select related option (duplicate/extend)
         Sleep 250
-        Random, RandomSleep, 1000, 1500
+        Random RandomSleep, 1000, 1500
         Sleep %RandomSleep%
         If ((A_ThisHotkey=="#[") || (A_ThisHotkey=="AppsKey & [")) {
           ; Duplicate Monitors
@@ -998,7 +998,7 @@ AppsKey & ]::
         ; Wait until the new monitor layout is loaded
         Loop 30 {
           Sleep 100
-          Random, RandomSleep, 1000, 1500
+          Random RandomSleep, 1000, 1500
           Sleep %RandomSleep%
           SysGet MonitorCountAfter, 80
           If (MonitorCountAfter != MonitorCountBefore) {
@@ -1008,12 +1008,12 @@ AppsKey & ]::
         ; Click outside of the Projection menu to close it
         MouseClick Left, %MouseX%, %MouseY%
         Sleep 100
-        Random, RandomSleep, 1000, 1500
+        Random RandomSleep, 1000, 1500
         Sleep %RandomSleep%
         ; Send an Escape keypress to ensure the Projection menu closes
         Send {Escape}
         Sleep 100
-        Random, RandomSleep, 1000, 1500
+        Random RandomSleep, 1000, 1500
         Sleep %RandomSleep%
         Break
       } Else If (LoopingForMilliseconds > 2000) {
@@ -1024,7 +1024,7 @@ AppsKey & ]::
         Break
       } Else {
         Sleep 10
-      Random, RandomSleep, 1000, 1500
+      Random RandomSleep, 1000, 1500
       Sleep %RandomSleep%
       }
     }
@@ -1700,7 +1700,7 @@ LShift & RShift::
 ;
 #8::
 {
-  Random, RandomSleep_15s_to_20s, 15000, 20000
+  Random RandomSleep_15s_to_20s, 15000, 20000
   TrayTip(AHK, ( "Sleeping for [" RandomSleep_15s_to_20s "] ms" ))  ; Toast Notification
   Sleep %RandomSleep_15s_to_20s%
   TrayTip(AHK, ( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" ))  ; Toast Notification
@@ -2321,27 +2321,27 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
     ; Force at least one number (if allowed in call)
     If (EnableNumbers == 1) {
       While ((Pos_ForceNum == -1) || (Pos_ForceNum==Pos_ForceLower) || (Pos_ForceNum==Pos_ForceUpper) || (Pos_ForceNum==Pos_ForceSpecial)) {
-        Random, Pos_ForceNum, 0, (DesiredStringLength-1)
+        Random Pos_ForceNum, 0, (DesiredStringLength-1)
       }
     }
     ; Force at least one lowercase letter (if allowed in call)
     If (EnableLowercaseLetters == 1) {
       While ((Pos_ForceLower == -1) || (Pos_ForceLower==Pos_ForceNum) || (Pos_ForceLower==Pos_ForceUpper) || (Pos_ForceLower==Pos_ForceSpecial)) {
-        Random, Pos_ForceLower, 0, (DesiredStringLength-1)
+        Random Pos_ForceLower, 0, (DesiredStringLength-1)
       }
     }
     ; Force at least one uppercase letter (if allowed in call)
     Pos_ForceUpper := -1
     If (EnableUppercaseLetters == 1) {
       While ((Pos_ForceUpper == -1) || (Pos_ForceUpper==Pos_ForceNum) || (Pos_ForceUpper==Pos_ForceLower) || (Pos_ForceUpper==Pos_ForceSpecial)) {
-        Random, Pos_ForceUpper, 0, (DesiredStringLength-1)
+        Random Pos_ForceUpper, 0, (DesiredStringLength-1)
       }
     }
     ; Force at least one special character (if allowed in call)
     Pos_ForceSpecial := -1
     If (EnableSpecialCharacters == 1) {
       While ((Pos_ForceSpecial == -1) || (Pos_ForceSpecial==Pos_ForceNum) || (Pos_ForceSpecial==Pos_ForceLower) || (Pos_ForceSpecial==Pos_ForceUpper)) {
-        Random, Pos_ForceSpecial, 0, (DesiredStringLength-1)
+        Random Pos_ForceSpecial, 0, (DesiredStringLength-1)
       }
     }
     ; Build a random string
@@ -2362,7 +2362,7 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
           EachLoop_AllowedChars := AllSpecial  ; Force next char to be a special character
         }
         ; Generate a random index based off of the allowed characters' string as a character array, and use that for the 'random' component
-        Random, RandomCharacterIndex, 1, ( StrLen(EachLoop_AllowedChars) )
+        Random RandomCharacterIndex, 1, ( StrLen(EachLoop_AllowedChars) )
         NextChar := SubStr(EachLoop_AllowedChars, RandomCharacterIndex, 1)
         If (NextChar != PreviousChar) {  ; Only append the next character if its not a repeat of the last character
           ReturnedString .= NextChar
@@ -4895,7 +4895,7 @@ class BrightnessSetter {
         if (BrightnessSetter._FindAndSetOSDWindow())
           Return
         Sleep 100
-      Random, RandomSleep, 1000, 1500
+      Random RandomSleep, 1000, 1500
       Sleep %RandomSleep%
       }
     }
@@ -5023,7 +5023,7 @@ BrightnessSetter_new() {
 ;     SC029::
 ;     SplashTextOn, 250, 40, Debugging, Command Sent
 ;     Sleep 500
-;     Random, RandomSleep, 1000, 1500
+;     Random RandomSleep, 1000, 1500
 ;     Sleep %RandomSleep%
 ;     SplashTextOff
 ;     -- Remainder of your script

@@ -1953,14 +1953,14 @@ ActiveWindow_Maximize() {
 ;   |-->  Wait until all modifier keys are released
 ;
 AwaitModifierKeyup() {
-  KeyWait LAlt    ; Wait for [ Left-Alt ] to be released
-  KeyWait LCtrl   ; Wait for [ Left-Control ] to be released
-  KeyWait LShift  ; Wait for [ Left-Shift ] to be released
-  KeyWait LWin    ; Wait for [ Left-Win ] to be released
-  KeyWait RAlt    ; Wait for [ Right-Alt ] to be released
-  KeyWait RCtrl   ; Wait for [ Right-Control ] to be released
-  KeyWait RShift  ; Wait for [ Right-Shift ] to be released
-  KeyWait RWin    ; Wait for [ Right-Win ] to be released
+  KeyWait "LAlt"    ; Wait for [ Left-Alt ] to be released
+  KeyWait "LCtrl"   ; Wait for [ Left-Control ] to be released
+  KeyWait "LShift"  ; Wait for [ Left-Shift ] to be released
+  KeyWait "LWin"    ; Wait for [ Left-Win ] to be released
+  KeyWait "RAlt"    ; Wait for [ Right-Alt ] to be released
+  KeyWait "RCtrl"   ; Wait for [ Right-Control ] to be released
+  KeyWait "RShift"  ; Wait for [ Right-Shift ] to be released
+  KeyWait "RWin"    ; Wait for [ Right-Win ] to be released
   Sleep 10
 }
 

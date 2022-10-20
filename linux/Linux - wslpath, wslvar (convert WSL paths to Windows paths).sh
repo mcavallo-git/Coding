@@ -38,7 +38,7 @@ find $(wslpath -u "$(wslvar -s "ComSpec";)";);
 
 
 # Use [ wslvar + wslpath ] to convert Windows environment variables to Linux filepaths
-if [[ 1 -eq 1 ]]; then
+if [ 1 -eq 1 ]; then
 wslpath -u "$(wslvar -s "windir";)";              # Outputs:  /mnt/c/Windows
 wslpath -u "$(wslvar -s "windir";)/System32";     # Outputs:  /mnt/c/Windows/System32
 wslpath -u "$(wslvar -s "USERPROFILE";)";         # Outputs:  /mnt/c/Users/USER
@@ -72,13 +72,13 @@ echo "$(wslpath -w "/tmp";)"; # Outputs:   \\wsl$\Ubuntu\tmp
 #
 
 
-CMD_EXE="$(WIN_EXE="cmd.exe"; if [[ -n "$(command -v ${WIN_EXE} 2>'/dev/null';)" ]]; then echo "$(realpath "$(command -v "${WIN_EXE}";)" 2>'/dev/null';)"; elif [[ -f "$(find /mnt/*/Windows/System32/${WIN_EXE} -mindepth 0 -maxdepth 0 -type f | head -n 1;)" ]]; then find /mnt/*/Windows/System32/${WIN_EXE} -mindepth 0 -maxdepth 0 -type f | head -n 1; else echo "$(realpath "$(wslpath -u "$(wslvar -s "windir";)";)/System32/${WIN_EXE}";)"; fi;)";
+CMD_EXE="$(WIN_EXE="cmd.exe"; if [ -n "$(command -v ${WIN_EXE} 2>'/dev/null';)" ]; then echo "$(realpath "$(command -v "${WIN_EXE}";)" 2>'/dev/null';)"; elif [ -f "$(find /mnt/*/Windows/System32/${WIN_EXE} -mindepth 0 -maxdepth 0 -type f | head -n 1;)" ]; then find /mnt/*/Windows/System32/${WIN_EXE} -mindepth 0 -maxdepth 0 -type f | head -n 1; else echo "$(realpath "$(wslpath -u "$(wslvar -s "windir";)";)/System32/${WIN_EXE}";)"; fi;)";
 
 
-POWERSHELL_EXE="$(if [[ -n "$(command -v powershell.exe 2>'/dev/null';)" ]]; then echo "$(realpath "$(command -v "powershell.exe";)";)"; elif [[ -f "$(find /mnt/*/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -mindepth 0 -maxdepth 0 -type f | head -n 1;)" ]]; then find /mnt/*/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -mindepth 0 -maxdepth 0 -type f | head -n 1; else echo "$(wslpath -u "$(wslvar -s "windir";)";)/System32/WindowsPowerShell/v1.0/powershell.exe"; fi;)";
+POWERSHELL_EXE="$(if [ -n "$(command -v powershell.exe 2>'/dev/null';)" ]; then echo "$(realpath "$(command -v "powershell.exe";)";)"; elif [ -f "$(find /mnt/*/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -mindepth 0 -maxdepth 0 -type f | head -n 1;)" ]; then find /mnt/*/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -mindepth 0 -maxdepth 0 -type f | head -n 1; else echo "$(wslpath -u "$(wslvar -s "windir";)";)/System32/WindowsPowerShell/v1.0/powershell.exe"; fi;)";
 
 
-WSL_EXE="$(WIN_EXE="wsl.exe"; if [[ -n "$(command -v ${WIN_EXE} 2>'/dev/null';)" ]]; then echo "$(realpath "$(command -v "${WIN_EXE}";)" 2>'/dev/null';)"; elif [[ -f "$(find /mnt/*/Windows/System32/${WIN_EXE} -mindepth 0 -maxdepth 0 -type f | head -n 1;)" ]]; then find /mnt/*/Windows/System32/${WIN_EXE} -mindepth 0 -maxdepth 0 -type f | head -n 1; else echo "$(realpath "$(wslpath -u "$(wslvar -s "windir";)";)/System32/${WIN_EXE}";)"; fi;)";
+WSL_EXE="$(WIN_EXE="wsl.exe"; if [ -n "$(command -v ${WIN_EXE} 2>'/dev/null';)" ]; then echo "$(realpath "$(command -v "${WIN_EXE}";)" 2>'/dev/null';)"; elif [ -f "$(find /mnt/*/Windows/System32/${WIN_EXE} -mindepth 0 -maxdepth 0 -type f | head -n 1;)" ]; then find /mnt/*/Windows/System32/${WIN_EXE} -mindepth 0 -maxdepth 0 -type f | head -n 1; else echo "$(realpath "$(wslpath -u "$(wslvar -s "windir";)";)/System32/${WIN_EXE}";)"; fi;)";
 
 
 # ------------------------------------------------------------

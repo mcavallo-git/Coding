@@ -1656,7 +1656,7 @@ WheelRight::
         exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
         A_MsgBoxResult := MsgBox(4, "Download EFS?", "Effective File Search not found`n`nDownload EFS Now?")
         If (A_MsgBoxResult = "Yes") {
-          Run(chrome.exe %exe_download_url%)
+          Run("chrome.exe " exe_download_url)
         }
       }
     }
@@ -1738,7 +1738,7 @@ LShift & RShift::
 #0::
 {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  WinMove(A,,0,0)
+  WinMove("A",,0,0)
   Return
 }
 

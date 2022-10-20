@@ -1600,11 +1600,6 @@ LShift & RShift::
 ;   POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
 ;   GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
 ;   ; - -
-;   SG_BUILD_SCRIPT=%GIT_REPO%/build/_start_frontend.sh
-;   SG_BUILD_API_LNK=%GIT_REPO%/_start_server_api.lnk
-;   SG_BUILD_PM_LNK=%GIT_REPO%/_start_server_pm.lnk
-;   SG_BUILD_SG_LNK=%GIT_REPO%/_start_server_sg.lnk
-;   ; - -
 ;   WinTitle_NodeJS=Supplier Gateway (localhost)
 ;   WinTitle_Postman=Postman
 ;   ; - -

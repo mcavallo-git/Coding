@@ -2932,10 +2932,6 @@ Open_Chrome() {
   WinTitle := " - Google Chrome"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 5
-  If (DebugMode == 1) {
-    GetWindowSpecs(WinTitle)
-    Sleep 500
-  }
   If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
     TooltipOutput := "Chrome executable not found (neither x64 or x86 version)"
     ShowTooltip(TooltipOutput,5000)
@@ -2945,15 +2941,25 @@ Open_Chrome() {
       RunExe_NON_Admin(FullPath_RunExe)
       WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
     }
-    If (MonitorGetCount()==1) {
-      MoveIt("Right","Half",1,WinTitle)  ; Resize window to right-half of monitor #1
+    If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {   
+      If (DebugMode == 1) {
+        GetWindowSpecs(WinTitle)
+        Sleep 500
+      }
+      If (MonitorGetCount()==1) {
+        MoveIt("Right","Half",1,WinTitle)  ; Resize window to right-half of monitor #1
+      } Else {
+        MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
+      }
+      If (WinExist(WinTitle,WinText)) {
+        WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+      } Else If (WinExist(WinTitle)) {
+        WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+      }
     } Else {
-      MoveIt("Left","Half",2,WinTitle)  ; Resize window to left-half of monitor #2
-    }
-    If (WinExist(WinTitle,WinText)) {
-      WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
-    } Else If (WinExist(WinTitle)) {
-      WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+      TooltipOutput := "Error - No window found matching [ " WinTitle " ] "
+      ToolTip TooltipOutput
+      ClearTooltip(5000)
     }
   }
   Return
@@ -3436,38 +3442,32 @@ RemoveToolTip() {
 ;
 RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   global DebugMode
-  If (DebugMode == 1) {
-    TrayTip "AHK", ("Opening NON-Admin version of Exe [ " FullPath_RunExe " ]...")
-  }
   Semicolon := ";"
   Add_Args := ""
   If (Exe_Args != "") {
-    Add_Args := " -Argument (Write-Output %Exe_Args%)"
+    Add_Args := (" -Argument (Write-Output " Exe_Args ")")
   }
-
   ; Prep the output powershell script's contents (which will get nested into a vbs script so that it can run silently via wscript.exe)
-  PowerShell_Script_Block := "
-    (
-      If ([Boolean](1)) {
-        SV TEMP_Execute '%FullPath_RunExe%'%Semicolon%
-        SV TEMP_Name (Get-Date -UFormat `%s)%Semicolon%
-        SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Execute).Value)%Add_Args%)%Semicolon%
-        SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date))%Semicolon%
-        Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value)%Semicolon%
-        Start-ScheduledTask -TaskName ((GV TEMP_Name).Value)%Semicolon%
-        Start-Sleep -Seconds 1%Semicolon%
-        Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0))%Semicolon%
-      }
-    )"
-  PowerShell_Script_Block := StrReplace(StrReplace(PowerShell_Script_Block,"`t",""),"`n"," ")
+  PWSH_CLI := ""
+  PWSH_CLI := PWSH_CLI "If ([Boolean](1)) { "
+  PWSH_CLI := PWSH_CLI "SV TEMP_Execute '" FullPath_RunExe "'" Semicolon " "
+  PWSH_CLI := PWSH_CLI "SV TEMP_Name (Get-Date -UFormat `%s)" Semicolon " "
+  PWSH_CLI := PWSH_CLI "SV TEMP_Action (New-ScheduledTaskAction -Execute ((GV TEMP_Execute).Value)" Add_Args ")" Semicolon " "
+  PWSH_CLI := PWSH_CLI "SV TEMP_Trigger (New-ScheduledTaskTrigger -Once -At (Get-Date))" Semicolon " "
+  PWSH_CLI := PWSH_CLI "Register-ScheduledTask -Action ((GV TEMP_Action).Value) -Trigger ((GV TEMP_Trigger).Value) -TaskName ((GV TEMP_Name).Value)" Semicolon " "
+  PWSH_CLI := PWSH_CLI "Start-ScheduledTask -TaskName ((GV TEMP_Name).Value)" Semicolon " "
+  PWSH_CLI := PWSH_CLI "Start-Sleep -Seconds 1" Semicolon " "
+  PWSH_CLI := PWSH_CLI "Unregister-ScheduledTask -TaskName ((GV TEMP_Name).Value) -Confirm:([Boolean](0))" Semicolon " "
+  PWSH_CLI := PWSH_CLI "}" Semicolon " "
+  PWSH_CLI := StrReplace(StrReplace(PWSH_CLI,"`t",""),"`n"," ")
 
   ; Prep the output VBS script's contents
-  VbsScript_Contents := ("CreateObject( `"WScript.Shell`" ).Run `"PowerShell -Command `"`"" PowerShell_Script_Block "`"`" `", 0, True")
+  VbsScript_Contents := ("CreateObject( `"WScript.Shell`" ).Run `"PowerShell -Command `"`"" PWSH_CLI "`"`" `", 0, True")
 
   ; Build the output directory
   FullPath_RunNonAdmin_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
   ; Build the output filename
-  SplitPath %FullPath_RunExe%, &OutFileName, &OutDirname, &OutExtension, &OutNameNoExt, &OutDrive
+  SplitPath FullPath_RunExe, &OutFileName, &OutDirname, &OutExtension, &OutNameNoExt, &OutDrive
   FullPath_RunNonAdmin_VbsScript := (FullPath_RunNonAdmin_Dirname "\"  OutFileName ".vbs")
 
   ; Create the VBS script file (if it doesn't already exist)
@@ -3479,7 +3479,12 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
     FileAppend VbsScript_Contents, FullPath_RunNonAdmin_VbsScript
   }
 
-  ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PowerShell_Script_Block "`"")
+  If (DebugMode == 1) {
+    ; Debug - Show the command before running it
+    Msgbox(PWSH_CLI, A_ScriptName " - " A_ThisFunc)
+  }
+
+  ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PWSH_CLI "`"")
   ; Run Run_PowerShellScript_NonAdmin
 
   Run_VbsScript_NonAdmin := ("C:\Windows\System32\wscript.exe `"" FullPath_RunNonAdmin_VbsScript "`"")
@@ -4577,7 +4582,7 @@ Youtube_EditDraft_Submit() {
     Echo_Tooltip := Echo_Tooltip LF A_Space
     Echo_Tooltip := Echo_Tooltip LF A_Space
     Echo_Tooltip := Echo_Tooltip LF A_Space A_Space A_Space "Has this filter been applied?"
-    A_MsgBoxResult := MsgBox(%Echo_Tooltip%, A_ScriptName " - " A_ThisFunc,4)
+    A_MsgBoxResult := MsgBox(Echo_Tooltip, A_ScriptName " - " A_ThisFunc,4)
     If (A_MsgBoxResult = "Yes") {
       Sleep 100
       ; Move the window to specified x/y position and resize it to have specified width/height
@@ -5062,7 +5067,7 @@ Youtube_EditDraft_Submit() {
 ; ...::
   ; WinGetActiveStats, WinTitle, Width, Height, X, Y
   ; WinGetText, WinText, A
-  ; A_MsgBoxResult := MsgBox(WinTitle `n%WinTitle%   `n`nWindow Size: `n   Width (%Width%)     Height (%Height%)   `n`nWindow Coordinates: `n   X (%X%)     Y (%Y%)   `n`nSkip WinText?, A_ScriptName " - " A_ThisFunc,4)  ; 10-second timeout.
+  ; A_MsgBoxResult := MsgBox("WinTitle: `n" WinTitle "`n`n" "Window Size: `n   Width: (" Width ")     Height: (" Height ")   `n`nWindow Coordinates: `n   X (" X ")     Y (" Y ")   `n`nSkip WinText?, A_ScriptName " - " A_ThisFunc,4)
   ; If (A_MsgBoxResult = "Yes")
     ; Return
   ; If (A_MsgBoxResult = "No")
@@ -5073,7 +5078,6 @@ Youtube_EditDraft_Submit() {
   ; Return
 ;
 ; ------------------------------------------------------------
-;
 ;
 ; Menu, tray, add  ; Creates a separator line.
 ; Menu, tray, add, "Lineage-2", MenuHandler  ; Creates a new menu item.
@@ -5087,9 +5091,9 @@ Youtube_EditDraft_Submit() {
 ; Menu, FileMenu, Add, Script Icon, MenuHandler_FileMenu
 ; Menu, FileMenu, Add, Suspend Icon, MenuHandler_FileMenu
 ; Menu, FileMenu, Add, Pause Icon, MenuHandler_FileMenu
-; Menu, FileMenu, Icon, Script Icon, %A_AhkPath%, 2 ;Use the 2nd icon group from the file
-; Menu, FileMenu, Icon, Suspend Icon, %A_AhkPath%, -206 ;Use icon with resource identifier 206
-; Menu, FileMenu, Icon, Pause Icon, %A_AhkPath%, -207 ;Use icon with resource identifier 207
+; Menu, FileMenu, Icon, Script Icon, A_AhkPath, 2 ;Use the 2nd icon group from the file
+; Menu, FileMenu, Icon, Suspend Icon, A_AhkPath, -206 ;Use icon with resource identifier 206
+; Menu, FileMenu, Icon, Pause Icon, A_AhkPath, -207 ;Use icon with resource identifier 207
 ; Menu, MyMenuBar, Add, &File, :FileMenu
 ; Gui Menu, MyMenuBar
 ; Gui Add, Button, gExit, Exit This Example
@@ -5150,7 +5154,7 @@ Youtube_EditDraft_Submit() {
 ;   If (WinExist(Popup_MsgBox_WindowTitle)) {
 ;     Return  ; Continue waiting for the "A_Clipboard or ClipboardAll" window to appear
 ;   }
-;   SetTimer(%A_ThisFunc%,"Off")
+;   SetTimer(A_ThisFunc,"Off")
 ;   WinActivate
 ;   ControlSetText "LEFT_BUTTON", "Button1"
 ;   ControlSetText "CENTER_BUTTON", "Button2"

@@ -87,7 +87,7 @@ GroupAdd("Explorer", "ahk_class CabinetWClass")
 ; Show the Version of AHK currently being used to compile this code
 ;
 If (DebugMode == 1) {
-  TrayTip("AHK","Version:" "`n" A_AhkVersion )  ; Toast Notification
+  TrayTip "AHK", ("Version:" "`n" A_AhkVersion)  ; Toast Notification
 }
 
 
@@ -178,7 +178,7 @@ ScrollLock::
 Pause::
 {
   Send "!{F10}"
-  TrayTip("AHK",( "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer" ))  ; Toast Notification
+  TrayTip "AHK", "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer"  ; Toast Notification
   Return
 }
 
@@ -191,8 +191,8 @@ Pause::
 +Pause::
 {
   Fullpath_OpenInExplorer := ( EnvGet("USERPROFILE") "\Videos" )
-  TrayTip("AHK",( "Opening Directory [ " Fullpath_OpenInExplorer " ]" ))  ; Toast Notification
-  Run "%Fullpath_OpenInExplorer%"  ; Open the directory
+  TrayTip "AHK", ("Opening Directory [ " Fullpath_OpenInExplorer " ]")  ; Toast Notification
+  Run(Fullpath_OpenInExplorer)  ; Open the directory
   Return
 }
 
@@ -227,7 +227,7 @@ Pause::
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
     WinTitle := WinGetTitle("A")
     If (DebugMode == 1) {
-      TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Add Text'" ))  ; Toast Notification
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Add Text'"  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
@@ -237,7 +237,7 @@ Pause::
     ; Click the "Add Text" button
     xpos := 338
     ypos := 87
-    ControlClick x%xpos% y%ypos%, %WinTitle%
+    ControlClick ("x" xpos " y" ypos), WinTitle
     Return
   }
   ;
@@ -253,18 +253,18 @@ Pause::
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
     WinTitle := WinGetTitle("A")
     If (DebugMode == 1) {
-      TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Edit' > 'Bold'" ))  ; Toast Notification
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Bold'"  ; Toast Notification
     }
     ; Click the "Edit" tab
     xpos := 223
     ypos := 40
-    ControlClick x%xpos% y%ypos%, %WinTitle%
+    ControlClick ("x" xpos " y" ypos), WinTitle
     
     Sleep 100
     ; Click the "B" (Bold) button
     xpos := 448
     ypos := 106
-    ControlClick x%xpos% y%ypos%, %WinTitle%
+    ControlClick ("x" xpos " y" ypos), WinTitle
     Return
   }
   ;
@@ -280,18 +280,18 @@ Pause::
     SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
     WinTitle := WinGetTitle("A")
     If (DebugMode == 1) {
-      TrayTip("AHK",( "Foxit PhantomPDF:" "`n" "Clicking 'Redo'" ))  ; Toast Notification
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Redo'"  ; Toast Notification
     }
     ; Click the "Redo" button
     xpos := 187
     ypos := 15
     Use_ControlClick := 0
     If (Use_ControlClick == 1) {
-      ControlClick x%xpos% y%ypos%, %WinTitle%
+      ControlClick ("x" xpos " y" ypos), WinTitle
     } Else {
       MouseGetPos &MouseX, &MouseY
       MouseClick "Left", xpos, ypos
-      MouseMove %MouseX%, %MouseY%
+      MouseMove MouseX, MouseY
     }
     Return
   }
@@ -627,9 +627,8 @@ Pause::
   For objComputer in Object_WMI_Service.ExecQuery("Select * from Win32_ComputerSystem") {
     Domain := objComputer.Domain, Workgroup := objComputer.Workgroup
   }
-  USERDOMAIN := EnvGet("USERDOMAIN")
-  RET_VAL := A_UserName "@" Domain "_via_" USERDOMAIN
-  Send(%RET_VAL%)
+  SendKeys := A_UserName "@" Domain "_via_" EnvGet("USERDOMAIN")
+  Send SendKeys
   Return
 }
 
@@ -650,8 +649,8 @@ Pause::
     Send "!z"
     ; Win_ahk_id := WinGetID("A")
     ; Win_ahk_pid := WinGetPID("ahk_id " Win_ahk_id)
-    ; ControlSend,, !z, "ahk_pid %Win_ahk_pid%"
-    ; ControlSend,, {LAlt up}{RAlt up}{LAlt down}{z}{LAlt up}, "ahk_pid %Win_ahk_pid%"
+    ; ControlSend,, !z, "ahk_pid " Win_ahk_pid
+    ; ControlSend,, {LAlt up}{RAlt up}{LAlt down}{z}{LAlt up}, "ahk_pid " Win_ahk_pid
   } Else {
     ; Send [ Shift + Alt + z ] - Configure this in Geforce Experience Overlay via "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set this hotkey)
     Send "+!z"
@@ -685,30 +684,30 @@ Pause::
         ; Exe path-matching succeeded
         DoPaste := 1
         If (DebugMode == 1) {
-          TrayTip("AHK",( "Info - Allowing paste" "`n" "Win_fullpath == '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
+          TrayTip "AHK", ("Info - Allowing paste" "`n" "Win_fullpath == '" ExeToRequire_Fullpath "'")  ; Toast Notification
         }
       } Else {
         ; Exe path-matching failed
         DoPaste := 0
         If (DebugMode == 1) {
-          TrayTip("AHK",( "Error (invalid exe) - Blocking paste" "`n" "Win_fullpath != '" ExeToRequire_Fullpath "'" ))  ; Toast Notification
+          TrayTip "AHK", ("Error (invalid exe) - Blocking paste" "`n" "Win_fullpath != '" ExeToRequire_Fullpath "'")  ; Toast Notification
         } Else {
           ; !! Always show at-least the shortened form of this error !!
-          TrayTip("AHK",( "Error (invalid exe) - Blocking paste" ))  ; Toast Notification
+          TrayTip "AHK", "Error (invalid exe) - Blocking paste"  ; Toast Notification
         }
       }
     } Else {
       ; Skip matching on the active window's executable fullpath
       DoPaste := 1
       If (DebugMode == 1) {
-        TrayTip("AHK",( "Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])" ))  ; Toast Notification
+        TrayTip "AHK", ("Info - Allowing paste" "`n" "!! Skipped exe path-matching (file not found: [" ExeToRequire_Legend "])")  ; Toast Notification
       }
     }
   } Else {
     ; Paste file not found
     DoPaste := 0
     If (DebugMode == 1) {
-        TrayTip("AHK",( "Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]" ))  ; Toast Notification
+        TrayTip "AHK", ("Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]")  ; Toast Notification
     }
   }
   If (DoPaste == 1) {
@@ -840,12 +839,12 @@ Pause::
     TooltipOutput := ( TooltipOutput "`n" )
     TooltipOutput := ( TooltipOutput "`n" "SendKeys = [" SendKeys "]" )
     TooltipOutput := ( TooltipOutput "`n" )
-    ToolTip(TooltipOutput)
+    ToolTip TooltipOutput
     ClearTooltip(7500)
   }
   ; ------------------------------
   ; Send the timestamp
-  Send(SendKeys)
+  Send SendKeys
   Return
 }
 
@@ -857,7 +856,7 @@ Pause::
 ;
 #F1::
 {
-  Run "Notepad" A_ScriptFullPath
+  Run("notepad.exe " A_ScriptFullPath)
   Return
 }
 
@@ -894,7 +893,7 @@ Pause::
 ;
 #r::
 {
-  Run (EnvGet("WINDIR") "\System32\control.exe" " " "desk.cpl")
+  Run (EnvGet("WINDIR") "\System32\control.exe desk.cpl")
   Return
 }
 
@@ -1170,7 +1169,7 @@ AppsKey & l::
 ;
 #e::
 {
-  Run (EnvGet("USERPROFILE"))
+  Run EnvGet("USERPROFILE")
   Return
 }
 
@@ -1599,16 +1598,16 @@ WheelRight::
     ExeFilepath2 := EnvGet("USERPROFILE") efs
     ; MsgBox(ExeFilepath2, A_ScriptName " - " A_ThisFunc)
     If (FileExist(ExeFilepath)) {
-      Run(ExeFilepath)
+      Run ExeFilepath
     } Else {
       If (FileExist(ExeFilepath2)) {
-        Run(ExeFilepath2)
+        Run ExeFilepath2
       } Else {
         ; If EFS does NOT exist, offer user the URL to download it
         exe_download_url := "http://www.sowsoft.com/download/efsearch.zip"
         A_MsgBoxResult := MsgBox("Effective File Search not found`n`nDownload EFS Now?", A_ScriptName " - " A_ThisFunc,4)
         If (A_MsgBoxResult = "Yes") {
-          Run("chrome.exe " exe_download_url)
+          Run ("chrome.exe " exe_download_url)
         }
       }
     }
@@ -1644,9 +1643,9 @@ LShift & RShift::
 #8::
 {
   RandomSleep_15s_to_20s := Random(15000,20000)
-  TrayTip("AHK",( "Sleeping for [" RandomSleep_15s_to_20s "] ms" ))  ; Toast Notification
+  TrayTip "AHK", ("Sleeping for [" RandomSleep_15s_to_20s "] ms")  ; Toast Notification
   Sleep RandomSleep_15s_to_20s
-  TrayTip("AHK",( "Sleep for [" RandomSleep_15s_to_20s "] ms has finished" ))  ; Toast Notification
+  TrayTip "AHK", ("Sleep for [" RandomSleep_15s_to_20s "] ms has finished")  ; Toast Notification
   Return
 }
 
@@ -1770,7 +1769,7 @@ LShift & RShift::
 ;     {
 ;       GIT_BASH_ARGS_API="-c '" EnvGet("USERPROFILE") "/Documents/GitHub/repo_name/build/_start_frontend.sh rest-api start-localhost;'"
 ;       GIT_BASH_ARGS_SG="-c '" EnvGet("USERPROFILE") "/Documents/GitHub/repo_name/build/_start_frontend.sh project-manager start-localhost;'"
-;       Run(GIT_BASH_EXE GIT_BASH_ARGS_API, GIT_REPO)
+;       Run GIT_BASH_EXE GIT_BASH_ARGS_API, GIT_REPO)
 ;       ; Run(GIT_BASH_EXE GIT_BASH_ARGS_PM, GIT_REPO)
 ;       ; Run(GIT_BASH_EXE GIT_BASH_ARGS_SG, GIT_REPO)
 ;     }
@@ -1834,8 +1833,8 @@ NumLock::
       SetNumLockState "On"
       ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     } Else {
-      TextToolTip := "Disable NumLock via Shift+NumLock"
-      ToolTip(TextToolTip)
+      TooltipOutput := "Disable NumLock via Shift+NumLock"
+      ToolTip TooltipOutput
       ClearTooltip(3000)
     }
   } Else {
@@ -1845,8 +1844,8 @@ NumLock::
       SetNumLockState "Off"
       ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     } Else {
-      TextToolTip := "Enable NumLock via Shift+NumLock"
-      ToolTip(TextToolTip)
+      TooltipOutput := "Enable NumLock via Shift+NumLock"
+      ToolTip TooltipOutput
       ClearTooltip(3000)
     }
   }
@@ -2084,7 +2083,7 @@ Duplicate_Keypress() {
   KeyPressed := ""
   Loop {
     TooltipOutput := ( "Press a key (will be duplicated)" )
-    ToolTip(TooltipOutput)
+    ToolTip TooltipOutput
     ; Get the key to duplicate from the user
     KeyPressed := KeyWaitAny("L1 T1")
     If (DebugMode == 1) {
@@ -2097,8 +2096,8 @@ Duplicate_Keypress() {
   }
   TooltipOutput := ( "Spamming the [ " KeyPressed " ] key" )
   Loop {
-    ToolTip(TooltipOutput)
-    Send(%KeyPressed%)
+    ToolTip TooltipOutput
+    Send KeyPressed
     Sleep 10
   }
   ClearTooltip(10)
@@ -2120,7 +2119,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
     For EachKey, EachLine in StrSplit(StringConsolidated,"`n")
     {
       ; Multi-line string - Iterate over each character in each line
-      Loop Parse %EachLine%
+      Loop Parse EachLine
       {
         If (A_LoopField == "{") {
           ReturnedString := ReturnedString "{{}"
@@ -2138,7 +2137,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
     ReturnedString := SubStr(ReturnedString, 1, -1)
   } Else {
     ; Single-line string - Iterate over each character in each line
-    Loop Parse %StringConsolidated%
+    Loop Parse StringConsolidated
     {
       If (A_LoopField == "{") {
         ReturnedString := ReturnedString "{{}"
@@ -2162,11 +2161,11 @@ EscapeSpecialCharacters(StringToEscape:="") {
 ;
 Get_ahk_id_from_pid(WinPid, ExcludeTitle:="") {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  ; ControlGet OutputVar, Hwnd,,, "ahk_pid %WinPid%"
+  ; ControlGet OutputVar, Hwnd,,, ("ahk_pid " WinPid)
   WinTitle := "ahk_pid " WinPid
   OutputVar := WinGetID(WinTitle,,ExcludeTitle)
-  Return "ahk_id %OutputVar%"
-  ; dat_ahk_id := "ahk_id %output_var%"
+  Return ("ahk_id " OutputVar)
+  ; dat_ahk_id := ("ahk_id " output_var)
   ; Return dat_ahk_id
 }
 
@@ -2178,9 +2177,9 @@ Get_ahk_id_from_pid(WinPid, ExcludeTitle:="") {
 ;
 Get_ahk_id_from_title(WinTitle, ExcludeTitle:="") {
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  ; ControlGet OutputVar, Hwnd,,, %WinTitle%,, %ExcludeTitle%
+  ; ControlGet OutputVar, Hwnd,,, WinTitle,, ExcludeTitle
   OutputVar := WinGetID(WinTitle,,ExcludeTitle)
-  Return "ahk_id %OutputVar%"
+  Return ("ahk_id " OutputVar)
 }
 
 
@@ -2200,10 +2199,8 @@ GetCommandOutput(CMD_Command) {
 ;   |--> Returns 0 if process is NOT found
 ;
 GetPID(ProcName) {
-  PID := ProcessExist(%ProcName%)
-  Return %PID%
-  ; ProcessExist, OutputVar, %ProcName%
-  ; Return %ErrorLevel%
+  PID := ProcessExist(ProcName)
+  Return PID
 }
 
 
@@ -2311,7 +2308,7 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
       }
     }
   }
-  Return "%ReturnedString%"
+  Return ReturnedString
 }
 
 
@@ -2416,15 +2413,15 @@ GetWindowSpecs(WinTitle:="A") {
   If (Win_is_win10_app == 1) {
     ; Get the Win10-App's stats
     Win10_ahk_id := WinGet_ahk_id(WinTitle)
-    Win10_title := WinGetTitle("ahk_id %Win10_ahk_id%")
-    Win10_text := WinGetText("ahk_id %Win10_ahk_id%")
-    Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
-    Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
-    Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
-    Win10_fullpath := WinGetProcessPath("ahk_id %Win10_ahk_id%")
-    Win10_control_names := WinGetControls("ahk_id %Win10_ahk_id%")  ; Get all control names in this window
-    Win10_size_state := WinGet_size_state("ahk_id %Win10_ahk_id%")
-    WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, "ahk_id %Win10_ahk_id%")
+    Win10_title := WinGetTitle("ahk_id " Win10_ahk_id)
+    Win10_text := WinGetText("ahk_id " Win10_ahk_id)
+    Win10_ahk_class := WinGetClass("ahk_id " Win10_ahk_id)
+    Win10_ahk_pid := WinGetPID("ahk_id " Win10_ahk_id)
+    Win10_ahk_exe := WinGetProcessName("ahk_id " Win10_ahk_id)
+    Win10_fullpath := WinGetProcessPath("ahk_id " Win10_ahk_id)
+    Win10_control_names := WinGetControls("ahk_id " Win10_ahk_id)  ; Get all control names in this window
+    Win10_size_state := WinGet_size_state("ahk_id " Win10_ahk_id)
+    WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id "Win10_ahk_id))
 
     ; Update the longest text-field
     Win_longest_field := StrLen_Max(Win_longest_field, Win10_title)
@@ -2465,7 +2462,7 @@ GetWindowSpecs(WinTitle:="A") {
   GUI_OPT := GUI_OPT " C" GUI_TEXT_COLOR
   GUI_OPT := GUI_OPT " Grid"
   GUI_OPT := GUI_OPT " NoSortHdr"
-  ; GUI_OPT = %GUI_OPT% AltSubmit
+  ; GUI_OPT = GUI_OPT " AltSubmit"
 
   ; Draw the 'ListView' (grid/table) with two columns
   ;  |--> Note that [ Gui {configs...} ] declarations must be on the PREVIOUS LINE before [ Gui Add, ... ]
@@ -2475,7 +2472,6 @@ GetWindowSpecs(WinTitle:="A") {
   MyGui.SetFont("s10", "Open Sans")
   MyGui.SetFont("s10", "Fira Code")
   MyGui.BackColor := "1E1E1E"
-  ; Gui Add, ListView, %GUI_OPT%, Key|Value
   LV := MyGui.Add("ListView",GUI_OPT,["Key","Value"])
   LV.OnEvent("DoubleClick", GetWindowSpecs_OnDoubleClick)
   LV.OnEvent("ContextMenu", GetWindowSpecs_OnRightClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
@@ -2874,18 +2870,18 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
     }
     ; Check for error(s)
     If ((WinMove_XPos==-1) && (WinMove_YPos==-1) && (WinMove_Width==-1) && (WinMove_Height==-1)) {
-      TextToolTip := ""
-      TextToolTip := TextToolTip "                 " "`n"
-      TextToolTip := TextToolTip "  Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`"" "   " "`n"
-      TextToolTip := TextToolTip "    |" "`n"
-      TextToolTip := TextToolTip "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNumber "`" , `"" WinTitle "`" , `"" WinText "`" )" "   " "`n"
-      TextToolTip := TextToolTip "    |" "`n"
-      TextToolTip := TextToolTip "    |--> Script:  " A_ScriptFullPath "   " "`n"
-      TextToolTip := TextToolTip "                 " "`n"
-      TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"UseCurrentMonitor`" , `"A`", `"`" )" "   " "`n"
-      TextToolTip := TextToolTip "  Example call:  " A_ThisFunc " ( `"Maximized`" , `"`" , 2 , `"A`", `"`" )" "   " "`n"
-      TextToolTip := TextToolTip "                 "
-      ShowTooltip(TextToolTip,60000)
+      TooltipOutput := ""
+      TooltipOutput := TooltipOutput "                 " "`n"
+      TooltipOutput := TooltipOutput "  Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`"" "   " "`n"
+      TooltipOutput := TooltipOutput "    |" "`n"
+      TooltipOutput := TooltipOutput "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNumber "`" , `"" WinTitle "`" , `"" WinText "`" )" "   " "`n"
+      TooltipOutput := TooltipOutput "    |" "`n"
+      TooltipOutput := TooltipOutput "    |--> Script:  " A_ScriptFullPath "   " "`n"
+      TooltipOutput := TooltipOutput "                 " "`n"
+      TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"UseCurrentMonitor`" , `"A`", `"`" )" "   " "`n"
+      TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Maximized`" , `"`" , 2 , `"A`", `"`" )" "   " "`n"
+      TooltipOutput := TooltipOutput "                 "
+      ShowTooltip(TooltipOutput,60000)
     } Else {
       If (DebugMode == 1) {
         MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
@@ -2941,8 +2937,8 @@ Open_Chrome() {
     Sleep 500
   }
   If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
-    TextToolTip := "Chrome executable not found (neither x64 or x86 version)"
-    ShowTooltip(TextToolTip,5000)
+    TooltipOutput := "Chrome executable not found (neither x64 or x86 version)"
+    ShowTooltip(TooltipOutput,5000)
   } Else {
     If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
       ; Run a NON-admin version of target exe
@@ -2976,11 +2972,11 @@ Open_ControlPanel_NetworkConnections() {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   If (!WinExist(WinTitle)) {
     If (DebugMode == 1) {
-      TrayTip("AHK",( "Opening '" WinTitle "'" ))  ; Toast Notification
+      TrayTip "AHK", ("Opening '" WinTitle "'...")  ; Toast Notification
     }
     ; Run (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
     ; Run (EnvGet("WINDIR") "\System32\ncpa.cpl")
-    Run (EnvGet("WINDIR") "\System32\control.exe" " " "ncpa.cpl")
+    Run (EnvGet("WINDIR") "\System32\control.exe ncpa.cpl")
     WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   WinActivate WinTitle  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
@@ -3018,7 +3014,7 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
   }
   If (!WinExist(WinTitle)) {
     If (DebugMode == 1) {
-      TrayTip("AHK",( "Opening '" WinTitle "' > '" Tab_Desc "'" ))  ; Toast Notification
+      TrayTip "AHK", ("Opening '" WinTitle "' > '" Tab_Desc "'")  ; Toast Notification
     }
     Run (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
     ; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
@@ -3041,8 +3037,8 @@ Open_Exe(ExeFullpath) {
   If (ProcessExist(ExeBasename) == True) {
     ; Executable IS running
     If (DebugMode == 1) {
-      TextToolTip := "Activating `"" ExeBasename "`""
-      ToolTip(TextToolTip)
+      TooltipOutput := "Activating `"" ExeBasename "`""
+      ToolTip TooltipOutput
       ClearTooltip(2000)
     }
     ExePID := GetPID(ExeBasename)
@@ -3050,11 +3046,11 @@ Open_Exe(ExeFullpath) {
   } Else If (FileExist(ExeFullpath)) {
     ; Executable NOT running but IS found locally
     If (DebugMode == 1) {
-      TextToolTip := "Opening `"" ExeBasename "`""
-      ToolTip(TextToolTip)
+      TooltipOutput := "Opening `"" ExeBasename "`""
+      ToolTip TooltipOutput
       ClearTooltip(2000)
     }
-    ; Run(ExeFullpath)
+    ; Run ExeFullpath
     ExitCode := RunWait(ExeFullpath,,, ExePID)
     ; WinWait "ahk_pid " ExePID
     ; ExePID := GetPID(ExeBasename)
@@ -3062,8 +3058,8 @@ Open_Exe(ExeFullpath) {
   } Else {
     ; Executable NOT running & NOT found locally
     If (DebugMode == 1) {
-      TextToolTip := ("File not found: [ " ExeFullpath " ]")
-      ToolTip(TextToolTip)
+      TooltipOutput := ("File not found: [ " ExeFullpath " ]")
+      ToolTip TooltipOutput
       ClearTooltip(2000)
     }
   }
@@ -3389,7 +3385,7 @@ PrintEnv() {
   ; Logfile_EnvVars_Timestamp := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
   ;
   ; FileAppend KnownWinEnvVars, Logfile_EnvVars_Timestamp
-  ; Run("Notepad " Logfile_EnvVars_Timestamp)
+  ; Run ("notepad.exe " Logfile_EnvVars_Timestamp)
   ;
   Return
 }
@@ -3441,10 +3437,7 @@ RemoveToolTip() {
 RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   global DebugMode
   If (DebugMode == 1) {
-    TrayTip("AHK","
-    (LTrim
-      Opening NON-Admin version of Exe: "%Execute%"...
-    )") ; Toast Notification
+    TrayTip "AHK", ("Opening NON-Admin version of Exe [ " Execute " ]...")
   }
   Semicolon := ";"
   Add_Args := ""
@@ -3487,10 +3480,10 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   }
 
   ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PowerShell_Script_Block "`"")
-  ; Run %Run_PowerShellScript_NonAdmin%
+  ; Run Run_PowerShellScript_NonAdmin
 
   Run_VbsScript_NonAdmin := ("C:\Windows\System32\wscript.exe `"" FullPath_RunNonAdmin_VbsScript "`"")
-  Run(%Run_VbsScript_NonAdmin%)
+  Run Run_VbsScript_NonAdmin
 
   Return
 }
@@ -3509,7 +3502,7 @@ RunWaitOne(CMD_Command) {
   Run_Command := A_ComSpec " /C `"" CMD_Command "`" "
   If (DebugMode == 1) {
     TooltipOutput := "Run_Command=[" Run_Command "]"
-    Tooltip(TooltipOutput)
+    ToolTip TooltipOutput
     ClearTooltip(7500)
   }
   WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
@@ -3611,7 +3604,7 @@ SendPseudoRandomString(CopyStringToClipboard:=1) {
     A_Clipboard := PseudoRandomString
     If (DebugMode == 1) {
       Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
-      TrayTip("AHK",%Text_TrayTip%)  ; Toast Notification
+      TrayTip "AHK", Text_TrayTip  ; Toast Notification
     }
   }
 }
@@ -3639,7 +3632,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
       A_Clipboard := RandomString
       If (DebugMode == 1) {
         Text_TrayTip := "Copied string to the Clipboard`nPaste with CTRL + V"
-        TrayTip("AHK",%Text_TrayTip%)  ; Toast Notification
+        TrayTip "AHK", Text_TrayTip  ; Toast Notification
       }
     }
   }
@@ -3781,7 +3774,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
       TooltipOutput := TooltipOutput "OutputFile=[" OutputFile "] " "`n"
     }
     If ((Last_MouseX != MouseX_Screen) || (Last_MouseY != MouseY_Screen) || (Last_Blue != ColorComponent_Blue) || (Last_Green != ColorComponent_Green) || (Last_Red != ColorComponent_Red)) {
-      Tooltip(TooltipOutput)
+      ToolTip TooltipOutput
       ; Only perform updates if any discernible change is detected (amongst colors & mouse position values)
       If (DebugMode == 1) {
         LogfileOutput := StrReplace(TooltipOutput,"`n"," ")
@@ -3808,10 +3801,10 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ; ShowTooltip
 ;   |--> Show a tooltip & make said tooltip follow the mouse around for a given duration
 ;
-ShowTooltip(TextToolTip:="", LoopDuration_ms:=5000) {
+ShowTooltip(TooltipOutput:="", LoopDuration_ms:=5000) {
   StartMilliseconds := A_TickCount
   Loop {
-    ToolTip(TextToolTip)
+    ToolTip TooltipOutput
     LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
     If (LoopingForMilliseconds > LoopDuration_ms) {
       Break
@@ -3917,7 +3910,7 @@ ShowVolumeLevel() {
       }
     }
   }
-  ToolTip %Echo_Tooltip%, %ToolTip_XPos%, %ToolTip_YPos%
+  ToolTip Echo_Tooltip, ToolTip_XPos, ToolTip_YPos
   ClearTooltip(750)
   Return
 }
@@ -4098,7 +4091,7 @@ Win_ToggleRestoreMaximize(WinTitle:="A") {
     }
   }
   If (DebugMode == 1) {
-    TrayTip("AHK",( DebugString ))  ; Toast Notification
+    TrayTip "AHK", DebugString  ; Toast Notification
   }
   Return
 }
@@ -4158,10 +4151,10 @@ Xbox_ExportCaptures() {
     Win_size_state := WinGet_size_state("ahk_id " Win_ahk_id)
 
     Win10_ahk_id := WinGet_ahk_id(WinTitle)
-    Win10_title := WinGetTitle("ahk_id %Win10_ahk_id%")
-    Win10_ahk_class := WinGetClass("ahk_id %Win10_ahk_id%")
-    Win10_ahk_pid := WinGetPID("ahk_id %Win10_ahk_id%")
-    Win10_ahk_exe := WinGetProcessName("ahk_id %Win10_ahk_id%")
+    Win10_title := WinGetTitle("ahk_id " Win10_ahk_id)
+    Win10_ahk_class := WinGetClass("ahk_id " Win10_ahk_id)
+    Win10_ahk_pid := WinGetPID("ahk_id " Win10_ahk_id)
+    Win10_ahk_exe := WinGetProcessName("ahk_id " Win10_ahk_id)
 
     Win_MinMaxState := WinGetMinMax("ahk_id " Win_ahk_id)
     Tooltip_Header := A_ThisFunc "`n" "----------"
@@ -4541,7 +4534,7 @@ Xbox_ExportCaptures() {
       ; Open the output videos directory
       Tooltip_Closer_Stats := Tooltip_Closer_Stats "`n" "Opening output directory..."
       ToolTip ( Tooltip_Closer_Stats ), 1, 1
-      Run "%Fullpath_Output_XboxCaptures%"
+      Run(Fullpath_Output_XboxCaptures)
       Sleep 2000
       Tooltip_Closer_Stats := ( Tooltip_Closer_Stats "`n" "Runtime complete for '" Download_MediaType "'" )
       ToolTip ( Tooltip_Closer_Stats ), 1, 1
@@ -5140,13 +5133,13 @@ Youtube_EditDraft_Submit() {
 ;   A_MsgBoxResult := MsgBox("Popup MsgBox Question? or Statement!", A_ScriptName " - " A_ThisFunc,3)
 ;
 ;   If (A_MsgBoxResult = "Yes") {
-;     TrayTip("AHK",( "Leftmost Button Selected" ))  ; Toast Notification
+;     TrayTip "AHK", "Leftmost Button Selected"  ; Toast Notification
 ;   }
 ;   If (A_MsgBoxResult = "No") {
-;     TrayTip("AHK",( "Center Button Selected" ))  ; Toast Notification
+;     TrayTip "AHK", "Center Button Selected"  ; Toast Notification
 ;   }
 ;   If (A_MsgBoxResult = "Cancel") {
-;     TrayTip("AHK",( "Rightmost Button Selected" ))  ; Toast Notification
+;     TrayTip "AHK", "Rightmost Button Selected"  ; Toast Notification
 ;   }
 ;
 ;   Return

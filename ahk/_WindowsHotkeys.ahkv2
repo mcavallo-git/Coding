@@ -4400,7 +4400,7 @@ Xbox_ExportCaptures() {
     Loop Files, % Fullpath_Output_XboxCaptures "\*"
     {
       ; Exclude files matching a given regex pattern - https://lexikos.github.io/v2/docs/commands/RegExMatch.htm
-      RegexPattern_Exclude := "(.*).ini$"
+      RegexPattern_Exclude := "(.*).(ini|lnk)$"
       If (!RegExMatch(A_LoopFileFullPath, RegexPattern_Exclude)) {
         Count_FilesInOutputDir++
       }

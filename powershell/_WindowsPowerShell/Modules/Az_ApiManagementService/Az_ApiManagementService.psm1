@@ -2,23 +2,23 @@ function Az_ApiManagementService {
   Param(
 
     #[Parameter(Mandatory=$true)]
-    [String]$SubscriptionID = "BonEDGE-BIS",
+    [String]$SubscriptionID = "sandbox",
         
     #[Parameter(Mandatory=$true)]
-    [String]$ResourceGroup = "bis-sandbox-rg-redux",
+    [String]$ResourceGroup = "sandbox-rg-redux",
 
     #[Parameter(Mandatory=$true)]
-    [String]$AppServicePlan = "bis-sandbox-appserviceplan",
+    [String]$AppServicePlan = "sandbox-appserviceplan",
 
     #[Parameter(Mandatory=$true)]
-    [String]$Epithet = (("bis-") + (Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%Y%m%d%H%M%S")),
+    [String]$Epithet = (("webapp-") + (Get-Date ((Get-Date).ToUniversalTime()) -UFormat "%Y%m%d%H%M%S")),
 
     [String]$Sku = "Developer",
 
     [String]$Location = "eastus",
 
     #[Parameter(Mandatory=$true)]
-    [String]$WebAppName = "bis-mc-20190322-1509-api",
+    [String]$WebAppName = "webapp-name",
 
     [Int]$ExitAfterSeconds = 600,
 
@@ -47,7 +47,7 @@ function Az_ApiManagementService {
  
   $az.webapp.skuproperties = ConvertTo-Json -InputObject ( `
     ('{"sku": {"name": "Developer"},') + `
-    ('"properties": {"publisherEmail": "rgodithi@boneal.com","publisherName": "bis","gatewayUrl": "https://bis-mc-20190322-1509-api.azurewebsites.net","managementApiUrl": "https://bis-mc-20190322-1509-api.azurewebsites.net"},') + `
+    ('"properties": {"publisherEmail": "firstname_lastname@example.com","publisherName": "abc","gatewayUrl": "https://webapp-name.azurewebsites.net","managementApiUrl": "https://webapp-name.azurewebsites.net"},') + `
     ('"location": "East US","hostnameConfigurations": ') + `
     ('[{"type": "Microsoft.Web/certificates","hostNames": "https://localhost:44383/"}]}')) -Depth 100;
   $az.webapp.location = $Location;

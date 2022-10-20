@@ -10,6 +10,10 @@ show load-balance watchdog;
 show load-balance status;
 
 
+# Create a longstanding shortcut from the user login directory to the config.gateway.json directory
+if [ "$(realpath "/root/site-config.gateway.json";)" != "/srv/unifi/data/sites/default" ]; then ln -sf "/srv/unifi/data/sites/default" "${HOME}/site-config.gateway.json"; fi;
+
+
 # ------------------------------
 #
 # Decent config.gateway.json config for failover

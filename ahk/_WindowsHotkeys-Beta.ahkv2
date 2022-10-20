@@ -2603,11 +2603,10 @@ GetWindowSpecs(WinTitle:="A") {
 ; GetWindowSpecs_OnDoubleClick  ^^^ NEEDED BY GetWindowSpecs()  ^^^
 ;   |--> Sub-Function of "GetWindowSpecs()"
 ;
-GetWindowSpecs_OnDoubleClick() {
+GetWindowSpecs_OnDoubleClick(LV, RowNumber) {
   global DebugMode
-
-  LV.GetText(KeySelected, A_EventInfo, 1)  ; Grab the key (col. 1) associated with the double-click event
-  LV.GetText(ValSelected, A_EventInfo, 2)  ; Grab the val (col. 2) associated with the double-click event
+  KeySelected := LV.GetText(RowNumber,1)  ; Grab the key (col. 1) associated with the double-click event
+  ValSelected := LV.GetText(RowNumber,2)  ; Grab the val (col. 2) associated with the double-click event
   A_MsgBoxResult := MsgBox(4, %A_ScriptName%,"
   (LTrim
     Value selected:
@@ -4030,14 +4029,12 @@ ShowWindowTitles() {
 ; ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles
 ;   |--> Sub-Function of "ShowWindowTitles()"
 ;
-ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
-  If (A_GuiEvent = "DoubleClick") {
-    ; Gui WinTitles:Default
-    MyGui := Gui()
-    MyGui.Name := "WinTitles"
-    ; Gui Destroy
-    MyGui.Destroy()
-  }
+ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles(LV, RowNumber) {
+  ; Gui WinTitles:Default
+  MyGui := Gui()
+  MyGui.Name := "WinTitles"
+  ; Gui Destroy
+  MyGui.Destroy()
   Return
 }
 

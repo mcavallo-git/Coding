@@ -43,13 +43,13 @@
 
 
 
-### [ VIA SSH ON NEW NODE ] Update boneal user to have UID=500 & GID=500
-#>  sudo usermod --uid "500" "boneal"; sudo groupmod --gid "500" "boneal";
+### [ VIA SSH ON NEW NODE ] Update appuser user to have UID=500 & GID=500
+#>  sudo usermod --uid "500" "appuser"; sudo groupmod --gid "500" "appuser";
 
 
 
 ### [ VIA SSH ON NEW NODE ] CLEANUP --> lots of files were left-over with GID 1000 even though they should've been updated to 500
-#>  ### chown -R "boneal:boneal" "/home/boneal/public_html/";
+#>  ### chown -R "appuser:appuser" "/home/appuser/public_html/";
 #>  ### find "/" -gid "1000" -exec chgrp --changes "500" '{}' \;
 
 

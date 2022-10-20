@@ -2412,7 +2412,7 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
   If ( LV_Verbosity = 1 ) {
     TooltipOutput := "A_GuiEvent=[" A_GuiEvent "], A_EventInfo=[" A_EventInfo "]"
     ToolTip, %TooltipOutput%
-    SetTimer, RemoveToolTip, -2500
+    ClearTooltip(2500)
   }
   Return
 }
@@ -3066,7 +3066,7 @@ CustomMsgboxButtons_ClipboardTextOrBinary() {
   If (WinExist("Text or Binary")=0) {
     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
   }
-  SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, Off
+  SetTimer, % A_ThisFunc, Off
   WinActivate
   ControlSetText, Button1, &Text
   ControlSetText, Button2, &Binary
@@ -4016,11 +4016,34 @@ XBox_DownloadDelete_GameClips() {
     }
   }
 
+  ; SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, 50
+  ; MsgBox, 3, Text or Binary, Paste the Clipboard as Text or Binary?
+  ; If (A_MsgBoxResult = "Yes") {
+  ;   ; Paste the Text version of the Clipboard
+  ;   PasteClipboardAsText()
+  ; }
+  ; If (A_MsgBoxResult = "No") {
+  ;   ; Paste the Binary version of the Clipboard
+  ;   PasteClipboardAsBinary()
+  ; }
+
+  ; CustomMsgboxButtons_ClipboardTextOrBinary() {
+  ;   If (WinExist("Text or Binary")=0) {
+  ;     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+  ;   }
+  ;   SetTimer, % A_ThisFunc, Off
+  ;   WinActivate
+  ;   ControlSetText, Button1, &Text
+  ;   ControlSetText, Button2, &Binary
+  ;   Return
+  ; }
+
+
   ; CustomMsgBox_SetText() {
   ;   If (WinExist(Popup_MsgBox_WindowTitle)) {
   ;     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
   ;   }
-  ;   SetTimer, CustomMsgBox_SetText, Off
+  ;   SetTimer, % A_ThisFunc, Off
   ;   WinActivate
   ;   ControlSetText, Button1, &LEFT_BUTTON
   ;   ControlSetText, Button2, &CENTER_BUTTON
@@ -4982,7 +5005,7 @@ BrightnessSetter_new() {
 ;   If (WinExist(Popup_MsgBox_WindowTitle)) {
 ;     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
 ;   }
-;   SetTimer, CustomMsgBox_SetText, Off
+;   SetTimer, % A_ThisFunc, Off
 ;   WinActivate
 ;   ControlSetText, Button1, &LEFT_BUTTON
 ;   ControlSetText, Button2, &CENTER_BUTTON

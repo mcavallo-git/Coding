@@ -679,8 +679,7 @@ Pause::
 #d::     ;  20200725T080521              (Base Case + WinKey + D)
 !#d::    ;  20200725T080550-0500         (Alt + WinKey + D)
 ^#d::    ;  2020-07-25T08:05:55          (Ctrl + WinKey + D)
-#+d::    ;  20200725T080557.608027       (Shift + WinKey + D)
-; +#d::    ;  20200725T080557.608027       (Shift + WinKey + D)
++#d::    ;  20200725T080557.608027       (Shift + WinKey + D)
 !^#d::   ;  2020-07-25T08:06:04-05:00    (Ctrl + Alt + WinKey + D)
 +^#d::   ;  2020-07-25T08:06:10.470061   (Shift + Ctrl + WinKey + D)
 +!#d::   ;  20200725T080613.297487-0500  (Shift + Alt + WinKey + D)
@@ -698,7 +697,6 @@ Pause::
   RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
   RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
   RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
-  RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
   ; ------------------------------
   YMD_Separator := RFC3339_YearMonthDay_Separator
   HMS_Separator := RFC3339_HourMinuteSecond_Separator
@@ -720,9 +718,10 @@ Pause::
   If (CtrlPressed != 0) {
     Add_Timezone := 1
   }
+  If (A_ThisHotkey = "#d") {  ; WinKey + D
     ; Output a "filename-friendly" timestamp
     ;  |--> Generally-speaking, only allow characters which are alphanumeric "[a-zA-Z0-9]", dashes "-", plus-signs "+", and periods "."
-    SelectedFormat := "RFC3339 Filename w/o Separators (filename)"
+    SelectedFormat := "Filename, Compact"
     YMD_Separator := ""
     HMS_Separator := ""
     DT_Field_Separator := RFC3339_DateAndTimeField_Separator
@@ -748,7 +747,7 @@ Pause::
     GetTimezoneOffset(Current_TZ, HMS_Separator)
     SendKeys := SendKeys Current_TZ
   }
-  ; If (DebugMode = 1) {
+  If (DebugMode = 1) {
     TooltipOutput := ""
     TooltipOutput := ( TooltipOutput "`n" "A_ThisHotkey = [" A_ThisHotkey "]" )
     TooltipOutput := ( TooltipOutput "`n" )
@@ -761,9 +760,10 @@ Pause::
     TooltipOutput := ( TooltipOutput "`n" "SelectedFormat = [" SelectedFormat "]" )
     TooltipOutput := ( TooltipOutput "`n" )
     TooltipOutput := ( TooltipOutput "`n" "SendKeys = [" SendKeys "]" )
+    TooltipOutput := ( TooltipOutput "`n" )
     Tooltip, %TooltipOutput%
-    ClearTooltip(20000)
-  ; }
+    ClearTooltip(7500)
+  }
   Send(SendKeys)
   Return
 
@@ -2207,7 +2207,6 @@ GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {
 ;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
 ;
 GetTimezoneOffset(ByRef Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", StripCharacter:=".") {
-  Global RFC3339_UTC_ZeroHourReplacement
   Time_CurrentTZ := A_Now
   Time_UTC := A_NowUTC
   TZ_UTC_LocalOffset := DateDiff(Time_CurrentTZ, Time_UTC, "Minutes")

@@ -715,7 +715,7 @@ Pause::
     If (ExeToRequire_Fullpath != "") {
       AwaitModifierKeyup()  ; Wait until all modifier keys are released
       Sleep 10
-      SplitPath %ExeToRequire_Fullpath%, ExeToRequire_Basename, ExeToRequire_Dirname, ExeToRequire_Extension, ExeToRequire_BasenameNoExt, ExeToRequire_Drivename
+      SplitPath %ExeToRequire_Fullpath%, &ExeToRequire_Basename, &ExeToRequire_Dirname, &ExeToRequire_Extension, &ExeToRequire_BasenameNoExt, &ExeToRequire_Drivename
       WinActivate "ahk_exe %ExeToRequire_Basename%"
       VarSetCapacity(ExeToRequire_Basename,0)
       VarSetCapacity(ExeToRequire_Dirname,0)
@@ -3085,7 +3085,7 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
 Open_Exe(ExeFullpath) {
   global DebugMode
   Timeout := 10
-  SplitPath %ExeFullpath%, ExeBasename, ExeDirname, ExeExtension, ExeBasenameNoExt, ExeDrivename
+  SplitPath %ExeFullpath%, &ExeBasename, &ExeDirname, &ExeExtension, &ExeBasenameNoExt, &ExeDrivename
   If (ProcessExist(ExeBasename) == True) {
     ; Executable IS running
     If (DebugMode == 1) {
@@ -3523,7 +3523,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   ; Build the output directory
   FullPath_RunNonAdmin_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
   ; Build the output filename
-  SplitPath %FullPath_RunExe%, OutFileName, OutDirname, OutExtension, OutNameNoExt, OutDrive
+  SplitPath %FullPath_RunExe%, &OutFileName, &OutDirname, &OutExtension, &OutNameNoExt, &OutDrive
   FullPath_RunNonAdmin_VbsScript := (FullPath_RunNonAdmin_Dirname "\"  OutFileName ".vbs")
 
   ; Create the VBS script file (if it doesn't already exist)

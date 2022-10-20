@@ -2695,7 +2695,7 @@ GetNanoseconds(&OutputVar) {
 Monitor_ActivateLowPowerMode() {
   DllCall("LockWorkStation")
   Sleep 10
-  SendMessage, 0x112, 0xF170, 1,, Program Manager
+  SendMessage(0x112, 0xF170, 1,, "Program Manager")
   Return
 }
 
@@ -2709,7 +2709,7 @@ Monitor_ActivateLowPowerMode() {
 Monitor_PowerOff() {
   DllCall("LockWorkStation")
   Sleep 10
-  SendMessage, 0x112, 0xF170, 2,, Program Manager
+  SendMessage(0x112, 0xF170, 2,, "Program Manager")
   Return
 }
 
@@ -2723,7 +2723,7 @@ Monitor_PowerOff() {
 Monitor_PowerOn() {
   DllCall("LockWorkStation")
   Sleep 10
-  SendMessage, 0x112, 0xF170, -1,, Program Manager
+  SendMessage(0x112, 0xF170, -1,, "Program Manager")
   Return
 }
 
@@ -2735,7 +2735,7 @@ Monitor_PowerOn() {
 ;          |--> Sending a value of [ 2 ] sends [ power off ] to attached monitor(s)
 ;
 Monitor_ShowScreenSaver() {
-  SendMessage, 0x112, 0xF140, 0,, Program Manager
+  SendMessage(0x112, 0xF140, 0,, "Program Manager")
   ; |
   ; |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
   ; |

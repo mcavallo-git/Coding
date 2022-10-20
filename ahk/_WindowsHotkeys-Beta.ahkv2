@@ -3452,7 +3452,7 @@ PrintEnv() {
   ; Logfile_EnvVars_Timestamp := A_Desktop "\WindowsEnvVars-" COMPUTERNAME "-" USERNAME "-" TIMESTAMP ".log"
   ;
   ; FileAppend(%KnownWinEnvVars%, %Logfile_EnvVars_Timestamp%)
-  ; Run(Notepad "%Logfile_EnvVars_Timestamp%")
+  ; Run("Notepad " Logfile_EnvVars_Timestamp)
   ;
   Return
 }
@@ -3860,7 +3860,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
   If (DebugMode == 1) {
     Logfile.close()
     Sleep 250
-    Run(Notepad "%OutputFile%")
+    Run("Notepad " OutputFile)
   }
   ClearTooltip(0)
   Return

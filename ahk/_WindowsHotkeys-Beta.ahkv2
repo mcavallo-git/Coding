@@ -2064,30 +2064,30 @@ CreateCitationsFooter() {
   SetKeyDelay 0, -1
   LF := "`n"
   SendInput LF
-  SendInput {Space}{Shift Down}{Home}{Shift Up}{Delete}
+  SendInput "{Space}{Shift Down}{Home}{Shift Up}{Delete}"
   SendInput LF
   SendInput "------------------------------------------------------------"
-  SendInput {LControl Down}{q}{LControl Up}
+  SendInput "{LControl Down}{q}{LControl Up}"
   SendInput LF
-  SendInput {LControl Down}{q}{LControl Up}
-  SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
+  SendInput "{LControl Down}{q}{LControl Up}"
+  SendInput "{End}{Shift Down}{Home}{Right}{Shift Up}"
   SendInput LF
   SendInput "Citation(s)"
-  SendInput {LControl Down}{q}{LControl Up}
+  SendInput "{LControl Down}{q}{LControl Up}"
   SendInput LF
-  SendInput {LControl Down}{q}{LControl Up}
-  SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
+  SendInput "{LControl Down}{q}{LControl Up}"
+  SendInput "{End}{Shift Down}{Home}{Right}{Shift Up}"
   SendInput LF
   SendInput "domain  |  `"title`"  |  url"
-  SendInput {LControl Down}{q}{LControl Up}
+  SendInput "{LControl Down}{q}{LControl Up}"
   SendInput LF
-  SendInput {LControl Down}{q}{LControl Up}
-  SendInput {End}{Shift Down}{Home}{Right}{Shift Up}
+  SendInput "{LControl Down}{q}{LControl Up}"
+  SendInput "{End}{Shift Down}{Home}{Right}{Shift Up}"
   SendInput LF
   SendInput "------------------------------------------------------------"
-  SendInput {LControl Down}{q}{LControl Up}
-  SendInput {Up 2}{Left 26}{Space 2}
-  SendInput {End}{Shift Down}{Left 3}{Shift Up}
+  SendInput "{LControl Down}{q}{LControl Up}"
+  SendInput "{Up 2}{Left 26}{Space 2}"
+  SendInput "{End}{Shift Down}{Left 3}{Shift Up}"
   SetKeyDelay %Revert_A_KeyDelay%, -1
   Return
 }
@@ -3578,7 +3578,7 @@ SendDashedLine(LineLength:=60) {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   SetKeyDelay 0, -1
   ; StringToType := StringRepeat("-",60)
-  SendInput {- %LineLength%}
+  SendInput "{- %LineLength%}"
   Return
 }
 
@@ -3591,7 +3591,7 @@ SendUnderscoreLine(LineLength:=60) {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   SetKeyDelay 0, -1
   ; StringToType := StringRepeat("-",60)
-  SendInput {_ %LineLength%}
+  SendInput "{_ %LineLength%}"
   Return
 }
 

@@ -2813,7 +2813,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
     Loop MonitorGetCount() {
       Each_MonitorNumber := A_Index
       ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-      MonitorGetWorkArea(Each_MonitorNumber, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
+      MonitorGetWorkArea(Each_MonitorNumber, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
       ; Determine if the current iteration's monitor is the destination monitor
       MoveTo_ThisMonitor := False
       ; Determine if the center of target window is currently located within the bounds of this monitor's work area
@@ -3962,7 +3962,7 @@ ShowVolumeLevel() {
   MouseGetPos &MouseX, &MouseY
   ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
   Loop MonitorGetCount() {
-    MonitorGetWorkArea(A_Index, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
+    MonitorGetWorkArea(A_Index, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
     ; Determine if the current iteration's monitor is the destination monitor
     MoveTo_ThisMonitor := False
     ; Determine if the center of target window is currently located within the bounds of this monitor's work area

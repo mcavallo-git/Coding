@@ -290,7 +290,7 @@ Pause::
       ControlClick x%xpos% y%ypos%, %WinTitle%
     } Else {
       MouseGetPos &MouseX, &MouseY
-      MouseClick "Left", %xpos%, %ypos%
+      MouseClick "Left", xpos, ypos
       MouseMove %MouseX%, %MouseY%
     }
     Return
@@ -968,7 +968,7 @@ AppsKey & ]::
     }
     Send "{LWin up}{RWin up}{LWin down}{p}{LWin up}"
     Sleep 2000
-    MouseClick "Left", %xpos%, %ypos%
+    MouseClick "Left", xpos, ypos
     Sleep 100
   } Else If (SubStr(A_OSVersion, 1, 4)="10.0") {  ; Windows10
     ; Open the "Projection" window
@@ -995,7 +995,7 @@ AppsKey & ]::
           ypos := 315
         }
         ; Select Projection menu option
-        MouseClick "Left", %xpos%, %ypos%
+        MouseClick "Left", xpos, ypos
         ; Wait until the new monitor layout is loaded
         Loop 30 {
           Sleep 100
@@ -1007,7 +1007,7 @@ AppsKey & ]::
           }
         }
         ; Click outside of the Projection menu to close it
-        MouseClick "Left", %MouseX%, %MouseY%
+        MouseClick "Left", MouseX, MouseY
         Sleep 100
         RandomSleep := Random(1000,1500)
         Sleep RandomSleep
@@ -1226,7 +1226,7 @@ AppsKey & l::
 ;   CoordMode "Mouse", "Screen"
 ;   SetDefaultMouseSpeed 0
 ;   MouseGetPos &MouseX, &MouseY
-;   MouseClick "Left", %MouseX%, %MouseY%
+;   MouseClick "Left", MouseX, MouseY
 ;   Sleep 10
 ;   Return
 ; }
@@ -2023,7 +2023,7 @@ ClickLoop(MouseX,MouseY,Timeout) {
   }
   Loop {
     Sleep Timeout
-    MouseClick "Left", %MouseX%, %MouseY%
+    MouseClick "Left", MouseX, MouseY
   }
   Return
 }
@@ -4520,7 +4520,7 @@ Xbox_ExportCaptures() {
             Loop {
               If (A_Index == 1) {
                 WinActivate("ahk_id " Win_ahk_id)
-                MouseClick "Left", %DownloadBtn_XPos_Center%, %DownloadBtn_YPos_Center%  ; Click "Download" on currently-selected  file
+                MouseClick "Left", DownloadBtn_XPos_Center, DownloadBtn_YPos_Center  ; Click "Download" on currently-selected  file
               }
               Sleep 100
               WaitDuration_Seconds := Round(((A_TickCount-TickCount_StartDownload)/1000), 1)
@@ -4555,7 +4555,7 @@ Xbox_ExportCaptures() {
             Tooltip_NewStats := "Deleting ..."
             ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
             WinActivate("ahk_id " Win_ahk_id)
-            MouseClick "Left", %DeleteBtn_XPos_TrashCan%, %DeleteBtn_YPos_Center%  ; Click "Delete" once download has finished
+            MouseClick "Left", DeleteBtn_XPos_TrashCan, DeleteBtn_YPos_Center  ; Click "Delete" once download has finished
             Sleep 1000
             Tooltip_NewStats := Tooltip_NewStats " Confirming ..."
             ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1

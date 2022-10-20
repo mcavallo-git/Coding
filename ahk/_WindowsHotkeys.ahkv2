@@ -1,13 +1,13 @@
 ﻿; ------------------------------------------------------------
 ;
 ; _WindowsHotkeys.ahkv2, by Cavalol
-;   |
-;   |--> Effective Hotkeys for Windows-based Workstaitons
-;   |
-;   |--> Runs via "Autohotkey" (AHK)  >> VERSION 2.0-a077-c2bb552 << - Download @ [ https://www.autohotkey.com/download/2.0/AutoHotkey_2.0-a077-c2bb552.zip ]
-;   |
-;   |--> Download this script @ [ https://raw.githubusercontent.com/mcavallo-git/Coding/master/ahk/_WindowsHotkeys.ahkv2 ]
+;   - Effective Hotkeys for Windows-based Workstaitons
+;   - Download @ https://raw.githubusercontent.com/mcavallo-git/Coding/master/ahk/_WindowsHotkeys.ahkv2
 ;
+; ------------------------------------------------------------
+
+; #Requires AutoHotkey v2.0-a077-c2bb552  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0-a077-c2bb552.zip
+
 ; ------------------------------------------------------------
 ;
 ; Global Variables - User-Defined

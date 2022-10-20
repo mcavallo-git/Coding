@@ -1892,8 +1892,8 @@ NumLock::
     ; Default - Keep NumLock enabled
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     If (NumLockEnabled_BeforeKeypress == 0) {
-      SetNumLockState, On
-      ; SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
+      SetNumLockState On
+      ; SetNumLockState % GetKeyState("NumLock", "T") ? "Off" : "On"
     } Else {
       TextToolTip := "Disable NumLock via Shift+NumLock"
       ToolTip(%TextToolTip%)
@@ -1903,8 +1903,8 @@ NumLock::
     ; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     If (NumLockEnabled_BeforeKeypress == 1) {
-      SetNumLockState, Off
-      ; SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
+      SetNumLockState Off
+      ; SetNumLockState % GetKeyState("NumLock", "T") ? "Off" : "On"
     } Else {
       TextToolTip := "Enable NumLock via Shift+NumLock"
       ToolTip(%TextToolTip%)
@@ -1921,15 +1921,15 @@ NumLock::
     ; Default - Allow Shift+NumLock to toggle NumLock
     ; NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     ; If (NumLockEnabled_BeforeKeypress == 1) {
-    ;   ; SetNumLockState, Off
-    ;   SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
+    ;   ; SetNumLockState Off
+    ;   SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
     ; }
-    SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
+    SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
   } Else {
     ; Reversed-Default - Only allow Shift+NumLock to enable NumLock (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
     NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     If (NumLockEnabled_BeforeKeypress == 0) {
-      SetNumLockState, On
+      SetNumLockState On
     }
   }
   Return

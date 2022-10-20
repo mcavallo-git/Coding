@@ -290,7 +290,7 @@ Pause::
     } Else {
       MouseGetPos MouseX, MouseY
       MouseClick Left, %xpos%, %ypos%
-      MouseMove, %MouseX%, %MouseY%
+      MouseMove %MouseX%, %MouseY%
     }
     Return
   }
@@ -974,7 +974,7 @@ AppsKey & ]::
       }
     }
   }
-  MouseMove, %MouseX%, %MouseY%
+  MouseMove %MouseX%, %MouseY%
   If (DebugMode == 1) {
     SysGet, MonitorCountAfter, 80
     SysGet, ViewportWidthAfter, 78
@@ -1850,9 +1850,9 @@ BrowserHover() {
         Menu("Tray","Icon",BusyIcon)
         Updated_TrayIcon := 1
       }
-      MouseMove, %MoveDistance%, 0, 0, R
+      MouseMove %MoveDistance%, 0, 0, R
       Sleep 1000
-      MouseMove, -%MoveDistance%, 0, 0, R
+      MouseMove -%MoveDistance%, 0, 0, R
     } Else {
       If (Updated_TrayIcon==1) {
         Menu("Tray","Icon",WaitIcon)
@@ -4369,7 +4369,7 @@ Xbox_ExportCaptures() {
               Tooltip_NewStats := ( "Download duration: " WaitDuration_Seconds "s ..." )
               ToolTip ( Tooltip_EachFile_Stats "`n" Tooltip_NewStats ), 1, 1
               If ( WaitDuration_Seconds > WaitDuration_MediaType ) {  ; Wait a minimum short-duration per download
-                MouseMove, 0, 0
+                MouseMove 0, 0
                 ; Check the leftmost side of the "Download" button to see if it is still downloading the current file (it turns a lighter gray, 0x595758, while downloading, compared to its base of 0x171717)
                 WinActivate("ahk_id %Win_ahk_id%")
                 Color_DL_Button_LeftSide := PixelGetColor(DownloadBtn_XPos_LeftInterior, DownloadBtn_YPos_Center)
@@ -4891,7 +4891,7 @@ BrightnessSetter_new() {
 ;
 ; ------------------------------------------------------------
 ;
-; MouseMove, X, Y [, Speed, R]
+; MouseMove X, Y [, Speed, R]
 ;
 ; ------------------------------------------------------------
 ;

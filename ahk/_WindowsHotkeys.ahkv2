@@ -134,15 +134,15 @@ If (FileExist(TrayIcon_Default)) {
 ;   ACTION:  Attempt to re-run the current program with escalated/elevated privileges (e.g. rerun the current program as admin)
 ;
 ; ???::
-; 	(PSEUDO-CODE)  CHECK IF WINDOW IS ALREADY RUNNING AS ADMIN -> IF YES, DO NOTHING
+;   (PSEUDO-CODE)  CHECK IF WINDOW IS ALREADY RUNNING AS ADMIN -> IF YES, DO NOTHING
 ; ;;;
-; 	(PSEUDO-CODE)  GET ACTIVE WINDOW'S EXE-PATH
+;   (PSEUDO-CODE)  GET ACTIVE WINDOW'S EXE-PATH
 ; ;;;
-; 	(PSEUDO-CODE)  GET ACTIVE WINDOW'S ADDITIONAL-ARGS
+;   (PSEUDO-CODE)  GET ACTIVE WINDOW'S ADDITIONAL-ARGS
 ; ;;;
-; 	(PSEUDO-CODE)  OPEN WINDOW AS ADMIN
+;   (PSEUDO-CODE)  OPEN WINDOW AS ADMIN
 ; ;;;
-; 	Return
+;   Return
 
 
 ; ------------------------------------------------------------
@@ -343,9 +343,9 @@ Pause::
 #If
 
 
-; 	;
-; 	; SET ANY EXISTENT GAME-WINDOW ACTIVE UPON JOYSTICK BUTTON-/TRIGGER-PRESS
-; 	;
+;   ;
+;   ; SET ANY EXISTENT GAME-WINDOW ACTIVE UPON JOYSTICK BUTTON-/TRIGGER-PRESS
+;   ;
 ; Joy1::
 ; Joy2::
 ; Joy3::
@@ -378,10 +378,10 @@ Pause::
 ; Joy30::
 ; Joy31::
 ; Joy32::
-; 	; If (DebugMode == 1) {
-; 	Tooltip, % ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
-; 	; }
-; 	Return
+;   ; If (DebugMode == 1) {
+;   Tooltip, % ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
+;   ; }
+;   Return
 
 
 ; ------------------------------------------------------------
@@ -596,7 +596,7 @@ Pause::
     ; ControlSend,, !z, ahk_pid %Win_ahk_pid%
     ; ControlSend,, {LAlt up}{RAlt up}{LAlt down}{z}{LAlt up}, "ahk_pid %Win_ahk_pid%"
   } Else {
-  	; Send [ Shift + Alt + z ] - Configure this in Geforce Experience Overlay via "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set this hotkey)
+    ; Send [ Shift + Alt + z ] - Configure this in Geforce Experience Overlay via "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set this hotkey)
     Send +!z
   }
   Return
@@ -905,7 +905,7 @@ AppsKey & ]::
         Sleep %RandomSleep%
         Break
       } Else If (LoopingForMilliseconds > 2000) {
-        MsgBox, 
+        MsgBox,
         (LTrim
           Error: Unable to locate Projection window
         )
@@ -937,7 +937,7 @@ AppsKey & ]::
     ; ------------------------------------------------------------
     ;
     ; DpiScalingVer    ; originally 1000
-    ; Win8DpiScaling   ; originally 0 
+    ; Win8DpiScaling   ; originally 0
     ; LogPixels        ; originally absent
     ;
     ; DPI--->Scale Factor
@@ -1093,12 +1093,12 @@ AppsKey & l::
 ;
 ; AppsKey & WheelUp::
 ; AppsKey & WheelDown::
-; 	CoordMode, Mouse, Screen
-; 	SetDefaultMouseSpeed, 0
-; 	MouseGetPos, MouseX, MouseY
-; 	MouseClick, Left, %MouseX%, %MouseY%
-; 	Sleep 10
-; 	Return
+;   CoordMode, Mouse, Screen
+;   SetDefaultMouseSpeed, 0
+;   MouseGetPos, MouseX, MouseY
+;   MouseClick, Left, %MouseX%, %MouseY%
+;   Sleep 10
+;   Return
 
 
 ; ------------------------------------------------------------
@@ -1177,7 +1177,7 @@ AppsKey & XButton2::
     VolDelta := 2
     SoundSet , % ( "-" VolDelta )
     ShowVolumeLevel()
-    Return	
+    Return
   ;
   ;   ACTION:  Goto previous track  (in active media player)
   ;
@@ -1362,10 +1362,10 @@ WheelRight::
 ; ;   ACTION:  Halo Infinite - Send XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button - Bind button as "Mark" hotkey)
 ; ;
 ; LButton::
-; 	Send, {XButton1}
-; 	; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
-; 	Sleep 2000
-; 	Return
+;   Send, {XButton1}
+;   ; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
+;   Sleep 2000
+;   Return
 #If WinActive("ahk_exe Overwatch.exe")
 ;
 ;   HOTKEY:  WinKey + C
@@ -1553,103 +1553,103 @@ LShift & RShift::
 ;  Win+J - Start Node.JS (Git-Bash) && Postman
 ;
 ; #j::
-; 	; - -
-; 	SG_REPO=%USERPROFILE%/Documents/GitHub/supplier_gateway
-; 	; - -
-; 	POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
-; 	GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
-; 	; - -
-; 	SG_BUILD_SCRIPT=%SG_REPO%/build/_start_frontend.sh
-; 	SG_BUILD_API_LNK=%SG_REPO%/_start_server_api.lnk
-; 	SG_BUILD_PM_LNK=%SG_REPO%/_start_server_pm.lnk
-; 	SG_BUILD_SG_LNK=%SG_REPO%/_start_server_sg.lnk
-; 	; - -
-; 	WinTitle_NodeJS=Supplier Gateway (localhost)
-; 	WinTitle_Postman=Postman
-; 	; - -
-; 	if ((!FileExist(SG_REPO)) || (!InStr(FileExist(SG_REPO), "D"))) {
-; 		MsgBox, 
-; 		(LTrim
-; 			Error: Required directory not-found:
-; 			%SG_REPO%
-; 		)
-; 	} Else {
-; 		; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
-; 		Increment_Left := -7
-; 		Increment_Top := 0
-; 		Increment_Width := 14
-; 		Increment_Height := 7
-; 		; Prep Monitor Widths/Heights
-; 		SysGet, DesktopMonitorCount, 80 , N
-; 		BoundsLeft = -1
-; 		BoundsRight = -1
-; 		BoundsTop = -1
-; 		BoundsBottom = -1
-; 		BoundsCenterHoriz = 0
-; 		BoundsCenterVert = 0
-; 		Loop, %DesktopMonitorCount% {
-; 			SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
-; 			; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
-; 			If (BoundsLeft < MonitorWorkAreaLeft)
-; 			{
-; 				; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
-; 				; Widths
-; 				BoundsLeft := MonitorWorkAreaLeft
-; 				BoundsRight := MonitorWorkAreaRight
-; 				; Heights
-; 				BoundsTop := MonitorWorkAreaTop
-; 				BoundsBottom := MonitorWorkAreaBottom
-; 			} Else {
-; 				; MsgBox, Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft)
-; 			}
-; 		}
-; 		; Widths
-; 		BoundsWidthFull := (BoundsRight - BoundsLeft)
-; 		BoundsWidthHalf := Floor(BoundsWidthFull/2)
-; 		BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
-; 		; Heights
-; 		BoundsHeightFull := (BoundsBottom - BoundsTop)
-; 		BoundsHeightHalf := Floor(BoundsHeightFull/2)
-; 		BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
-; 		SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
-; 		; - -
-; 		WinTitle_Postman=Postman
-; 		WinTitle_NodeJS=Supplier Gateway (localhost)
-; 		; - -
-; 		; Start Postman
-; 		IfWinNotExist,%WinTitle_Postman%
-; 		{
-; 			; Need to run the program, as no window was found for it (yet)
-; 			POSTMAN_ARGS= --processStart Postman.exe
-; 			; POSTMAN_ARGS=--processStart Postman.exe
-; 			Run, %POSTMAN_EXE% %POSTMAN_ARGS%
-; 		}
-; 		; - -
-; 		Sleep 100
-; 		; - -
-; 		; Start Node.JS in Git-Bash
-; 		IfWinNotExist,%WinTitle_NodeJS%
-; 		{
-; 			GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh rest-api start-localhost;"
-; 			GIT_BASH_ARGS_PM=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh boneal-app start-localhost;"
-; 			GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh project-manager start-localhost;"
-; 			Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %SG_REPO%
-; 			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %SG_REPO%
-; 			; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%
-; 		}
-; 		;
-; 		; Wait until the script(s)/program(s) start before moving them around
-; 		; WinWait,%WinTitle_Postman%,,5
-; 		; WinWait,%WinTitle_NodeJS%,,3
-; 		; Move the window to occupy the right-half of the Right-Most monitor
-; 		; WinMove,%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-; 		; WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
-; 		; Move the window to occupy the left-half of the Right-Most monitor
-; 		; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
-; 		; WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
-; 		;
-; 	}
-; 	Return
+;   ; - -
+;   SG_REPO=%USERPROFILE%/Documents/GitHub/supplier_gateway
+;   ; - -
+;   POSTMAN_EXE=%LOCALAPPDATA%/Postman/Update.exe
+;   GIT_BASH_EXE=%PROGRAMFILES%\Git\git-bash.exe
+;   ; - -
+;   SG_BUILD_SCRIPT=%SG_REPO%/build/_start_frontend.sh
+;   SG_BUILD_API_LNK=%SG_REPO%/_start_server_api.lnk
+;   SG_BUILD_PM_LNK=%SG_REPO%/_start_server_pm.lnk
+;   SG_BUILD_SG_LNK=%SG_REPO%/_start_server_sg.lnk
+;   ; - -
+;   WinTitle_NodeJS=Supplier Gateway (localhost)
+;   WinTitle_Postman=Postman
+;   ; - -
+;   if ((!FileExist(SG_REPO)) || (!InStr(FileExist(SG_REPO), "D"))) {
+;     MsgBox,
+;     (LTrim
+;       Error: Required directory not-found:
+;       %SG_REPO%
+;     )
+;   } Else {
+;     ; Microsoft Windows has some unusual values for the window-bounds, when maximized/snapped
+;     Increment_Left := -7
+;     Increment_Top := 0
+;     Increment_Width := 14
+;     Increment_Height := 7
+;     ; Prep Monitor Widths/Heights
+;     SysGet, DesktopMonitorCount, 80 , N
+;     BoundsLeft = -1
+;     BoundsRight = -1
+;     BoundsTop = -1
+;     BoundsBottom = -1
+;     BoundsCenterHoriz = 0
+;     BoundsCenterVert = 0
+;     Loop, %DesktopMonitorCount% {
+;       SysGet, MonitorWorkArea, MonitorWorkArea, %A_Index%
+;       ; If (%MonitorWorkAreaLeft% > %BoundsLeft%) {
+;       If (BoundsLeft < MonitorWorkAreaLeft)
+;       {
+;         ; MsgBox, Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)
+;         ; Widths
+;         BoundsLeft := MonitorWorkAreaLeft
+;         BoundsRight := MonitorWorkAreaRight
+;         ; Heights
+;         BoundsTop := MonitorWorkAreaTop
+;         BoundsBottom := MonitorWorkAreaBottom
+;       } Else {
+;         ; MsgBox, Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft)
+;       }
+;     }
+;     ; Widths
+;     BoundsWidthFull := (BoundsRight - BoundsLeft)
+;     BoundsWidthHalf := Floor(BoundsWidthFull/2)
+;     BoundsCenterHoriz := (BoundsLeft + BoundsWidthHalf)
+;     ; Heights
+;     BoundsHeightFull := (BoundsBottom - BoundsTop)
+;     BoundsHeightHalf := Floor(BoundsHeightFull/2)
+;     BoundsCenterVert := (BoundsTop + BoundsHeightHalf)
+;     SetTitleMatchMode, 1  ; A window's title must start with the specified WinTitle to be a match
+;     ; - -
+;     WinTitle_Postman=Postman
+;     WinTitle_NodeJS=Supplier Gateway (localhost)
+;     ; - -
+;     ; Start Postman
+;     IfWinNotExist,%WinTitle_Postman%
+;     {
+;       ; Need to run the program, as no window was found for it (yet)
+;       POSTMAN_ARGS= --processStart Postman.exe
+;       ; POSTMAN_ARGS=--processStart Postman.exe
+;       Run, %POSTMAN_EXE% %POSTMAN_ARGS%
+;     }
+;     ; - -
+;     Sleep 100
+;     ; - -
+;     ; Start Node.JS in Git-Bash
+;     IfWinNotExist,%WinTitle_NodeJS%
+;     {
+;       GIT_BASH_ARGS_API=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh rest-api start-localhost;"
+;       GIT_BASH_ARGS_PM=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh boneal-app start-localhost;"
+;       GIT_BASH_ARGS_SG=-c "C:/Users/%USERNAME%/Documents/GitHub/supplier_gateway/build/_start_frontend.sh project-manager start-localhost;"
+;       Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_API%, %SG_REPO%
+;       ; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_PM%, %SG_REPO%
+;       ; Run, %GIT_BASH_EXE% %GIT_BASH_ARGS_SG%, %SG_REPO%
+;     }
+;     ;
+;     ; Wait until the script(s)/program(s) start before moving them around
+;     ; WinWait,%WinTitle_Postman%,,5
+;     ; WinWait,%WinTitle_NodeJS%,,3
+;     ; Move the window to occupy the right-half of the Right-Most monitor
+;     ; WinMove,%WinTitle_Postman%,,%BoundsCenterHoriz%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+;     ; WinMove,%WinTitle_Postman%,,953,0,974,1047 (1st Monitor, Right, Actual)
+;     ; Move the window to occupy the left-half of the Right-Most monitor
+;     ; WinMove,%WinTitle_NodeJS%,,%BoundsLeft%,%BoundsTop%,%BoundsWidthHalf%,%BoundsHeightFull%
+;     ; WinMove,%WinTitle_NodeJS%,,-7,0,974,1047 ;; (1st Monitor, Left, Actual)
+;     ;
+;   }
+;   Return
 
 
 ; ------------------------------------------------------------
@@ -1715,8 +1715,8 @@ NumLock::
     ; Default - Allow Shift+NumLock to toggle NumLock
     ; NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
     ; If (NumLockEnabled_BeforeKeypress == 1) {
-    ; 	; SetNumLockState, Off
-    ; 	SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
+    ;   ; SetNumLockState, Off
+    ;   SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
     ; }
     SetNumLockState, % GetKeyState("NumLock", "T") ? "Off" : "On"
   } Else {
@@ -1816,7 +1816,7 @@ BrowserHover() {
 ;
 ; ClearSplashText
 ;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
-;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;   |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
 ;
 ClearSplashText(Period) {
   Label := "RemoveSplashText"
@@ -1828,7 +1828,7 @@ ClearSplashText(Period) {
 ;
 ; ClearTooltip
 ;   |--> If called with a positive [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then repeats (until explicitly cancelled)
-;	  |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
+;   |--> If called with a negative [ %Period% ], wait [ %Period% ] milliseconds, executes [ %Label% ], then returns
 ;
 ClearTooltip(Period) {
   Label := "RemoveToolTip"
@@ -1838,7 +1838,7 @@ ClearTooltip(Period) {
 
 
 ;
-;	ClickLoop
+; ClickLoop
 ;   |--> Send left click indefinitely until script is cancelled, with a long enough break between clicks to not make it impossible to stop
 ;
 ClickLoop(MouseX,MouseY,Timeout) {
@@ -1898,7 +1898,7 @@ CreateCitationsFooter() {
 
 ;
 ; CommentCurrentLine
-;   |--> Uses Ctrl + Q hotkey to comment the current line (WITH a leading space) in a given IDE (Notepad++/VS-Code) 
+;   |--> Uses Ctrl + Q hotkey to comment the current line (WITH a leading space) in a given IDE (Notepad++/VS-Code)
 ;
 CommentCurrentLine() {
   Send {LControl Down}{q}{LControl Up}
@@ -1994,7 +1994,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
     ; After the for-each loop completes, make sure to trim the final trailing newline before sending the string out the door
     ReturnedString := SubStr(ReturnedString, 1, -1)
   } Else {
-    ; Single-line string - Iterate over each character in each line 
+    ; Single-line string - Iterate over each character in each line
     Loop, Parse, %StringConsolidated%
     {
       If (A_LoopField == "{") {
@@ -2039,7 +2039,7 @@ Get_ahk_id_from_title(WinTitle,ExcludeTitle) {
 
 
 ;
-;	GetCommandOutput
+; GetCommandOutput
 ;   |--> Returns the standard output returned from a CMD (ComSpec) command
 ;
 GetCommandOutput(CMD_Command) {
@@ -2049,7 +2049,7 @@ GetCommandOutput(CMD_Command) {
 
 
 ;
-;	GetPID
+; GetPID
 ;   |--> Returns PID if process IS found
 ;   |--> Returns 0 if process is NOT found
 ;
@@ -2061,7 +2061,7 @@ GetPID(ProcName) {
 
 
 ;
-;	GetRandomString
+; GetRandomString
 ;   |--> Generate a random string of desired length
 ;
 GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetters:=1, EnableUppercaseLetters:=0, EnableSpecialCharacters:=0) {
@@ -2419,7 +2419,7 @@ GetWindowSpecs_OnClick_LV_WindowSpecs() {
 
 
 ;
-;	IfProcessExist (proxy-function for GetPID(...))
+; IfProcessExist (proxy-function for GetPID(...))
 ;   |--> Returns True if process IS found
 ;   |--> Returns False if process is NOT found
 ;
@@ -2591,7 +2591,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
       MonitorGetWorkArea(Each_MonitorNumber, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
       ; Determine if the current iteration's monitor is the destination monitor
       MoveTo_ThisMonitor := False
-      ; Determine if the center of target window is currently located within the bounds of this monitor's work area 
+      ; Determine if the center of target window is currently located within the bounds of this monitor's work area
       If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
         ; Window is located on this monitor
         Win_Center_MonitorNumber := A_Index
@@ -2754,7 +2754,7 @@ MoveIt(Destination_Direction:="Left", Destination_Size:="Half", Destination_Moni
 
 
 ;
-;	Open_Chrome
+; Open_Chrome
 ;   |--> Opens the "Google Chrome" Application
 ;
 Open_Chrome() {
@@ -2802,7 +2802,7 @@ Open_Chrome() {
 
 
 ;
-;	Open_ControlPanel_NetworkConnections
+; Open_ControlPanel_NetworkConnections
 ;   |--> Opens "View Network Connections"
 ;   |--> Open manually via [ Start Menu search for "View Network Connections" ] or [ "Settings (Win10 App)" > "Network & Internet" > "Ethernet" (left menu) > "Change adapter options" (top right) ]
 ;
@@ -2826,7 +2826,7 @@ Open_ControlPanel_NetworkConnections() {
 
 
 ;
-;	Open_ControlPanel_Sound
+; Open_ControlPanel_Sound
 ;   |--> Opens "Sound Control Panel"
 ;   |--> Open manually via [ Start Menu search for "Change system sounds" ] or [ "Settings (Win10 App)" > "System" > "Sound" (left menu) > "Sound Control Panel" (top right) ]
 ;
@@ -2868,7 +2868,7 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
 
 
 ;
-;	Open_Exe
+; Open_Exe
 ;   |--> Opens target exeutable & sets its window to be active
 ;
 Open_Exe(ExeFullpath) {
@@ -2937,7 +2937,6 @@ Open_VisualStudioCode() {
   }
   MoveIt("Left","Half",1,WinTitle)  ; Resize window to left-half of monitor #1
   WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
-  
   Return
 }
 
@@ -3035,7 +3034,7 @@ PasteClipboardAsText(StringToPaste:="") {
       SendChar := A_LoopField
     }
     ; If (DoSleep == 1) {
-    ; 	Sleep 50
+    ;   Sleep 50
     ; }
     SendInput %SendChar%
     ; If (DoSleep == 1) {
@@ -3051,7 +3050,7 @@ PasteClipboardAsText(StringToPaste:="") {
 ;   |--> Displays a menu asking user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 PasteClipboard_TextOrBinary() {
-  SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, 50 
+  SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, 50
   MsgBox, 3, Text or Binary, Paste the Clipboard as Text or Binary?
   If (A_MsgBoxResult = "Yes") {
     ; Paste the Text version of the Clipboard
@@ -3067,8 +3066,8 @@ CustomMsgboxButtons_ClipboardTextOrBinary:
   If (WinExist("Text or Binary")=0) {
     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
   }
-  SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, Off 
-  WinActivate 
+  SetTimer, CustomMsgboxButtons_ClipboardTextOrBinary, Off
+  WinActivate
   ControlSetText, Button1, &Text
   ControlSetText, Button2, &Binary
   Return
@@ -3133,7 +3132,7 @@ PrintEnv() {
   ; WINDIR			%WINDIR%
   ;
 
-  ; KnownWinEnvVars := 
+  ; KnownWinEnvVars :=
 
   ; https://lexikos.github.io/v2/docs/Variables.htm#CoordMode
   Msgbox,
@@ -3234,7 +3233,7 @@ PrintEnv() {
 
 
 ;
-;	ProcessExist (proxy-function for GetPID(...))
+; ProcessExist (proxy-function for GetPID(...))
 ;   |--> Returns True if process IS found
 ;   |--> Returns False if process is NOT found
 ;
@@ -3403,7 +3402,7 @@ SendUnderscoreLine(LineLength:=60) {
 
 
 ;
-;	SendHostname
+; SendHostname
 ;   |--> Send (type) the current device's Hostname - intended to be used for quick form filling
 ;
 SendHostname() {
@@ -3424,14 +3423,14 @@ SendHostname() {
     EchoStr := A_ComputerName " " NowTimestamp " " Win_ahk_exe
     Send {Blind}{Text}%EchoStr%
   } Else {
-    Send {Blind}{Text}%A_ComputerName% 
+    Send {Blind}{Text}%A_ComputerName%
   }
   Return
 }
 
 
 ;
-;	SendPseudoRandomString
+; SendPseudoRandomString
 ;   |--> Sends/Copies a psuedo-random string of characters
 ;
 SendPseudoRandomString(CopyStringToClipboard:=1) {
@@ -3454,7 +3453,7 @@ SendPseudoRandomString(CopyStringToClipboard:=1) {
 
 
 ;
-;	SendRandomString
+; SendRandomString
 ;   |--> Sends/Copies a random string of characters
 ;
 SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetters:=1, EnableUppercaseLetters:=0, EnableSpecialCharacters:=0, CopyStringToClipboard:=1, DoConfirmationPopup:=1) {
@@ -3483,7 +3482,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
 
 
 ;
-;	SendSpace
+; SendSpace
 ;   |--> For some reason, Windows 10 doesn't like Send {Space} (as-in it 'ignores' the keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
 ;
 SendSpace() {
@@ -3493,7 +3492,7 @@ SendSpace() {
 
 
 ;
-;	ShowCursorCoordinates
+; ShowCursorCoordinates
 ;   |--> Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
 ;
 ShowCursorCoordinates(FollowDuration_Seconds:=10) {
@@ -3530,7 +3529,7 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
 
 
 ;
-;	ShowCursorPixelColor
+; ShowCursorPixelColor
 ;   |--> Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
 ;
 ShowCursorPixelColor(FollowDuration_Seconds:=10) {
@@ -3642,7 +3641,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 
 
 ;
-;	ShowTooltip
+; ShowTooltip
 ;   |--> Show a tooltip & make said tooltip follow the mouse around for a given duration
 ;
 ShowTooltip(TextToolTip:="", LoopDuration_ms:=5000) {
@@ -3661,7 +3660,7 @@ ShowTooltip(TextToolTip:="", LoopDuration_ms:=5000) {
 
 
 ;
-;	ShowVolumeLevel
+; ShowVolumeLevel
 ;   |--> Show a tooltip with the volume as an integer, as well as filled-bars around it to intuitively show the volume, as well as a mute icon around the integer if muted
 ;
 ShowVolumeLevel() {
@@ -3740,7 +3739,7 @@ ShowVolumeLevel() {
     MonitorGetWorkArea(A_Index, EachMonitor_LeftCoord, EachMonitor_TopCoord, EachMonitor_RightCoord, EachMonitor_BottomCoord)
     ; Determine if the current iteration's monitor is the destination monitor
     MoveTo_ThisMonitor := False
-    ; Determine if the center of target window is currently located within the bounds of this monitor's work area 
+    ; Determine if the center of target window is currently located within the bounds of this monitor's work area
     If ((MouseX >= EachMonitor_LeftCoord) && (MouseX <= EachMonitor_RightCoord)) {
       If ((MouseY >= EachMonitor_TopCoord) && (MouseY <= EachMonitor_BottomCoord)) {
         ; Mouse cursor is on this monitor
@@ -3761,7 +3760,7 @@ ShowVolumeLevel() {
 
 
 ;
-;	ShowWindowTitles
+; ShowWindowTitles
 ;   |--> Lists all window-titles (in current user's environment)
 ;
 ShowWindowTitles() {
@@ -3785,7 +3784,7 @@ ShowWindowTitles() {
 
 
 ;
-;	ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles
+; ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles
 ;   |--> Sub-Function of "ShowWindowTitles()"
 ;
 ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
@@ -3798,7 +3797,7 @@ ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles() {
 
 
 ;
-;	SpaceUp_Loop
+; SpaceUp_Loop
 ;   |--> Designed for Windows Task Scheduler to quickly show open all tasks on the main page, which can then be sorted (but only for the ones that've been opened)
 ;
 SpaceUp_Loop(LoopIterations) {
@@ -3838,9 +3837,9 @@ StringRepeat(StrToRepeat, Multiplier) {
 StrLen_Max(Str_1, Str_2) {
   ; StrLen_LongestString := 0
   ; If ( StrLen(Str_1) > StrLen(Str_2) ) {
-  ; 	StrLen_LongestString := StrLen(Str_1)
+  ;   StrLen_LongestString := StrLen(Str_1)
   ; } Else {
-  ; 	StrLen_LongestString := StrLen(Str_2)
+  ;   StrLen_LongestString := StrLen(Str_2)
   ; }
   ; Return StrLen_LongestString
   Return ( (StrLen(Str_1)>StrLen(Str_2)) ? (Str_1) : (Str_2) )
@@ -3894,7 +3893,7 @@ TempFile() {
 ;   |--> Determines target process (exe)'s [ unique ID (e.g. 'HWND', which is short for "handle to window") ]
 ;   |--> Intended to transparently inspect THROUGH "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
 ;   |
-;   |--> Ex)   Win_ahk_id := WinGet_ahk_id("A") 
+;   |--> Ex)   Win_ahk_id := WinGet_ahk_id("A")
 ;
 WinGet_ahk_id(WinTitle) {
   Win_ahk_exe := WinGetProcessName(WinTitle)
@@ -4555,7 +4554,7 @@ Youtube_EditDraft_Submit() {
 class BrightnessSetter {
   ; qwerty12 - 27/05/17
   ; https://github.com/qwerty12/AutoHotkeyScripts/tree/master/LaptopBrightnessSetter
-  static _WM_POWERBROADCAST := 0x218, _osdHwnd := 0, hPowrprofMod := DllCall("LoadLibrary", "Str", "powrprof.dll", "Ptr") 
+  static _WM_POWERBROADCAST := 0x218, _osdHwnd := 0, hPowrprofMod := DllCall("LoadLibrary", "Str", "powrprof.dll", "Ptr")
   __New() {
     if (BrightnessSetter.IsOnAc(AC))
       this._AC := AC
@@ -4806,8 +4805,8 @@ BrightnessSetter_new() {
 ;   //  NOTE:  After you've saved it, run it, and a command prompt (w/ white background) will
 ;   //         display the codes for any key pressed while it is running.
 ;
-;		//	 SC:		Refer to the "SC" column to acquire the "scan code" of any keys pressed (string, length 3)
-;		//	 VK:		Refer to the "VK" column to acquire the "virtual key code" of any keys pressed (string, length 2)
+;   //   SC:    Refer to the "SC" column to acquire the "scan code" of any keys pressed (string, length 3)
+;   //   VK:    Refer to the "VK" column to acquire the "virtual key code" of any keys pressed (string, length 2)
 ;   //  Key:    Refer to the "Key" column to acquire the "Hotstring" of any keys pressed (string, length varies)
 ;
 ;   //  NOTE:  If the above method fails, refer to: https://www.autohotkey.com/docs/commands/GetKey.htm
@@ -4815,26 +4814,26 @@ BrightnessSetter_new() {
 ; ------------------------------------------------------------
 ;
 ; *** TO DETERMINE THE COMMAND BEING SENT:
-;			SC029::
-;			SplashTextOn, 250, 40, Debugging, Command Sent
-;			Sleep 500
-;			Random, RandomSleep, 1000, 1500
-;			Sleep %RandomSleep%
-;			SplashTextOff
-; 		-- Remainder of your script
+;     SC029::
+;     SplashTextOn, 250, 40, Debugging, Command Sent
+;     Sleep 500
+;     Random, RandomSleep, 1000, 1500
+;     Sleep %RandomSleep%
+;     SplashTextOff
+;     -- Remainder of your script
 ;
 ; ------------------------------------------------------------
 ;
-;			MouseClick,[Button],[X_Coord],[Y_Coord],[ClickCount],[Speed],[U|D],[Relative]
+; MouseClick,[Button],[X_Coord],[Y_Coord],[ClickCount],[Speed],[U|D],[Relative]
 ;
-;          PARAMS:
-;	         		    [Button]  =  { Left, Right, Middle, X1, X2, WheelUp (or WU), WheelDown (or WD), WheelLeft (or WL), WheelRight (or WR) --- DEFAULTS TO LEFT IF OMITTED }
-;	         		   [X_Coord]  =  { Screen Horizontal-Position to fire the click --- DEFAULTS TO CURRENT CURSOR X-COORDINATE }
-;	         		   [Y_Coord]  =  { Screen Vertical-Position to fire the click --- DEFAULTS TO CURRENT CURSOR Y-COORDINATE }
-;	         		[ClickCount]  =  { Click this many times --- DEFAULTS TO 1 CLICK, IF OMITTED }
-;	         		     [Speed]  =  { Movement speed of mouse across the screen - 0 is Instant --- DEFAULTS TO DEFAULT MOUSE MOVE SPEED SET BY [SetDefaultMouseSpeed, Speed], OTHERWISE DEFAULTS TO 2 }
-;	         		       [U|D]  =  { Only do a Click-Down (D) or Click-Up (U) click-event --- DEFAULTS A *DOWN* FOLLOWED BY AN *UP* EVENT, IF OMITTED}
-;	         		  [Relative]  =  { If set to (R), the X & Y Coordinates will be treated as an offset to mouse's current position --- DEFAULTS TO NON-RELATIVE MOVEMENT, IF OMITTED }
+;   PARAMS:
+;        [Button]  =  { Left, Right, Middle, X1, X2, WheelUp (or WU), WheelDown (or WD), WheelLeft (or WL), WheelRight (or WR) --- DEFAULTS TO LEFT IF OMITTED }
+;       [X_Coord]  =  { Screen Horizontal-Position to fire the click --- DEFAULTS TO CURRENT CURSOR X-COORDINATE }
+;       [Y_Coord]  =  { Screen Vertical-Position to fire the click --- DEFAULTS TO CURRENT CURSOR Y-COORDINATE }
+;    [ClickCount]  =  { Click this many times --- DEFAULTS TO 1 CLICK, IF OMITTED }
+;         [Speed]  =  { Movement speed of mouse across the screen - 0 is Instant --- DEFAULTS TO DEFAULT MOUSE MOVE SPEED SET BY [SetDefaultMouseSpeed, Speed], OTHERWISE DEFAULTS TO 2 }
+;           [U|D]  =  { Only do a Click-Down (D) or Click-Up (U) click-event --- DEFAULTS A *DOWN* FOLLOWED BY AN *UP* EVENT, IF OMITTED}
+;      [Relative]  =  { If set to (R), the X & Y Coordinates will be treated as an offset to mouse's current position --- DEFAULTS TO NON-RELATIVE MOVEMENT, IF OMITTED }
 ;
 ; ------------------------------------------------------------
 ;
@@ -4847,17 +4846,17 @@ BrightnessSetter_new() {
 ; ------------------------------------------------------------
 ;
 ; EXAMPLE_ControlClick() {
-; 	;;;
-; 	;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
-; 	;;;
-; 	CoordMode, Mouse, Screen
-; 	SetDefaultMouseSpeed, 0
-; 	SetControlDelay, -1
-; 	; WinGetTitle, WinTitle, A
-; 	WinTitle := "NoxPlayer"
-; 	xpos := (A_ScreenWidth - 20)
-; 	ypos := 315
-; 	ControlClick, x%xpos% y%ypos%, %WinTitle%
+;   ;;;
+;   ;;; ControlClick [, Control-or-Pos, WinTitle, WinText, WhichButton, ClickCount, Options, ExcludeTitle, ExcludeText]
+;   ;;;
+;   CoordMode, Mouse, Screen
+;   SetDefaultMouseSpeed, 0
+;   SetControlDelay, -1
+;   ; WinGetTitle, WinTitle, A
+;   WinTitle := "NoxPlayer"
+;   xpos := (A_ScreenWidth - 20)
+;   ypos := 315
+;   ControlClick, x%xpos% y%ypos%, %WinTitle%
 ; }
 ;
 ; ------------------------------------------------------------
@@ -4913,16 +4912,16 @@ BrightnessSetter_new() {
 ; Example: Compare two Strings' Displayed Character-Widths (Strlen doesn't have a whole lot to do with actual/displayed character-widths)
 ;
 ; CompareCharacterWidths() {
-; 	LF := "`n"
-; 	Echo1 := String = [ Chr(0x0061) ]   Strlen = [ StrLen( Chr(0x0061) ) ]
-; 	Echo2 := String = [ Chr(0x030a) ]   Strlen = [ StrLen( Chr(0x030a) ) ]
-; 	Echo_Tooltip := ""
-; 	Echo_Tooltip := Echo_Tooltip LF "  String=|" Chr(0x0061) "|   StrLen=|" StrLen( Chr(0x0061) ) "|"
-; 	Echo_Tooltip := Echo_Tooltip LF A_Space
-; 	Echo_Tooltip := Echo_Tooltip LF "  String=|" Chr(0x030a) "|   StrLen=|" StrLen( Chr(0x030a) ) "|"
-; 	Echo_Tooltip := Echo_Tooltip LF A_Space
-; 	MsgBox, %Echo_Tooltip%
-; 	Return
+;   LF := "`n"
+;   Echo1 := String = [ Chr(0x0061) ]   Strlen = [ StrLen( Chr(0x0061) ) ]
+;   Echo2 := String = [ Chr(0x030a) ]   Strlen = [ StrLen( Chr(0x030a) ) ]
+;   Echo_Tooltip := ""
+;   Echo_Tooltip := Echo_Tooltip LF "  String=|" Chr(0x0061) "|   StrLen=|" StrLen( Chr(0x0061) ) "|"
+;   Echo_Tooltip := Echo_Tooltip LF A_Space
+;   Echo_Tooltip := Echo_Tooltip LF "  String=|" Chr(0x030a) "|   StrLen=|" StrLen( Chr(0x030a) ) "|"
+;   Echo_Tooltip := Echo_Tooltip LF A_Space
+;   MsgBox, %Echo_Tooltip%
+;   Return
 ; }
 ; ------------------------------------------------------------
 ;
@@ -4930,35 +4929,35 @@ BrightnessSetter_new() {
 ;
 ; CustomPopupButtons_Demo() {
 ;
-; 	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
-; 	; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
+;   SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, 50
+;   ; |--> Ensure that this callback script kills this SetTimer, otherwise it will keep running indefinitely
 ;
-; 	MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
+;   MsgBox, 3, Popup_MsgBox_WindowTitle, Popup MsgBox Question? or Statement!
 ;
-; 	If (A_MsgBoxResult = "Yes") {
-; 		TrayTip, AHK, % ( "Leftmost Button Selected" )  ; Toast Notification
-; 	}
-; 	If (A_MsgBoxResult = "No") {
-; 		TrayTip, AHK, % ( "Center Button Selected" )  ; Toast Notification
-; 	}
-; 	If (A_MsgBoxResult = "Cancel") {
-; 		TrayTip, AHK, % ( "Rightmost Button Selected" )  ; Toast Notification
-; 	}
+;   If (A_MsgBoxResult = "Yes") {
+;     TrayTip, AHK, % ( "Leftmost Button Selected" )  ; Toast Notification
+;   }
+;   If (A_MsgBoxResult = "No") {
+;     TrayTip, AHK, % ( "Center Button Selected" )  ; Toast Notification
+;   }
+;   If (A_MsgBoxResult = "Cancel") {
+;     TrayTip, AHK, % ( "Rightmost Button Selected" )  ; Toast Notification
+;   }
 ;
-; 	Return
+;   Return
 ;
 ; }
 ;
 ; CustomMsgboxButtons_UNIQUE_NAME_HERE() {
-; 	If (WinExist(Popup_MsgBox_WindowTitle)) {
-; 		Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
-; 	}
-; 	SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, Off 
-; 	WinActivate
-; 	ControlSetText, Button1, &LEFT_BUTTON
-; 	ControlSetText, Button2, &CENTER_BUTTON
-; 	ControlSetText, Button3, &RIGHT_BUTTON
-; 	Return
+;   If (WinExist(Popup_MsgBox_WindowTitle)) {
+;     Return  ; Continue waiting for the "Clipboard or ClipboardAll" window to appear
+;   }
+;   SetTimer, CustomMsgboxButtons_UNIQUE_NAME_HERE, Off
+;   WinActivate
+;   ControlSetText, Button1, &LEFT_BUTTON
+;   ControlSetText, Button2, &CENTER_BUTTON
+;   ControlSetText, Button3, &RIGHT_BUTTON
+;   Return
 ; }
 ;
 ;
@@ -4991,7 +4990,7 @@ BrightnessSetter_new() {
 ;   |
 ;   |--> Arrays/Objects - Pseudo-Arrays, e.g. "Variable Variables" (AVOID these to maintain syntax legibility & understandability):  https://www.autohotkey.com/docs/misc/Arrays.htm#pseudo
 ;
-; ------------------------------------------------------------ 
+; ------------------------------------------------------------
 ;
 ; List of Keys:  https://www.autohotkey.com/docs/KeyList.htm
 ;   |

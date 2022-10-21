@@ -1921,7 +1921,7 @@ BrowserHover() {
       MouseMove (MoveDistance * -1), 0, 0, "R"
     } Else {
       If (Updated_TrayIcon==1) {
-        Menu("Tray","Icon",WaitIcon)
+        TraySetIcon(WaitIcon)
         Updated_TrayIcon := 0
       }
     }

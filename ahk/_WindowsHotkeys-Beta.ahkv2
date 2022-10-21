@@ -2717,11 +2717,15 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
   ; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
   global DebugMode
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  WinHwnd := WinExist(WinTitle,WinText,ExcludeTitle,ExcludeText)
-  If (!WinHwnd) {
-    ; Windows' exes may often exist well before their actual window is visible and grabbable by AHK - e.g. give the windows a little bit of extra time to open
-    Sleep 2000
+  Loop 50 {
+    ; Windows .exes can start in the background well before their visible window component is grabbable by AHK
+    ;  |--> Give the target Window(s) some breathing room to start up, but also act on them as soon as they are started
     WinHwnd := WinExist(WinTitle,WinText,ExcludeTitle,ExcludeText)
+    If (WinHwnd) {
+      Break
+    } Else {
+      Sleep 100
+    }
   }
   If (!WinHwnd) {
     TooltipOutput := A_ScriptName " - " A_ThisFunc "`n"

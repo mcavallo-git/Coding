@@ -125,7 +125,7 @@ If (FileExist(TrayIcon_Default)) {
 
 ; ------------------------------
 ;
-;   HOTKEY:  ???
+;   HOTKEY:  ??? (to-Do)
 ;   ACTION:  Attempt to re-run the current program with escalated/elevated privileges (e.g. rerun the current program as admin)
 ;
 ; ???::

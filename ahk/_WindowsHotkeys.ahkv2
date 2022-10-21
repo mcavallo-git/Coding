@@ -122,12 +122,14 @@ If (FileExist(TrayIcon_Default)) {
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Apps-Key
 ;   ACTION:  Replace functionality with that of the right WinKey by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 AppsKey::RWin
+
 
 ; ------------------------------
 ;
@@ -141,6 +143,7 @@ ScrollLock::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Pause/Break
@@ -152,6 +155,7 @@ Pause::
   TrayTip "AHK", "Recording Saved`nPress [ Shift+Pause/Break ] to view in output directory explorer"  ; Toast Notification
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -166,6 +170,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + Z
@@ -176,6 +181,7 @@ Pause::
   GetWindowSpecs()
   Return
 }
+
 
 ; ------------------------------------------------------------
 ;
@@ -265,6 +271,7 @@ Pause::
   }
 #HotIf
 
+
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Cyberpunk 2077
@@ -307,6 +314,7 @@ Pause::
   }
 #HotIf
 
+
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Overwatch
@@ -319,6 +327,7 @@ Pause::
   NumpadEnter:: Return
 #HotIf
 
+
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Destiny 2
@@ -330,6 +339,7 @@ Pause::
   ;
   NumpadEnter:: Return
 #HotIf
+
 
 ;   ;
 ;   ; SET ANY EXISTENT GAME-WINDOW ACTIVE UPON JOYSTICK BUTTON-/TRIGGER-PRESS
@@ -373,6 +383,7 @@ Pause::
 ;   Return
 ; }
 
+
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Xbox Console Companion
@@ -401,6 +412,7 @@ Pause::
   }
 #HotIf
 
+
 ; ------------------------------------------------------------
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Youtube
@@ -417,6 +429,7 @@ Pause::
     Return
   }
 #HotIf
+
 
 ; ------------------------------
 ;
@@ -447,6 +460,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Shift + WinKey + Minus-Key                ( - )
@@ -476,6 +490,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + Equals-Key  ( = )
@@ -490,6 +505,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + V
@@ -500,6 +516,7 @@ Pause::
   Open_VisualStudioCode()
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -516,6 +533,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + P
@@ -529,6 +547,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Shift + Ctrl + P
@@ -538,6 +557,7 @@ Pause::
 ; {
 ;   Return
 ; }
+
 
 ; ------------------------------
 ;
@@ -555,6 +575,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + H
@@ -565,6 +586,7 @@ Pause::
   SendHostname()
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -583,6 +605,7 @@ Pause::
   Send SendKeys
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -609,6 +632,7 @@ Pause::
   Return
 }
 #UseHook True  ; Enable the catching of hotkeys sent by this script  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
+
 
 ; ------------------------------
 ;
@@ -689,6 +713,7 @@ Pause::
   ; VarSetStrCapacity(&ExeToRequire_Fullpath,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -794,6 +819,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F1
@@ -804,6 +830,7 @@ Pause::
   Run("notepad.exe " A_ScriptFullPath)
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -817,6 +844,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F8
@@ -828,6 +856,7 @@ Pause::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + R
@@ -838,6 +867,7 @@ Pause::
   Run (EnvGet("WINDIR") "\System32\control.exe desk.cpl")
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -856,6 +886,7 @@ Pause::
   RunWaitOne(CMD_Command)
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1006,6 +1037,7 @@ AppsKey & ]::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + Right-Click
@@ -1018,6 +1050,7 @@ AppsKey & ]::
   ShowCursorPixelColor(FollowDuration_Seconds)
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1036,6 +1069,7 @@ AppsKey & ]::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + L
@@ -1050,6 +1084,7 @@ AppsKey & l::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + N
@@ -1061,6 +1096,7 @@ AppsKey & l::
   Return
 }
 
+
 ; ------------------------------------------------------------
 ; HOTKEY:  WinKey + S
 ; ACTION:  Opens "Sound" > "Playback" (control panel window)
@@ -1071,6 +1107,7 @@ AppsKey & l::
   ; Open_ControlPanel_Sound("Recording")
   Return
 }
+
 
 ; ------------------------------------------------------------
 ; HOTKEY:  Alt + WinKey + S
@@ -1086,6 +1123,7 @@ AppsKey & l::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + O (not zero, the letter O)
@@ -1096,6 +1134,7 @@ AppsKey & l::
   Run "c:\windows\system32\appwiz.cpl"
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1108,6 +1147,7 @@ AppsKey & l::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + ` (Tilde)
@@ -1118,6 +1158,7 @@ AppsKey & l::
   MouseClick "Left"
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1135,6 +1176,7 @@ AppsKey & l::
 ;   Sleep 10
 ;   Return
 ; }
+
 
 ; ------------------------------
 ;
@@ -1162,6 +1204,7 @@ AppsKey & Down::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Alt + ` (Tilde)
@@ -1172,6 +1215,7 @@ AppsKey & Down::
   MouseClick "Right"
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1185,6 +1229,7 @@ AppsKey & XButton1::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey/AppsKey + XButton2 (Mouse-Button 5, Mouse 'Front' Side-Button)
@@ -1196,6 +1241,7 @@ AppsKey & XButton2::
   Send "{Media_Next}"
   Return
 }
+
 
 ; ------------------------------------------------------------
 ;
@@ -1311,6 +1357,7 @@ AppsKey & WheelDown::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Alt + Mouse-Wheel Up/Down
@@ -1327,6 +1374,7 @@ AppsKey & WheelDown::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Mouse-Wheel Left-/Right-Tilt (e.g. "Rock" the Mouse-Wheel Left/Right)
@@ -1342,6 +1390,7 @@ WheelRight::
   Send "^{PgDn}"
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1361,6 +1410,7 @@ WheelRight::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Ctrl + WinKey + X
@@ -1376,6 +1426,7 @@ WheelRight::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Left-WinKey + K
@@ -1387,6 +1438,7 @@ WheelRight::
   Send "👍"  ; Thumbs Up
   Return
 }
+
 
 ; ------------------------------------------------------------
 #HotIf !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe Overwatch.exe") && !WinActive("ahk_exe HaloInfinite.exe")
@@ -1481,6 +1533,7 @@ WheelRight::
 }
 #HotIf
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Alt + WinKey + C
@@ -1497,6 +1550,7 @@ WheelRight::
 
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1533,6 +1587,7 @@ WheelRight::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
@@ -1551,6 +1606,7 @@ LShift & RShift::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + 8
@@ -1564,6 +1620,7 @@ LShift & RShift::
   TrayTip "AHK", ("Sleep for [" RandomSleep_15s_to_20s "] ms has finished")  ; Toast Notification
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1595,6 +1652,7 @@ LShift & RShift::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + 0
@@ -1606,6 +1664,7 @@ LShift & RShift::
   WinMove(0,0,,"A")
   Return
 }
+
 
 ; ------------------------------------------------------------
 ;  Win+J - Start Node.JS (Git-Bash) && Postman
@@ -1701,6 +1760,7 @@ LShift & RShift::
 ;   Return
 ; }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + T
@@ -1711,6 +1771,7 @@ LShift & RShift::
   Open_WindowsTerminal()
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1724,6 +1785,7 @@ LShift & RShift::
   PrintEnv()
   Return
 }
+
 
 ; ----------------------------------------------------
 ;   HOTKEY:  Num Lock

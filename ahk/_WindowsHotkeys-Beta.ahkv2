@@ -3234,7 +3234,6 @@ PasteClipboardAsText(StringToPaste:="") {
 ;   |--> Displays a menu asking user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 PasteClipboard_TextOrBinary() {
-  global DebugMode
   Start_TickCount := A_TickCount
   MsgBox_WinTitle := ( A_ScriptName " - " A_ThisFunc )
   SetTimer () => Custom_MsgBox_Buttons(MsgBox_WinTitle, Start_TickCount), 50
@@ -3250,16 +3249,16 @@ PasteClipboard_TextOrBinary() {
   Return
 }
 Custom_MsgBox_Buttons(MsgBox_WinTitle:="", Start_TickCount:=0, Period:=5000) {
+  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
   If (Remaining_TickCount <= 0) {
     SetTimer , 0  ; Mark the timer for deletion
   } Else {
     ; Check for the MsgBox window and update the buttons on it
     If WinExist(MsgBox_WinTitle) {
-      SetTimer(A_ThisFunc,"Off")
-      WinActivate
-      ControlSetText "Text", "Button1"
-      ControlSetText "Binary", "Button2"
+      WinActivate(MsgBox_WinTitle)
+      ControlSetText "Text", "Button1", MsgBox_WinTitle
+      ControlSetText "Binary", "Button2", MsgBox_WinTitle
       SetTimer , 0
     }
   }
@@ -3817,7 +3816,6 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm
 ;
 ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
-  global DebugMode
   Start_TickCount := A_TickCount
   SetTimer () => ShowToolTip_Auto(Text, X, Y, WhichToolTip, Period, Start_TickCount), 50
   ; SetTimer () => ClearTooltip(0,WhichToolTip), (Period * -1)

@@ -2719,6 +2719,11 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   WinHwnd := WinExist(WinTitle,WinText,ExcludeTitle,ExcludeText)
   If (!WinHwnd) {
+    ; Windows' exes may often exist well before their actual window is visible and grabbable by AHK - e.g. give the windows a little bit of extra time to open
+    Sleep 2000
+    WinHwnd := WinExist(WinTitle,WinText,ExcludeTitle,ExcludeText)
+  }
+  If (!WinHwnd) {
     TooltipOutput := A_ScriptName " - " A_ThisFunc "`n"
     TooltipOutput := TooltipOutput "`n"
     TooltipOutput := TooltipOutput "Error - No window found matching:" "`n"
@@ -3160,7 +3165,6 @@ Open_WindowsTerminal() {
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  Sleep 2000
   ; If (DebugMode == 1) {
   ;   GetWindowSpecs(WinTitle)
   ;   Sleep 500

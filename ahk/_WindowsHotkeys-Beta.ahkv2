@@ -827,7 +827,7 @@ Pause::
     SendKeys := SendKeys Current_TZ
   }
   ; ------------------------------
-  If (DebugMode = 1) {
+  If (DebugMode == 1) {
     TooltipOutput := ""
     TooltipOutput := ( TooltipOutput "`n" "A_ThisHotkey = [" A_ThisHotkey "]" )
     TooltipOutput := ( TooltipOutput "`n" )
@@ -919,8 +919,11 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
-;   HOTKEY:  WinKey + [
-;   ACTION:  FOLLOW-UP HOTKEY TO: WinKey P   :::   Click "Duplicate" monitors
+;   HOTKEY:  AppsKey + [
+;            AppsKey + ]
+;            WinKey + [
+;            WinKey + ]
+;   ACTION:  Follow-up hotkey to: WinKey P   :::   Click "Duplicate" monitors
 ;
 #[::
 AppsKey & [::
@@ -959,9 +962,9 @@ AppsKey & ]::
     ; Open the "Projection" window
     Send "{LWin up}{RWin up}{LWin down}{p}{LWin up}"
     Sleep 250
-    StartMilliseconds := A_TickCount
+    Start_TickCount := A_TickCount
     Loop {
-      LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
+      LoopingForMilliseconds := (A_TickCount-Start_TickCount)
       WinTitle := WinGetTitle("A")
       Win_ahk_class := WinGetClass("A")
       Win_ahk_exe := WinGetProcessName("A")
@@ -1964,9 +1967,8 @@ BrowserHover() {
 ;   |--> If called with a positive [ Period ], wait [ Period ] milliseconds before clearing the given ToolTip, otherwise clear it immediately
 ;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm#ExAutoHide
 ;
-ClearTooltip(Period:=0,WhichToolTip:=1) {
+ClearTooltip(Period:=0, WhichToolTip:=1) {
   If (Period > 0) {
-    ; SetTimer () => ToolTip(), (Period * -1)
     SetTimer () => ToolTip(,,,WhichToolTip), (Period * -1)
   } Else {
     ToolTip(,,,WhichToolTip)
@@ -2725,7 +2727,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
     If (ExcludeText != "") {
       TooltipOutput := TooltipOutput "  ExcludeText: [ " ExcludeText " ]" "`n"
     }
-    ShowTooltip(TooltipOutput,,,,4000)
+    ShowToolTip(TooltipOutput,,,,4000)
   } Else {
     ; Strip the word "Monitor" off of the destination monitor's string (to get it as an integer)
     Destination_MonitorNumber := StrReplace(Destination_MonitorNumber,"Monitor","")
@@ -2901,7 +2903,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
         TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"UseCurrentMonitor`" , `"A`", `"`" )" "   " "`n"
         TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Maximized`" , `"`" , 2 , `"A`", `"`" )" "   " "`n"
         TooltipOutput := TooltipOutput "                 "
-        ShowTooltip(TooltipOutput,,,,60000)
+        ShowToolTip(TooltipOutput,,,,60000)
       } Else {
         ; If (DebugMode == 1) {
         ;   MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
@@ -2955,7 +2957,7 @@ Open_Chrome() {
   WinWait_TimeoutSeconds := 20
   If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
     TooltipOutput := "Chrome executable not found (neither x64 or x86 version)"
-    ShowTooltip(TooltipOutput,,,,4000)
+    ShowToolTip(TooltipOutput,,,,4000)
   } Else {
     If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
       ; Run a NON-admin version of target exe
@@ -2979,7 +2981,7 @@ Open_Chrome() {
       }
     } Else {
       TooltipOutput := A_ScriptName " - " A_ThisFunc "`n`n" "Error - No window found matching [ " WinTitle " ] "
-      ShowTooltip(TooltipOutput,50,50,,4000)
+      ShowToolTip(TooltipOutput,,,,4000)
     }
   }
   Return
@@ -3064,7 +3066,7 @@ Open_Exe(ExeFullpath) {
     ; Executable IS running
     If (DebugMode == 1) {
       TooltipOutput := "Activating `"" ExeBasename "`""
-      ShowTooltip(TooltipOutput,,,,2000)
+      ShowToolTip(TooltipOutput,,,,2000)
     }
     ExePID := GetPID(ExeBasename)
     WinActivate ("ahk_pid " ExePID)
@@ -3072,7 +3074,7 @@ Open_Exe(ExeFullpath) {
     ; Executable NOT running but IS found locally
     If (DebugMode == 1) {
       TooltipOutput := "Opening `"" ExeBasename "`""
-      ShowTooltip(TooltipOutput,,,,2000)
+      ShowToolTip(TooltipOutput,,,,2000)
     }
     ; Run ExeFullpath
     ExitCode := RunWait(ExeFullpath,,, ExePID)
@@ -3083,7 +3085,7 @@ Open_Exe(ExeFullpath) {
     ; Executable NOT running & NOT found locally
     If (DebugMode == 1) {
       TooltipOutput := ("File not found: [ " ExeFullpath " ]")
-      ShowTooltip(TooltipOutput,,,,2000)
+      ShowToolTip(TooltipOutput,,,,2000)
     }
   }
   Return
@@ -3232,7 +3234,10 @@ PasteClipboardAsText(StringToPaste:="") {
 ;   |--> Displays a menu asking user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
 ;
 PasteClipboard_TextOrBinary() {
-  SetTimer(CustomMsgBox_PasteClipboard_TextOrBinary,50)
+  global DebugMode
+  Start_TickCount := A_TickCount
+  MsgBox_WinTitle := ( A_ScriptName " - " A_ThisFunc )
+  SetTimer () => Custom_MsgBox_Buttons(MsgBox_WinTitle, Start_TickCount), 50
   A_MsgBoxResult := MsgBox("Paste the Clipboard as Text or Binary?", A_ScriptName " - " A_ThisFunc,3)
   If (A_MsgBoxResult = "Yes") {
     ; Paste the Text version of the Clipboard
@@ -3244,14 +3249,21 @@ PasteClipboard_TextOrBinary() {
   }
   Return
 }
-CustomMsgBox_PasteClipboard_TextOrBinary() {
-  If (WinExist("Text or Binary")=0) {
-    Return  ; Continue waiting for the "A_Clipboard or ClipboardAll" window to appear
+Custom_MsgBox_Buttons(MsgBox_WinTitle:="", Start_TickCount:=0, Period:=5000) {
+  Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
+  If (Remaining_TickCount <= 0) {
+    ClearTooltip(0,WhichToolTip)  ; Remove the tooltip
+    SetTimer , 0  ; Mark the timer for deletion
+  } Else {
+    ; Check for the MsgBox window and update the buttons on it
+    If WinExist(MsgBox_WinTitle) {
+      SetTimer(A_ThisFunc,"Off")
+      WinActivate
+      ControlSetText "Text", "Button1"
+      ControlSetText "Binary", "Button2"
+      SetTimer , 0
+    }
   }
-  SetTimer(A_ThisFunc,"Off")
-  WinActivate
-  ControlSetText "Text", "Button1"
-  ControlSetText "Binary", "Button2"
   Return
 }
 
@@ -3463,6 +3475,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 
   ; Build the output directory
   FullPath_RunNonAdmin_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
+
   ; Build the output filename
   SplitPath FullPath_RunExe, &OutFileName, &OutDirname, &OutExtension, &OutNameNoExt, &OutDrive
   FullPath_RunNonAdmin_VbsScript := (FullPath_RunNonAdmin_Dirname "\"  OutFileName ".vbs")
@@ -3478,7 +3491,8 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 
   If (DebugMode == 1) {
     ; Debug - Show the command before running it
-    ShowTooltip((A_ScriptName " - " A_ThisFunc "`n`n" PWSH_CLI),,,10,10000)
+    ToolTipOutput := (A_ScriptName " - " A_ThisFunc "`n`n" StrReplace(StrReplace(PWSH_CLI,"{","{`n"),";",";`n"))
+    ShowToolTip(ToolTipOutput,,,5,5000)
   }
 
   ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PWSH_CLI "`"")
@@ -3799,36 +3813,44 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 
 
 ;
-; ShowTooltip
+; ShowToolTip
 ;   |--> Show a tooltip & make said tooltip follow the mouse around for a given duration
 ;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm
 ;
-ShowTooltip(Text:="", X:="", Y:="", WhichToolTip:=1, LoopDuration_ms:=5000) {
+ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
   global DebugMode
-  StartMilliseconds := A_TickCount
-  Loop {
-    LoopingForMilliseconds := (A_TickCount-StartMilliseconds)
-    Remaining_DecimalSeconds := Round(((LoopDuration_ms-LoopingForMilliseconds)/1000),3)
+  Start_TickCount := A_TickCount
+  SetTimer () => ShowToolTip_Auto(Text, X, Y, WhichToolTip, Period, Start_TickCount), 50
+  ; SetTimer () => ClearTooltip(0,WhichToolTip), (Period * -1)
+  ; ClearTooltip(0,WhichToolTip)
+  Return
+}
+ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_TickCount:=0) {
+  global DebugMode
+  CoordMode "Mouse", "Screen"
+  CoordMode "ToolTip", "Screen"
+  Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
+  If (Remaining_TickCount <= 0) {
+    ClearTooltip(0,WhichToolTip)  ; Remove the tooltip
+    SetTimer , 0  ; Mark the timer for deletion
+  } Else {
     EachText := Text
     If (DebugMode == 1) {
-      EachText := EachText "`n" Remaining_DecimalSeconds
+      EachText := EachText "`n" Round((Remaining_TickCount/1000),3)
     }
     If (IsInteger(X) && IsInteger(Y)) {
       ToolTip EachText, Format("{:d}",X), Format("{:d}",Y), WhichToolTip
-    } Else If (IsInteger(X)) {
-      ToolTip EachText, Format("{:d}",X),, WhichToolTip
-    } Else If (IsInteger(Y)) {
-      ToolTip EachText,, Format("{:d}",Y), WhichToolTip
     } Else {
-      ToolTip EachText,,, WhichToolTip
-    }
-    If (LoopingForMilliseconds > LoopDuration_ms) {
-      Break
-    } Else {
-      Sleep 50
+      MonitorGetWorkArea(, &MonitorLeft, &MonitorTop, &MonitorRight, &MonitorBottom)
+      MonitorWidth := (MonitorRight-MonitorLeft)
+      MonitorHeight := (MonitorBottom-MonitorTop)
+      MouseGetPos &MouseX, &MouseY
+      xpos := MouseX + (WhichToolTip/20)*(MonitorWidth)
+      ypos := MouseY + (WhichToolTip/20)*(MonitorHeight)
+      ToolTip EachText, xpos, ypos, WhichToolTip  ; Show the tooltip
     }
   }
-  ClearTooltip(0,WhichToolTip)
+  Return
 }
 
 

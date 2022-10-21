@@ -1816,7 +1816,7 @@ LShift & RShift::
 ; ----------------------------------------------------
 ;   HOTKEY:  Num Lock
 ;   ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
-;           Allow for a specific config-file, if exists, to keep NumLock disabled by-default (for specific hardware/VM use-cases)
+;            Allow for a specific config-file, if exists, to keep NumLock disabled by-default (for specific hardware/VM use-cases)
 ;
 NumLock::
 ^NumLock::
@@ -1872,14 +1872,13 @@ NumLock::
   Return
 }
 
-
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 ; ---                       FUNCTIONS                      ---
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 
-
+; ------------------------------
 ;
 ; ActiveWindow_Maximize
 ;   |--> Maximize active window (if not maximized, already)
@@ -1892,7 +1891,7 @@ ActiveWindow_Maximize() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; AwaitModifierKeyup
 ;   |-->  Wait until all modifier keys are released
@@ -1909,7 +1908,7 @@ AwaitModifierKeyup() {
   Sleep 10
 }
 
-
+; ------------------------------
 ;
 ; BrowserHover
 ;   |--> Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
@@ -1956,7 +1955,7 @@ BrowserHover() {
   }
 }
 
-
+; ------------------------------
 ;
 ; ClearTooltip
 ;   |--> If called with a positive [ Period ], wait [ Period ] milliseconds before clearing the given ToolTip, otherwise clear it immediately
@@ -1971,7 +1970,7 @@ ClearTooltip(Period:=0, WhichToolTip:=1) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; ClickLoop
 ;   |--> Send left click indefinitely until script is cancelled, with a long enough break between clicks to not make it impossible to stop
@@ -1990,7 +1989,7 @@ ClickLoop(MouseX,MouseY,Timeout) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; CreateCitationsFooter
 ;   |--> Creates a block of text designed for placement at the bottom (footer) of a document,
@@ -2030,7 +2029,7 @@ CreateCitationsFooter() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; CommentCurrentLine
 ;   |--> Uses Ctrl + Q hotkey to comment the current line (WITH a leading space) in a given IDE (Notepad++/VS-Code)
@@ -2041,7 +2040,7 @@ CommentCurrentLine() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; CommentCurrentLine_NoSpace
 ;   |--> Uses Ctrl + Q hotkey to comment the current line (WITHOUT a leading space) in a given IDE (Notepad++/VS-Code)
@@ -2052,7 +2051,7 @@ CommentCurrentLine_NoSpace() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; DoLogging
 ;   |--> Log given text to target file
@@ -2064,7 +2063,7 @@ DoLogging(LogText) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Duplicate_Keypress
 ;   |--> Get user-entered keypress & repeatedly send a duplicate (mock) keypress indefinitely afterwards
@@ -2095,7 +2094,7 @@ Duplicate_Keypress() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; EscapeSpecialCharacters
 ;   |--> Escape Special characters "{}!^#+" in Curly-Braces "{" CHAR_HERE "}"
@@ -2144,7 +2143,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
   Return ReturnedString
 }
 
-
+; ------------------------------
 ;
 ; Get_ahk_id_from_pid
 ;   |--> Input: WinPID to Target
@@ -2160,7 +2159,7 @@ Get_ahk_id_from_pid(WinPid, ExcludeTitle:="") {
   ; Return dat_ahk_id
 }
 
-
+; ------------------------------
 ;
 ; Get_ahk_id_from_title
 ;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
@@ -2173,7 +2172,7 @@ Get_ahk_id_from_title(WinTitle, ExcludeTitle:="") {
   Return ("ahk_id " OutputVar)
 }
 
-
+; ------------------------------
 ;
 ; GetCommandOutput
 ;   |--> Returns the standard output returned from a CMD (ComSpec) command
@@ -2183,7 +2182,7 @@ GetCommandOutput(CMD_Command) {
   Return WScript_Shell_StdOut
 }
 
-
+; ------------------------------
 ;
 ; GetPID
 ;   |--> Returns PID if process IS found
@@ -2194,7 +2193,7 @@ GetPID(ProcName) {
   Return PID
 }
 
-
+; ------------------------------
 ;
 ; GetRandomString
 ;   |--> Generate a random string of desired length
@@ -2302,7 +2301,7 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
   Return ReturnedString
 }
 
-
+; ------------------------------
 ;
 ; GetTimestamp
 ;   |--> Returns the current datetime formatted as-needed
@@ -2317,7 +2316,7 @@ GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {
   Return FormatTime("",Timestamp_Format)
 }
 
-
+; ------------------------------
 ;
 ; GetTimezoneOffset
 ;   |--> Returns the timezone with [ DateTime +/- Zulu-Offset ]
@@ -2356,7 +2355,7 @@ GetTimezoneOffset(&Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", Strip
   Return
 }
 
-
+; ------------------------------
 ;
 ; GetTimezoneOffset_P
 ;   |--> Returns the timezone with "P" instead of "+", for fields which only allow alphanumeric with hyphens
@@ -2368,7 +2367,7 @@ GetTimezoneOffset_P(&Output_TZ_P) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; GetWindowSpecs
 ;   |--> Gets Specs for currently-active window
@@ -2539,7 +2538,6 @@ GetWindowSpecs_OnDoubleClick(LV, RowNumber) {
 ;
 ; GetWindowSpecs_OnRightClick  -  Sub-Function of "GetWindowSpecs()"
 ;
-
 GetWindowSpecs_OnRightClick(LV, Item, IsRightClick, X, Y) {
   global DebugMode
   KeySelected := LV.GetText(Item,1)  ; Grab the key (col. 1) from the selected row
@@ -2551,7 +2549,7 @@ GetWindowSpecs_OnRightClick(LV, Item, IsRightClick, X, Y) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; IfProcessExist (proxy-function for GetPID(...))
 ;   |--> Returns True if process IS found
@@ -2561,7 +2559,7 @@ IfProcessExist(ProcName) {
   Return (GetPID(ProcName)>0) ? True : False
 }
 
-
+; ------------------------------
 ;
 ; KeyWaitAny
 ;  |--> Waits for the user to press any single key (and returns it)
@@ -2591,7 +2589,7 @@ LockWorkstation() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; GetMicroseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
@@ -2610,7 +2608,7 @@ GetMicroseconds() {
   Return OutVar
 }
 
-
+; ------------------------------
 ;
 ; GetMilliseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
@@ -2621,7 +2619,7 @@ GetMilliseconds() {
   Return A_MSec
 }
 
-
+; ------------------------------
 ;
 ; GetNanoseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
@@ -2643,7 +2641,7 @@ GetNanoseconds() {
 
 }
 
-
+; ------------------------------
 ;
 ; Monitor_ActivateLowPowerMode
 ;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
@@ -2657,7 +2655,7 @@ Monitor_ActivateLowPowerMode() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Monitor_PowerOff
 ;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
@@ -2671,7 +2669,7 @@ Monitor_PowerOff() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Monitor_PowerOn
 ;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ]
@@ -2685,7 +2683,7 @@ Monitor_PowerOn() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Monitor_ShowScreenSaver
 ;   |--> [ 0x112 ] targets [ WM_SYSCOMMAND ] - https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
@@ -2702,7 +2700,7 @@ Monitor_ShowScreenSaver() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; WinSnap
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
@@ -2948,7 +2946,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
   Return
 }
 
-
+; ------------------------------
 ;
 ; Open_Chrome
 ;   |--> Opens the "Google Chrome" Application
@@ -3001,7 +2999,7 @@ Open_Chrome() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Open_ControlPanel_NetworkConnections
 ;   |--> Opens "View Network Connections"
@@ -3025,7 +3023,7 @@ Open_ControlPanel_NetworkConnections() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Open_ControlPanel_Sound
 ;   |--> Opens "Sound Control Panel"
@@ -3067,7 +3065,7 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Open_Exe
 ;   |--> Opens target exeutable & sets its window to be active
@@ -3105,7 +3103,7 @@ Open_Exe(ExeFullpath) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Open_VisualStudioCode
 ;   |--> Opens Microsoft's "Visual Studio Code" application (e.g. "VS Code" or "VSCode") - VS Code is a Free Source Code Editor & IDE
@@ -3138,7 +3136,7 @@ Open_VisualStudioCode() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Open_WindowsTerminal
 ;   |--> Opens Microsoft's "Windows Terminal" application - Windows Terminal is a tabbed terminal utility for Windows
@@ -3178,7 +3176,7 @@ Open_WindowsTerminal() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; PasteClipboardAsBinary
 ;   |--> Pastes the current clipboard data as binary-data (as if the user typed it instead of pasting it)
@@ -3200,7 +3198,7 @@ PasteClipboardAsBinary() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; PasteClipboardAsText
 ;   |--> Types the current clipboard's contained data, character-by-character (as if the user typed it instead of pasting it)
@@ -3242,7 +3240,7 @@ PasteClipboardAsText(StringToPaste:="") {
   Return
 }
 
-
+; ------------------------------
 ;
 ; PasteClipboard_TextOrBinary
 ;   |--> Displays a menu asking user if they wish to paste the clipboard as Text or Binary data (workaround for websites which block pasting into forms)
@@ -3279,7 +3277,7 @@ Custom_MsgBox_Buttons(MsgBox_WinTitle:="", Start_TickCount:=0, Period:=5000) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; PrintEnv
 ;   |--> Gets Windows Environment Vars (output to file)
@@ -3435,7 +3433,7 @@ PrintEnv() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; ProcessExist (proxy-function for GetPID(...))
 ;   |--> Returns True if process IS found
@@ -3445,7 +3443,7 @@ ProcessExist(ProcName) {
   Return (GetPID(ProcName)>0) ? True : False
 }
 
-
+; ------------------------------
 ;
 ; RegexConsolidateNewlines
 ;   |--> The characters '`n' & '`r' are interpreted the same (by Windows) when AHK 'types' them in (sends them).
@@ -3454,7 +3452,7 @@ RegexConsolidateNewlines(StringToConsolidate:="") {
   Return RegExReplace(StringToConsolidate,"\r\n?|\n\r?","`n")
 }
 
-
+; ------------------------------
 ;
 ; RunExe_NON_Admin
 ;   |--> Opens target program without administrative rights (by using a Scheduled Task de-escalation workaround)

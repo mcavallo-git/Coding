@@ -3252,7 +3252,6 @@ PasteClipboard_TextOrBinary() {
 Custom_MsgBox_Buttons(MsgBox_WinTitle:="", Start_TickCount:=0, Period:=5000) {
   Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
   If (Remaining_TickCount <= 0) {
-    ClearTooltip(0,WhichToolTip)  ; Remove the tooltip
     SetTimer , 0  ; Mark the timer for deletion
   } Else {
     ; Check for the MsgBox window and update the buttons on it

@@ -753,7 +753,7 @@ Pause::
 +!#d::   ;  2022-10-20T04:58:25.802768         (Shift + Alt + WinKey + D)
 +^#d::   ;  2022-10-20_04-58-31.128721         (Shift + Ctrl + WinKey + D)
 +!^#d::  ;  2022-10-20T04:58:17.412119-04:00   (Shift + Ctrl + Alt + WinKey + D)  <-- Note:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
-+#d::  ;  20221020T045928.630393             (Shift + WinKey + D)  <-- Note:  Keeps bringing up start menu...?
+; +#d::  ;  20221020T203014.000                (Shift + WinKey + D)  <-- Note:  Keeps bringing up start menu...?
 {
   global DebugMode
   global RFC3339_DateAndTimeField_Separator
@@ -814,7 +814,7 @@ Pause::
   SendKeys := GetTimestamp(YMD_Separator, HMS_Separator, DT_Field_Separator)
   ; Append microseconds onto timestamp
   If (Add_Microseconds = 1) {
-    GetMicroseconds(&Current_Microseconds)
+    Current_Microseconds := GetMicroseconds()
     SendKeys := SendKeys Microseconds_Separator Current_Microseconds
   }
   ; Append timezone onto timestamp
@@ -1563,19 +1563,17 @@ WheelRight::
 ; ------------------------------------------------------------
 ;
 ;   HOTKEY:  Alt + WinKey + C
-;           Ctrl + WinKey + C
+;            Ctrl + WinKey + C
 ;   ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
 ;
 !#c::
 ^#c::
 {
-  ; WinTitle=Task Scheduler
-  ; WinTitle=Visual Studio Code
-  ; SpaceUp_Loop(50, WinTitle)
-  ; SpaceUp_Loop(50)
-  ; ClickLoop(1724,749,1000)
-  MouseGetPos &MouseX, &MouseY
-  ClickLoop(MouseX, MouseY, 500)  ; ClickLoop(MouseX,MouseY,Timeout)
+
+  ShowToolTip("GetMicroseconds:  " GetMicroseconds(),,,,10000)
+
+  ShowToolTip("GetNanoseconds:  " GetNanoseconds(),,,5,10000)
+
   Return
 }
 
@@ -2599,13 +2597,18 @@ LockWorkstation() {
 ; GetMicroseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
 ;   |--> Example call:
-;          GetMicroseconds(&CurrentMicroseconds)
+;          Current_Microseconds := GetMicroseconds()
 ;
-GetMicroseconds(&OutputVar) {
-  vIntervals := 0
-  DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
-  OutputVar := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
-  Return
+GetMicroseconds() {
+  If (0 = 1 ) {
+    ; NOT WORKING CURRENTLY - NEED TO RESOLVE METHOD OF GETTING 10^-6 SECONDS IN AHK v2 BETA.12
+    vIntervals := 0
+    DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
+    OutVar := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
+  } Else {
+    OutVar := (A_MSec * 1000)
+  }
+  Return OutVar
 }
 
 
@@ -2613,26 +2616,32 @@ GetMicroseconds(&OutputVar) {
 ; GetMilliseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
 ;   |--> Example call:
-;          GetMilliseconds(&CurrentMilliseconds)
+;          Current_Milliseconds := GetMilliseconds()
 ;
-GetMilliseconds(&OutputVar) {
-  OutputVar := A_MSec
-  Return
+GetMilliseconds() {
+  Return A_MSec
 }
+
 
 ;
 ; GetNanoseconds
 ;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
 ;   |--> Example call:
-;          GetNanoseconds(&CurrentNanoseconds)
+;          Current_Nanosecondss := GetNanoseconds()
 ;
-GetNanoseconds(&OutputVar) {
-  vIntervals := 0
-  DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
-  ; vDate := 1601
-  ; EnvAdd, vDate, vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
-  OutputVar := Format("{:07}00", Mod(vIntervals, 10000000))
-  Return
+GetNanoseconds() {
+  If (0 = 1 ) {
+    ; NOT WORKING CURRENTLY - NEED TO RESOLVE METHOD OF GETTING TIME DOWN TO THE 10^-9 GRANULATIRY IN AHK v2 BETA.12 (EVEN THOUGH 10^-7 IS THE MOST PRECISE A PC CAN BE ASSUMED TO BE ACCURATE DOWN-TO)
+    vIntervals := 0
+    DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
+    ; vDate := 1601
+    ; EnvAdd, vDate, vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+    OutVar := Format("{:07}00", Mod(vIntervals, 10000000))
+  } Else {
+    OutVar := (A_MSec * 1000 * 1000)
+  }
+  Return OutVar
+
 }
 
 

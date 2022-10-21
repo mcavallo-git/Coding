@@ -1,8 +1,6 @@
 ﻿; ------------------------------------------------------------
 ;
-; _WindowsHotkeys.ahkv2, by Cavalol
-;   - Effective Hotkeys for Windows-based Workstaitons
-;   - Download @ https://raw.githubusercontent.com/mcavallo-git/Coding/master/ahk/_WindowsHotkeys-Beta.ahkv2
+; _WindowsHotkeys.ahkv2, by Cavalol  -  https://raw.githubusercontent.com/mcavallo-git/Coding/master/ahk/_WindowsHotkeys.ahkv2
 ;
 ; ------------------------------------------------------------
 
@@ -51,7 +49,6 @@ SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrol
 ;
 ; Global Variables - Standardized / Statics
 ;
-
 
 ; Newline Characters
 CR := "`r"
@@ -5023,7 +5020,6 @@ Youtube_EditDraft_Submit() {
 ;          |
 ;          |--> Run [ EXE-Filepath ] with [ Runtime-Parameters ] determined by user (above)
 ;
-
 
   ;                                  ;
  ;;;                                ;;;

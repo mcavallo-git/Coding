@@ -58,8 +58,8 @@ CR := "`r"
 LF := "`n"
 
 
-; Array used to avoid store the latest updates for each ToolTip "WhichToolTip" available window (out of 20)
-WhichToolTips_TickCounts := []
+; Associative array used to avoid store the latest updates for each ToolTip "WhichToolTip" available window (out of 20)
+WhichToolTips_TickCounts := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
 
 
 ; ------------------------------------------------------------
@@ -1573,16 +1573,9 @@ WheelRight::
 ^#c::
 {
 
-  ToolTips := []
-  ToolTips.InsertAt(1,"A")
-  ToolTips.InsertAt(2,"B")
-  ToolTips.InsertAt(3,"C")
+  ShowToolTip("GetMicroseconds:  " GetMicroseconds(),,,,10000)
 
-  ; ShowToolTip(ToolTips,,,,10000)
-
-  ; ShowToolTip("GetMicroseconds:  " GetMicroseconds(),,,,10000)
-
-  ; ShowToolTip("GetNanoseconds:  " GetNanoseconds(),,,5,10000)
+  ShowToolTip("GetNanoseconds:  " GetNanoseconds(),,,5,10000)
 
   Return
 }

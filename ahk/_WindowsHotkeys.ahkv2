@@ -2576,7 +2576,7 @@ KeyWaitAny(Options:="")
   Return ih.EndKey  ; Return the key name
 }
 
-
+; ------------------------------
 ;
 ; LockWorkstation
 ;   |--> Lock the Workstation and turn-off/activate-lower-power-mode on monitors
@@ -3512,7 +3512,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   Return
 }
 
-
+; ------------------------------
 ;
 ; RunWaitOne
 ;   |--> Executes a single command through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
@@ -3532,7 +3532,7 @@ RunWaitOne(CMD_Command) {
   Return WScript_Shell_Exec
 }
 
-
+; ------------------------------
 ;
 ; RunWaitMany
 ;   |--> Executes multiple commands through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
@@ -3555,7 +3555,7 @@ RunWaitMany(CMD_Commands) {
   Return WScript_Shell_Exec.StdOut.ReadAll()
 }
 
-
+; ------------------------------
 ;
 ; SendDashedLine
 ;   |--> Output a line of dashes
@@ -3568,7 +3568,7 @@ SendDashedLine(LineLength:=60) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; SendUnderscoreLine
 ;   |--> Output a line of underscores
@@ -3581,7 +3581,7 @@ SendUnderscoreLine(LineLength:=60) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; SendHostname
 ;   |--> Send (type) the current device's Hostname - intended to be used for quick form filling
@@ -3609,7 +3609,7 @@ SendHostname() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; SendPseudoRandomString
 ;   |--> Sends/Copies a psuedo-random string of characters
@@ -3632,7 +3632,7 @@ SendPseudoRandomString(CopyStringToClipboard:=1) {
   }
 }
 
-
+; ------------------------------
 ;
 ; SendRandomString
 ;   |--> Sends/Copies a random string of characters
@@ -3661,7 +3661,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
   }
 }
 
-
+; ------------------------------
 ;
 ; SendSpace
 ;   |--> For some reason, Windows 10 doesn't like Send {Space} (as-in it 'ignores' the keypress), but happily accepts Send {SC039} as equivalent to a spacebar-press
@@ -3671,7 +3671,7 @@ SendSpace() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; ShowCursorCoordinates
 ;   |--> Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
@@ -3708,7 +3708,7 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; ShowCursorPixelColor
 ;   |--> Follows the mouse-cursor and displays the color of the pixel under it, continuously (as a tooltip next to the cursor)
@@ -3819,7 +3819,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; ShowToolTip
 ;   |--> Show a tooltip & make said tooltip follow the mouse around for a given duration
@@ -3863,7 +3863,7 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
   Return
 }
 
-
+; ------------------------------
 ;
 ; ShowVolumeLevel
 ;   |--> Show a tooltip with the volume as an integer, as well as filled-bars around it to intuitively show the volume, as well as a mute icon around the integer if muted
@@ -3963,7 +3963,7 @@ ShowVolumeLevel() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; SpaceUp_Loop
 ;   |--> Designed for Windows Task Scheduler to quickly show open all tasks on the main page, which can then be sorted (but only for the ones that've been opened)
@@ -3979,7 +3979,7 @@ SpaceUp_Loop(LoopIterations) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; StringRepeat
 ;   |--> Repeat a string a given number of times
@@ -3997,7 +3997,7 @@ StringRepeat(StrToRepeat, Multiplier) {
   Return ReturnedVal
 }
 
-
+; ------------------------------
 ;
 ; StrLen_Max
 ;   |--> Compare two strings - return the longer string (whichever has more characters in it)
@@ -4013,7 +4013,7 @@ StrLen_Max(Str_1, Str_2) {
   Return ( (StrLen(Str_1)>StrLen(Str_2)) ? (Str_1) : (Str_2) )
 }
 
-
+; ------------------------------
 ;
 ; StrLenUnicode
 ;   |--> Get String-Length for unicode string(s)? (Need better description)
@@ -4023,7 +4023,7 @@ StrLenUnicode(data) {
   Return i
 }
 
-
+; ------------------------------
 ;
 ; TabSpace_Loop
 ;   |--> Designed for Samsung SmartThings' Web-IDE where (sometimes) multiple hundreds of checkboxes need to be selected individually to update from a Git repo
@@ -4038,7 +4038,7 @@ TabSpace_Loop(LoopIterations) {
   Return
 }
 
-
+; ------------------------------
 ;
 ; TempFile
 ;   |--> Creates a temporary file with a timestamp (down to the millisecond) based filename
@@ -4054,7 +4054,7 @@ TempFile() {
   Return TempFile_Fullpath
 }
 
-
+; ------------------------------
 ;
 ; WinGet_ahk_id
 ;   |
@@ -4073,7 +4073,7 @@ WinGet_ahk_id(WinTitle:="", WinText:="", ExcludeTitle:="", ExcludeText:="") {
   Return Win_ahk_id
 }
 
-
+; ------------------------------
 ;
 ; WinGet_is_win10_app
 ;   |
@@ -4090,7 +4090,7 @@ WinGet_is_win10_app(WinTitle) {
   Return Win_is_win10_app
 }
 
-
+; ------------------------------
 ;
 ; WinGet_size_state
 ;   |
@@ -4111,7 +4111,7 @@ WinGet_size_state(WinTitle,WinText:="") {
   Return Win_size_state
 }
 
-
+; ------------------------------
 ;
 ; Win_ToggleRestoreMaximize
 ;   |--> Toggle target window between "Maximized" and "Non-Maximized" (or "Restored") states
@@ -4144,7 +4144,7 @@ Win_ToggleRestoreMaximize(WinTitle:="A") {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Xbox_ExportCaptures
 ;   |--> Win10 download & delete Game Clips / Screenshots via "Xbox Console Companion" Win10 App
@@ -4595,7 +4595,7 @@ Xbox_ExportCaptures() {
   Return
 }
 
-
+; ------------------------------
 ;
 ; Youtube_EditDraft_Submit
 ;   |--> Click "Edit Draft" then "Next"*3 then "Submit" to walk Youtube videos from "Draft" to live state
@@ -4712,7 +4712,6 @@ Youtube_EditDraft_Submit() {
   ClearTooltip(10000)
   Return
 }
-
 
 ; ------------------------------------------------------------
 ;

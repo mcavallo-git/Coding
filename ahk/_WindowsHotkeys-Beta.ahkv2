@@ -52,11 +52,14 @@ SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrol
 ; Global Variables - Standardized / Statics
 ;
 
-;
+
 ; Newline Characters
-;
 CR := "`r"
 LF := "`n"
+
+
+; Array used to avoid store the latest updates for each ToolTip "WhichToolTip" available window (out of 20)
+WhichToolTips_TickCounts := []
 
 
 ; ------------------------------------------------------------
@@ -1570,9 +1573,16 @@ WheelRight::
 ^#c::
 {
 
-  ShowToolTip("GetMicroseconds:  " GetMicroseconds(),,,,10000)
+  ToolTips := []
+  ToolTips.InsertAt(1,"A")
+  ToolTips.InsertAt(2,"B")
+  ToolTips.InsertAt(3,"C")
 
-  ShowToolTip("GetNanoseconds:  " GetNanoseconds(),,,5,10000)
+  ; ShowToolTip(ToolTips,,,,10000)
+
+  ; ShowToolTip("GetMicroseconds:  " GetMicroseconds(),,,,10000)
+
+  ; ShowToolTip("GetNanoseconds:  " GetNanoseconds(),,,5,10000)
 
   Return
 }
@@ -3822,7 +3832,9 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm
 ;
 ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
+  global WhichToolTips_TickCounts
   Start_TickCount := A_TickCount
+  WhichToolTips_TickCounts[WhichToolTip] := Start_TickCount
   SetTimer () => ShowToolTip_Auto(Text, X, Y, WhichToolTip, Period, Start_TickCount), 50
   ; SetTimer () => ClearTooltip(0,WhichToolTip), (Period * -1)
   ; ClearTooltip(0,WhichToolTip)
@@ -3830,10 +3842,11 @@ ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
 }
 ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_TickCount:=0) {
   global DebugMode
+  global WhichToolTips_TickCounts
   CoordMode "Mouse", "Screen"
   CoordMode "ToolTip", "Screen"
   Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
-  If (Remaining_TickCount <= 0) {
+  If ((WhichToolTips_TickCounts[WhichToolTip] != Start_TickCount) || (Remaining_TickCount <= 0)) {
     ClearTooltip(0,WhichToolTip)  ; Remove the tooltip
     SetTimer , 0  ; Mark the timer for deletion
   } Else {

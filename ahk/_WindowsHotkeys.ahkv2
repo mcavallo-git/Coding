@@ -2442,7 +2442,6 @@ GetWindowSpecs(WinTitle:="A") {
     GUI_ROWCOUNT := GUI_ROWCOUNT + 3  ; Debug-Rows
   }
 
-
   ; --- TABLE - COLORS ---
   GUI_BACKGROUND_COLOR := "1E1E1E"
   GUI_TEXT_COLOR := "FFFFFF"
@@ -3316,7 +3315,6 @@ PrintEnv() {
   Viewport_Height := SysGet(79)  ; SM_CYVIRTUALSCREEN
   Monitor_Count := SysGet(80)  ; SM_CMONITORS
 
-
   MsgBoxOutput := ""
 
   ; ------------------------------------------------------------
@@ -3348,7 +3346,6 @@ PrintEnv() {
   ; ------------------------------------------------------------
   ;
   ; https://lexikos.github.io/v2/docs/Variables.htm#CoordMode
-
 
   MsgBoxOutput := MsgBoxOutput "`n"
   MsgBoxOutput := MsgBoxOutput "----------------------------- AHK Env-Vars -----------------------------" "`n"
@@ -5027,13 +5024,11 @@ Youtube_EditDraft_Submit() {
  ;;;                                ;;;
   ;                                  ;
 
-
   ;                                  ;
  ;;;                                ;;;
 ;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
  ;;;                                ;;;
   ;                                  ;
-
 
   ;                                  ;
  ;;;                                ;;;

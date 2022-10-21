@@ -753,7 +753,7 @@ Pause::
 +!#d::   ;  2022-10-20T04:58:25.802768         (Shift + Alt + WinKey + D)
 +^#d::   ;  2022-10-20_04-58-31.128721         (Shift + Ctrl + WinKey + D)
 +!^#d::  ;  2022-10-20T04:58:17.412119-04:00   (Shift + Ctrl + Alt + WinKey + D)  <-- Note:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
-; +#d::  ;  20221020T045928.630393             (Shift + WinKey + D)  <-- Note:  Keeps bringing up start menu...?
++#d::  ;  20221020T045928.630393             (Shift + WinKey + D)  <-- Note:  Keeps bringing up start menu...?
 {
   global DebugMode
   global RFC3339_DateAndTimeField_Separator
@@ -778,13 +778,6 @@ Pause::
   CtrlPressed := InStr(A_ThisHotkey,"^")
   ShiftPressed := InStr(A_ThisHotkey,"+")
   ; ------------------------------
-  ; Default timestamp format
-  ;  |--> Shorter filename friendly timestamp (must match regex pattern: [a-zA-Z0-9\+\.\-]+  )
-  YMD_Separator := ""
-  HMS_Separator := ""
-  DT_Field_Separator := RFC3339_DateAndTimeField_Separator
-  Microseconds_Separator := RFC3339_DecimalSeconds_Separator
-  ; ------------------------------
   ; Special timestamp formats (based on hotkey pressed)
   If ((ShiftPressed != 0)) {  ; w/ Shift
     ; Add microseconds onto timestamp
@@ -792,25 +785,29 @@ Pause::
   }
   If ((CtrlPressed != 0) && (AltPressed != 0)) {  ; w/ Alt, w/ Ctrl
     ; RFC3339 timestamp w/ timezone
-    YMD_Separator := RFC3339_YearMonthDay_Separator
-    HMS_Separator := RFC3339_HourMinuteSecond_Separator
-    DT_Field_Separator := RFC3339_DateAndTimeField_Separator
     Add_Timezone := 1
+    DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+    Microseconds_Separator := RFC3339_DecimalSeconds_Separator
+    HMS_Separator := RFC3339_HourMinuteSecond_Separator
+    YMD_Separator := RFC3339_YearMonthDay_Separator
   } Else If ((AltPressed != 0) && (CtrlPressed = 0)) {  ; w/ Alt, w/o Ctrl
     ; RFC3339 timestamp
-    YMD_Separator := RFC3339_YearMonthDay_Separator
-    HMS_Separator := RFC3339_HourMinuteSecond_Separator
     DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+    HMS_Separator := RFC3339_HourMinuteSecond_Separator
+    Microseconds_Separator := RFC3339_DecimalSeconds_Separator
+    YMD_Separator := RFC3339_YearMonthDay_Separator
   } Else If ((AltPressed == 0) && (CtrlPressed != 0)) {  ; w/o Alt, w/ Ctrl
     ; Longer filename friendly timestamp (must match regex pattern: [a-zA-Z0-9\+\.\-]+  )
-    YMD_Separator := "-"
-    HMS_Separator := "-"
     DT_Field_Separator := "_"
+    HMS_Separator := "-"
+    Microseconds_Separator := RFC3339_DecimalSeconds_Separator
+    YMD_Separator := "-"
   } Else { ; w/o Alt, w/o Ctrl
     ; Shorter filename friendly timestamp (must match regex pattern: [a-zA-Z0-9\+\.\-]+  )
-    YMD_Separator := ""
-    HMS_Separator := ""
     DT_Field_Separator := RFC3339_DateAndTimeField_Separator
+    HMS_Separator := ""
+    Microseconds_Separator := RFC3339_DecimalSeconds_Separator
+    YMD_Separator := ""
   }
   ; ------------------------------
   ; Get the formatted version of the current date & time
@@ -818,7 +815,7 @@ Pause::
   ; Append microseconds onto timestamp
   If (Add_Microseconds = 1) {
     GetMicroseconds(&Current_Microseconds)
-    SendKeys := SendKeys "." Current_Microseconds
+    SendKeys := SendKeys Microseconds_Separator Current_Microseconds
   }
   ; Append timezone onto timestamp
   If (Add_Timezone = 1) {

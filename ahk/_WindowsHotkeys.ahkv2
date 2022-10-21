@@ -14,7 +14,6 @@
 ; DebugMode := 1
 DebugMode := 0
 
-
 ; ------------------------------------------------------------
 ;
 ; AHK - #Commands (Runtime-Configs)  ; https://lexikos.github.io/v2/docs/commands/#hash
@@ -44,7 +43,6 @@ SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrol
 
 ; #ErrorStdOut  ; https://lexikos.github.io/v2/docs/commands/_ErrorStdOut.htm
 
-
 ; ------------------------------------------------------------
 ;
 ; Global Variables - Standardized / Statics
@@ -54,10 +52,8 @@ SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrol
 CR := "`r"
 LF := "`n"
 
-
 ; Associative array used to avoid store the latest updates for each ToolTip "WhichToolTip" available window (out of 20)
 WhichToolTips_TickCounts := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
-
 
 ; ------------------------------------------------------------
 ;
@@ -71,7 +67,6 @@ RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour,
 RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
 RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
 
-
 ; ------------------------------------------------------------
 ;
 ; Setup targeting [ Windows Explorer ]-classed windows
@@ -81,7 +76,6 @@ GroupAdd("Explorer", "ahk_class ExploreWClass") ; Unused on Vista and later
 
 GroupAdd("Explorer", "ahk_class CabinetWClass")
 
-
 ; ------------------------------------------------------------
 ;
 ; Show the Version of AHK currently being used to compile this code
@@ -89,7 +83,6 @@ GroupAdd("Explorer", "ahk_class CabinetWClass")
 If (DebugMode == 1) {
   TrayTip "AHK", ("Version:" "`n" A_AhkVersion)  ; Toast Notification
 }
-
 
 ; ------------------------------------------------------------
 ;
@@ -102,13 +95,11 @@ If (FileExist(TrayIcon_Default)) {
   TraySetIcon(TrayIcon_Default)
 }
 
-
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 ; ---                   HOTKEY-LISTENERS                   ---
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
-
 
 ; ------------------------------------------------------------
 ;

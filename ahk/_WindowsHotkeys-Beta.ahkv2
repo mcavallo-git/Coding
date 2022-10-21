@@ -3236,7 +3236,7 @@ PasteClipboardAsText(StringToPaste:="") {
 PasteClipboard_TextOrBinary() {
   Start_TickCount := A_TickCount
   MsgBox_WinTitle := ( A_ScriptName " - " A_ThisFunc )
-  SetTimer () => Custom_MsgBox_Buttons(MsgBox_WinTitle, Start_TickCount), 50
+  SetTimer () => Custom_MsgBox_Buttons(MsgBox_WinTitle, Start_TickCount), 10
   A_MsgBoxResult := MsgBox("Paste the Clipboard as Text or Binary?", A_ScriptName " - " A_ThisFunc,3)
   If (A_MsgBoxResult = "Yes") {
     ; Paste the Text version of the Clipboard

@@ -3160,6 +3160,7 @@ Open_WindowsTerminal() {
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
+  Sleep 2000
   ; If (DebugMode == 1) {
   ;   GetWindowSpecs(WinTitle)
   ;   Sleep 500

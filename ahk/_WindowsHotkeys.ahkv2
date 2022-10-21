@@ -101,7 +101,7 @@ If (FileExist(TrayIcon_Default)) {
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + Esc
 ;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
@@ -123,7 +123,7 @@ If (FileExist(TrayIcon_Default)) {
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  ???
 ;   ACTION:  Attempt to re-run the current program with escalated/elevated privileges (e.g. rerun the current program as admin)
@@ -140,7 +140,7 @@ If (FileExist(TrayIcon_Default)) {
 ;   Return
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Apps-Key
 ;   ACTION:  Replace functionality with that of the right WinKey by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
@@ -148,7 +148,7 @@ If (FileExist(TrayIcon_Default)) {
 AppsKey::RWin
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Scroll Lock / Scroll-Lock / ScrollLock
 ;   ACTION:  Replace functionality with combo keypress  [ Alt + Shift + F10 ]  (set in GeForce Experience to hotkey "Toggle Instant Replay On/Off" (under "In-Game Overlay" > "Settings" (cog) > "Keyboard shortcuts"))
@@ -161,7 +161,7 @@ ScrollLock::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Pause/Break
 ;   ACTION:  Replace functionality with combo keypress  [ Alt + F10 ]  (set in GeForce Experience to hotkey "Save the last 1.0 minutes recorded" (under "In-Game Overlay" > "Settings" (cog) > "Keyboard shortcuts"))
@@ -174,7 +174,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Shift + Pause/Break
 ;   ACTION:  Open the current user's Videos directory
@@ -188,7 +188,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + Z
 ;   ACTION:  Grabs information about current (active) window's exe-filepath, process-id, on-screen location, & more, and displays it in a popup table Gui
@@ -448,7 +448,7 @@ Pause::
 #HotIf
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + Minus-Key                      ( - )
 ;            WinKey + Numpad-Minus-Key               ( - )
@@ -478,7 +478,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Shift + WinKey + Minus-Key                ( - )
 ;            Shift + WinKey + Numpad-Minus-Key         ( - )
@@ -508,7 +508,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + Equals-Key  ( = )
 ;            WinKey + Plus-Key    ( + )
@@ -523,7 +523,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + V
 ;   ACTION:  Open VS Code
@@ -535,7 +535,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Ctrl + Shift + V
 ;   HOTKEY:  Ctrl + Alt + V
@@ -551,7 +551,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + P
 ;   ACTION:  Send a random string
@@ -565,7 +565,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Shift + Ctrl + P
 ;   ACTION:  Reserved for VS Code's "Command Palette..." default hotkey
@@ -576,7 +576,7 @@ Pause::
 ; }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Ctrl + WinKey + P
 ;   HOTKEY:  Shift + Alt + P
@@ -593,7 +593,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + H
 ;   ACTION:  Type the COMPUTERNAME
@@ -605,7 +605,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + U
 ;   ACTION:  Type the DOMAIN-USERNAME
@@ -624,7 +624,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Alt + Z
 ;   ACTION:  If VSCode is active, enable Text Wrap in it - Otherwise, bring up the GeForce Experience Overlay (must manually set hotkey in said overlay to match +!z)
@@ -651,7 +651,7 @@ Pause::
 #UseHook True  ; Enable the catching of hotkeys sent by this script  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + G
 ;   HOTKEY:  WinKey + W
@@ -732,7 +732,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + D
 ;   ACTION:  Types one of a dynamic set of timestamp-strings
@@ -837,7 +837,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F1
 ;   ACTION:  Edit this Script (the one you're reading right now)
@@ -849,7 +849,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F2
 ;   ACTION:  Opens a window (GetKeyCodes.ahk) which displays verbose keypress info, live (allowing user to press combo keys and view how it is interpreted by AHK)
@@ -862,7 +862,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F8
 ;   ACTION:  Send duplicate keypresses
@@ -874,7 +874,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + R
 ;   ACTION:  Open Windows 10's "Display settings" (to change resolution, monitor settings, etc.)
@@ -886,7 +886,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Alt + WinKey + R
 ;            Ctrl + WinKey + R
@@ -905,7 +905,7 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  AppsKey + [
 ;            AppsKey + ]
@@ -1055,7 +1055,7 @@ AppsKey & ]::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + Right-Click
 ;   ACTION:  Follows the mouse-cursor and displays its the X,Y coordinates  (as a tooltip next to the cursor)
@@ -1069,7 +1069,7 @@ AppsKey & ]::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Shift + WinKey + Right-Click
 ;            Ctrl + WinKey + Right-Click
@@ -1087,7 +1087,7 @@ AppsKey & ]::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + L
 ;   ACTION:  Allow native function (via ~) to lock the workstatiton, wait a sec, then show the screensaver
@@ -1102,7 +1102,7 @@ AppsKey & l::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + N
 ;   ACTION:  Opens "View Network Connections" (control panel window)
@@ -1141,7 +1141,7 @@ AppsKey & l::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + O (not zero, the letter O)
 ;   ACTION:  Opens "Programs & Features" in the Control Panel
@@ -1153,7 +1153,7 @@ AppsKey & l::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + E
 ;   ACTION:  Opens directory pointed to by Windows' USERPROFILE environment variable
@@ -1165,7 +1165,7 @@ AppsKey & l::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + ` (Tilde)
 ;   ACTION:  Keyboard-Command for a Mouse-Left-Click
@@ -1177,7 +1177,7 @@ AppsKey & l::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  AppsKey + Mouse-Wheel Up
 ;            AppsKey + Mouse-Wheel Down
@@ -1195,7 +1195,7 @@ AppsKey & l::
 ; }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  AppsKey + Left/Right/Up/Down
 ;   ACTION:  Replace AppsKey with RWin and send command
@@ -1222,7 +1222,7 @@ AppsKey & Down::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Alt + ` (Tilde)
 ;   ACTION:  Keyboard-Command for a Mouse-Right-Click
@@ -1234,7 +1234,7 @@ AppsKey & Down::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey/AppsKey + XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button)
 ;   ACTION:  Goto Previous Track (in currently-active media player)
@@ -1247,7 +1247,7 @@ AppsKey & XButton1::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey/AppsKey + XButton2 (Mouse-Button 5, Mouse 'Front' Side-Button)
 ;   ACTION:  Goto Next Track (in currently-active media player)
@@ -1375,7 +1375,7 @@ AppsKey & WheelDown::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Alt + Mouse-Wheel Up/Down
 ;   ACTION:  "SuperScroll" - scrolls 15 wheel-clicks at a time
@@ -1392,7 +1392,7 @@ AppsKey & WheelDown::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Mouse-Wheel Left-/Right-Tilt (e.g. "Rock" the Mouse-Wheel Left/Right)
 ;   ACTION:  Change Tabs Left or Right
@@ -1409,7 +1409,7 @@ WheelRight::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Ctrl + WinKey + K
 ;            Ctrl + Alt  + K
@@ -1428,7 +1428,7 @@ WheelRight::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Ctrl + WinKey + X
 ;            Ctrl + Alt  + X
@@ -1444,7 +1444,7 @@ WheelRight::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Left-WinKey + K
 ;   ACTION:  Send a Thumbs-Up
@@ -1551,7 +1551,7 @@ WheelRight::
 #HotIf
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Alt + WinKey + C
 ;            Ctrl + WinKey + C
@@ -1569,7 +1569,7 @@ WheelRight::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F
 ;   ACTION:  Do nothing (kills Windows "Feedback Hub", in the very least)
@@ -1605,7 +1605,7 @@ WheelRight::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
 ;   ACTION:  Toggle between "Maximized" and "Restored" window-sizes for the currently-active window
@@ -1624,7 +1624,7 @@ LShift & RShift::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + 8
 ;   ACTION:  Wait a random duration of time (example)
@@ -1639,7 +1639,7 @@ LShift & RShift::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + 9
 ;   ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
@@ -1670,7 +1670,7 @@ LShift & RShift::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + 0
 ;   ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
@@ -1778,7 +1778,7 @@ LShift & RShift::
 ; }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + T
 ;   ACTION:  Open Windows Terminal
@@ -1790,7 +1790,7 @@ LShift & RShift::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Alt + WinKey + T
 ;            Ctrl + WinKey + T
@@ -4715,7 +4715,7 @@ Youtube_EditDraft_Submit() {
 ;   Return
 ; }
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Ctrl + WinKey + Z
 ;            Shift + WinKey + Z

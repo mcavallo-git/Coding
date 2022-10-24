@@ -1369,23 +1369,6 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Mouse-Wheel Left-/Right-Tilt (e.g. "Rock" the Mouse-Wheel Left/Right)
-;   ACTION:  Change Tabs Left or Right
-;
-WheelLeft::
-{
-  Send "^{PgUp}"
-  Return
-}
-WheelRight::
-{
-  Send "^{PgDn}"
-  Return
-}
-
-
-; ------------------------------
-;
 ;   HOTKEY:  Ctrl + WinKey + K
 ;            Ctrl + Alt  + K
 ;            Ctrl + Shift  + K
@@ -1658,6 +1641,113 @@ LShift & RShift::
 }
 
 
+; ------------------------------
+;
+;   HOTKEY:  WinKey + T
+;   ACTION:  Open Windows Terminal
+;
+#t::
+{
+  Open_WindowsTerminal()
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  Alt + WinKey + T
+;            Ctrl + WinKey + T
+;   ACTION:  Get Windows Environment Vars
+;
+!#t::
+^#t::
+{
+  PrintEnv()
+  Return
+}
+
+
+; ----------------------------------------------------
+;   HOTKEY:  Num Lock
+;   ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
+;            Allow for a specific config-file, if exists, to keep NumLock disabled by-default (for specific hardware/VM use-cases)
+;
+NumLock::
+^NumLock::
+!NumLock::
+#NumLock::
+{
+  ConfigFilepath_KeepNumLockDisabled := EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config"
+  If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
+    ; Default - Keep NumLock enabled
+    NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
+    If (NumLockEnabled_BeforeKeypress == 0) {
+      SetNumLockState "On"
+      ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
+    } Else {
+      TooltipOutput := "Disable NumLock via Shift+NumLock"
+      ToolTip TooltipOutput
+      ClearTooltip(3000)
+    }
+  } Else {
+    ; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
+    NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
+    If (NumLockEnabled_BeforeKeypress == 1) {
+      SetNumLockState "Off"
+      ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
+    } Else {
+      TooltipOutput := "Enable NumLock via Shift+NumLock"
+      ToolTip TooltipOutput
+      ClearTooltip(3000)
+    }
+  }
+  Return
+}
+
++NumLock::
+{
+  ConfigFilepath_KeepNumLockDisabled := EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config"
+  If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
+    ; Default - Allow Shift+NumLock to toggle NumLock
+    ; NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
+    ; If (NumLockEnabled_BeforeKeypress == 1) {
+    ;   ; SetNumLockState "Off"
+    ;   SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
+    ; }
+    ; Toggles NumLock to its opposite state.
+    SetNumLockState !GetKeyState("NumLock", "T")
+  } Else {
+    ; Reversed-Default - Only allow Shift+NumLock to enable NumLock (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
+    NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
+    If (NumLockEnabled_BeforeKeypress == 0) {
+      SetNumLockState "On"
+    }
+  }
+  Return
+}
+
+
+; ------------------------------------------------------------
+;
+;   ACTION:  Decrease screen brightness
+;
+; Alt & Left::
+; {
+;   BS := new BrightnessSetter()
+;   BS.SetBrightness(-1)
+;   Return
+; }
+;
+;   ACTION:  Increase screen brightness
+;
+; Alt & Right::
+; {
+;   BS := new BrightnessSetter()
+;   BS.SetBrightness(+1)
+;   Return
+; }
+;
+;
 ; ------------------------------------------------------------
 ;  Win+J - Start Node.JS (Git-Bash) && Postman
 ;
@@ -1751,93 +1841,25 @@ LShift & RShift::
 ;   }
 ;   Return
 ; }
-
-
+;
+;
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + T
-;   ACTION:  Open Windows Terminal
+;   HOTKEY:  Mouse-Wheel Left-/Right-Tilt (e.g. "Rock" the Mouse-Wheel Left/Right)
+;   ACTION:  Change Tabs Left or Right
 ;
-#t::
-{
-  Open_WindowsTerminal()
-  Return
-}
-
-
-; ------------------------------
+; WheelLeft::
+; {
+;   Send "^{PgUp}"
+;   Return
+; }
+; WheelRight::
+; {
+;   Send "^{PgDn}"
+;   Return
+; }
 ;
-;   HOTKEY:  Alt + WinKey + T
-;            Ctrl + WinKey + T
-;   ACTION:  Get Windows Environment Vars
 ;
-!#t::
-^#t::
-{
-  PrintEnv()
-  Return
-}
-
-
-; ----------------------------------------------------
-;   HOTKEY:  Num Lock
-;   ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
-;            Allow for a specific config-file, if exists, to keep NumLock disabled by-default (for specific hardware/VM use-cases)
-;
-NumLock::
-^NumLock::
-!NumLock::
-#NumLock::
-{
-  ConfigFilepath_KeepNumLockDisabled := EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config"
-  If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
-    ; Default - Keep NumLock enabled
-    NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
-    If (NumLockEnabled_BeforeKeypress == 0) {
-      SetNumLockState "On"
-      ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
-    } Else {
-      TooltipOutput := "Disable NumLock via Shift+NumLock"
-      ToolTip TooltipOutput
-      ClearTooltip(3000)
-    }
-  } Else {
-    ; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
-    NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
-    If (NumLockEnabled_BeforeKeypress == 1) {
-      SetNumLockState "Off"
-      ; SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
-    } Else {
-      TooltipOutput := "Enable NumLock via Shift+NumLock"
-      ToolTip TooltipOutput
-      ClearTooltip(3000)
-    }
-  }
-  Return
-}
-
-+NumLock::
-{
-  ConfigFilepath_KeepNumLockDisabled := EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config"
-  If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
-    ; Default - Allow Shift+NumLock to toggle NumLock
-    ; NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
-    ; If (NumLockEnabled_BeforeKeypress == 1) {
-    ;   ; SetNumLockState "Off"
-    ;   SetNumLockState(GetKeyState("NumLock", "T") ? "Off" : "On")
-    ; }
-    ; Toggles NumLock to its opposite state.
-    SetNumLockState !GetKeyState("NumLock", "T")
-  } Else {
-    ; Reversed-Default - Only allow Shift+NumLock to enable NumLock (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
-    NumLockEnabled_BeforeKeypress := GetKeyState("NumLock", "T")
-    If (NumLockEnabled_BeforeKeypress == 0) {
-      SetNumLockState "On"
-    }
-  }
-  Return
-}
-
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 ; ---                       FUNCTIONS                      ---
@@ -4743,26 +4765,6 @@ Youtube_EditDraft_Submit() {
 ;   MyGui.Name := "WinTitles"
 ;   ; Gui Destroy
 ;   MyGui.Destroy()
-;   Return
-; }
-;
-; ------------------------------------------------------------
-;
-;   ACTION:  Decrease screen brightness
-;
-; Alt & Left::
-; {
-;   BS := new BrightnessSetter()
-;   BS.SetBrightness(-1)
-;   Return
-; }
-;
-;   ACTION:  Increase screen brightness
-;
-; Alt & Right::
-; {
-;   BS := new BrightnessSetter()
-;   BS.SetBrightness(+1)
 ;   Return
 ; }
 ;

@@ -2511,7 +2511,7 @@ GetWindowSpecs(WinTitle:="A") {
   Return
 }
 ;
-; GetWindowSpecs_OnDoubleClick  -  Sub-Function of "GetWindowSpecs()"
+; GetWindowSpecs_OnDoubleClick  -  Sub-Function of "GetWindowSpecs"
 ;
 GetWindowSpecs_OnDoubleClick(LV, RowNumber) {
   global DebugMode
@@ -2524,7 +2524,7 @@ GetWindowSpecs_OnDoubleClick(LV, RowNumber) {
   Return
 }
 ;
-; GetWindowSpecs_OnRightClick  -  Sub-Function of "GetWindowSpecs()"
+; GetWindowSpecs_OnRightClick  -  Sub-Function of "GetWindowSpecs"
 ;
 GetWindowSpecs_OnRightClick(LV, Item, IsRightClick, X, Y) {
   global DebugMode
@@ -2965,10 +2965,6 @@ Open_Chrome() {
       WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
     }
     If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {   
-      ; If (DebugMode == 1) {
-      ;   GetWindowSpecs(WinTitle)
-      ;   Sleep 500
-      ; }
       If (MonitorGetCount()==1) {
         WinSnap(WinTitle,,,,"Right","Half",1) ; Resize window to right-half of monitor #1
       } Else {
@@ -3110,10 +3106,6 @@ Open_VisualStudioCode() {
   WinTitle := " - Visual Studio Code"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 20
-  ; If (DebugMode == 1) {
-  ;   GetWindowSpecs(WinTitle)
-  ;   Sleep 500
-  ; }
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
@@ -3151,10 +3143,6 @@ Open_WindowsTerminal() {
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  ; If (DebugMode == 1) {
-  ;   GetWindowSpecs(WinTitle)
-  ;   Sleep 500
-  ; }
   WinSnap(WinTitle,WinText,,,"Right","Half",1) ; Resize window to right-half of monitor #1
   If (WinExist(WinTitle,WinText)) {
     WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm

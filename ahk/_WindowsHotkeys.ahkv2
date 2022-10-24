@@ -31,6 +31,10 @@ DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHidden
 
 ; DetectHiddenText 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenText.htm
 
+; #ErrorStdOut  ; https://lexikos.github.io/v2/docs/commands/_ErrorStdOut.htm
+
+; FileEncoding, UTF-8  ; https://lexikos.github.io/v2/docs/commands/FileEncoding.htm
+
 ; #InstallKeybdHook  ; https://lexikos.github.io/v2/docs/commands/_InstallKeybdHook.htm
 
 ; #UseHook True  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
@@ -39,9 +43,7 @@ SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorki
 
 SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
 
-; FileEncoding, UTF-8  ; https://lexikos.github.io/v2/docs/commands/FileEncoding.htm
-
-; #ErrorStdOut  ; https://lexikos.github.io/v2/docs/commands/_ErrorStdOut.htm
+SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
 
 ; ------------------------------------------------------------
 ;
@@ -610,28 +612,18 @@ Pause::
 ; ------------------------------
 ;
 ;   HOTKEY:  Alt + Z
-;   ACTION:  If VSCode is active, enable Text Wrap in it - Otherwise, bring up the GeForce Experience Overlay (must manually set hotkey in said overlay to match +!z)
+;   ACTION:  Open NVidia GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])
 ;
-#UseHook False  ; Disable the catching of hotkeys sent by this script (stops infinite loops)  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
+#HotIf !WinActive("ahk_exe Code.exe")
 !z::
 {
   SetKeyDelay 0, -1
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  WinTitle := " - Visual Studio Code"
-  If (WinActive(WinTitle)) {
-    Send "!z"
-    ; Win_ahk_id := WinGetID("A")
-    ; Win_ahk_pid := WinGetPID("ahk_id " Win_ahk_id)
-    ; ControlSend,, !z, "ahk_pid " Win_ahk_pid
-    ; ControlSend,, {LAlt up}{RAlt up}{LAlt down}{z}{LAlt up}, "ahk_pid " Win_ahk_pid
-  } Else {
-    ; Send [ Shift + Alt + z ] - Configure this in Geforce Experience Overlay via "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set this hotkey)
-    Send "+!z"
-  }
+  Send "+!z"
   Return
 }
-#UseHook True  ; Enable the catching of hotkeys sent by this script  |  https://lexikos.github.io/v2/docs/commands/_UseHook.htm
+#HotIf
 
 
 ; ------------------------------

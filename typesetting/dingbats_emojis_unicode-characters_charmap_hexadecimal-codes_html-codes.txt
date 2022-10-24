@@ -38,7 +38,7 @@ Mostly Linux compatible:
 ∙					Bullet Operator  |  https://www.compart.com/en/unicode/U+2219
 
 
-°					Degree Sign (Degrees, Temperature, °C, °F) (&deg;) (&#176;)  |  https://www.compart.com/en/unicode/U+00B0
+°					Degree Sign (Degrees, Temperature, °C, °F, Celsius, Fahrenheit) (&deg;) (&#176;)  |  https://www.compart.com/en/unicode/U+00B0
 ⌀					Diameter Sign (&#8960;)  |  https://www.compart.com/en/unicode/U+2300
 
 

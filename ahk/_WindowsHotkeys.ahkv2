@@ -3821,8 +3821,8 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
       MonitorWidth := (MonitorRight-MonitorLeft)
       MonitorHeight := (MonitorBottom-MonitorTop)
       MouseGetPos &MouseX, &MouseY
-      xpos := MouseX + (WhichToolTip/20)*(MonitorWidth)
-      ypos := MouseY + (WhichToolTip/20)*(MonitorHeight)
+      xpos := Floor( MouseX + ((WhichToolTip-0.5)/20)*(MonitorWidth) )
+      ypos := Floor( MouseY + ((WhichToolTip-1)/20)*(MonitorHeight) )
       ToolTip EachText, xpos, ypos, WhichToolTip  ; Show the tooltip
     }
   }

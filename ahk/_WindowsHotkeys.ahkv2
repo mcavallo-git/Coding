@@ -386,19 +386,31 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
-; HOTKEY:  WinKey + F3  (or "#SC03D")
-; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
+;   APP-SPECIFIC HOTKEY(S):  Xbox Console Companion
 ;
-#F3::
-{
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  If (WinExist("Xbox Console Companion")) {
+#HotIf WinExist("Xbox Console Companion")
+  ;
+  ; HOTKEY:  WinKey + F3  (or "#SC03D")
+  ; ACTION:  Xbox - Download & delete game clips & screenshots
+  ;
+  #F3::
+  {
     Xbox_ExportCaptures()
-  } Else {
-    BrowserHover()
+    Return
   }
-  Return
-}
+#HotIf
+; ------------------------------------------------------------
+#HotIf !WinExist("Xbox Console Companion")
+  ;
+  ; HOTKEY:  WinKey + F3
+  ; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
+  ;
+  #F3::
+  {
+    BrowserHover()
+    Return
+  }
+#HotIf
 
 
 ; ------------------------------------------------------------

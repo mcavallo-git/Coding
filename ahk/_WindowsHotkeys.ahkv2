@@ -388,7 +388,7 @@ Pause::
 ;
 ;   APP-SPECIFIC HOTKEY(S):  Xbox Console Companion
 ;
-#HotIf WinExist("Xbox Console Companion")
+#HotIf WinActive("Xbox Console Companion")
   ;
   ; HOTKEY:  WinKey + F3  (or "#SC03D")
   ; ACTION:  Xbox - Download & delete game clips & screenshots
@@ -400,7 +400,7 @@ Pause::
   }
 #HotIf
 ; ------------------------------------------------------------
-#HotIf !WinExist("Xbox Console Companion")
+#HotIf !WinActive("Xbox Console Companion")
   ;
   ; HOTKEY:  WinKey + F3
   ; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)

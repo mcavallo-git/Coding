@@ -10,6 +10,6 @@ PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM p
 #
 # Citation(s)
 #
-#   github.com  |  "Coding/README.md at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/blob/master/README.md#readme
+#   github.com  |  "Coding/README.md at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/blob/main/README.md#readme
 #
 # ------------------------------------------------------------

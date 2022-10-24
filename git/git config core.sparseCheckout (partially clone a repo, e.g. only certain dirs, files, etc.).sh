@@ -23,7 +23,7 @@ echo "some/dir/" >> .git/info/sparse-checkout
 echo "another/sub/tree" >> .git/info/sparse-checkout
 # Last but not least, update your empty repo with the state from the remote:
 #
-git pull origin master
+git pull origin main
 # You will now have files "checked out" for some/dir and another/sub/tree on your file system (with those paths still), and no other paths present.
 #
 # You might want to have a look at the extended tutorial and you should probably read the official documentation for sparse checkout.
@@ -45,7 +45,7 @@ function git_sparse_clone() (
     echo "$i" >> .git/info/sparse-checkout
   done
 
-  git pull origin master
+  git pull origin main
 )
 #
 # Usage:

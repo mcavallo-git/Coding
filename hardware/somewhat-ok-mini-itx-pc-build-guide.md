@@ -1,4 +1,4 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/master/hardware/somewhat-ok-mini-itx-pc-build-guide.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/somewhat-ok-mini-itx-pc-build-guide.md -->
 
 <br /><hr /><br />
 
@@ -105,13 +105,13 @@
 <br /><hr /><br />
 
 ## 13 - Additional Mobo Connectors
-- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
+- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
 
 
 <br /><hr /><br />
 
 ## 14 - Additional Mobo Connectors
-- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
+- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
 
 
 <br /><hr /><br />
@@ -123,25 +123,25 @@
 <br /><hr /><br />
 
 ## 16 - Additional Mobo Connectors
-- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
+- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
 
 
 <br /><hr /><br />
 
 ## 17 - Additional Mobo Connectors
-- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
+- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
 
 
 <br /><hr /><br />
 
 ## 18 - Additional Mobo Connectors
-- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
+- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
 
 
 <br /><hr /><br />
 
 ## 19 - Additional Mobo Connectors
-- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
+- Refer to https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/somewhat-ok-itx-pc-build-guide.png or your motherboard's user manual (look for section titled "Motherboard layout")
 
 <br /><hr /><br />
 
@@ -155,7 +155,7 @@
 
 - [asus.com  |  "User's Manual, ROG STRIX X570-I GAMING" ](https://dlcdnets.asus.com/pub/ASUS/mb/SocketAM4/ROG_STRIX_X570-I_GAMING/E15891_ROG_STRIX_X570-I_GAMING_UM_V2_WEB.pdf)
 
-- [github.com  |  "Somewhat OK Mini ITX PC Build Guide" ](https://github.com/mcavallo-git/Coding/blob/master/hardware/somewhat-ok-mini-itx-pc-build-guide.md)
+- [github.com  |  "Somewhat OK Mini ITX PC Build Guide" ](https://github.com/mcavallo-git/Coding/blob/main/hardware/somewhat-ok-mini-itx-pc-build-guide.md)
 
 - [instructables.com  |  "Build a Gaming Computer: 23 Steps" ](https://www.instructables.com/id/Build-a-Gaming-Computer/)
 

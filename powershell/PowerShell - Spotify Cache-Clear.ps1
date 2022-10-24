@@ -6,7 +6,7 @@
 If ($False) {
 ### Run this script manually on target device:
 
-Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell - Spotify Cache-Clear.ps1'));
+Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/PowerShell - Spotify Cache-Clear.ps1'));
 
 }
 # ------------------------------------------------------------

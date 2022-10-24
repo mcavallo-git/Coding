@@ -2,7 +2,7 @@
 
 Nov-2020 Flash Drive Suggestions
  |
- |--> URL:  https://raw.githubusercontent.com/mcavallo-git/Coding/master/hardware/flash-drive-reccomendations.txt
+ |--> URL:  https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/flash-drive-reccomendations.txt
 
 
 ------------------------------------------------------------

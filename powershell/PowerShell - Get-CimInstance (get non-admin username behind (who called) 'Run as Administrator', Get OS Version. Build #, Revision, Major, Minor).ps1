@@ -41,7 +41,7 @@ $All_UserDetails=(Get-CimInstance -ClassName "Win32_UserAccount"); $All_UserDeta
 #
 #
 # Get verbose Windows OS info
-#  |--> Refer to [ "Get-OS-Info.psm1" ]  @  https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-OS-Info/Get-OS-Info.psm1
+#  |--> Refer to [ "Get-OS-Info.psm1" ]  @  https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/Get-OS-Info/Get-OS-Info.psm1
 #
 #
 # ------------------------------------------------------------

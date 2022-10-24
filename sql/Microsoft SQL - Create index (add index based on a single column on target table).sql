@@ -11,6 +11,6 @@ CREATE INDEX TableName_ColumnName ON TableName (ColumnName);
 --
 --   docs.microsoft.com  |  "Find Indexes On A Table In SQL Server | My Tec Bits"  |  https://docs.microsoft.com/en-us/sql/t-sql/statements/create-index-transact-sql?view=sql-server-ver15
 --
---   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--   github.com  |  "Coding/sql at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/main/sql
 --
 -- ----------------------------------------------------------

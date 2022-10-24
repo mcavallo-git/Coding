@@ -6,7 +6,7 @@
 If ($False) { <# RUN THIS SCRIPT REMOTELY #>
 
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Microsoft.Update.AutoUpdate%20(Check%20for%20Updates%20via%20CLI%2C%20Windows%20Updates).ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/PowerShell%20-%20Microsoft.Update.AutoUpdate%20(Check%20for%20Updates%20via%20CLI%2C%20Windows%20Updates).ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 }

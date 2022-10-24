@@ -8,7 +8,7 @@ Installing HomeAssistant (as a VM onto an ESXi instance):
 
 - Format a side PC with ESXi (v6.5 or higher) as the OS
    |--> To download a .ISO image for ESXI 6.5, refer to PowerShell module "ESXI_BootMedia.psm1"
-        |--> ESXI_BootMedia.psm1 module @ [ https://github.com/mcavallo-git/Coding/blob/master/powershell/_WindowsPowerShell/Modules/ESXi_BootMedia/ESXi_BootMedia.psm1 ]
+        |--> ESXI_BootMedia.psm1 module @ [ https://github.com/mcavallo-git/Coding/blob/main/powershell/_WindowsPowerShell/Modules/ESXi_BootMedia/ESXi_BootMedia.psm1 ]
         |--> Call using command [ ESXi_BootMedia -Create -ESXiVersion '6.5'; ] to create a ESXi v6.5 .ISO file
         |--> Format ESXi .ISO file onto a USB flash drive using Rufus.exe (download Rufus from URL [ https://rufus.ie/downloads/ ])
         |--> Plug USB flash drive into PC to format ESXi onto, boot to it, format PC, then connect via web-browser to ESXi box's IP address (using https://...) once it boots up

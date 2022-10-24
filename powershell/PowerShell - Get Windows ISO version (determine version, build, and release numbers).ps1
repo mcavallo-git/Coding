@@ -5,7 +5,7 @@
 # ------------------------------------------------------------
 If ($False) { # RUN THIS SCRIPT:
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/PowerShell%20-%20Get%20Windows%20ISO%20version%20%28determine%20version%2c%20build%2c%20and%20release%20numbers%29.ps1') ).Content) } Catch {};
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/PowerShell%20-%20Get%20Windows%20ISO%20version%20%28determine%20version%2c%20build%2c%20and%20release%20numbers%29.ps1') ).Content) } Catch {};
 
 }
 # ------------------------------------------------------------

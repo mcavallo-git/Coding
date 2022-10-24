@@ -1,5 +1,5 @@
 <!-- ------------------------------------------------------------ -->
-<!-- https://github.com/mcavallo-git/Coding/blob/master/smarthome/lg/lg-65C9-oled-smart-tv.webos-config.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/smarthome/lg/lg-65C9-oled-smart-tv.webos-config.md -->
 <!-- ------------------------------------------------------------ -->
 
 <div style="white-space:nowrap;">
@@ -166,7 +166,7 @@
 <br /><hr />
 
 ## Citation(s)
-- <a href="https://github.com/mcavallo-git/Coding/blob/master/smarthome/lg/lg-65C9-oled-smart-tv.webos-config.md">github.com  |  "Coding/lg-65C9-oled-smart-tv.webos-config.md at master · mcavallo-git/Coding · GitHub"</a>
+- <a href="https://github.com/mcavallo-git/Coding/blob/main/smarthome/lg/lg-65C9-oled-smart-tv.webos-config.md">github.com  |  "Coding/lg-65C9-oled-smart-tv.webos-config.md at main · mcavallo-git/Coding · GitHub"</a>
 - <a href="https://gscs-b2c.lge.com/downloadFile?fileId=yXFnEz2ZB9ypMx0DGQ25jg">gscs-b2c.lge.com  |  "Owner's Manual - LG Magic Remote"</a>
 - <a href="https://gscs-b2c.lge.com/downloadFile?fileId=qReQV6oTTnLYU1AYxsVBkg">gscs-b2c.lge.com  |  "Owner's Manual - LG OLED TV"</a>
 - <a href="https://manuals.plus/_lg/magic-remote-manual">manuals.plus  |  "LG Magic Remote Owner's Manual - Manuals+"</a>

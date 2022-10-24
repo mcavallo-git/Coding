@@ -6,7 +6,7 @@ function GitCloneRepo {
 
 		[String]$LocalDirname,
 
-		[String]$GitBranch = "master",
+		[String]$GitBranch = "main",
 
 		[String]$CommitSHA = "",
 

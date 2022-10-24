@@ -18,13 +18,13 @@ Add-Type -AssemblyName ("System.IO.Compression.FileSystem");
 If ($True) {
 
 	# 7-Zip - Set runtime vars for remote URI(s) && local filepath(s)
-	$URL_7z_Zip = "https://github.com/mcavallo-git/Coding/raw/master/windows/7-Zip/7za.exe.zip";
+	$URL_7z_Zip = "https://github.com/mcavallo-git/Coding/raw/main/windows/7-Zip/7za.exe.zip";
 	$FullPath_7z_Dir = "${env:TEMP}\7za";
 	$FullPath_7z_Exe = "${FullPath_7z_Dir}\7za.exe";
 	$FullPath_7z_Zip = "${FullPath_7z_Dir}\$(Split-Path -Path ("${URL_7z_Zip}") -Leaf;)";
 
 	# HandBrakeCLI - Set runtime vars for remote URI(s) && local filepath(s)
-	$URL_HandBrakeCLI_7z = "https://github.com/mcavallo-git/Coding/raw/master/windows/HandBrake/HandBrakeCLI.exe.7z";
+	$URL_HandBrakeCLI_7z = "https://github.com/mcavallo-git/Coding/raw/main/windows/HandBrake/HandBrakeCLI.exe.7z";
 	$FullPath_HandBrakeCLI_Dir = "${env:TEMP}\HandBrakeCLI";
 	$FullPath_HandBrakeCLI_Exe = "${FullPath_HandBrakeCLI_Dir}\HandBrakeCLI.exe";
 	$FullPath_HandBrakeCLI_7z = "${FullPath_HandBrakeCLI_Dir}\$(Split-Path -Path ("${URL_HandBrakeCLI_7z}") -Leaf;)";

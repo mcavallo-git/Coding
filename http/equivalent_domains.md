@@ -2,7 +2,7 @@
 
 This file (on GitHub):
 
-	https://github.com/mcavallo-git/Coding/blob/master/http/equivalent_domains.md
+	https://github.com/mcavallo-git/Coding/blob/main/http/equivalent_domains.md
 
 --- ------------------------------------------------------------- -->
 

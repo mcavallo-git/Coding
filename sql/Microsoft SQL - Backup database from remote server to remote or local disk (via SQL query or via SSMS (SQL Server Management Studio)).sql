@@ -48,7 +48,7 @@ BACKUP DATABASE DATABASE_NAME_HERE TO DISK='DATABASE_FILENAME.bak' WITH COPY_ONL
 --
 --   docs.microsoft.com  |  "Quickstart: Back up & restore database - SQL Server | Microsoft Docs"  |  https://docs.microsoft.com/en-us/sql/relational-databases/backup-restore/quickstart-backup-restore-database?view=sql-server-ver15&viewFallbackFrom=sql-server-2014
 --
---   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--   github.com  |  "Coding/sql at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/main/sql
 --
 --   stackoverflow.com  |  "How can I backup a remote SQL Server database to a local drive? - Stack Overflow"  |  https://stackoverflow.com/a/9141964
 --

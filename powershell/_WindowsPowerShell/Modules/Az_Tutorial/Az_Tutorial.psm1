@@ -425,7 +425,7 @@ function Az_Tutorial {
 	
 	git remote add ($git.remote.origin.description) ($git.remote.origin.git_push_url);
 
-	# Push the sample-code to the new git-repo to instantiate the master branch & deploy the web-app as a service
+	# Push the sample-code to the new git-repo to instantiate the destination branch & deploy the web-app as a service
 
 	$CommandDescription = (("Deploying ")+($az.webapp.desc));
 

@@ -1,6 +1,6 @@
 <!-- ------------------------------------------------------------ -->
 
-<!-- This file (on GitHub):  https://github.com/mcavallo-git/Coding/tree/master/windows#windows-one-time-setup -->
+<!-- This file (on GitHub):  https://github.com/mcavallo-git/Coding/tree/main/windows#windows-one-time-setup -->
 
 <!-- ------------------------------------------------------------ -->
 

@@ -17,6 +17,6 @@ SELECT SERVERPROPERTY('machinename');
 --
 -- Citation(s)
 --
---   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--   github.com  |  "Coding/sql at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/main/sql
 --
 -- ------------------------------------------------------------

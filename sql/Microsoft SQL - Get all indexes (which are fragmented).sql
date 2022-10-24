@@ -15,7 +15,7 @@ WHERE i.index_id = indexstats.index_id;
 --
 -- Citation(s)
 --
---   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--   github.com  |  "Coding/sql at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/main/sql
 --
 --   support.microsoft.com  |  "SQL query performance might decrease when the SQL Server Database instance has high index fragmentation"  |  https://support.microsoft.com/en-us/help/2755960/sql-query-performance-might-decrease-when-the-sql-server-database-inst
 --

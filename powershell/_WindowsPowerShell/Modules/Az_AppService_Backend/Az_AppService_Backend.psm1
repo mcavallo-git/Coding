@@ -803,7 +803,7 @@ function Az_AppService_Backend {
 		$CommandDescription = (("Pushing pre-compiled codebase to App Service `"")+($az.webapp.name)+("`"'s Kudu Build-Server"));
 		Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
 
-		git push origin master;
+		git push origin ($git.remote.destination.branch);
 
 	} Else { # -------------------------------------------------------------------------------------------------------------------------- #
 

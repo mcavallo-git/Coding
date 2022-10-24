@@ -15,7 +15,7 @@
 #
 # In-Depth Analysis (Example)
 #  |
-#  |-->  Refer to:  https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1
+#  |-->  Refer to:  https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1
 #
 
 

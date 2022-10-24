@@ -22,6 +22,6 @@ ORDER BY
 --
 --   blog.sqlxdetails.com  |  "Max Memory in SQL Server 2016 Standard Edition – Vedran Kesegic Blog"  |  https://blog.sqlxdetails.com/max-memory-in-sql-server-2016-standard-edition/
 --
---   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--   github.com  |  "Coding/sql at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/main/sql
 --
 -- ----------------------------------------------------------

@@ -25,6 +25,6 @@ GO
 --
 --   docs.microsoft.com  |  "sp_configure (Transact-SQL) - SQL Server | Microsoft Docs"  |  https://docs.microsoft.com/en-us/sql/relational-databases/system-stored-procedures/sp-configure-transact-sql?view=sql-server-ver15
 --
---   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--   github.com  |  "Coding/sql at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/main/sql
 --
 -- ------------------------------------------------------------

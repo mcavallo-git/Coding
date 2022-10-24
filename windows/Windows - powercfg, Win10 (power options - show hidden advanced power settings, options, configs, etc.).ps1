@@ -4,4 +4,4 @@
 #
 
 
-<# Refer to "SyncPowercfg.psm1" @ https://github.com/mcavallo-git/Coding/blob/master/powershell/_WindowsPowerShell/Modules/SyncPowercfg/SyncPowercfg.psm1 #>
+<# Refer to "SyncPowercfg.psm1" @ https://github.com/mcavallo-git/Coding/blob/main/powershell/_WindowsPowerShell/Modules/SyncPowercfg/SyncPowercfg.psm1 #>

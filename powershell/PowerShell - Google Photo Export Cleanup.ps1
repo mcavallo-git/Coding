@@ -6,7 +6,7 @@
 If ($True) {
 
 	<# Include module "JsonDecoder" #>
-	Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; New-Item -Force -ItemType "File" -Path ("${Env:TEMP}\JsonDecoder.psm1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/JsonDecoder/JsonDecoder.psm1"))) | Out-Null; Import-Module -Force ("${Env:TEMP}\JsonDecoder.psm1");
+	Set-ExecutionPolicy -ExecutionPolicy "Bypass" -Scope "CurrentUser" -Force; New-Item -Force -ItemType "File" -Path ("${Env:TEMP}\JsonDecoder.psm1") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/JsonDecoder/JsonDecoder.psm1"))) | Out-Null; Import-Module -Force ("${Env:TEMP}\JsonDecoder.psm1");
 
 	<# Required to use Recycle Bin action 'SendToRecycleBin' #>
 	Add-Type -AssemblyName Microsoft.VisualBasic;
@@ -124,7 +124,7 @@ If ($True) {
 	If ($False) { <# Disabled as it just flat-out takes too long (possibly leaking system resources on redundant calls?) #>
 		
 		<# Include module "Get-FileMetadata" #>
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/Get-FileMetadata/Get-FileMetadata.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;	[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/Get-FileMetadata/Get-FileMetadata.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 		<# Update media files using metadata on each file #>
 		Write-Host "";
@@ -271,6 +271,6 @@ If ($True) {
 #
 #   docs.microsoft.com  |  "about_Properties - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_properties?view=powershell-5.1
 #
-#   github.com  |  "Coding/PowerShell - Copy-Item, Get-ChildItem. Get-Item, Remove-Item.ps1 at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/blob/master/powershell/PowerShell%20-%20Copy-Item,%20Get-ChildItem.%20Get-Item,%20Remove-Item.ps1
+#   github.com  |  "Coding/PowerShell - Copy-Item, Get-ChildItem. Get-Item, Remove-Item.ps1 at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/blob/main/powershell/PowerShell%20-%20Copy-Item,%20Get-ChildItem.%20Get-Item,%20Remove-Item.ps1
 #
 # ------------------------------------------------------------

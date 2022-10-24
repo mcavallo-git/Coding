@@ -14,7 +14,7 @@ Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force;
 If ($False) { ### RUN THIS SCRIPT:
 
 
-	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/master/jenkins/jenkins_node_spinup%20(run%20windows%20nodes%20as%20a%20service%2C%20jnlp).ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+	$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/main/jenkins/jenkins_node_spinup%20(run%20windows%20nodes%20as%20a%20service%2C%20jnlp).ps1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 }

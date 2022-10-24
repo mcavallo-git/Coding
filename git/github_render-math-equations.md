@@ -1,5 +1,5 @@
 <!-- ------------------------------------------------------------ -->
-<!-- https://github.com/mcavallo-git/Coding/blob/master/git/github_render-math-equations.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/git/github_render-math-equations.md -->
 <!-- ------------------------------------------------------------ -->
 
 <hr />
@@ -17,7 +17,7 @@
 
 ## Example 1
 
-- HTML:<br />```<img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">``` <sup><a href="https://github.com/mcavallo-git/Coding/blob/master/hardware/screw-dimensions-outer-diameter-tpi.schrader-valves-car-tires.presta-valves-bike-tires.md#dimensions">Citation</a></sup>
+- HTML:<br />```<img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">``` <sup><a href="https://github.com/mcavallo-git/Coding/blob/main/hardware/screw-dimensions-outer-diameter-tpi.schrader-valves-car-tires.presta-valves-bike-tires.md#dimensions">Citation</a></sup>
 
 - Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">
 

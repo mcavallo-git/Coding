@@ -647,7 +647,7 @@ function Az_AppService_Frontend {
 		$CommandDescription = (("Pushing Compiled Code to App Service `"")+($az.webapp.name)+("`"'s Kudu Build-Server"));
 		Write-Host (("`nTask - ")+($CommandDescription)+("...`n"));
 
-		git push origin master;
+		git push origin ($git.remote.destination.branch);
 
 	} Else {
 

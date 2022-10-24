@@ -67,7 +67,7 @@ Function FiletypeAssociations() {
 			# Pull the most up=to-date filetype associations
 			$DefaultAssociations_Source="${Home}\Documents\GitHub\Coding\windows\Filetype-Associations\DefaultAssociations.xml";
 			If ((Test-Path ("${DefaultAssociations_Source}")) -Eq $False) {
-				$Download_RemoteUrl = "https://raw.githubusercontent.com/mcavallo-git/Coding/master/windows/Filetype-Associations/DefaultAssociations.xml";
+				$Download_RemoteUrl = "https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/Filetype-Associations/DefaultAssociations.xml";
 				$Download_LocalPath = "${Env:Temp}\DefaultAssociations.xml";
 				$(New-Object Net.WebClient).DownloadFile("${Download_RemoteUrl}", "${Download_LocalPath}");
 				$DefaultAssociations_Source = "${Download_LocalPath}";

@@ -9,7 +9,7 @@
 #		|      Installs all of the .NET Frameworks seen below
 #		|
 #		|--> URL:
-#		|      https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/NET_Framework_Install/NET_Framework_Install.psm1
+#		|      https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/NET_Framework_Install/NET_Framework_Install.psm1
 #		|
 #		|--> Example Call(s):
 #		       NET_Framework_Install
@@ -21,7 +21,7 @@ function NET_Framework_Install {
 	# ------------------------------------------------------------
 	If ($False) { # RUN THIS SCRIPT:
 
-		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/master/powershell/_WindowsPowerShell/Modules/NET_Framework_Install/NET_Framework_Install.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'NET_Framework_Install' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\NET_Framework_Install\NET_Framework_Install.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/NET_Framework_Install/NET_Framework_Install.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'NET_Framework_Install' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\NET_Framework_Install\NET_Framework_Install.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 		NET_Framework_Install;
 
 	}	

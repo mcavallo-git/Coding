@@ -33,7 +33,7 @@ GO
 --
 -- Citation(s)
 --
---   github.com  |  "Coding/sql at master · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/master/sql
+--   github.com  |  "Coding/sql at main · mcavallo-git/Coding · GitHub"  |  https://github.com/mcavallo-git/Coding/tree/main/sql
 --
 --   stackoverflow.com  |  "How to drop all tables in a SQL Server database? - Stack Overflow"  |  https://stackoverflow.com/a/8439798
 --

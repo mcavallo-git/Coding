@@ -1,5 +1,5 @@
 <!-- ------------------------------------------------------------ -->
-<!-- https://github.com/mcavallo-git/Coding/blob/master/smarthome/lg/lg-34gp3a-b-computer-monitor.config.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/smarthome/lg/lg-34gp3a-b-computer-monitor.config.md -->
 <!-- ------------------------------------------------------------ -->
 
 <div style="white-space:nowrap;">

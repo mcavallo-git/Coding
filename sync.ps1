@@ -6,7 +6,7 @@
 If ($False) { ### RUN THIS SCRIPT:
 
 
-Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/master/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 
 
 }
@@ -63,7 +63,7 @@ If (! (Get-Command "git")) {
 
 		Set-Location "${REPO_DIR_WIN32}";
 
-		git reset --hard "origin/master";
+		git reset --hard "origin/main";
 
 		git pull;
 
@@ -123,7 +123,7 @@ If (! (Get-Command "git")) {
 		git config --local --replace-all user.email "$($Env:EMAIL)";
 
 		git fetch --all;
-		git checkout -f master;
+		git checkout -f main;
 		git pull;
 
 	}

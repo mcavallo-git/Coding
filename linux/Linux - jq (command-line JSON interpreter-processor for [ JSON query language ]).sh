@@ -5,7 +5,7 @@
 #
 # jq - install
 #
-curl -H 'Cache-Control: no-cache' -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/master/usr/local/sbin/install_jq?t=$(date +'%s.%N')" | bash;
+curl -H 'Cache-Control: no-cache' -s "https://raw.githubusercontent.com/mcavallo-git/cloud-infrastructure/main/usr/local/sbin/install_jq?t=$(date +'%s.%N')" | bash;
 
 
 # ------------------------------------------------------------

@@ -6,12 +6,12 @@ REM
 REM ------------------------------------------------------------
 REM RUN THIS SCRIPT (via PowerShell):
 REM 
-REM    (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/mcavallo-git/Coding/main/cmd/cmd%20-%20Get-SystemSpecs.bat","${Env:TEMP}\Get-SystemSpecs.bat"); Start-Process -Filepath ("${Env:ComSpec}") -ArgumentList (@("/C","${Env:TEMP}\Get-SystemSpecs.bat"));
+REM    (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/mcavallo-git/Coding/main/cmd/scripts/Get-SystemSpecs.bat","${Env:TEMP}\Get-SystemSpecs.bat"); Start-Process -Filepath ("${Env:ComSpec}") -ArgumentList (@("/C","${Env:TEMP}\Get-SystemSpecs.bat"));
 REM
 REM ------------------------------------------------------------
 REM   MAIN FUNCTION  
 REM ------------------------------------------------------------
- 
+
 	SETLOCAL
 	CALL :WELCOME_USER
 	CALL :SETUP_FILESTREAM   REM /* DATETIME FILENAME*/
@@ -60,7 +60,7 @@ REM ------------------------------------------------------------
 	REM  \*/*\   Get the hostname (computer name)
 	FOR /f "tokens=2 delims==" %%I in ('wmic computersystem get name /format:list') do SET "hostname=%%I"
 	REM SET date=date /T
-	SET output_file=%USERPROFILE%\Desktop\Get-SystemSpecs.%hostname%.%domain%.txt
+	SET output_file=%USERPROFILE%\Desktop\get-system-specs.%hostname%.%domain%.txt
 	CALL :SETUP_DATETIME
 	ECHO SYSTEM INFO FOR PC [%hostname%] RAN [%dt_spaces%] BY [%username%] > %output_file%
 	EXIT /b

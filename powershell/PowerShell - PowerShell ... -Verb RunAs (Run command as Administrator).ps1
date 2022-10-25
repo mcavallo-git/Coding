@@ -48,8 +48,8 @@ PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM p
 PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; Install-Module -Name VMware.PowerCLI -AllowClobber -Force; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
 
 
-<# PowerShell/pwsh - Run as admin (child terminal) - Run Get-System-Specs #>
-PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; (New-Object System.Net.WebClient).DownloadFile((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/main/cmd/cmd%20-%20Get-SystemSpecs.bat),(((GCI env:\TEMP).Value)+(Write-Output \Get-SystemSpecs.bat))); Start-Process -Filepath ((GCI env:\ComSpec).Value) -ArgumentList (@((Write-Output /C),(((GCI env:\TEMP).Value)+(Write-Output \Get-SystemSpecs.bat)))) -Verb RunAs -Wait -PassThru; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
+<# PowerShell/pwsh - Run as admin (child terminal) - Run Get-SystemSpecs #>
+PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; (New-Object System.Net.WebClient).DownloadFile((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/main/cmd/scripts/Get-SystemSpecs.bat),(((GCI env:\TEMP).Value)+(Write-Output \Get-SystemSpecs.bat))); Start-Process -Filepath ((GCI env:\ComSpec).Value) -ArgumentList (@((Write-Output /C),(((GCI env:\TEMP).Value)+(Write-Output \Get-SystemSpecs.bat)))) -Verb RunAs -Wait -PassThru; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";
 
 
 # ------------------------------------------------------------

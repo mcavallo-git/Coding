@@ -25,8 +25,9 @@ touch -d "$(date -R --date='2018-10-01T14:54:22,384929728-04:00';)" "example.txt
 
 # ------------------------------------------------------------
 #
-# Set last-modified datetime (and create datetime if file doesn't exist) - Parameterized example
+# Set a file's create datetime (only when creating the file) as well as its last-modified datetime - Parameterized example
 #
+
 if [[ 1 -eq 1 ]]; then
 FILEPATH_TO_UPDATE="example.txt";  # Target filepath to update
 DATE_LAST_MODIFIED="3000-12-31 23:59:59";  # Timestamp to set modified date to

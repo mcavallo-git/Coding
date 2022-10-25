@@ -285,7 +285,7 @@ This file (on GitHub):
 				<table>
 					<tr><th colspan="2">Web-based</th></tr>
 					<tr><th colspan="2"></th></tr>
-					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://icoconvert.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</th></tr>
+					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://www.icoconverter.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://www.icoconverter.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</th></tr>
 					<tr><th colspan="2"></th></tr>
 					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</th></tr>
 					<tr><th colspan="2"></th></tr>

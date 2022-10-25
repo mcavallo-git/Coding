@@ -23,16 +23,16 @@ touch -d "$(date -R --date='@1539785880';)" "example.txt";
 # Set last-modified datetime - Input format:  iso-8601
 touch -d "$(date -R --date='2018-10-01T14:54:22,384929728-04:00';)" "example.txt";
 
-# ------------------------------------------------------------
-#
-# Set a file's create datetime (only when creating the file) as well as its last-modified datetime - Parameterized example
-#
-
+# Set last-modified & last-accessed datetimes - Parameterized example
 if [[ 1 -eq 1 ]]; then
-FILEPATH_TO_UPDATE="example.txt";  # Target filepath to update
+FILEPATH_EXAMPLE="example.txt";  # Target filepath to update
 DATE_LAST_MODIFIED="3000-12-31 23:59:59";  # Timestamp to set modified date to
-touch -m -a -t "$(date --utc --date="${DATE_LAST_MODIFIED}" +'%Y%m%d%H%M.%S';)" "${FILEPATH_TO_UPDATE}";
-stat --printf="%y  %n\n" "${FILEPATH_TO_UPDATE}";
+if [[ -f "${FILEPATH_EXAMPLE}" ]]; then
+  rm "${FILEPATH_EXAMPLE}";
+fi;
+touch -m -a -t "$(date --utc --date="${DATE_LAST_MODIFIED}" +'%Y%m%d%H%M.%S';)" "${FILEPATH_EXAMPLE}";
+echo -n "File last modified datetime:  "; stat --printf="%y  %n\n" "${FILEPATH_EXAMPLE}";
+echo -n "File last accessed datetime:  "; stat --printf="%x  %n\n" "${FILEPATH_EXAMPLE}";
 fi;
 
 

@@ -4,16 +4,16 @@
 #
 # URL Encode
 #
-[System.Web.HTTPUtility]::UrlEncode("https://example.com");
-# Outputs:  https%3a%2f%2fexample.com
+
+[System.Web.HTTPUtility]::UrlEncode("https://example.com");  # Output:  https%3a%2f%2fexample.com
 
 
 # ------------------------------------------------------------
 #
 # URL Decode
 #
-[System.Web.HTTPUtility]::UrlDecode("https%3a%2f%2fexample.com");
-# Outputs:  https://example.com
+
+[System.Web.HTTPUtility]::UrlDecode("https%3a%2f%2fexample.com");  # Output:  https://example.com
 
 
 # ------------------------------------------------------------

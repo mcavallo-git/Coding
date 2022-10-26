@@ -14,13 +14,13 @@
 ### Setup VBA Function `LastModified()`
 
 1. Paste the following macro code into the module:
-```vba
-Function LastModified() as Date
+   ```vba
+   Function LastModified() as Date
+ 
+     LastModified = ActiveWorkbook.BuiltinDocumentProperties("Last Save Time")
 
-   LastModified = ActiveWorkbook.BuiltinDocumentProperties("Last Save Time")
-   
-End Function
-```
+  End Function
+  ```
 
 1. Save the module via the floppy disk icon
 

@@ -2,13 +2,16 @@
 ## Microsoft Excel - Get last modified datetime, timestamp for Workbook via VBA function LastModified()
 
 ***
-### Microsoft Excel - Create VBA Module `LastModified()`
+### Create VBA Module
 
 1. Open Microsoft Excel
 
 1. Press `Alt`+`F11` to open the Visual Basic Editor
 
 1. Create a new module via `Insert` > `Module`
+
+***
+### Setup VBA Function `LastModified()`
 
 1. Paste the following macro code into the module:
 ```vba
@@ -20,6 +23,9 @@ End Function
 ```
 
 1. Save the module via the floppy disk icon
+
+***
+### Use VBA Function `LastModified()`
 
 1. In your workbook, wherever you want the last modified date, set the cell contents to:
   - `=LastModified()`

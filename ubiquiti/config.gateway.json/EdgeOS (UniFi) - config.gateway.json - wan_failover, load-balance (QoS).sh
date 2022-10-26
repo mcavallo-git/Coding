@@ -141,6 +141,8 @@ if [ "$(realpath "/root/site-config.gateway.json";)" != "/srv/unifi/data/sites/d
 #
 #   community.ui.com  |  "USG Failback broken - does not clear Established connections when WAN1 restored | Ubiquiti Community"  |  https://community.ui.com/questions/USG-Failback-broken-does-not-clear-Established-connections-when-WAN1-restored/aef105b7-9801-4d45-83ff-9f8ff72a1814#answer/cae917dd-ffba-4cd4-89e2-261fead040f7
 #
+#   community.ui.com  |  "UniFi USG - Cradlepoint LTE Failover | Ubiquiti Community"  |  https://community.ui.com/questions/UniFi-USG-Cradlepoint-LTE-Failover/fd8d4de7-63bf-4648-99c6-d13670604412
+#
 #   scotthelme.co.uk  |  "Stabilising failover detection on the Unifi Security Gateway"  |  https://scotthelme.co.uk/stabilising-failover-detection-on-the-usg/
 #
 # ------------------------------------------------------------

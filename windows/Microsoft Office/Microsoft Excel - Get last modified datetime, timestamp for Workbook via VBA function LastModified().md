@@ -6,7 +6,7 @@
 
 1. Open Microsoft Excel
 
-1. Press `Alt`+`F11` to open the Visual Basic Editor
+1. Open the Visual Basic Editor by pressing `Alt`+`F11` or manually selecting it via `Developers` (ribbon tab) > `Visual Basic` (left-hand side of ribbon)
 
 1. Create a new module via `Insert` > `Module`
 

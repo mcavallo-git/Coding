@@ -71,7 +71,7 @@ exit
 
 # ------------------------------------------------------------
 #
-#   Citation(s)
+# Citation(s)
 #
 #   blog.gruby.com  |  "Setting up QoS on the Edge Router Lite – Scott Gruby's Blog"  |  https://blog.gruby.com/2015/08/25/setting-up-qos-on-the-edge-router-lite/
 #

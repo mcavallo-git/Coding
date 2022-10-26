@@ -94,7 +94,76 @@ exit
 
 # ------------------------------------------------------------
 #
+# Example 2  -  https://cloudbrothers.info/en/optimize-your-microsoft-teams-traffic-with-qos-on-a-unifi-usg/
+#
+
+# Configure mode on USG
+# Connect via SSH to your UniFi router and enter the “configure” mode
+
+configure
+
+#
+# Upload traffic shaping
+# The following commands setup a traffic shaping policy that distributes the 50 Mbit upload speed between four different traffic classes.
+# It guarantees the specified percentage of the total upload bandwidth (50Mbps) to those classes but because of the “ceiling” value of 100% is does not restrict the traffic to this percentage. So after you finish work you are not restricted to only 70% of the total upload speed, but can use it all.
+#
+# Policy class         Guaranteed bandwidth %   Max bandwidth %
+# Default              70                       100
+# 10 (Voice)           15                       100
+# 20 (Video)           8                        100
+# 30 (Screensharing)   7                        100
+#
+
+set traffic-policy shaper upload description "Microsoft Teams QoS"
+
+set traffic-policy shaper upload bandwidth 50mbit
+set traffic-policy shaper upload default bandwidth 70%
+set traffic-policy shaper upload default ceiling 100%
+
+set traffic-policy shaper upload class 10 bandwidth 15%
+set traffic-policy shaper upload class 10 ceiling 100%
+set traffic-policy shaper upload class 10 match rtp ip dscp 46
+
+set traffic-policy shaper upload class 20 bandwidth 8%
+set traffic-policy shaper upload class 20 ceiling 100%
+set traffic-policy shaper upload class 20 match sip ip dscp 34
+
+set traffic-policy shaper upload class 30 bandwidth 7%
+set traffic-policy shaper upload class 30 ceiling 100%
+set traffic-policy shaper upload class 30 match sip ip dscp 18
+
+# Apply and save configuration
+# After you have setup the configuration, you will need to activate and safe it.
+
+set interfaces ethernet eth0 traffic-policy out upload
+commit ; save ; exit
+
+#
+# Export config as JSON
+# If you are using the USG the configuration would be overwritten the next time you are changing something on the UniFi controller. To avoid this you have to use a file called config.gateway.json. Please refer to the linked articel to setup this file on your UniFi controller.
+#
+# You can use the following command to dump the complete configuration and extract the parts you need.
+#
+
+mca-ctrl -t dump-cfg
+#
+# Or you could use this amazing script that Daniil Baturin wrote to only extract the part of the config you really need.
+#
+./usg-config-export.py "interfaces ethernet eth0 traffic-policy" "traffic-policy"
+
+# config.gateway.json and Docker
+# If your UniFi controller is running as a docker container and your site name is “default” add the following to you docker-compose file.
+
+volumes:
+  - /path/to/persitent/config/unifi/config.gateway.json:/unifi/data/sites/default/config.gateway.json
+
+
+
+# ------------------------------------------------------------
+#
 #   Citation(s)
+#
+#   cloudbrothers.info  |  "Optimize your Microsoft Teams traffic with QoS on a UniFi USG - Cloudbrothers"  |  https://cloudbrothers.info/en/optimize-your-microsoft-teams-traffic-with-qos-on-a-unifi-usg/
 #
 #   community.ui.com  |  "Another QoS related question"  |  https://community.ui.com/questions/Another-QoS-related-question/3b1dbec9-b790-4ce6-a47d-fbf98c0a00b4#answer/aca3d12e-e8a6-4594-9d7d-367b3dc9f035
 #

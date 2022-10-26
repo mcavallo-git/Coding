@@ -2,6 +2,11 @@
 ## Microsoft Excel - Get last modified datetime, timestamp for Workbook via VBA function LastModified()
 
 ***
+### Convert Excel Workbook to an Excel Macro-Enabled Workbook
+
+1. If the workbook which will leverage `LastModified()` is of filetype `.xls` or `.xlsx`, save it as filetype `.xlsx` (so that we can use the required VBA script, below, in it)
+
+***
 ### Create VBA Module
 
 1. Open Microsoft Excel

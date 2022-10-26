@@ -22,7 +22,7 @@
   End Function
   ```
 
-1. Save the module via the floppy disk icon
+1. Save the VMA Module by pressing `Ctrl`+`S` or by manually clicking the floppy disk save icon
 
 ***
 ### Use VBA Function `LastModified()`

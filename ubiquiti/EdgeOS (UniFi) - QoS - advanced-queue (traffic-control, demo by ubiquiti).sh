@@ -73,14 +73,16 @@ exit
 #
 #   Citation(s)
 #
-#   https://blog.gruby.com/2015/08/25/setting-up-qos-on-the-edge-router-lite/
+#   blog.gruby.com  |  "Setting up QoS on the Edge Router Lite – Scott Gruby's Blog"  |  https://blog.gruby.com/2015/08/25/setting-up-qos-on-the-edge-router-lite/
 #
-#   https://community.ubnt.com/t5/EdgeRouter/Help-with-QOS-please/td-p/1764847
+#   community.ui.com  |  "UniFi USG - Cradlepoint LTE Failover | Ubiquiti Community"  |  https://community.ui.com/questions/UniFi-USG-Cradlepoint-LTE-Failover/fd8d4de7-63bf-4648-99c6-d13670604412
 #
-#   https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#5
+#   community.ui.com  |  "Help with QOS please | Ubiquiti Community"  |  https://community.ui.com/questions/Help-with-QOS-please/36396595-2b81-4200-8b5c-b49c40e1f7c4
 #
-#   https://help.ubnt.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
+#   help.ui.com  |  "EdgeRouter - Quality of Service (QoS) – Ubiquiti Support and Help Center"  |  https://help.ui.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#5
 #
-#   https://help.ui.com/hc/en-us/articles/204911404-EdgeRouter-Traffic-Policies-Shaper-for-Upload-Download-and-VoIP
+#   help.ui.com  |  "EdgeRouter - Quality of Service (QoS) Advanced Queue – Ubiquiti Support and Help Center"  |  https://help.ui.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
+#
+#   help.ui.com  |  "EdgeRouter - Quality of Service (QoS) Shaper for Upload/Download and VoIP – Ubiquiti Support and Help Center"  |  https://help.ui.com/hc/en-us/articles/204911404-EdgeRouter-Traffic-Policies-Shaper-for-Upload-Download-and-VoIP
 #
 # ------------------------------------------------------------

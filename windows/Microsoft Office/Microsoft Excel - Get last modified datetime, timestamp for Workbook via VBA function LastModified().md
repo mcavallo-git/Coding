@@ -28,7 +28,7 @@ End Function
 ### Use VBA Function `LastModified()`
 
 1. In your workbook, wherever you want the last modified date, set the cell contents to:
-  - `=LastModified()`
+   - `=LastModified()`
 
 
 <!--

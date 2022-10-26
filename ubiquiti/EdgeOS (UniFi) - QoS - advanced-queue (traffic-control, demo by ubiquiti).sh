@@ -71,20 +71,16 @@ exit
 
 # ------------------------------------------------------------
 #
-#   Additional Guide(s)
-#
-#   https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#5
-#
-#   https://help.ubnt.com/hc/en-us/articles/205198380-EdgeRouter-Quality-of-Service-for-Voice-Over-IP-QoS-for-VoIP-
-#
-#   https://community.ubnt.com/t5/EdgeRouter/Help-with-QOS-please/td-p/1764847
+#   Citation(s)
 #
 #   https://blog.gruby.com/2015/08/25/setting-up-qos-on-the-edge-router-lite/
 #
-# ------------------------------------------------------------
+#   https://community.ubnt.com/t5/EdgeRouter/Help-with-QOS-please/td-p/1764847
 #
-#   Citation(s)
+#   https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#5
 #
 #   https://help.ubnt.com/hc/en-us/articles/220716608-EdgeRouter-Advanced-Queue-CLI-Examples
+#
+#   https://help.ui.com/hc/en-us/articles/204911404-EdgeRouter-Traffic-Policies-Shaper-for-Upload-Download-and-VoIP
 #
 # ------------------------------------------------------------

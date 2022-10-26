@@ -18,7 +18,7 @@ This file (on GitHub):
 	<div>Wikipedia<sup>&nbsp;<a href="https://en.wikipedia.org/wiki/DevOps">[1]</a></sup> states:</div>
 	<blockquote>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.</blockquote>
 	<div>Atlassian<sup>&nbsp;<a href="https://www.atlassian.com/devops">[4]</a></sup> states:</div>
-	<blockquote>DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably.<a href="https://www.atlassian.com/devops"><img src="images/archive/devops-loop-illustrations.atlassian.png" /></a></blockquote>
+	<blockquote>DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably.<a href="https://www.atlassian.com/devops"><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/devops-loop-illustrations.atlassian.png" /></a></blockquote>
 </details>
 
 <hr />
@@ -60,7 +60,7 @@ This file (on GitHub):
 				<details><summary>
 						<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - click to view screenshot)</span>
 					</summary>
-					<div style="text-align:center;"><img src="images/archive/git-install.allow-cli.png" height="250" /></div>
+					<div style="text-align:center;"><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/git-install.allow-cli.png" height="250" /></div>
 				</details>
 			</li>
 			<li>Prereq: PowerShell Terminal w/ Elevated Privileges, e.g. in "Run as Admin" mode</li>

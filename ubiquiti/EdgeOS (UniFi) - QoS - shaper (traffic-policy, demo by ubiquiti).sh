@@ -167,6 +167,8 @@ volumes:
 #
 #   community.ui.com  |  "Another QoS related question"  |  https://community.ui.com/questions/Another-QoS-related-question/3b1dbec9-b790-4ce6-a47d-fbf98c0a00b4#answer/aca3d12e-e8a6-4594-9d7d-367b3dc9f035
 #
+#   community.ui.com  |  "Smart Queue Mngmt: Advanced options recommendations for online-GAMING. | Ubiquiti Community"  |  https://community.ui.com/questions/Smart-Queue-Mngmt-Advanced-options-recommendations-for-online-GAMING-/591c2514-15dc-405f-bd85-3f82015bbe4c
+#
 #   help.ubnt.com  |  "EdgeRouter - Quality of Service (QoS)"  |  https://help.ubnt.com/hc/en-us/articles/216787288-EdgeRouter-Quality-of-Service-QoS-#6
 #
 #   help.ubnt.com  |  "EdgeRouter - Quality of Service (QoS) Shaper for Upload/Download and VoIP"  |  https://help.ubnt.com/hc/en-us/articles/204911404-EdgeRouter-Traffic-Policies-Shaper-for-Upload-Download-and-VoIP

@@ -1,0 +1,92 @@
+APT-RDEPENDS(1)                                                                                                                    APT-RDEPENDS(1)
+
+NAME
+       apt-rdepends - performs recursive dependency listings similar to apt-cache
+
+SYNOPSIS
+       apt-rdepends [options] [pkgs ...]
+
+DESCRIPTION
+       apt-rdepends searches through the APT cache to find package dependencies.  apt-rdepends knows how to emulate the result of calling apt-
+       cache with both depends and dotty options.
+
+       By default, apt-rdepends shows a listing of each dependency a package has.  It will also look at each of these fulfilling packages, and
+       recursively lists their dependencies.
+
+OPTIONS
+       -b, --build-depends
+               Show build dependencies instead of normal package dependencies.
+
+       -d, --dotty
+               dotty takes a list of packages on the command line and generates output suitable for use by springgraph (1). The result will be a
+               set of nodes and edges representing the relationships between the packages. By default the given packages will trace out all
+               dependent packages which can produce a very large graph.
+
+               Blue lines are pre-depends, green lines are conflicts, yellow lines are suggests, orange lines are recommends, red lines are
+               replaces, and black lines are depends.
+
+               Caution, dotty cannot graph larger sets of packages.
+
+       -p, --print-state
+               Shows the state of each dependency after each package version.  See --state-follow and --state-show for why this is useful.
+
+       -r, --reverse
+               Shows the listings of each package that depends on a package.  Furthermore, it will look at these dependent packages, and find
+               their dependers.
+
+       -f, --follow=DEPENDS
+               A comma-separated list of DEPENDS types to follow recursively.  By default, it only follows the Depends and PreDepends types.
+
+               The possible values for DEPENDS are: Depends, PreDepends, Suggests, Recommends, Conflicts, Replaces, and Obsoletes.
+
+               In --build-depends mode, the possible values are: Build-Depends, Build-Depends-Indep, Build-Conflicts, Build-Conflicts-Indep.
+
+       -s, --show=DEPENDS
+               A comma-separated list of DEPENDS types to show, when displaying a listing.  By default, it only shows the Depends and PreDepends
+               types.
+
+       --state-follow=STATES
+       --state-show=STATES
+               These two options are similar to --follow and --show.  They both deal with the current state of a package.  By default, the value
+               of STATES is Unknown, NotInstalled, UnPacked, HalfConfigured, HalfInstalled, ConfigFiles, and Installed.
+
+               These options are useful, if you only want to only look at the dependencies between the Installed packages on your system.  You can
+               then call:
+
+                   apt-rdepends --state-follow=Installed libfoo
+
+               Or if you want to only show the packages installed on your system:
+
+                   apt-rdepends --state-follow=Installed --state-show=Installed libfoo
+
+       pkgs    The list of packages on which to discover dependencies.
+
+       -v, --vcg, --xvcg
+               This option takes a list of packages on the command line and generates output suitable for use by xvcg.  The result will be a set
+               of nodes and edges representing the relationships between the packages. By default the given packages will trace out all dependent
+               packages which can produce a very large graph.
+
+               Blue lines are pre-depends, green lines are conflicts, yellow lines are suggests, orange lines are recommends, red lines are
+               replaces, and black lines are depends.
+
+       -o, --option=OPTION
+               Set an APT Configuration Option; This will set an arbitrary configuration option. The syntax is -o Foo::Bar=bar.
+
+SEE ALSO
+       apt.conf(5), sources.list(5), apt-cache(8), AptPkg(3), springgraph(1)
+
+BUGS
+       apt-rdepends does not emulate apt-cache perfectly.  It does not display information about virtual packages, nor does it know about virtual
+       packages when it is in reverse dependency mode.
+
+       apt-rdepends also does not know how to stop after a certain depth has been reached.
+
+       apt-rdepends cannot do reverse build-dependencies.  This is really difficult, since it would have to load the whole cache into memory
+       before discovering which packages depend on others to build.
+
+       apt-rdepends exists.  This functionality should really reside in apt-cache itself.
+
+AUTHOR
+       apt-rdepends was written by Simon Law <sfllaw@debian.org>
+
+1.3.0                                                               20 May 2013                                                    APT-RDEPENDS(1)

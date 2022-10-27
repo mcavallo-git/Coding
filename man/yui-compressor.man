@@ -1,0 +1,56 @@
+YUI-COMPRESSOR(1)                                                  User Commands                                                 YUI-COMPRESSOR(1)
+
+NAME
+       yui-compressor - JavaScript/CSS minifier
+
+SYNOPSIS
+       yui-compressor [options] [input file]
+
+DESCRIPTION
+       Global Options
+
+       -h, --help
+              Displays this information
+
+       --type <js|css>
+              Specifies the type of the input file
+
+       --charset <charset>
+              Read the input file using <charset>
+
+       --line-break <column>
+              Insert a line break after the specified column number
+
+       -v, --verbose
+              Display informational messages and warnings
+
+       -o <file>
+              Place the output into <file>. Defaults to stdout.
+
+       JavaScript Options
+
+       --nomunge
+              Minify only, do not obfuscate
+
+       --preserve-semi
+              Preserve all semicolons
+
+       --disable-optimizations
+              Disable all micro optimizations
+
+       If no input file is specified, it defaults to stdin. In this case, the 'type' option is required. Otherwise, the 'type' option is required
+       only if the input file extension is neither 'js' nor 'css'.
+
+EXAMPLES
+       The following example demonstrates how to use yui-compressor
+
+       yui-compressor -o compressed.js original.js
+
+SEE ALSO
+       /usr/share/doc/yui-compressor/README.gz
+
+AUTHOR
+       This manual page was written by Damien Raude-Morvan <drazzib@debian.org> and Michael Gilbert <michael.s.gilbert@gmail.com>, for the Debian
+       GNU/Linux system (but may be used by others).
+
+yui-compressor                                                     January 2010                                                  YUI-COMPRESSOR(1)

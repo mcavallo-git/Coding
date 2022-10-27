@@ -1,9 +1,15 @@
 
 ***
-# Microsoft Excel - INDIRECT - Get the value of the reference in cell "A1"
+# Microsoft Excel - INDIRECT - Get the value of cell "A1"
 
 ```excel
 =INDIRECT("A1")
+```
+
+***
+# Microsoft Excel - INDIRECT - Get the value in the current cell (should give circular reference error)
+```excel
+=INDIRECT(CONCAT(CHAR(64+COLUMN()),(ROW())))
 ```
 
 ***
@@ -14,7 +20,7 @@
 ```
 
 ***
-# Microsoft Excel - INDIRECT - Get the data in previous row (above current cell)
+# Microsoft Excel - INDIRECT - Get the data in the same column, but previous row(above current cell)
 
 ```excel
 =INDIRECT(CONCAT(CHAR(64+COLUMN()),(ROW()-1)))

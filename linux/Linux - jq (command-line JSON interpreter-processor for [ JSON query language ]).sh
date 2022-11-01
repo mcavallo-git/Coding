@@ -44,14 +44,26 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 #
 
 # Ex 1 - jq set/replace
-echo "{}" | jq -c --arg SETPROP "value" '."key" = $SETPROP';  # Output:  {"key":"value"}
+echo "{}" | jq -c --arg SETPROP "value" '."key" = $SETPROP';
+# Output:  {"key":"value"}
 
 
-# Ex 2 - jq set/replace
-echo "{}" | jq -c --arg SETPROP "value" '."key"."key-nested" = $SETPROP';  # Output:  {"key":{"key-nested":"value"}}
+# Ex 2 - jq set/replace (multiple properties)
+echo "{}" | jq -c --arg SETPROP1 "value1" --arg SETPROP2 "value2" '."key1" = $SETPROP1 | ."key2" = $SETPROP2';
+# Output:  {"key1":"value1","key2":"value2"}
 
 
-# Ex 3 - jq set/replace
+# Ex 3 - jq set/replace (nested properties)
+echo "{}" | jq -c --arg SETPROP "value" '."key"."key-nested" = $SETPROP';
+# Output:  {"key":{"key-nested":"value"}}
+
+
+# Ex 4 - jq set/replace (multiple properties)
+curl -sL -4 "https://ipinfo.io" 2>'/dev/null' | jq --compact-output --sort-keys --arg hostname "$(hostname)" --arg timestamp "$(date +'%Y-%m-%d @ %H:%M:%S';)" '{ip:.ip,org:.org} | ."timestamp" = $timestamp | ."hostname" = $hostname';
+# Output:  {"hostname":"[HOSTNAME]","ip":"[WAN_IP]","org":"[ISP_NAME]","timestamp":"[TIMESTAMP]"}
+
+
+# Ex 5 - jq set/replace
 cat "/etc/docker/daemon.json" | jq;
 jq --arg SETPROP "local" '."log-driver" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
 jq --arg SETPROP "25m" '."log-opts"."max-size" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";

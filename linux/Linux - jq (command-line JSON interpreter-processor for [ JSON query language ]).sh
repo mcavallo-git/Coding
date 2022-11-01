@@ -40,6 +40,28 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 
 # ------------------------------------------------------------
 #
+# jq - Set/replace JSON property values
+#
+
+# Ex 1 - jq set/replace
+echo "{}" | jq -c --arg SETPROP "value" '."key" = $SETPROP';  # Output:  {"key":"value"}
+
+
+# Ex 2 - jq set/replace
+echo "{}" | jq -c --arg SETPROP "value" '."key"."key-nested" = $SETPROP';  # Output:  {"key":{"key-nested":"value"}}
+
+
+# Ex 3 - jq set/replace
+cat "/etc/docker/daemon.json" | jq;
+jq --arg SETPROP "local" '."log-driver" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
+jq --arg SETPROP "25m" '."log-opts"."max-size" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
+jq --arg SETPROP "1" '."log-opts"."max-file" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
+jq --arg SETPROP "false" '."log-opts"."compress" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
+cat "/etc/docker/daemon.json" | jq;
+
+
+# ------------------------------------------------------------
+#
 # jq - implode an array
 #
 
@@ -230,28 +252,6 @@ echo "${JSON_INPUT}" | jq -re '.items[] | .cidr';
 #   |-----> Wrap the jq call in a for-loop and add some string to the beginning/end of each line to prep it to-be-used-by as an NGINX IPv4 whitelist
 #
 CIDR_ARR="$(curl -s "https://ip-ranges.atlassian.com" | jq -e '.items';)"; for EACH_CIDR in $(echo "${CIDR_ARR}" | jq -re '.[].cidr' | sort;); do echo "allow ${EACH_CIDR};"; done;  echo "--- $(echo "${CIDR_ARR}" | jq -e 'length';) total entries ---";
-
-
-# ------------------------------------------------------------
-#
-# jq - Set/replace JSON property values
-#
-
-# Ex 1 - jq set/replace
-echo "{}" | jq -c --arg SETPROP "value" '."key" = $SETPROP';  # Output:  {"key":"value"}
-
-
-# Ex 2 - jq set/replace
-echo "{}" | jq -c --arg SETPROP "value" '."key"."key-nested" = $SETPROP';  # Output:  {"key":{"key-nested":"value"}}
-
-
-# Ex 3 - jq set/replace
-cat "/etc/docker/daemon.json" | jq;
-jq --arg SETPROP "local" '."log-driver" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
-jq --arg SETPROP "25m" '."log-opts"."max-size" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
-jq --arg SETPROP "1" '."log-opts"."max-file" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
-jq --arg SETPROP "false" '."log-opts"."compress" = $SETPROP' "/etc/docker/daemon.json" > "/etc/docker/daemon.updated.json"; mv -f "/etc/docker/daemon.updated.json" "/etc/docker/daemon.json";
-cat "/etc/docker/daemon.json" | jq;
 
 
 # ------------------------------------------------------------

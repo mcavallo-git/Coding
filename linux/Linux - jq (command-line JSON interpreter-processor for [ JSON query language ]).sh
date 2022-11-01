@@ -58,9 +58,9 @@ echo "{}" | jq -c --arg SETPROP "value" '."key"."key-nested" = $SETPROP';
 # Output:  {"key":{"key-nested":"value"}}
 
 
-# Ex 4 - jq set/replace (multiple properties)
-curl -sL -4 "https://ipinfo.io" 2>'/dev/null' | jq --compact-output --sort-keys --arg hostname "$(hostname)" --arg timestamp "$(date +'%Y-%m-%d @ %H:%M:%S';)" '{ip:.ip,org:.org} | ."timestamp" = $timestamp | ."hostname" = $hostname';
-# Output:  {"hostname":"[HOSTNAME]","ip":"[WAN_IP]","org":"[ISP_NAME]","timestamp":"[TIMESTAMP]"}
+# Ex 4 - jq set/replace
+curl -sL -4 "https://ipinfo.io" 2>'/dev/null' | jq -cS --arg ts "$(date +'%Y-%m-%d @ %H:%M:%S';).$(date +'%N' | cut -c1-3;)" '{ip:.ip,org:.org} | ."_time" = $ts';
+# Output:  {"_time":"[TIMESTAMP]","ip":"[WAN_IP]","org":"[ISP_NAME]"}
 
 
 # Ex 5 - jq set/replace

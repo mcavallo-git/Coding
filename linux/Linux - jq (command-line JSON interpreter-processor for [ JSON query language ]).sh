@@ -40,7 +40,7 @@ echo "${JSON}" | jq "${JQ_QUERY}";
 
 # ------------------------------------------------------------
 #
-# jq - Set/replace JSON property values
+# jq - set/replace JSON property values
 #
 
 # Ex 1 - jq set/replace

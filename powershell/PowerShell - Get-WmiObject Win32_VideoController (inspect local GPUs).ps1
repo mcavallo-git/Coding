@@ -2,10 +2,10 @@
 
 $ExternalGpuNames = @();
 
-Get-WmiObject Win32_VideoConfiguration
+Get-WmiObject "Win32_VideoConfiguration";
 
-Get-WmiObject Win32_VideoController | ForEach-Object {
-	If (($_.AdapterDACType -Ne $Null) -And ($_.AdapterDACType -Ne "Internal")) {
+Get-WmiObject "Win32_VideoController" | ForEach-Object {
+	If ( ($_.AdapterDACType -NE $Null) -And ($_.AdapterDACType -NE "Internal") ) {
 		$ExternalGpuNames += ($_.Name);
 	}
 }

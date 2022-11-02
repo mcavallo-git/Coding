@@ -81,7 +81,7 @@ find "/var/log" -type 'f' -name "*" | wc -l;
 #
 # Extensions - List unique file extensions (sorted) for all files contained within a directory & subdirectories (note: ignores extensionless files)
 #
-for EACH_FILE in $(find "/var/log" -type "f" -exec basename '{}' \;;); do if [[ "${EACH_FILE}" != "${EACH_FILE##*.}" ]]; then echo "${EACH_FILE##*.}"; fi; done | sort -u;
+for EACH_FILE in $(find "." -type "f" -not -path "*/.git/*" -exec basename '{}' \;;); do if [[ "${EACH_FILE}" != "${EACH_FILE#*.}" ]]; then echo "${EACH_FILE#*.}"; fi; done | sort -u;
 
 # ------------------------------
 

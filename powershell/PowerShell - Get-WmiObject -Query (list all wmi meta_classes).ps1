@@ -1,14 +1,58 @@
 # ------------------------------------------------------------
+#
+# List all WMIC namespaces
+#
+
+Get-WmiObject -Namespace "ROOT" -Class "__Namespace" | Select Name;
+
+
+# ------------------------------------------------------------
+#
+# List all WMIC classes
+#
 
 (Get-WmiObject -Query "SELECT * FROM meta_class" | Sort-Object -Property Name -Unique).Name;
 
 
 # ------------------------------------------------------------
 #
-# List all WMIC Namespaces
+# WMIC Query (direct call, various WMIC endpoints) - Output WMIC query reults in List format
 #
 
-Get-WmiObject -Namespace "ROOT" -Class "__Namespace" | Select Name;
+# BIOS
+WMIC BIOS Get * /Format:list
+
+# DesktopMonitor
+WMIC DesktopMonitor Get * /Format:list
+
+# DiskDrive
+WMIC DiskDrive Get * /Format:list
+
+# IDEController
+WMIC IDEController Get * /Format:list
+
+# MemoryChip
+WMIC MemoryChip Get * /Format:list
+
+# NIC
+WMIC NIC Get * /Format:list
+
+# NICConfig
+WMIC NICConfig Get * /Format:list
+
+# OS
+WMIC OS Get * /Format:list
+
+# Product  (Installed programs - similar to appwiz.cpl's list)
+WMIC Product Get * /Format:list
+
+
+# ------------------------------------------------------------
+#
+# WMIC Query (direct call) - Output WMIC query reults in HTML format to a file on the desktop via WMIC's "/Output" inline parameter and the "/format:htable" argument
+#
+
+WMIC /Output:%USERPROFILE%\Desktop\bios.html BIOS Get Manufacturer,Name,Version /Format:htable
 
 
 # ------------------------------------------------------------

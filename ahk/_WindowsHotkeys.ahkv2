@@ -307,7 +307,7 @@ Pause::
   {
     If (GetKeyState("CapsLock","T") == 0) {
       TooltipOutput := "Enable CapsLock via Shift+CapsLock"
-      ShowToolTip(TooltipOutput,,,,5000)
+      ShowToolTip(TooltipOutput,,,,2500)
     }
     SetCapsLockState "Off"
     Return
@@ -1688,7 +1688,7 @@ NumLock::
       SetNumLockState "On"
     } Else {
       TooltipOutput := "Disable NumLock via Shift+NumLock"
-      ShowToolTip(TooltipOutput,,,,5000)
+      ShowToolTip(TooltipOutput,,,,2500)
     }
   } Else {
     ; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
@@ -1696,7 +1696,7 @@ NumLock::
       SetNumLockState "Off"
     } Else {
       TooltipOutput := "Enable NumLock via Shift+NumLock"
-      ShowToolTip(TooltipOutput,,,,5000)
+      ShowToolTip(TooltipOutput,,,,2500)
     }
   }
   Return

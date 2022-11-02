@@ -1,9 +1,10 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Get-WmiObject Win32_PnPSignedDriver (view all installed drivers and their associated versions)
+# PowerShell - Get-WmiObject Win32_PnPSignedDriver
+#   |-->  Get all installed device drivers by the device they're needed for, their driver filename & their driver version
 #
 
-Get-WmiObject Win32_PnPSignedDriver | ForEach-Object { If ([String]::IsNullOrEmpty(${_}.DeviceName) -Eq $True) { ${_}.DeviceName="__DeviceID=[$(${_}.DeviceID)]"; }; ${_}; } | Select-Object -Property @("DeviceName","DriverVersion") | Sort-Object -Property "DeviceName";
+Get-WmiObject Win32_PnPSignedDriver | ForEach-Object { If ([String]::IsNullOrEmpty(${_}.DeviceName) -Eq $True) { ${_}.DeviceName="__DeviceID=[$(${_}.DeviceID)]"; }; ${_}; } | Select-Object -Property @("DeviceName","DriverVersion","InfName") | Sort-Object -Property "DeviceName";
 
 
 # ------------------------------------------------------------

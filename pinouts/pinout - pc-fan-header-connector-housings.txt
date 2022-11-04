@@ -19,7 +19,7 @@ Connector Housing - X570 I AORUS PRO (Motherboard)
         |
         |--> Dimensions (Fan):  30x30x10mm
         |
-        |--> Connector Type (Cable):  JST PH 2.0mm (4-pin)
+        |--> Connector Type (Cable):  JST PH 2.0mm (4-pin) (male)
 
 
 ------------------------------------------------------------

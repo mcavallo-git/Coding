@@ -1,0 +1,17 @@
+The syntax of this command is:
+
+NET USE
+[devicename | *] [\\computername\sharename[\volume] [password | *]]
+        [/USER:[domainname\]username]
+        [/USER:[dotted domain name\]username]
+        [/USER:[username@dotted domain name]
+        [/SMARTCARD]
+        [/SAVECRED]
+        [/REQUIREINTEGRITY]
+        [/REQUIREPRIVACY]
+        [/WRITETHROUGH]
+        [[/DELETE] | [/PERSISTENT:{YES | NO}]]
+
+NET USE {devicename | *} [password | *] /HOME
+
+NET USE [/PERSISTENT:{YES | NO}]

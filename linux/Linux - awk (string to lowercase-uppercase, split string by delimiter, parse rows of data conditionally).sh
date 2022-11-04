@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# Linux - awk (string to lowercase-uppercase)
+# Linux - awk (string to lowercase-uppercase, split string by delimiter, parse rows of data conditionally)
 # ------------------------------------------------------------
 
 

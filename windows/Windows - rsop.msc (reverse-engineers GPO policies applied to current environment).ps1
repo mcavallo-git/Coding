@@ -1,14 +1,8 @@
 # ------------------------------------------------------------
-#
-#   RSoP.msc
-#
-#    Shows the "Resultant Set of Policies" - Reverse-Engineers all GPO, or Group Policy Objects which are applied to the environment which RSoP is ran-from).ps1
-#
-#    Native Win10 and Server2016-later command)
-#
+# Windows - rsop.msc (reverse-engineers GPO policies applied to current environment)
 # ------------------------------------------------------------
 
-
+# rsop.msc ("Resultant Set of Policies") - Native executable found on Windows 10, Windows Server 2016 & later
 rsop.msc
 
 

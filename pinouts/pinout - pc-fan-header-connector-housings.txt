@@ -1,0 +1,16 @@
+------------------------------------------------------------
+3-Pin / 4-Pin PWM Pinouts (PC Motherboard Housing Termination Standards)
+------------------------------------------------------------
+
+Connector Housing (3-pin / 4-pin PWM)
+  |
+  |--> Molex KK (male/female)
+
+
+------------------------------------------------------------
+
+ Citation(s)
+
+   www.lifewire.com  |  "Motherboard Fan Connectors: What They Are and How They Work"  |  https://www.lifewire.com/what-are-motherboard-fan-connectors-5188131
+
+------------------------------------------------------------

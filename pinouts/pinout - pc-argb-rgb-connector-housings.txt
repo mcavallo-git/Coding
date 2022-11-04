@@ -31,6 +31,10 @@ Connector Housing (3-pin / 4-pin)
 
    forum.corsair.com  |  "How To: Make RGB Extension Cables / Repair RGB Fan Connectors - The Corsair User Forums"  |  https://forum.corsair.com/v3/showthread.php?t=174759
 
+   www.mattmillman.com  |  "Common JST Connector Types – Matt's Tech Pages"  |  https://www.mattmillman.com/info/crimpconnectors/common-jst-connector-types/#ph
+
+   www.reddit.com  |  "GPU Mini 4-pin fan connectors - what is their component name? : CableManagement"  |  https://www.reddit.com/r/CableManagement/comments/j2u7eh/gpu_mini_4pin_fan_connectors_what_is_their/
+
    www.youtube.com  |  "Corsair RGB connectors are NOT proprietary! - YouTube"  |  https://www.youtube.com/watch?v=DOj4kYXvzyI
 
    www.youtube.com  |  "Making Corsair Link RGB Extension Cables - YouTube"  |  https://www.youtube.com/watch?v=kfx7pZR9KaY

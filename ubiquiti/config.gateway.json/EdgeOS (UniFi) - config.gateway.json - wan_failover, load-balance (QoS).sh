@@ -26,7 +26,6 @@ if [ "$(realpath "/root/site-config.gateway.json";)" != "/srv/unifi/data/sites/d
 if [ "$(realpath "/root/config.gateway.json";)" != "/srv/unifi/data/sites/default" ]; then ln -sf "/srv/unifi/data/sites/default/config.gateway.json" "${HOME}/config.gateway.json"; fi;
 
 
-
 # ------------------------------
 #
 # Decent config.gateway.json config for failover

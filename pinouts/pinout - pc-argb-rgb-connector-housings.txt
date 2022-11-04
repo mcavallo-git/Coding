@@ -2,25 +2,27 @@
 ARGB / RGB Pinouts (PC Motherboard Wiring/Connector Housing Termination Standards)
 ------------------------------------------------------------
 
-Corsair
+Corsair 
 
-Connector Housing (3 pin / 4 pin)
+Connector Housing (3-pin / 4-pin)
   |
-  |--> Dupont MX2.54 (male/female)  -  ARGB (5V)
+  |--> Dupont MX2.54 (male/female) - ARGB (5V)
   |
-  |--> Molex 50-57-9404 (male), Molex 70107-0003 (female)  -  ARGB (5V)
+  |--> Molex 50-57-9404 (male), Molex 70107-0003 (female) - ARGB (5V)
 
 
 ------------------------------------------------------------
 
 Phanteks
 
-Connector Housing (3 pin / 4 pin)
+Connector Housing (3-pin / 4-pin)
   |
-  |--> LC4 Locking Connector (male/female)
+  |--> JST SM (2.5mm pitch) (male/female)
+  |     |
+  |     |--> Also sometimes referred to as an "LC4 Locking Connector"
   |
-  |--> Phanteks DRGB3P (5V, 3 pin)
-  |--> Phanteks RGB4P (12V, 4 pin)
+  |--> Phanteks DRGB3P (5V, 3-pin)
+  |--> Phanteks RGB4P (12V, 4-pin)
 
 
 ------------------------------------------------------------

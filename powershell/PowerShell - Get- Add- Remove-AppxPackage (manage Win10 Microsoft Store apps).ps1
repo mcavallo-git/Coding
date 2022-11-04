@@ -1,4 +1,6 @@
 # ------------------------------------------------------------
+# PowerShell - Get- Add- Remove-AppxPackage (manage Win10 Microsoft Store apps).ps1
+# ------------------------------------------------------------
 #
 # Get/List installed package(s)/application(s)
 #

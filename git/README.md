@@ -9,11 +9,9 @@ BRANCH@{TIMEPERIOD}
 ##### here are some searches for copy-pasting:
 
 ```
-master@{2weeks}
+main@{5days}
 ```
-        
-```
-master@{5days}
-```
-        
 
+```
+main@{2weeks}
+```

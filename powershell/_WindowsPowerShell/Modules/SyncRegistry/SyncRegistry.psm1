@@ -1,6 +1,8 @@
 function SyncRegistry {
   Param(
 
+    [Switch]$DisableClearType,  <# Will Enable ClearType so long as parameter "-DisableClearType" is not specified #>
+
     [ValidateSet('Ctrl+Shift','Left-Alt+Shift','Thai')]
     [String]$Hotkey_SwitchInputLanguage="",
 
@@ -91,6 +93,27 @@ function SyncRegistry {
       # ------------------------------------------------------------
 
       $RegEdits = @();
+
+      # Appearance - Enable ClearType
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
+        Props=@(
+          @{
+            Description="Set to [ 0 ] to Disable, [ 2 ] to Enable ClearType (font smoothing)";
+            Name="FontSmoothing";
+            Type="String";
+            Value=If ($PSBoundParameters.ContainsKey('DisableClearType')) { 0 <# Disabled #> } Else { 2 <# Enabled #> };
+            Delete=$False;
+          },
+          @{
+            Description="Set to [ 0 ] to Disable, [ 2 ] to Enable ClearType (font smoothing)";
+            Name="FontSmoothingType";
+            Type="DWord";
+            Value=If ($PSBoundParameters.ContainsKey('DisableClearType')) { 0 <# Disabled #> } Else { 2 <# Enabled #> };
+            Delete=$False;
+          }
+        )
+      };
 
       # Cortana/Search Settings
       $RegEdits += @{
@@ -2049,6 +2072,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 # Citation(s)
 #
+#   admx.help  |  "Font smoothing"  |  https://admx.help/?Category=ClassicShell&Policy=IvoSoft.Policies.ClassicStartMenu::CSM_FontSmoothing
+#
 #   answers.microsoft.com  |  "Automatic files - Automatic file downloads"  |  https://answers.microsoft.com/en-us/windows/forum/all/automatic-files/91b91138-0096-4fbc-a3e2-5de5176a6ca5
 #
 #   answers.microsoft.com  |  "Microsoft Meet Now fouled up my microphone settings - Microsoft Community"  |  https://answers.microsoft.com/en-us/skype/forum/all/microsoft-meet-now-fouled-up-my-microphone/1b6e05a8-b651-4404-89a7-b24c83403c1e
@@ -2146,6 +2171,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
 #
 #   www.reddit.com  |  "The quest for removing the yellow warning sign on the Windows Defender Security Center icon : Windows10"  |  https://www.reddit.com/r/Windows10/comments/6v532u/the_quest_for_removing_the_yellow_warning_sign_on/
+#
+#   www.techsupportforum.com  |  "[SOLVED] Cleartype command??? does it exist? | Tech Support Forum"  |  https://www.techsupportforum.com/threads/solved-cleartype-command-does-it-exist.332657/
 #
 #   www.tenforums.com  |  "Add or Remove Scan with Microsoft Defender Context Menu in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/18145-add-remove-scan-microsoft-defender-context-menu-windows-10-a.html
 #

@@ -4,7 +4,10 @@
 # 
 # ------------------------------------------------------------
 
+
 [Int32](Get-Date -UFormat "%s"); <# Rounds up if decimal component is above 0.5 #>
+
+[Math]::Round((Get-Date -UFormat "%s"),3);  <# Rounds to nearest millisecond #>
 
 [Math]::Floor((Get-Date -UFormat "%s")); <# Rounds up if decimal component is above 0.5 #>
 

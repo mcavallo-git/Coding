@@ -656,9 +656,8 @@ If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
     }
     # Parse the JSON response
     $JsonResponse=([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Captures.Groups[1].Value);
-    Write-Output "${JsonResponse}" | Out-File -NoNewline ("${RSM_Results}\JsonResponse.json");
     # Walk through each item in the JSON response
-    ${JsonResponse} | ConvertFrom-Json | ForEach-Object {
+    (${JsonResponse} | ConvertFrom-Json) | ForEach-Object {
       $SensorApp = ($_.SensorApp);
       $SensorClass = ($_.SensorClass);
       $SensorName = ($_.SensorName);

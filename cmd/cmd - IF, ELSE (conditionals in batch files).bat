@@ -95,7 +95,7 @@ REM
 
 
 SET LOGFILE=C:\PRTG-EXAMPLE\SENSOR-OUTPUT.log
-TYPE %LOGFILE%
+TYPE "%LOGFILE%"
 REM Note: Use  [ %%a ] if running from within a batch script
 REM Note: Use  [  %a ] if running directly in a CMD terminal
 FOR /F "tokens=* delims=: USEBACKQ" %%a IN ( `TYPE %LOGFILE% ^| FINDSTR "DOWN"` ) DO ( EXIT 1 )

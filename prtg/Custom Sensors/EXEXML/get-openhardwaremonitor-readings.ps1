@@ -658,18 +658,21 @@ If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
     $JsonResponse=([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Captures.Groups[1].Value);
     # Walk through each item in the JSON response
     (${JsonResponse} | ConvertFrom-Json) | ForEach-Object {
+      # ------------------------------
       $SensorApp = ($_.SensorApp);
       $SensorClass = ($_.SensorClass);
       $SensorName = ($_.SensorName);
       $SensorValue = ($_.SensorValue);
       $SensorUnit = ($_.SensorUnit);
       $SensorUpdateTime = ($_.SensorUpdateTime);
+      # ------------------------------
       $ResultsFile=("${RSM_Results}\${SensorApp}.${SensorClass}.${SensorName}.txt");
+      $ResultsVal=([Math]::Round(${SensorValue},2));
       # Output the results to sensor-specific files
       If ([String]::IsNullOrEmpty(${SensorValue})) {
-        Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
+        Write-Output "${ResultsVal}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
       } Else {
-        Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
+        Write-Output "${ResultsVal}:OK" | Out-File -NoNewline "${ResultsFile}";
       }
     }
   }

@@ -1,11 +1,10 @@
-CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Start-Process -Filepath ('C:\Program Files (x86)\GPU-Z\GPU-Z.exe') -ArgumentList (@('-restarted -minimized')) -NoNewWindow -PassThru -EA:0; Start-Sleep -Seconds (15); Set-Location 'C:\ISO\RemoteSensorMonitor'; Start-Process -Filepath ('C:\ISO\RemoteSensorMonitor\Remote Sensor Monitor.exe') -ArgumentList ([String]::Format('-p {0} --hwinfo 0 --gpuz 1 --aida64 0 --ohm 1', (Get-Content 'C:\ISO\RemoteSensorMonitor\DefaultPort.txt'))) -NoNewWindow -PassThru -EA:0; SV DefaultConf 'C:\ISO\RemoteSensorMonitor\DefaultConfig.txt'; If (Test-Path ((GV DefaultConf).Value)) { Start-Sleep -Seconds 5; SV ProgressPreference 0; Invoke-WebRequest -UseBasicParsing -Uri 'http://localhost:30030/apply_config' -ContentType 'application/x-www-form-urlencoded; charset=UTF-8' -Method 'POST' -Body (Get-Content ((GV DefaultConf).Value)); };"" ", 0, True
+CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Start-Process -Filepath ('C:\Program Files (x86)\GPU-Z\GPU-Z.exe') -ArgumentList (@('-restarted -minimized')) -NoNewWindow -PassThru -EA:0; Start-Sleep -Seconds (15); Set-Location 'C:\ISO\RemoteSensorMonitor'; SV DefaultPort (Get-Content 'C:\ISO\RemoteSensorMonitor\DefaultPort.txt' -EA:0); SV DefaultConf (Get-Content 'C:\ISO\RemoteSensorMonitor\DefaultConfig.txt' -EA:0); Start-Process -Filepath ('C:\ISO\RemoteSensorMonitor\Remote Sensor Monitor.exe') -ArgumentList ([String]::Format('-p {0} --hwinfo 0 --gpuz 1 --aida64 0 --ohm 1', ((GV DefaultPort).Value))) -NoNewWindow -PassThru -EA:0; If (-Not ([String]::IsNullOrEmpty(((GV DefaultConf).Value)))) { Start-Sleep -Seconds 5; SV ProgressPreference 0; Invoke-WebRequest -UseBasicParsing -Uri ([String]::Format('http://localhost:{0}/apply_config', ((GV DefaultPort).Value))) -ContentType 'application/x-www-form-urlencoded; charset=UTF-8' -Method 'POST' -Body ((GV DefaultConf).Value); };"" ", 0, True
 
+' Remote Sensor Monitor - Configuration:  http://localhost:PORT/config
 
-' Remote Sensor Monitor - Configuration:  http://localhost:30030/config
+' Set default port in file:  "C:\ISO\RemoteSensorMonitor\DefaultPort.txt"
 
-' Set default port in file:  C:\ISO\RemoteSensorMonitor\DefaultPort.txt
-
-' Set default config in file:  C:\ISO\RemoteSensorMonitor\DefaultConfig.txt  (reverse engineered from POST request in-browser)
+' Set default config in file:  "C:\ISO\RemoteSensorMonitor\DefaultConfig.txt"    (reverse engineered from POST request in-browser)
 
 ' ------------------------------------------------------------
 '

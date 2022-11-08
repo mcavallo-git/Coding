@@ -6,10 +6,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 ' Create a Scheduled Task (which targets this script) by using the following values:
 '
 '   Name/Description:
-'     Remote Sensor Monitor
+'     RemoteSensorMonitor_AsAdmin
 '
 '   Trigger:
-'     At log on (delay for 15 seconds)
+'     At log on --> Delay task for: 15 seconds
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

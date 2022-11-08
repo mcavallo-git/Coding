@@ -132,21 +132,21 @@ $Voltage_3VCC = @{Avg="";Max="";Min="";};
 $Sensor_ErrorMessage="ERROR - Open Hardware Monitor reading returned a null or empty value";
 
 <# Make sure the OHW Logfile exists #>
-If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
+If ((Test-Path -PathType "Leaf" -Path ("${Logfile_FullPath}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 	<# Remove any logged data from a previous run #>
 	# Get-Item "${Logfile_Basename}*.txt" | Remove-Item -Force;
 
 	<# End the current run #>
 	# Exit 1;
 
-	$Sensor_ErrorMessage="ERROR - Open Hardware Monitor logfile not found: ${Logfile_Fullpath}";
+	$Sensor_ErrorMessage="ERROR - Open Hardware Monitor logfile not found: ${Logfile_FullPath}";
 
 } Else {
 
 	$RowCount_HeaderRows=(2);
 	$RowCount_DataRows=(60);
 
-	$LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Fullpath}") -TotalCount (${RowCount_HeaderRows}));
+	$LogContent_HeaderRows = (Get-Content -Path ("${Logfile_FullPath}") -TotalCount (${RowCount_HeaderRows}));
 
 	$CsvImport = @{};
 	${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[1])").Split(","));
@@ -168,7 +168,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 		Exit 1;
 	}
 
-	$LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Fullpath}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
+	$LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_FullPath}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
 	$LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
 
 	$DataRows_SensorReadings=@();

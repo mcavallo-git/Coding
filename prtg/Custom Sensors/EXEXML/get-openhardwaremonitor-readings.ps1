@@ -83,6 +83,8 @@ $Logfile_Temperature_T_SENSOR = "${Logfile_Basename}-Temp-T_SENSOR";
 
 $Logfile_Time_Range = "${Logfile_Basename}-Time";
 
+$Logfile_Voltage_3VCC = "${Logfile_Basename}-Voltage-3VCC";
+
 # $Logfile_XmlOutput_All = "${Logfile_Basename}-All.xml";
 
 # ------------------------------------------------------------
@@ -121,6 +123,8 @@ $Temp_T_SENSOR = @{Avg="";Max="";Min="";};
 
 $Time_Range = @{Avg="";Max="";Min="";};
 
+$Voltage_3VCC = @{Avg="";Max="";Min="";};
+
 # $XmlFooter = "</prtg>";
 # $XmlHeader = "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>`n<prtg>";
 # $XmlOutput_Array_All = @();
@@ -147,7 +151,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 	$CsvImport = @{};
 	${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[1])").Split(","));
 	${CsvImport}["Paths"] = (@("$($LogContent_HeaderRows[0])").Split(","));
-	${CsvImport}["Paths"][0]="Time"; <# OHW leaves thefirst row's first column blank for whatever reason #>
+	${CsvImport}["Paths"][0]="Time"; <# OHW leaves the first row's first column blank for whatever reason #>
 
 	<# Avoid random bug where OHW doesn't grab the GPU correctly at logfile creation time, which combines with OHW matching the headers on an existing log's data after said bugged run, which truncates all future data which is in addition to an existing log's header columns (truncates GPU data if GPU data wasn't pulled at time of log creation) #>
 	$RequiredPath="gpu";
@@ -425,6 +429,12 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 			} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {  <# W_PUMP+ #>
 				${Speed_FAN_PMP_PRC}.(${_}) = (${Each_Value}.(${_}));
 
+				# ------------------------------
+
+			} ElseIf (${Each_SensorDescription} -Eq "Mobo Voltages, 3VCC") {  <# + 3.3V PSU voltage #>
+				${Voltage_3VCC}.(${_}) = (${Each_Value}.(${_}));
+
+
 			}
 
 		}
@@ -592,6 +602,15 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 		Write-Output "$(${Temp_T_SENSOR}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Temperature_T_SENSOR}.${_}.txt";
 	} Else {
 		Write-Output "$(${Temp_T_SENSOR}.${_}):OK" | Out-File -NoNewline "${Logfile_Temperature_T_SENSOR}.${_}.txt";
+	}
+
+	# ------------------------------
+
+	# Voltage (V) - 3VCC
+	If ([String]::IsNullOrEmpty(${Voltage_3VCC}.(${_}))) {
+		Write-Output "$(${Voltage_3VCC}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Voltage_3VCC}.${_}.txt";
+	} Else {
+		Write-Output "$(${Voltage_3VCC}.${_}):OK" | Out-File -NoNewline "${Logfile_Voltage_3VCC}.${_}.txt";
 	}
 
 	# ------------------------------

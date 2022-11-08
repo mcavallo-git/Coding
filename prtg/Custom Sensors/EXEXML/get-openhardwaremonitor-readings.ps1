@@ -665,6 +665,7 @@ If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
       $SensorUnit = ($_.SensorUnit);
       $SensorUpdateTime = ($_.SensorUpdateTime);
       $ResultsFile=("${RSM_Results}\${SensorApp}.${SensorName}.txt");
+      # Output the results to sensor-specific files
       If ([String]::IsNullOrEmpty(${SensorValue})) {
         Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
       } Else {

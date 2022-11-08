@@ -1,6 +1,8 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Set-Location 'C:\ISO\RemoteSensorMonitor'; Start-Process -Filepath ('C:\ISO\RemoteSensorMonitor\Remote Sensor Monitor.exe') -ArgumentList (@('-p 30030 --hwinfo 0 --gpuz 1 --aida64 0 --ohm 1')) -NoNewWindow -Wait -PassThru -EA:0;"" ", 0, True
 
 
+' Note: Configure via:  http://localhost:30030/config
+
 ' ------------------------------------------------------------
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:

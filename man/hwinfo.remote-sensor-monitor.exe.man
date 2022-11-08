@@ -1,0 +1,21 @@
+Remote Sensor Monitor 2.1.0.0
+Copyright (C) 2013 Ganesh T S
+
+Remote Sensor Monitor is a Windows console application designed to present various hardware sensor parameters reported by HWiNFO / GPU-Z / AIDA64 / Open Hardware Monitor as a JSON string and make it available over the network.
+Enabling GPU-Z, HWiNFO and AIDA64 requires the programs to be running the background.
+The minimum supported versions are: GPU-Z: 0.7.4, HWiNFO: 4.30, AIDA64: 4.00.2706.
+Open Hardware Monitor sensors can be reported only if OpenHardwareMonitorLib.dll is present in the same folder as that of the application.
+Once the web server starts up, the JSON string is available at http://<IP>:<PORT> ; The reported parameters can be filtered / configured via the web interface at http://<IP>:<PORT>/config ; The program requires administrative privileges in order to open and close the applicable port in the firewall when necessary.
+
+Command Line Options:
+
+  p, port    (Default: 55555) Port number to use
+  hwinfo     (Default: 1) Enable (1) / Disable (0) sending out sensor readings from HWiNFO
+  gpuz       (Default: 1) Enable (1) / Disable (0) sending out sensor readings from GPU-Z
+  aida64     (Default: 1) Enable (1) / Disable (0) sending out sensor readings from AIDA64
+  ohm        (Default: 1) Enable (1) / Disable (0) sending out sensor readings from OpenHardwareMonitor
+  h, help    Display this help screen.
+
+Usage:
+
+  "Remote Sensor Monitor.exe" [-p=<port_number>] [--hwinfo=<0|1>] [--gpuz=<0|1>] [--aida64=<0|1>] [--ohm=<0|1>]

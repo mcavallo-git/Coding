@@ -1,8 +1,7 @@
-CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Start-Process -Filepath ('C:\Program Files (x86)\GPU-Z\GPU-Z.exe') -ArgumentList (@('-restarted -minimized')) -NoNewWindow -Wait -PassThru -EA:0; Start-Sleep -Seconds (15); Set-Location 'C:\ISO\RemoteSensorMonitor'; Start-Process -Filepath ('C:\ISO\RemoteSensorMonitor\Remote Sensor Monitor.exe') -ArgumentList (@('-p 30030 --hwinfo 0 --gpuz 1 --aida64 0 --ohm 1')) -NoNewWindow -Wait -PassThru -EA:0;"" ", 0, True
+CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Start-Process -Filepath ('C:\Program Files (x86)\GPU-Z\GPU-Z.exe') -ArgumentList (@('-restarted -minimized')) -NoNewWindow -PassThru -EA:0; Start-Sleep -Seconds (10); Set-Location 'C:\ISO\RemoteSensorMonitor'; Start-Process -Filepath ('C:\ISO\RemoteSensorMonitor\Remote Sensor Monitor.exe') -ArgumentList (@('-p 30030 --hwinfo 0 --gpuz 1 --aida64 0 --ohm 1')) -NoNewWindow -Wait -PassThru -EA:0;"" ", 0, True
 
 ' Set WScript_Shell = Wscript.CreateObject( "Wscript.Shell" )
 ' WScript_Shell.Run """C:\Program Files (x86)\GPU-Z\GPU-Z.exe"" -restarted -minimized", 0, True
-
 
 ' Remote Sensor Monitor - Configuration:  http://localhost:30030/config
 
@@ -14,7 +13,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Start-Process -Filepa
 '     RemoteSensorMonitor_AsAdmin
 '
 '   Trigger:
-'     At log on --> Delay task for: 15 seconds
+'     At log on
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

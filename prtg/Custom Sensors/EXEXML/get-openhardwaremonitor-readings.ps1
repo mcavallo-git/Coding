@@ -634,6 +634,48 @@ Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force -EA:0 `
 | Remove-Item -Recurse -Force -Confirm:$False `
 ;
 
+
+# ------------------------------
+#
+# Get Data from "Remote Sensor Monitor"
+#
+
+$RSM_Dirname="C:\ISO\RemoteSensorMonitor";
+$RSM_Host="localhost";
+$RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt" -EA:0);
+$RSM_Results="${RSM_Dirname}\results";
+If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
+  $ProgressPreference=0;
+  $RegexPattern_JsonBody='\n((\[(\n|.)+\n\])|(\{(\n|.)+\n\}))';
+  # Pull the latest sensor data from "Remote Sensor Monitor"
+  $RSM_HtmlResponse=((Invoke-WebRequest -UseBasicParsing -Uri "http://${RSM_Host}:${RSM_Port}").RawContent);
+  If ((-Not ([String]::IsNullOrEmpty(${RSM_HtmlResponse}))) -And (([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Success) -Eq $True)) {
+    # Ensure the output directory exists
+    If ((Test-Path "${RSM_Results}") -NE $True) {
+      New-Item -ItemType ("Directory") -Path ("${RSM_Results}") | Out-Null;
+    }
+    # Parse the JSON response
+    $JsonResponse=([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Captures.Groups[1].Value);
+    Write-Output "${JsonResponse}" | Out-File -NoNewline ("${RSM_Results}\JsonResponse.json");
+    # Walk through each item in the JSON response
+    ${JsonResponse} | ConvertFrom-Json | ForEach-Object {
+      $SensorApp = ($_.SensorApp);
+      $SensorClass = ($_.SensorClass);
+      $SensorName = ($_.SensorName);
+      $SensorValue = ($_.SensorValue);
+      $SensorUnit = ($_.SensorUnit);
+      $SensorUpdateTime = ($_.SensorUpdateTime);
+      $ResultsFile=("${RSM_Results}\${SensorApp}.${SensorName}.txt");
+      If ([String]::IsNullOrEmpty(${SensorValue})) {
+        Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
+      } Else {
+        Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
+      }
+    }
+  }
+}
+
+
 # ------------------------------
 
 # Benchmark (KEEP AS FINAL RUNTIME (e.g. keep at the very very end of this script)

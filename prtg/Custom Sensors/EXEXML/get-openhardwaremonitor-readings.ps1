@@ -606,7 +606,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Fullpath}") -ErrorAction ("Sil
 
 	# ------------------------------
 
-	# Voltage (V) - 3VCC
+	# Voltage (V) - 3VCC (+ 3.3V PSU voltage)
 	If ([String]::IsNullOrEmpty(${Voltage_3VCC}.(${_}))) {
 		Write-Output "$(${Voltage_3VCC}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Voltage_3VCC}.${_}.txt";
 	} Else {

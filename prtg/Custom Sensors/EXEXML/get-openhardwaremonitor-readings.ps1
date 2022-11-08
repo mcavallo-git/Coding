@@ -46,7 +46,8 @@ $Benchmark.Start();
 
 $Logfile_Dirname = "C:\ISO\OpenHardwareMonitor";
 $Logfile_StartsWith = "OpenHardwareMonitorLog-";
-$Logfile_FullPath = "${Logfile_Dirname}\${Logfile_StartsWith}$(Get-Date -UFormat '%Y-%m-%d').csv";
+
+$Logfile_Input_OHW_FullPath = "${Logfile_Dirname}\${Logfile_StartsWith}$(Get-Date -UFormat '%Y-%m-%d').csv";
 
 # ------------------------------------------------------------
 
@@ -132,21 +133,21 @@ $Voltage_3VCC = @{Avg="";Max="";Min="";};
 $Sensor_ErrorMessage="ERROR - Open Hardware Monitor reading returned a null or empty value";
 
 <# Make sure the OHW Logfile exists #>
-If ((Test-Path -PathType "Leaf" -Path ("${Logfile_FullPath}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
+If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_OHW_FullPath}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 	<# Remove any logged data from a previous run #>
 	# Get-Item "${Logfile_Basename}*.txt" | Remove-Item -Force;
 
 	<# End the current run #>
 	# Exit 1;
 
-	$Sensor_ErrorMessage="ERROR - Open Hardware Monitor logfile not found: ${Logfile_FullPath}";
+	$Sensor_ErrorMessage="ERROR - Open Hardware Monitor logfile not found: ${Logfile_Input_OHW_FullPath}";
 
 } Else {
 
 	$RowCount_HeaderRows=(2);
 	$RowCount_DataRows=(60);
 
-	$LogContent_HeaderRows = (Get-Content -Path ("${Logfile_FullPath}") -TotalCount (${RowCount_HeaderRows}));
+	$LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Input_OHW_FullPath}") -TotalCount (${RowCount_HeaderRows}));
 
 	$CsvImport = @{};
 	${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[1])").Split(","));
@@ -156,19 +157,19 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_FullPath}") -ErrorAction ("Sil
 	<# Avoid random bug where OHW doesn't grab the GPU correctly at logfile creation time, which combines with OHW matching the headers on an existing log's data after said bugged run, which truncates all future data which is in addition to an existing log's header columns (truncates GPU data if GPU data wasn't pulled at time of log creation) #>
 	$RequiredPath="gpu";
 	If (((${CsvImport}["Paths"] | Where-Object { "${_}" -Like "*${RequiredPath}*" }).Count) -Eq (0)) {
-		$Dirname = [IO.Path]::GetDirectoryName("${Logfile_FullPath}");
-		$Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_FullPath}");
-		$Extension = [IO.Path]::GetExtension("${Logfile_FullPath}");
+		$Dirname = [IO.Path]::GetDirectoryName("${Logfile_Input_OHW_FullPath}");
+		$Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_Input_OHW_FullPath}");
+		$Extension = [IO.Path]::GetExtension("${Logfile_Input_OHW_FullPath}");
 		<# Remove any logged data from a previous run #>
 		Get-Item "${Logfile_Basename}*.txt" | Remove-Item -Force;
 		<# Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns) #>
 		${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddTHHmmss.fff')${Extension}");
-		Move-Item -Path ("${Logfile_FullPath}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
+		Move-Item -Path ("${Logfile_Input_OHW_FullPath}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
 		<# End the current run #>
 		Exit 1;
 	}
 
-	$LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_FullPath}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
+	$LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Input_OHW_FullPath}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
 	$LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
 
 	$DataRows_SensorReadings=@();

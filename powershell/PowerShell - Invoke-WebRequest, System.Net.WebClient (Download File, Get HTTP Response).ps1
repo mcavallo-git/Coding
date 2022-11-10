@@ -67,6 +67,9 @@ If ($True) {
 
 }
 
+# Oneliner for command(s) above (download latest version of kubectl for Windows
+Invoke-WebRequest -UseBasicParsing -Uri ([System.Net.HttpWebRequest]::Create((write https://dl.k8s.io/release/)+((Invoke-WebRequest -UseBasicParsing -Uri (write https://storage.googleapis.com/kubernetes-release/release/stable.txt)).Content)+(write /bin/windows/amd64/kubectl.exe)).GetResponse().ResponseUri.AbsoluteUri) -OutFile (write C:\ISO\PATH\kubectl.exe); # Download the latest version of kubectl.exe for Windows
+
 
 # ------------------------------------------------------------
 #

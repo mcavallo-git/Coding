@@ -1,18 +1,35 @@
 # ------------------------------------------------------------
-# helm - List chart versions in target helm chart repository
+# Helm - List chart versions in target helm chart repository
 # ------------------------------------------------------------
 
-# Add a helm repository
-helm repo add 'aad-pod-identity' 'https://raw.githubusercontent.com/Azure/aad-pod-identity/master/charts';
+if [[ 1 -eq 1 ]]; then
 
-# helm - List all releases for a given helm chart
-helm search repo "aad-pod-identity/aad-pod-identity" --versions --version "x";
+CHART_NAME="aad-pod-identity";
+CHART_NAMESPACE="kube-system";
 
-# helm - Get the latest releases for a given helm chart
-helm search repo "aad-pod-identity/aad-pod-identity" --version "x";
+# helm - Add a helm repository
+helm repo add "${CHART_NAME}" 'https://raw.githubusercontent.com/Azure/aad-pod-identity/master/charts';
 
-# helm - Get the version of the latest release for a given helm chart
-helm search repo "aad-pod-identity/aad-pod-identity" --version "x" --output "json" | jq -r ".[].version";
+# helm - Update information of available charts locally from chart repositories
+helm repo update;  # https://helm.sh/docs/helm/helm_repo_update/
+
+# helm - Get currently deployed version
+CHART_VERSION_CURRENT="$(helm list --namespace="${CHART_NAMESPACE}" --filter="${CHART_NAME}" --output="json" | jq -r ".[0].chart" | grep -v '^null$' | sed -re "s/${CHART_NAME}-//g";)";
+echo "CHART_VERSION_CURRENT=[ ${CHART_VERSION_CURRENT} ]";
+
+# helm - Get all available version
+helm search repo "${CHART_NAME}/${CHART_NAME}" --version "x" --versions;
+
+# helm - Get latest available version
+CHART_VERSION_LATEST="$(helm search repo "${CHART_NAME}/${CHART_NAME}" --version "x" --output "json" | jq -r ".[0].version" | grep -v '^null$';)";
+echo "CHART_VERSION_LATEST=[ ${CHART_VERSION_LATEST} ]";
+
+# helm - Get any newer versions greater than currently deployed version
+NEWER_VERSION_EXISTS="$(helm search repo "${CHART_NAME}/${CHART_NAME}" --version ">${CHART_VERSION_CURRENT}" --output="json" | jq -r ".[0].version" | grep -v '^null$';)";
+echo "NEWER_VERSION_EXISTS=[ ${NEWER_VERSION_EXISTS} ]";
+
+fi;
+
 
 # ------------------------------------------------------------
 #

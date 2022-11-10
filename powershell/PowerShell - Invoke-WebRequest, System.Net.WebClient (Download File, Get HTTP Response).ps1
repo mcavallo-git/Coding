@@ -1,16 +1,25 @@
 # ------------------------------------------------------------
-#
-# PowerShell - Download File from URL (to the Desktop)
-#
+# PowerShell - Invoke-WebRequest, System.Net.WebClient (Download File, Get HTTP Response)
+# ------------------------------------------------------------
+
+<# Invoke-WebRequest #>
+
+# Force TLS1.2 (otherwise often throws error in Win2016)
+[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
+# Hide Invoke-WebRequest's progress bar
+$ProgressPreference='SilentlyContinue';
+# Download AZ CLI Installer
+Invoke-WebRequest -UseBasicParsing -Uri ("https://aka.ms/installazurecliwindows") -OutFile ("${Home}\Downloads\AzureCLI.msi");
 
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; <# Force TLS1.2 (otherwise often throws error in Win2016) #>
+<# System.Net.WebClient #>
 
-$Download_RemoteUrl = "https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe";
-$Download_LocalPath = "${Home}\Desktop\NGINX-Service.exe";
-$(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("${Download_RemoteUrl}").GetResponse().ResponseUri.AbsoluteUri),"${Download_LocalPath}");
-
-[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; <# Revert to previous (pre-run) configuration #>
+# Force TLS1.2 (otherwise often throws error in Win2016)
+[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
+# Hide Invoke-WebRequest's progress bar
+$ProgressPreference='SilentlyContinue';
+# Download AZ CLI Installer
+$(New-Object System.Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\AzureCLI.msi");
 
 
 # ------------------------------------------------------------
@@ -19,7 +28,6 @@ $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("${Downlo
 #
 
 $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-
 
 
 # ------------------------------------------------------------
@@ -46,7 +54,8 @@ Set-Location -Path (${FullPath_WorkingDir});
 # Download the pipeline agent's zip archive
 $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
 [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
-$ProgressPreference='SilentlyContinue'; <# Hide Invoke-WebRequest's progress bar #>
+# Hide Invoke-WebRequest's progress bar
+$ProgressPreference='SilentlyContinue';
 Measure-Command { Invoke-WebRequest -UseBasicParsing -Uri (${URL_AgentZip}) -OutFile ("${FullPath_AgentZip}") -TimeoutSec (15) };
 [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 

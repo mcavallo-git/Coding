@@ -11,10 +11,10 @@ $Delay_Seconds=30; $Delay_PSCommand="Get-Date | Out-File '${Home}\Desktop\get-da
 # ------------------------------------------------------------
 
 <# Restart a service #>
-$ServiceName="W32Time"; Start-Process -Filepath ("C:\Windows\system32\sc.exe") -ArgumentList (@("restart","${ServiceName}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue");
+$ServiceName="W32Time"; Start-Process -Filepath ("${env:windir}\system32\sc.exe") -ArgumentList (@("restart","${ServiceName}")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue");
 
 <# Restart a service (as Admin) #>
-$ServiceName="W32Time"; Start-Process -Filepath ("C:\Windows\system32\sc.exe") -ArgumentList (@("restart","${ServiceName}")) -Wait -PassThru -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
+$ServiceName="W32Time"; Start-Process -Filepath ("${env:windir}\system32\sc.exe") -ArgumentList (@("restart","${ServiceName}")) -Wait -PassThru -Verb ("RunAs") -ErrorAction ("SilentlyContinue");
 
 
 # ------------------------------------------------------------

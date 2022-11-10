@@ -1,41 +1,78 @@
 # ------------------------------------------------------------
 # PowerShell - Invoke-WebRequest, System.Net.WebClient (Download File, Get HTTP Response)
 # ------------------------------------------------------------
+#
+# GET WEB RESPONSE
+#
 
-<# Invoke-WebRequest #>
-
-# Force TLS1.2 (otherwise often throws error in Win2016)
-[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
-# Hide Invoke-WebRequest's progress bar
-$ProgressPreference='SilentlyContinue';
-# Download AZ CLI Installer
-Invoke-WebRequest -UseBasicParsing -Uri ("https://aka.ms/installazurecliwindows") -OutFile ("${Home}\Downloads\AzureCLI.msi");
-
-
-<# System.Net.WebClient #>
-
-# Force TLS1.2 (otherwise often throws error in Win2016)
-[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
-# Hide Invoke-WebRequest's progress bar
-$ProgressPreference='SilentlyContinue';
-# Download AZ CLI Installer
-$(New-Object System.Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\AzureCLI.msi");
+# Invoke-WebRequest - Get a web response
+If ($True) {
+  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
+  $ResponseObj=(Invoke-WebRequest -UseBasicParsing -Uri ("https://storage.googleapis.com/kubernetes-release/release/stable.txt")); # Get the latest stable version of kubectl
+  $LatestVersion=(${ResponseObj}.Content);
+  Write-Host "Info:  kubectl - latest available version = [ ${LatestVersion} ]";
+}
 
 
 # ------------------------------------------------------------
 #
-# Ex) Download "NotepadReplacer.exe" to the current user's "Downloads" directory
+# DOWNLOAD FILE(S)
 #
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+# Invoke-WebRequest - Download a file
+If ($True) {
+  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
+  Invoke-WebRequest -UseBasicParsing -Uri ("https://aka.ms/installazurecliwindows") -OutFile ("${HOME}\Downloads\AzureCLI.msi"); # Download AZ CLI Installer
+}
+
+
+# System.Net.WebClient - Download a file (ex 1)
+If ($True) {
+  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
+  $(New-Object System.Net.WebClient).DownloadFile(([System.Net.HttpWebRequest]::Create("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe").GetResponse().ResponseUri.AbsoluteUri),"${HOME}\Downloads\AzureCLI.msi"); # Download AZ CLI Installer
+}
+
+# System.Net.WebClient - Download a file (ex 2)
+If ($True) {
+  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
+  $(New-Object System.Net.WebClient).DownloadFile(([System.Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${HOME}\Downloads\NotepadReplacerSetup.exe"); # Download "NotepadReplacer.exe"
+}
 
 
 # ------------------------------------------------------------
 #
-# Invoke-WebRequest
+# Ex) Determine latest stable version of utility "kubectl" via web request, then download the latest binary for it
+#
+
+If ($True) {
+
+  # Invoke-WebRequest - Get a web response
+  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
+
+  $ResponseObj=(Invoke-WebRequest -UseBasicParsing -Uri ("https://storage.googleapis.com/kubernetes-release/release/stable.txt")); # Get the latest stable version of kubectl
+  $LatestVersion=(${ResponseObj}.Content);
+  Write-Host "Info:  kubectl - latest available version = [ ${LatestVersion} ]";
+
+  # Invoke-WebRequest - Download a file
+  $DownloadUrl=("https://dl.k8s.io/release/${LatestVersion}/bin/windows/amd64/kubectl.exe");
+  $ResolvedUrl=([System.Net.HttpWebRequest]::Create("${DownloadUrl}").GetResponse().ResponseUri.AbsoluteUri); # Resolve any forwards that the HTTP endpoint may do before reaching the final URL of the file(s) to download
+  $DownloadOutput=("${HOME}\Downloads\kubectl.exe");
+  Write-Host "Info:  Downloading kubectl.exe (${LatestVersion}) from endpoint [ ${ResolvedUrl} ] to local filepath [ `"${DownloadOutput}`" ]";
+  Invoke-WebRequest -UseBasicParsing -Uri ("${ResolvedUrl}") -OutFile ("${DownloadOutput}"); # Download kubectl for Windows
+
+}
+
+
+# ------------------------------------------------------------
+#
+# Invoke-WebRequest Tips
 #   |
 #   |--> Has pre-built-in timeout parameter [ -TimeoutSec ]
-#   |
 #   |--> Make sure to set preference variable [ $ProgressPreference='SilentlyContinue'; ] <-- Hides Invoke-WebRequest's progress bar, increasing speed by 10x or more #>
 #
 
@@ -44,7 +81,7 @@ If ($True) {
 
 # Setup Runtime vars for remote URI(s) && local filepath(s)
 $URL_AgentZip='https://vstsagentpackage.azureedge.net/agent/2.184.2/vsts-agent-win-x64-2.184.2.zip';
-$FullPath_WorkingDir = ((${Home})+('\Downloads\agent'));
+$FullPath_WorkingDir = ((${HOME})+('\Downloads\agent'));
 $FullPath_AgentZip=((${FullPath_WorkingDir})+('\')+(Split-Path -Path (${URL_AgentZip}) -Leaf));
 
 # Ensure the working directory exists
@@ -67,7 +104,7 @@ Add-Type -AssemblyName ('System.IO.Compression.FileSystem');
 
 
 # Example 2 - Download Notepad Replacer
-Invoke-WebRequest -UseBasicParsing -Uri ("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer") -OutFile ("${Home}\Downloads\NotepadReplacerSetup.exe") -TimeoutSec (7.5);
+Invoke-WebRequest -UseBasicParsing -Uri ("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer") -OutFile ("${HOME}\Downloads\NotepadReplacerSetup.exe") -TimeoutSec (7.5);
 
 
 # ------------------------------------------------------------

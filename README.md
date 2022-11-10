@@ -170,7 +170,7 @@ This file (on GitHub):
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-18045-lts/9PNKSF5ZN4SW">Download (Ubuntu 18.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/detail/ubuntu-1604-lts/9PJN388HP8C9">Download (Ubuntu 16.04 LTS)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://apps.microsoft.com/store/search?hl=en-us&gl=US&publisher=Canonical%20Group%20Limited">Download (all Ubuntu WSL distros)</a>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">Download (Offline/Manual Installers)</a>
+    <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">Download (offline/manual installers)</a>
   </sub>
 </td></tr>
 <!-- -->

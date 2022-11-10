@@ -2993,7 +2993,9 @@ Open_ControlPanel_NetworkConnections() {
     Run (EnvGet("WINDIR") "\System32\control.exe ncpa.cpl")
     WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  WinActivate WinTitle  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  If (WinExist(WinTitle)) {
+    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  }
   Return
 }
 
@@ -3035,7 +3037,9 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
     ; Run control.exe /name Microsoft.Sound
     WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  WinActivate WinTitle  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  If (WinExist(WinTitle)) {
+    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  }
   Return
 }
 
@@ -3102,7 +3106,9 @@ Open_VisualStudioCode() {
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   WinSnap(WinTitle,,,,"Left","Half",1) ; Resize window to left-half of monitor #1
-  WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  If (WinExist(WinTitle)) {
+    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+  }
   Return
 }
 

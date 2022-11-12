@@ -72,7 +72,7 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-# REMOVE ASUS SERVICES
+# STOP & REMOVE ASUS SERVICES
 #
 
 If ($True) {
@@ -89,6 +89,26 @@ If ($True) {
     Start-Sleep -Milliseconds (250);
     Write-Host "`nInfo: Deleting Service w/ Name = `"$($_.Name)`", DisplayName = `"$($_.DisplayName)`" ...  " -ForegroundColor "Yellow";
     Start-Process -Filepath ("C:\Windows\system32\sc.exe") -ArgumentList (@("delete","$($_.Name)")) -Verb ("RunAs") -EA:0;
+    Start-Sleep -Milliseconds (250);
+  };
+
+}
+
+
+# ------------------------------------------------------------
+#
+# STOP ASUS PROCESSES
+#
+
+If ($True) {
+
+  # STOP LINGERING ASUS PROCESSES
+  Get-Process -EA:0 `
+  | Where-Object { `
+    (($_.Name -Like "*ASUS*") -Or ($_.Name -Like "Armoury*")) `
+  } | ForEach-Object {
+    Write-Host "`nInfo: Stopping Process w/ Name = `"$($_.Name)`", Id = `"$($_.Id)`" ...  " -ForegroundColor "Yellow";
+    Stop-Process -Id (${_}.ID) -Force -EA:0;
     Start-Sleep -Milliseconds (250);
   };
 

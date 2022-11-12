@@ -290,4 +290,6 @@ If ($True) {
 #
 #   docs.microsoft.com  |  "Remove-Item - Deletes the specified items"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-5.1
 #
+#   stackoverflow.com  |  "How can I extract "Path to executable" of all services with PowerShell - Stack Overflow"  |  https://stackoverflow.com/a/24449854
+#
 # ------------------------------------------------------------

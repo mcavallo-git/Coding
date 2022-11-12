@@ -1836,6 +1836,13 @@ function SyncRegistry {
       # Set-PolicyFileEntry -Path ("${Env:SystemRoot}\System32\GroupPolicy\Machine\Registry.pol") -Key ("${HKLM_Path}") -ValueName ("${Name}") -Data (${Value}) -Type ("${Type}");
 
       # ------------------------------------------------------------
+      #
+      # Disable Windows Defender's "Automatic Sample Submission" on Non-AD joined PCs:
+      #   > Open Group Policy Editor -> Administrative Templates -> Windows Components -> Microsoft Defender Antivirus -> MAPS
+      #     > Set "Join Microsoft MAPS" to "Disabled"
+      #     > Set "Send file samples when further analysis is required" to "Enabled" with a value of "Never send"
+      #
+      # ------------------------------------------------------------
       # Environment-specific registry settings
       #
       If ( $False ) {
@@ -2174,7 +2181,9 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   windows.tips.net  |  "Understanding Registry Value Data Types"  |  https://windows.tips.net/T013035_Understanding_Registry_Value_Data_Types.html
 #
-#   www.askvg.org  |  "[Windows 10 Tip] Registry Tweaks to Customize UI of Alt+Tab, Task View and Snap Assistant Screens – AskVG"  |  https://www.askvg.com/windows-10-tip-registry-tweaks-to-customize-ui-of-alttab-task-view-and-snap-assistant-screens/
+#   www.askvg.com  |  "[Windows 10 Tip] Disable Data Collection and Telemetry in Windows Defender – AskVG"  |  https://www.askvg.com/windows-10-tip-disable-data-collection-and-telemetry-in-windows-defender/
+#
+#   www.askvg.com  |  "[Windows 10 Tip] Registry Tweaks to Customize UI of Alt+Tab, Task View and Snap Assistant Screens – AskVG"  |  https://www.askvg.com/windows-10-tip-registry-tweaks-to-customize-ui-of-alttab-task-view-and-snap-assistant-screens/
 #
 #   www.elevenforum.com  |  "Change Accent Color in Windows 11 Tutorial | Windows 11 Forum"  |  https://www.elevenforum.com/t/change-accent-color-in-windows-11.1146/
 #

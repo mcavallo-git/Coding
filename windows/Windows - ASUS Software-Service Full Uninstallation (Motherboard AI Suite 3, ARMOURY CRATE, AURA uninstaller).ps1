@@ -29,22 +29,31 @@ If ($True) {
 
   } Else {
 
-    $ASUS_PACKAGES=@();
-    # $ASUS_PACKAGES+="AI Suite 3";
-    $ASUS_PACKAGES+="AMD Software";
-    # $ASUS_PACKAGES+="AMD_Chipset_Drivers";
-    $ASUS_PACKAGES+="ARMOURY CRATE Lite Service";
-    $ASUS_PACKAGES+="ASUS Framework Service";
-    $ASUS_PACKAGES+="AURA";
-    $ASUS_PACKAGES+="AURA lighting effect add-on";
-    $ASUS_PACKAGES+="AURA lighting effect add-on x64";
-    $ASUS_PACKAGES+="AURA Service";
-    $ASUS_PACKAGES+="GALAX GAMER RGB";
-    $ASUS_PACKAGES+="ROG Live Service";
-
-    Get-Package `
-    | Where-Object { ${ASUS_PACKAGES} -Contains ($_.Name); } `
-    | Uninstall-Package;
+    $ASUS_PACKAGE_CONTAINS=@();
+    # $ASUS_PACKAGE_CONTAINS+="AI Suite 3";
+    $ASUS_PACKAGE_CONTAINS+="AMD Software";
+    # $ASUS_PACKAGE_CONTAINS+="AMD_Chipset_Drivers";
+    $ASUS_PACKAGE_CONTAINS+="ARMOURY CRATE Lite Service";
+    $ASUS_PACKAGE_CONTAINS+="ASUS Framework Service";
+    $ASUS_PACKAGE_CONTAINS+="AURA";
+    $ASUS_PACKAGE_CONTAINS+="AURA lighting effect add-on";
+    $ASUS_PACKAGE_CONTAINS+="AURA lighting effect add-on x64";
+    $ASUS_PACKAGE_CONTAINS+="AURA Service";
+    $ASUS_PACKAGE_CONTAINS+="GALAX GAMER RGB";
+    $ASUS_PACKAGE_CONTAINS+="ROG Live Service";
+    $ASUS_PACKAGE_CONTAINS | ForEach-Object {
+      $EACH_PACKAGE_CONTAINS="${_}";
+      Get-Package `
+      | Where-Object { $_.Name -Like ("*${EACH_PACKAGE_CONTAINS}*"); } `
+      | ForEach-Object {
+        Write-Host "`nInfo: Uninstalling Package w/ Name = `"$($_.Name)`", Version = `"$($_.Version)`" ...  " -ForegroundColor "Yellow";
+        Uninstall-Package $_;
+        Start-Sleep -Milliseconds (250);
+      }
+    };
+    # Get-Package `
+    # | Where-Object { ${ASUS_PACKAGE_CONTAINS} -Contains ($_.Name); } `
+    # | Uninstall-Package;
 
   }
 
@@ -61,14 +70,19 @@ If ($True) {
 
   <# Uninstall Windows "Apps" #>
 
-  $ASUS_APPX_PACKAGES=@();
-  $ASUS_APPX_PACKAGES+="ArmouryCrate";
-  $ASUS_APPX_PACKAGES+="AURACreator";
-  $ASUS_APPX_PACKAGES | ForEach-Object {
-  $APPX_PACKAGE="${_}";
-  Get-AppxPackage `
-    | Where-Object { $_.Name -Like ("*${APPX_PACKAGE}"); } `
-    | Remove-AppxPackage;
+  $ASUS_APPX_PACKAGES_CONTAINS=@();
+  $ASUS_APPX_PACKAGES_CONTAINS+="ArmouryCrate";
+  $ASUS_APPX_PACKAGES_CONTAINS+="AURACreator";
+  $ASUS_APPX_PACKAGES_CONTAINS+="ASUS";
+  $ASUS_APPX_PACKAGES_CONTAINS | ForEach-Object {
+    $EACH_APPX_PACKAGE_CONTAINS="${_}";
+    Get-AppxPackage `
+      | Where-Object { $_.Name -Like ("*${EACH_APPX_PACKAGE_CONTAINS}*"); } `
+      | ForEach-Object {
+        Write-Host "`nInfo: Removing AppxPackage (Windows App) w/ Name = `"$($_.Name)`", Version = `"$($_.Version)`" ...  " -ForegroundColor "Yellow";
+        Remove-AppxPackage -Package "$($_.Name)";
+        Start-Sleep -Milliseconds (250);
+      }
   };
 
 }

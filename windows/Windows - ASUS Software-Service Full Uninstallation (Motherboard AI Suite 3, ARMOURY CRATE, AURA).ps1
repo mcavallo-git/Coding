@@ -1,4 +1,6 @@
 # ------------------------------------------------------------
+# Windows - ASUS Software-Service Full Uninstallation (Motherboard AI Suite 3, ARMOURY CRATE, AURA)
+# ------------------------------------------------------------
 #
 # ASUS SOFTWARE REMOVAL
 #  |

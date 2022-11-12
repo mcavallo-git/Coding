@@ -1,7 +1,9 @@
 function SyncRegistry {
   Param(
 
-    [Switch]$DisableClearType,  <# Will Enable ClearType so long as parameter "-DisableClearType" is not specified #>
+    [Switch]$DisableClearType,  <# Disables 'ClearType' visual effect (to enable, do not pass this parameter #>
+
+    [Switch]$EnableWindowsUpdateActiveHours,  <# Enables Windows Update's 'Active Hours' functionality (to disable, do not pass this parameter )
 
     [ValidateSet('Ctrl+Shift','Left-Alt+Shift','Thai')]
     [String]$Hotkey_SwitchInputLanguage="",
@@ -1648,6 +1650,20 @@ function SyncRegistry {
         )
       };
 
+      # Windows Update - Active Hours
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings";
+        Props=@(
+          @{
+            Description="Set to [ 0 ] to Disable, [ 1 ] to Enable Windows Update's 'Active Hours' functionality";
+            Name="IsActiveHoursEnabled";
+            Type="DWord";
+            Value=If ($PSBoundParameters.ContainsKey('EnableWindowsUpdateActiveHours')) { 1 <# Enabled #> } Else { 0 <# Disabled #> };
+            Delete=$False;
+          }
+        )
+      };
+
       # Windows Update - Force-pull from Microsoft servers instead of local/WSUS servers
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
@@ -2143,6 +2159,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "windows 10 - Registry keys to change personalization settings? - Super User"  |  https://superuser.com/a/1395560
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
+#
+#   winaero.org  |  "Disable Windows Update Active hours in Windows 10"  |  https://winaero.com/disable-windows-update-active-hours-in-windows-10/
 #
 #   winaero.com  |  "How To Remove Pin to Quick Access Context Menu in Windows 10"  |  https://winaero.com/remove-pin-quick-access-menu-windows-10/
 #

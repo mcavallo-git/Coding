@@ -1,3 +1,7 @@
+# ------------------------------------------------------------
+# PowerShell - Get-Package, Uninstall-Package (uninstalls programs equivalent to appwiz.cpl)
+# ------------------------------------------------------------
+
 
 # Uninstall Multiple Packages via PowerShell
 

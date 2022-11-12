@@ -1,8 +1,9 @@
 # ------------------------------------------------------------
+# PowerShell - Get-WmiObject Win32_Product (get installed apps, uninstall apps)
+# ------------------------------------------------------------
 
 # Download & Install .NET Core Updated Version(s) from:
 # https://dotnet.microsoft.com/learn/dotnet/hello-world-tutorial/install
-
 
 # Check if dotnet's Runtime (dotnet.dll) is installed (get version if-so):
 (Get-ChildItem -Path (Get-Command dotnet).Path.Replace('dotnet.exe', 'shared\Microsoft.NETCore.App')).Name;
@@ -12,12 +13,8 @@
 (Get-ChildItem -Path (Get-Command dotnet).Path.Replace('dotnet.exe', 'sdk')).Name;
 	$DownloadUrl_dotnetSDK = "https://dotnet.microsoft.com/download/thank-you/dotnet-sdk-2.1.505-windows-x64-installer";
 
-
-
-# Parse the version out-of [ dotnet --info ]'s returned string 
+# Parse the version from [ dotnet --info ]'s returned string 
 $DotNet_InfoVersion = ((dotnet --info)[1]).Replace(' Version:   ',''); $DotNet_InfoVersion;
-
-
 
 # Perform an in-depth, extra thorough search for any installs
 $AppName_MatchesAllOf = @();
@@ -30,16 +27,31 @@ $AppMatches = (Get-WmiObject -Class Win32_Product -Filter $AppName_Filter);
 
 $AppMatches | Sort-Object Name | Format-Table Name;
 
-#### App.Uninstall() Non-functional on domain-attached workstation running as local admin (2019-03-20 16:47:22)
+# App.Uninstall() Non-functional on domain-attached workstation running as local admin (2019-03-20 16:47:22)
 # ForEach ($EachApp In ($DotNetCoreApps)) {
-	# Write-Host (("Uninstalling Application [ ")+($EachApp.Name)+(" ]"));
-	# $EachApp.Uninstall();
+  # Write-Host (("Uninstalling Application [ ")+($EachApp.Name)+(" ]"));
+  # $EachApp.Uninstall();
 # }
 
 
 # ------------------------------------------------------------
 #
+# Uninstall App(s)
+#
+
+# Ex) Uninstall all ASUS products installed locally
+Get-WmiObject -Class "win32_product" -Filter "Vendor like '%ASUS%'" `
+| ForEach-Object {
+  Write-Host "Uninstalling `"$($_.Name)`"" -ForegroundColor "Yellow" -BackgroundColor "Black";
+  $_.Uninstall();
+}
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
+#
+#   chinnychukwudozie.com  |  "Uninstalling Software with Powershell. | Chinny Chukwudozie, Cloud Solutions."  |  https://chinnychukwudozie.com/2014/06/09/uninstalling-software-with-powershell/
 #
 #   docs.microsoft.com  |  "Get-WmiObject"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-wmiobject
 #

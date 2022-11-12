@@ -14,7 +14,7 @@
 "GALAX GAMER RGB", 
 "ROG Live Service"
 ) | ForEach-Object {
-	Get-Package -Name "${_}" -ErrorAction SilentlyContinue | Uninstall-Package;
+	Get-Package -Name "${_}" -EA:0 | Uninstall-Package;
 }
 
 

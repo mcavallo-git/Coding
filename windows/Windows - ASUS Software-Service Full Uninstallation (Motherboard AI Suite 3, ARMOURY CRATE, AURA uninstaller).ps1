@@ -47,7 +47,8 @@ If ($True) {
       | Where-Object { $_.Name -Like ("*${EACH_PACKAGE_CONTAINS}*"); } `
       | ForEach-Object {
         Write-Host "`nInfo: Uninstalling Package w/ Name = `"$($_.Name)`", Version = `"$($_.Version)`" ...  " -ForegroundColor "Yellow";
-        Uninstall-Package $_;
+        # Uninstall-Package $_;
+        Uninstall-Package -Name "$($_.Name)" -AllVersions -Force;
         Start-Sleep -Milliseconds (250);
       }
     };

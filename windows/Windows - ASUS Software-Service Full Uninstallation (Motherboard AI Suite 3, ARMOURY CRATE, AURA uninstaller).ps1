@@ -201,6 +201,7 @@ If ($True) {
   $Paths_ToDelete += "Registry::HKEY_CLASSES_ROOT\aura.sdk.1";
   $Paths_ToDelete += "Registry::HKEY_CURRENT_USER\Software\ASUS";
   $Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\ASUS";
+  $Paths_ToDelete += "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\GameSDK Service";
 
   $Paths_ToDelete | ForEach-Object {
     $Each_PathToDelete = "$_";

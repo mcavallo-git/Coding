@@ -3,8 +3,7 @@
 # ------------------------------------------------------------
 
 
-# Uninstall Multiple Packages via PowerShell
-
+# Ex) Uninstall multiple packages
 @(
 "AI Suite 3", 
 "AMD Software", 

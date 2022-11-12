@@ -81,7 +81,7 @@ If ($True) {
       | Where-Object { $_.Name -Like ("*${EACH_APPX_PACKAGE_CONTAINS}*"); } `
       | ForEach-Object {
         Write-Host "`nInfo: Removing AppxPackage (Windows App) w/ Name = `"$($_.Name)`", Version = `"$($_.Version)`" ...  " -ForegroundColor "Yellow";
-        Remove-AppxPackage -Package "$($_.Name)";
+        Remove-AppxPackage ${_};
         Start-Sleep -Milliseconds (250);
       }
   };
@@ -97,7 +97,7 @@ If ($True) {
 If ($True) {
 
   <# FIND/REMOVE SERVICES #>
-  Get-WmiObject -Class "win32_service" -EA:0 `
+  Get-WmiObject -Class "win32_service" `
   | Where-Object { `
     (($_.Name -Like "ASUS*") -Or ($_.DisplayName -Like "ASUS*")) `
     -Or (($_.Name -Like "ROG Live*") -Or ($_.DisplayName -Like "ROG Live*")) `

@@ -15,36 +15,38 @@
 
 If ($True) {
 
-	# Remove Windows "Programs"
+  # Remove Windows "Programs"
 
-	If ((Get-Package | Where-Object { $_.Name -Eq ("AI Suite 3"); }) -NE $Null) {
+  If ((Get-Package | Where-Object { $_.Name -Eq ("AI Suite 3"); }) -NE $Null) {
 
-		Write-Host "Windows program `"All MB`" must be uninstalled (and disabled) via the motherboard BIOS screen";
-				<# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
-		Write-Host "Windows Program `"AI Suite 3`" will need to be uninstalled manually (as, for some reason, Get-Package | Uninstall-Package doeesnt apply correctly do it.)";
-		Write-Host "";
-		Write-Host "Please run `"appwiz.cpl`" (via the start menu) to open the `"Programs and Features`" control panel window, then perform aforementioned manual uninstallation(s) before continuing";
-		Start-Sleep -Seconds 60;
-		Exit 1;
+    Write-Host "Windows program `"All MB`" must be uninstalled (and disabled) via the motherboard BIOS screen";
+        <# *** UNINSTALL VIA BIOS - SEE BELOW FOR DETAILED INFO *** #>
+    Write-Host "Windows Program `"AI Suite 3`" will need to be uninstalled manually (as, for some reason, Get-Package | Uninstall-Package doeesnt apply correctly do it.)";
+    Write-Host "";
+    Write-Host "Please run `"appwiz.cpl`" (via the start menu) to open the `"Programs and Features`" control panel window, then perform aforementioned manual uninstallation(s) before continuing";
+    Start-Sleep -Seconds 60;
+    Exit 1;
 
-	} Else {
+  } Else {
 
-		$ASUS_PACKAGES=@();
-		# $ASUS_PACKAGES+="AI Suite 3";
-		$ASUS_PACKAGES+="AMD Software";
-		# $ASUS_PACKAGES+="AMD_Chipset_Drivers";
-		$ASUS_PACKAGES+="ARMOURY CRATE Lite Service";
-		$ASUS_PACKAGES+="ASUS Framework Service";
-		$ASUS_PACKAGES+="AURA";
-		$ASUS_PACKAGES+="AURA lighting effect add-on";
-		$ASUS_PACKAGES+="AURA lighting effect add-on x64";
-		$ASUS_PACKAGES+="AURA Service";
-		$ASUS_PACKAGES+="GALAX GAMER RGB";
-		$ASUS_PACKAGES+="ROG Live Service";
+    $ASUS_PACKAGES=@();
+    # $ASUS_PACKAGES+="AI Suite 3";
+    $ASUS_PACKAGES+="AMD Software";
+    # $ASUS_PACKAGES+="AMD_Chipset_Drivers";
+    $ASUS_PACKAGES+="ARMOURY CRATE Lite Service";
+    $ASUS_PACKAGES+="ASUS Framework Service";
+    $ASUS_PACKAGES+="AURA";
+    $ASUS_PACKAGES+="AURA lighting effect add-on";
+    $ASUS_PACKAGES+="AURA lighting effect add-on x64";
+    $ASUS_PACKAGES+="AURA Service";
+    $ASUS_PACKAGES+="GALAX GAMER RGB";
+    $ASUS_PACKAGES+="ROG Live Service";
 
-		Get-Package | Where-Object { ${ASUS_PACKAGES} -Contains ($_.Name); } | Uninstall-Package;
+    Get-Package `
+    | Where-Object { ${ASUS_PACKAGES} -Contains ($_.Name); } `
+    | Uninstall-Package;
 
-	}
+  }
 
 }
 
@@ -57,15 +59,17 @@ If ($True) {
 
 If ($True) {
 
-	<# Uninstall Windows "Apps" #>
+  <# Uninstall Windows "Apps" #>
 
-	$ASUS_APPX_PACKAGES=@();
-	$ASUS_APPX_PACKAGES+="ArmouryCrate";
-	$ASUS_APPX_PACKAGES+="AURACreator";
-	$ASUS_APPX_PACKAGES | ForEach-Object {
-		$APPX_PACKAGE="${_}";
-		Get-AppxPackage | Where-Object { $_.Name -Like ("*${APPX_PACKAGE}"); } | Remove-AppxPackage;
-	};
+  $ASUS_APPX_PACKAGES=@();
+  $ASUS_APPX_PACKAGES+="ArmouryCrate";
+  $ASUS_APPX_PACKAGES+="AURACreator";
+  $ASUS_APPX_PACKAGES | ForEach-Object {
+  $APPX_PACKAGE="${_}";
+  Get-AppxPackage `
+    | Where-Object { $_.Name -Like ("*${APPX_PACKAGE}"); } `
+    | Remove-AppxPackage;
+  };
 
 }
 

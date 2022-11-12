@@ -9,9 +9,9 @@
 #
 # ------------------------------------------------------------
 #
-# UNINSTALL THE FOLLOWING PROGRAM(S) (Win7 style exes) by opening "appwiz.cpl" ("Programs and Features") and right-clicking -> selecting "Uninstall" on each (wait til all are uninstalled to restart)
-#
-#  > FIND IN "appwiz.cpl", THEN UNINSTALL:
+# Uninstall ASUS Programs
+#  |
+#  |--> Optionally perform this step by [ opening "appwiz.cpl" ("Programs and Features") and right-clicking -> selecting "Uninstall" on each (wait til all are uninstalled to restart) ]
 
 If ($True) {
 
@@ -46,7 +46,7 @@ If ($True) {
       Get-Package `
       | Where-Object { $_.Name -Like ("*${EACH_PACKAGE_CONTAINS}*"); } `
       | ForEach-Object {
-        Write-Host "`nInfo: Uninstalling Package w/ Name = `"$($_.Name)`", Version = `"$($_.Version)`" ...  " -ForegroundColor "Yellow";
+        Write-Host "`nInfo: Uninstalling Package w/ Name=`"$($_.Name)`", Version=`"$($_.Version)`"...  " -ForegroundColor "Yellow";
         # Uninstall-Package $_;
         Uninstall-Package -Name "$($_.Name)" -AllVersions -Force;
         Start-Sleep -Milliseconds (250);
@@ -58,13 +58,20 @@ If ($True) {
 
   }
 
+  Get-WmiObject -Class "win32_product" -Filter "Vendor like '%ASUS%'" `
+  | ForEach-Object {
+    Write-Host "`nInfo: Uninstalling Win32_Product w/ Name=`"$($_.Name)`", Version=`"$($_.Version)`"...  " -ForegroundColor "Yellow";
+    ${_}.Uninstall();
+  }
+
+
 }
-
-
 
 # ------------------------------------------------------------
 #
-# UNINSTALL THE FOLLOWING APPLICATION(S) (Win10 style apps) by [ typing their name into the start menu, then right-clicking them and selecting "Uninstall" ]. Alternatively, uninstall them by [ opening "Apps & features" then left-clicking the app and selecing "Uninstall" ]:
+# UNINSTALL ASUS APPS
+#  |
+#  |--> Optionally perform this by [ typing each app's name into the start menu, then right-clicking them and selecting "Uninstall" ]. Alternatively, uninstall them by [ opening "Apps & features" then left-clicking the app and selecing "Uninstall" ]:
 #
 
 If ($True) {
@@ -80,14 +87,13 @@ If ($True) {
     Get-AppxPackage `
       | Where-Object { $_.Name -Like ("*${EACH_APPX_PACKAGE_CONTAINS}*"); } `
       | ForEach-Object {
-        Write-Host "`nInfo: Removing AppxPackage (Windows App) w/ Name = `"$($_.Name)`", Version = `"$($_.Version)`" ...  " -ForegroundColor "Yellow";
+        Write-Host "`nInfo: Removing AppxPackage (Windows App) w/ Name=`"$($_.Name)`", Version=`"$($_.Version)`"...  " -ForegroundColor "Yellow";
         Remove-AppxPackage ${_};
         Start-Sleep -Milliseconds (250);
       }
   };
 
 }
-
 
 # ------------------------------------------------------------
 #
@@ -106,13 +112,12 @@ If ($True) {
   } | ForEach-Object {
     $_ | Stop-Service;
     Start-Sleep -Milliseconds (250);
-    Write-Host "`nInfo: Deleting Service w/ Name = `"$($_.Name)`", DisplayName = `"$($_.DisplayName)`" ...  " -ForegroundColor "Yellow";
+    Write-Host "`nInfo: Deleting Service w/ Name=`"$($_.Name)`", DisplayName=`"$($_.DisplayName)`"...  " -ForegroundColor "Yellow";
     Start-Process -Filepath ("C:\Windows\system32\sc.exe") -ArgumentList (@("delete","$($_.Name)")) -Verb ("RunAs") -EA:0;
     Start-Sleep -Milliseconds (250);
   };
 
 }
-
 
 # ------------------------------------------------------------
 #
@@ -126,13 +131,12 @@ If ($True) {
   | Where-Object { `
     (($_.Name -Like "*ASUS*") -Or ($_.Name -Like "Armoury*")) `
   } | ForEach-Object {
-    Write-Host "`nInfo: Stopping Process w/ Name = `"$($_.Name)`", Id = `"$($_.Id)`" ...  " -ForegroundColor "Yellow";
+    Write-Host "`nInfo: Stopping Process w/ Name=`"$($_.Name)`", Id = `"$($_.Id)`"...  " -ForegroundColor "Yellow";
     Stop-Process -Id (${_}.ID) -Force -EA:0;
     Start-Sleep -Milliseconds (250);
   };
 
 }
-
 
 # ------------------------------------------------------------
 #
@@ -156,13 +160,12 @@ If ($True) {
   $Paths_ToDelete | ForEach-Object {
     $Each_PathToDelete = "$_";
     If (Test-Path -Path ("${Each_PathToDelete}")) {
-      Write-Host "Removing Path `"${Each_PathToDelete}`" ...";
+      Write-Host "Removing Path `"${Each_PathToDelete}`"...";
       Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$False;
     };
   };
 
 }
-
 
 # ------------------------------------------------------------
 #
@@ -225,7 +228,7 @@ If ($True) {
   $Paths_ToDelete | ForEach-Object {
     $Each_PathToDelete = "$_";
     If (Test-Path -Path ("${Each_PathToDelete}")) {
-      Write-Host "Removing Path `"${Each_PathToDelete}`" ...";
+      Write-Host "Removing Path `"${Each_PathToDelete}`"...";
       Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$false;
     };
   };
@@ -262,11 +265,6 @@ If ($True) {
 
 }
 
-  <# Check for pending reboot #>
-  $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'CheckPendingRestart' -EA:0)) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\CheckPendingRestart\CheckPendingRestart.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-  CheckPendingRestart;
-  
-  
 # ------------------------------------------------------------
 #
 # "All MB" - UNINSTALL / REMOVE APP
@@ -300,6 +298,13 @@ If ($True) {
   #
 }
 
+# ------------------------------------------------------------
+#
+# Check for pending reboot
+#
+
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'CheckPendingRestart' -EA:0)) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\CheckPendingRestart\CheckPendingRestart.psm1', ((Get-Variable -Name 'HOME').Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+CheckPendingRestart;
 
 
 # ------------------------------------------------------------

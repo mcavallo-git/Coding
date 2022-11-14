@@ -1839,8 +1839,10 @@ function SyncRegistry {
       #
       # Disable "Automatic Sample Submission" for Windows Defender (only verified to work on Non-AD joined PCs):
       #   > Open Group Policy Editor -> Administrative Templates -> Windows Components -> Microsoft Defender Antivirus -> MAPS
-      #     > Set "Join Microsoft MAPS" to "Disabled"
-      #     > Set "Send file samples when further analysis is required" to "Enabled" with a value of "Never send"
+      #     > DISABLE: "Join Microsoft MAPS"
+      #     > ENABLE:  "Configure local setting override for reporting to Microsoft MAPS"
+      #     > ENABLE:  "Send file samples when further analysis is required"
+      #                  |--> Select dropdown option "Never send" for field "Send file samples when further analysis is required"
       #
       # ------------------------------------------------------------
       # Environment-specific registry settings

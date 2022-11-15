@@ -1988,6 +1988,7 @@ ClickLoop(MouseX:=-1, MouseY:=-1, Timeout:=250, MaxLoopIterations:=-1) {
       }
     }
   }
+  ClearTooltip(0)
   Return
 }
 

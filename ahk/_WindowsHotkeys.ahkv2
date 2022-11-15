@@ -1523,7 +1523,7 @@ AppsKey & WheelDown::
 ^#c::
 {
 
-  ClickLoop(-1,-1,250,50)
+  ClickLoop(-1,-1,250,1200)
 
   ; Loop 20 {
   ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)

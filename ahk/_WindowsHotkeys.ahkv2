@@ -1517,15 +1517,17 @@ AppsKey & WheelDown::
 ;
 ;   HOTKEY:  Alt + WinKey + C
 ;            Ctrl + WinKey + C
-;   ACTION:  Workbench hotkey for quick-testing, one-time wizbangs, etc.
+;   ACTION:  Workbench debug hotkey for quick-testing, one-time wizbangs, etc.
 ;
 !#c::
 ^#c::
 {
 
-  ShowToolTip("GetMicroseconds:  " GetMicroseconds(),,,,10000)
+  ClickLoop(-1,-1,250,50)
 
-  ShowToolTip("GetNanoseconds:  " GetNanoseconds(),,,5,10000)
+  ; Loop 20 {
+  ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)
+  ; }
 
   Return
 }
@@ -1951,18 +1953,40 @@ ClearTooltip(Period:=0, WhichToolTip:=1) {
 ; ------------------------------
 ;
 ; ClickLoop
-;   |--> Send left click indefinitely until script is cancelled, with a long enough break between clicks to not make it impossible to stop
+;   |--> Left click loop until script is cancelled or after MaxLoopIterations loop iterations
 ;
-ClickLoop(MouseX,MouseY,Timeout) {
+ClickLoop(MouseX:=-1, MouseY:=-1, Timeout:=250, MaxLoopIterations:=-1) {
   CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetKeyDelay 0, -1
-  If (Timeout < 250) {
-    Timeout := 250
+  ; Do not click more often than a predefined lower limit
+  If (Timeout < 25) {
+    Timeout := 25
   }
   Loop {
+    ; Wait a given amount of time before each click
     Sleep Timeout
-    MouseClick "Left", MouseX, MouseY
+    If ((MouseX == -1) && (MouseY == -1)) {
+      ; Use mouse coordinates
+      MouseGetPos &Click_MouseX, &Click_MouseY
+    } Else {
+      ; Use predefined coordinates
+      Click_MouseX := MouseX
+      Click_MouseY := MouseY
+    }
+    If ((Mod((A_Index-1), 10)) == 0) {
+      ; Set a tooltip notifying the user that the script is clicking
+      TooltipOutput := "Clicking every " Timeout " ms..."
+      ShowToolTip(TooltipOutput,,,,(Timeout*10))
+    }
+    ; Send the left click
+    MouseClick "Left", Click_MouseX, Click_MouseY
+    ; Stop looping after MaxLoopIterations iterations (if specified)
+    If (MaxLoopIterations != -1) {
+      If (A_Index > MaxLoopIterations) {
+        Break
+      }
+    }
   }
   Return
 }

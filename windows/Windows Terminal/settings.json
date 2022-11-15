@@ -24,6 +24,10 @@
         "splitMode": "duplicate"
       },
       "keys": "alt+shift+d"
+    },
+    {
+      "command": "unbound",
+      "keys": "enter"
     }
   ],
   "copyFormatting": "none",

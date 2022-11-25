@@ -15,9 +15,9 @@ systemctl --type=service;  # For OSes without the "service" command built-in (do
 # Get the status for one, specific service
 #
 
-systemctl status docker.service;
+systemctl status cron.service;
 
-service status docker;
+service cron status;
 
 
 # ------------------------------

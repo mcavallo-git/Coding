@@ -47,22 +47,41 @@ Mostly Linux compatible:
 —					Em Dash (Longer than hyphen & En Dash)  |  https://www.compart.com/en/unicode/U+2014
 
 
+------------------------------------------------------------
+---
+---  Arrows
+---    |--> Unicode Block "Arrows"  |  https://www.compart.com/en/unicode/block/U+2190
+---    |--> Unicode Block "Miscellaneous Symbols and Arrows"  |  https://www.compart.com/en/unicode/block/U+2B00
+---
+
+
 ↑					Upwards Arrow    (Up Arrow)    (&uarr;)  |  https://www.compart.com/en/unicode/U+2191
 ↓					Downwards Arrow  (Down Arrow)  (&darr;)  |  https://www.compart.com/en/unicode/U+2193
 ←					Leftwards Arrow  (Left Arrow)  (&larr;)  |  https://www.compart.com/en/unicode/U+2190
 →					Rightwards Arrow (Right Arrow) (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
 
 
-↻					Clockwise Open Circle Arrow (Refresh Icon) (&circlearrowright;)  |  https://www.compart.com/en/unicode/U+21BB
+↕					Up Down Arrow   (&updownarrow;)  |  https://www.compart.com/en/unicode/U+2195
+↔ 				Left Right Arrow (&LeftRightArrow;)  |  https://www.compart.com/en/unicode/U+2194
+⇅					Upwards Arrow Leftwards of Downwards Arrow  (&udarr;) (&UpArrowDownArrow;)  |  https://www.compart.com/en/unicode/U+21C5
 🗘				 Clockwise Right and Left Semicircle Arrows  |  https://www.compart.com/en/unicode/U+1F5D8
+
+
+↻					Clockwise Open Circle Arrow (Refresh Icon) (&circlearrowright;)  |  https://www.compart.com/en/unicode/U+21BB
+⮤					Leftwards Triangle-Headed Arrow with Long Tip Upwards (&#x2BA4;)  |  https://www.compart.com/en/unicode/U+2BA4
+⭦					North West Triangle-Headed Arrow (&#x2B66;)  |  https://www.compart.com/en/unicode/U+2B66
+⬉					North West Black Arrow (&#x2B09;)  |  https://www.compart.com/en/unicode/U+2B09
+⬁					North West White Arrow (&#x2B01;)  |  https://www.compart.com/en/unicode/U+2B01
 
 
 ↪					Rightwards Arrow with Hook  |  https://www.compart.com/en/unicode/U+21AA
 ↳					Downwards Arrow with Tip Rightwards  |  https://www.compart.com/en/unicode/U+21B3
-↕					Up Down Arrow   (&updownarrow;)  |  https://www.compart.com/en/unicode/U+2195
-↔ 				Left Right Arrow (&LeftRightArrow;)  |  https://www.compart.com/en/unicode/U+2194
-⇅					Upwards Arrow Leftwards of Downwards Arrow  (&udarr;) (&UpArrowDownArrow;)  |  https://www.compart.com/en/unicode/U+21C5
+
+
 ↴					Rightwards Arrow with Corner Downwards  |  https://www.compart.com/en/unicode/U+21B4
+↷					Clockwise Top Semicircle Arrow  (&curvearrowright;)  |  https://www.compart.com/en/unicode/U+21B7
+
+
 ⬐					Leftwards Arrow with Tip Downwards  |  https://www.compart.com/en/unicode/U+2B10
 ↶					Anticlockwise Top Semicircle Arrow  (&curvearrowleft;)  |  https://www.compart.com/en/unicode/U+21B6
 
@@ -72,10 +91,6 @@ Mostly Linux compatible:
 ➾					Open-Outlined Rightwards Arrow   |  https://www.compart.com/en/unicode/U+27BE
 ➧ 				Squat Black Rightwards Arrow  |  https://www.compart.com/en/unicode/U+27A7
 
-
-[​]					Zero Width Space (&NegativeVeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200B
-						|
-						|--> For more space chars, see "Whitespace Characters" (below)
 
 ------------------------------------------------------------
 
@@ -395,27 +410,27 @@ Mostly Linux compatible:
 
 Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 
-[﻿]			ZERO WIDTH NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+FEFF
-[​]			ZERO WIDTH SPACE  |  https://www.compart.com/en/unicode/U+200B
-[᠎]			MONGOLIAN VOWEL SEPARATOR  |  https://www.compart.com/en/unicode/U+180E
-[ ]			HAIR SPACE  |  https://www.compart.com/en/unicode/U+200A
-[ ]			SIX-PER-EM SPACE  |  https://www.compart.com/en/unicode/U+2006
-[ ]			THIN SPACE  |  https://www.compart.com/en/unicode/U+2009
-[ ]			MEDIUM MATHEMATICAL SPACE  |  https://www.compart.com/en/unicode/U+205F
-[ ]			FOUR-PER-EM SPACE (mid space)  |  https://www.compart.com/en/unicode/U+2005
-[ ]			NARROW NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+202F
-[ ]			THREE-PER-EM SPACE (thick space)  |  https://www.compart.com/en/unicode/U+2004
-[ ]			OGHAM SPACE MARK  |  https://www.compart.com/en/unicode/U+1680
-[ ]			EN SPACE (nut)  |  https://www.compart.com/en/unicode/U+2002
-[ ]			EN QUAD  |  https://www.compart.com/en/unicode/U+2000
-[ ]			Space (SP)  |  https://www.compart.com/en/unicode/U+0020
-[ ]			PUNCTUATION SPACE  |  https://www.compart.com/en/unicode/U+2008
-[ ]			FIGURE SPACE  |  https://www.compart.com/en/unicode/U+2007
-[ ]			SPACE  |  https://www.compart.com/en/unicode/U+0020
-[ ]			NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+00A0
-[ ]			EM QUAD  |  https://www.compart.com/en/unicode/U+2001
-[ ]			EM SPACE (mutton)  |  https://www.compart.com/en/unicode/U+2003
-[　]			IDEOGRAPHIC SPACE  |  https://www.compart.com/en/unicode/U+3000
+[﻿]					ZERO WIDTH NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+FEFF
+[​]					Zero Width Space (&NegativeVeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200B
+[᠎]					MONGOLIAN VOWEL SEPARATOR  |  https://www.compart.com/en/unicode/U+180E
+[ ]					HAIR SPACE  |  https://www.compart.com/en/unicode/U+200A
+[ ]					SIX-PER-EM SPACE  |  https://www.compart.com/en/unicode/U+2006
+[ ]					THIN SPACE  |  https://www.compart.com/en/unicode/U+2009
+[ ]					MEDIUM MATHEMATICAL SPACE  |  https://www.compart.com/en/unicode/U+205F
+[ ]					FOUR-PER-EM SPACE (mid space)  |  https://www.compart.com/en/unicode/U+2005
+[ ]					NARROW NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+202F
+[ ]					THREE-PER-EM SPACE (thick space)  |  https://www.compart.com/en/unicode/U+2004
+[ ]					OGHAM SPACE MARK  |  https://www.compart.com/en/unicode/U+1680
+[ ]					EN SPACE (nut)  |  https://www.compart.com/en/unicode/U+2002
+[ ]					EN QUAD  |  https://www.compart.com/en/unicode/U+2000
+[ ]					Space (SP)  |  https://www.compart.com/en/unicode/U+0020
+[ ]					PUNCTUATION SPACE  |  https://www.compart.com/en/unicode/U+2008
+[ ]					FIGURE SPACE  |  https://www.compart.com/en/unicode/U+2007
+[ ]					SPACE  |  https://www.compart.com/en/unicode/U+0020
+[ ]					NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+00A0
+[ ]					EM QUAD  |  https://www.compart.com/en/unicode/U+2001
+[ ]					EM SPACE (mutton)  |  https://www.compart.com/en/unicode/U+2003
+[　]					IDEOGRAPHIC SPACE  |  https://www.compart.com/en/unicode/U+3000
 
 
 // ------------------------------------------------------------

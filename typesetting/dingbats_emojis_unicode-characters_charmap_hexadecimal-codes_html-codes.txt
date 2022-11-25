@@ -124,6 +124,7 @@ Mostly Linux compatible:
 
 ------------------------------------------------------------
 
+
 ▢					WHITE SQUARE WITH ROUNDED CORNERS
 ■					BLACK SQUARE
 

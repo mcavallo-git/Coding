@@ -1,7 +1,12 @@
 #!/bin/bash
 # ------------------------------------------------------------
+# Linux - journalctl (logging, set max filesize, age retention policy, cleanup)
+# ------------------------------------------------------------
 
-# Remove logfiles older than 90 days & make sure that, net, the logfiles don't add up to over 5 GB (otherwise trim them back until they do)
+# Keep the latest 1 GB of logs, trim/remove any other logfiles
+sudo journalctl --vacuum-size=1G;
+
+# Remove logfiles older than 90 days & make sure that, net, the logfiles don't add up to over 5 GB (trims oldest logs until "--vacuum-size" filesize requirement is met)
 sudo journalctl --vacuum-time=90d --vacuum-size=5G;
 
 

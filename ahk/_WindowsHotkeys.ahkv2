@@ -27,23 +27,25 @@ A_MaxHotkeysPerInterval := 2000  ; https://lexikos.github.io/v2/docs/misc/A_MaxH
 
 #SingleInstance Force  ; https://lexikos.github.io/v2/docs/commands/_SingleInstance.htm
 
-DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenWindows.htm
-
 ; DetectHiddenText 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenText.htm
+
+DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenWindows.htm
 
 ; #ErrorStdOut  ; https://lexikos.github.io/v2/docs/commands/_ErrorStdOut.htm
 
 ; FileEncoding, UTF-8  ; https://lexikos.github.io/v2/docs/commands/FileEncoding.htm
 
-; #InstallKeybdHook  ; https://lexikos.github.io/v2/docs/commands/_InstallKeybdHook.htm
-
-; #UseHook True  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
-
-SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
+; #InstallKeybdHook  ; https://lexikos.github.io/v2/docs/commands/InstallKeybdHook.htm
 
 SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
 
+SetNumLockState "On"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
+
 SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
+
+SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
+
+; #UseHook True  ; https://lexikos.github.io/v2/docs/commands/_UseHook.htm
 
 ; ------------------------------------------------------------
 ;
@@ -305,9 +307,12 @@ Pause::
   !CapsLock::
   #CapsLock::
   {
+    global DebugMode
     If (GetKeyState("CapsLock","T") == 0) {
-      TooltipOutput := "Enable CapsLock via Shift+CapsLock"
-      ShowToolTip(TooltipOutput,,,,2500)
+      If (DebugMode == 1) {
+        TooltipOutput := "Enable CapsLock via Shift+CapsLock"
+        ShowToolTip(TooltipOutput,,,,2500)
+      }
     }
     SetCapsLockState "Off"
     Return
@@ -1683,22 +1688,27 @@ NumLock::
 !NumLock::
 #NumLock::
 {
+  global DebugMode
   ConfigFilepath_KeepNumLockDisabled := ( EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config" )
   If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
     ; Default - Keep NumLock enabled
     If (GetKeyState("NumLock","T") == 0) {
       SetNumLockState "On"
     } Else {
-      TooltipOutput := "Disable NumLock via Shift+NumLock"
-      ShowToolTip(TooltipOutput,,,,2500)
+      If (DebugMode == 1) {
+        TooltipOutput := "Disable NumLock via Shift+NumLock"
+        ShowToolTip(TooltipOutput,,,,2500)
+      }
     }
   } Else {
     ; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
     If (GetKeyState("NumLock","T") == 1) {
       SetNumLockState "Off"
     } Else {
-      TooltipOutput := "Enable NumLock via Shift+NumLock"
-      ShowToolTip(TooltipOutput,,,,2500)
+      If (DebugMode == 1) {
+        TooltipOutput := "Enable NumLock via Shift+NumLock"
+        ShowToolTip(TooltipOutput,,,,2500)
+      }
     }
   }
   Return

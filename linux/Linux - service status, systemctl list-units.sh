@@ -12,6 +12,16 @@ systemctl --type=service;  # For OSes without the "service" command built-in (do
 
 # ------------------------------
 #
+# Get the status for one, specific service
+#
+
+systemctl status docker.service;
+
+service status docker;
+
+
+# ------------------------------
+#
 # List all services & store the result in a variable (requires 'sed' & 'service' packages)
 #
 ALL_SERVICES=$(service --status-all 2>'/dev/null' | sed --regexp-extended --quiet --expression='s/^\ \[ (\+|\-) \]\ \ (\S+)$/\2/p');
@@ -34,6 +44,8 @@ fi;
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   www.cyberciti.biz  |  "How to view status of a service on Linux using systemctl - nixCraft"  |  https://www.cyberciti.biz/faq/systemd-systemctl-view-status-of-a-service-on-linux/
 #
 #   www.tecmint.com  |  "How to List All Running Services Under Systemd in Linux"  |  https://www.tecmint.com/list-all-running-services-under-systemd-in-linux/
 #

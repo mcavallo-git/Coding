@@ -122,8 +122,20 @@ Mostly Linux compatible:
 ☑️				Ballot Box with Check (Colored)  |  https://emojipedia.org/check-box-with-check/
 
 
+------------------------------------------------------------
+
 ▢					WHITE SQUARE WITH ROUNDED CORNERS
 ■					BLACK SQUARE
+
+
+◧					Square with Left Half Black (&#x25E7;)  |  https://www.compart.com/en/unicode/U+25E7
+◨					Square with Right Half Black (&#x25E8;)  |  https://www.compart.com/en/unicode/U+25E8
+
+
+◰					White Square with Upper Left Quadrant (&#x25F0;)  |  https://www.compart.com/en/unicode/U+25F0
+◱					White Square with Lower Left Quadrant (&#x25F1;)  |  https://www.compart.com/en/unicode/U+25F1
+◲					White Square with Lower Right Quadrant (&#x25F2;)  | https://www.compart.com/en/unicode/U+25F2
+◳					White Square with Upper Right Quadrant (&#x25F3;)  | https://www.compart.com/en/unicode/U+25F3
 
 
 ☰					Trigram For Heaven (Hamburger Menu)  |  https://www.compart.com/en/unicode/U+2630

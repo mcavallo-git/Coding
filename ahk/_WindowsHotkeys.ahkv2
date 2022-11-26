@@ -35,7 +35,7 @@ DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHidden
 
 ; FileEncoding, UTF-8  ; https://lexikos.github.io/v2/docs/commands/FileEncoding.htm
 
-; #InstallKeybdHook  ; https://lexikos.github.io/v2/docs/commands/InstallKeybdHook.htm
+InstallKeybdHook  ; Keyboard hook is required to use variables `A_PriorHotkey` & `A_TimeSincePriorHotkey`  ; https://lexikos.github.io/v2/docs/commands/InstallKeybdHook.htm
 
 SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
 
@@ -3400,7 +3400,8 @@ PrintEnv() {
   MsgBoxOutput := MsgBoxOutput "A_ThisFunc:			" A_ThisFunc "`n"
   MsgBoxOutput := MsgBoxOutput "A_ThisHotkey:			" A_ThisHotkey "`n"
   MsgBoxOutput := MsgBoxOutput "A_TickCount:			" A_TickCount "`n"
-  MsgBoxOutput := MsgBoxOutput "A_TimeSincePriorHotkey:	" A_TimeSincePriorHotkey "`n"
+  MsgBoxOutput := MsgBoxOutput "A_TimeSincePriorHotkey:		" A_TimeSincePriorHotkey "`n"
+  MsgBoxOutput := MsgBoxOutput "A_TimeSinceThisHotkey:		" A_TimeSinceThisHotkey "`n"
   MsgBoxOutput := MsgBoxOutput "A_WinDelay:			" A_WinDelay "`n"
   MsgBoxOutput := MsgBoxOutput "A_WorkingDir:	" A_WorkingDir "`n"
   MsgBoxOutput := MsgBoxOutput "`n"

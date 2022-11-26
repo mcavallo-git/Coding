@@ -52,13 +52,21 @@ vi "/config/node-red/settings.js";
 #
 # Good themes (as-of 2022-11-26):
 #
-#  ⭐⭐     dark
-#  ⭐       espresso-libre
 #  ⭐⭐⭐   midnight-red
-#  ⭐       monokai
-#  ⭐       oled
 #  ⭐⭐     zenburn
+#  ⭐⭐     dark
+#  ⭐       oled
+#  ⭐       monokai
 #
+#
+
+# Copy and paste into "/config/node-red/settings.js" (under "editorTheme")
+
+    theme: "midnight-red",
+    // theme: "zenburn",
+    // theme: "dark",
+    // theme: "oled",
+    // theme: "monokai",
 
 
 # ------------------------------------------------------------

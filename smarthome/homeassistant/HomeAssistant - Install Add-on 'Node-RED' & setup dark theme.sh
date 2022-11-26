@@ -56,7 +56,6 @@ vi "/config/node-red/settings.js";
 #  ⭐⭐     zenburn
 #  ⭐⭐     dark
 #  ⭐       oled
-#  ⭐       solarized-light
 #  ⭐       monokai
 #
 #
@@ -67,7 +66,6 @@ vi "/config/node-red/settings.js";
     // theme: "zenburn",
     // theme: "dark",
     // theme: "oled",
-    // theme: "solarized-light",
     // theme: "monokai",
 
 

@@ -57,7 +57,7 @@ vi "/config/node-red/settings.js";
 #  midnight-red
 #  monokai
 #  oled
-#  zenburn
+#  zenburn ⭐⭐
 #
 
 

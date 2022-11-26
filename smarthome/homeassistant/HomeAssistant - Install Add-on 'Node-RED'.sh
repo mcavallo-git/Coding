@@ -51,13 +51,13 @@ vi "/config/node-red/settings.js";
 
 #
 # Good themes (as-of 2022-11-26):
-#  
-#  dark
-#  espresso-libre
-#  midnight-red
-#  monokai
-#  oled
-#  zenburn ⭐⭐
+#
+#  ⭐⭐     dark
+#  ⭐       espresso-libre
+#  ⭐⭐⭐   midnight-red
+#  ⭐       monokai
+#  ⭐       oled
+#  ⭐⭐     zenburn
 #
 
 

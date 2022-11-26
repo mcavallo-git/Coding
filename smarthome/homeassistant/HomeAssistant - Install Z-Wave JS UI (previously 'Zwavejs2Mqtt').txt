@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-HomeAssistant - Install Zwavejs2Mqtt
+# HomeAssistant - Install Z-Wave JS UI (previously 'Zwavejs2Mqtt')
 # ------------------------------------------------------------
 
 - Attaching a Z-Wave USB controller (device/key) to HomeAssistant
@@ -35,7 +35,7 @@ HomeAssistant - Install Zwavejs2Mqtt
    |                 |--> Enable "Start on boot"    (under tab "Info" (top))
    |                 |--> Enable "Show in sidebar"  (under tab "Info" (top))
    |
-   |--> Reboot the HomeAssistant host to apply changes to "/config/configuration.yaml" and complete the installation of the "Z-Wave JS to MQTT" Supervisor Add-on
+   |--> Reboot the HomeAssistant host to apply changes to "/config/configuration.yaml" and complete the installation of the "Z-Wave JS UI" Supervisor Add-on
    |     |--> "Supervisor" > "System" > "Reboot Host" > "Reboot Host"
    |
    |--> Ensure the default Home Assistant Add-on Repository exists as a locally known add-on repository
@@ -47,11 +47,11 @@ HomeAssistant - Install Zwavejs2Mqtt
    |     |--> Click "⋮" (top right) > Click "Check for updates"
    |           |--> Give your HomeAssistant install a few seconds to pull updates, then refresh the page before continuing
    |
-   |--> Install the "Z-Wave JS to MQTT" Supervisor Add-on
+   |--> Install the "Z-Wave JS UI" Supervisor Add-on
    |     |
-   |     |--> Click "Supervisor" > "Add-on Store" > Search for "Z-Wave JS to MQTT" > "Install" (wait for installation to complete)
+   |     |--> Click "Supervisor" > "Add-on Store" > Search for "Z-Wave JS UI" > "Install" (wait for installation to complete)
    |     |
-   |     |--> Open the Add-on "Z-Wave JS to MQTT"
+   |     |--> Open the Add-on "Z-Wave JS UI"
    |     |           |--> Enable "Start on boot"    (under tab "Info" (top))
    |     |           |--> Enable "Watchdog"         (under tab "Info" (top))
    |     |
@@ -60,19 +60,19 @@ HomeAssistant - Install Zwavejs2Mqtt
    |     |--> NOTE: If you already have secure Z-Wave devices paired with another Z-Wave Integration/Add-on, get the Network path of said key it from "/config/.storage/core.config_entries", then disable said (separate) Z-Wave Integration/Add-on & restart the HomeAssistant host (requried to 'release' the USB Z-Wave device/key from other Integrations/Add-ons) - Reference: https://community.home-assistant.io/t/home-assistant-z-wave-network-key/184322
    |
    |
-   |--> Enable the websockets server for the "Z-Wave JS to MQTT" Supervisor Add-on to communicate with the "Z-Wave JS" Integration
+   |--> Enable the websockets server for the "Z-Wave JS UI" Supervisor Add-on to communicate with the "Z-Wave JS" Integration
    |     |
-   |     |--> Open the Add-on "Z-Wave JS to MQTT"
+   |     |--> Open the Add-on "Z-Wave JS UI"
    |     |     |--> Click "Configuration" (top)
    |     |           |--> Under "Network", enter the value "3000" under the column titled "Host" (should say "Disabled" by default)
-   |     |           |--> Click "Save" bottom-left > Confirm the popup to restart the "Z-Wave JS to MQTT" server/service
+   |     |           |--> Click "Save" bottom-left > Confirm the popup to restart the "Z-Wave JS UI" server/service
    |     |
-   |     |--> Note: This is required to allow HomeAssistant to control/inspect the "Z-Wave JS to MQTT" devices/entities
+   |     |--> Note: This is required to allow HomeAssistant to control/inspect the "Z-Wave JS UI" devices/entities
    |
    |
-   |--> Follow Guide @ https://www.youtube.com/watch?v=DbxBHlo6KiQ to link "Z-Wave JS" Configuration Integration to the "Z-Wave JS to MQTT" Supervisor Add-on's Websocket server
+   |--> Follow Guide @ https://www.youtube.com/watch?v=DbxBHlo6KiQ to link "Z-Wave JS" Configuration Integration to the "Z-Wave JS UI" Supervisor Add-on's Websocket server
    |     |
-   |     |--> Configure, then remove the "Z-Wave JS" Configuration Integration which came pre-packaged with "Z-Wave JS to MQTT" 
+   |     |--> Configure, then remove the "Z-Wave JS" Configuration Integration which came pre-packaged with "Z-Wave JS UI" 
    |     |
    |     |--> Re-Install the "Z-Wave JS" Configuration Integration
    |           |--> Click "Configuration" > "Integrations" > "+ Add Integration" > Search for "Z-Wave JS" > Click "Z-Wave JS"
@@ -83,13 +83,13 @@ HomeAssistant - Install Zwavejs2Mqtt
    |                 |--> Popup titled "Z-Wave JS" should appear
    |                 |     |--> Set field titled "URL" to value "ws://localhost:3000" (default) > "Submit"
    |                 |
-   |                 |--> Popup should list all devices found in "Z-Wave JS to MQTT" Add-On
+   |                 |--> Popup should list all devices found in "Z-Wave JS UI" Add-On
    |                       |--> Add Z-Wave stick to the room "Hubs" (create it if it doesn't already exist)
    |
-   |--> Open "Z-Wave JS to MQTT" via sidebar option "Z-Wave JS" (or "Supervisor" > "Dashboard" > "Z-Wave JS to MQTT" > "Open Web UI")
+   |--> Open "Z-Wave JS UI" via sidebar option "Z-Wave JS" (or "Supervisor" > "Dashboard" > "Z-Wave JS UI" > "Open Web UI")
          |
          |--> Setup USB Z-Wave controller by-id & Generate new Z-Wave security keys
-         |     |--> Open Add-on "Z-Wave JS to MQTT" > Open settings via the cog ⚙️ on the left menu > Dropdown "Z-Wave"
+         |     |--> Open Add-on "Z-Wave JS UI" > Open settings via the cog ⚙️ on the left menu > Dropdown "Z-Wave"
          |           |
          |           |--> Paste your Z-Wave controller's "/dev/serial/by-id/..." value into the "Serial Port" field
          |           |

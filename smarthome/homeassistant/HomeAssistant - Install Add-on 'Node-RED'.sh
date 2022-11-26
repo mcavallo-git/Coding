@@ -20,17 +20,19 @@
 # 3. Install Node.JS && NPM
 apk add --update nodejs; apk add --update npm;
 
-# 4. Locate Node-RED's NPM configuration directory:
+# 4. Verify Node & NPM are installed and working as-intended
+command -v node; node --version; command -v npm; npm --version;
+
+# 5. Locate Node-RED's NPM configuration directory:
 find "/" -type 'f' -iname "*node-red*" 2>/dev/null;
 
-# 5. Install the community themes package into Node-RED's NPM configuration directory:
-cd "/config/node-red";
-npm install "@node-red-contrib-themes/theme-collection";
+# 6. Install the community themes package into Node-RED's NPM configuration directory:
+cd "/config/node-red"; npm install "@node-red-contrib-themes/theme-collection";
 
-# 6. View the Node "settings.js" file's current contents
+# 7. View the Node "settings.js" file's current contents
 cat "/config/node-red/settings.js" | grep -v '^\(\(      //\)\|\(    //\)\|\(  //\)\|\($\)\|\( \*\)\|\(\/\*\)\)';
 
-# 7. Set theme: "<theme-name>" in the editorTheme object in your settings.js
+# 8. Set theme: "<theme-name>" in the editorTheme object in your settings.js
 vi "/config/node-red/settings.js";
 # ...
 # editorTheme: {
@@ -43,7 +45,9 @@ vi "/config/node-red/settings.js";
 #
 # Save and quit via ":wq" + Enter
 
-# 8. Restart the "Node-RED" Add-on, then open it and verify that the dark theme is working as-intended
+# 9. Restart the "Node-RED" Add-on, then open it and verify that the dark theme is working as-intended
+
+# 10. Additional themes are listed on the NPM package's GitHub page @ https://github.com/node-red-contrib-themes/theme-collection#install-with-npm
 
 
 # ------------------------------------------------------------

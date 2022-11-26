@@ -1,0 +1,14 @@
+# ------------------------------------------------------------
+# HomeAssistant - Install Add-on 'Terminal & SSH'
+# ------------------------------------------------------------
+
+- Refer to Citation(s), below
+
+
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   github.com  |  "addons/DOCS.md at master · home-assistant/addons · GitHub"  |  https://github.com/home-assistant/addons/blob/master/ssh/DOCS.md
+#
+# ------------------------------------------------------------

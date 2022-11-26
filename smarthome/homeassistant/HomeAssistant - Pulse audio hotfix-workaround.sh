@@ -10,13 +10,8 @@
 
 # Open terminal to HomeAssistant OS (not using "Terminal & SSH" app), or, alternatively, directly access the computer/vm directly which is running target homassistant OS.
 
-
-# Run the following command:
-find "/" -type 'f' \( -iname "system.pa" -o -iname "default.pa" \) -exec sed -r -e '/^(.*module-rescue-streams.*)$/ s/^#*/# /' -i '{}' \;;
-
-
-# Restart the hassio_audio container
-docker restart "hassio_audio";
+# Run the following command (comments out lines containing `module-rescue-streams` in pulse config files, restarts the `hassio_audio` (pulse audio) container, then lastly pulls the audio logs):
+find "/" -type 'f' \( -iname "system.pa" -o -iname "default.pa" \) -exec sed -r -e '/^(.*module-rescue-streams.*)$/ s/^#*/# /' -i '{}' \;; docker restart "hassio_audio"; watch -n 1 ha audio logs;
 
 
 # ------------------------------------------------------------
@@ -63,11 +58,7 @@ docker restart "hassio_audio"; while [[ 1 -eq 1 ]]; do docker exec "hassio_audio
 
 
 # Locate OTHER containers which are storing the system.pa and default.pa rescue settings, and comment THOSE out (otherwise they get recreated upon hassio restart)
-find "/" -type 'f' \( -iname "system.pa" -o -iname "default.pa" \) -exec echo '{}' \; -exec grep 'rescue' '{}' \;;
-
-find "/" -type 'f' \( -iname "system.pa" -o -iname "default.pa" \) -exec grep -h 'rescue' '{}' \;;
-
-find "/" -type 'f' \( -iname "system.pa" -o -iname "default.pa" \) -exec sed -r -e '/^(.*module-rescue-streams.*)$/ s/^#*/# /' -i '{}' \;;
+find "/" -type 'f' \( -iname "system.pa" -o -iname "default.pa" \) -exec sed -r -e '/^(.*module-rescue-streams.*)$/ s/^#*/# /' -i '{}' \;; docker restart "hassio_audio";
 
 
 # ------------------------------------------------------------

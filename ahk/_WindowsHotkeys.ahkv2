@@ -11,8 +11,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 1
-DebugMode := 0
+DebugMode := 1
+; DebugMode := 0
 
 ; ------------------------------------------------------------
 ;
@@ -2719,12 +2719,46 @@ Monitor_ShowScreenSaver() {
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
+WinSnap_Prior_Destination_Direction := ""
+WinSnap_Prior_Destination_MonitorNumber := 0
+WinSnap_Prior_Destination_Size := ""
 WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_Direction:="Left",Destination_Size:="Half",Destination_MonitorNumber:="UseCurrentMonitor") {
   ; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
   ; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
   global DebugMode
+  global WinSnap_Prior_Destination_Direction
+  global WinSnap_Prior_Destination_MonitorNumber
+  global WinSnap_Prior_Destination_Size
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
   CoordMode "Mouse", "Screen"
+  ; Strip the word "Monitor" off of the destination monitor's string (to get it as an integer)
+  Destination_MonitorNumber := StrReplace(Destination_MonitorNumber,"Monitor","")
+  ; Detect repeat hotkey presses & cycle windows across all monitors in response
+  If ((A_PriorHotkey==A_ThisHotkey) && (A_TimeSincePriorHotkey <= 2000)) {
+    ; This IS a repeated hotkey press
+    RepeatHotkeyPress := True
+    If (WinSnap_Prior_Destination_Direction=="Left") {
+      ; Snap to the right on the same monitor as the last snap
+      Destination_Direction := "Right"
+      Destination_MonitorNumber := WinSnap_Prior_Destination_MonitorNumber
+    } Else If (WinSnap_Prior_Destination_Direction=="Right") {
+      ; Snap to the left on the "next" monitor (to the right assumed)
+      Destination_Direction := "Left"
+      Destination_MonitorNumber := ( WinSnap_Prior_Destination_MonitorNumber + 1 )
+      If (Destination_MonitorNumber > MonitorGetCount()) {
+        ; Wrap around back to the first/leftmost monitor if the window was already on the right of the rightmost monitor
+        Destination_MonitorNumber := 1
+      }
+    }
+  } Else {
+    ; This is NOT a repeated hotkey press - Store its values to iterate off of later
+    RepeatHotkeyPress := False
+    ; If there's only one monitor, force requests to use monitor "1", instead
+    If (MonitorGetCount()==1) {
+      Destination_MonitorNumber := 1
+    }
+  }
+  ; ------------------------------
   Loop 50 {
     ; Windows .exes can start in the background well before their visible window component is grabbable by AHK
     ;  |--> Give the target Window(s) some breathing room to start up, but also act on them as soon as they are started
@@ -2735,6 +2769,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
       Sleep 100
     }
   }
+  ; ------------------------------
   If (!WinHwnd) {
     TooltipOutput := A_ScriptName " - " A_ThisFunc "`n"
     TooltipOutput := TooltipOutput "`n"
@@ -2755,8 +2790,6 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
     }
     ShowToolTip(TooltipOutput,,,,4000)
   } Else {
-    ; Strip the word "Monitor" off of the destination monitor's string (to get it as an integer)
-    Destination_MonitorNumber := StrReplace(Destination_MonitorNumber,"Monitor","")
     ; Check if action to be performed is a simple window restore
     If (Destination_Direction=="Restored") {
       ;
@@ -2788,10 +2821,6 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
       WinMove_Width := -1
       WinMove_Height := -1
       Matched_MonitorNumber := -1
-      If ((Destination_MonitorNumber != "UseCurrentMonitor") && (Destination_MonitorNumber != "1") && (MonitorGetCount()==1)) {
-        ; If there's only one monitor, then downgrade any monitor "2" & monitor "3" requests to use monitor "1", instead
-        Destination_MonitorNumber:=1
-      }
       Loop MonitorGetCount() {
         Each_MonitorNumber := A_Index
         ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
@@ -2809,20 +2838,29 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
           TooltipOutput := TooltipOutput "`n"
           TooltipOutput := TooltipOutput "EachMonitor_TopCoord:		" EachMonitor_TopCoord "`n"
           TooltipOutput := TooltipOutput "EachMonitor_BottomCoord:	" EachMonitor_BottomCoord "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "RepeatHotkeyPress:		" RepeatHotkeyPress "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Direction:		" WinSnap_Prior_Destination_Direction "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_MonitorNumber:		" WinSnap_Prior_Destination_MonitorNumber "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Size:			" WinSnap_Prior_Destination_Size "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "Destination_Direction:		" Destination_Direction "`n"
+          TooltipOutput := TooltipOutput "Destination_MonitorNumber:	" Destination_MonitorNumber "`n"
+          TooltipOutput := TooltipOutput "Destination_Size:			" Destination_Size "`n"
           TooltipOutput := TooltipOutput "                 "
-          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber*4),60000)
+          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber+1),60000)
         }
-        ; ------------------------------
         ; Determine if the center of target window is currently located within the bounds of this monitor's work area
         If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
           ; Window is located on this monitor
           Win_Center_MonitorNumber := A_Index
-          If (Destination_MonitorNumber=="UseCurrentMonitor") {
+          If (InStr(Destination_MonitorNumber,"Current")==True) {
             ; Set the destination monitor equal to the window's current monitor
             MoveTo_ThisMonitor := True
           }
         }
-        If (Destination_MonitorNumber == Each_MonitorNumber) {
+        If (Destination_MonitorNumber==Each_MonitorNumber) {
           ; Set the destination monitor equal to a predefined monitor
           MoveTo_ThisMonitor := True
         }
@@ -2928,7 +2966,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
         }
       }
       ; If we are using the "Current" monitor as the destination, then set it respectively
-      If (Destination_MonitorNumber=="UseCurrentMonitor") {
+      If ((RepeatHotkeyPress==False) && (InStr(Destination_MonitorNumber,"Current")==True)) {
         Destination_MonitorNumber := Win_Center_MonitorNumber
       }
       ; Check for error(s)
@@ -2960,6 +2998,9 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
         If ((Win_XPos!=WinMove_XPos) || (Win_YPos!=WinMove_YPos) || (Win_Width!=WinMove_Width) || (Win_Height!=WinMove_Height)) {
           ; Move the window to specified x/y position and resize it to have specified width/height
           WinMove(WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height,WinTitle,WinText)
+          WinSnap_Prior_Destination_Direction := Destination_Direction
+          WinSnap_Prior_Destination_MonitorNumber := Destination_MonitorNumber
+          WinSnap_Prior_Destination_Size := Destination_Size
           Sleep 500
         }
         If (Do_Maximized==True) {

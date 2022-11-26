@@ -7,9 +7,26 @@
 
 # ------------------------------------------------------------
 #
+# Install Dark Theme for Node-RED
+#
+
+1. Install HomeAssistant Add-on "Terminal & SSH"
+
+2. Open terminal into HomeAssistant backend
+
+3. 
+
+npm install @node-red-contrib-themes/theme-collection
+
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   community.home-assistant.io  |  "Home Assistant Community Add-on: Node-RED - Home Assistant OS - Home Assistant Community"  |  https://community.home-assistant.io/t/home-assistant-community-add-on-node-red/55023
+#
+#   github.com  |  "GitHub - node-red-contrib-themes/theme-collection: A collection of themes for Node-RED"  |  https://github.com/node-red-contrib-themes/theme-collection#install-with-npm
 #
 #   www.juanmtech.com  |  "How to get started with Node-RED and Home Assistant | JuanMTech"  |  https://www.juanmtech.com/get-started-with-node-red-and-home-assistant/
 #

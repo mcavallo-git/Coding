@@ -47,6 +47,8 @@ find "/var/log" -not -path "/var/log/nginx/*";  # -not -path 'filepath' -->  exc
 
 # Or-Conditional with attached Exec for every file matched
 
+find "/" -type 'f' \( -iname "system.pa" -o -iname "default.pa" \) -exec grep -h 'rescue' '{}' \;;
+
 find "/" -type 'f' \( -iname "system.pa" -o -iname "default.pa" \) -exec sed -r -e '/^(.*module-rescue-streams.*)$/ s/^#*/# /' -i '{}' \;;
 
 

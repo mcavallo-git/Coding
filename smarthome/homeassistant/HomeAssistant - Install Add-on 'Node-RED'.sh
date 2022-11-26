@@ -30,7 +30,7 @@ npm install "@node-red-contrib-themes/theme-collection";
 # 6. View the Node "settings.js" file's current contents
 cat "/config/node-red/settings.js" | grep -v '^\(\(      //\)\|\(    //\)\|\(  //\)\|\($\)\|\( \*\)\|\(\/\*\)\)';
 
-# 7. Set theme: "<theme-name>" in the editorTheme object in your settings.js and then restart Node-RED
+# 7. Set theme: "<theme-name>" in the editorTheme object in your settings.js
 vi "/config/node-red/settings.js";
 # ...
 # editorTheme: {
@@ -40,6 +40,10 @@ vi "/config/node-red/settings.js";
 #    theme: "dark",
 # },
 # ...
+#
+# Save and quit via ":wq" + Enter
+
+# 8. Restart the "Node-RED" Add-on, then open it and verify that the dark theme is working as-intended
 
 
 # ------------------------------------------------------------

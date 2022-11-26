@@ -3,6 +3,13 @@
 # Linux - find (files with attributes matching)
 # ------------------------------------------------------------
 
+# Search entire disk for a given filename
+
+find "/" -type 'f' -iname "*node-red*" 2>/dev/null;
+
+
+# ------------------------------------------------------------
+
 # Name - Match using case <strong>sensitive</strong> search
 
 find "/var/log" -type 'f' -name "*error*";  # -name 'filepath' --> case-sensitive search

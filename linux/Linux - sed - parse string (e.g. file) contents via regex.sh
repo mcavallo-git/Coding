@@ -213,7 +213,7 @@ sed -e '/^\s*$/d' "/etc/hosts";
 # ------------------------------------------------------------
 # 
 # sed
-#  |-->  -e '/.../d'  -->  remove specific lines, matching a given pattern
+#  |-->  -e '/.../d'  -->  remove lines matching a given pattern
 #  |-->  -i"..."  -->  create a backup-copy of the file with "..." extension appended to filename, then edit the file directly
 #
 

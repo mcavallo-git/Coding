@@ -54,9 +54,10 @@ vi "/config/node-red/settings.js";
 #  
 #  dark
 #  espresso-libre
-#  _____
-#  _____
-#  _____
+#  midnight-red
+#  monokai
+#  oled
+#  zenburn
 #
 
 

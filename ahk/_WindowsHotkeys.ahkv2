@@ -2845,13 +2845,13 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
           TooltipOutput := TooltipOutput "`n"
           TooltipOutput := TooltipOutput "RepeatHotkeyPress:		" RepeatHotkeyPress "`n"
           TooltipOutput := TooltipOutput "`n"
-          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Direction:		" WinSnap_Prior_Destination_Direction "`n"
-          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_MonitorNumber:		" WinSnap_Prior_Destination_MonitorNumber "`n"
-          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Size:			" WinSnap_Prior_Destination_Size "`n"
-          TooltipOutput := TooltipOutput "`n"
           TooltipOutput := TooltipOutput "Destination_Direction:		" Destination_Direction "`n"
           TooltipOutput := TooltipOutput "Destination_MonitorNumber:	" Destination_MonitorNumber "`n"
           TooltipOutput := TooltipOutput "Destination_Size:			" Destination_Size "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Direction:		" WinSnap_Prior_Destination_Direction "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_MonitorNumber:		" WinSnap_Prior_Destination_MonitorNumber "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Size:			" WinSnap_Prior_Destination_Size "`n"
           TooltipOutput := TooltipOutput "                 "
           ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber+1),60000)
         }
@@ -3002,6 +3002,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
         If ((Win_XPos!=WinMove_XPos) || (Win_YPos!=WinMove_YPos) || (Win_Width!=WinMove_Width) || (Win_Height!=WinMove_Height)) {
           ; Move the window to specified x/y position and resize it to have specified width/height
           WinMove(WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height,WinTitle,WinText)
+          ; Store the destination values for potential repeat hotkey presses to relatively position themselves off-of
           WinSnap_Prior_Destination_Direction := Destination_Direction
           WinSnap_Prior_Destination_MonitorNumber := Destination_MonitorNumber
           WinSnap_Prior_Destination_Size := Destination_Size

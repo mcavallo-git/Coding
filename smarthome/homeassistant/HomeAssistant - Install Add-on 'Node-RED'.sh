@@ -49,6 +49,16 @@ vi "/config/node-red/settings.js";
 
 # 10. Additional themes are listed on the NPM package's GitHub page @ https://github.com/node-red-contrib-themes/theme-collection#install-with-npm
 
+#
+# Good themes (as-of 2022-11-26):
+#  
+#  dark
+#  espresso-libre
+#  _____
+#  _____
+#  _____
+#
+
 
 # ------------------------------------------------------------
 #

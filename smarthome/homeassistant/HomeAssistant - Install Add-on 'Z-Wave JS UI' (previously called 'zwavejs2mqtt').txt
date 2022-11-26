@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# HomeAssistant - Install Addon 'Z-Wave JS UI' (previously called 'zwavejs2mqtt')
+# HomeAssistant - Install Add-on 'Z-Wave JS UI' (previously called 'zwavejs2mqtt')
 # ------------------------------------------------------------
 
 - Attaching a Z-Wave USB controller (device/key) to HomeAssistant

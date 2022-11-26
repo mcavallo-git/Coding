@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# HomeAssistant - Install Addon 'Node-RED'
+# HomeAssistant - Install Add-on 'Node-RED'
 # ------------------------------------------------------------
 
 - Refer to Citation(s), below

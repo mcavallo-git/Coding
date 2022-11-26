@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# HomeAssistant - Install Addon 'Zigbee2MQTT'
+# HomeAssistant - Install Add-on 'Zigbee2MQTT'
 # ------------------------------------------------------------
 #
 # Nortek HUSBZB-1

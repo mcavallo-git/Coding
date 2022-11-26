@@ -27,6 +27,20 @@ find "/" -type 'f' -iname "*node-red*" 2>/dev/null;
 cd "/config/node-red";
 npm install "@node-red-contrib-themes/theme-collection";
 
+# 6. View the Node "settings.js" file's current contents
+cat "/config/node-red/settings.js" | grep -v '^\(\(      //\)\|\(    //\)\|\(  //\)\|\($\)\|\( \*\)\|\(\/\*\)\)';
+
+# 7. Set theme: "<theme-name>" in the editorTheme object in your settings.js and then restart Node-RED
+vi "/config/node-red/settings.js";
+# ...
+# editorTheme: {
+#    projects: {
+#      enabled: false,
+#    },
+#    theme: "dark",
+# },
+# ...
+
 
 # ------------------------------------------------------------
 #

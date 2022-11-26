@@ -7,16 +7,18 @@
 
 # ------------------------------------------------------------
 #
-# Install Dark Theme for Node-RED
+# Install Dark Theme for Node-RED  (Node-RED Contrib Theme Collection)
 #
 
 1. Install HomeAssistant Add-on "Terminal & SSH"
 
 2. Open terminal into HomeAssistant backend
 
-3. 
+3. Locate Node-RED's NPM configuration directory:
+find "/" -type 'f' -iname "*node-red*" 2>/dev/null;
 
-npm install @node-red-contrib-themes/theme-collection
+4. Install the community themes package into Node-RED's NPM configuration directory:
+cd "/config/node-red"; npm install "@node-red-contrib-themes/theme-collection";
 
 
 

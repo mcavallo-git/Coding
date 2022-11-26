@@ -2757,6 +2757,10 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
     If (MonitorGetCount()==1) {
       Destination_MonitorNumber := 1
     }
+    ; Instantiate the "prior" values based on these initial, non-repeated values (baseline)
+    WinSnap_Prior_Destination_Direction := Destination_Direction
+    WinSnap_Prior_Destination_MonitorNumber := Destination_MonitorNumber
+    WinSnap_Prior_Destination_Size := Destination_Size
   }
   ; ------------------------------
   Loop 50 {

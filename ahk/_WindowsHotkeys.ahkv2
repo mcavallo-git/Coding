@@ -2724,6 +2724,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
   ; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
   global DebugMode
   SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  CoordMode "Mouse", "Screen"
   Loop 50 {
     ; Windows .exes can start in the background well before their visible window component is grabbable by AHK
     ;  |--> Give the target Window(s) some breathing room to start up, but also act on them as soon as they are started
@@ -2797,6 +2798,21 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
         MonitorGetWorkArea(Each_MonitorNumber, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
         ; Determine if the current iteration's monitor is the destination monitor
         MoveTo_ThisMonitor := False
+        ; ------------------------------
+        If (DebugMode == 1) {
+          TooltipOutput := ""
+          TooltipOutput := TooltipOutput "                 " "`n"
+          TooltipOutput := TooltipOutput "Each_MonitorNumber:		" Each_MonitorNumber "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "EachMonitor_LeftCoord:		" EachMonitor_LeftCoord "`n"
+          TooltipOutput := TooltipOutput "EachMonitor_RightCoord:		" EachMonitor_RightCoord "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "EachMonitor_TopCoord:		" EachMonitor_TopCoord "`n"
+          TooltipOutput := TooltipOutput "EachMonitor_BottomCoord:	" EachMonitor_BottomCoord "`n"
+          TooltipOutput := TooltipOutput "                 "
+          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber*4),60000)
+        }
+        ; ------------------------------
         ; Determine if the center of target window is currently located within the bounds of this monitor's work area
         If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
           ; Window is located on this monitor

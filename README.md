@@ -390,6 +390,7 @@ This file (on GitHub):
 <tr><td><strong>VMware Workstation Player</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(Free) Desktop Virtualization for a Single (1) VM</i></sub></td><td><a href="https://www.vmware.com/products/workstation-player.html">Download (source)</a></td></tr>
 <tr><td><strong>VMware Workstation Pro</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(Paid) Desktop Virtualization for a Multiple VMs</i></sub></td><td><a href="https://www.vmware.com/products/workstation-pro.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://my.vmware.com/web/vmware/searchresults#q=VMWare%20Workstation%20Pro%2015">Download (older versions)</a></sub></td></tr>
 <tr><td><strong>Windows 10</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Media Creation Tool - Creates Win10 Installation Media<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/release-health/release-information">View Docs (Windows 10 Versions & Builds)</a></i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
+<tr><td><strong>Windows 11</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Media Creation Tool - Creates Win11 Installation Media</i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows11">Download (source)</a></td></tr>
 <tr><td><strong>Xubuntu</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://xubuntu.org/download">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

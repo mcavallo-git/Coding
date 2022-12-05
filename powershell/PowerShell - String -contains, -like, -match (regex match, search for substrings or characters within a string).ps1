@@ -1,32 +1,26 @@
 # ------------------------------------------------------------
-#
-# PowerTip: Finding Letters in Strings with PowerShell
-#
+# PowerShell - String -contains, -like, -match (regex match, search for substrings or characters within a string).ps1
 # ------------------------------------------------------------
-#
-# Summary: Learn 4 ways to use Windows PowerShell to find letters in strings
-#
 
+
+# Contains / Like / Match
 
 "A".contains("a");   <# False (case SENSITIVE) #>
 
-
 "A" -contains "a";   <# True  (case IN-sensitive) #>
 
+"A" -like "*a*";     <# True  (case IN-sensitive) #>
 
-"A" -like "*a*";     <# True  #>
+"A" -match "a";      <# True  (case IN-sensitive) #>
 
 
 # Regex
 
-
 (([regex]::match("SOME LONG STRING","long")).success);   <# False (case SENSITIVE) #>
-
 
 "SOME LONG STRING" -like "*long*";   <# True  (case IN-sensitive) #>
 
-
-"SOME LONG STRING" -match "long";   <# True  (case IN-sensitive) #>
+"SOME LONG STRING" -match "long";    <# True  (case IN-sensitive) #>
 
 
 # ------------------------------------------------------------

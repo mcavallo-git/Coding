@@ -3835,44 +3835,42 @@ StringRepeat(StrToRepeat, Multiplier) {
 ;   |--> Compare two strings (or arrays of strings) - return the longer string (or longest string in either array)
 ;
 StrLen_Max(StrOrObj_1:="", StrOrObj_2:="") {
+  LongestString := ""
   ; ------------------------------
   ; Parameter 1 - Handle array- or string-typed inputs
-  Str_1 := ""
   If (IsArray(StrOrObj_1) == True) {
     ; Handle array-typed inputs
     For EachStr1 in StrOrObj_1 {
-      If (StrLen(EachStr1) > StrLen(Str_1)) {
+      If (StrLen(EachStr1) > StrLen(LongestString)) {
         ; Return the longest string the given array
-        Str_1 := EachStr1
+        LongestString := EachStr1
       }
     }
   } Else {
-    ; Handle string-typed inputs
-    Str_1 := StrOrObj_1
+    If (StrLen(StrOrObj_1) > StrLen(LongestString)) {
+      ; Handle string-typed inputs
+      LongestString := StrOrObj_1
+    }
   }
   ; ------------------------------
   ; Parameter 2 - Handle array- or string-typed inputs
-  Str_2 := ""
   If (IsArray(StrOrObj_2) == True) {
     ; Handle array-typed inputs
     For EachStr2 in StrOrObj_2 {
-      If (StrLen(EachStr2) > StrLen(Str_2)) {
+      If (StrLen(EachStr2) > StrLen(LongestString)) {
         ; Return the longest string the given array
-        Str_2 := EachStr2
+        LongestString := EachStr2
       }
     }
   } Else {
     ; Handle string-typed inputs
-    Str_2 := StrOrObj_2
+    If (StrLen(StrOrObj_2) > StrLen(LongestString)) {
+      ; Handle string-typed inputs
+      LongestString := StrOrObj_2
+    }
   }
   ; ------------------------------
-  ; TooltipOutput := ""
-  ; TooltipOutput := TooltipOutput ("IsArray(StrOrObj_1)=[" IsArray(StrOrObj_1) "], IsArray(StrOrObj_2)=[" IsArray(StrOrObj_2) "]`n`n")
-  ; TooltipOutput := TooltipOutput ("Str_1=[" Str_1 "], Str_2=[" Str_2 "]`n`n")
-  ; If ((IsArray(StrOrObj_1) == True) || (IsArray(StrOrObj_2) == True)) {
-  ;   ShowToolTip(TooltipOutput,,,,10000)
-  ; }
-  Return ( (StrLen(Str_1)>StrLen(Str_2)) ? (Str_1) : (Str_2) )
+  Return LongestString
 }
 
 ; ------------------------------

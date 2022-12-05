@@ -2454,8 +2454,8 @@ GetWindowSpecs(WinTitle:="A") {
   Win_ahk_pid := WinGetPID(WinHwnd)
   Win_ahk_exe := WinGetProcessName(WinHwnd)
   Win_fullpath := WinGetProcessPath(WinHwnd)
-  Win_control_names := ("[" ImplodeArray(WinGetControls(WinHwnd), ",") "]") ; Get all control names in this window
-  Win_control_ids := ("[" ImplodeArray(WinGetControlsHwnd(WinHwnd), ",") "]") ; Get all control ids in this window
+  Win_control_names := ImplodeArray(WinGetControls(WinHwnd),",",True) ; Get all control names in this window
+  Win_control_ids := ImplodeArray(WinGetControlsHwnd(WinHwnd),",",True) ; Get all control ids in this window
   Win_size_state := WinGet_size_state(WinHwnd)
   WinGetPos(&xpos, &ypos, &Win_width, &Win_height, WinHwnd)
 
@@ -2473,8 +2473,8 @@ GetWindowSpecs(WinTitle:="A") {
     Win10_ahk_pid := WinGetPID("ahk_id " Win10_ahk_id)
     Win10_ahk_exe := WinGetProcessName("ahk_id " Win10_ahk_id)
     Win10_fullpath := WinGetProcessPath("ahk_id " Win10_ahk_id)
-    Win10_control_names := ("[" ImplodeArray(WinGetControls("ahk_id " Win10_ahk_id), ",") "]") ; Get all control names in this window
-    Win10_control_ids := ("[" ImplodeArray(WinGetControlsHwnd("ahk_id " Win10_ahk_id), ",") "]") ; Get all control ids in this window
+    Win10_control_names := ImplodeArray(WinGetControls("ahk_id " Win10_ahk_id),",",True) ; Get all control names in this window
+    Win10_control_ids := ImplodeArray(WinGetControlsHwnd("ahk_id " Win10_ahk_id),",",True) ; Get all control ids in this window
     Win10_size_state := WinGet_size_state("ahk_id " Win10_ahk_id)
     WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id " Win10_ahk_id))
 
@@ -2624,16 +2624,20 @@ IfProcessExist(ProcName) {
 ; ------------------------------
 ;
 ; ImplodeArray
-;   |--> Convert array to string with a given delimiter
+;   |--> Convert an array to a string, delimited by a given delimiter string, and with each index optionally displayed
 ;
-ImplodeArray(Array,Delimiter) {
+ImplodeArray(Array:="",Delimiter:="",ShowIndexes:=False) {
   ReturnedVal := ""
   If (IsArray(Array) == True) {
     For EachValue in Array {
-      If ( A_Index != 1 ) {
+      If (A_Index != 1) {
         ReturnedVal .= Delimiter
       }
-      ReturnedVal .= EachValue
+      If (ShowIndexes == True) {
+        ReturnedVal .= A_Index "='" EachValue "'"
+      } Else {
+        ReturnedVal .= EachValue
+      }
     }
   }
   Return ReturnedVal
@@ -4350,7 +4354,7 @@ Xbox_ExportCaptures() {
 
     Loop 2 {
 
-      If ( A_Index == 1 ) {
+      If (A_Index == 1) {
         Download_MediaType := "Game clips"   ;  Download "Game clips"
       } Else {
         Download_MediaType := "Screenshots"  ;  Download "Screenshots"

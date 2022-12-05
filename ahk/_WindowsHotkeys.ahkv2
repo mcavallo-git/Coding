@@ -2786,6 +2786,37 @@ Monitor_ShowScreenSaver() {
 
 ; ------------------------------
 ;
+; MouseGet_MonitorIndex
+;   |
+;   |--> Description:
+;   |      Returns the Monitor Index (integer) of the monitor containing the mouse cursor
+;   |
+;   |--> Ex)   Mouse_MonitorIndex := MouseGet_MonitorIndex()
+;
+MouseGet_MonitorIndex() {
+  CoordMode "Mouse", "Screen"
+  MouseGetPos &MouseX, &MouseY
+  ; Default to monitor #1
+  Mouse_MonitorIndex := 1
+  ; Walk through each connected display
+  Loop MonitorGetCount() {
+    Each_MonitorIndex := A_Index
+    MonitorGetWorkArea(Each_MonitorIndex, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
+    ; Determine if the center of target window is currently located within the bounds of this monitor's work area
+    If ((MouseX >= EachMonitor_LeftCoord) && (MouseX <= EachMonitor_RightCoord)) {
+      If ((MouseY >= EachMonitor_TopCoord) && (MouseY <= EachMonitor_BottomCoord)) {
+        ; Mouse cursor is on this monitor
+        Mouse_MonitorIndex := Each_MonitorIndex
+        Break
+      }
+    }
+  }
+  ; Return the monitor index which the mouse is currently on
+  Return Mouse_MonitorIndex
+}
+
+; ------------------------------
+;
 ; Open_Chrome
 ;   |--> Opens the "Google Chrome" Application
 ;
@@ -3773,26 +3804,12 @@ ShowVolumeLevel() {
   ToolTip_XPos := 50  ; Fallback/default values
   ToolTip_YPos := 50  ; Fallback/default values
   ; ------------------------------
-  MouseGetPos &MouseX, &MouseY
-  ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-  Loop MonitorGetCount() {
-    MonitorGetWorkArea(A_Index, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
-    ; Determine if the current iteration's monitor is the destination monitor
-    MoveTo_ThisMonitor := False
-    ; Determine if the center of target window is currently located within the bounds of this monitor's work area
-    If ((MouseX >= EachMonitor_LeftCoord) && (MouseX <= EachMonitor_RightCoord)) {
-      If ((MouseY >= EachMonitor_TopCoord) && (MouseY <= EachMonitor_BottomCoord)) {
-        ; Mouse cursor is on this monitor
-        EachMonitor_Number := A_Index
-        EachMonitor_Width := (EachMonitor_RightCoord-EachMonitor_LeftCoord)
-        EachMonitor_Height := (EachMonitor_BottomCoord-EachMonitor_TopCoord)
-        ToolTip_XPos := Round(EachMonitor_LeftCoord+((EachMonitor_Width-ToolTip_Width)/2))
-        ToolTip_YPos := Round(EachMonitor_Height-StartMenu_Height-(ToolTip_Height*2))
-        ; ToolTip_YPos:=Round((EachMonitor_Height-ToolTip_Height-StartMenu_Height+39)*(1-(NewVolumeLevel/100)))
-        Break
-      }
-    }
-  }
+  MonitorGetWorkArea(MouseGet_MonitorIndex(), &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
+  EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
+  EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
+  ToolTip_XPos := Round(EachMonitor_LeftCoord+((EachMonitor_Width - ToolTip_Width) / 2))
+  ToolTip_YPos := Round(EachMonitor_Height - StartMenu_Height - (ToolTip_Height*2))
+  ; ToolTip_YPos:=Round((EachMonitor_Height-ToolTip_Height-StartMenu_Height+39)*(1-(NewVolumeLevel/100)))
   ToolTip Echo_Tooltip, ToolTip_XPos, ToolTip_YPos
   ClearTooltip(750)
   Return
@@ -3985,28 +4002,32 @@ WinGet_size_state(WinTitle,WinText:="") {
 ; WinGet_MonitorIndex
 ;   |
 ;   |--> Description:
-;   |      Retrieves the HWND (unique ID) for a specified window
+;   |      Returns the Monitor Index (integer) of the monitor containing target window
 ;   |
-;   |--> Ex)   WinGet_MonitorIndex(("ahk_id " WinGetID("A")))
+;   |--> Ex)   Win_MonitorIndex := WinGet_MonitorIndex(("ahk_id " WinGetID("A")))
 ;
 WinGet_MonitorIndex(WinTitle,WinText:="") {
-    ; Default to monitor #1
-  MonitorIndex := 1
+  ; Default to monitor #1
+  Win_MonitorIndex := 1
   ; Determine the center position for target window
   WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle)
   Win_Center_XPos := Win_XPos + (Win_Width/2)
-  Win_Center_YPos := Win_YPos + (40/2)  ; Compensate for the taskbar being 40px tall - assume non-vertically stacked monitors
+  Win_Center_YPos := Win_YPos + (40/2)  ; Compensate for the taskbar being 40px tall (Assume non-vertically stacked monitors)
+  ; Walk through each connected display
   Loop MonitorGetCount() {
-    Each_MonitorNumber := A_Index
+    Each_MonitorIndex := A_Index
     ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-    MonitorGetWorkArea(Each_MonitorNumber, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
+    MonitorGetWorkArea(Each_MonitorIndex, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
     ; Determine if the center of target window is currently located within the bounds of this monitor's work area
-    If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
-      MonitorIndex := Each_MonitorNumber
+    If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord)) {
+      If ((Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+        Win_MonitorIndex := Each_MonitorIndex
+        Break
+      }
     }
   }
-  ; Return the monitor number which the target window is centered on
-  Return MonitorIndex
+  ; Return the monitor index which the target window is currently centered on
+  Return Win_MonitorIndex
 }
 
 ; ------------------------------
@@ -4122,16 +4143,16 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
       WinMove_Height := -1
       Matched_MonitorNumber := -1
       Loop MonitorGetCount() {
-        Each_MonitorNumber := A_Index
+        Each_MonitorIndex := A_Index
         ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-        MonitorGetWorkArea(Each_MonitorNumber, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
+        MonitorGetWorkArea(Each_MonitorIndex, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
         ; Determine if the current iteration's monitor is the destination monitor
         MoveTo_ThisMonitor := False
         ; ------------------------------
         If (DebugMode == 1) {
           TooltipOutput := ""
           TooltipOutput := TooltipOutput "                 " "`n"
-          TooltipOutput := TooltipOutput "Each_MonitorNumber:		" Each_MonitorNumber "`n"
+          TooltipOutput := TooltipOutput "Each_MonitorIndex:		" Each_MonitorIndex "`n"
           TooltipOutput := TooltipOutput "`n"
           TooltipOutput := TooltipOutput "EachMonitor_LeftCoord:		" EachMonitor_LeftCoord "`n"
           TooltipOutput := TooltipOutput "EachMonitor_RightCoord:		" EachMonitor_RightCoord "`n"
@@ -4149,27 +4170,29 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
           TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_MonitorNumber:		" WinSnap_Prior_Destination_MonitorNumber "`n"
           TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Size:			" WinSnap_Prior_Destination_Size "`n"
           TooltipOutput := TooltipOutput "                 "
-          ; ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber+1),60000)
-          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber*5),60000)
+          ; ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorIndex+1),60000)
+          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorIndex*5),60000)
         }
         ; Determine if the center of target window is currently located within the bounds of this monitor's work area
-        If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
-          ; Window is located on this monitor
-          Win_Center_MonitorNumber := A_Index
-          If (InStr(Destination_MonitorNumber,"Current")==True) {
-            ; Set the destination monitor equal to the window's current monitor
-            MoveTo_ThisMonitor := True
+        If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord)) {
+          If ((Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+            ; Window is located on this monitor
+            Win_Center_MonitorNumber := A_Index
+            If (InStr(Destination_MonitorNumber,"Current")==True) {
+              ; Set the destination monitor equal to the window's current monitor
+              MoveTo_ThisMonitor := True
+            }
           }
         }
-        If (Destination_MonitorNumber==Each_MonitorNumber) {
+        If (Destination_MonitorNumber==Each_MonitorIndex) {
           ; Set the destination monitor equal to a predefined monitor
           MoveTo_ThisMonitor := True
         }
         If (MoveTo_ThisMonitor == True) {
           ; Monitor is to be used as the window's destination
-          Matched_MonitorNumber := Each_MonitorNumber
-          EachMonitor_Width := (EachMonitor_RightCoord-EachMonitor_LeftCoord)
-          EachMonitor_Height := (EachMonitor_BottomCoord-EachMonitor_TopCoord)
+          Matched_MonitorNumber := Each_MonitorIndex
+          EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
+          EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
           EachMonitor_HalfWidth := (EachMonitor_Width / 2)
           EachMonitor_HalfHeight := (EachMonitor_Height / 2)
           EachMonitor_Center_XPos := EachMonitor_LeftCoord + EachMonitor_HalfWidth
@@ -4286,7 +4309,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
         ShowToolTip(TooltipOutput,,,,60000)
       } Else {
         ; If (DebugMode == 1) {
-        ;   MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
+        ;   MsgBox("Matched_MonitorNumber=[ " Each_MonitorIndex " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
         ; }
         If (Do_Maximized==False) {
           If (WinGetMinMax(WinTitle,WinText)==1) {
@@ -4342,9 +4365,9 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
 ;
 WinSnap_ToGrid(WinTitle:="A", WinText:="", numRows:=1, numCols:=1, row:=1, col:=1, rowSpan:=1, colSpan:=1) {
   WinHwnd := ("ahk_id " WinGetID(WinTitle))
-  ; Determine which monitor the window is located on
-  MonitorIndex := WinGet_MonitorIndex(WinHwnd)
-  MonitorGetWorkArea(MonitorIndex, &MonitorWorkAreaLeft, &MonitorWorkAreaTop, &MonitorWorkAreaRight, &MonitorWorkAreaBottom)
+  ; Determine which monitor target window is located on
+  Win_MonitorIndex := WinGet_MonitorIndex(WinHwnd)
+  MonitorGetWorkArea(Win_MonitorIndex, &MonitorWorkAreaLeft, &MonitorWorkAreaTop, &MonitorWorkAreaRight, &MonitorWorkAreaBottom)
   ; Get target monitor's dimensions on-screen
   ; Get target window's dimensions on-screen
   WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinHwnd)

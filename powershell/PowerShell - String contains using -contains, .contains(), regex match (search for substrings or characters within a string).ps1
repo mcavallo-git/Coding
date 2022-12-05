@@ -17,7 +17,13 @@
 "A" -like "*a*";     <# True  #>
 
 
+# Regex
+
+
 (([regex]::match("SOME LONG STRING","long")).success);   <# False (case SENSITIVE) #>
+
+
+"SOME LONG STRING" -match "long";   <# True  (case IN-sensitive) #>
 
 
 # ------------------------------------------------------------

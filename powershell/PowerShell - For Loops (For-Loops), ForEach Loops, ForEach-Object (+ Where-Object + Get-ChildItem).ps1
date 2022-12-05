@@ -15,34 +15,34 @@ Exit 1;
 
 # General Syntax
 For (<Init>; <Condition>; <Repeat>) {
-	<Statement list>
+  <Statement list>
 }
 
 
 # Single conditional for(...) loop  (based on static start/stop)
 For ($i = 0; $i -LT 10; $i++) {
-	Write-Host "`$i:$i";
+  Write-Host "`$i:$i";
 }
 
 
 # Single conditional for(...) loop  (based on dynamic start/stop)
 $DatArray = @(1,"a",2,"b",3,"c");
 For ($i=0; ($i -LT $DatArray.Count); $i++) {
-	$EachItem = ($DatArray[${i}]);
-	Write-Host "`$DatArray[${i}] = ${EachItem}";
+  $EachItem = ($DatArray[${i}]);
+  Write-Host "`$DatArray[${i}] = ${EachItem}";
 }
 
 
 # Multiple conditional for(...) loop
 For (($i = 0), ($j = 0); $i -LT 10 -And $j -LT 10; $i++, $j++) {
-	Write-Host "`$i:$i";
-	Write-Host "`$j:$j";
+  Write-Host "`$i:$i";
+  Write-Host "`$j:$j";
 }
 
 
 # "Infinite" for(...) loop
 For (;;) {
-	Write-Host "Infinite Loop ( Ctrl+C to cancel )";
+  Write-Host "Infinite Loop ( Ctrl+C to cancel )";
 }
 
 
@@ -61,16 +61,16 @@ $Array += @("Value 1");
 $Array += @("Value 2");
 $Array += @("Value 3");
 If (($Array.GetType().Name -Eq "Object[]") -And ($Array.GetType().BaseType.Name -Eq "Array")) {
-	# Arrays - Option 1:  use [ ForEach-Object ]  (use if you DON'T need the iterator (array key) for each item)
-	$Array | ForEach-Object {
-		Write-Host "------------------------------";
-		Write-Host "Each_Key=$("???")  ///  Each_Val=$(${_})";
-	}
-	# Arrays - Option 2:  use [ For ]  (use if you DO need the iterator (array key) for each item)
-	For ($Each_Key=0; $Each_Key -LT $Array.Count; $Each_Key++) {
-		Write-Host "------------------------------";
-		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Array[${Each_Key}])";
-	}
+  # Arrays - Option 1:  use [ ForEach-Object ]  (use if you DON'T need the iterator (array key) for each item)
+  $Array | ForEach-Object {
+    Write-Host "------------------------------";
+    Write-Host "Each_Key=$("???")  ///  Each_Val=$(${_})";
+  }
+  # Arrays - Option 2:  use [ For ]  (use if you DO need the iterator (array key) for each item)
+  For ($Each_Key=0; $Each_Key -LT $Array.Count; $Each_Key++) {
+    Write-Host "------------------------------";
+    Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Array[${Each_Key}])";
+  }
 }
 
 
@@ -82,10 +82,10 @@ $HashTable["Property 1"]="Value 1";
 $HashTable["Property 2"]="Value 2";
 $HashTable["Property 3"]="Value 3";
 If (($HashTable.GetType().Name -Eq "Hashtable") -And ($HashTable.GetType().BaseType.Name -Eq "Object")) {
-	$HashTable.Keys | ForEach-Object {
-		Write-Host "------------------------------";
-		Write-Host "Each_Key=$(${_})  ///  Each_Val=$($HashTable[${_}])";
-	}
+  $HashTable.Keys | ForEach-Object {
+    Write-Host "------------------------------";
+    Write-Host "Each_Key=$(${_})  ///  Each_Val=$($HashTable[${_}])";
+  }
 }
 
 
@@ -95,10 +95,10 @@ If (($HashTable.GetType().Name -Eq "Hashtable") -And ($HashTable.GetType().BaseT
 If ($True) {
 $FTypes_Obj=@{};
 CMD /C FTYPE | Sort-Object | ForEach-Object {
-	$Components=("${_}".Split("="));
-	$FileType=(${Components}[0]);
-	$OpenCommandString=(${Components}[1..$(${Components}.Count)]);
-	$FTypes_Obj.("${FileType}")=("${OpenCommandString}");
+  $Components=("${_}".Split("="));
+  $FileType=(${Components}[0]);
+  $OpenCommandString=(${Components}[1..$(${Components}.Count)]);
+  $FTypes_Obj.("${FileType}")=("${OpenCommandString}");
 }
 $FTypes_Sorted_Obj = ($FTypes_Obj.Keys | Sort-Object | ForEach-Object { @{"${_}"="$($FTypes_Obj.("${_}"))";}; });
 Write-Host "------------------------------------------------------------";
@@ -125,10 +125,10 @@ $FTypes_Obj=@{};
 CMD /C ASSOC | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $Assocs_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
 CMD /C FTYPE | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $FTypes_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
 $Assocs_Resolved_Obj=($Assocs_Obj.Keys | Sort-Object | ForEach-Object {
-	$Assoc_Key = "${_}";
-	$FType_Key = (${Assocs_Obj}.("${Assoc_Key}") -replace "^((?:(?!;).)+)(;)?$","`$1");
-	$FType_Val = (${FTypes_Obj}.("${FType_Key}"));
-	[PSCustomObject]@{"Assoc_Key"="${Assoc_Key}";"FType_Key"="${FType_Key}";"FType_Val"="${FType_Val}";};
+  $Assoc_Key = "${_}";
+  $FType_Key = (${Assocs_Obj}.("${Assoc_Key}") -replace "^((?:(?!;).)+)(;)?$","`$1");
+  $FType_Val = (${FTypes_Obj}.("${FType_Key}"));
+  [PSCustomObject]@{"Assoc_Key"="${Assoc_Key}";"FType_Key"="${FType_Key}";"FType_Val"="${FType_Val}";};
 });
 <# Show [ ASSOC + FTYPE ] relationships #>
 <# Sort/Organize based on the (DEFAULT) column [ Assoc_Key ] (such as ".txt" of ".js") #>
@@ -148,18 +148,18 @@ $Assocs_Resolved_Obj | Sort-Object -Property FType_Val | Format-Table -AutoSize;
 <#   PSCustomObjects   #>
 $PSCustomObjects = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
 If (($PSCustomObjects.GetType().Name -Eq "PSCustomObject") -And ($PSCustomObjects.GetType().BaseType.Name -Eq "Object")) {
-	Get-Member -InputObject ($PSCustomObjects) -View ("All") `
-	| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; } `
-	| ForEach-Object {
-		$Each_Key = "$($_.Name)";
-		If ($null -eq ($PSCustomObjects.(${Each_Key}))) {
-			$Each_Val="`$Null";
-		} Else {
-			$Each_Val=$PSCustomObjects.(${Each_Key});
-		}
-		Write-Host "------------------------------";
-		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
-	};
+  Get-Member -InputObject ($PSCustomObjects) -View ("All") `
+  | Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; } `
+  | ForEach-Object {
+    $Each_Key = "$($_.Name)";
+    If ($null -eq ($PSCustomObjects.(${Each_Key}))) {
+      $Each_Val="`$Null";
+    } Else {
+      $Each_Val=$PSCustomObjects.(${Each_Key});
+    }
+    Write-Host "------------------------------";
+    Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
+  };
 }
 
 
@@ -178,28 +178,28 @@ Get-ChildItem -Path ("${Home}\Downloads\ASP.NET-SDKs\*.msi") -File -Recurse -For
 
 # Hash Table '.Keys' ForEach-Object loop  -  Example #1
 If ($True) {
-	$WriteHost_SplatParams = @{};
-	$WriteHost_SplatParams.("Object")=("`nParameter splatting demo - Passing parameters to the [ Write-Host ] command`n");
-	$WriteHost_SplatParams.("ForegroundColor")=("Yellow");
-	$WriteHost_SplatParams.("BackgroundColor")=("Magenta");
-	$WriteHost_SplatParams_AsString = (
-		($WriteHost_SplatParams.Keys | ForEach-Object {
-			Write-Output "-$(${_})";
-			Write-Output "`"$(${WriteHost_SplatParams}[${_}])`"";
-		}) -replace "`n","``n" -join " "
-	);
-	Write-Host "Calling [ Write-Host ${WriteHost_SplatParams_AsString}; ]...";
-	Write-Host @WriteHost_SplatParams;
+  $WriteHost_SplatParams = @{};
+  $WriteHost_SplatParams.("Object")=("`nParameter splatting demo - Passing parameters to the [ Write-Host ] command`n");
+  $WriteHost_SplatParams.("ForegroundColor")=("Yellow");
+  $WriteHost_SplatParams.("BackgroundColor")=("Magenta");
+  $WriteHost_SplatParams_AsString = (
+    ($WriteHost_SplatParams.Keys | ForEach-Object {
+      Write-Output "-$(${_})";
+      Write-Output "`"$(${WriteHost_SplatParams}[${_}])`"";
+    }) -replace "`n","``n" -join " "
+  );
+  Write-Host "Calling [ Write-Host ${WriteHost_SplatParams_AsString}; ]...";
+  Write-Host @WriteHost_SplatParams;
 }
 
 
 # Hash Table '.Keys' ForEach-Object loop  -  Example #2
 $CommandString = $MyInvocation.MyCommand.Name;
 $PSBoundParameters.Keys | ForEach-Object {
-	$CommandString += " -$_";
-	If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) {
-		$CommandString += " `"$($PSBoundParameters[$_])`"";
-	}
+  $CommandString += " -$_";
+  If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) {
+    $CommandString += " `"$($PSBoundParameters[$_])`"";
+  }
 };
 Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
 
@@ -212,23 +212,23 @@ Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($C
 #
 # ------------------------------------------------------------
 #
-#	Get-ChildItem
-#		PowerShell's [ Get-ChildItem ] command is essentially a equivalent to Linux's [ find ] command
-#		(barring case-sensitivty by default & much more - just relating at a high-level)
-#		
-#		Parameters
-#				-Directory		returns items with type "System.IO.FileSystemInfo.DirectoryInfo"   (see "DirectoryInfo Class", below)
-#				-File					returns items with type "System.IO.FileSystemInfo.FileInfo"   (see "FileInfo Class", below)
-#				-Filter				used to perform narrowed, more-specific searches than -Include (second-stage matching, essentially)
-#				-Force				searches for hidden & non-hidden items   (may vary depending on provider - see "About Providers", below)
-#				-Include			used to perform general searches, commonly with wildcards
+# Get-ChildItem
+#   PowerShell's [ Get-ChildItem ] command is essentially a equivalent to Linux's [ find ] command
+#   (barring case-sensitivty by default & much more - just relating at a high-level)
+#   
+#   Parameters
+#       -Directory    returns items with type "System.IO.FileSystemInfo.DirectoryInfo"   (see "DirectoryInfo Class", below)
+#       -File         returns items with type "System.IO.FileSystemInfo.FileInfo"   (see "FileInfo Class", below)
+#       -Filter       used to perform narrowed, more-specific searches than -Include (second-stage matching, essentially)
+#       -Force        searches for hidden & non-hidden items   (may vary depending on provider - see "About Providers", below)
+#       -Include      used to perform general searches, commonly with wildcards
 #
 #
 # ------------------------------------------------------------
 #
-#		Example
-#			|--> Overview: Find files with multiple different levels of depth, parent-filenames, basenames, etc. matching multiple different criteria, all in one query
-#			|--> Use: Lock-Screen background fix - Used this script to locate files to-be-deleted
+#   Example
+#     |--> Overview: Find files with multiple different levels of depth, parent-filenames, basenames, etc. matching multiple different criteria, all in one query
+#     |--> Use: Lock-Screen background fix - Used this script to locate files to-be-deleted
 #
 $Basename="*";
 $Parent_1="Settings"; # one step back (first directory name)
@@ -251,27 +251,27 @@ Get-ChildItem `
 
 # ------------------------------------------------------------
 #
-#		Example
-#			|--> Overview: Search for any git-repositories located within the ${HOME} directory (same as %USERPROFILE% on cmd)
-#			|--> Note: Syntax performs a lookup by beginning at the users ${HOME} directory and searching for files named "config" who have an immediate-parent directory named ".git"
-#			|--> Use: Used for finding git-config files
+#   Example
+#     |--> Overview: Search for any git-repositories located within the ${HOME} directory (same as %USERPROFILE% on cmd)
+#     |--> Note: Syntax performs a lookup by beginning at the users ${HOME} directory and searching for files named "config" who have an immediate-parent directory named ".git"
+#     |--> Use: Used for finding git-config files
 #
 Get-ChildItem -Path "${HOME}" -Filter "config" -File -Recurse -Force -ErrorAction "SilentlyContinue" | Where-Object { $_.Directory.Name -Eq ".git"} | Foreach-Object { $_.Directory.Parent.FullName; }
 
 
 # ------------------------------------------------------------
 #
-#		Example
-# 		|--> Overview: Search the main drive for files named 'gpg.exe'
-#			|--> Note: On windows devices, "/" resolves to the systemdrive (commonly "C:") with a backslash ("\") appended, by default
-#			|--> Use: Used for syncing all GnuPG (gpg.exe) configs found on a given workstation, so that they all contain the same config-vals (... e.g. 'synced')
+#   Example
+#     |--> Overview: Search the main drive for files named 'gpg.exe'
+#     |--> Note: On windows devices, "/" resolves to the systemdrive (commonly "C:") with a backslash ("\") appended, by default
+#     |--> Use: Used for syncing all GnuPG (gpg.exe) configs found on a given workstation, so that they all contain the same config-vals (... e.g. 'synced')
 #
 Get-ChildItem -Path "/" -Filter "gpg.exe" -File -Recurse -Force -ErrorAction "SilentlyContinue" | Foreach-Object { $_.FullName; }
 
 
 # ------------------------------------------------------------
 #
-#	Citation(s)
+# Citation(s)
 #
 #   docs.microsoft.com  |  "about_For - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_for?view=powershell-5.1
 #

@@ -2406,12 +2406,15 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
 ; ------------------------------
 ;
 ; GetTimestamp
-;   |--> Returns the current datetime formatted as-needed
 ;   |
-;   |--> Example:  GetTimestamp("yyyyMMddTHHmmss")
-;   |--> Example:  GetTimestamp("yyyy.MM.dd-HH.mm.ss")
-;   |--> Example:  GetTimestamp("yyyy.MM.dd HH:mm:ss")
-;   |--> Example:  GetTimestamp("yyyy-MM-ddTHH-mm-ss")
+;   |--> Description:
+;   |      Returns the current datetime formatted as-needed
+;   |
+;   |--> Ex)
+;          Timestamp := GetTimestamp("yyyyMMddTHHmmss")
+;          Timestamp := GetTimestamp("yyyy.MM.dd-HH.mm.ss")
+;          Timestamp := GetTimestamp("yyyy.MM.dd HH:mm:ss")
+;          Timestamp := GetTimestamp("yyyy-MM-ddTHH-mm-ss")
 ;
 GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {
   Timestamp_Format := "yyyy" YMD_Separator "MM" YMD_Separator "dd" DT_Field_Separator "HH" HMS_Separator "mm" HMS_Separator "ss"
@@ -2695,8 +2698,8 @@ IsArray(TestVar:="") {
 ; ------------------------------
 ;
 ; KeyWaitAny
-;  |--> Waits for the user to press any single key (and returns it)
-;  |--> Source: https://lexikos.github.io/v2/docs/commands/InputHook.htm#ExKeyWaitAny
+;   |--> Waits for the user to press any single key (and returns it)
+;   |--> Source: https://lexikos.github.io/v2/docs/commands/InputHook.htm#ExKeyWaitAny
 ;
 KeyWaitAny(Options:="")
 {
@@ -3832,11 +3835,16 @@ StringRepeat(StrToRepeat, Multiplier) {
 ; ------------------------------
 ;
 ; StrLen_Max
-;   |--> Compare two strings (or arrays of strings) - return the longer string (or longest string in either array)
+;  |
+;  |--> Description:
+;  |      Compare strings/arrays of strings - return the longest string amongst them
+;  |
+;  |--> Parameters:
+;         @param {string/array} StrOrObj_1   Either a string or array of strings to find the longest string out of
+;         @param {string/array} StrOrObj_2   Either a string or array of strings to find the longest string out of
 ;
 StrLen_Max(StrOrObj_1:="", StrOrObj_2:="") {
   LongestString := ""
-  ; ------------------------------
   ; Parameter 1 - Handle array- or string-typed inputs
   If (IsArray(StrOrObj_1) == True) {
     ; Handle array-typed inputs
@@ -3852,7 +3860,6 @@ StrLen_Max(StrOrObj_1:="", StrOrObj_2:="") {
       LongestString := StrOrObj_1
     }
   }
-  ; ------------------------------
   ; Parameter 2 - Handle array- or string-typed inputs
   If (IsArray(StrOrObj_2) == True) {
     ; Handle array-typed inputs
@@ -3869,7 +3876,6 @@ StrLen_Max(StrOrObj_1:="", StrOrObj_2:="") {
       LongestString := StrOrObj_2
     }
   }
-  ; ------------------------------
   Return LongestString
 }
 
@@ -3918,8 +3924,9 @@ TempFile() {
 ;
 ; WinGet_ahk_id
 ;   |
-;   |--> Determines target process (exe)'s [ unique ID (e.g. 'HWND', which is short for "handle to window") ]
-;   |--> Intended to transparently inspect THROUGH "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
+;   |--> Description:
+;   |      Determines target process (exe)'s [ unique ID (e.g. 'HWND', which is short for "handle to window") ]
+;   |      Intended to transparently inspect THROUGH "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
 ;   |
 ;   |--> Ex)   Win_ahk_id := WinGet_ahk_id("A")
 ;
@@ -3937,7 +3944,8 @@ WinGet_ahk_id(WinTitle:="", WinText:="", ExcludeTitle:="", ExcludeText:="") {
 ;
 ; WinGet_is_win10_app
 ;   |
-;   |--> Determines if target-app is running in "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
+;   |--> Description:
+;   |      Determines if target-app is running in "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
 ;   |
 ;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
 ;
@@ -3954,7 +3962,8 @@ WinGet_is_win10_app(WinTitle) {
 ;
 ; WinGet_size_state
 ;   |
-;   |--> Returns "Minimized", "Restored", or "Maximized" depending on the value returned from WinGetMinMax
+;   |--> Description:
+;   |      Returns "Minimized", "Restored", or "Maximized" depending on the value returned from WinGetMinMax
 ;   |
 ;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
 ;
@@ -3975,7 +3984,8 @@ WinGet_size_state(WinTitle,WinText:="") {
 ;
 ; WinGet_MonitorIndex
 ;   |
-;   |--> Retrieves the HWND (unique ID) for a specified window
+;   |--> Description:
+;   |      Retrieves the HWND (unique ID) for a specified window
 ;   |
 ;   |--> Ex)   WinGet_MonitorIndex(("ahk_id " WinGetID("A")))
 ;

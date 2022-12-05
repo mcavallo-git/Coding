@@ -342,4 +342,6 @@ WinGetPosEx(hWindow,ByRef X="",ByRef Y="",ByRef Width="",ByRef Height="",ByRef O
 ;
 ;   gist.github.com |  "Advanced Window Snap is a script for AutoHotKey that expands upon Windows built-in window-snapping hotkeys. · GitHub"  |  https://gist.github.com/park-brian/f3f790e559e5145b99bf0f19c7928dd8
 ;
+;   gist.github.com |  "Advanced Window Snap is a script for AutoHotKey that expands upon Windows built-in window-snapping hotkeys. · GitHub"  |  https://gist.github.com/AWMooreCO/1ef708055a11862ca9dc
+;
 ; ------------------------------------------------------------

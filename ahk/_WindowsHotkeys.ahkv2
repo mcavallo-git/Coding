@@ -2493,7 +2493,7 @@ GetWindowSpecs(WinTitle:="A") {
 
   ; --- TABLE - TOTAL ROWS ---
   GUI_ROWCOUNT := 2  ; Header Rows
-  GUI_ROWCOUNT := GUI_ROWCOUNT + 13  ; Win Rows
+  GUI_ROWCOUNT := GUI_ROWCOUNT + 14  ; Win Rows
   If (Win_is_win10_app == 1) {
     GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win10 Rows
   }

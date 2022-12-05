@@ -56,20 +56,20 @@ For (;;) {
 
 
 <#   Arrays  @()   #>
-$Var = @();
-$Var += @("Value 1");
-$Var += @("Value 2");
-$Var += @("Value 3");
-If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq "Array")) {
+$Array = @();
+$Array += @("Value 1");
+$Array += @("Value 2");
+$Array += @("Value 3");
+If (($Array.GetType().Name -Eq "Object[]") -And ($Array.GetType().BaseType.Name -Eq "Array")) {
 	# Arrays - Option 1:  use [ ForEach-Object ]  (use if you DON'T need the iterator (array key) for each item)
-	$Var | ForEach-Object {
+	$Array | ForEach-Object {
 		Write-Host "------------------------------";
 		Write-Host "Each_Key=$("???")  ///  Each_Val=$(${_})";
 	}
 	# Arrays - Option 2:  use [ For ]  (use if you DO need the iterator (array key) for each item)
-	For ($Each_Key=0; $Each_Key -LT $Var.Count; $Each_Key++) {
+	For ($Each_Key=0; $Each_Key -LT $Array.Count; $Each_Key++) {
 		Write-Host "------------------------------";
-		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Var[${Each_Key}])";
+		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Array[${Each_Key}])";
 	}
 }
 
@@ -77,14 +77,14 @@ If (($Var.GetType().Name -Eq "Object[]") -And ($Var.GetType().BaseType.Name -Eq 
 # ------------------------------------------------------------
 
 <#   Hash Tables  @{}  #>
-$Var=@{};
-$Var["Property 1"]="Value 1";
-$Var["Property 2"]="Value 2";
-$Var["Property 3"]="Value 3";
-If (($Var.GetType().Name -Eq "Hashtable") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
-	$Var.Keys | ForEach-Object {
+$HashTable=@{};
+$HashTable["Property 1"]="Value 1";
+$HashTable["Property 2"]="Value 2";
+$HashTable["Property 3"]="Value 3";
+If (($HashTable.GetType().Name -Eq "Hashtable") -And ($HashTable.GetType().BaseType.Name -Eq "Object")) {
+	$HashTable.Keys | ForEach-Object {
 		Write-Host "------------------------------";
-		Write-Host "Each_Key=$(${_})  ///  Each_Val=$($Var[${_}])";
+		Write-Host "Each_Key=$(${_})  ///  Each_Val=$($HashTable[${_}])";
 	}
 }
 
@@ -146,16 +146,16 @@ $Assocs_Resolved_Obj | Sort-Object -Property FType_Val | Format-Table -AutoSize;
 # ------------------------------------------------------------
 
 <#   PSCustomObjects   #>
-$Var = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
-If (($Var.GetType().Name -Eq "PSCustomObject") -And ($Var.GetType().BaseType.Name -Eq "Object")) {
-	Get-Member -InputObject ($Var) -View ("All") `
+$PSCustomObjects = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
+If (($PSCustomObjects.GetType().Name -Eq "PSCustomObject") -And ($PSCustomObjects.GetType().BaseType.Name -Eq "Object")) {
+	Get-Member -InputObject ($PSCustomObjects) -View ("All") `
 	| Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; } `
 	| ForEach-Object {
 		$Each_Key = "$($_.Name)";
-		If ($null -eq ($Var.(${Each_Key}))) {
+		If ($null -eq ($PSCustomObjects.(${Each_Key}))) {
 			$Each_Val="`$Null";
 		} Else {
-			$Each_Val=$Var.(${Each_Key});
+			$Each_Val=$PSCustomObjects.(${Each_Key});
 		}
 		Write-Host "------------------------------";
 		Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";

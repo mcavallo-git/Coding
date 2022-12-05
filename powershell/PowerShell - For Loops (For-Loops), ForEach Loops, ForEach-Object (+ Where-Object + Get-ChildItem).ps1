@@ -23,7 +23,6 @@ For ($i=0; ($i -LT $DatArray.Count); $i++) {
 
 # ------------------------------------------------------------
 
-
 #   For(...) loop  -  General Syntax
 For (<Init>; <Condition>; <Repeat>) {
   <Statement list>
@@ -52,20 +51,22 @@ For (;;) {
 # ------------------------------------------------------------
 
 <#   Arrays  @()   #>
-$Array = @();
-$Array += @("Value 1");
-$Array += @("Value 2");
-$Array += @("Value 3");
-If (($Array.GetType().Name -Eq "Object[]") -And ($Array.GetType().BaseType.Name -Eq "Array")) {
-  # Arrays - Option 1:  use [ ForEach-Object ]  (use if you DON'T need the iterator (array key) for each item)
-  $Array | ForEach-Object {
-    Write-Host "------------------------------";
-    Write-Host "Each_Key=$("???")  ///  Each_Val=$(${_})";
-  }
-  # Arrays - Option 2:  use [ For ]  (use if you DO need the iterator (array key) for each item)
-  For ($Each_Key=0; $Each_Key -LT $Array.Count; $Each_Key++) {
-    Write-Host "------------------------------";
-    Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Array[${Each_Key}])";
+If ($True) {
+  $Array = @();
+  $Array += @("Value 1");
+  $Array += @("Value 2");
+  $Array += @("Value 3");
+  If (($Array.GetType().Name -Eq "Object[]") -And ($Array.GetType().BaseType.Name -Eq "Array")) {
+    # Arrays - Option 1:  use [ ForEach-Object ]  (use if you DON'T need the iterator (array key) for each item)
+    $Array | ForEach-Object {
+      Write-Host "------------------------------";
+      Write-Host "Each_Key=$("???")  ///  Each_Val=$(${_})";
+    }
+    # Arrays - Option 2:  use [ For ]  (use if you DO need the iterator (array key) for each item)
+    For ($Each_Key=0; $Each_Key -LT $Array.Count; $Each_Key++) {
+      Write-Host "------------------------------";
+      Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Array[${Each_Key}])";
+    }
   }
 }
 
@@ -73,14 +74,16 @@ If (($Array.GetType().Name -Eq "Object[]") -And ($Array.GetType().BaseType.Name 
 # ------------------------------------------------------------
 
 <#   Hash Tables  @{}  #>
-$HashTable=@{};
-$HashTable["Property 1"]="Value 1";
-$HashTable["Property 2"]="Value 2";
-$HashTable["Property 3"]="Value 3";
-If (($HashTable.GetType().Name -Eq "Hashtable") -And ($HashTable.GetType().BaseType.Name -Eq "Object")) {
-  $HashTable.Keys | ForEach-Object {
-    Write-Host "------------------------------";
-    Write-Host "Each_Key=$(${_})  ///  Each_Val=$($HashTable[${_}])";
+If ($True) {
+  $HashTable=@{};
+  $HashTable["Property 1"]="Value 1";
+  $HashTable["Property 2"]="Value 2";
+  $HashTable["Property 3"]="Value 3";
+  If (($HashTable.GetType().Name -Eq "Hashtable") -And ($HashTable.GetType().BaseType.Name -Eq "Object")) {
+    $HashTable.Keys | ForEach-Object {
+      Write-Host "------------------------------";
+      Write-Host "Each_Key=$(${_})  ///  Each_Val=$($HashTable[${_}])";
+    }
   }
 }
 
@@ -89,25 +92,25 @@ If (($HashTable.GetType().Name -Eq "Hashtable") -And ($HashTable.GetType().BaseT
 
 <#   Sort a Hash Table @{}   #>
 If ($True) {
-$FTypes_Obj=@{};
-CMD /C FTYPE | Sort-Object | ForEach-Object {
-  $Components=("${_}".Split("="));
-  $FileType=(${Components}[0]);
-  $OpenCommandString=(${Components}[1..$(${Components}.Count)]);
-  $FTypes_Obj.("${FileType}")=("${OpenCommandString}");
-}
-$FTypes_Sorted_Obj = ($FTypes_Obj.Keys | Sort-Object | ForEach-Object { @{"${_}"="$($FTypes_Obj.("${_}"))";}; });
-Write-Host "------------------------------------------------------------";
-$FTypes_Sorted_Obj | Format-Table -AutoSize;
-<# !!! Note - This ends up as an an unusual hash table scenario, where it performs normally when you to reference the keys and values held within each key (by string value reference) ... #>
-Write-Host "------------------------------------------------------------";
-${FTypes_Sorted_Obj}.Keys[1];
-$FTypes_Sorted_Obj.("$(${FTypes_Sorted_Obj}.Keys[1])");
-<# But it ALSO allows you to reference its contained items by integer (iterator) reference as well, which does not commonly work with hash tables (by default) #>
-Write-Host "------------------------------------------------------------";
-$FTypes_Sorted_Obj.Item(1).Keys;
-$FTypes_Sorted_Obj.Item(1).Values;
-Write-Host "------------------------------------------------------------";
+  $FTypes_Obj=@{};
+  CMD /C FTYPE | Sort-Object | ForEach-Object {
+    $Components=("${_}".Split("="));
+    $FileType=(${Components}[0]);
+    $OpenCommandString=(${Components}[1..$(${Components}.Count)]);
+    $FTypes_Obj.("${FileType}")=("${OpenCommandString}");
+  }
+  $FTypes_Sorted_Obj = ($FTypes_Obj.Keys | Sort-Object | ForEach-Object { @{"${_}"="$($FTypes_Obj.("${_}"))";}; });
+  Write-Host "------------------------------------------------------------";
+  $FTypes_Sorted_Obj | Format-Table -AutoSize;
+  <# !!! Note - This ends up as an an unusual hash table scenario, where it performs normally when you to reference the keys and values held within each key (by string value reference) ... #>
+  Write-Host "------------------------------------------------------------";
+  ${FTypes_Sorted_Obj}.Keys[1];
+  $FTypes_Sorted_Obj.("$(${FTypes_Sorted_Obj}.Keys[1])");
+  <# But it ALSO allows you to reference its contained items by integer (iterator) reference as well, which does not commonly work with hash tables (by default) #>
+  Write-Host "------------------------------------------------------------";
+  $FTypes_Sorted_Obj.Item(1).Keys;
+  $FTypes_Sorted_Obj.Item(1).Values;
+  Write-Host "------------------------------------------------------------";
 }
 
 
@@ -115,47 +118,49 @@ Write-Host "------------------------------------------------------------";
 
 <#   List a Hash Table w/ multiple properties (using Format-Table) via [PSCustomObject]  #>
 If ($True) {
-If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize = (New-Object ((($Host.UI.RawUI).BufferSize).GetType().FullName) (16384, $Host.UI.RawUI.BufferSize.Height)); }; <# Update PowerShell console width to 16384 characters #>
-$Assocs_Obj=@{};
-$FTypes_Obj=@{};
-CMD /C ASSOC | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $Assocs_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
-CMD /C FTYPE | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $FTypes_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
-$Assocs_Resolved_Obj=($Assocs_Obj.Keys | Sort-Object | ForEach-Object {
-  $Assoc_Key = "${_}";
-  $FType_Key = (${Assocs_Obj}.("${Assoc_Key}") -replace "^((?:(?!;).)+)(;)?$","`$1");
-  $FType_Val = (${FTypes_Obj}.("${FType_Key}"));
-  [PSCustomObject]@{"Assoc_Key"="${Assoc_Key}";"FType_Key"="${FType_Key}";"FType_Val"="${FType_Val}";};
-});
-<# Show [ ASSOC + FTYPE ] relationships #>
-<# Sort/Organize based on the (DEFAULT) column [ Assoc_Key ] (such as ".txt" of ".js") #>
-Write-Host "Sort/Organize based on the (DEFAULT) column [ Assoc_Key ] (such as `".txt`" of `".js`")";
-$Assocs_Resolved_Obj | Sort-Object -Property Assoc_Key | Format-Table -AutoSize;
-<# Sort/Organize based on the column [ FType_Key ] (such as "txtfile" of "JSFile") #>
-Write-Host "Sort/Organize based on the column [ FType_Key ] (such as `"txtfile`" of `"JSFile`")";
-$Assocs_Resolved_Obj | Sort-Object -Property FType_Key | Format-Table -AutoSize;
-<# Sort/Organize based on the column [ FType_Val ] (such as "txtfile" of "JSFile") #>
-Write-Host "Sort/Organize based on the column [ FType_Val ] (such as `"%SystemRoot%\system32\NOTEPAD.EXE %1;`")";
-$Assocs_Resolved_Obj | Sort-Object -Property FType_Val | Format-Table -AutoSize;
+  If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize = (New-Object ((($Host.UI.RawUI).BufferSize).GetType().FullName) (16384, $Host.UI.RawUI.BufferSize.Height)); }; <# Update PowerShell console width to 16384 characters #>
+  $Assocs_Obj=@{};
+  $FTypes_Obj=@{};
+  CMD /C ASSOC | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $Assocs_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
+  CMD /C FTYPE | Sort-Object | ForEach-Object { $Components=("${_}".Split("=")); $FTypes_Obj.("$(${Components}[0])")=("$(${Components}[1..$(${Components}.Count)]);"); };
+  $Assocs_Resolved_Obj=($Assocs_Obj.Keys | Sort-Object | ForEach-Object {
+    $Assoc_Key = "${_}";
+    $FType_Key = (${Assocs_Obj}.("${Assoc_Key}") -replace "^((?:(?!;).)+)(;)?$","`$1");
+    $FType_Val = (${FTypes_Obj}.("${FType_Key}"));
+    [PSCustomObject]@{"Assoc_Key"="${Assoc_Key}";"FType_Key"="${FType_Key}";"FType_Val"="${FType_Val}";};
+  });
+  <# Show [ ASSOC + FTYPE ] relationships #>
+  <# Sort/Organize based on the (DEFAULT) column [ Assoc_Key ] (such as ".txt" of ".js") #>
+  Write-Host "Sort/Organize based on the (DEFAULT) column [ Assoc_Key ] (such as `".txt`" of `".js`")";
+  $Assocs_Resolved_Obj | Sort-Object -Property Assoc_Key | Format-Table -AutoSize;
+  <# Sort/Organize based on the column [ FType_Key ] (such as "txtfile" of "JSFile") #>
+  Write-Host "Sort/Organize based on the column [ FType_Key ] (such as `"txtfile`" of `"JSFile`")";
+  $Assocs_Resolved_Obj | Sort-Object -Property FType_Key | Format-Table -AutoSize;
+  <# Sort/Organize based on the column [ FType_Val ] (such as "txtfile" of "JSFile") #>
+  Write-Host "Sort/Organize based on the column [ FType_Val ] (such as `"%SystemRoot%\system32\NOTEPAD.EXE %1;`")";
+  $Assocs_Resolved_Obj | Sort-Object -Property FType_Val | Format-Table -AutoSize;
 }
 
 
 # ------------------------------------------------------------
 
 <#   PSCustomObjects   #>
-$PSCustomObjects = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
-If (($PSCustomObjects.GetType().Name -Eq "PSCustomObject") -And ($PSCustomObjects.GetType().BaseType.Name -Eq "Object")) {
-  Get-Member -InputObject ($PSCustomObjects) -View ("All") `
-  | Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; } `
-  | ForEach-Object {
-    $Each_Key = "$($_.Name)";
-    If ($null -eq ($PSCustomObjects.(${Each_Key}))) {
-      $Each_Val="`$Null";
-    } Else {
-      $Each_Val=$PSCustomObjects.(${Each_Key});
-    }
-    Write-Host "------------------------------";
-    Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
-  };
+If ($True) {
+  $PSCustomObjects = ( '{"Key1String":"Val1","Key2String":"Val2","Key3Int":3,"Key4Int":4}' | ConvertFrom-JSON );
+  If (($PSCustomObjects.GetType().Name -Eq "PSCustomObject") -And ($PSCustomObjects.GetType().BaseType.Name -Eq "Object")) {
+    Get-Member -InputObject ($PSCustomObjects) -View ("All") `
+    | Where-Object { ("$($_.MemberType)".Contains("Propert")) -Eq $True <# Matches *Property* and *Properties* #>; } `
+    | ForEach-Object {
+      $Each_Key = "$($_.Name)";
+      If ($null -eq ($PSCustomObjects.(${Each_Key}))) {
+        $Each_Val="`$Null";
+      } Else {
+        $Each_Val=$PSCustomObjects.(${Each_Key});
+      }
+      Write-Host "------------------------------";
+      Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Each_Val)";
+    };
+  }
 }
 
 
@@ -190,14 +195,16 @@ If ($True) {
 
 
 # Hash Table '.Keys' ForEach-Object loop  -  Example #2
-$CommandString = $MyInvocation.MyCommand.Name;
-$PSBoundParameters.Keys | ForEach-Object {
-  $CommandString += " -$_";
-  If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) {
-    $CommandString += " `"$($PSBoundParameters[$_])`"";
-  }
-};
-Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
+If ($True) {
+  $CommandString = $MyInvocation.MyCommand.Name;
+  $PSBoundParameters.Keys | ForEach-Object {
+    $CommandString += " -$_";
+    If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) {
+      $CommandString += " `"$($PSBoundParameters[$_])`"";
+    }
+  };
+  Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
+}
 
 
 # ------------------------------------------------------------
@@ -226,23 +233,25 @@ Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($C
 #     |--> Overview: Find files with multiple different levels of depth, parent-filenames, basenames, etc. matching multiple different criteria, all in one query
 #     |--> Use: Lock-Screen background fix - Used this script to locate files to-be-deleted
 #
-$Basename="*";
-$Parent_1="Settings"; # one step back (first directory name)
-$Parent_2="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
-$Parent_X="${Env:USERPROFILE}\AppData\Local\Packages\"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
-(`
-Get-ChildItem `
--Path ("$Parent_X") `
--Depth (3) `
--File `
--Recurse `
--Force `
--ErrorAction "SilentlyContinue" `
-| Where-Object { $_.Directory.Parent.Name -Like "$Parent_2" } `
-| Where-Object { $_.Directory.Name -Like "$Parent_1" } `
-| Where-Object { $_.Name -Like "$Basename" } `
-| ForEach-Object { $_.FullName; } `
-);
+If ($True) {
+  $Basename="*";
+  $Parent_1="Settings"; # one step back (first directory name)
+  $Parent_2="Microsoft.Windows.ContentDeliveryManager_*"; # another step back
+  $Parent_X="${Env:USERPROFILE}\AppData\Local\Packages\"; # remaining steps-back to the root directory ("/" in linux, or the drive letter, such as "C:\", in Windows)
+  (`
+  Get-ChildItem `
+  -Path ("$Parent_X") `
+  -Depth (3) `
+  -File `
+  -Recurse `
+  -Force `
+  -ErrorAction "SilentlyContinue" `
+  | Where-Object { $_.Directory.Parent.Name -Like "$Parent_2" } `
+  | Where-Object { $_.Directory.Name -Like "$Parent_1" } `
+  | Where-Object { $_.Name -Like "$Basename" } `
+  | ForEach-Object { $_.FullName; } `
+  );
+}
 
 
 # ------------------------------------------------------------

@@ -4,15 +4,15 @@
 ;
 ; ------------------------------------------------------------
 
-#Requires AutoHotkey v2.0-beta.12  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0-beta.12.zip
+#Requires AutoHotkey v2.0-rc.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0-beta.12.zip
 
 ; ------------------------------------------------------------
 ;
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 0
-DebugMode := 1
+DebugMode := 0
+; DebugMode := 1
 
 ; ------------------------------------------------------------
 ;
@@ -85,7 +85,7 @@ GroupAdd("Explorer", "ahk_class CabinetWClass")
 ; Show the Version of AHK currently being used to compile this code
 ;
 If (DebugMode == 1) {
-  TrayTip "AHK", ("Version:  " A_AhkVersion)  ; Toast Notification
+  TrayTip "AHK", ("Version:  v" A_AhkVersion)  ; Toast Notification
 }
 
 ; ------------------------------------------------------------

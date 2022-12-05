@@ -2459,13 +2459,9 @@ GetWindowSpecs(WinTitle:="A") {
   Win_size_state := WinGet_size_state(WinHwnd)
   WinGetPos(&xpos, &ypos, &Win_width, &Win_height, WinHwnd)
 
-  ; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
-  Win_longest_field := 0
-  Win_longest_field := StrLen_Max(Win_longest_field,WinTitle)
-  Win_longest_field := StrLen_Max(Win_longest_field,Win_fullpath)
-  Win_longest_field := StrLen_Max(Win_longest_field,Win_control_names)
-  Win_longest_field := StrLen_Max(Win_longest_field,Win_control_ids)
-  Win_longest_field := StrLen_Max(Win_longest_field,Win_ahk_class)
+  ; Get the value of the longest text field (to scale the width of the GUI off)
+  Win_longest_field := ""
+  Win_longest_field := StrLen_Max(Win_longest_field,[WinTitle,Win_fullpath,Win_control_names,Win_control_ids,Win_ahk_class])
 
   Win_is_win10_app := WinGet_is_win10_app(WinTitle)
   If (Win_is_win10_app == 1) {
@@ -2482,12 +2478,8 @@ GetWindowSpecs(WinTitle:="A") {
     Win10_size_state := WinGet_size_state("ahk_id " Win10_ahk_id)
     WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id " Win10_ahk_id))
 
-    ; Update the longest text-field
-    Win_longest_field := StrLen_Max(Win_longest_field,Win10_title)
-    Win_longest_field := StrLen_Max(Win_longest_field,Win10_fullpath)
-    Win_longest_field := StrLen_Max(Win_longest_field,Win10_control_names)
-    Win_longest_field := StrLen_Max(Win_longest_field,Win10_control_ids)
-    Win_longest_field := StrLen_Max(Win_longest_field,Win10_ahk_class)
+    ; Get the value of the longest text field (to scale the width of the GUI off)
+    Win_longest_field := StrLen_Max(Win_longest_field,[Win10_title,Win10_fullpath,Win10_control_names,Win10_control_ids,Win10_ahk_class])
 
   }
 
@@ -4107,25 +4099,46 @@ StringRepeat(StrToRepeat, Multiplier) {
 ; ------------------------------
 ;
 ; StrLen_Max
-;   |--> Compare two strings - return the longer string (whichever has more characters in it)
+;   |--> Compare two strings (or arrays of strings) - return the longer string (or longest string in either array)
 ;
-StrLen_Max(StrOrObj_1, StrOrObj_2) {
-  Str_1 := StrOrObj_1
-  If (IsArray(StrOrObj_2) == True) {
-    Str_2 := ImplodeArray(StrOrObj_2,"")
-    ; Str_2 := ""
-    ; For EachStr in StrOrObj_2 {
-    ;   Str_2 := Str_2 EachStr
-    ; }
+StrLen_Max(StrOrObj_1:="", StrOrObj_2:="") {
+  ; ------------------------------
+  ; Parameter 1 - Handle array- or string-typed inputs
+  Str_1 := ""
+  If (IsArray(StrOrObj_1) == True) {
+    ; Handle array-typed inputs
+    For EachStr1 in StrOrObj_1 {
+      If (StrLen(EachStr1) > StrLen(Str_1)) {
+        ; Return the longest string the given array
+        Str_1 := EachStr1
+      }
+    }
   } Else {
+    ; Handle string-typed inputs
+    Str_1 := StrOrObj_1
+  }
+  ; ------------------------------
+  ; Parameter 2 - Handle array- or string-typed inputs
+  Str_2 := ""
+  If (IsArray(StrOrObj_2) == True) {
+    ; Handle array-typed inputs
+    For EachStr2 in StrOrObj_2 {
+      If (StrLen(EachStr2) > StrLen(Str_2)) {
+        ; Return the longest string the given array
+        Str_2 := EachStr2
+      }
+    }
+  } Else {
+    ; Handle string-typed inputs
     Str_2 := StrOrObj_2
   }
-  TooltipOutput := ""
-  TooltipOutput := TooltipOutput ("Str_1=[" Str_1 "], Str_2=[" Str_2 "]`n`n")
-  TooltipOutput := TooltipOutput ("IsArray(StrOrObj_1)=[" IsArray(StrOrObj_1) "], IsArray(StrOrObj_2)=[" IsArray(StrOrObj_2) "]`n`n")
-  If (IsArray(StrOrObj_2) == True) {
-    ShowToolTip(TooltipOutput,,,,10000)
-  }
+  ; ------------------------------
+  ; TooltipOutput := ""
+  ; TooltipOutput := TooltipOutput ("IsArray(StrOrObj_1)=[" IsArray(StrOrObj_1) "], IsArray(StrOrObj_2)=[" IsArray(StrOrObj_2) "]`n`n")
+  ; TooltipOutput := TooltipOutput ("Str_1=[" Str_1 "], Str_2=[" Str_2 "]`n`n")
+  ; If ((IsArray(StrOrObj_1) == True) || (IsArray(StrOrObj_2) == True)) {
+  ;   ShowToolTip(TooltipOutput,,,,10000)
+  ; }
   Return ( (StrLen(Str_1)>StrLen(Str_2)) ? (Str_1) : (Str_2) )
 }
 

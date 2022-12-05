@@ -12,7 +12,7 @@
 ;
 
 DebugMode := 0
-; DebugMode := 1
+DebugMode := 1
 
 ; ------------------------------------------------------------
 ;
@@ -2197,6 +2197,57 @@ GetCommandOutput(CMD_Command) {
 
 ; ------------------------------
 ;
+; GetMicroseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
+;   |--> Example call:
+;          Current_Microseconds := GetMicroseconds()
+;
+GetMicroseconds() {
+  If (0 = 1 ) {
+    ; NOT WORKING CURRENTLY - NEED TO RESOLVE METHOD OF GETTING 10^-6 SECONDS IN AHK v2 BETA.12
+    vIntervals := 0
+    DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
+    ReturnedVal := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
+  } Else {
+    ReturnedVal := (A_MSec * 1000)
+  }
+  Return ReturnedVal
+}
+
+; ------------------------------
+;
+; GetMilliseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
+;   |--> Example call:
+;          Current_Milliseconds := GetMilliseconds()
+;
+GetMilliseconds() {
+  Return A_MSec
+}
+
+; ------------------------------
+;
+; GetNanoseconds
+;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
+;   |--> Example call:
+;          Current_Nanosecondss := GetNanoseconds()
+;
+GetNanoseconds() {
+  If (0 = 1 ) {
+    ; NOT WORKING CURRENTLY - NEED TO RESOLVE METHOD OF GETTING TIME DOWN TO THE 10^-9 GRANULATIRY IN AHK v2 BETA.12 (EVEN THOUGH 10^-7 IS THE MOST PRECISE A PC CAN BE ASSUMED TO BE ACCURATE DOWN-TO)
+    vIntervals := 0
+    DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
+    ; vDate := 1601
+    ; EnvAdd, vDate, vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+    ReturnedVal := Format("{:07}00", Mod(vIntervals, 10000000))
+  } Else {
+    ReturnedVal := (A_MSec * 1000 * 1000)
+  }
+  Return ReturnedVal
+}
+
+; ------------------------------
+;
 ; GetPID
 ;   |--> Returns PID if process IS found
 ;   |--> Returns 0 if process is NOT found
@@ -2403,16 +2454,18 @@ GetWindowSpecs(WinTitle:="A") {
   Win_ahk_pid := WinGetPID(WinHwnd)
   Win_ahk_exe := WinGetProcessName(WinHwnd)
   Win_fullpath := WinGetProcessPath(WinHwnd)
-  Win_control_names := WinGetControls(WinHwnd)  ; Get all control names in this window
+  Win_control_names := ("[" ImplodeArray(WinGetControls(WinHwnd), ",") "]") ; Get all control names in this window
+  Win_control_ids := ("[" ImplodeArray(WinGetControlsHwnd(WinHwnd), ",") "]") ; Get all control ids in this window
   Win_size_state := WinGet_size_state(WinHwnd)
   WinGetPos(&xpos, &ypos, &Win_width, &Win_height, WinHwnd)
 
   ; Determine the longest text-field, and base the width of the Gui off of the number of characters it contains
   Win_longest_field := 0
-  Win_longest_field := StrLen_Max(Win_longest_field, WinTitle)
-  Win_longest_field := StrLen_Max(Win_longest_field, Win_fullpath)
-  Win_longest_field := StrLen_Max(Win_longest_field, Win_control_names)
-  Win_longest_field := StrLen_Max(Win_longest_field, Win_ahk_class)
+  Win_longest_field := StrLen_Max(Win_longest_field,WinTitle)
+  Win_longest_field := StrLen_Max(Win_longest_field,Win_fullpath)
+  Win_longest_field := StrLen_Max(Win_longest_field,Win_control_names)
+  Win_longest_field := StrLen_Max(Win_longest_field,Win_control_ids)
+  Win_longest_field := StrLen_Max(Win_longest_field,Win_ahk_class)
 
   Win_is_win10_app := WinGet_is_win10_app(WinTitle)
   If (Win_is_win10_app == 1) {
@@ -2424,15 +2477,17 @@ GetWindowSpecs(WinTitle:="A") {
     Win10_ahk_pid := WinGetPID("ahk_id " Win10_ahk_id)
     Win10_ahk_exe := WinGetProcessName("ahk_id " Win10_ahk_id)
     Win10_fullpath := WinGetProcessPath("ahk_id " Win10_ahk_id)
-    Win10_control_names := WinGetControls("ahk_id " Win10_ahk_id)  ; Get all control names in this window
+    Win10_control_names := ("[" ImplodeArray(WinGetControls("ahk_id " Win10_ahk_id), ",") "]") ; Get all control names in this window
+    Win10_control_ids := ("[" ImplodeArray(WinGetControlsHwnd("ahk_id " Win10_ahk_id), ",") "]") ; Get all control ids in this window
     Win10_size_state := WinGet_size_state("ahk_id " Win10_ahk_id)
     WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id " Win10_ahk_id))
 
     ; Update the longest text-field
-    Win_longest_field := StrLen_Max(Win_longest_field, Win10_title)
-    Win_longest_field := StrLen_Max(Win_longest_field, Win10_fullpath)
-    Win_longest_field := StrLen_Max(Win_longest_field, Win10_control_names)
-    Win_longest_field := StrLen_Max(Win_longest_field, Win10_ahk_class)
+    Win_longest_field := StrLen_Max(Win_longest_field,Win10_title)
+    Win_longest_field := StrLen_Max(Win_longest_field,Win10_fullpath)
+    Win_longest_field := StrLen_Max(Win_longest_field,Win10_control_names)
+    Win_longest_field := StrLen_Max(Win_longest_field,Win10_control_ids)
+    Win_longest_field := StrLen_Max(Win_longest_field,Win10_ahk_class)
 
   }
 
@@ -2488,7 +2543,6 @@ GetWindowSpecs(WinTitle:="A") {
   LV.Add("", "Win_ahk_id", Win_ahk_id)
   LV.Add("", "Win_ahk_pid", Win_ahk_pid)
   LV.Add("", "Win_fullpath", Win_fullpath)
-  LV.Add("", "Win_control_names", Win_control_names)
   LV.Add("", "Win_size_state", Win_size_state)
   ; LV.Add("", "xpos", xpos)
   ; LV.Add("", "ypos", ypos)
@@ -2497,6 +2551,8 @@ GetWindowSpecs(WinTitle:="A") {
   LV.Add("", "xpos, ypos", ( xpos ", " ypos ) )
   LV.Add("", "width, height", ( Win_width ", " Win_height ) )
   ; LV.Add("", "Mimic in AHK", "WinMove,,,xpos,ypos,Win_width,Win_height")
+  LV.Add("", "Win_control_names", Win_control_names)
+  LV.Add("", "Win_control_ids", Win_control_ids)
 
   ; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
   LV.Add("", "", "")
@@ -2510,7 +2566,6 @@ GetWindowSpecs(WinTitle:="A") {
     LV.Add("", "Win10_ahk_id", Win10_ahk_id)
     LV.Add("", "Win10_ahk_pid", Win10_ahk_pid)
     LV.Add("", "Win10_fullpath", Win10_fullpath)
-    LV.Add("", "Win10_control_names", Win10_control_names)
     LV.Add("", "Win10_size_state", Win10_size_state)
     ; LV.Add("", "Win10_xpos", Win10_xpos)
     ; LV.Add("", "Win10_ypos", Win10_ypos)
@@ -2518,6 +2573,8 @@ GetWindowSpecs(WinTitle:="A") {
     ; LV.Add("", "Win10_Height", Win10_Height)
     LV.Add("", "Win10_xpos, Win10_ypos", ( Win10_xpos ", " Win10_ypos ) )
     LV.Add("", "Win10_Width, Win10_Height", ( Win10_Width ", " Win10_Height ) )
+    LV.Add("", "Win10_control_names", Win10_control_names)
+    LV.Add("", "Win10_control_ids", Win10_control_ids)
   }
   If (DebugMode == 1) {
     LV.Add("", "", "")
@@ -2574,6 +2631,35 @@ IfProcessExist(ProcName) {
 
 ; ------------------------------
 ;
+; ImplodeArray
+;   |--> Convert array to string with a given delimiter
+;
+ImplodeArray(Array,Delimiter) {
+  ReturnedVal := ""
+  If (IsArray(Array) == True) {
+    For EachValue in Array {
+      If ( A_Index != 1 ) {
+        ReturnedVal .= Delimiter
+      }
+      ReturnedVal .= EachValue
+    }
+  }
+  Return ReturnedVal
+}
+
+; ------------------------------
+;
+; IsArray
+;   |--> Returns True if input parameter #1 IS an array
+;   |--> Returns False if input parameter #1 is NOT an array
+;
+IsArray(TestVar:="") {
+  Return (IsObject(TestVar))  ; https://www.autohotkey.com/board/topic/70596-isarray/?p=447071
+  ; Return (!ObjCount(TestArray) || ObjMinIndex(TestArray) == 1 && ObjMaxIndex(TestArray) == ObjCount(TestArray) && TestArray.Clone().Delete(1, TestArray.MaxIndex()) == ObjCount(TestArray))  ; https://www.autohotkey.com/boards/viewtopic.php?t=64332
+}
+
+; ------------------------------
+;
 ; KeyWaitAny
 ;  |--> Waits for the user to press any single key (and returns it)
 ;  |--> Source: https://lexikos.github.io/v2/docs/commands/InputHook.htm#ExKeyWaitAny
@@ -2600,58 +2686,6 @@ LockWorkstation() {
   Monitor_ActivateLowPowerMode()
   ; Monitor_PowerOff()
   Return
-}
-
-; ------------------------------
-;
-; GetMicroseconds
-;   |--> Gets the current timestamp's fractions-of-a-second, down to the 6th digit (microseconds-precision)
-;   |--> Example call:
-;          Current_Microseconds := GetMicroseconds()
-;
-GetMicroseconds() {
-  If (0 = 1 ) {
-    ; NOT WORKING CURRENTLY - NEED TO RESOLVE METHOD OF GETTING 10^-6 SECONDS IN AHK v2 BETA.12
-    vIntervals := 0
-    DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 0.1 microseconds
-    OutVar := SubStr(Format("{:00}00", Mod(vIntervals, 10000000)), 1, 6)
-  } Else {
-    OutVar := (A_MSec * 1000)
-  }
-  Return OutVar
-}
-
-; ------------------------------
-;
-; GetMilliseconds
-;   |--> Gets the current timestamp's fractions-of-a-second, down to the 3rd digit (millisecond-precision)
-;   |--> Example call:
-;          Current_Milliseconds := GetMilliseconds()
-;
-GetMilliseconds() {
-  Return A_MSec
-}
-
-; ------------------------------
-;
-; GetNanoseconds
-;   |--> Gets the current timestamp's fractions-of-a-second, down to the 9th digit (pseudo-nanosecond-precision - max-precision is actually only 7 digits past decimal, e.g. per-100-nanoseconds)
-;   |--> Example call:
-;          Current_Nanosecondss := GetNanoseconds()
-;
-GetNanoseconds() {
-  If (0 = 1 ) {
-    ; NOT WORKING CURRENTLY - NEED TO RESOLVE METHOD OF GETTING TIME DOWN TO THE 10^-9 GRANULATIRY IN AHK v2 BETA.12 (EVEN THOUGH 10^-7 IS THE MOST PRECISE A PC CAN BE ASSUMED TO BE ACCURATE DOWN-TO)
-    vIntervals := 0
-    DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
-    ; vDate := 1601
-    ; EnvAdd, vDate, vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
-    OutVar := Format("{:07}00", Mod(vIntervals, 10000000))
-  } Else {
-    OutVar := (A_MSec * 1000 * 1000)
-  }
-  Return OutVar
-
 }
 
 ; ------------------------------
@@ -2853,7 +2887,8 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
           TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_MonitorNumber:		" WinSnap_Prior_Destination_MonitorNumber "`n"
           TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Size:			" WinSnap_Prior_Destination_Size "`n"
           TooltipOutput := TooltipOutput "                 "
-          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber+1),60000)
+          ; ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber+1),60000)
+          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber*5),60000)
         }
         ; Determine if the center of target window is currently located within the bounds of this monitor's work area
         If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
@@ -3919,7 +3954,8 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
       EachText := EachText "`n" Round((Remaining_TickCount/1000),3)
     }
     If (IsInteger(X) && IsInteger(Y)) {
-      ToolTip EachText, Format("{:d}",X), Format("{:d}",Y), WhichToolTip
+      ; MsgBox(("Calling [ ToolTip _EachText_, " Format("{:d}",X) ", " Format("{:d}",Y) ", " WhichToolTip " ]..."), A_ScriptName " - " A_ThisFunc)
+      ToolTip EachText, Format("{:d}",X), Format("{:d}",Y), WhichToolTip  ; Show the tooltip
     } Else {
       MonitorGetWorkArea(, &MonitorLeft, &MonitorTop, &MonitorRight, &MonitorBottom)
       MonitorWidth := (MonitorRight-MonitorLeft)
@@ -3927,6 +3963,7 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
       MouseGetPos &MouseX, &MouseY
       xpos := Floor( MouseX + ((WhichToolTip-0.5)/20)*(MonitorWidth) )
       ypos := Floor( MouseY + ((WhichToolTip-1)/20)*(MonitorHeight) )
+      ; MsgBox(("Calling [ ToolTip _EachText_, " Format("{:d}",X) ", " Format("{:d}",Y) ", " WhichToolTip " ]..."), A_ScriptName " - " A_ThisFunc)
       ToolTip EachText, xpos, ypos, WhichToolTip  ; Show the tooltip
     }
   }
@@ -4072,14 +4109,23 @@ StringRepeat(StrToRepeat, Multiplier) {
 ; StrLen_Max
 ;   |--> Compare two strings - return the longer string (whichever has more characters in it)
 ;
-StrLen_Max(Str_1, Str_2) {
-  ; StrLen_LongestString := 0
-  ; If ( StrLen(Str_1) > StrLen(Str_2) ) {
-  ;   StrLen_LongestString := StrLen(Str_1)
-  ; } Else {
-  ;   StrLen_LongestString := StrLen(Str_2)
-  ; }
-  ; Return StrLen_LongestString
+StrLen_Max(StrOrObj_1, StrOrObj_2) {
+  Str_1 := StrOrObj_1
+  If (IsArray(StrOrObj_2) == True) {
+    Str_2 := ImplodeArray(StrOrObj_2,"")
+    ; Str_2 := ""
+    ; For EachStr in StrOrObj_2 {
+    ;   Str_2 := Str_2 EachStr
+    ; }
+  } Else {
+    Str_2 := StrOrObj_2
+  }
+  TooltipOutput := ""
+  TooltipOutput := TooltipOutput ("Str_1=[" Str_1 "], Str_2=[" Str_2 "]`n`n")
+  TooltipOutput := TooltipOutput ("IsArray(StrOrObj_1)=[" IsArray(StrOrObj_1) "], IsArray(StrOrObj_2)=[" IsArray(StrOrObj_2) "]`n`n")
+  If (IsArray(StrOrObj_2) == True) {
+    ShowToolTip(TooltipOutput,,,,10000)
+  }
   Return ( (StrLen(Str_1)>StrLen(Str_2)) ? (Str_1) : (Str_2) )
 }
 

@@ -2492,10 +2492,10 @@ GetWindowSpecs(WinTitle:="A") {
   GUI_WIDTH := GUI_BASE_WIDTH + Ceil( GUI_LONGEST_FIELD * 8 )  ; <-- 8 to 8.5 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
 
   ; --- TABLE - TOTAL ROWS ---
-  GUI_ROWCOUNT := 1  ; Header-Row
-  GUI_ROWCOUNT := GUI_ROWCOUNT + 14  ; Win-Rows
+  GUI_ROWCOUNT := 2  ; Header Rows
+  GUI_ROWCOUNT := GUI_ROWCOUNT + 13  ; Win Rows
   If (Win_is_win10_app == 1) {
-    GUI_ROWCOUNT := GUI_ROWCOUNT + 11  ; Win10-Rows
+    GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win10 Rows
   }
   If (DebugMode == 1) {
     GUI_ROWCOUNT := GUI_ROWCOUNT + 3  ; Debug-Rows

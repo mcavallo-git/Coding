@@ -69,7 +69,7 @@ Remove-Item -Path ("${env:USERPROFILE}\Desktop\tester") -Recurse -Force -Confirm
 $Filepath_ToDelete="${env:USERPROFILE}\Desktop\tester.txt"; Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #>
 
 # Delete a directory (to the recycle bin)
-$Filepath_ToDelete="${env:USERPROFILE}\Desktop\tester"; Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete file to the Recycle Bin #>
+$Filepath_ToDelete="${env:USERPROFILE}\Desktop\tester"; Add-Type -AssemblyName Microsoft.VisualBasic; [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteDirectory("${Filepath_ToDelete}",'OnlyErrorDialogs','SendToRecycleBin'); <# Delete directory to the Recycle Bin #>
 
 
 # ------------------------------------------------------------

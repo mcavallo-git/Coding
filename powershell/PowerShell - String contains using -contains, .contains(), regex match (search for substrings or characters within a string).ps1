@@ -8,27 +8,58 @@
 #
 
 
-"A".contains("a");   <# Returns False   (case SENSITIVE) #>
+"A".contains("a");   <# False (case SENSITIVE) #>
 
 
-"A" -contains "a";   <# Returns True    (case IN-sensitive) #>
+"A" -contains "a";   <# True  (case IN-sensitive) #>
 
 
-(([regex]::match("SOME LONG STRING","long")).success);   <# Returns False   (case SENSITIVE) #>
+"A" -like "*a*";     <# True  #>
+
+
+(([regex]::match("SOME LONG STRING","long")).success);   <# False (case SENSITIVE) #>
 
 
 # ------------------------------------------------------------
 #
-# Matching operators
+# Matching operators  -  like/notlike
 #
 
-<string[]> -like    <wildcard-expression>
+# Syntax:
+#    <string[]> -like <wildcard-expression>
+#    <string[]> -notlike <wildcard-expression>
 
-<string[]> -notlike <wildcard-expression>
 
-<string[]> -match    <regular-expression>
+# Ex (-like):
+"Example" -like "Ex";   <# False #>
+"Example" -like "Ex*";  <# True  #>
 
-<string[]> -notmatch <regular-expression>
+
+# Ex (-notlike):
+"Example" -notlike "Ex";   <# True  #>
+"Example" -notlike "Ex*";  <# False #>
+
+
+# ------------------------------------------------------------
+#
+# Matching operators  -  match/notmatch
+#
+
+
+# Syntax:
+#    <string[]> -match    <regular-expression>
+#    <string[]> -notmatch <regular-expression>
+
+
+# Ex (-match):
+"Example" -match "Ex";   <# True  #>
+"Example" -match "^Ex";  <# True  #>
+"Example" -match "Ex$";  <# False #>
+
+# Ex (-notmatch):
+"Example" -notmatch "Ex";   <# False #>
+"Example" -notmatch "^Ex";  <# False #>
+"Example" -notmatch "Ex$";  <# True  #>
 
 
 # ------------------------------------------------------------

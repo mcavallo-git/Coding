@@ -115,7 +115,7 @@ If (FileExist(TrayIcon_Default)) {
 {
   global DebugMode
   BlockInput("Off")  ;  Stop blocking input (e.g. restore full interaction)
-  Reload  ; Reload this script
+  Reload  ; Replaces the currently running instance of the script with a new one  -  https://lexikos.github.io/v2/docs/commands/Reload.htm
   Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
   ; If (DebugMode == 1) {
   ;   A_MsgBoxResult := MsgBox("The script could not be reloaded. Would you like to open it for editing?", A_ScriptName " - " A_ThisFunc,4)
@@ -727,7 +727,7 @@ Pause::
 !^#d::   ;  2022-10-20T04:58:35-04:00          (Ctrl + Alt + WinKey + D)
 +!#d::   ;  2022-10-20T04:58:25.802768         (Shift + Alt + WinKey + D)
 +^#d::   ;  2022-10-20_04-58-31.128721         (Shift + Ctrl + WinKey + D)
-+!^#d::  ;  2022-10-20T04:58:17.412119-04:00   (Shift + Ctrl + Alt + WinKey + D)  <-- Note:  For some reason, Microsoft made [ Alt + Ctrl + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
++!^#d::  ;  2022-10-20T04:58:17.412119-04:00   (Shift + Ctrl + Alt + WinKey + D)  <-- Note:  For some reason, Microsoft made [ Ctrl + Alt + Shift + WinKey ] open their Win10 Office app --> Disable via https://superuser.com/a/1484507
 ; +#d::  ;  20221020T203014.000                (Shift + WinKey + D)  <-- Note:  Keeps bringing up start menu...?
 {
   global DebugMode
@@ -1246,7 +1246,6 @@ AppsKey & XButton2::
 
 ; ------------------------------------------------------------
 ;
-;
 ; 3-Key Hotkeys  (Using AppsKey, LWin, or RWin)
 ;
 #HotIf GetKeyState("LWin", "P") || GetKeyState("RWin", "P") || GetKeyState("AppsKey", "P")
@@ -1679,6 +1678,7 @@ LShift & RShift::
 
 
 ; ----------------------------------------------------
+;
 ;   HOTKEY:  NumLock
 ;   ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
 ;            Allow for a specific config-file, if exists, to keep NumLock disabled by-default (for specific hardware/VM use-cases)
@@ -1729,6 +1729,44 @@ NumLock::
 }
 
 
+; ----------------------------------------------------
+;
+;   HOTKEY:  Directional Arrow Combos
+;   ACTION:  Window Snap to Grid  (see each hotkey's commend)
+;
+
+; #!Up::      WinSnap_ToGrid("A",,2,1,1,1)      ; Alt + WinKey + Up               ---  Snap to top 1/2 (row) of screen
+; #!Down::    WinSnap_ToGrid("A",,2,1,2,1)      ; Alt + WinKey + Down             ---  Snap to bottom 1/2 (row) of screen
+
+; ^#!Up::     WinSnap_ToGrid("A",,3,1,1,1)      ; Ctrl + Alt + WinKey + Up        ---  Snap to top 1/3 (row) of screen
+; ^#!Down::   WinSnap_ToGrid("A",,3,1,3,1)      ; Ctrl + Alt + WinKey + Down      ---  Snap to bottom 1/3 (row) of screen
+
+
+; ----------------------------------------------------
+;
+;   HOTKEY:  Numpad Combos
+;   ACTION:  Window Snap to Grid  (see each hotkey's commend)
+;
+
+#!Numpad4:: WinSnap_ToGrid("A",,1,4,1,1)      ; Alt + WinKey + Numpad-4         ---  Snap to left 1/4 (column) of screen
+#!Numpad5:: WinSnap_ToGrid("A",,1,4,1,2,1,2)  ; Alt + WinKey + Numpad-5         ---  Snap to center 1/2 (column) of screen
+#!Numpad6:: WinSnap_ToGrid("A",,1,4,1,4)      ; Alt + WinKey + Numpad-6         ---  Snap to right 1/4 (column) of screen
+
+^#Numpad2:: WinSnap_ToGrid("A",,3,1,3,1)      ; Ctrl + WinKey + Numpad-2        ---  Snap to bottom 1/3 (row) of screen
+^#Numpad5:: WinSnap_ToGrid("A",,3,1,2,1)      ; Ctrl + WinKey + Numpad-5        ---  Snap to center 1/3 (row) of screen
+^#Numpad8:: WinSnap_ToGrid("A",,3,1,1,1)      ; Ctrl + WinKey + Numpad-8        ---  Snap to top 1/3 (row) of screen
+
+^#!Numpad1::WinSnap_ToGrid("A",,3,3,3,1)      ; Ctrl + Alt + WinKey + Numpad-1  ---  Snap to bottom-left 1/9 (sector) of screen
+^#!Numpad2::WinSnap_ToGrid("A",,3,3,3,2)      ; Ctrl + Alt + WinKey + Numpad-2  ---  Snap to bottom-middle 1/9 (sector) of screen
+^#!Numpad3::WinSnap_ToGrid("A",,3,3,3,3)      ; Ctrl + Alt + WinKey + Numpad-3  ---  Snap to bottom-right 1/9 (sector) of screen
+^#!Numpad4::WinSnap_ToGrid("A",,3,3,2,1)      ; Ctrl + Alt + WinKey + Numpad-4  ---  Snap to middle-left 1/9 (sector) of screen
+^#!Numpad5::WinSnap_ToGrid("A",,3,3,2,2)      ; Ctrl + Alt + WinKey + Numpad-5  ---  Snap to centermost 1/9 (sector) of screen
+^#!Numpad6::WinSnap_ToGrid("A",,3,3,2,3)      ; Ctrl + Alt + WinKey + Numpad-6  ---  Snap to middle-right 1/9 (sector) of screen
+^#!Numpad7::WinSnap_ToGrid("A",,3,3,1,1)      ; Ctrl + Alt + WinKey + Numpad-7  ---  Snap to top-left 1/9 (sector) of screen
+^#!Numpad8::WinSnap_ToGrid("A",,3,3,1,2)      ; Ctrl + Alt + WinKey + Numpad-8  ---  Snap to top-middle 1/9 (sector) of screen
+^#!Numpad9::WinSnap_ToGrid("A",,3,3,1,3)      ; Ctrl + Alt + WinKey + Numpad-9  ---  Snap to top-right 1/9 (sector) of screen
+
+
 ; ------------------------------------------------------------
 ;
 ;   ACTION:  Decrease screen brightness
@@ -1751,7 +1789,7 @@ NumLock::
 ;
 ;
 ; ------------------------------------------------------------
-;  Win+J - Start Node.JS (Git-Bash) && Postman
+;  WinKey+J - Start Node.JS (Git-Bash) && Postman
 ;
 ; #j::
 ; {
@@ -1890,11 +1928,11 @@ AwaitModifierKeyup() {
   KeyWait "LAlt"    ; Wait for [ Left-Alt ] to be released
   KeyWait "LCtrl"   ; Wait for [ Left-Control ] to be released
   KeyWait "LShift"  ; Wait for [ Left-Shift ] to be released
-  KeyWait "LWin"    ; Wait for [ Left-Win ] to be released
+  KeyWait "LWin"    ; Wait for [ Left-WinKey ] to be released
   KeyWait "RAlt"    ; Wait for [ Right-Alt ] to be released
   KeyWait "RCtrl"   ; Wait for [ Right-Control ] to be released
   KeyWait "RShift"  ; Wait for [ Right-Shift ] to be released
-  KeyWait "RWin"    ; Wait for [ Right-Win ] to be released
+  KeyWait "RWin"    ; Wait for [ Right-WinKey ] to be released
   Sleep 10
 }
 
@@ -2493,7 +2531,7 @@ GetWindowSpecs(WinTitle:="A") {
 
   ; --- TABLE - TOTAL ROWS ---
   GUI_ROWCOUNT := 2  ; Header Rows
-  GUI_ROWCOUNT := GUI_ROWCOUNT + 14  ; Win Rows
+  GUI_ROWCOUNT := GUI_ROWCOUNT + 14  ; WinKey Rows
   If (Win_is_win10_app == 1) {
     GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win10 Rows
   }
@@ -2740,315 +2778,6 @@ Monitor_ShowScreenSaver() {
   ; |
   ; |--> [ 0xF140 ] targets [ SC_SCREENSAVE ]
   ;
-  Return
-}
-
-; ------------------------------
-;
-; WinSnap
-;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
-;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
-;
-WinSnap_Prior_Destination_Direction := ""
-WinSnap_Prior_Destination_MonitorNumber := 0
-WinSnap_Prior_Destination_Size := ""
-WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_Direction:="Left",Destination_Size:="Half",Destination_MonitorNumber:="UseCurrentMonitor") {
-  ; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
-  ; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
-  global DebugMode
-  global WinSnap_Prior_Destination_Direction
-  global WinSnap_Prior_Destination_MonitorNumber
-  global WinSnap_Prior_Destination_Size
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  CoordMode "Mouse", "Screen"
-  ; Strip the word "Monitor" off of the destination monitor's string (to get it as an integer)
-  Destination_MonitorNumber := StrReplace(Destination_MonitorNumber,"Monitor","")
-  ; Detect repeat hotkey presses & cycle windows across all monitors in response
-  If ((A_PriorHotkey==A_ThisHotkey) && (A_TimeSincePriorHotkey <= 2000)) {
-    ; This IS a repeated hotkey press
-    RepeatHotkeyPress := True
-    If (WinSnap_Prior_Destination_Direction=="Left") {
-      ; Snap to the right on the same monitor as the last snap
-      Destination_Direction := "Right"
-      Destination_MonitorNumber := WinSnap_Prior_Destination_MonitorNumber
-    } Else If (WinSnap_Prior_Destination_Direction=="Right") {
-      ; Snap to the left on the "next" monitor (to the right assumed)
-      Destination_Direction := "Left"
-      Destination_MonitorNumber := ( WinSnap_Prior_Destination_MonitorNumber + 1 )
-      If (Destination_MonitorNumber > MonitorGetCount()) {
-        ; Wrap around back to the first/leftmost monitor if the window was already on the right of the rightmost monitor
-        Destination_MonitorNumber := 1
-      }
-    }
-  } Else {
-    ; This is NOT a repeated hotkey press - Store its values to iterate off of later
-    RepeatHotkeyPress := False
-    ; If there's only one monitor, force requests to use monitor "1", instead
-    If (MonitorGetCount()==1) {
-      Destination_MonitorNumber := 1
-    }
-    ; Instantiate the "prior" values based on these initial, non-repeated values (baseline)
-    WinSnap_Prior_Destination_Direction := Destination_Direction
-    WinSnap_Prior_Destination_MonitorNumber := Destination_MonitorNumber
-    WinSnap_Prior_Destination_Size := Destination_Size
-  }
-  ; ------------------------------
-  Loop 50 {
-    ; Windows .exes can start in the background well before their visible window component is grabbable by AHK
-    ;  |--> Give the target Window(s) some breathing room to start up, but also act on them as soon as they are started
-    WinHwnd := WinExist(WinTitle,WinText,ExcludeTitle,ExcludeText)
-    If (WinHwnd) {
-      Break
-    } Else {
-      Sleep 100
-    }
-  }
-  ; ------------------------------
-  If (!WinHwnd) {
-    TooltipOutput := A_ScriptName " - " A_ThisFunc "`n"
-    TooltipOutput := TooltipOutput "`n"
-    TooltipOutput := TooltipOutput "Error - No window found matching:" "`n"
-    TooltipOutput := TooltipOutput "`n"
-      TooltipOutput := TooltipOutput "  WinHwnd: [ " WinHwnd " ]" "`n"
-    If (WinTitle != "") {
-      TooltipOutput := TooltipOutput "  WinTitle: [ " WinTitle " ]" "`n"
-    }
-    If (WinText != "") {
-      TooltipOutput := TooltipOutput "  WinText: [ " WinText " ]" "`n"
-    }
-    If (ExcludeTitle != "") {
-      TooltipOutput := TooltipOutput "  ExcludeTitle: [ " ExcludeTitle " ]" "`n"
-    }
-    If (ExcludeText != "") {
-      TooltipOutput := TooltipOutput "  ExcludeText: [ " ExcludeText " ]" "`n"
-    }
-    ShowToolTip(TooltipOutput,,,,4000)
-  } Else {
-    ; Check if action to be performed is a simple window restore
-    If (Destination_Direction=="Restored") {
-      ;
-      ; Set window state to "Restored"
-      ;  |--> Do not handle window restoration onto other monitors, as the dimensions of a window could skew it outside of the bounds of target monitor (and I'm too lazy to do the coding for making sure the window from monitor "1" (for example) fits onto a potentially-smaller monitor "2", but also if you resize the window in the process, it wouldn't truly be a 'restore' action anymore, so yeah just skip the 'feature' of restoring to any monitor other than the window's current monitor)
-      ;
-      WinRestore(WinTitle, WinText)
-    } Else {
-      ; Get the window's current xpos, ypos, width & height
-      WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle, WinText)
-      ; Check if window is Maximized/Minimized, then prep accordingly
-      If (WinGetMinMax(WinTitle,WinText)==1) {
-        ; Window is Maximized --> Adjust its xpos and ypos by +8 (as Windows (for some reason) sets the top-left coords of maximized windows to -8,-8 x,y relative to the top-left coords of the monitor it's on)
-        ; Win_XPos := Win_XPos + 8
-        ; Win_YPos := Win_YPos + 8
-      } Else If ((WinGetMinMax(WinTitle,WinText)==-1) || ((WinGetMinMax(WinTitle,WinText)!=1) && (Win_Width < -8) && (Win_Height < -8))) {  ; Note: Maximized xpos,ypos == -8,-8 (commonly)
-        ; Window is Minimized (which prevents AHK from obtaining the window's current xpos, ypos, width & height) --> Restore it
-        WinRestore(WinTitle, WinText)
-        Sleep 750
-        WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle, WinText)
-      }
-      Do_Maximized := False
-      ; Calculate the top center edge
-      Win_Center_XPos := Win_XPos + Win_Width/2
-      Win_Center_YPos := Win_YPos + 20  ; Compensate for ??? with this 20px add? taskbar is 40px...
-      Win_Center_MonitorNumber := 0
-      WinMove_XPos := -1
-      WinMove_YPos := -1
-      WinMove_Width := -1
-      WinMove_Height := -1
-      Matched_MonitorNumber := -1
-      Loop MonitorGetCount() {
-        Each_MonitorNumber := A_Index
-        ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
-        MonitorGetWorkArea(Each_MonitorNumber, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
-        ; Determine if the current iteration's monitor is the destination monitor
-        MoveTo_ThisMonitor := False
-        ; ------------------------------
-        If (DebugMode == 1) {
-          TooltipOutput := ""
-          TooltipOutput := TooltipOutput "                 " "`n"
-          TooltipOutput := TooltipOutput "Each_MonitorNumber:		" Each_MonitorNumber "`n"
-          TooltipOutput := TooltipOutput "`n"
-          TooltipOutput := TooltipOutput "EachMonitor_LeftCoord:		" EachMonitor_LeftCoord "`n"
-          TooltipOutput := TooltipOutput "EachMonitor_RightCoord:		" EachMonitor_RightCoord "`n"
-          TooltipOutput := TooltipOutput "`n"
-          TooltipOutput := TooltipOutput "EachMonitor_TopCoord:		" EachMonitor_TopCoord "`n"
-          TooltipOutput := TooltipOutput "EachMonitor_BottomCoord:	" EachMonitor_BottomCoord "`n"
-          TooltipOutput := TooltipOutput "`n"
-          TooltipOutput := TooltipOutput "RepeatHotkeyPress:		" RepeatHotkeyPress "`n"
-          TooltipOutput := TooltipOutput "`n"
-          TooltipOutput := TooltipOutput "Destination_Direction:		" Destination_Direction "`n"
-          TooltipOutput := TooltipOutput "Destination_MonitorNumber:	" Destination_MonitorNumber "`n"
-          TooltipOutput := TooltipOutput "Destination_Size:			" Destination_Size "`n"
-          TooltipOutput := TooltipOutput "`n"
-          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Direction:		" WinSnap_Prior_Destination_Direction "`n"
-          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_MonitorNumber:		" WinSnap_Prior_Destination_MonitorNumber "`n"
-          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Size:			" WinSnap_Prior_Destination_Size "`n"
-          TooltipOutput := TooltipOutput "                 "
-          ; ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber+1),60000)
-          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber*5),60000)
-        }
-        ; Determine if the center of target window is currently located within the bounds of this monitor's work area
-        If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
-          ; Window is located on this monitor
-          Win_Center_MonitorNumber := A_Index
-          If (InStr(Destination_MonitorNumber,"Current")==True) {
-            ; Set the destination monitor equal to the window's current monitor
-            MoveTo_ThisMonitor := True
-          }
-        }
-        If (Destination_MonitorNumber==Each_MonitorNumber) {
-          ; Set the destination monitor equal to a predefined monitor
-          MoveTo_ThisMonitor := True
-        }
-        If (MoveTo_ThisMonitor == True) {
-          ; Monitor is to be used as the window's destination
-          Matched_MonitorNumber := Each_MonitorNumber
-          EachMonitor_Width := (EachMonitor_RightCoord-EachMonitor_LeftCoord)
-          EachMonitor_Height := (EachMonitor_BottomCoord-EachMonitor_TopCoord)
-          EachMonitor_HalfWidth := (EachMonitor_Width / 2)
-          EachMonitor_HalfHeight := (EachMonitor_Height / 2)
-          EachMonitor_Center_XPos := EachMonitor_LeftCoord + EachMonitor_HalfWidth
-          EachMonitor_Center_YPos := EachMonitor_TopCoord + EachMonitor_HalfHeight
-          If (Destination_Direction=="Maximized") {
-            ; Set window state to "Maximized"
-            Do_Maximized := True
-            ; WinMove_XPos := EachMonitor_LeftCoord - 8
-            ; WinMove_YPos := EachMonitor_TopCoord - 8
-            ; WinMove_Width := EachMonitor_Width + 16
-            ; WinMove_Height := EachMonitor_Height + 16
-              WinMove_XPos := EachMonitor_LeftCoord
-              WinMove_YPos := EachMonitor_TopCoord
-              WinMove_Width := EachMonitor_HalfWidth
-              WinMove_Height := EachMonitor_HalfHeight
-          } Else If (Destination_Direction=="Restored") {
-            ; Set window state to "Restored"
-            ;
-            ;  HANDLED ABOVE
-            ;
-          } Else {
-            Destination_Combined := ( Destination_Direction "-" Destination_Size )
-            If (Destination_Combined=="Left-Half") {
-              ; Left Half
-              WinMove_XPos := EachMonitor_LeftCoord
-              WinMove_YPos := EachMonitor_TopCoord
-              WinMove_Width := EachMonitor_HalfWidth
-              WinMove_Height := EachMonitor_Height
-            } Else If (Destination_Combined=="Right-Half") {
-              ; Right Half
-              WinMove_XPos := EachMonitor_Center_XPos
-              WinMove_YPos := EachMonitor_TopCoord
-              WinMove_Width := EachMonitor_HalfWidth
-              WinMove_Height := EachMonitor_Height
-            } Else If (Destination_Combined=="Top-Half") {
-              ; Top Half
-              WinMove_XPos := EachMonitor_LeftCoord
-              WinMove_YPos := EachMonitor_TopCoord
-              WinMove_Width := EachMonitor_Width
-              WinMove_Height := EachMonitor_HalfHeight
-            } Else If (Destination_Combined=="Bottom-Half") {
-              ; Bottom Half
-              WinMove_XPos := EachMonitor_LeftCoord
-              WinMove_YPos := EachMonitor_Center_YPos
-              WinMove_Width := EachMonitor_Width
-              WinMove_Height := EachMonitor_HalfHeight
-            } Else If ((Destination_Combined=="Top-Left") || (Destination_Combined=="Left-Top")) {
-              ; Top-Left Quadrant
-              WinMove_XPos := EachMonitor_LeftCoord
-              WinMove_YPos := EachMonitor_TopCoord
-              WinMove_Width := EachMonitor_HalfWidth
-              WinMove_Height := EachMonitor_HalfHeight
-            } Else If ((Destination_Combined=="Bottom-Left") || (Destination_Combined=="Left-Bottom")) {
-              ; Bottom-Left Quadrant
-              WinMove_XPos := EachMonitor_LeftCoord
-              WinMove_YPos := EachMonitor_Center_YPos
-              WinMove_Width := EachMonitor_HalfWidth
-              WinMove_Height := EachMonitor_HalfHeight
-            } Else If ((Destination_Combined=="Top-Right") || (Destination_Combined=="Right-Top")) {
-              ; Top-Right Quadrant
-              WinMove_XPos := EachMonitor_Center_XPos
-              WinMove_YPos := EachMonitor_TopCoord
-              WinMove_Width := EachMonitor_HalfWidth
-              WinMove_Height := EachMonitor_HalfHeight
-            } Else If ((Destination_Combined=="Bottom-Right") || (Destination_Combined=="Right-Bottom")) {
-              ; Bottom-Right Quadrant
-              WinMove_XPos := EachMonitor_Center_XPos
-              WinMove_YPos := EachMonitor_Center_YPos
-              WinMove_Width := EachMonitor_HalfWidth
-              WinMove_Height := EachMonitor_HalfHeight
-            }
-            If ((WinMove_XPos!=-1) && (WinMove_YPos!=-1) && (WinMove_Width!=-1) && (WinMove_Height!=-1)) {
-              ;
-              ; Half/Quarter sized 'snap' windows --> Add strange proprietary pixel deltas which Windows uses for half-screen sized windows
-              ;  |--> May vary for specific applications...
-              ;
-              Win_ahk_exe := WinGetProcessName(WinTitle,WinText)
-              If (Win_ahk_exe=="Code.exe") {
-                ; VS Code ignores this offset, and is sized as-expected (using an offset of 0px)
-                DeltaPixels := 0
-              } Else If (Win_ahk_exe=="firefox.exe") {
-                ; Firefox uses a 5px base offset
-                DeltaPixels := 5
-              } Else {
-                ; Everything else seems to use a 5px base offset (default..?)
-                DeltaPixels := 7
-              }
-              WinMove_XPos := WinMove_XPos - DeltaPixels
-              WinMove_YPos := WinMove_YPos - 0
-              WinMove_Width := WinMove_Width + ( 2 * DeltaPixels )
-              WinMove_Height := WinMove_Height + DeltaPixels
-            }
-          }
-          Break
-        }
-      }
-      ; If we are using the "Current" monitor as the destination, then set it respectively
-      If ((RepeatHotkeyPress==False) && (InStr(Destination_MonitorNumber,"Current")==True)) {
-        Destination_MonitorNumber := Win_Center_MonitorNumber
-      }
-      ; Check for error(s)
-      If ((WinMove_XPos==-1) && (WinMove_YPos==-1) && (WinMove_Width==-1) && (WinMove_Height==-1)) {
-        TooltipOutput := ""
-        TooltipOutput := TooltipOutput "                 " "`n"
-        TooltipOutput := TooltipOutput "  Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`"" "   " "`n"
-        TooltipOutput := TooltipOutput "    |" "`n"
-        TooltipOutput := TooltipOutput "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNumber "`" , `"" WinTitle "`" , `"" WinText "`" )" "   " "`n"
-        TooltipOutput := TooltipOutput "    |" "`n"
-        TooltipOutput := TooltipOutput "    |--> Script:  " A_ScriptFullPath "   " "`n"
-        TooltipOutput := TooltipOutput "                 " "`n"
-        TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"UseCurrentMonitor`" , `"A`", `"`" )" "   " "`n"
-        TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Maximized`" , `"`" , 2 , `"A`", `"`" )" "   " "`n"
-        TooltipOutput := TooltipOutput "                 "
-        ShowToolTip(TooltipOutput,,,,60000)
-      } Else {
-        ; If (DebugMode == 1) {
-        ;   MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
-        ; }
-        If (Do_Maximized==False) {
-          If (WinGetMinMax(WinTitle,WinText)==1) {
-            ; Window is maximized --> Restore it (in preparation for resizing)
-            WinRestore(WinTitle,WinText)
-          }
-        }
-        ; If the window is where it already needs to be, then don't move it
-        WinGetPos(&Win_XPos,&Win_YPos,&Win_Width,&Win_Height,WinTitle,WinText)
-        If ((Win_XPos!=WinMove_XPos) || (Win_YPos!=WinMove_YPos) || (Win_Width!=WinMove_Width) || (Win_Height!=WinMove_Height)) {
-          ; Move the window to specified x/y position and resize it to have specified width/height
-          WinMove(WinMove_XPos,WinMove_YPos,WinMove_Width,WinMove_Height,WinTitle,WinText)
-          ; Store the destination values for potential repeat hotkey presses to relatively position themselves off-of
-          WinSnap_Prior_Destination_Direction := Destination_Direction
-          WinSnap_Prior_Destination_MonitorNumber := Destination_MonitorNumber
-          WinSnap_Prior_Destination_Size := Destination_Size
-          ; Sleep 500
-        }
-        If (Do_Maximized==True) {
-          ; Maximize the Window on the target monitor
-          If (WinGetMinMax(WinTitle,WinText)!=1) {
-            ; Window is not maximized --> Maximize it
-            WinMaximize(WinTitle,WinText)
-          }
-        }
-      }
-    }
-  }
   Return
 }
 
@@ -4246,6 +3975,391 @@ WinGet_size_state(WinTitle,WinText:="") {
 
 ; ------------------------------
 ;
+; WinGet_MonitorIndex
+;   |
+;   |--> Retrieves the HWND (unique ID) for a specified window
+;   |
+;   |--> Ex)   WinGet_MonitorIndex(("ahk_id " WinGetID("A")))
+;
+WinGet_MonitorIndex(WinTitle,WinText:="") {
+    ; Default to monitor #1
+  MonitorIndex := 1
+  ; Determine the center position for target window
+  WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle)
+  Win_Center_XPos := Win_XPos + (Win_Width/2)
+  Win_Center_YPos := Win_YPos + (40/2)  ; Compensate for the taskbar being 40px tall - assume non-vertically stacked monitors
+  Loop MonitorGetCount() {
+    Each_MonitorNumber := A_Index
+    ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+    MonitorGetWorkArea(Each_MonitorNumber, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
+    ; Determine if the center of target window is currently located within the bounds of this monitor's work area
+    If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+      MonitorIndex := Each_MonitorNumber
+    }
+  }
+  ; Return the monitor number which the target window is centered on
+  Return MonitorIndex
+}
+
+; ------------------------------
+;
+; WinSnap
+;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
+;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
+;
+WinSnap_Prior_Destination_Direction := ""
+WinSnap_Prior_Destination_MonitorNumber := 0
+WinSnap_Prior_Destination_Size := ""
+WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_Direction:="Left",Destination_Size:="Half",Destination_MonitorNumber:="UseCurrentMonitor") {
+  ; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
+  ; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
+  global DebugMode
+  global WinSnap_Prior_Destination_Direction
+  global WinSnap_Prior_Destination_MonitorNumber
+  global WinSnap_Prior_Destination_Size
+  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  CoordMode "Mouse", "Screen"
+  ; Strip the word "Monitor" off of the destination monitor's string (to get it as an integer)
+  Destination_MonitorNumber := StrReplace(Destination_MonitorNumber,"Monitor","")
+  ; Detect repeat hotkey presses & cycle windows across all monitors in response
+  If ((A_PriorHotkey==A_ThisHotkey) && (A_TimeSincePriorHotkey <= 2000)) {
+    ; This IS a repeated hotkey press
+    RepeatHotkeyPress := True
+    If (WinSnap_Prior_Destination_Direction=="Left") {
+      ; Snap to the right on the same monitor as the last snap
+      Destination_Direction := "Right"
+      Destination_MonitorNumber := WinSnap_Prior_Destination_MonitorNumber
+    } Else If (WinSnap_Prior_Destination_Direction=="Right") {
+      ; Snap to the left on the "next" monitor (to the right assumed)
+      Destination_Direction := "Left"
+      Destination_MonitorNumber := ( WinSnap_Prior_Destination_MonitorNumber + 1 )
+      If (Destination_MonitorNumber > MonitorGetCount()) {
+        ; Wrap around back to the first/leftmost monitor if the window was already on the right of the rightmost monitor
+        Destination_MonitorNumber := 1
+      }
+    }
+  } Else {
+    ; This is NOT a repeated hotkey press - Store its values to iterate off of later
+    RepeatHotkeyPress := False
+    ; If there's only one monitor, force requests to use monitor "1", instead
+    If (MonitorGetCount()==1) {
+      Destination_MonitorNumber := 1
+    }
+    ; Instantiate the "prior" values based on these initial, non-repeated values (baseline)
+    WinSnap_Prior_Destination_Direction := Destination_Direction
+    WinSnap_Prior_Destination_MonitorNumber := Destination_MonitorNumber
+    WinSnap_Prior_Destination_Size := Destination_Size
+  }
+  ; ------------------------------
+  Loop 50 {
+    ; Windows .exes can start in the background well before their visible window component is grabbable by AHK
+    ;  |--> Give the target Window(s) some breathing room to start up, but also act on them as soon as they are started
+    WinHwnd := WinExist(WinTitle,WinText,ExcludeTitle,ExcludeText)
+    If (WinHwnd) {
+      Break
+    } Else {
+      Sleep 100
+    }
+  }
+  ; ------------------------------
+  If (!WinHwnd) {
+    TooltipOutput := A_ScriptName " - " A_ThisFunc "`n"
+    TooltipOutput := TooltipOutput "`n"
+    TooltipOutput := TooltipOutput "Error - No window found matching:" "`n"
+    TooltipOutput := TooltipOutput "`n"
+      TooltipOutput := TooltipOutput "  WinHwnd: [ " WinHwnd " ]" "`n"
+    If (WinTitle != "") {
+      TooltipOutput := TooltipOutput "  WinTitle: [ " WinTitle " ]" "`n"
+    }
+    If (WinText != "") {
+      TooltipOutput := TooltipOutput "  WinText: [ " WinText " ]" "`n"
+    }
+    If (ExcludeTitle != "") {
+      TooltipOutput := TooltipOutput "  ExcludeTitle: [ " ExcludeTitle " ]" "`n"
+    }
+    If (ExcludeText != "") {
+      TooltipOutput := TooltipOutput "  ExcludeText: [ " ExcludeText " ]" "`n"
+    }
+    ShowToolTip(TooltipOutput,,,,4000)
+  } Else {
+    ; Check if action to be performed is a simple window restore
+    If (Destination_Direction=="Restored") {
+      ;
+      ; Set window state to "Restored"
+      ;  |--> Do not handle window restoration onto other monitors, as the dimensions of a window could skew it outside of the bounds of target monitor (and I'm too lazy to do the coding for making sure the window from monitor "1" (for example) fits onto a potentially-smaller monitor "2", but also if you resize the window in the process, it wouldn't truly be a 'restore' action anymore, so yeah just skip the 'feature' of restoring to any monitor other than the window's current monitor)
+      ;
+      WinRestore(WinTitle, WinText)
+    } Else {
+      ; Get the window's current xpos, ypos, width & height
+      WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle, WinText)
+      ; Check if window is Maximized/Minimized, then prep accordingly
+      If (WinGetMinMax(WinTitle,WinText)==1) {
+        ; Window is Maximized --> Adjust its xpos and ypos by +8 (as Windows (for some reason) sets the top-left coords of maximized windows to -8,-8 x,y relative to the top-left coords of the monitor it's on)
+        ; Win_XPos := Win_XPos + 8
+        ; Win_YPos := Win_YPos + 8
+      } Else If ((WinGetMinMax(WinTitle,WinText)==-1) || ((WinGetMinMax(WinTitle,WinText)!=1) && (Win_Width < -8) && (Win_Height < -8))) {  ; Note: Window [xpos,ypos] can sometimes be set to [-8,-8] when maximized
+        ; Window is Minimized (which prevents AHK from obtaining the window's current xpos, ypos, width & height) --> Restore it
+        WinRestore(WinTitle, WinText)
+        Sleep 750
+        WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle, WinText)
+      }
+      Do_Maximized := False
+      ; Calculate the top center edge
+      Win_Center_XPos := Win_XPos + Win_Width/2
+      Win_Center_YPos := Win_YPos + (40/2)  ; Compensate for the taskbar being 40px tall - assume non-vertically stacked monitors
+      Win_Center_MonitorNumber := 0
+      WinMove_XPos := -1
+      WinMove_YPos := -1
+      WinMove_Width := -1
+      WinMove_Height := -1
+      Matched_MonitorNumber := -1
+      Loop MonitorGetCount() {
+        Each_MonitorNumber := A_Index
+        ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+        MonitorGetWorkArea(Each_MonitorNumber, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
+        ; Determine if the current iteration's monitor is the destination monitor
+        MoveTo_ThisMonitor := False
+        ; ------------------------------
+        If (DebugMode == 1) {
+          TooltipOutput := ""
+          TooltipOutput := TooltipOutput "                 " "`n"
+          TooltipOutput := TooltipOutput "Each_MonitorNumber:		" Each_MonitorNumber "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "EachMonitor_LeftCoord:		" EachMonitor_LeftCoord "`n"
+          TooltipOutput := TooltipOutput "EachMonitor_RightCoord:		" EachMonitor_RightCoord "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "EachMonitor_TopCoord:		" EachMonitor_TopCoord "`n"
+          TooltipOutput := TooltipOutput "EachMonitor_BottomCoord:	" EachMonitor_BottomCoord "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "RepeatHotkeyPress:		" RepeatHotkeyPress "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "Destination_Direction:		" Destination_Direction "`n"
+          TooltipOutput := TooltipOutput "Destination_MonitorNumber:	" Destination_MonitorNumber "`n"
+          TooltipOutput := TooltipOutput "Destination_Size:			" Destination_Size "`n"
+          TooltipOutput := TooltipOutput "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Direction:		" WinSnap_Prior_Destination_Direction "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_MonitorNumber:		" WinSnap_Prior_Destination_MonitorNumber "`n"
+          TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Size:			" WinSnap_Prior_Destination_Size "`n"
+          TooltipOutput := TooltipOutput "                 "
+          ; ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber+1),60000)
+          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorNumber*5),60000)
+        }
+        ; Determine if the center of target window is currently located within the bounds of this monitor's work area
+        If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord) && (Win_Center_YPos>=EachMonitor_TopCoord) && (Win_Center_YPos<=EachMonitor_BottomCoord)) {
+          ; Window is located on this monitor
+          Win_Center_MonitorNumber := A_Index
+          If (InStr(Destination_MonitorNumber,"Current")==True) {
+            ; Set the destination monitor equal to the window's current monitor
+            MoveTo_ThisMonitor := True
+          }
+        }
+        If (Destination_MonitorNumber==Each_MonitorNumber) {
+          ; Set the destination monitor equal to a predefined monitor
+          MoveTo_ThisMonitor := True
+        }
+        If (MoveTo_ThisMonitor == True) {
+          ; Monitor is to be used as the window's destination
+          Matched_MonitorNumber := Each_MonitorNumber
+          EachMonitor_Width := (EachMonitor_RightCoord-EachMonitor_LeftCoord)
+          EachMonitor_Height := (EachMonitor_BottomCoord-EachMonitor_TopCoord)
+          EachMonitor_HalfWidth := (EachMonitor_Width / 2)
+          EachMonitor_HalfHeight := (EachMonitor_Height / 2)
+          EachMonitor_Center_XPos := EachMonitor_LeftCoord + EachMonitor_HalfWidth
+          EachMonitor_Center_YPos := EachMonitor_TopCoord + EachMonitor_HalfHeight
+          If (Destination_Direction=="Maximized") {
+            ; Set window state to "Maximized"
+            Do_Maximized := True
+            ; WinMove_XPos := EachMonitor_LeftCoord - 8
+            ; WinMove_YPos := EachMonitor_TopCoord - 8
+            ; WinMove_Width := EachMonitor_Width + 16
+            ; WinMove_Height := EachMonitor_Height + 16
+              WinMove_XPos := EachMonitor_LeftCoord
+              WinMove_YPos := EachMonitor_TopCoord
+              WinMove_Width := EachMonitor_HalfWidth
+              WinMove_Height := EachMonitor_HalfHeight
+          } Else If (Destination_Direction=="Restored") {
+            ; Set window state to "Restored"
+            ;
+            ;  HANDLED ABOVE
+            ;
+          } Else {
+            Destination_Combined := ( Destination_Direction "-" Destination_Size )
+            If (Destination_Combined=="Left-Half") {
+              ; Left Half
+              WinMove_XPos := EachMonitor_LeftCoord
+              WinMove_YPos := EachMonitor_TopCoord
+              WinMove_Width := EachMonitor_HalfWidth
+              WinMove_Height := EachMonitor_Height
+            } Else If (Destination_Combined=="Right-Half") {
+              ; Right Half
+              WinMove_XPos := EachMonitor_Center_XPos
+              WinMove_YPos := EachMonitor_TopCoord
+              WinMove_Width := EachMonitor_HalfWidth
+              WinMove_Height := EachMonitor_Height
+            } Else If (Destination_Combined=="Top-Half") {
+              ; Top Half
+              WinMove_XPos := EachMonitor_LeftCoord
+              WinMove_YPos := EachMonitor_TopCoord
+              WinMove_Width := EachMonitor_Width
+              WinMove_Height := EachMonitor_HalfHeight
+            } Else If (Destination_Combined=="Bottom-Half") {
+              ; Bottom Half
+              WinMove_XPos := EachMonitor_LeftCoord
+              WinMove_YPos := EachMonitor_Center_YPos
+              WinMove_Width := EachMonitor_Width
+              WinMove_Height := EachMonitor_HalfHeight
+            } Else If ((Destination_Combined=="Top-Left") || (Destination_Combined=="Left-Top")) {
+              ; Top-Left Quadrant
+              WinMove_XPos := EachMonitor_LeftCoord
+              WinMove_YPos := EachMonitor_TopCoord
+              WinMove_Width := EachMonitor_HalfWidth
+              WinMove_Height := EachMonitor_HalfHeight
+            } Else If ((Destination_Combined=="Bottom-Left") || (Destination_Combined=="Left-Bottom")) {
+              ; Bottom-Left Quadrant
+              WinMove_XPos := EachMonitor_LeftCoord
+              WinMove_YPos := EachMonitor_Center_YPos
+              WinMove_Width := EachMonitor_HalfWidth
+              WinMove_Height := EachMonitor_HalfHeight
+            } Else If ((Destination_Combined=="Top-Right") || (Destination_Combined=="Right-Top")) {
+              ; Top-Right Quadrant
+              WinMove_XPos := EachMonitor_Center_XPos
+              WinMove_YPos := EachMonitor_TopCoord
+              WinMove_Width := EachMonitor_HalfWidth
+              WinMove_Height := EachMonitor_HalfHeight
+            } Else If ((Destination_Combined=="Bottom-Right") || (Destination_Combined=="Right-Bottom")) {
+              ; Bottom-Right Quadrant
+              WinMove_XPos := EachMonitor_Center_XPos
+              WinMove_YPos := EachMonitor_Center_YPos
+              WinMove_Width := EachMonitor_HalfWidth
+              WinMove_Height := EachMonitor_HalfHeight
+            }
+            If ((WinMove_XPos!=-1) && (WinMove_YPos!=-1) && (WinMove_Width!=-1) && (WinMove_Height!=-1)) {
+              ;
+              ; Half/Quarter sized 'snap' windows --> Add strange proprietary pixel deltas which Windows uses for half-screen sized windows
+              ;  |--> May vary for specific applications...
+              ;
+              Win_ahk_exe := WinGetProcessName(WinTitle,WinText)
+              If (Win_ahk_exe=="Code.exe") {
+                ; VS Code ignores this offset, and is sized as-expected (using an offset of 0px)
+                DeltaPixels := 0
+              } Else If (Win_ahk_exe=="firefox.exe") {
+                ; Firefox uses a 5px base offset
+                DeltaPixels := 5
+              } Else {
+                ; Everything else seems to use a 5px base offset (default..?)
+                DeltaPixels := 7
+              }
+              WinMove_XPos := WinMove_XPos - DeltaPixels
+              WinMove_YPos := WinMove_YPos - 0
+              WinMove_Width := WinMove_Width + ( 2 * DeltaPixels )
+              WinMove_Height := WinMove_Height + DeltaPixels
+            }
+          }
+          Break
+        }
+      }
+      ; If we are using the "Current" monitor as the destination, then set it respectively
+      If ((RepeatHotkeyPress==False) && (InStr(Destination_MonitorNumber,"Current")==True)) {
+        Destination_MonitorNumber := Win_Center_MonitorNumber
+      }
+      ; Check for error(s)
+      If ((WinMove_XPos==-1) && (WinMove_YPos==-1) && (WinMove_Width==-1) && (WinMove_Height==-1)) {
+        TooltipOutput := ""
+        TooltipOutput := TooltipOutput "                 " "`n"
+        TooltipOutput := TooltipOutput "  Error - Invalid Argument(s) passed to function `"" A_ThisFunc "`"" "   " "`n"
+        TooltipOutput := TooltipOutput "    |" "`n"
+        TooltipOutput := TooltipOutput "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNumber "`" , `"" WinTitle "`" , `"" WinText "`" )" "   " "`n"
+        TooltipOutput := TooltipOutput "    |" "`n"
+        TooltipOutput := TooltipOutput "    |--> Script:  " A_ScriptFullPath "   " "`n"
+        TooltipOutput := TooltipOutput "                 " "`n"
+        TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"UseCurrentMonitor`" , `"A`", `"`" )" "   " "`n"
+        TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Maximized`" , `"`" , 2 , `"A`", `"`" )" "   " "`n"
+        TooltipOutput := TooltipOutput "                 "
+        ShowToolTip(TooltipOutput,,,,60000)
+      } Else {
+        ; If (DebugMode == 1) {
+        ;   MsgBox("Matched_MonitorNumber=[ " Each_MonitorNumber " ]" "`n" "Do_Maximized=[ " Do_Maximized " ]" "`n" "WinMove ( " WinTitle " , " WinText " , , " WinMove_XPos " , " WinMove_YPos " , " WinMove_Width " , " WinMove_Height " )", A_ScriptName " - " A_ThisFunc)
+        ; }
+        If (Do_Maximized==False) {
+          If (WinGetMinMax(WinTitle,WinText)==1) {
+            ; Window is maximized --> Restore it (in preparation for resizing)
+            WinRestore(WinTitle,WinText)
+          }
+        }
+        ; If the window is where it already needs to be, then don't move it
+        WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinTitle, WinText)
+        If ((Win_XPos!=WinMove_XPos) || (Win_YPos!=WinMove_YPos) || (Win_Width!=WinMove_Width) || (Win_Height!=WinMove_Height)) {
+          ; Move the window to specified x/y position and resize it to have specified width/height
+          WinMove(WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height, WinTitle, WinText)
+          ; Store the destination values for potential repeat hotkey presses to relatively position themselves off-of
+          WinSnap_Prior_Destination_Direction := Destination_Direction
+          WinSnap_Prior_Destination_MonitorNumber := Destination_MonitorNumber
+          WinSnap_Prior_Destination_Size := Destination_Size
+          ; Sleep 500
+        }
+        If (Do_Maximized==True) {
+          ; Maximize the Window on the target monitor
+          If (WinGetMinMax(WinTitle,WinText)!=1) {
+            ; Window is not maximized --> Maximize it
+            WinMaximize(WinTitle,WinText)
+          }
+        }
+      }
+    }
+  }
+  Return
+}
+
+; ------------------------------
+;
+; WinSnap_ToGrid
+;  |
+;  |--> Description:
+;  |      Resizes and moves target window to a given position on a grid, applying an optional rowSpan & colSpan
+;  |
+;  |--> Parameters:
+;  |      @param {integer} numRows   The number of rows in the grid
+;  |      @param {integer} numCols   The number of columns in the grid
+;  |      @param {integer} row       The specific row within the grid to place the window
+;  |      @param {integer} col       The specific column within the grid to place the window
+;  |      @param {integer} rowSpan   The specific row within the grid to place the window
+;  |      @param {integer} colSpan   The specific column within the grid to place the window
+;  |
+;  |--> Citation:  https://gist.github.com/AWMooreCO/1ef708055a11862ca9dc
+;  |
+;  |--> Ex)  
+;         WinSnap_ToGrid("A",,1,4,1,1,1,1)  ; Snap to the leftmost 1/4 (column) of screen (1 column of a 4-column layout)
+;         WinSnap_ToGrid("A",,1,4,1,1,1,2)  ; Snap to the centermost 1/2 (column) of screen (2 columns of a 4-column layout)
+;         WinSnap_ToGrid("A",,3,3,2,2)      ; Snap to the centermost 1/9 (sector) of screen (1 column, 1 row of a 3-column, 3-row layout)
+;
+WinSnap_ToGrid(WinTitle:="A", WinText:="", numRows:=1, numCols:=1, row:=1, col:=1, rowSpan:=1, colSpan:=1) {
+  WinHwnd := ("ahk_id " WinGetID(WinTitle))
+  ; Determine which monitor the window is located on
+  MonitorIndex := WinGet_MonitorIndex(WinHwnd)
+  MonitorGetWorkArea(MonitorIndex, &MonitorWorkAreaLeft, &MonitorWorkAreaTop, &MonitorWorkAreaRight, &MonitorWorkAreaBottom)
+  ; Get target monitor's dimensions on-screen
+  ; Get target window's dimensions on-screen
+  WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, WinHwnd)
+  ; If Window is Maximized or Minimized, restore it
+  If ((WinGetMinMax(WinHwnd)==1) || (WinGetMinMax(WinHwnd)==-1) || ((WinGetMinMax(WinHwnd)!=1) && (Win_Width < -8) && (Win_Height < -8))) {  ; Note: Window [xpos,ypos] can sometimes be set to [-8,-8] when maximized
+    WinRestore(WinHwnd)
+  }
+  ; Determine the ColWidth and RowHeight of a grid cell
+  RowHeight := ((MonitorWorkAreaBottom - MonitorWorkAreaTop) / numRows)
+  ColWidth := ((MonitorWorkAreaRight - MonitorWorkAreaLeft) / numCols)
+  ; Determine the x and y offsets
+  WinMove_XPos  := Floor(MonitorWorkAreaLeft + (col - 1) * ColWidth)
+  WinMove_YPos  := Floor(MonitorWorkAreaTop + (row - 1) * RowHeight)
+  ; Apply rowSpan/colSpan after determining offsets
+  WinMove_Width := Floor(ColWidth * colSpan)
+  WinMove_Height := Floor(RowHeight * rowSpan)
+  ; Move and resize the active window
+  WinMove(WinMove_XPos, WinMove_YPos, WinMove_Width, WinMove_Height, WinHwnd)
+  Return
+}
+
+; ------------------------------
+;
 ; Win_ToggleRestoreMaximize
 ;   |--> Toggle target window between "Maximized" and "Non-Maximized" (or "Restored") states
 ;
@@ -5374,7 +5488,7 @@ Youtube_EditDraft_Submit() {
 ;   |
 ;   |--> Hotkey Modifier Symbols:  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
 ;
-;     #      Win
+;     #      WinKey
 ;
 ;     !      Alt
 ;
@@ -5399,6 +5513,8 @@ Youtube_EditDraft_Submit() {
 ;   docs.microsoft.com  |  "wscript | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/wscript
 ;
 ;   docs.microsoft.com  |  "WM_SYSCOMMAND message"  |  https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+;
+;   gist.github.com  |  "Advanced Window Snap is a script for AutoHotKey that expands upon Windows built-in window-snapping hotkeys. · GitHub"  |  https://gist.github.com/AWMooreCO/1ef708055a11862ca9dc
 ;
 ;   gist.github.com  |  "Media keys shortcuts for AutoHotkey · GitHub"  |  https://gist.github.com/mistic100/d3c0c1eb63fb7e4ee545
 ;

@@ -10,7 +10,9 @@ Exit 1;
 
 
 # ForEach-Object(...) loop  -  Arrays
-@("val1","val2","val3") | ForEach-Object { Write-Host "------------------------------`n${_}"; };
+@("val1","val2","val3") | ForEach-Object {
+  Write-Host "------------------------------`n${_}";
+};
 
 
 #   For(...) loop  -  Arrays (iterate over each index)

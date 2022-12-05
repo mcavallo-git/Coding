@@ -23,6 +23,9 @@
 (([regex]::match("SOME LONG STRING","long")).success);   <# False (case SENSITIVE) #>
 
 
+"SOME LONG STRING" -like "*long*";   <# True  (case IN-sensitive) #>
+
+
 "SOME LONG STRING" -match "long";   <# True  (case IN-sensitive) #>
 
 

@@ -9,24 +9,23 @@ IS_GNU_SED="$(if [[ "$(sed --version | grep '^sed' | grep -i 'gnu' | wc -l;)" -g
 
 # ------------------------------------------------------------
 #
-# Regex string parsing
+# String parsing
 #
 
-
-# sed regex parsing (Ex 1)
+# sed -r (regex)  -  Parse string (Ex 1)
 echo "a b c 1 2 3 d e f 4 5 6" | sed -rne "s/^[^0-9]+([0-9 ]+)[^0-9]*.*$/\1/p";  # Returns "1 2 3"
 
 
-# sed regex parsing (Ex 2)
+# sed -r (regex)  -  Parse string (Ex 2)
 echo "a b c 1 2 3 d e f 4 5 6" | sed -rne "s/^[^0-9]+([0-9 ]+)[^0-9]*/\1/p";  # Returns "1 2 3 4 5 6"
 
 
-# sed regex parsing (Ex 3)
+# sed -r (regex)  -  Parse string (Ex 3)
 DOCKER_VERSION="$(docker --version | sed -rne "s/^[^0-9]+([0-9\.]+)[,\s].+$/\1/p";)";
 echo "\${DOCKER_VERSION}=[${DOCKER_VERSION}]";  # Returns the current docker version (such as "20.10.17")
 
 
-# sed regex parsing (Ex 4)
+# sed -r (regex)  -  Parse string (Ex 4)
 KOMPOSE_LATEST_VERSION=$(curl -sL https://github.com/kubernetes/kompose/releases | sed -rne "s/^.+\/kubernetes\/kompose\/releases\/download\/v([0-9\.]+)\/kompose-linux-amd64.+$/\1/p" | head -n 1;);
 echo "\${KOMPOSE_LATEST_VERSION}=[${KOMPOSE_LATEST_VERSION}]";  # Returns the latest version of kompose (such as "1.26.1")
 
@@ -36,12 +35,16 @@ echo "\${KOMPOSE_LATEST_VERSION}=[${KOMPOSE_LATEST_VERSION}]";  # Returns the la
 # Substring replacement
 #
 
-# sed string replacement  -  Replace "world" with "not world"
-echo "hello world" | sed -e 's|world|not world|g';
+# sed -r (regex)  -  Replace substring
+echo "hello world" | sed -e 's|world|not world|g';  # Replace "world" with "not world"
 
 
-# sed regex replacement (removal/slicing)
-echo "123abc456def789ghi" | sed -re "s/[^0-9\.]//g";
+# sed -r (regex)  -  Remove CHARACTERS
+echo "123abc456def789ghi" | sed -re "s/[^0-9\.]//g";  # Remove non-numeric (and period) characters
+
+
+# sed -r (regex)  -  Remove LINES
+seq 20 | sed -r "/^[2468]/d";  # Remove lines containing 2, 4, 6 or 8
 
 
 # ------------------------------------------------------------
@@ -61,6 +64,10 @@ seq 500 | sed -rne "s/^([0-9]{1})$/\1/pi";
 seq 500 | sed -rne "s/^49([0-9]{1})$/Regex Capture Group #0: [ \0 ],  Regex Capture Group #1: [ \1 ]/pi";
 
 
+# sed -r (regex)  -  Parse a string as a comma delimited list of substrings, then remove certain substring(s) it
+echo -e 'abc,defghij,klm' | sed 's/,/\n/g' | sed -r "/^def*/d" | tr '\n' ',';
+
+
 # sed -r (regex)  -  Parse "curl" output:  Parse the version number corresponding to Terraform's "latest" release by curl'ng their release page's url
 curl -sL 'https://releases.hashicorp.com/terraform/' | grep -i '<a href="/terraform/' | head -n 1 | sed -rne "s/^\s*<a href=\"\/terraform\/([0-9\.]+)(\/|\").*$/\1/pi";
 
@@ -71,10 +78,6 @@ printenv | grep -i 'onedrive' | sed -rne 's/^([a-zA-Z0-9]+)=(.+)$/\2/pi';
 
 # sed -r (regex)  -  Parse "stress-ng" output:  Get the number of cores output by a "stress-ng" dry run test using all cores (cpu "0" + method "all")
 stress-ng --cpu 0 --cpu-method all --dry-run 2>&1 | sed -rne "s/^.+dispatching hogs: ([0-9]{1,}) cpu\s*$/\1/pi";
-
-
-# sed -r (regex)  -  Slice:  Remove a specific string from a comma-delimited list of strings
-echo -n 'abc,defghij,klm' | sed 's/,/\n/g' | sed -r "/^def*/d" | tr '\n' ',';
 
 
 # sed -r (regex)  -  Conditional based on Regex match passing/failing

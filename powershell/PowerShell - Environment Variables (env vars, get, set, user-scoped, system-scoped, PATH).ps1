@@ -13,7 +13,7 @@ gci env:
 #
 # List All environment variables
 #
-Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Get-ChildItem env: | Format-Table -AutoSize; Write-Output ---` env:PATH` ---; (${env:Path}).Split([String][Char]59) | Sort-Object; Write-Output ----------------; <# List all environment variables (one-liner) #>
+Write-Output ---` env:*` ---; If(($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $($rawUI.BufferSize=$newSize) 2>$Null; }; Get-ChildItem env: | Format-Table -AutoSize; ${env:Path} | ? { $_ -NE $Null } | % { Write-Output ---` env:PATH` ---; ($_).Split([String][Char]59) | Sort-Object; }; Write-Output ----------------; <# List all environment variables (one-liner) #>
 
 
 # List System environment variables

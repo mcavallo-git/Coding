@@ -31,7 +31,7 @@
     cmd /c $UninstallString /quiet /norestart
     Start-Sleep -Milliseconds (250);
 
-    If (Get-Package -Name "$($_.Name)") {
+    If (Get-Package -Name "$($_.Name)" -EA:0) {
       # Fallback uninstall approach
       Write-Host "`nInfo: Attempting uninstall using fallback method `"Uninstall-Package`"..." -ForegroundColor "Yellow";
       # Uninstall-Package -Name "$($_.Name)" -AllVersions -Force;
@@ -39,7 +39,7 @@
       Start-Sleep -Milliseconds (250);
     }
 
-    If (Get-Package -Name "$($_.Name)") {
+    If (Get-Package -Name "$($_.Name)" -EA:0) {
       Write-Host "`nError: Failed to uninstall package w/ Name=`"$($_.Name)`", Version=`"$($_.Version)`"...  " -ForegroundColor "Magenta";
     }
 

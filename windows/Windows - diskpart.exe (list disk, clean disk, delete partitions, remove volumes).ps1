@@ -16,7 +16,9 @@
 
 > SELECT PARTITION [X]
 
-> DELETE PARTITION
+> DELETE PARTITION OVERRIDE
+
+# Note: Adding "OVERRIDE" is required to overcome "Cannot delete a protected partition without the force protected parameter set."
 
 
 # ------------------------------------------------------------

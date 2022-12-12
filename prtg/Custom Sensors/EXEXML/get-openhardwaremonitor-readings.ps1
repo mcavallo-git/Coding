@@ -444,6 +444,16 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath}") -ErrorAction
 
 }
 
+<# ------------------------------ #>
+<# Perform action(s) not requiring OHW #>
+
+# Pull SSD Temp from S.M.A.R.T. values (if no value exists for it already)
+If ([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) {
+  ${Temp_SSD}.Avg = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature" -EA:0);
+}
+
+<# ------------------------------ #>
+
 # Output the XML contents to output files (separated by-category, as well as one combined file)
 # Write-Output (("${XmlHeader}")+("`n")+(${XmlOutput_Array_All} -join "`n")+("`n")+("${XmlFooter}")) | Out-File -NoNewline "${Logfile_XmlOutput_All}.xml";
 

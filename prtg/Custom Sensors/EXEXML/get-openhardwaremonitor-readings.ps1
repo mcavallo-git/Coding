@@ -328,16 +328,16 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath}") -ErrorAction
     # $Each_XmlOutput_Array += "       <Value>$(${Each_Value}.Max)</Value>";
     # $Each_XmlOutput_Array += "       <Mode>Absolute</Mode>";
     # If (${Each_SensorPath} -Match "/temperature/") { # Use units of Degrees-Celsius (°C) for temperature readings
-    # 	$Each_XmlOutput_Array += "       <Unit>Temperature</Unit>";
+    #   $Each_XmlOutput_Array += "       <Unit>Temperature</Unit>";
     # } ElseIf (${Each_SensorPath} -Match "/fan/") { # Use units of Rotations per Minute (RPM) for fans and liquid-cooling pumps
-    # 	$Each_XmlOutput_Array += "       <Unit>Custom</Unit>";
-    # 	$Each_XmlOutput_Array += "       <CustomUnit>RPM</CustomUnit>";
+    #   $Each_XmlOutput_Array += "       <Unit>Custom</Unit>";
+    #   $Each_XmlOutput_Array += "       <CustomUnit>RPM</CustomUnit>";
     # } ElseIf (${Each_SensorPath} -Match "/control/") { # Use units of Percentage of Max Fan Speed (% PWM) for fans and liquid-cooling pumps
-    # 	$Each_XmlOutput_Array += "       <Unit>Custom</Unit>";
-    # 	$Each_XmlOutput_Array += "       <CustomUnit>% PWM</CustomUnit>";
+    #   $Each_XmlOutput_Array += "       <Unit>Custom</Unit>";
+    #   $Each_XmlOutput_Array += "       <CustomUnit>% PWM</CustomUnit>";
     # } ElseIf (${Each_SensorPath} -Match "/voltage/") { # Use units of Volts (V) for electric-pressure readings
-    # 	$Each_XmlOutput_Array += "       <Unit>Custom</Unit>";
-    # 	$Each_XmlOutput_Array += "       <CustomUnit>Volts</CustomUnit>";
+    #   $Each_XmlOutput_Array += "       <Unit>Custom</Unit>";
+    #   $Each_XmlOutput_Array += "       <CustomUnit>Volts</CustomUnit>";
     # }
     # $Each_XmlOutput_Array += "       <Float>1</Float>";
     # $Each_XmlOutput_Array += "       <ShowChart>0</ShowChart>";
@@ -393,7 +393,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath}") -ErrorAction
         # ------------------------------
 
       # } ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
-      # 	${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
+      #   ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  <# Chassis Fan 1 #>
         ${Speed_FAN_RAD}.(${_}) = (${Each_Value}.(${_}));

@@ -1,7 +1,5 @@
 # ------------------------------------------------------------
-#
-# PowerShell - Get-Disk, Get-Volume (set disks online-offline, grab names of volumes within partitions - DISM optimization)
-#
+# PowerShell - Get-Disk, Get-Volume, Set-Disk (list disks, set disks online-offline, get partition volume names)
 # ------------------------------------------------------------
 
 <# Example: Find offline disks, put them online, optimize any with the name "Windows" through DISM, then take them back offline #>

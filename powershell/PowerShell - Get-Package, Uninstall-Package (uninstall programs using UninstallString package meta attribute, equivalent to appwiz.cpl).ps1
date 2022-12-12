@@ -27,7 +27,6 @@
 
     $UninstallString=(${_}.Meta.Attributes["UninstallString"]);
     # $UninstallString=(([xml](${_}.SwidTagText)).SoftwareIdentity.Meta.UninstallString);
-    # Write-Host "`nInfo:  Attempting uninstall using package meta-attribute `"UninstallString`": [ ${UninstallString} ]..." -ForegroundColor "Yellow";
     Write-Host "`nInfo:  Calling [ cmd /c $UninstallString /quiet /norestart ]..." -ForegroundColor "Yellow";
     cmd /c $UninstallString /quiet /norestart
     Start-Sleep -Milliseconds (250);

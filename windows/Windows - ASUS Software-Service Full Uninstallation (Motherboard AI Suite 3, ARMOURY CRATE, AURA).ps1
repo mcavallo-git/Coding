@@ -326,6 +326,8 @@ CheckPendingRestart;
 #
 # Citation(s)
 #
+#   community.spiceworks.com  |  "Use UninstallString Powershell"  |  https://community.spiceworks.com/topic/2250963-use-uninstallstring-powershell
+#
 #   docs.microsoft.com  |  "Get-ChildItem - Gets the items and child items in one or more specified locations"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-childitem?view=powershell-5.1
 #
 #   docs.microsoft.com  |  "Remove-Item - Deletes the specified items"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-5.1

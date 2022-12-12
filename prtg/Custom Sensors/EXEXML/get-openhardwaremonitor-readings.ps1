@@ -392,8 +392,8 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath}") -ErrorAction
 
 				# ------------------------------
 
-			} ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
-				${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
+			# } ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
+			# 	${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
 
 			} ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  <# Chassis Fan 1 #>
 				${Speed_FAN_RAD}.(${_}) = (${Each_Value}.(${_}));

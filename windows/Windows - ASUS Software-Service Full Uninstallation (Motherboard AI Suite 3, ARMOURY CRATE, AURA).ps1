@@ -48,15 +48,31 @@ If ($True) {
       Get-Package `
       | Where-Object { $_.Name -Like ("*${EACH_PACKAGE_CONTAINS}*"); } `
       | ForEach-Object {
-        Write-Host "`nInfo: Uninstalling Package w/ Name=`"$($_.Name)`", Version=`"$($_.Version)`"...  " -ForegroundColor "Yellow";
-        # Uninstall-Package $_;
-        Uninstall-Package -Name "$($_.Name)" -AllVersions -Force;
+
+        Write-Host "`nInfo: Uninstalling package w/ Name=`"$($_.Name)`", Version=`"$($_.Version)`"...  " -ForegroundColor "Yellow";
+
+        $UninstallString=(${_}.Meta.Attributes["UninstallString"]);
+        # $UninstallString=(([xml](${_}.SwidTagText)).SoftwareIdentity.Meta.UninstallString);
+        # Write-Host "`nInfo:  Attempting uninstall using package meta-attribute `"UninstallString`": [ ${UninstallString} ]..." -ForegroundColor "Yellow";
+        Write-Host "`nInfo:  Calling [ cmd /c $UninstallString /quiet /norestart ]..." -ForegroundColor "Yellow";
+        cmd /c $UninstallString /quiet /norestart
         Start-Sleep -Milliseconds (250);
+
+
+        If (Get-Package -Name "$($_.Name)") {
+          # Fallback uninstall approach
+          Write-Host "`nInfo: Attempting uninstall using fallback method `"Uninstall-Package`"..." -ForegroundColor "Yellow";
+          # Uninstall-Package -Name "$($_.Name)" -AllVersions -Force;
+          ${_} | Uninstall-Package;
+          Start-Sleep -Milliseconds (250);
+        }
+
+        If (Get-Package -Name "$($_.Name)") {
+          Write-Host "`nError: Failed to uninstall package w/ Name=`"$($_.Name)`", Version=`"$($_.Version)`"...  " -ForegroundColor "Magenta";
+        }
+
       }
     };
-    # Get-Package `
-    # | Where-Object { ${ASUS_PACKAGE_CONTAINS} -Contains ($_.Name); } `
-    # | Uninstall-Package;
 
   }
 
@@ -317,5 +333,7 @@ CheckPendingRestart;
 #   docs.microsoft.com  |  "Remove-Item - Deletes the specified items"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-item?view=powershell-5.1
 #
 #   stackoverflow.com  |  "How can I extract "Path to executable" of all services with PowerShell - Stack Overflow"  |  https://stackoverflow.com/a/24449854
+#
+#   stackoverflow.com  |  "powershell - "Get-Package *notepad* | Uninstall-Package -Force" not working - Stack Overflow"  |  https://stackoverflow.com/a/54755801
 #
 # ------------------------------------------------------------

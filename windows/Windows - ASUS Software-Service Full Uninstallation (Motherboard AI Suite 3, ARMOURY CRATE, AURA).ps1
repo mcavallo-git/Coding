@@ -31,19 +31,19 @@ If ($True) {
 
   } Else {
 
-    $ASUS_PACKAGE_CONTAINS=@();
-    # $ASUS_PACKAGE_CONTAINS+="AI Suite 3";
-    $ASUS_PACKAGE_CONTAINS+="AMD Software";
-    # $ASUS_PACKAGE_CONTAINS+="AMD_Chipset_Drivers";
-    $ASUS_PACKAGE_CONTAINS+="ARMOURY CRATE Lite Service";
-    $ASUS_PACKAGE_CONTAINS+="ASUS Framework Service";
-    $ASUS_PACKAGE_CONTAINS+="AURA";
-    $ASUS_PACKAGE_CONTAINS+="AURA lighting effect add-on";
-    $ASUS_PACKAGE_CONTAINS+="AURA lighting effect add-on x64";
-    $ASUS_PACKAGE_CONTAINS+="AURA Service";
-    $ASUS_PACKAGE_CONTAINS+="GALAX GAMER RGB";
-    $ASUS_PACKAGE_CONTAINS+="ROG Live Service";
-    $ASUS_PACKAGE_CONTAINS | ForEach-Object {
+    @(
+    # "AI Suite 3", 
+    "AMD Software", 
+    # "AMD_Chipset_Drivers", 
+    "ARMOURY CRATE Lite Service", 
+    "ASUS Framework Service", 
+    "AURA", 
+    "AURA lighting effect add-on", 
+    "AURA lighting effect add-on x64", 
+    "AURA Service", 
+    "GALAX GAMER RGB", 
+    "ROG Live Service"
+    ) | ForEach-Object {
       $EACH_PACKAGE_CONTAINS="${_}";
       Get-Package `
       | Where-Object { $_.Name -Like ("*${EACH_PACKAGE_CONTAINS}*"); } `
@@ -53,11 +53,9 @@ If ($True) {
 
         $UninstallString=(${_}.Meta.Attributes["UninstallString"]);
         # $UninstallString=(([xml](${_}.SwidTagText)).SoftwareIdentity.Meta.UninstallString);
-        # Write-Host "`nInfo:  Attempting uninstall using package meta-attribute `"UninstallString`": [ ${UninstallString} ]..." -ForegroundColor "Yellow";
         Write-Host "`nInfo:  Calling [ cmd /c $UninstallString /quiet /norestart ]..." -ForegroundColor "Yellow";
         cmd /c $UninstallString /quiet /norestart
         Start-Sleep -Milliseconds (250);
-
 
         If (Get-Package -Name "$($_.Name)") {
           # Fallback uninstall approach

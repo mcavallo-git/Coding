@@ -448,14 +448,17 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath}") -ErrorAction
 <# Perform action(s) not requiring OHW #>
 
 # Pull SSD temp(s) from S.M.A.R.T. values (if no value exists for it already)
-If ([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) {
-  ${Temp_SSD}.Avg = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature" -EA:0);
-}
-If ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) {
-  ${Temp_SSD}.Max = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature" -EA:0);
-}
-If ([String]::IsNullOrEmpty(${Temp_SSD}.Min)) {
-  ${Temp_SSD}.Min = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature" -EA:0);
+If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Min))) {
+  $SSD_SMART_Temperature = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature" -EA:0);
+  If ([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) {
+    ${Temp_SSD}.Avg = (${SSD_SMART_Temperature});
+  }
+  If ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) {
+    ${Temp_SSD}.Max = (${SSD_SMART_Temperature});
+  }
+  If ([String]::IsNullOrEmpty(${Temp_SSD}.Min)) {
+    ${Temp_SSD}.Min = (${SSD_SMART_Temperature});
+  }
 }
 
 <# ------------------------------ #>

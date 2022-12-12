@@ -1,0 +1,993 @@
+------------------------------------------------------------
+
+DISKPART> HELP
+
+Microsoft DiskPart version 10.0.19041.964
+
+ACTIVE      - Mark the selected partition as active.
+ADD         - Add a mirror to a simple volume.
+ASSIGN      - Assign a drive letter or mount point to the selected volume.
+ATTRIBUTES  - Manipulate volume or disk attributes.
+ATTACH      - Attaches a virtual disk file.
+AUTOMOUNT   - Enable and disable automatic mounting of basic volumes.
+BREAK       - Break a mirror set.
+CLEAN       - Clear the configuration information, or all information, off the
+              disk.
+COMPACT     - Attempts to reduce the physical size of the file.
+CONVERT     - Convert between different disk formats.
+CREATE      - Create a volume, partition or virtual disk.
+DELETE      - Delete an object.
+DETAIL      - Provide details about an object.
+DETACH      - Detaches a virtual disk file.
+EXIT        - Exit DiskPart.
+EXTEND      - Extend a volume.
+EXPAND      - Expands the maximum size available on a virtual disk.
+FILESYSTEMS - Display current and supported file systems on the volume.
+FORMAT      - Format the volume or partition.
+GPT         - Assign attributes to the selected GPT partition.
+HELP        - Display a list of commands.
+IMPORT      - Import a disk group.
+INACTIVE    - Mark the selected partition as inactive.
+LIST        - Display a list of objects.
+MERGE       - Merges a child disk with its parents.
+ONLINE      - Online an object that is currently marked as offline.
+OFFLINE     - Offline an object that is currently marked as online.
+RECOVER     - Refreshes the state of all disks in the selected pack.
+              Attempts recovery on disks in the invalid pack, and
+              resynchronizes mirrored volumes and RAID5 volumes
+              that have stale plex or parity data.
+REM         - Does nothing. This is used to comment scripts.
+REMOVE      - Remove a drive letter or mount point assignment.
+REPAIR      - Repair a RAID-5 volume with a failed member.
+RESCAN      - Rescan the computer looking for disks and volumes.
+RETAIN      - Place a retained partition under a simple volume.
+SAN         - Display or set the SAN policy for the currently booted OS.
+SELECT      - Shift the focus to an object.
+SETID       - Change the partition type.
+SHRINK      - Reduce the size of the selected volume.
+UNIQUEID    - Displays or sets the GUID partition table (GPT) identifier or
+              master boot record (MBR) signature of a disk.
+
+------------------------------------------------------------
+
+DISKPART> HELP active
+
+    On disks with master boot record (MBR) disk formatting, marks
+    the partition with focus as active.
+
+Syntax:  ACTIVE
+
+    Writes a value to the disk which is read by the basic input/output
+    system (BIOS) at boot. This value specifies that the partition is
+    a valid system partition.
+
+    A partition must be selected for this operation to succeed.
+
+    Caution:
+
+        DiskPart verifies only that the partition is capable of containing the
+        operating system startup files. DiskPart does not check the contents of
+        the partition. If you mistakenly mark a partition as active and it does
+        not contain the operating system startup files, your computer might not
+        start.
+
+Example:
+
+    ACTIVE
+
+------------------------------------------------------------
+
+DISKPART> HELP ADD
+
+    Mirrors the simple volume with focus to the specified disk.
+
+Syntax:  ADD DISK=<N> [ALIGN=<N>] [WAIT] [NOERR]
+
+    DISK=<N>    Specifies a disk, other than the one containing the existing
+                simple volume, to contain the mirror. You can mirror only
+                simple volumes. The specified disk must have unallocated space
+                at least as large as the size of the simple volume you want to
+                mirror.
+
+    ALIGN=<N>   Typically used with hardware RAID Logical Unit Number (LUN)
+                arrays to improve performance. Aligns all volume extents to
+                the closest alignment boundary. The extent offsets will be
+                a multiple of <N>.
+
+    WAIT        Waits for the volume to finish synchronizing with the added
+                disk before returning. Without the WAIT parameter, DiskPart
+                returns after the mirrored volume is created and does not wait
+                for the synchronization to complete.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    A volume must be selected for this operation to succeed.
+
+    Fault-tolerant volumes such as RAID-5 and mirrored volumes are not
+    supported in any edition of Windows Vista.
+
+
+Example:
+
+    ADD DISK=2
+
+------------------------------------------------------------
+
+DISKPART> HELP ASSIGN
+
+    Assigns a drive letter or mounted folder pathname to the volume with focus.
+
+Syntax:  ASSIGN [LETTER=<D> | MOUNT=<PATH>] [NOERR]
+
+    LETTER=<D>  The drive letter to assign to the volume.
+
+    MOUNT=<PATH>
+
+                The mounted folder pathname to assign to the volume.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    If no drive letter or mounted folder is specified, the next available drive
+    letter is assigned. If the drive letter or mounted folder is already in use,
+    an error is generated.
+
+    By using the ASSIGN command, you can change the drive letter associated
+    with a removable drive.
+
+    You cannot assign drive letters to boot volumes or
+    volumes that contain the paging file. In addition, you cannot assign
+    a drive letter to an Original Equipment Manufacturer (OEM) partition
+    unless booted to Windows PE, or any GUID Partition Table (GPT) partition
+    other than a basic data partition, an ESP partition or a recovery
+    partition.
+
+    A volume must be selected for this operation to succeed.
+
+Example:
+
+    ASSIGN LETTER=D
+
+------------------------------------------------------------
+
+DISKPART> HELP ATTRIBUTES
+
+Microsoft DiskPart version 10.0.19041.964
+
+VOLUME      - Manipulate volume attributes.
+DISK        - Manipulate disk attributes.
+
+------------------------------------------------------------
+
+DISKPART> HELP ATTACH
+
+Microsoft DiskPart version 10.0.19041.964
+
+VDISK       - Attaches a virtual disk file.
+
+------------------------------------------------------------
+
+DISKPART> HELP BREAK
+
+    Breaks the mirrored volume with focus into two simple volumes.
+
+Syntax:  BREAK DISK=<N> [NOKEEP] [NOERR]
+
+    DISK=<N>    Specifies a disk that contains one copy of the mirror
+                volume. When the command has completed, this disk is
+                given focus, and the new volume created on this disk
+                using the mirror volume extents does not retain any
+                drive letters, volume GUID pathnames or mounted folder
+                paths that had been associated with the mirror volume.
+                If the mirror volume on the specified disk is used as a
+                system or boot partition, the command fails.
+
+    NOKEEP      Specifies that only one copy of the mirror volume is
+                retained; the mirror volume extents on disk <N> are converted
+                to free  space. Neither the remaining copy of the mirror
+                volume, nor the free space on disk <N> receives the focus.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    Applies to dynamic disks only. Breaks the mirrored volume with focus into
+    two simple volumes. One simple volume retains the drive letter, volume
+    GUID pathnames or mounted folder paths that had been associated with
+    the mirror volume. The other simple volume receives the focus so you
+    can assign it a new drive letter (it will automatically be assigned a
+    volume GUID pathname).
+
+    By default, the contents of both copies of the mirror are retained. Each
+    copy becomes a simple volume. By using the NOKEEP parameter, you retain
+    only one copy of the mirror volume as a simple volume, and the other copy
+    is converted to free space. Neither volume receives the focus.
+
+    A mirror volume must be selected for this operation to succeed.
+
+Example:
+
+    BREAK DISK=2
+
+------------------------------------------------------------
+
+DISKPART> HELP CLEAN
+
+     Removes any and all partition or volume formatting from the disk with
+     focus.
+
+Syntax:  CLEAN [ALL]
+
+    ALL         Specifies that each and every byte\sector on the disk is set to
+                zero, which completely deletes all data contained on the disk.
+
+    On master boot record (MBR) disks, only the MBR partitioning information
+    and hidden sector information are overwritten. On GUID partition table
+    (GPT) disks, the GPT partitioning information, including the Protective
+    MBR, is overwritten. If the ALL parameter is not used, the first 1MB
+    and the last 1MB of the disk are zeroed. This erases any disk formatting
+    that had been previously applied to the disk. The disk's state after
+    cleaning the disk is 'UNINITIALIZED'.
+
+Example:
+
+    CLEAN
+
+------------------------------------------------------------
+
+DISKPART> HELP COMPACT
+
+Microsoft DiskPart version 10.0.19041.964
+
+VDISK       - Attempts to reduce the physical size of the file.
+
+------------------------------------------------------------
+
+DISKPART> HELP CONVERT
+
+Microsoft DiskPart version 10.0.19041.964
+
+BASIC       - Convert a disk from dynamic to basic.
+DYNAMIC     - Convert a disk from basic to dynamic.
+GPT         - Convert a disk from MBR to GPT.
+MBR         - Convert a disk from GPT to MBR.
+
+------------------------------------------------------------
+
+DISKPART> HELP CREATE
+
+Microsoft DiskPart version 10.0.19041.964
+
+PARTITION   - Create a partition.
+VOLUME      - Create a volume.
+VDISK       - Creates a virtual disk file.
+
+------------------------------------------------------------
+
+DISKPART> HELP DELETE
+
+Microsoft DiskPart version 10.0.19041.964
+
+DISK        - Delete a missing disk from the disk list.
+PARTITION   - Delete the selected partition.
+VOLUME      - Delete the selected volume.
+
+------------------------------------------------------------
+
+DISKPART> HELP DETAIL
+
+Microsoft DiskPart version 10.0.19041.964
+
+DISK        - Display the properties of the selected disk.
+PARTITION   - Display the properties of the selected partition.
+VOLUME      - Display the properties of the selected volume.
+VDISK       - Displays the properties of the selected virtual disk.
+
+------------------------------------------------------------
+
+DISKPART> HELP DETACH
+
+Microsoft DiskPart version 10.0.19041.964
+
+VDISK       - Detaches a virtual disk file.
+
+------------------------------------------------------------
+
+DISKPART> HELP EXIT
+
+    Exits the DiskPart command interpreter.
+
+Syntax:  EXIT
+
+Example:
+
+    EXIT
+
+------------------------------------------------------------
+
+DISKPART> HELP EXTEND
+
+    Extends the volume or partition with focus, and its file system, into free
+    (unallocated) space on a disk.
+
+Syntax:  EXTEND [SIZE=<N>] [DISK=<N>] [NOERR]
+        EXTEND FILESYSTEM [NOERR]
+
+    SIZE=<N>    Specifies the amount of space in megabytes (MB) to add to the
+                current volume or partition. If no size is given, all of the
+                contiguous free space that is available on the disk is used.
+
+    DISK=<N>    Specifies the disk on which the volume or partition is
+                extended. If no disk is specified, the volume or partition is
+                extended on the current disk.
+
+    FILESYSTEM  Extends the file system of the volume with focus to cover
+                the entire volume. For use only on volumes where the file
+                system was not extended with the volume.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    On basic disks, the free space must be on the same disk as the volume or
+    partition with focus. The free space must also immediately follow the
+    volume or partition with focus (start at the next sector offset).
+
+    On dynamic disks with simple or spanned volumes, a volume can be extended
+    to any free space on any dynamic disk. Using this command, you can convert
+    a simple dynamic volume into a spanned dynamic volume. Mirrored, RAID-5 and
+    striped volumes cannot be extended.
+
+    If the partition was previously formatted with the NTFS file system, the
+    file system is automatically extended to fill the larger partition. No data
+    loss occurs. If the partition was previously formatted with a different
+    file system than NTFS, the command fails with no change to the partition.
+    If the partition was not previously formatted with a file system, the
+    partition will still be extended.
+
+    A volume or partition must be selected for this operation to succeed.
+
+Example:
+
+    EXTEND SIZE=500 DISK=3
+    EXTEND FILESYSTEM
+
+------------------------------------------------------------
+
+DISKPART> HELP EXPAND
+
+Microsoft DiskPart version 10.0.19041.964
+
+VDISK       - Expands the maximum size available on a virtual disk.
+
+------------------------------------------------------------
+
+DISKPART> HELP FILESYSTEMS
+
+    Displays information about the current file system for the selected
+    volume, and the supported file systems for formatting the volume.
+
+Syntax:  FILESYSTEMS
+
+    A volume must be selected for this operation to succeed.
+
+Example:
+
+    FILESYSTEMS
+
+------------------------------------------------------------
+
+DISKPART> HELP FORMAT
+
+    Formats the specified volume for use with Windows.
+
+Syntax:  FORMAT [[FS=<FS>] [REVISION=<X.XX>] | RECOMMENDED] [LABEL=<"label">]
+                [UNIT=<N>] [QUICK] [COMPRESS] [OVERRIDE] [DUPLICATE] [NOWAIT]
+                [NOERR]
+
+    FS=<FS>     Specifies the type of file system. If no file system is given,
+                the default file system displayed by the FILESYSTEMS command is
+                used.
+
+    REVISION=<X.XX>
+
+                Specifies the file system revision (if applicable).
+
+    RECOMMENDED If specified, use the recommended file system and revision
+                instead of the default if a recommendation exists. The
+                recommended file system (if one exists) is displayed by the
+                FILESYSTEMS command.
+
+    LABEL=<"label">
+
+                Specifies the volume label.
+
+    UNIT=<N>    Overrides the default allocation unit size. Default settings
+                are strongly recommended for general use. The default
+                allocation unit size for a particular file system is displayed
+                by the FILESYSTEMS command.
+
+                NTFS compression is not supported for allocation unit sizes
+                above 4096.
+
+    QUICK       Performs a quick format.
+
+    COMPRESS    NTFS only: Files created on the new volume will be compressed
+                by default.
+
+    OVERRIDE    Forces the file system to dismount first if necessary. All
+                opened handles to the volume would no longer be valid.
+
+    DUPLICATE   UDF Only: This flag applies to UDF format, version 2.5 or
+                higher.
+                This flag instructs the format operation to duplicate the file
+                system meta-data to a second set of sectors on the disk. The
+                duplicate meta-data is used by applications, for example repair
+                or recovery applications. If the primary meta-data sectors are
+                found to be corrupted, the file system meta-data will be read
+                from the duplicate sectors.
+
+    NOWAIT      Forces the command to return immediately while the format
+                process is still in progress. If NOWAIT is not specified,
+                DiskPart will display format progress in percentage.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    A volume must be selected for this operation to succeed.
+
+Examples:
+
+    FORMAT FS=NTFS LABEL="New Volume" QUICK COMPRESS
+    FORMAT RECOMMENDED OVERRIDE
+
+------------------------------------------------------------
+
+DISKPART> HELP GPT
+
+    On basic GUID partition table (GPT) disks, assigns the GPT attribute(s) to
+    the partition with focus.
+
+Syntax:  GPT ATTRIBUTES=<N>
+
+    ATTRIBUTES=<N>
+
+                The hexadecimal value indicating the attributes to apply to the
+                partition with focus. The GPT attribute field is a 64-bit field
+                that contains two subfields. The higher field is interpreted
+                only in the context of a particular partition type GUID, while
+                the lower field is common to all partition types.
+
+                The following attribute can be set on any partition:
+
+                0x0000000000000001 marks the partition as required. This
+                indicates to all disk management utilities that the partition
+                should not be deleted. The EFI System partition contains only
+                those binaries necessary to start the operating system. This
+                makes it easy for original equipment manufacturer (OEM) or
+                operating system-specific binaries to be placed in other
+                partitions.
+
+                For basic data partitions, the following attributes are defined:
+
+                0x8000000000000000
+                GPT_BASIC_DATA_ATTRIBUTE_NO_DRIVE_LETTER
+                Prevents the partition from having a drive
+                letter automatically assigned. By default, each partition is
+                assigned a new drive letter and a volume GUID pathname. Both
+                the drive letter and the volume GUID pathname can be used to
+                open the volume using Win32 APIs. Setting this attribute ensures
+                that when a disk is moved to a new computer, a new drive letter
+                will not be automatically generated. Instead, the user can
+                manually assign drive letters.
+
+                0x4000000000000000
+                GPT_BASIC_DATA_ATTRIBUTE_HIDDEN
+                Defines the partition's volume as hidden.
+                Setting this attribute specifies that the volume will not be
+                assigned a drive letter or a volume GUID pathname. Both
+                the drive letter and the volume GUID pathname can be used to
+                open the volume using Win32 APIs. A hidden partition's
+                volume is not reported by Win32 APIs such as FindFirstVolume
+                and FindNextVolume.
+
+                0x2000000000000000
+                GPT_BASIC_DATA_ATTRIBUTE_SHADOW_COPY
+                Defines the partition as being a Volume Snapshot Service
+                shadow copy volume. Fle system filters use this flag to
+                prevent the filter from attaching to the volume.
+
+                0x1000000000000000
+                GPT_BASIC_DATA_ATTRIBUTE_READ_ONLY
+                Prevents the volume from being written to.
+
+                Other attributes may be added by Microsoft at any time.
+
+    GPT partition attributes give additional information about the use of the
+    partition.
+
+    A basic GPT partition must be selected for this operation to succeed.
+
+    Caution:
+
+        Changing the GPT attributes might cause your basic data volumes to
+        fail to be assigned drive letters, or prevent the file system from
+        mounting. Unless you are an original equipment manufacturer (OEM)
+        or an IT professional experienced with GPT disks, do not change GPT
+        attributes.
+
+Example:
+
+    GPT ATTRIBUTES=0x8000000000000000
+    GPT ATTRIBUTES=0xF000000000000001
+
+------------------------------------------------------------
+
+DISKPART> HELP HELP
+
+    Displays a list of the available commands or detailed help information for a
+    specified command.
+
+Syntax:  HELP [<COMMAND>]
+
+    <COMMAND>   The command for which to display detail help.
+
+    If no command is specified, HELP will display all possible commands.
+
+Example:
+
+    HELP
+    HELP CREATE PARTITION PRIMARY
+
+------------------------------------------------------------
+
+DISKPART> HELP IMPORT
+
+    Imports a foreign disk group into the local computer's online disk group.
+
+Syntax:  IMPORT [NOERR]
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    The command imports every disk that is in the same group as the disk with
+    focus.
+
+    A dynamic disk must be selected for this operation to succeed.
+
+Example:
+
+    IMPORT
+
+------------------------------------------------------------
+
+DISKPART> HELP INACTIVE
+
+    On disks with master boot record (MBR) disk formatting, marks
+    the partition with focus as inactive.
+
+Syntax:  INACTIVE
+
+    The computer may start from the next option specified in the BIOS such as a
+    CD-ROM drive or a Pre-Boot eXecution Environment (PXE)-based boot
+    environment (such as Remote Installation Services (RIS)) when you restart
+    the computer.
+
+    A partition must be selected for this operation to succeed.
+
+    Caution:
+
+        Your computer might not start without an active partition. Do not mark
+        a system or boot partition as inactive unless you are an experienced
+        user with a thorough understanding of Windows storage management.
+
+Example:
+
+    INACTIVE
+
+------------------------------------------------------------
+
+DISKPART> HELP LIST
+
+Microsoft DiskPart version 10.0.19041.964
+
+DISK        - Display a list of disks. For example, LIST DISK.
+PARTITION   - Display a list of partitions on the selected disk.
+              For example, LIST PARTITION.
+VOLUME      - Display a list of volumes. For example, LIST VOLUME.
+VDISK       - Displays a list of virtual disks.
+
+------------------------------------------------------------
+
+DISKPART> HELP MERGE
+
+Microsoft DiskPart version 10.0.19041.964
+
+VDISK       - Merges a child disk with its parents.
+
+------------------------------------------------------------
+
+DISKPART> HELP ONLINE
+
+Microsoft DiskPart version 10.0.19041.964
+
+DISK        - Online a disk that is currently marked as offline.
+VOLUME      - Online a volume that is currently marked as offline.
+
+------------------------------------------------------------
+
+DISKPART> HELP OFFLINE
+
+Microsoft DiskPart version 10.0.19041.964
+
+DISK        - Offline a disk that is currently marked as online.
+VOLUME      - Offline a volume that is currently marked as online.
+
+------------------------------------------------------------
+
+DISKPART> HELP RECOVER
+
+   Refreshes the state of all disks in the selected pack, attempts recovery
+   on disks in the invalid pack, and, resynchronizes mirrored volumes and
+   RAID-5 volumes that have stale plex or parity data.
+
+
+Syntax:  RECOVER [NOERR]
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    This command operates on a pack. A disk that is part of a pack must be
+    selected for this operation to succeed.
+
+    This command is only applicable to dynamic disks. If called on a
+    basic disk, it will succeed but no action is taken.
+
+Example:
+
+    RECOVER
+
+------------------------------------------------------------
+
+DISKPART> HELP REM
+
+    Provides a way to add comments to a script.
+
+Syntax:  REM
+
+Example:
+
+    In this example script, REM is used to provide a comment about what the
+    script does.
+
+    REM These commands set up 3 drives.
+    CREATE PARTITION PRIMARY SIZE=2048
+    ASSIGN d:
+    CREATE PARTITION EXTEND
+    CREATE PARTITION LOGICAL SIZE=2048
+    ASSIGN e:
+    CREATE PARTITION LOGICAL
+    ASSIGN f:
+
+------------------------------------------------------------
+
+DISKPART> HELP REMOVE
+
+    Removes a drive letter or mounted folder pathname from the volume
+    with focus.
+
+Syntax:  REMOVE [LETTER=<D> | MOUNT=<PATH> | ALL] [DISMOUNT] [NOERR]
+
+    LETTER=<D>  The drive letter to be removed.
+
+    MOUNT=<PATH>
+
+                The mounted folder path to be removed.
+
+    ALL         Removes all current drive letters and mounted folder paths.
+
+    DISMOUNT    This parameter may be used if 1) all drive letters and
+                mounted folder paths have been removed from the volume, or
+                2) the ALL parameter is specified.  This parameter
+                specifies that the file system is to be dismounted and
+                the volume taken offline. If other processes are using
+                the volume, DiskPart closes any open handles before
+                dismounting the file system and taking the volume offline.
+                You can bring the volume online by assigning it a driver
+                letter, by creating a mounted folder path to the volume, or
+                by using the ONLINE command. DISMOUNT will fail if used
+                on a volume that has any remaining drive letters or mounted
+                folder paths. For scripting, using REMOVE ALL DISMOUNT is
+                recommended.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    If no drive letter or mounted folder path is specified, DiskPart removes
+    the first drive letter or mounted folder path it encounters. If the ALL
+    parameter is used, all current drive letters and mounted folder paths
+    are removed. If the DISMOUNT parameter is used, DiskPart closes all open
+    handles to the volume and then dismounts the volume and takes it offline.
+
+    The REMOVE command can be used to change the drive letter associated with a
+    removable drive. You cannot remove the drive letters on boot or
+    paging volumes.
+
+    A volume must be selected for this operation to succeed.
+
+Example:
+
+    REMOVE LETTER=K
+    REMOVE MOUNT=G:\MountH
+    REMOVE ALL DISMOUNT
+
+------------------------------------------------------------
+
+DISKPART> HELP REPAIR
+
+    Repairs the RAID-5 volume with focus by replacing the failed RAID-5 member
+    with the specified dynamic disk.
+
+Syntax:  REPAIR DISK=<N> [ALIGN=<N>] [NOERR]
+
+    DISK=<N>    Specifies the dynamic disk that will replace the failed RAID-5
+                member. The specified disk must have free space equal to or
+                larger than the total size of the failed RAID-5 member.
+
+    ALIGN=<N>   Typically used with hardware RAID Logical Unit Number (LUN)
+                arrays to improve performance. Aligns all volume extents to
+                the closest alignment boundary. The extent offsets will be
+                a multiple of <N>.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    The specified dynamic disk must have free space greater than or equal to
+    the size of the failed RAID-5 member.
+
+    A RAID-5 volume must be selected for this operation to succeed.
+
+Example:
+
+    REPAIR DISK=1
+
+------------------------------------------------------------
+
+DISKPART> HELP RESCAN
+
+    Locates new disks that may have been added to the computer.
+
+Syntax:  RESCAN
+
+Example:
+
+    RESCAN
+
+------------------------------------------------------------
+
+DISKPART> HELP RETAIN
+
+    Prepares an existing dynamic simple volume to be used as a boot or system
+    volume.
+
+Syntax:  RETAIN
+
+    This command creates a partition entry for the dynamic simple volume with
+    focus.
+
+    A dynamic simple volume must be selected for this operation to succeed.
+
+Example:
+
+    RETAIN
+
+------------------------------------------------------------
+
+DISKPART> HELP SAN
+
+    Displays or sets the SAN policy for the operating system.
+
+Syntax:  SAN [POLICY={OnlineAll | OfflineAll | OfflineShared | OfflineInternal}] [NOERR]
+
+    SAN             If the command is given with no parameters, the current
+                    SAN policy is displayed.
+
+    POLICY=<value>  Sets the SAN policy for the currently booted operating
+                    system.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    This command allows the user to display or change the SAN policy for the
+    currently booted OS. The default policy for Windows Advanced Server and
+    Windows Data Center is OfflineShared. In this case the boot disk will
+    be brought online, as will all disks that are not located on a shared bus
+    such as SCSI, iSCSI, SAS, etc. The offlined disks will be read-only by
+    default. On all other versions of Windows, the default will be to bring
+    all disks online. In this case, the disks will be online and read/write.
+    The third policy value is OfflineAll. For this case, all disks except the
+    boot disk will be offline and read-only by default. The forth policy value
+    is OfflineInternal and the default is to keep newly discovered internal
+    disks offline and read-only.
+
+Examples:
+
+    SAN
+    SAN POLICY=OfflineAll
+
+------------------------------------------------------------
+
+DISKPART> HELP SELECT
+
+Microsoft DiskPart version 10.0.19041.964
+
+DISK        - Shift the focus to a disk. For example, SELECT DISK.
+PARTITION   - Shift the focus to a partition. For example, SELECT PARTITION.
+VOLUME      - Shift the focus to a volume. For example, SELECT VOLUME.
+VDISK       - Shift the focus to a virtual disk. For example, SELECT VDISK.
+
+------------------------------------------------------------
+
+DISKPART> HELP SETID
+
+    Changes the partition type field for the partition with focus.
+
+Syntax:  SET ID={<BYTE> | <GUID>} [OVERRIDE] [NOERR]
+
+    ID={<BYTE> | <GUID>}
+
+                Specifies the new partition type.
+
+                For master boot record (MBR) disks, you can specify a partition
+                type byte, in hexadecimal form, for the partition. Any
+                partition type byte can be specified with this parameter except
+                for type 0x42 (LDM partition). Note that the leading '0x' is
+                omitted when specifying the hexadecimal partition type.
+
+                For GUID partition table (GPT) disks you can specify a
+                partition type GUID for the partition. Recognized GUIDs
+                include:
+
+                    EFI System partition:
+                        c12a7328-f81f-11d2-ba4b-00a0c93ec93b
+
+                    Basic data partition:
+                        ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
+
+                Any partition type GUID can be specified with this parameter
+                except for the following:
+
+                    Microsoft Reserved partition:
+                        e3c9e316-0b5c-4db8-817d-f92df00215ae
+
+                    LDM Metadata partition on a dynamic disk:
+                        5808c8aa-7e8f-42e0-85d2-e1e90434cfb3
+
+                    LDM Data partition on a dynamic disk:
+                        af9b60a0-1431-4f62-bc68-3311714a69ad
+
+                    Cluster Metadata partition:
+                        db97dba9-0840-4bae-97f0-ffb9a327c7e1
+
+
+                Other than the limitations mentioned, DiskPart otherwise does
+                not check the partition type for validity except to ensure that
+                it is a byte in hexadecimal form or a GUID.
+
+    OVERRIDE    Enables DiskPart to force the file system on the volume to
+                dismount before changing the partition type. When changing
+                the partition type, DiskPart will attempt to lock and dismount
+                the file system on the volume. If this parameter is not specified,
+                and the call to lock the file system fails, (because some other
+                application has an open handle to the volume), the entire
+                operation will fail. When this parameter is specified, the
+                dismount is forced even if the call to lock the file system
+                fails. When a file system is dismounted, all opened handles to
+                the volume will become invalid.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    Intended for Original Equipment Manufacturer (OEM) use only.
+
+    A partition must be selected for this operation to succeed.
+
+    Caution:
+
+        Changing partition type fields with this parameter might cause your
+        computer to fail or be unable to start up. Unless you are an OEM or an
+        IT professional experienced with GPT disks, do not change partition
+        type fields on GPT disks using this parameter. Instead, always use the
+        CREATE PARTITION EFI command to create EFI System partitions, the
+        CREATE PARTITION MSR command to create Microsoft Reserved partitions,
+        and the CREATE PARTITION PRIMARY command without the ID parameter to
+        create primary partitions on GPT disks.
+
+    This command does not work on dynamic disks nor on Microsoft Reserved
+    partitions.
+
+    Example:
+
+    SET ID=07 OVERRIDE
+    SET ID=ebd0a0a2-b9e5-4433-87c0-68b6b72699c7
+
+------------------------------------------------------------
+
+DISKPART> HELP SHRINK
+
+    Reduces the size of the volume with focus by the specified amount. Makes
+    free disk space available from unused space at the end of the volume.
+
+Syntax:  SHRINK [DESIRED=<N>] [MINIMUM=<N>] [NOWAIT] [NOERR]
+        SHRINK QUERYMAX [NOERR]
+
+    DESIRED=<N> Specifies the desired amount of space in megabytes (MB) to
+                reduce the size of the volume by. If a desired amount is not
+                specified, the volume will be reduced by the maximum amount of
+                free space available on the volume.
+
+    MINIMUM=<N> Specifies the minimum amount of space in MB to reduce the size
+                of the volume by.
+
+    QUERYMAX    Returns the maximum number of bytes that the volume can be
+                reduced by (the free space available on the volume). This
+                value may change if applications are currently accessing the
+                volume.
+
+    NOWAIT      Forces the command to return immediately while the shrink
+                process is still in progress.
+
+    NOERR       For scripting only. When an error is encountered, DiskPart
+                continues to process commands as if the error did not occur.
+                Without the NOERR parameter, an error causes DiskPart to exit
+                with an error code.
+
+    If a MINIMUM amount is not specified, the volume will be reduced by either
+    the DESIRED amount (if specified), or by the maximum amount of free space
+    available on the volume. If a MINIMUM amount is specified but not enough
+    free space is available, the command will fail.
+
+    This command works on basic volumes, and on simple or spanned dynamic
+    volumes. You can reduce the size of a volume only if it is formatted using
+    the NTFS file system or if it does not have a file system.
+
+    A volume must be selected for this operation to succeed.
+
+    This command does not operate on OEM, ESP or recovery partitions.
+
+Examples:
+
+    SHRINK DESIRED=500 MINIMUM=250
+    SHRINK QUERYMAX
+
+------------------------------------------------------------
+
+DISKPART> HELP UNIQUEID
+
+Microsoft DiskPart version 10.0.19041.964
+
+DISK        - Displays or sets the GUID partition table (GPT) identifier or
+              master boot record (MBR) signature of a disk.
+
+------------------------------------------------------------

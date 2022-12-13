@@ -11,7 +11,7 @@
 # ------------------------------------------------------------
 If ($False) { # RUN THIS SCRIPT REMOTELY:
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/Coding/windows/Windows+-+ASUS+Software-Service+Full+Uninstallation+(Motherboard+AI+Suite+3%2c+ARMOURY+CRATE%2c+AURA).ps1') ).Content) } Catch {};
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/Windows+-+ASUS+Software-Service+Full+Uninstallation+(Motherboard+AI+Suite+3%2c+ARMOURY+CRATE%2c+AURA).ps1') ).Content) } Catch {};
 
 }
 # ------------------------------------------------------------

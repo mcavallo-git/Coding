@@ -11,7 +11,7 @@
 # ------------------------------------------------------------
 If ($False) { # RUN THIS SCRIPT REMOTELY:
 
-$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/Windows%20-%20ASUS%20Software-Service%20Full%20Uninstallation%20(Motherboard%20AI%20Suite%203,%20ARMOURY%20CRATE,%20AURA).ps1') ).Content) } Catch {};
+$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/Windows%20-%20ASUS%20Software-Service%20Full%20Uninstallation%20(Motherboard%20AI%20Suite%203,%20ARMOURY%20CRATE,%20AURA).ps1') ).Content);
 
 }
 # ------------------------------------------------------------
@@ -178,10 +178,10 @@ If ($True) {
   $Paths_ToDelete += "C:\Windows\System32\AsusUpdateCheck.exe";
 
   $Paths_ToDelete | ForEach-Object {
-    $Each_PathToDelete = "$_";
+    $Each_PathToDelete = "${_}";
     If (Test-Path -Path ("${Each_PathToDelete}")) {
       Write-Host "Removing Path `"${Each_PathToDelete}`"...";
-      Remove-Item -Path ("$Each_PathToDelete") -Recurse -Force -Confirm:$False;
+      Remove-Item -Path ("${Each_PathToDelete}") -Recurse -Force -Confirm:$False;
     };
   };
 

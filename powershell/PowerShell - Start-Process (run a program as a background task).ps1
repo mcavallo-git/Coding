@@ -4,7 +4,16 @@
 #
 # ------------------------------------------------------------
 
-<# Run a 'background' (delayed) job #>
+<# Start a process #>
+Start-Process -Filepath ("notepad.exe");
+
+<# Run a powershell command #>
+Start-Process -Filepath ("powershell.exe") -ArgumentList (@("-Command","`"Start-Sleep -Seconds ${Delay_Seconds}; ${Delay_PSCommand}`"")) -NoNewWindow;
+
+
+# ------------------------------------------------------------
+
+<# Run a 'background' (delayed) powershell command #>
 $Delay_Seconds=30; $Delay_PSCommand="Get-Date | Out-File '${Home}\Desktop\get-date.txt'; Notepad '${Home}\Desktop\get-date.txt';"; Start-Process -Filepath ("powershell.exe") -ArgumentList (@("-Command","`"Start-Sleep -Seconds ${Delay_Seconds}; ${Delay_PSCommand}`"")) -NoNewWindow;
 
 

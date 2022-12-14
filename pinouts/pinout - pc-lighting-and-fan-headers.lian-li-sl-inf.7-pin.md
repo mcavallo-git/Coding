@@ -1,8 +1,12 @@
 # Pinout - Lian Li UNI Fan SL-INF (7-Pin Header)
 
+&#x200B;
+
 - I created a [pinout diagram for my own future reference](https://raw.githubusercontent.com/mcavallo-git/Coding/main/pinouts/pinout%20-%20pc-lighting-and-fan-headers.lian-li-sl-inf.7-pin.jpg) \- feel free to use it as needed (see notes at bottom for more info)
    - Since I want this info to be accessible down the road, and to avoid the dependency on an external image hyperlink, I just created an ascii art diagram:
       - The diagram below depicts the UNI Fan SL-INF 7-pin male plug with the clip facing "up" towards the perspective of the viewer:
+
+&#x200B;
 
 ```
                                     
@@ -48,7 +52,7 @@ In order from left to right, the pinout is:
 6. PWM | TACH
 7. PWM | CONTROL/PWM
 
-<hr />
+&#x200B;
 
 - I just finished manually testing/verifying a custom 7-pin cable for the Lian Li infinity fans using a voltmeter and more time than it should've taken.
 
@@ -56,4 +60,4 @@ In order from left to right, the pinout is:
 
   - I also contacted Lian Li's customer support regarding this issue, and they didn't offer a solution other than to not let the controller lose 12V power (which doesn't help my exact use case). They also politely declined to provide a pinout for the 7-pin connector, which is fine and I understand why they wouldn't give that info out (to avoid liability of users making custom cables, namely).
 
-<hr />
+&#x200B;

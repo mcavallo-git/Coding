@@ -11,9 +11,7 @@ systemctl disable NetworkManager; \
 # 1. Remove the file
 SystemdNetworkPath="$(find /etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service 2>'/dev/null';)";
 if [ -z "${SystemdNetworkPath}" ]; then
-	SystemdNetworkPath="$(find /etc/systemd/system/dbus-org.freedesktop* 2>'/dev/null';)";
-
-
+  SystemdNetworkPath="$(find /etc/systemd/system/dbus-org.freedesktop* 2>'/dev/null';)";
 fi;
 rm -f "/usr/share/dbus-1/system-services/org.freedesktop.NetworkManager.service";
 

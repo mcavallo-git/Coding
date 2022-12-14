@@ -1,5 +1,6 @@
+***
 
-# Citations
+### Citation(s)
 
 - [pinout - mobo-headers.intel.nuc.jpg](https://www.intel.com/content/www/us/en/support/articles/000006933/intel-nuc.html)
 
@@ -12,3 +13,5 @@
 - [pinout - pc-usb-a-headers](https://i.stack.imgur.com/3ybBV.jpg)
 
 - [pinout - pc-usb-c-connector](https://en.wikipedia.org/wiki/USB#Connector_type_quick_reference)
+
+***

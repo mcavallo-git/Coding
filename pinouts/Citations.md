@@ -10,10 +10,10 @@
 
 - [pinout - pc-fan-headers.standard.molex-kk.4-pin_pwm.jpg](https://www.ekwb.com/wp-content/uploads/2016/07/02-1.jpg)
 
-- [pinout - pc_psu_24-pin-connector.jpg](https://www.lifewire.com/thmb/6YH6BMOfXnyhMgxQ-qU8yIOFqP4=/2200x1467/filters:fill(auto,1)/atx-24-pin-12v-power-supply-pinout-2624578-bd809482596447b7afa7c63232719560.png)
+- [pinout - pc-psu.24-pin-connector.jpg](https://www.lifewire.com/thmb/6YH6BMOfXnyhMgxQ-qU8yIOFqP4=/2200x1467/filters:fill(auto,1)/atx-24-pin-12v-power-supply-pinout-2624578-bd809482596447b7afa7c63232719560.png)
 
-- [pinout - pc-usb-a-headers](https://i.stack.imgur.com/3ybBV.jpg)
+- [pinout - pc-usb-headers.type-a.jpg](https://i.stack.imgur.com/3ybBV.jpg)
 
-- [pinout - pc-usb-c-connector](https://en.wikipedia.org/wiki/USB#Connector_type_quick_reference)
+- [pinout - pc-usb-headers.type-c.jpg](https://en.wikipedia.org/wiki/USB#Connector_type_quick_reference)
 
 ***

@@ -14,6 +14,14 @@
 
 ***
 
+### Lian Li
+
+- UNI Fan Infinity Series (SL-INF) Connector Housing (7-pin)
+  
+  - `Molex 50-57-9407` (male), `Molex 70107-0006` (female)
+
+***
+
 ### Phanteks
 
 - Connector Housing (3-pin / 4-pin)

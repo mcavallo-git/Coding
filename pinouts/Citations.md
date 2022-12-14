@@ -1,6 +1,8 @@
 
 # Citations
 
+- [pinout - mobo-headers.intel.nuc.jpg](https://www.intel.com/content/www/us/en/support/articles/000006933/intel-nuc.html)
+
 - [pinout - pc-fan-headers.standard.molex-kk.4-pin_pwm.jpg](https://www.ekwb.com/wp-content/uploads/2016/07/02-1.jpg)
 
 - [pinout - pc-fan-headers.standard.molex-kk.3-pin.jpg](https://www.dell.com/community/image/serverpage/image-id/8636i1F8E1EC34080C415?v=1.0)

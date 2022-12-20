@@ -1,1 +1,1 @@
-PowerShell -Command ("Get-AppxPackage Microsoft.YourPhone | Remove-AppxPackage;")
+PowerShell -Command ("Get-AppxPackage Microsoft.YourPhone -AllUsers | Remove-AppxPackage;")

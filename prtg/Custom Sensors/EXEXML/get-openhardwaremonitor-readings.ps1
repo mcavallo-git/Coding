@@ -449,7 +449,9 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath}") -ErrorAction
 
 # Pull SSD temp(s) from S.M.A.R.T. values (if no value exists for it already)
 If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Min))) {
-  $SSD_SMART_Temperature = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature" -EA:0);
+  $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+  $SSD_SMART_Temperature = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature");
+  $ErrorActionPreference = $EA_Bak;
   If ([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) {
     ${Temp_SSD}.Avg = (${SSD_SMART_Temperature});
   }
@@ -647,11 +649,13 @@ If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Te
 
 $Retention_Days = "7";
 $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
-Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force -EA:0 `
+$EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force `
 | Where-Object { ($_.Name -Like "${Logfile_StartsWith}*") } `
 | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
 | Remove-Item -Recurse -Force -Confirm:$False `
 ;
+$ErrorActionPreference = $EA_Bak;
 
 
 # ------------------------------
@@ -661,7 +665,9 @@ Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force -EA:0 `
 
 $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
 $RSM_Host="localhost";
-$RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt" -EA:0);
+$EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+$RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt");
+$ErrorActionPreference = $EA_Bak;
 $RSM_Results="${RSM_Dirname}\results";
 If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
   $ProgressPreference=0;

@@ -38,7 +38,30 @@ explorer.exe shell:AppsFolder\$(Write-Output ${AppNameResolved};)!App;
 # Uninstall package(s)/application(s)
 #
 
-$RemovePackagesContaining="Xbox"; Get-AppxPackage | Where-Object { $_.Name -Like "*${RemovePackagesContaining}*" } | Remove-AppxPackage;
+# Remove package from every user it's installed to ("like" name-matching)
+If ($True) {
+  $PackageName_Contains="Xbox";
+  Get-AppxPackage | Where-Object { $_.Name -Like "*${PackageName_Contains}*" } | ForEach-Object {
+    $PackageFullName = ($_.PackageFullName);
+    $_.PackageUserInformation.UserSecurityId | ForEach-Object {
+      Write-Host "Calling [ Remove-AppxPackage -User ($($_.Sid)) -Package (`"${PackageFullName}`"); ]...";
+      Remove-AppxPackage -User ($_.Sid) -Package ("${PackageFullName}");
+    }
+  }
+}
+
+
+# Remove package from every user it's installed to ("equals" name-matching (exact))
+If ($True) {
+  $PackageName = "Microsoft.YourPhone";
+  Get-AppxPackage -Name "${PackageName}" -AllUsers | ForEach-Object {
+    $PackageFullName = ($_.PackageFullName);
+    $_.PackageUserInformation.UserSecurityId | ForEach-Object {
+      Write-Host "Calling [ Remove-AppxPackage -User ($($_.Sid)) -Package (`"${PackageFullName}`"); ]...";
+      Remove-AppxPackage -User ($_.Sid) -Package ("${PackageFullName}");
+    }
+  }
+}
 
 
 # ------------------------------------------------------------
@@ -70,8 +93,14 @@ Get-ChildItem -Path ("${Home}\Desktop") -File -Recurse -Force -ErrorAction "Sile
 #
 # Citation(s)
 #
-#  docs.microsoft.com  |  "Add-AppxPackage - Adds a signed app package to a user account"  |  https://docs.microsoft.com/en-us/powershell/module/appx/add-appxpackage?view=win10-ps
+#  learn.microsoft.com  |  "Add-AppxPackage (Appx) | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/appx/add-appxpackage?view=win10-ps
+#
+#  learn.microsoft.com  |  "Get-AppxPackage (Appx) | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/appx/get-appxpackage?view=windowsserver2022-ps
+#
+#  learn.microsoft.com  |  "Remove-AppxPackage (Appx) | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/appx/remove-appxpackage?view=windowsserver2022-ps
 #
 #  stackoverflow.com  |  "How to Start a Universal Windows App (UWP) from PowerShell in Windows 10?"  |  https://stackoverflow.com/a/48856168
+#
+#  superuser.com  |  "windows 10 - Remove appx package for all users - Super User"  |  https://superuser.com/a/1266885
 #
 # ------------------------------------------------------------

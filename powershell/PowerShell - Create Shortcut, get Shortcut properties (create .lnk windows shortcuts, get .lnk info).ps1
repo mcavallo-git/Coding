@@ -19,7 +19,7 @@ $Bytes_NewShortcut[0x15] = ($Bytes_NewShortcut[0x15] -bor 0x20); <# Perform a Bi
 
 # ------------------------------------------------------------
 #
-# Get shortcut properties
+# WScript.Shell (ComObject)  -  Get shortcut properties
 #
 
 Function Get-DesktopShortcuts {
@@ -40,7 +40,22 @@ Function Get-DesktopShortcuts {
 Get-DesktopShortcuts | Format-List *;
 
 
+# ------------------------------------------------------------
+#
+# Shell.Application (ComObject)  -  Get shortcut properties
+#
 
+$folder = "${HOME}\Desktop\";
+$objShell = New-Object -ComObject Shell.Application;
+$objFolder = $objShell.namespace($folder);
+$objFolder.Items() | Where-Object {$_.Type -eq "Shortcut"} | ForEach-Object {
+  [pscustomobject]@{
+    $objFolder.getDetailsOf($folder, 0) = $objFolder.getDetailsOf($_, 0);
+    $objFolder.getDetailsOf($folder, 182) = $objFolder.getDetailsOf($_, 182);
+    $objFolder.getDetailsOf($folder, 185) = $objFolder.getDetailsOf($_, 185);
+    $objFolder.getDetailsOf($folder, 194) = $objFolder.getDetailsOf($_, 194);
+  }
+}
 
 
 # ------------------------------------------------------------

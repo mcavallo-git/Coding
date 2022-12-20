@@ -667,7 +667,7 @@ If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
   $ProgressPreference=0;
   $RegexPattern_JsonBody='\n((\[(\n|.)+\n\])|(\{(\n|.)+\n\}))';
   # Pull the latest sensor data from "Remote Sensor Monitor"
-  $RSM_HtmlResponse=((Invoke-WebRequest -UseBasicParsing -Uri "http://${RSM_Host}:${RSM_Port}").RawContent -EA:0);
+  $RSM_HtmlResponse=((Invoke-WebRequest -UseBasicParsing -Uri "http://${RSM_Host}:${RSM_Port}" -EA:0).RawContent);
   If ((-Not ([String]::IsNullOrEmpty(${RSM_HtmlResponse}))) -And (([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Success) -Eq $True)) {
     # Ensure the output directory exists
     If ((Test-Path "${RSM_Results}") -NE $True) {

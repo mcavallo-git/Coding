@@ -1,4 +1,6 @@
 # ------------------------------------------------------------
+# PowerShell - Create shortcut, get shortcut properties (create .lnk windows shortcuts, get .lnk info)
+# ------------------------------------------------------------
 
 
 <# Create a "Windows Updates" shortcut on the desktop #> 
@@ -17,7 +19,35 @@ $Bytes_NewShortcut[0x15] = ($Bytes_NewShortcut[0x15] -bor 0x20); <# Perform a Bi
 
 # ------------------------------------------------------------
 #
+# Get shortcut properties
+#
+
+Function Get-DesktopShortcuts {
+  $Shortcuts = (Get-ChildItem -Recurse "${HOME}\Desktop" -Include *.lnk);
+  $Shell = New-Object -ComObject WScript.Shell;
+  foreach ($Shortcut in $Shortcuts) {
+    $Properties = @{
+      ShortcutName = $Shortcut.Name;
+      ShortcutFull = $Shortcut.FullName;
+      ShortcutPath = $shortcut.DirectoryName;
+      Target = $Shell.CreateShortcut($Shortcut).targetpath;
+    }
+    New-Object PSObject -Property $Properties;
+  }
+  [Runtime.InteropServices.Marshal]::ReleaseComObject($Shell) | Out-Null;
+};
+
+Get-DesktopShortcuts | Format-List *;
+
+
+
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
+#
+#   social.technet.microsoft.com  |  "get target path of shortcuts"  |  https://social.technet.microsoft.com/Forums/en-US/fddb6ec0-cc48-43f0-929e-bf25d07fbf48
 #
 #   stackoverflow.com  |  "windows - How to create a Run As Administrator shortcut using Powershell - Stack Overflow"  |  https://stackoverflow.com/a/29002207
 #

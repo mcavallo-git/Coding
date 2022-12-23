@@ -21,7 +21,7 @@ REM ------------------------------------------------------------
   CALL :WMIC_DISKS         REM /* DISK(S) */
   CALL :WMIC_OS            REM /* OPERATING SYSTEM */
   CALL :WMIC_MANUFACTURER  REM /* PC MODEL/NAME */
-  CALL :WMIC_MOTHERBOARD   REM /* MOTHERBOARD & BIOS */
+  CALL :WMIC_MOTHERBOARD   REM /* MOTHERBOARD/BIOS */
   CALL :WMIC_USER          REM /* LOGIN USERNAME/DOMAIN */
   CALL :WMIC_NIC           REM /* NETWORK INTERFACE CARDS */
   CALL :.

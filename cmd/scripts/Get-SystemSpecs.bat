@@ -162,7 +162,7 @@ REM ------------------------------------------------------------
   wmic memorychip get BankLabel,Capacity,DeviceLocator,FormFactor,Manufacturer,PartNumber,Speed | findstr /r /v "^\s*$" >> %output_file%
   ECHO. >> %output_file%
   ECHO --- >> %output_file%
-  ECHO --- Motherboard RAM Limits (MemoryDevices is total RAM Slots, MaxCapacity is max compatible RAM in Kilobytes) >> %output_file%
+  ECHO --- Motherboard RAM Limits (MaxCapacity is max compatible RAM in Kilobytes, MemoryDevices is total RAM Slots) >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
   wmic memphysical get memorydevices,maxcapacity | findstr /r /v "^\s*$" >> %output_file%

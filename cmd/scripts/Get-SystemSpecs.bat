@@ -88,15 +88,15 @@ REM ------------------------------------------------------------
   ECHO --- Processor (CPU) Info >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
-  wmic cpu get Name,numberofcores,numberoflogicalprocessors | findstr /r /v "^\s*$" >> %output_file%
+  wmic cpu get Name,NumberOfCores,NumberOfLogicalProcessors | findstr /r /v "^\s*$" >> %output_file%
   ECHO. >> %output_file%
-  wmic cpu get Name,CurrentClockSpeed,MaxClockSpeed | findstr /r /v "^\s*$" >> %output_file%
+  wmic cpu get CurrentClockSpeed,MaxClockSpeed,Name | findstr /r /v "^\s*$" >> %output_file%
   EXIT /b
 
 : WMIC_DISKS
   CALL :.
   ECHO --- >> %output_file%
-  ECHO --- Disk Info (size in bytes) >> %output_file%
+  ECHO --- Disk Info (Size in bytes) >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
   wmic diskdrive get Caption,DeviceID,Index,Partitions,Size | findstr /r /v "^\s*$" >> %output_file%
@@ -108,7 +108,7 @@ REM ------------------------------------------------------------
   ECHO --- Graphics/Video Card Info >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
-  wmic path Win32_VideoController get Name,description,adapterram,driverversion | findstr /r /v "^\s*$" >> %output_file%
+  wmic path Win32_VideoController get AdapterRAM,Description,DriverVersion,Name | findstr /r /v "^\s*$" >> %output_file%
   EXIT /b
 
 : WMIC_MOTHERBOARD
@@ -117,13 +117,13 @@ REM ------------------------------------------------------------
   ECHO --- Motherboard Info >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
-  wmic baseboard get manufacturer,product,serialnumber | findstr /r /v "^\s*$" >> %output_file%
+  wmic baseboard get Manufacturer,Product,SerialNumber | findstr /r /v "^\s*$" >> %output_file%
   ECHO. >> %output_file%
   ECHO --- >> %output_file%
   ECHO --- BIOS Info >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
-  wmic bios get SMBIOSBIOSVersion,SMBIOSMajorVersion,SMBIOSMinorVersion,ReleaseDate | findstr /r /v "^\s*$" >> %output_file%
+  wmic bios get ReleaseDate,SMBIOSBIOSVersion,SMBIOSMajorVersion,SMBIOSMinorVersion | findstr /r /v "^\s*$" >> %output_file%
   EXIT /b
 
 : WMIC_MANUFACTURER
@@ -132,7 +132,7 @@ REM ------------------------------------------------------------
   ECHO --- PC Hostname / Model / Manufacturer >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
-  wmic computersystem get model,manufacturer,Name,systemtype | findstr /r /v "^\s*$" >> %output_file%
+  wmic computersystem get Manufacturer,Model,Name,SystemType | findstr /r /v "^\s*$" >> %output_file%
   EXIT /b
 
 : WMIC_NIC
@@ -141,7 +141,7 @@ REM ------------------------------------------------------------
   ECHO --- NIC (Network Inferface Card) Info >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
-  wmic nicconfig where "macaddress is not null" get macaddress,ipaddress,index,defaultipgateway,dhcpserver,description | findstr /r /v "^\s*$" >> %output_file%
+  wmic nicconfig where "macaddress is not null" get DefaultIPGateway,Description,DHCPServer,Index,IPAddress,MACAddress | findstr /r /v "^\s*$" >> %output_file%
   EXIT /b
 
 : WMIC_OS
@@ -162,10 +162,10 @@ REM ------------------------------------------------------------
   wmic memorychip get BankLabel,Capacity,DeviceLocator,FormFactor,Manufacturer,PartNumber,Speed | findstr /r /v "^\s*$" >> %output_file%
   ECHO. >> %output_file%
   ECHO --- >> %output_file%
-  ECHO --- Motherboard RAM Limits (MaxCapacity is max compatible RAM in Kilobytes, MemoryDevices is total RAM Slots) >> %output_file%
+  ECHO --- Motherboard RAM Limits (MaxCapacity is max compatible RAM in kilobytes, MemoryDevices is total RAM Slots) >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
-  wmic memphysical get memorydevices,maxcapacity | findstr /r /v "^\s*$" >> %output_file%
+  wmic memphysical get MaxCapacity,MemoryDevices | findstr /r /v "^\s*$" >> %output_file%
   EXIT /b
 
 : WMIC_USER
@@ -174,5 +174,5 @@ REM ------------------------------------------------------------
   ECHO --- User / Domain Info >> %output_file%
   ECHO --- >> %output_file%
   ECHO. >> %output_file%
-  wmic computersystem get domain,UserName,partofdomain,primaryownername | findstr /r /v "^\s*$" >> %output_file%
+  wmic computersystem get Domain,PartOfDomain,PrimaryOwnerName,UserName | findstr /r /v "^\s*$" >> %output_file%
   EXIT /b

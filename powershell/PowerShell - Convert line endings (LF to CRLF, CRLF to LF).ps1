@@ -5,7 +5,6 @@
 # Convert LF to CRLF
 $FilePath="${HOME}\Desktop\example.lf"; $LF="$([char]10)"; $CR="$([char]13)"; (Get-Content -Raw -Path ("${FilePath}")) -replace "${LF}","${CR}${LF}" | Set-Content -Path ("${FilePath}");
 
-
 # Convert CRLF to LF
 $FilePath="${HOME}\Desktop\example.crlf"; $LF="$([char]10)"; $CR="$([char]13)"; (Get-Content -Raw -Path ("${FilePath}")) -replace "${CR}${LF}","${LF}" | Set-Content -Path ("${FilePath}");
 

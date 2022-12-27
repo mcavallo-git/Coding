@@ -28,7 +28,7 @@ Function Get-SystemSpecs() {
   # ------------------------------
 
   Write-Host "";
-  Write-Host -NoNewline "Acquiring data .";
+  Write-Host -NoNewline "Acquiring data ..";
 
   # ------------------------------
 
@@ -99,10 +99,6 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Motherboard ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Write-Output "" | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding utf8;
-  Write-Output "--- " | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding utf8;
-  Write-Output "-----  Motherboard " | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding utf8;
-  Write-Output "--- " | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding utf8;
   Get-CimInstance -ClassName "Win32_BaseBoard" | Select-Object -Property Manufacturer,Product,SerialNumber | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding utf8;
   Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");

@@ -111,15 +111,6 @@ REM ------------------------------------------------------------
   wmic path Win32_VideoController get AdapterRAM,Description,DriverVersion,Name | findstr /r /v "^\s*$">> %output_file%
   EXIT /b
 
-: WMIC_MANUFACTURER
-  CALL :.
-  ECHO --->> %output_file%
-  ECHO -----  Model / Manufacturer>> %output_file%
-  ECHO --->> %output_file%
-  ECHO.>> %output_file%
-  wmic computersystem get Manufacturer,Model,Name,SystemType | findstr /r /v "^\s*$">> %output_file%
-  EXIT /b
-
 : WMIC_MOTHERBOARD
   CALL :.
   ECHO --->> %output_file%
@@ -133,6 +124,15 @@ REM ------------------------------------------------------------
   ECHO --->> %output_file%
   ECHO.>> %output_file%
   wmic bios get ReleaseDate,SMBIOSBIOSVersion,SMBIOSMajorVersion,SMBIOSMinorVersion | findstr /r /v "^\s*$">> %output_file%
+  EXIT /b
+
+: WMIC_MANUFACTURER
+  CALL :.
+  ECHO --->> %output_file%
+  ECHO -----  Model / Manufacturer>> %output_file%
+  ECHO --->> %output_file%
+  ECHO.>> %output_file%
+  wmic computersystem get Manufacturer,Model,Name,SystemType | findstr /r /v "^\s*$">> %output_file%
   EXIT /b
 
 : WMIC_NIC

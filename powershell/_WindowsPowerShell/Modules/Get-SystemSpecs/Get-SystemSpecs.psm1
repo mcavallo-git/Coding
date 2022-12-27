@@ -31,10 +31,11 @@ Function Get-SystemSpecs() {
 
   # ------------------------------
 
-  Add-Content -Path ("${Logfile}") -Value ("`n");
+  Add-Content -Path ("${Logfile}") -Value ("------------------------------------------------------------");
   Add-Content -Path ("${Logfile}") -Value ("System Specs ");
   Add-Content -Path ("${Logfile}") -Value ("    Hostname:  ${hostname} ");
   Add-Content -Path ("${Logfile}") -Value ("    Datetime:  $(Get-Date -Format 'yyyy-MM-dd @ HH:mm:ss.fff (zzz)') ");
+  Add-Content -Path ("${Logfile}") -Value ("------------------------------------------------------------");
 
   # ------------------------------
 

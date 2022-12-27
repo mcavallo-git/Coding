@@ -1,15 +1,8 @@
 @ECHO OFF
 REM ------------------------------------------------------------
 REM
-REM Hardware Spec 'Getter' using WMIC         MCavallo, 2017-07-06
+REM   ! ! DEPRECATED ! ! --> USE POWERSHELL MODULE [ Get-SystemSpecs.psm1 ] INSTEAD
 REM
-REM ------------------------------------------------------------
-REM RUN THIS SCRIPT (via PowerShell):
-REM
-REM $TempPath="${Env:TEMP}\Get-SystemSpecs.bat"; (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/mcavallo-git/Coding/main/cmd/scripts/Get-SystemSpecs.bat","${TempPath}"); $LF="$([char]10)"; $CR="$([char]13)"; (Get-Content -Raw -Path ("${TempPath}")) -replace "${LF}","${CR}${LF}" | Set-Content -Path ("${TempPath}"); Start-Process -Filepath ("${Env:ComSpec}") -ArgumentList (@("/C","${Env:TEMP}\Get-SystemSpecs.bat"));
-REM
-REM ------------------------------------------------------------
-REM   MAIN FUNCTION
 REM ------------------------------------------------------------
 
   SETLOCAL

@@ -22,7 +22,6 @@ Function Get-SystemSpecs() {
 
   $Domain=(Get-CimInstance -ClassName "Win32_ComputerSystem" | Select-Object -ExpandProperty Domain);
   $HostName=(Get-CimInstance -ClassName "Win32_ComputerSystem" | Select-Object -ExpandProperty Name);
-
   $Logfile="${HOME}\Desktop\Get-SystemSpecs.${HostName}.${Domain}.txt";
   Set-Content -Path ("${Logfile}") -Value ("");
 
@@ -37,12 +36,10 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("    Hostname:  ${hostname} ");
   Add-Content -Path ("${Logfile}") -Value ("    Datetime:  $(Get-Date -Format 'yyyy-MM-dd @ HH:mm:ss.fff (zzz)') ");
   Add-Content -Path ("${Logfile}") -Value ("");
-  Add-Content -Path ("${Logfile}") -Value ("");
 
   # ------------------------------
 
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  CPU  (Processor) ");
@@ -55,7 +52,6 @@ Function Get-SystemSpecs() {
   # VIDEO CARD
   Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("");
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  GPU  (Graphics/Video Card) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -66,7 +62,6 @@ Function Get-SystemSpecs() {
 
   # MEMORY/RAM
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Memory/RAM (Capacity in Bytes) ");
@@ -85,7 +80,6 @@ Function Get-SystemSpecs() {
   # DISK(S)
   Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("");
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Disk(s)   (Size in bytes) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -97,7 +91,6 @@ Function Get-SystemSpecs() {
   # PC MODEL/NAME
   Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("");
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Model / Manufacturer ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -108,7 +101,6 @@ Function Get-SystemSpecs() {
 
   # MOTHERBOARD/BIOS
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Motherboard ");
@@ -127,7 +119,6 @@ Function Get-SystemSpecs() {
   # NETWORK INTERFACE CARDS
   Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("");
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  NICs (Network Interface Cards) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -138,7 +129,6 @@ Function Get-SystemSpecs() {
 
   # OPERATING SYSTEM
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  OS (Operating System) ");
@@ -151,7 +141,6 @@ Function Get-SystemSpecs() {
   # LOGIN USERNAME/DOMAIN
   Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("");
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  User/Domain ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -161,7 +150,6 @@ Function Get-SystemSpecs() {
   # ------------------------------
 
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
   Add-Content -Path ("${Logfile}") -Value ("");
 
   notepad.exe ("${Logfile}");

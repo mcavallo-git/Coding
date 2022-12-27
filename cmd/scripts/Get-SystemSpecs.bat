@@ -58,7 +58,6 @@ REM ------------------------------------------------------------
   FOR /f "tokens=2 delims==" %%I in ('wmic computersystem get UserName /format:list') do SET "username=%%I"
   REM  \*/*\   Get the hostname (computer name)
   FOR /f "tokens=2 delims==" %%I in ('wmic computersystem get Name /format:list') do SET "hostname=%%I"
-  REM SET date=date /T
   SET output_file=%USERPROFILE%\Desktop\Get-SystemSpecs.%hostname%.%domain%.txt
   CALL :SETUP_DATETIME
   ECHO.> %output_file%
@@ -141,7 +140,7 @@ REM ------------------------------------------------------------
   ECHO -----  NICs (Network Interface Cards)>> %output_file%
   ECHO --->> %output_file%
   ECHO.>> %output_file%
-  wmic nicconfig where "macaddress is not null" get DefaultIPGateway,Description,DHCPServer,Index,IPAddress,MACAddress | findstr /r /v "^\s*$">> %output_file%
+  wmic nicconfig where "MACAddress is not null" get DefaultIPGateway,Description,DHCPServer,Index,IPAddress,MACAddress | findstr /r /v "^\s*$">> %output_file%
   EXIT /b
 
 : WMIC_OS
@@ -150,7 +149,7 @@ REM ------------------------------------------------------------
   ECHO -----  OS (Operating System)>> %output_file%
   ECHO --->> %output_file%
   ECHO.>> %output_file%
-  wmic os get caption,osarchitecture,version | findstr /r /v "^\s*$">> %output_file%
+  wmic os get Caption,OSArchitecture,Version | findstr /r /v "^\s*$">> %output_file%
   EXIT /b
 
 : WMIC_RAM

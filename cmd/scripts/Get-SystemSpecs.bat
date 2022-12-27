@@ -96,7 +96,7 @@ REM ------------------------------------------------------------
 : WMIC_DISKS
   CALL :.
   ECHO --->> %output_file%
-  ECHO -----  Disk   (Size in bytes)>> %output_file%
+  ECHO -----  Disk(s)   (Size in bytes)>> %output_file%
   ECHO --->> %output_file%
   ECHO.>> %output_file%
   wmic diskdrive get Caption,DeviceID,Index,Partitions,Size | findstr /r /v "^\s*$">> %output_file%
@@ -109,6 +109,15 @@ REM ------------------------------------------------------------
   ECHO --->> %output_file%
   ECHO.>> %output_file%
   wmic path Win32_VideoController get AdapterRAM,Description,DriverVersion,Name | findstr /r /v "^\s*$">> %output_file%
+  EXIT /b
+
+: WMIC_MANUFACTURER
+  CALL :.
+  ECHO --->> %output_file%
+  ECHO -----  Model/Manufacturer>> %output_file%
+  ECHO --->> %output_file%
+  ECHO.>> %output_file%
+  wmic computersystem get Manufacturer,Model,Name,SystemType | findstr /r /v "^\s*$">> %output_file%
   EXIT /b
 
 : WMIC_MOTHERBOARD
@@ -124,15 +133,6 @@ REM ------------------------------------------------------------
   ECHO --->> %output_file%
   ECHO.>> %output_file%
   wmic bios get ReleaseDate,SMBIOSBIOSVersion,SMBIOSMajorVersion,SMBIOSMinorVersion | findstr /r /v "^\s*$">> %output_file%
-  EXIT /b
-
-: WMIC_MANUFACTURER
-  CALL :.
-  ECHO --->> %output_file%
-  ECHO -----  Model / Manufacturer>> %output_file%
-  ECHO --->> %output_file%
-  ECHO.>> %output_file%
-  wmic computersystem get Manufacturer,Model,Name,SystemType | findstr /r /v "^\s*$">> %output_file%
   EXIT /b
 
 : WMIC_NIC
@@ -171,7 +171,7 @@ REM ------------------------------------------------------------
 : WMIC_USER
   CALL :.
   ECHO --->> %output_file%
-  ECHO -----  User / Domain>> %output_file%
+  ECHO -----  User/Domain>> %output_file%
   ECHO --->> %output_file%
   ECHO.>> %output_file%
   wmic computersystem get Domain,PartOfDomain,PrimaryOwnerName,UserName | findstr /r /v "^\s*$">> %output_file%

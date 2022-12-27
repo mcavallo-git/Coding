@@ -44,7 +44,7 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  CPU  (Processor) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Get-CimInstance -ClassName "Win32_Processor" | Select-Object -Property CurrentClockSpeed,MaxClockSpeed,Name,NumberOfCores,NumberOfLogicalProcessors | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  Get-CimInstance -ClassName "Win32_Processor" | Select-Object -Property Name,NumberOfCores,NumberOfLogicalProcessors,CurrentClockSpeed,MaxClockSpeed | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
 
   # ------------------------------
 

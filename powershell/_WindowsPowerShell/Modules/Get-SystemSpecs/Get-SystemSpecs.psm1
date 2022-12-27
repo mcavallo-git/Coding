@@ -61,7 +61,7 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  Memory/RAM  (Capacity in Bytes)");
   Add-Content -Path ("${Logfile}") -Value ("---");
-  ${Win32_PhysicalMemory} | Select-Object -Property DeviceLocator,BankLabel,Manufacturer,PartNumber,Speed,Capacity,MemoryType,FormFactor | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  ${Win32_PhysicalMemory} | Select-Object -Property DeviceLocator,BankLabel,Manufacturer,PartNumber,Speed,Capacity,FormFactor,MemoryType,SMBIOSMemoryType | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  Motherboard RAM Limits  (MaxCapacity in kilobytes, MemoryDevices is total RAM Slots)");

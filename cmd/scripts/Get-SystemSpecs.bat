@@ -138,7 +138,7 @@ REM ------------------------------------------------------------
 : WMIC_NIC
   CALL :.
   ECHO --->> %output_file%
-  ECHO -----  NICs (Network Inferface Cards)>> %output_file%
+  ECHO -----  NICs (Network Interface Cards)>> %output_file%
   ECHO --->> %output_file%
   ECHO.>> %output_file%
   wmic nicconfig where "macaddress is not null" get DefaultIPGateway,Description,DHCPServer,Index,IPAddress,MACAddress | findstr /r /v "^\s*$">> %output_file%

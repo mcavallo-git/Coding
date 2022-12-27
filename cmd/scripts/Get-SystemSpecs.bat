@@ -6,7 +6,7 @@ REM
 REM ------------------------------------------------------------
 REM RUN THIS SCRIPT (via PowerShell):
 REM
-REM    (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/mcavallo-git/Coding/main/cmd/scripts/Get-SystemSpecs.bat","${Env:TEMP}\Get-SystemSpecs.bat"); Start-Process -Filepath ("${Env:ComSpec}") -ArgumentList (@("/C","${Env:TEMP}\Get-SystemSpecs.bat"));
+REM $TempPath="${Env:TEMP}\Get-SystemSpecs.bat"; (New-Object System.Net.WebClient).DownloadFile("https://raw.githubusercontent.com/mcavallo-git/Coding/main/cmd/scripts/Get-SystemSpecs.bat","${TempPath}"); $LF="$([char]10)"; $CR="$([char]13)"; (Get-Content -Raw -Path ("${TempPath}")) -replace "${LF}","${CR}${LF}" | Set-Content -Path ("${TempPath}"); Start-Process -Filepath ("${Env:ComSpec}") -ArgumentList (@("/C","${Env:TEMP}\Get-SystemSpecs.bat"));
 REM
 REM ------------------------------------------------------------
 REM   MAIN FUNCTION

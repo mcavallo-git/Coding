@@ -18,17 +18,17 @@ Function Get-SystemSpecs() {
   }
   # ------------------------------
   Write-Host "";
-  Write-Host -NoNewline "Acquiring data ...";
-  $Win32_BaseBoard=(Get-CimInstance -ClassName "Win32_BaseBoard");
-  $Win32_BIOS=(Get-CimInstance -ClassName "Win32_BIOS");
-  $Win32_ComputerSystem=(Get-CimInstance -ClassName "Win32_ComputerSystem");
-  $Win32_DiskDrive=(Get-CimInstance -ClassName "Win32_DiskDrive");
-  $Win32_NetworkAdapterConfiguration=(Get-CimInstance -ClassName "Win32_NetworkAdapterConfiguration");
-  $Win32_OperatingSystem=(Get-CimInstance -ClassName "Win32_OperatingSystem");
-  $Win32_PhysicalMemory=(Get-CimInstance -ClassName "Win32_PhysicalMemory");
-  $Win32_PhysicalMemoryArray=(Get-CimInstance -ClassName "Win32_PhysicalMemoryArray");
-  $Win32_Processor=(Get-CimInstance -ClassName "Win32_Processor");
-  $Win32_VideoController=(Get-CimInstance -ClassName "Win32_VideoController");
+  Write-Host -NoNewline "Acquiring data .";
+  Write-Host -NoNewline "."; $Win32_BaseBoard=(Get-CimInstance -ClassName "Win32_BaseBoard");
+  Write-Host -NoNewline "."; $Win32_BIOS=(Get-CimInstance -ClassName "Win32_BIOS");
+  Write-Host -NoNewline "."; $Win32_ComputerSystem=(Get-CimInstance -ClassName "Win32_ComputerSystem");
+  Write-Host -NoNewline "."; $Win32_DiskDrive=(Get-CimInstance -ClassName "Win32_DiskDrive");
+  Write-Host -NoNewline "."; $Win32_NetworkAdapterConfiguration=(Get-CimInstance -ClassName "Win32_NetworkAdapterConfiguration");
+  Write-Host -NoNewline "."; $Win32_OperatingSystem=(Get-CimInstance -ClassName "Win32_OperatingSystem");
+  Write-Host -NoNewline "."; $Win32_PhysicalMemory=(Get-CimInstance -ClassName "Win32_PhysicalMemory");
+  Write-Host -NoNewline "."; $Win32_PhysicalMemoryArray=(Get-CimInstance -ClassName "Win32_PhysicalMemoryArray");
+  Write-Host -NoNewline "."; $Win32_Processor=(Get-CimInstance -ClassName "Win32_Processor");
+  Write-Host -NoNewline "."; $Win32_VideoController=(Get-CimInstance -ClassName "Win32_VideoController");
   # ------------------------------
   # Setup Logfile
   $Domain=(${Win32_ComputerSystem} | Select-Object -ExpandProperty Domain);
@@ -51,7 +51,6 @@ Function Get-SystemSpecs() {
   ${Win32_Processor} | Select-Object -Property Name,NumberOfCores,NumberOfLogicalProcessors,CurrentClockSpeed,MaxClockSpeed | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   # ------------------------------
   # GPU  (Graphics/Video Card)
-  Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  GPU  (Graphics/Video Card)");
@@ -59,7 +58,6 @@ Function Get-SystemSpecs() {
   ${Win32_VideoController} | Select-Object -Property Name,Description,AdapterRAM,DriverVersion | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   # ------------------------------
   # Memory/RAM
-  Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  Memory/RAM  (Capacity in Bytes)");
@@ -69,7 +67,7 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  Motherboard RAM Limits  (MaxCapacity in kilobytes, MemoryDevices is total RAM Slots)");
   Add-Content -Path ("${Logfile}") -Value ("---");
-  ${Win32_PhysicalMemory} | Select-Object -Property MemoryDevices,MaxCapacity | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  ${Win32_PhysicalMemoryArray} | Select-Object -Property MemoryDevices,MaxCapacity | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   # ------------------------------
   # Disk(s)
   Add-Content -Path ("${Logfile}") -Value ("`n");
@@ -79,7 +77,6 @@ Function Get-SystemSpecs() {
   ${Win32_DiskDrive} | Select-Object -Property Index,Caption,DeviceID,Partitions,Size | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   # ------------------------------
   # PC Model / Manufacturer
-  Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  Model / Manufacturer");
@@ -87,7 +84,6 @@ Function Get-SystemSpecs() {
   ${Win32_ComputerSystem} | Select-Object -Property Name,SystemType,Manufacturer,Model | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   # ------------------------------
   # Motherboard/BIOS
-  Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  Motherboard");
@@ -100,7 +96,6 @@ Function Get-SystemSpecs() {
   ${Win32_BIOS} | Select-Object -Property ReleaseDate,SMBIOSBIOSVersion,SMBIOSMajorVersion,SMBIOSMinorVersion | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   # ------------------------------
   # NICs (Network Interface Cards)
-  Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  NICs  (Network Interface Cards)");
@@ -108,7 +103,6 @@ Function Get-SystemSpecs() {
   ${Win32_NetworkAdapterConfiguration} | Select-Object -Property Index,Description,IPAddress,MACAddress,DefaultIPGateway,DHCPServer | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   # ------------------------------
   # OS (Operating System)
-  Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  OS  (Operating System)");
@@ -116,7 +110,6 @@ Function Get-SystemSpecs() {
   ${Win32_OperatingSystem} | Select-Object -Property Caption,Version,OSArchitecture | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   # ------------------------------
   # User/Domain
-  Write-Host -NoNewline ".";
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("---");
   Add-Content -Path ("${Logfile}") -Value ("-----  User/Domain");

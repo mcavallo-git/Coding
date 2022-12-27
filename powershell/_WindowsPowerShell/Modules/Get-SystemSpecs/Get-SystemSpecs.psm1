@@ -31,15 +31,15 @@ Function Get-SystemSpecs() {
 
   # ------------------------------
 
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("System Specs ");
   Add-Content -Path ("${Logfile}") -Value ("    Hostname:  ${hostname} ");
   Add-Content -Path ("${Logfile}") -Value ("    Datetime:  $(Get-Date -Format 'yyyy-MM-dd @ HH:mm:ss.fff (zzz)') ");
-  Add-Content -Path ("${Logfile}") -Value ("");
 
   # ------------------------------
 
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  CPU  (Processor) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -49,7 +49,7 @@ Function Get-SystemSpecs() {
 
   # VIDEO CARD
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  GPU  (Graphics/Video Card) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -59,12 +59,12 @@ Function Get-SystemSpecs() {
 
   # MEMORY/RAM
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Memory/RAM (Capacity in Bytes) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Get-CimInstance -ClassName "Win32_PhysicalMemory" | Select-Object -Property BankLabel,Capacity,DeviceLocator,FormFactor,Manufacturer,PartNumber,Speed | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Motherboard RAM Limits (MaxCapacity in kilobytes, MemoryDevices is total RAM Slots) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -74,7 +74,7 @@ Function Get-SystemSpecs() {
 
   # DISK(S)
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Disk(s)   (Size in bytes) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -84,7 +84,7 @@ Function Get-SystemSpecs() {
 
   # PC MODEL/NAME
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Model / Manufacturer ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -94,12 +94,12 @@ Function Get-SystemSpecs() {
 
   # MOTHERBOARD/BIOS
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Motherboard ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Get-CimInstance -ClassName "Win32_BaseBoard" | Select-Object -Property Manufacturer,Product,SerialNumber | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  BIOS ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -109,7 +109,7 @@ Function Get-SystemSpecs() {
 
   # NETWORK INTERFACE CARDS
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  NICs (Network Interface Cards) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -119,7 +119,7 @@ Function Get-SystemSpecs() {
 
   # OPERATING SYSTEM
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  OS (Operating System) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -129,7 +129,7 @@ Function Get-SystemSpecs() {
 
   # LOGIN USERNAME/DOMAIN
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  User/Domain ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
@@ -138,7 +138,7 @@ Function Get-SystemSpecs() {
   # ------------------------------
 
   Write-Host -NoNewline ".";
-  Add-Content -Path ("${Logfile}") -Value ("");
+  Add-Content -Path ("${Logfile}") -Value ("`n");
 
   notepad.exe ("${Logfile}");
 

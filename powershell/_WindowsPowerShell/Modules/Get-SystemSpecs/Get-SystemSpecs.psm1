@@ -34,10 +34,9 @@ Function Get-SystemSpecs() {
   $Domain=(${Win32_ComputerSystem} | Select-Object -ExpandProperty Domain);
   $HostName=(${Win32_ComputerSystem} | Select-Object -ExpandProperty Name);
   $Logfile="${HOME}\Desktop\Get-SystemSpecs.${HostName}.${Domain}.txt";
-  Set-Content -Path ("${Logfile}") -Value ("");
   # ------------------------------
   # Header
-  Add-Content -Path ("${Logfile}") -Value ("------------------------------------------------------------");
+  Set-Content -Path ("${Logfile}") -Value ("------------------------------------------------------------");
   Add-Content -Path ("${Logfile}") -Value ("System Specs");
   Add-Content -Path ("${Logfile}") -Value ("    Hostname:  ${hostname}");
   Add-Content -Path ("${Logfile}") -Value ("    Datetime:  $(Get-Date -Format 'yyyy-MM-dd @ HH:mm:ss.fff (zzz)')");

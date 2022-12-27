@@ -17,10 +17,8 @@ Function Get-SystemSpecs() {
 
   }
   # ------------------------------
-
   Write-Host "";
   Write-Host -NoNewline "Acquiring data ...";
-
   $Win32_BaseBoard=(Get-CimInstance -ClassName "Win32_BaseBoard");
   $Win32_BIOS=(Get-CimInstance -ClassName "Win32_BIOS");
   $Win32_ComputerSystem=(Get-CimInstance -ClassName "Win32_ComputerSystem");
@@ -31,15 +29,12 @@ Function Get-SystemSpecs() {
   $Win32_PhysicalMemoryArray=(Get-CimInstance -ClassName "Win32_PhysicalMemoryArray");
   $Win32_Processor=(Get-CimInstance -ClassName "Win32_Processor");
   $Win32_VideoController=(Get-CimInstance -ClassName "Win32_VideoController");
-
   # ------------------------------
   # Setup Logfile
-
   $Domain=(${Win32_ComputerSystem} | Select-Object -ExpandProperty Domain);
   $HostName=(${Win32_ComputerSystem} | Select-Object -ExpandProperty Name);
   $Logfile="${HOME}\Desktop\Get-SystemSpecs.${HostName}.${Domain}.txt";
   Set-Content -Path ("${Logfile}") -Value ("");
-
   # ------------------------------
   # Header
   Add-Content -Path ("${Logfile}") -Value ("------------------------------------------------------------");

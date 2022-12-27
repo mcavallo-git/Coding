@@ -15,6 +15,10 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Nam
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { $_.Name -Eq "___.exe" } | ForEach-Object { $_.FullName; };
 
 
+# Filename ends with a given file extension ".exe"
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "*.exe") } | ForEach-Object { $_.FullName; };
+
+
 # Filename starts with "___"
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "___*") } | ForEach-Object { $_.FullName; };
 

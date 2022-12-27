@@ -54,7 +54,7 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  GPU  (Graphics/Video Card) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Get-CimInstance -ClassName "Win32_VideoController" | Select-Object -Property AdapterRAM,Description,DriverVersion,Name | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  Get-CimInstance -ClassName "Win32_VideoController" | Select-Object -Property Name,Description,AdapterRAM,DriverVersion | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
 
   # ------------------------------
 
@@ -64,12 +64,12 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Memory/RAM (Capacity in Bytes) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Get-CimInstance -ClassName "Win32_PhysicalMemory" | Select-Object -Property BankLabel,Capacity,DeviceLocator,FormFactor,Manufacturer,PartNumber,Speed | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  Get-CimInstance -ClassName "Win32_PhysicalMemory" | Select-Object -Property BankLabel,DeviceLocator,Capacity,Manufacturer,PartNumber,Speed,FormFactor | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
   Add-Content -Path ("${Logfile}") -Value ("`n");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Motherboard RAM Limits (MaxCapacity in kilobytes, MemoryDevices is total RAM Slots) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Get-CimInstance -ClassName "Win32_PhysicalMemoryArray" | Select-Object -Property MaxCapacity,MemoryDevices | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  Get-CimInstance -ClassName "Win32_PhysicalMemoryArray" | Select-Object -Property MemoryDevices,MaxCapacity | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
 
   # ------------------------------
 
@@ -79,7 +79,7 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Disk(s)   (Size in bytes) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Get-CimInstance -ClassName "Win32_DiskDrive" | Select-Object -Property Caption,DeviceID,Index,Partitions,Size | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  Get-CimInstance -ClassName "Win32_DiskDrive" | Select-Object -Property Index,Caption,DeviceID,Partitions,Size | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
 
   # ------------------------------
 
@@ -89,7 +89,7 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  Model / Manufacturer ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Get-CimInstance -ClassName "Win32_ComputerSystem" | Select-Object -Property Manufacturer,Model,Name,SystemType | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  Get-CimInstance -ClassName "Win32_ComputerSystem" | Select-Object -Property Name,SystemType,Manufacturer,Model | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
 
   # ------------------------------
 
@@ -124,7 +124,7 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  OS (Operating System) ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Get-CimInstance -ClassName "Win32_OperatingSystem" | Select-Object -Property Caption,OSArchitecture,Version | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  Get-CimInstance -ClassName "Win32_OperatingSystem" | Select-Object -Property Caption,Version,OSArchitecture | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
 
   # ------------------------------
 
@@ -134,7 +134,7 @@ Function Get-SystemSpecs() {
   Add-Content -Path ("${Logfile}") -Value ("--- ");
   Add-Content -Path ("${Logfile}") -Value ("-----  User/Domain ");
   Add-Content -Path ("${Logfile}") -Value ("--- ");
-  Get-CimInstance -ClassName "Win32_ComputerSystem" | Select-Object -Property Domain,PartOfDomain,PrimaryOwnerName,UserName | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
+  Get-CimInstance -ClassName "Win32_ComputerSystem" | Select-Object -Property UserName,PrimaryOwnerName,Domain,PartOfDomain | Format-Table | Out-File -Width 16384 -Append -FilePath ("${Logfile}") -Encoding ("utf8");
 
   # ------------------------------
 

@@ -1,4 +1,6 @@
 # ------------------------------------------------------------
+# PowerShell - MKLINK (Windows Fax & Scan - Redirect Scanned Documents to the Desktop)
+# ------------------------------------------------------------
 
 # MKLINK "NEW_LINK" "EXISTING_FILE"
 

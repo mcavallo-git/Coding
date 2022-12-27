@@ -2,6 +2,12 @@
 # PowerShell - MKLINK (AHKv2, update to latest release version).ps1
 # ------------------------------------------------------------
 
+# MKLINK "NEW_LINK" "EXISTING_FILE"
+
+# MKLINK /D "NEW_LINK" "EXISTING_DIR"
+
+# ------------------------------------------------------------
+
 If ($True) {
   # ------------------------------
   # Get the latest version of AHKv2

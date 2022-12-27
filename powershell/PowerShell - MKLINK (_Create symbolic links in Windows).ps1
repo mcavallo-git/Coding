@@ -1,7 +1,11 @@
 # ------------------------------------------------------------
-#
-# PowerShell - MKLINK (create a symbolic link in Windows)
-#
+# PowerShell - MKLINK (_create symbolic links in Windows)
+# ------------------------------------------------------------
+
+# MKLINK "NEW_LINK" "EXISTING_FILE"
+
+# MKLINK /D "NEW_LINK" "EXISTING_DIR"
+
 # ------------------------------------------------------------
 
 # MKLINK - Redirect one directory to another (via CMD)

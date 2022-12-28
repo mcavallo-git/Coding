@@ -1163,6 +1163,18 @@ AppsKey & l::
 
 ; ------------------------------
 ;
+;   HOTKEY:  Alt + ` (Tilde)
+;   ACTION:  Keyboard-Command for a Mouse-Right-Click
+;
+!`::
+{
+  MouseClick "Right"
+  Return
+}
+
+
+; ------------------------------
+;
 ;   HOTKEY:  AppsKey + Mouse-Wheel Up
 ;            AppsKey + Mouse-Wheel Down
 ;   ACTION:  Simulate a Mouse Left-Click (instead of scrolling up/down)
@@ -1202,18 +1214,6 @@ AppsKey & Up::
 AppsKey & Down::
 {
   Send "{LWin up}{RWin up}{LWin down}{Down}{LWin up}"
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  Alt + ` (Tilde)
-;   ACTION:  Keyboard-Command for a Mouse-Right-Click
-;
-!`::
-{
-  MouseClick "Right"
   Return
 }
 
@@ -1424,7 +1424,7 @@ AppsKey & WheelDown::
 
 
 ; ------------------------------------------------------------
-#HotIf !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe Overwatch.exe") && !WinActive("ahk_exe HaloInfinite.exe")
+#HotIf !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe HaloInfinite.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Open Google Chrome
@@ -1444,16 +1444,6 @@ AppsKey & WheelDown::
 ;   ; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
 ;   Sleep 2000
 ;   Return
-#HotIf WinActive("ahk_exe Overwatch.exe")
-;
-;   HOTKEY:  WinKey + C
-;   ACTION:  Click rapidly
-;
-#c::
-{
-  ClickLoop(731,1227,25)
-  Return
-}
 #HotIf WinActive("ahk_exe Cyberpunk2077.exe")
 ;
 ;   HOTKEY:  WinKey + C
@@ -1528,6 +1518,8 @@ AppsKey & WheelDown::
 {
 
   ClickLoop(-1,-1,250,1200)
+
+  ; ClickLoop(1247,1100,25,7200)
 
   ; Loop 20 {
   ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)

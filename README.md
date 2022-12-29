@@ -1,8 +1,6 @@
 <!-- ------------------------------------------------------------ ---
 
-This file (on GitHub):
-
-	https://github.com/mcavallo-git/Coding#coding
+This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README.md#readme
 
 --- ------------------------------------------------------------- -->
 
@@ -28,20 +26,20 @@ This file (on GitHub):
 
 <strong>Bash (Shellscript) Module Sync to [ <a href="https://github.com/mcavallo-git/cloud-infrastructure/tree/main/">mcavallo-git/cloud-infrastructure</a> ] GitHub Repo</strong>
 <details><summary><i>Show/Hide Content</i></summary>
-	<p>
-		<ol>
-			<li>Prereq: Debian- or Fedora-based Linux environment (Ubuntu, Raspbian, CentOS, RHEL, etc.)</li>
-			<li>Prereq: SSH Terminal w/ Elevated Privileges (running via <code>sudo</code> or as user <code>root</code>)</li>
-			<li>
-				<div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
-				<pre><code>curl -sL https://mcavallo.com/sh | bash -s -- --all;</code></pre>
-			</li>
-			<li>
-				<div>Once initial sync completes, you may trigger a manual re-sync via command: </div>
-				<pre><code>sync_cloud_infrastructure;</code></pre>
-			</li>
-		</ol>
-	</p>
+  <p>
+    <ol>
+      <li>Prereq: Debian- or Fedora-based Linux environment (Ubuntu, Raspbian, CentOS, RHEL, etc.)</li>
+      <li>Prereq: SSH Terminal w/ Elevated Privileges (running via <code>sudo</code> or as user <code>root</code>)</li>
+      <li>
+        <div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
+        <pre><code>curl -sL https://mcavallo.com/sh | bash -s -- --all;</code></pre>
+      </li>
+      <li>
+        <div>Once initial sync completes, you may trigger a manual re-sync via command: </div>
+        <pre><code>sync_cloud_infrastructure;</code></pre>
+      </li>
+    </ol>
+  </p>
 </details>
 
 <hr />
@@ -51,29 +49,29 @@ This file (on GitHub):
 
 <strong>PowerShell Module Sync to [ <a href="https://github.com/mcavallo-git/Coding/tree/main/powershell/_WindowsPowerShell/Modules">mcavallo-git/Coding</a> ] GitHub Repo</strong>
 <details><summary><i>Show/Hide Content</i></summary>
-	<p>
-		<ol>
-			<li>
-				<div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
-			</li>
-			<li>
-				<details><summary>
-						<span>Prereq: Git CLI added to PATH (available during installation of Git SCM - click to view screenshot)</span>
-					</summary>
-					<div style="text-align:center;"><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/git-install.allow-cli.png" height="250" /></div>
-				</details>
-			</li>
-			<li>Prereq: PowerShell Terminal w/ Elevated Privileges (running in <code>Run as Admin</code> mode)</li>
-			<li>
-				<div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>
-				<pre><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;</code></pre>
-			</li>
-			<li>
-				<div>Fallback Method:</div>
-				<pre><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -Force -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)"))) | Out-Null; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</code></pre>
-			</li>
-		</ol>
-	</p>
+  <p>
+    <ol>
+      <li>
+        <div>Prereq: Git SCM - <a href="https://git-scm.com/download/win">Download (source)</a></div>
+      </li>
+      <li>
+        <details><summary>
+            <span>Prereq: Git CLI added to PATH (available during installation of Git SCM - click to view screenshot)</span>
+          </summary>
+          <div style="text-align:center;"><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/git-install.allow-cli.png" height="250" /></div>
+        </details>
+      </li>
+      <li>Prereq: PowerShell Terminal w/ Elevated Privileges (running in <code>Run as Admin</code> mode)</li>
+      <li>
+        <div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>
+        <pre><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;</code></pre>
+      </li>
+      <li>
+        <div>Fallback Method:</div>
+        <pre><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -Force -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)"))) | Out-Null; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</code></pre>
+      </li>
+    </ol>
+  </p>
 </details>
 
 <hr id="workstation-installs" />

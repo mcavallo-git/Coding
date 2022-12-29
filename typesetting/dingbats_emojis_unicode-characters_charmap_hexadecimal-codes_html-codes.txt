@@ -61,6 +61,12 @@ Mostly Linux compatible:
 →					Rightwards Arrow (Right Arrow) (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
 
 
+⇧					Upwards White Arrow (&#x21E7;)  |  https://www.compart.com/en/unicode/U+21E7
+⇩					Downwards White Arrow (&#x21E9;)  |  https://www.compart.com/en/unicode/U+21E9
+⇦					Leftwards White Arrow (&#x21E6;)  |  https://www.compart.com/en/unicode/U+21E6
+⇨					Rightwards White Arrow (&#x21E8;)  |  https://www.compart.com/en/unicode/U+21E8
+
+
 ↕					Up Down Arrow   (&updownarrow;)  |  https://www.compart.com/en/unicode/U+2195
 ↔ 				Left Right Arrow (&LeftRightArrow;)  |  https://www.compart.com/en/unicode/U+2194
 ⇅					Upwards Arrow Leftwards of Downwards Arrow  (&udarr;) (&UpArrowDownArrow;)  |  https://www.compart.com/en/unicode/U+21C5

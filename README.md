@@ -12,11 +12,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <br />
 
 <details><summary>What is DevOps?</summary>
-	<br />
-	<div>Wikipedia states:</div>
-	<blockquote>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.&nbsp;<sup><a href="https://en.wikipedia.org/wiki/DevOps">[Citation]</a></sup></blockquote>
-	<div>Atlassian states:</div>
-	<blockquote>DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably.&nbsp;<sup><a href="https://www.atlassian.com/devops">[Citation]</a></sup><a href="https://www.atlassian.com/devops"><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/devops-loop-illustrations.atlassian.png" /></a></blockquote>
+  <br />
+  <div>Wikipedia states:</div>
+  <blockquote>DevOps is a set of practices that combines software development (Dev) and information-technology operations (Ops) which aims to shorten the systems development life cycle and provide continuous delivery with high software quality.&nbsp;<sup><a href="https://en.wikipedia.org/wiki/DevOps">[Citation]</a></sup></blockquote>
+  <div>Atlassian states:</div>
+  <blockquote>DevOps is a set of practices that automates the processes between software development and IT teams, in order that they can build, test, and release software faster and more reliably.&nbsp;<sup><a href="https://www.atlassian.com/devops">[Citation]</a></sup><a href="https://www.atlassian.com/devops"><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/devops-loop-illustrations.atlassian.png" /></a></blockquote>
 </details>
 
 <hr />
@@ -283,29 +283,29 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>HTML CSS Color</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Online color library and color tools for developers.<br />&nbsp;&nbsp;&nbsp;Quick color nickname lookups (given a hex color code)</i></sub></td><td><a href="https://www.htmlcsscolor.com/hex/4d4dff">View (source)</a></td></tr>
 <tr><td><strong>IconViewer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; Extracts <code>.ico</code> file(s) from <code>.exe</code> application(s)<blockquote><pre>Allows viewing, copying, and saving icons<br />contained within programs & libraries.&nbsp;<sup><a href="https://www.botproductions.com/iconview/iconview.html">[Citation]</a></sup></pre></blockquote></i></sub></td><td><a href="https://www.botproductions.com/iconview/iconview.html">Download (source)</a></td></tr>
 <tr><td><strong>Image Converters</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Image conversion between different image file formats (.ico, .jpg, .png, .svg, etc.)</i>
-	<table><tr>
-			<td>
-				<table>
-					<tr><th colspan="2">Web-based</th></tr>
-					<tr><th colspan="2"></th></tr>
-					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://www.icoconverter.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://www.icoconverter.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</th></tr>
-					<tr><th colspan="2"></th></tr>
-					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</th></tr>
-					<tr><th colspan="2"></th></tr>
-					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</th></tr>
-					<tr><th colspan="2"></th></tr>
-				</table>
-			</th>
-			<th>
-				<table>
-					<tr><th>Windows-based</th></tr>
-					<tr><th></th></tr>
-					<tr><th>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</th></tr>
-					<tr><th></th></tr>
-				</table>
-			</th>
-		</tr></table>
-	</sub></td><td><a href="https://convertio.co/svg-png/">View (source)</a></td></tr>
+  <table><tr>
+      <td>
+        <table>
+          <tr><th colspan="2">Web-based</th></tr>
+          <tr><th colspan="2"></th></tr>
+          <tr><th>&nbsp;&nbsp;&nbsp;<a href="https://www.icoconverter.com/">PNG to ICO</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://www.icoconverter.com/">JPG to ICO</a>&nbsp;&nbsp;&nbsp;</th></tr>
+          <tr><th colspan="2"></th></tr>
+          <tr><th>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/eps-to-svg">EPS to SVG</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://www.pngtosvg.com/">PNG to SVG</a>&nbsp;&nbsp;&nbsp;</th></tr>
+          <tr><th colspan="2"></th></tr>
+          <tr><th>&nbsp;&nbsp;&nbsp;<a href="https://cloudconvert.com/ico-to-png">ICO to PNG</a>&nbsp;&nbsp;&nbsp;</th><th>&nbsp;&nbsp;&nbsp;<a href="https://convertio.co/svg-png/">SVG to PNG</a>&nbsp;&nbsp;&nbsp;</th></tr>
+          <tr><th colspan="2"></th></tr>
+        </table>
+      </th>
+      <th>
+        <table>
+          <tr><th>Windows-based</th></tr>
+          <tr><th></th></tr>
+          <tr><th>&nbsp;&nbsp;&nbsp;<a href="https://www.xnview.com/en/xnview/#downloads">XnView</a>&nbsp;&nbsp;&nbsp;</th></tr>
+          <tr><th></th></tr>
+        </table>
+      </th>
+    </tr></table>
+  </sub></td><td><a href="https://convertio.co/svg-png/">View (source)</a></td></tr>
 <tr><td><strong>ImageMagick</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CLI - Compress, Trim, Resize (etc.) Images</i></sub></td><td><a href="https://www.imagemagick.org/script/download.php#windows">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-Q16-HDRI-x64-dll.exe">Download (direct, installer v7.1.0.2)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://download.imagemagick.org/ImageMagick/download/binaries/ImageMagick-7.1.0-2-portable-Q16-x64.zip">Download (direct, portable v7.1.0.2)</a></sub></td></tr>
 <tr><td><strong>iTunes</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Apple's Media Library/Player/Radio & Device-Manager Utility</i></sub></td><td><a href="https://support.apple.com/downloads/iTunes%2520for%2520Windows%2520Windows%252064%2520bit">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://apple.co/ms">Download (win10 app)</a></sub></td></tr>
 <tr><td><strong>OBS Studio <sub>'Open Broadcaster Software'</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross Platform screen capture ('screencap') utility<br />&nbsp;&nbsp;&nbsp;Allows saving/recording screencaps to local disk<br />&nbsp;&nbsp;&nbsp;Allows live streaming/broadcasting to web services (such as<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Twitch, YouTube, Facebook Live, Twitter, etc.)<br />&nbsp;&nbsp;&nbsp;<a href="https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/OBS-Studio/screencap-tutorial_obs-studio_installation-setup.pdf">View Docs (OBS - Installation & Setup Guide)</a></i></sub></td><td><a href="https://obsproject.com/download">Download (source)</a></td></tr>
@@ -354,7 +354,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
       <li><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></li>
       <li><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></li>
     </ul>
-	</details>
+  </details>
 </td></tr>
 <tr><td><strong>Dell PowerEdge Bootable ISOs</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Official Dell Driver + Firmware Bootlable ISOs<br />&nbsp;&nbsp;&nbsp;View <a href="https://www.dell.com/support/article/en-us/sln296511/update-poweredge-servers-with-platform-specific-bootable-iso?lang=en#2">Update PowerEdge Servers with Platform Specific Bootable ISO</a><br />&nbsp;&nbsp;&nbsp;View <a href="https://www.dell.com/support/article/en-us/sln296810/how-to-create-a-bootable-usb-device-with-rufus-to-update-dell-servers?lang=en">Create Bootable Dell Server ISO</a></i></sub></td><td><a href="https://www.dell.com/support/article/en-us/sln296511/update-poweredge-servers-with-platform-specific-bootable-iso?lang=en#2">Download (source)</a></td></tr>
 <tr><td><strong>FreeNAS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Storage Operating System<br />&nbsp;&nbsp;&nbsp;Based on FreeBSD & OpenZFS file system<br />&nbsp;&nbsp;&nbsp;<a href="https://www.netcomplete.ch/bwl-knowledge-base/install-freenas-esxi/">FreeNAS as ESXi Storage Controller</a></i></sub></td><td><a href="https://www.freenas.org/download-freenas-release/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://archive.freenas.org/">Download (archive)</a></sub></td></tr>
@@ -377,16 +377,16 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 </td></tr>
 <tr><td><strong>VMware (All Downloads)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere/Workstation/Fusion/Player/etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
 <tr><td><strong>VMware ESXi</strong> <sub>
-	<i>
-		<br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
-		<br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
+  <i>
+    <br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
+    <br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
     <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
     <br />&nbsp;&nbsp;&nbsp;A bootable USB drive can be created (from an ESXI .iso file) using <a href="https://rufus.ie/">Rufus</a>
-	</i></sub></td>
-	<td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
+  </i></sub></td>
+  <td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
 </td></tr>
 <tr><td><strong>VMware Workstation Player</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(Free) Desktop Virtualization for a Single (1) VM</i></sub></td><td><a href="https://www.vmware.com/products/workstation-player.html">Download (source)</a></td></tr>
 <tr><td><strong>VMware Workstation Pro</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(Paid) Desktop Virtualization for a Multiple VMs</i></sub></td><td><a href="https://www.vmware.com/products/workstation-pro.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://my.vmware.com/web/vmware/searchresults#q=VMWare%20Workstation%20Pro%2015">Download (older versions)</a></sub></td></tr>
@@ -440,18 +440,18 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>Splashtop Streamer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Access Host/Server</i></sub></td><td><a href="https://www.splashtop.com/downloadstart?platform=windows">Download (source)</a></td></tr>
 <tr><td><strong>TeamViewer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Access Host/Server</i></sub></td><td><a href="https://www.teamviewer.com/en/download/windows/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.teamviewer.com/en/download/previous-versions/">Download (previous versions)</a></sub></td></tr>
 <tr>
-	<td><strong>Windows Terminal</strong> <i><sub>
-		<br />&nbsp;&nbsp;&nbsp;Multi-tabbed terminal emulator by Microsoft
-		<br />&nbsp;&nbsp;&nbsp;Load good <a href="https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/Windows%20Terminal/settings.json">settings.json</a> (requires <a href="https://github.com/tonsky/FiraCode/releases">Fira Code</a> font)
-		<br />&nbsp;&nbsp;&nbsp;
-		<details><summary>Add a "Git Bash" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Git Bash</code></li><li><code>Command Line:  %ProgramFiles%\Git\bin\bash.exe --login -i</code></li><li><code>Starting Directory:  ☑ Use parent process directory</code></li><li><code>Icon:  %ProgramFiles%/Git/mingw64/share/git/git-for-windows.ico</code></li></ul></li></ul></pre></p></details>
-		<details><summary>Add an "Ubuntu 22.04" (WSL) profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Ubuntu 22.04</code></li><li><code>Command Line:  %windir%\System32\wsl.exe -d Ubuntu-22.04</code></li><li><code>Starting Directory:  ☑ Use parent process directory</code></li><li><code>Icon:  ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png</code></li></ul></li></ul></pre></p></details>
-		<details><summary>Add a "PowerShell v7" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  PowerShell v7</code></li><li><code>Command Line:  %ProgramFiles%\PowerShell\7\pwsh.exe</code></li><li><code>Starting Directory:  %USERPROFILE%\Desktop</code></li><li><code>Icon:  ms-appx:///ProfileIcons/pwsh.png</code></li></ul></li></ul></pre></p></details>
-		<details><summary>Add a "PowerShell v5" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  PowerShell v5</code></li><li><code>Command Line:  %windir%\System32\WindowsPowerShell\v1.0\powershell.exe</code></li><li><code>Starting Directory:  %USERPROFILE%\Desktop</code></li><li><code>Icon:  ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png</code></li></ul></li></ul></pre></p></details>
-		<details><summary>Add a "Command Prompt" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Command Prompt</code></li><li><code>Command Line:  %windir%\System32\cmd.exe</code></li><li><code>Starting Directory:  %USERPROFILE%\Desktop</code></li><li><code>Icon:  ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png</code></li></ul></li></ul></pre></p></details>
-		</i></sub>
-	</td>
-	<td><a href="https://www.microsoft.com/store/productId/9N0DX20HK701">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/microsoft/terminal/releases">Download (all releases)</a></sub></td>
+  <td><strong>Windows Terminal</strong> <i><sub>
+    <br />&nbsp;&nbsp;&nbsp;Multi-tabbed terminal emulator by Microsoft
+    <br />&nbsp;&nbsp;&nbsp;Load good <a href="https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/Windows%20Terminal/settings.json">settings.json</a> (requires <a href="https://github.com/tonsky/FiraCode/releases">Fira Code</a> font)
+    <br />&nbsp;&nbsp;&nbsp;
+    <details><summary>Add a "Git Bash" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Git Bash</code></li><li><code>Command Line:  %ProgramFiles%\Git\bin\bash.exe --login -i</code></li><li><code>Starting Directory:  ☑ Use parent process directory</code></li><li><code>Icon:  %ProgramFiles%/Git/mingw64/share/git/git-for-windows.ico</code></li></ul></li></ul></pre></p></details>
+    <details><summary>Add an "Ubuntu 22.04" (WSL) profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Ubuntu 22.04</code></li><li><code>Command Line:  %windir%\System32\wsl.exe -d Ubuntu-22.04</code></li><li><code>Starting Directory:  ☑ Use parent process directory</code></li><li><code>Icon:  ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png</code></li></ul></li></ul></pre></p></details>
+    <details><summary>Add a "PowerShell v7" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  PowerShell v7</code></li><li><code>Command Line:  %ProgramFiles%\PowerShell\7\pwsh.exe</code></li><li><code>Starting Directory:  %USERPROFILE%\Desktop</code></li><li><code>Icon:  ms-appx:///ProfileIcons/pwsh.png</code></li></ul></li></ul></pre></p></details>
+    <details><summary>Add a "PowerShell v5" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  PowerShell v5</code></li><li><code>Command Line:  %windir%\System32\WindowsPowerShell\v1.0\powershell.exe</code></li><li><code>Starting Directory:  %USERPROFILE%\Desktop</code></li><li><code>Icon:  ms-appx:///ProfileIcons/{61c54bbd-c2c6-5271-96e7-009a87ff44bf}.png</code></li></ul></li></ul></pre></p></details>
+    <details><summary>Add a "Command Prompt" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Command Prompt</code></li><li><code>Command Line:  %windir%\System32\cmd.exe</code></li><li><code>Starting Directory:  %USERPROFILE%\Desktop</code></li><li><code>Icon:  ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png</code></li></ul></li></ul></pre></p></details>
+    </i></sub>
+  </td>
+  <td><a href="https://www.microsoft.com/store/productId/9N0DX20HK701">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/microsoft/terminal/releases">Download (all releases)</a></sub></td>
 </tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
@@ -543,24 +543,24 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- -->
 <tr><th colspan="2"><h5 id="web-browsers"><br />Web Browsers<br /><br /></h5></th></tr>
 <tr><td><strong>Google Chrome</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform web browser developed by Google<br />&nbsp;&nbsp;&nbsp;<a href="https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en">View Docs (Chrome keyboard shortcuts)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://peter.sh/experiments/chromium-command-line-switches/">View Docs (Chromium command line switches)</a><br />&nbsp;&nbsp;&nbsp;</i>
-	</sub><details><summary>Google Account & Google Chrome - settings to apply</summary>
-		<ul>
-			<li>Browse to <code>chrome://settings/content/camera</code><ul><li>Select <code>Don't allow sites to use your camera</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/content/location</code><ul><li>Select <code>Don't allow sites to see your location</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/content/microphone</code><ul><li>Select <code>Don't allow sites to use your microphone</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/content/notifications</code><ul><li>Select <code>Don't allow sites to send notifications</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/content/popups</code><ul><li>Select <code>Don't allow sites to send pop-ups or use redirects</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Autocomplete searches and URLs</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Help improve Chrome's features and performance</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Make searches and browsing better</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Enhanced spell check</code></li></ul></li>
-			<li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Google Drive search suggestions</code></li></ul></li>
-			<li>Browse to <code>https://myaccount.google.com/permissions</code><ul><li>Disable <code>Google Account sign-in prompts</code></li></ul></li>
-			<li>Browse to <code>chrome://flags/#read-later</code><ul><li>Enable <code>Reading List</code> <sub><i>(Note: chrome's setting description for this is backward/reversed relative its value)</i></sub></li><li>Alternatively, use hotkey <code>CTRL+D</code> instead of clicking the <code>&#9734; Add bookmark</code> / <code>&#9733; Edit bookmark</code> button</li></ul></li>
-		</ul>
-	</details></td>
-	<td><a href="https://www.google.com/chrome/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (standalone/offline installer)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a><br />&nbsp;&nbsp;&nbsp;<details><summary>Install Google Chrome (PowerShell one-liner)</summary><p><ul><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV LocalTempDir ((GCI env:\TEMP).Value); SV ChromeInstaller (Write-Output ChromeInstaller.exe); SV Process2Monitor ([IO.Path]::GetFileNameWithoutExtension((GV ChromeInstaller).Value)); (New-Object System.Net.WebClient).DownloadFile((Write-Output http://dl.google.com/chrome/install/latest/chrome_installer.exe), (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) ); & (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) /silent /install; Do { SV ProcessesFound (Get-Process | Where-Object { ((GV Process2Monitor).Value) -contains (((GV _).Value).Name); } | Select-Object -ExpandProperty Name); If ((GV ProcessesFound).Value) { ((Write-Output Still`` running:`` )+(((GV ProcessesFound).Value) -join (Write-Output ``,`` ))) | Write-Host; Start-Sleep -Seconds 2; } Else { Remove-Item -Verbose -Path (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) -ErrorAction SilentlyContinue; } } Until (!((GV ProcessesFound).Value)); Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ul></p></details></sub>
-	</td>
+  </sub><details><summary>Google Account & Google Chrome - settings to apply</summary>
+    <ul>
+      <li>Browse to <code>chrome://settings/content/camera</code><ul><li>Select <code>Don't allow sites to use your camera</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/content/location</code><ul><li>Select <code>Don't allow sites to see your location</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/content/microphone</code><ul><li>Select <code>Don't allow sites to use your microphone</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/content/notifications</code><ul><li>Select <code>Don't allow sites to send notifications</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/content/popups</code><ul><li>Select <code>Don't allow sites to send pop-ups or use redirects</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Autocomplete searches and URLs</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Help improve Chrome's features and performance</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Make searches and browsing better</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Enhanced spell check</code></li></ul></li>
+      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Google Drive search suggestions</code></li></ul></li>
+      <li>Browse to <code>https://myaccount.google.com/permissions</code><ul><li>Disable <code>Google Account sign-in prompts</code></li></ul></li>
+      <li>Browse to <code>chrome://flags/#read-later</code><ul><li>Enable <code>Reading List</code> <sub><i>(Note: chrome's setting description for this is backward/reversed relative its value)</i></sub></li><li>Alternatively, use hotkey <code>CTRL+D</code> instead of clicking the <code>&#9734; Add bookmark</code> / <code>&#9733; Edit bookmark</code> button</li></ul></li>
+    </ul>
+  </details></td>
+  <td><a href="https://www.google.com/chrome/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (standalone/offline installer)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a><br />&nbsp;&nbsp;&nbsp;<details><summary>Install Google Chrome (PowerShell one-liner)</summary><p><ul><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV LocalTempDir ((GCI env:\TEMP).Value); SV ChromeInstaller (Write-Output ChromeInstaller.exe); SV Process2Monitor ([IO.Path]::GetFileNameWithoutExtension((GV ChromeInstaller).Value)); (New-Object System.Net.WebClient).DownloadFile((Write-Output http://dl.google.com/chrome/install/latest/chrome_installer.exe), (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) ); & (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) /silent /install; Do { SV ProcessesFound (Get-Process | Where-Object { ((GV Process2Monitor).Value) -contains (((GV _).Value).Name); } | Select-Object -ExpandProperty Name); If ((GV ProcessesFound).Value) { ((Write-Output Still`` running:`` )+(((GV ProcessesFound).Value) -join (Write-Output ``,`` ))) | Write-Host; Start-Sleep -Seconds 2; } Else { Remove-Item -Verbose -Path (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) -ErrorAction SilentlyContinue; } } Until (!((GV ProcessesFound).Value)); Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ul></p></details></sub>
+  </td>
 </tr>
 <tr><td><strong>Mozilla Firefox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open source web browser developed by the Mozilla Foundation</i></sub></td><td><a href="https://www.mozilla.org/en-US/firefox/download/thanks/">Download (source)</a></td></tr>
 <!-- -->
@@ -577,8 +577,8 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 
 <ul>
-	<li><strong><a href="windows#windows-one-time-setup">(Continued) Windows One-time setup (per device)</a></strong></li>
-	<li><strong><a href="hotkeys/browser-hotkeys.txt">(Continued) Web-Browser & Windows-Explorer Hotkeys</a></strong></li>
+  <li><strong><a href="windows#windows-one-time-setup">(Continued) Windows One-time setup (per device)</a></strong></li>
+  <li><strong><a href="hotkeys/browser-hotkeys.txt">(Continued) Web-Browser & Windows-Explorer Hotkeys</a></strong></li>
 </ul>
 
 <hr />

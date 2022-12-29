@@ -102,7 +102,7 @@ Mostly Linux compatible:
 
 
 ✔					Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2714  |  echo -e "\\xE2\\x9C\\x94";  |  "$([char]0x2714)"
-✔️				Heavy Check Mark (Colored)  |  https://emojipedia.org/check-mark/  |  echo -e "\\xE2\\x9C\\x94\\xEF\\xB8\\x8F";  |  "$([char]0x2714+[char]0xFE0F)"
+✔️				Heavy Check Mark (Colored) (&#x2714;&#xFE0F;) |  https://emojipedia.org/check-mark/  |  echo -e "\\xE2\\x9C\\x94\\xEF\\xB8\\x8F";  |  "$([char]0x2714+[char]0xFE0F)"
 🗸				 Light Check Mark  |  https://www.compart.com/en/unicode/U+1F5F8
 ✓					Check Mark (&check;)  |  https://www.compart.com/en/unicode/U+2713
 √					Square Root  |  https://www.compart.com/en/unicode/U+221a

@@ -231,12 +231,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
   <td><strong>Lian Li L-Connect 3</strong>
     <sub><i>
       <br />&nbsp;&nbsp;&nbsp;Synonym(s): <code>L-Connect3</code>
-      <br />&nbsp;&nbsp;&nbsp;control <code>Fan/Pump RPM</code> & <code>Lighting Effects</code>
-      <br />&nbsp;&nbsp;&nbsp;For <a href="https://lian-li.com/l-connect3#device">compatible Lian-Li products</a>, allows users to
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;control <code>Fan/Pump RPM</code> & <code>Lighting Effects</code>
+      <br />&nbsp;&nbsp;&nbsp;For <a href="https://lian-li.com/l-connect3#device">compatible Lian-Li products</a>, allows users to control:
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Control <code>Fan/Pump RPM</code> (PWM signal)
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Control <code>Lighting Effects</code> (ARGB signal)
       <br />&nbsp;&nbsp;&nbsp;SL Infinity fans lighting/rpm controls
-      <br />&nbsp;&nbsp;&nbsp;<a href="https://lian-li.com/l-connect3#device">View Docs (L-Connect 3 Compatible Products)</a>
-      <br />&nbsp;&nbsp;&nbsp;<a href="https://lian-li.com/l-connect3/l3_update_manually/">View Docs (L-Connect 3 controller - Manual firmware update)</a>
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://lian-li.com/l-connect3/l3_update_manually/">View Docs (Manual Update Firmware For L-Connect 3 [Controller])</a>
     </i></sub>
   </td>
   <td><a href="https://lian-li.com/l-connect3">Download (source)</a></td></tr>

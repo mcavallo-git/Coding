@@ -480,13 +480,13 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>Microsoft ODBC Driver</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DLL allowing apps to query T-SQL DBs</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft SQL Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft's Relational Database Management System<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/sql/database-engine/install-windows/latest-updates-for-microsoft-sql-server">View Docs (Latest updates for Microsoft SQL Server)</a><br />&nbsp;&nbsp;&nbsp;Acronyms - SQL Server Download Types:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SqlLocalDB - LocalDB<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPR - Express<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPRWT - Express with Tools<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLManagementStudio - SQL Studio Manager Express<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPRADV - Express + Advanced Services</i></sub></td><td><a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads">Download (source)</a>
 <sub>
-<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://go.microsoft.com/fwlink/p/?linkid=2215158">2022 Developer</a>
-<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://go.microsoft.com/fwlink/p/?linkid=2216019">2022 Express</a>
-<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=101064">2019 Express</a>
-<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=55994">2017 Express</a>
-<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56836">2016 SP2</a>
-<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=57474">2014 SP3</a>
-<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=49996">2012 SP3</a>
+<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://go.microsoft.com/fwlink/p/?linkid=2215158">SQL Server 2022 Developer</a>
+<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://go.microsoft.com/fwlink/p/?linkid=2216019">SQL Server 2022 Express</a>
+<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=101064">SQL Server 2019 Express</a>
+<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=55994">SQL Server 2017 Express</a>
+<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56836">SQL Server 2016 SP2</a>
+<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=57474">SQL Server 2014 SP3</a>
+<br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=49996">SQL Server 2012 SP3</a>
 </sub></td></tr>
 
 <tr><td><strong>Microsoft SQL Server PowerShell Module</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Contains the following PowerShell Cmdlets:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLPS Module<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SqlServer Module (which contains SQLPS' cmdlets)</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/powershell/download-sql-server-ps-module">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<details><summary>Install SqlServer Module (pwsh)</summary><p><ol><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; Install-Module -Name SqlServer -AllowClobber -Force; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ol></p></details></sub></td></tr>

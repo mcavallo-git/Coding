@@ -170,7 +170,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
     <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-18045-lts/9PNKSF5ZN4SW">Ubuntu 18.04 LTS (WSL)</a>
     <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-1604-lts/9PJN388HP8C9">Ubuntu 16.04 LTS (WSL)</a>
     <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">Download (offline installer)</a>
-    <br />&nbsp;&nbsp;&nbsp;<details><summary>Install WSL Ubuntu-22.04 (pwsh)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;</code></pre></li></ol></p></details>
+    <br />&nbsp;&nbsp;&nbsp;<details><summary>Install Ubuntu-22.04 (pwsh)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;</code></pre></li></ol></p></details>
   </sub>
 </td></tr>
 <!-- -->

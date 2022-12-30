@@ -350,10 +350,10 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>CentOS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Community Enterprise Operating System</i></sub></td><td>
   <details><summary>CentOS Mirror(s)</summary>
     <ul>
-      <li><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></li>
-      <li><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/">https://mirror.vcu.edu/pub/gnu_linux/centos/</a></li>
-      <li><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></li>
-      <li><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></li>
+      <li><sub><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></sub></li>
+      <li><sub><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/">https://mirror.vcu.edu/pub/gnu_linux/centos/</a></sub></li>
+      <li><sub><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></sub></li>
+      <li><sub><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></sub></li>
     </ul>
   </details>
 </td></tr>

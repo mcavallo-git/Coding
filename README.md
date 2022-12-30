@@ -365,29 +365,33 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>Raspberry Pi OS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Renamed from "Raspbian" in mid 2020 for 64-bit OS release<br />&nbsp;&nbsp;&nbsp;Install OS onto Raspi's SD card using Rufus</i></sub></td><td><a href="https://www.raspberrypi.org/software/operating-systems/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://ubuntu.com/download/raspberry-pi">Download (Ubuntu for Raspi)</a></sub></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
 <tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td>
-<td>
-  <a href="https://ubuntu.com/download/server">Download (source)</a>
-  <sub>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/22.04/">Ubuntu 22.04 LTS (Server)</a>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/20.04/">Ubuntu 20.04 LTS (Server)</a>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/18.04/">Ubuntu 18.04 LTS (Server)</a>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Ubuntu 16.04 LTS (Server)</a>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Ubuntu 14.04 LTS (Server)</a>
-  </sub>
-</td></tr>
+  <td>
+    <a href="https://ubuntu.com/download/server">Download (source)</a>
+    <sub>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/22.04/">Ubuntu 22.04 LTS (Server)</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/20.04/">Ubuntu 20.04 LTS (Server)</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/18.04/">Ubuntu 18.04 LTS (Server)</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Ubuntu 16.04 LTS (Server)</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Ubuntu 14.04 LTS (Server)</a>
+    </sub>
+  </td>
+</tr>
 <tr><td><strong>VMware (All Downloads)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere/Workstation/Fusion/Player/etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
-<tr><td><strong>VMware ESXi</strong> <sub>
-  <i>
-    <br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
-    <br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
-    <br />&nbsp;&nbsp;&nbsp;A bootable USB drive can be created (from an ESXI .iso file) using <a href="https://rufus.ie/">Rufus</a>
-  </i></sub></td>
-  <td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a>
-</td></tr>
+<tr>
+  <td>
+    <strong>VMware ESXi</strong>
+    <sub><i>
+      <br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
+      <br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">(Docs) ESXi 6.7 Installation/Setup</a></li>
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
+      <br />&nbsp;&nbsp;&nbsp;A bootable USB drive can be created (from an ESXI .iso file) using <a href="https://rufus.ie/">Rufus</a>
+    </i></sub>
+  </td>
+  <td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a></td>
+</tr>
 <tr><td><strong>VMware Workstation Player</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(Free) Desktop Virtualization for a Single (1) VM</i></sub></td><td><a href="https://www.vmware.com/products/workstation-player.html">Download (source)</a></td></tr>
 <tr><td><strong>VMware Workstation Pro</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(Paid) Desktop Virtualization for a Multiple VMs</i></sub></td><td><a href="https://www.vmware.com/products/workstation-pro.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://my.vmware.com/web/vmware/searchresults#q=VMWare%20Workstation%20Pro%2015">Download (older versions)</a></sub></td></tr>
 <tr><td><strong>Windows 10</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Media Creation Tool - Creates Win10 Installation Media<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/release-health/release-information">View Docs (Windows 10 Versions & Builds)</a></i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
@@ -478,15 +482,31 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>MongoDB</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform, Document-Oriented Database</i></sub></td><td><a href="https://www.mongodb.com/download-center/community">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">Installation Guide</a></sub></td></tr>
 <tr><td><strong>Microsoft JDBC Driver</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Java Database Connectivity API<br />&nbsp;&nbsp;&nbsp;Defines how a client may access a database</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft ODBC Driver</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DLL allowing apps to query T-SQL DBs</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server">Download (source)</a></td></tr>
-<tr><td><strong>Microsoft SQL Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft's Relational Database Management System<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/sql/database-engine/install-windows/latest-updates-for-microsoft-sql-server">View Docs (Latest updates for Microsoft SQL Server)</a><br />&nbsp;&nbsp;&nbsp;Acronyms - SQL Server Download Types:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SqlLocalDB - LocalDB<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPR - Express<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPRWT - Express with Tools<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLManagementStudio - SQL Studio Manager Express<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPRADV - Express + Advanced Services</i></sub></td><td><a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads">Download (source)</a><sub>
-  <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://go.microsoft.com/fwlink/p/?linkid=2215158">SQL Server 2022 Developer</a>
-  <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://go.microsoft.com/fwlink/p/?linkid=2216019">SQL Server 2022 Express</a>
-  <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=101064">SQL Server 2019 Express</a>
-  <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=55994">SQL Server 2017 Express</a>
-  <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56836">SQL Server 2016 SP2</a>
-  <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=57474">SQL Server 2014 SP3</a>
-  <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=49996">SQL Server 2012 SP3</a>
-</sub></td></tr>
+<tr>
+  <td><strong>Microsoft SQL Server</strong>
+    <sub><i>
+      <br />&nbsp;&nbsp;&nbsp;Microsoft's Relational Database Management System
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/sql/database-engine/install-windows/latest-updates-for-microsoft-sql-server">View Docs (Latest updates for Microsoft SQL Server)</a>
+      <br />&nbsp;&nbsp;&nbsp;Synonym(s) - SQL Server Download Types:
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SqlLocalDB - LocalDB
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPR - Express
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPRWT - Express with Tools
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLManagementStudio - SQL Studio Manager Express
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLEXPRADV - Express + Advanced Services
+    </i></sub>
+  </td>
+  <td><a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads">Download (source)</a>
+    <sub>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://go.microsoft.com/fwlink/p/?linkid=2215158">SQL Server 2022 Developer</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://go.microsoft.com/fwlink/p/?linkid=2216019">SQL Server 2022 Express</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=101064">SQL Server 2019 Express</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=55994">SQL Server 2017 Express</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=56836">SQL Server 2016 SP2</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=57474">SQL Server 2014 SP3</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://www.microsoft.com/en-us/download/details.aspx?id=49996">SQL Server 2012 SP3</a>
+    </sub>
+  </td>
+</tr>
 <tr><td><strong>Microsoft SQL Server PowerShell Module</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Contains the following PowerShell Cmdlets:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SQLPS Module<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; SqlServer Module (which contains SQLPS' cmdlets)</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/powershell/download-sql-server-ps-module">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<details><summary>Install SqlServer Module (pwsh)</summary><p><ol><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; Install-Module -Name SqlServer -AllowClobber -Force; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ol></p></details></sub></td></tr>
 <tr><td><strong>Microsoft SQLCMD</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Uses ODBC to execute Transact-SQL batches<br />&nbsp;&nbsp;&nbsp;!!! Requires Microsoft ODBC Driver !!!</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility">Download (source)</a></td></tr>
 <tr><td><strong>NGINX</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Web Server, Reverse Proxy,<br />&nbsp;&nbsp;&nbsp;Load Balancer, Mail Proxy, & HTTP Cache</i></sub></td><td><a href="https://nginx.org/en/download.html">Download (source)</a></td></tr>

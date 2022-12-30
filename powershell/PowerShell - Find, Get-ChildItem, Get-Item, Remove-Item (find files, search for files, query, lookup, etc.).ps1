@@ -7,8 +7,13 @@
 # Get-ChildItem - Find local files whose...
 #
 
+
 # Filename contains "___"
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "*___*") } | ForEach-Object { $_.FullName; };
+
+
+# Filename equals (matches exactly) "___"
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { $_.Name -Eq "___" } | ForEach-Object { $_.FullName; };
 
 
 # Filename equals (matches exactly) "___.exe"
@@ -25,6 +30,10 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Nam
 
 # Filename ends with "___"
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "*___") } | ForEach-Object { $_.FullName; };
+
+
+# Parent directory name equals "_____"
+Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Directory.Name -Eq "_____") } | ForEach-Object { $_.FullName; };
 
 
 # Filename STARTS WITH ...

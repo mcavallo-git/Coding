@@ -215,7 +215,7 @@ If ($True) {
 	Write-Host "`n `${PathItem}.FullName  = `"$( ${PathItem}.FullName )`"";
 	Write-Host "`n `${PathItem}.DirectoryName  = `"$( ${PathItem}.DirectoryName )`"";
 	Write-Host "`n `${PathItem}.Name  = `"$( ${PathItem}.Name )`"";
-	Write-Host "`n `${PathItem}.Basename  = `"$( ${PathItem}.Basename )`"";
+	Write-Host "`n `${PathItem}.BaseName  = `"$( ${PathItem}.BaseName )`"";
 	Write-Host "`n `${PathItem}.Extension  = `"$( ${PathItem}.Extension )`"";
 }
 

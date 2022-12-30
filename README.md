@@ -161,17 +161,27 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>VMware ESXi-Customizer-PS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Builds ESXi ISOs using VMware PowerCLI</i></sub></td><td><a href="https://www.v-front.de/p/esxi-customizer-ps.html#download">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="http://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1">Download (v2.6.0)</a></sub></td></tr>
 <tr><td><strong>VMware PowerCLI</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;PowerShell module w/ vSphere Hypervisor (ESXi) tools<br />&nbsp;&nbsp;&nbsp;Succeeded by <code>VMware vSphere CLI</code><blockquote><pre>VMware vSphere CLI commands can replicate the old<br />ESX Service Console interface, and the command<br />line interface supports IPv6 commands.&nbsp;<sup><a href="https://www.techtarget.com/searchvmware/photostory/2240185864/Getting-VMware-terminology-straight/2/Whats-the-difference-between-vSphere-CLI-and-vSphere-PowerCLI">[Citation]</a></sup></pre></blockquote>&nbsp;&nbsp;&nbsp;<a href="https://code.vmware.com/web/tool/11.5.0/vmware-powercli">View Docs (VMWare PowerCLI)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://powercli-core.readthedocs.io/">View Docs (PowerCLI Core)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.vmware.com/support/developer/PowerCLI/">View Docs (General VMWare Developer Reference)</a></i></sub></td><td><a href="https://developer.vmware.com/web/tool/vmware-powercli">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://my.vmware.com/group/vmware/get-download?downloadGroup=VS-CLI-670">Download (vSphere CLI)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://code.vmware.com/tools">Download (other tools)</a><br />&nbsp;&nbsp;&nbsp;<details><summary>Install PowerCLI (pwsh)</summary><p><ol><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; Install-Module -Name VMware.PowerCLI -AllowClobber -Force; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ol></p></details></sub></td></tr>
 <tr><td><strong>WiX</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Installer XML Toolset<br />&nbsp;&nbsp;&nbsp;Builds Windows Installer packages from XML</i></sub></td><td><a href="https://wixtoolset.org/releases/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/wixtoolset/wix3/releases">Download (GitHub)</a></sub></td></tr>
-<tr><td><strong>WSL</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">View Docs (Install WSL on Windows 10)</a><br />&nbsp;&nbsp;&nbsp;WSL EXE Shortcut (static): <code>%WINDIR%\System32\wsl.exe</code><br />&nbsp;&nbsp;&nbsp;WSL Directory Shortcut (from Windows) (static): <code>\\wsl$\</code></i></sub></td>
-<td><a href="https://apps.microsoft.com/store/search?hl=en-us&gl=US&publisher=Canonical%20Group%20Limited">Download (source)</a>
-  <sub>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-2204-lts/9PN20MSR04DW">Ubuntu 22.04 LTS (WSL)</a>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-2004/9N6SVWS3RX71">Ubuntu 20.04 LTS (WSL)</a>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-18045-lts/9PNKSF5ZN4SW">Ubuntu 18.04 LTS (WSL)</a>
-    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-1604-lts/9PJN388HP8C9">Ubuntu 16.04 LTS (WSL)</a>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">Download (offline installer)</a>
-    <br />&nbsp;&nbsp;&nbsp;<details><summary>Install Ubuntu-22.04 (pwsh)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;</code></pre></li></ol></p></details>
-  </sub>
-</td></tr>
+<tr>
+  <td><strong>WSL</strong>
+    <sub><i>
+      <br />&nbsp;&nbsp;&nbsp;Windows Subsystem for Linux
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">View Docs (Install WSL on Windows 10)</a>
+      <br />&nbsp;&nbsp;&nbsp;WSL EXE Shortcut (static): <code>%WINDIR%\System32\wsl.exe</code>
+      <br />&nbsp;&nbsp;&nbsp;WSL Directory Shortcut (from Windows) (static): <code>\\wsl$\</code>
+    </i></sub>
+  </td>
+  <td>
+    <a href="https://apps.microsoft.com/store/search?hl=en-us&gl=US&publisher=Canonical%20Group%20Limited">Download (source)</a>
+    <sub>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-2204-lts/9PN20MSR04DW">Ubuntu 22.04 LTS (WSL)</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-2004/9N6SVWS3RX71">Ubuntu 20.04 LTS (WSL)</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-18045-lts/9PNKSF5ZN4SW">Ubuntu 18.04 LTS (WSL)</a>
+      <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://apps.microsoft.com/store/detail/ubuntu-1604-lts/9PJN388HP8C9">Ubuntu 16.04 LTS (WSL)</a>
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/wsl/install-manual">Download (offline installer)</a>
+      <br />&nbsp;&nbsp;&nbsp;<details><summary>Install Ubuntu-22.04 (pwsh)</summary><p><ol><li><pre><code>Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;</code></pre></li></ol></p></details>
+    </sub>
+  </td>
+</tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
@@ -364,7 +374,8 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>NOOBS <sub>'New Out of Box Software'</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;<blockquote>An easy Operating System installer for the Raspberry Pi&nbsp;<sup><a href="https://github.com/raspberrypi/noobs">[Citation]</a></sup></blockquote></i></sub></td><td><a href="https://github.com/raspberrypi/noobs">Download (source)</a></td></tr>
 <tr><td><strong>Raspberry Pi OS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Renamed from "Raspbian" in mid 2020 for 64-bit OS release<br />&nbsp;&nbsp;&nbsp;Install OS onto Raspi's SD card using Rufus</i></sub></td><td><a href="https://www.raspberrypi.org/software/operating-systems/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://ubuntu.com/download/raspberry-pi">Download (Ubuntu for Raspi)</a></sub></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
-<tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td>
+<tr>
+  <td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td>
   <td>
     <a href="https://ubuntu.com/download/server">Download (source)</a>
     <sub>
@@ -570,24 +581,38 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="web-browsers"><br />Web Browsers<br /><br /></h5></th></tr>
-<tr><td><strong>Google Chrome</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform web browser developed by Google<br />&nbsp;&nbsp;&nbsp;<a href="https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en">View Docs (Chrome keyboard shortcuts)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://peter.sh/experiments/chromium-command-line-switches/">View Docs (Chromium command line switches)</a><br />&nbsp;&nbsp;&nbsp;</i>
-  </sub><details><summary>Google Account & Google Chrome - settings to apply</summary>
-    <ul>
-      <li>Browse to <code>chrome://settings/content/camera</code><ul><li>Select <code>Don't allow sites to use your camera</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/content/location</code><ul><li>Select <code>Don't allow sites to see your location</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/content/microphone</code><ul><li>Select <code>Don't allow sites to use your microphone</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/content/notifications</code><ul><li>Select <code>Don't allow sites to send notifications</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/content/popups</code><ul><li>Select <code>Don't allow sites to send pop-ups or use redirects</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Autocomplete searches and URLs</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Help improve Chrome's features and performance</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Make searches and browsing better</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Enhanced spell check</code></li></ul></li>
-      <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Google Drive search suggestions</code></li></ul></li>
-      <li>Browse to <code>https://myaccount.google.com/permissions</code><ul><li>Disable <code>Google Account sign-in prompts</code></li></ul></li>
-      <li>Browse to <code>chrome://flags/#read-later</code><ul><li>Enable <code>Reading List</code> <sub><i>(Note: chrome's setting description for this is backward/reversed relative its value)</i></sub></li><li>Alternatively, use hotkey <code>CTRL+D</code> instead of clicking the <code>&#9734; Add bookmark</code> / <code>&#9733; Edit bookmark</code> button</li></ul></li>
-    </ul>
-  </details></td>
-  <td><a href="https://www.google.com/chrome/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (offline installer)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a><br />&nbsp;&nbsp;&nbsp;<details><summary>Install Google Chrome (pwsh)</summary><p><ul><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV LocalTempDir ((GCI env:\TEMP).Value); SV ChromeInstaller (Write-Output ChromeInstaller.exe); SV Process2Monitor ([IO.Path]::GetFileNameWithoutExtension((GV ChromeInstaller).Value)); (New-Object System.Net.WebClient).DownloadFile((Write-Output http://dl.google.com/chrome/install/latest/chrome_installer.exe), (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) ); & (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) /silent /install; Do { SV ProcessesFound (Get-Process | Where-Object { ((GV Process2Monitor).Value) -contains (((GV _).Value).Name); } | Select-Object -ExpandProperty Name); If ((GV ProcessesFound).Value) { ((Write-Output Still`` running:`` )+(((GV ProcessesFound).Value) -join (Write-Output ``,`` ))) | Write-Host; Start-Sleep -Seconds 2; } Else { Remove-Item -Verbose -Path (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) -ErrorAction SilentlyContinue; } } Until (!((GV ProcessesFound).Value)); Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ul></p></details></sub>
+<tr>
+  <td><strong>Google Chrome</strong>
+    <sub><i>
+      <br />&nbsp;&nbsp;&nbsp;Cross Platform web browser developed by Google
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://support.google.com/chrome/answer/157179?co=GENIE.Platform%3DDesktop&hl=en">View Docs (Chrome keyboard shortcuts)</a>
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://peter.sh/experiments/chromium-command-line-switches/">View Docs (Chromium command line switches)</a>
+      <br />&nbsp;&nbsp;&nbsp;
+    </i></sub>
+    <details><summary>Google Account & Google Chrome - settings to apply</summary>
+      <ul>
+        <li>Browse to <code>chrome://settings/content/camera</code><ul><li>Select <code>Don't allow sites to use your camera</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/content/location</code><ul><li>Select <code>Don't allow sites to see your location</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/content/microphone</code><ul><li>Select <code>Don't allow sites to use your microphone</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/content/notifications</code><ul><li>Select <code>Don't allow sites to send notifications</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/content/popups</code><ul><li>Select <code>Don't allow sites to send pop-ups or use redirects</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Autocomplete searches and URLs</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Help improve Chrome's features and performance</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Make searches and browsing better</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Enhanced spell check</code></li></ul></li>
+        <li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Google Drive search suggestions</code></li></ul></li>
+        <li>Browse to <code>https://myaccount.google.com/permissions</code><ul><li>Disable <code>Google Account sign-in prompts</code></li></ul></li>
+        <li>Browse to <code>chrome://flags/#read-later</code><ul><li>Enable <code>Reading List</code> <sub><i>(Note: chrome's setting description for this is backward/reversed relative its value)</i></sub></li><li>Alternatively, use hotkey <code>CTRL+D</code> instead of clicking the <code>&#9734; Add bookmark</code> / <code>&#9733; Edit bookmark</code> button</li></ul></li>
+      </ul>
+    </details>
+  </td>
+  <td>
+    <a href="https://www.google.com/chrome/">Download (source)</a>
+    <sub>
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://www.google.com/chrome/?standalone=1">Download (offline installer)</a>
+      <br />&nbsp;&nbsp;&nbsp;<a href="https://chrome.google.com/webstore/detail/material-dark-theme-dark/ddihdomdfpicmiobogkoaideoklkhbah?hl=en">Download (Dark Theme)</a>
+      <br />&nbsp;&nbsp;&nbsp;<details><summary>Install Google Chrome (pwsh)</summary><p><ul><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV LocalTempDir ((GCI env:\TEMP).Value); SV ChromeInstaller (Write-Output ChromeInstaller.exe); SV Process2Monitor ([IO.Path]::GetFileNameWithoutExtension((GV ChromeInstaller).Value)); (New-Object System.Net.WebClient).DownloadFile((Write-Output http://dl.google.com/chrome/install/latest/chrome_installer.exe), (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) ); & (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) /silent /install; Do { SV ProcessesFound (Get-Process | Where-Object { ((GV Process2Monitor).Value) -contains (((GV _).Value).Name); } | Select-Object -ExpandProperty Name); If ((GV ProcessesFound).Value) { ((Write-Output Still`` running:`` )+(((GV ProcessesFound).Value) -join (Write-Output ``,`` ))) | Write-Host; Start-Sleep -Seconds 2; } Else { Remove-Item -Verbose -Path (((GV LocalTempDir).Value)+(Write-Output \)+((GV ChromeInstaller).Value)) -ErrorAction SilentlyContinue; } } Until (!((GV ProcessesFound).Value)); Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ul></p></details>
+    </sub>
   </td>
 </tr>
 <tr><td><strong>Mozilla Firefox</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open source web browser developed by the Mozilla Foundation</i></sub></td><td><a href="https://www.mozilla.org/en-US/firefox/download/thanks/">Download (source)</a></td></tr>

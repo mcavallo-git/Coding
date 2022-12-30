@@ -369,11 +369,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <td>
   <a href="https://ubuntu.com/download/server">Download (source)</a>
   <sub>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/22.04/">Download (Ubuntu 22.04 LTS)</a>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/20.04/">Download (Ubuntu 20.04 LTS)</a>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/18.04/">Download (Ubuntu 18.04 LTS)</a>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Download (Ubuntu 16.04 LTS)</a>
-    <br />&nbsp;&nbsp;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Download (Ubuntu 14.04 LTS)</a>
+    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/22.04/">Ubuntu 22.04 LTS (Server)</a>
+    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/20.04/">Ubuntu 20.04 LTS (Server)</a>
+    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/18.04/">Ubuntu 18.04 LTS (Server)</a>
+    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Ubuntu 16.04 LTS (Server)</a>
+    <br />&nbsp;&nbsp;&nbsp;&#8627; <a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Ubuntu 14.04 LTS (Server)</a>
   </sub>
 </td></tr>
 <tr><td><strong>VMware (All Downloads)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere/Workstation/Fusion/Player/etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>

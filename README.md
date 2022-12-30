@@ -510,11 +510,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
       <br />&nbsp;&nbsp;&nbsp;Microsoft's Relational Database Management System
       <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/sql/database-engine/install-windows/latest-updates-for-microsoft-sql-server">View Docs (Latest updates for Microsoft SQL Server)</a>
       <br />&nbsp;&nbsp;&nbsp;SQL Server Download Types
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SqlLocalDB</code> = <code>LocalDB</code>
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SQLEXPR</code> = <code>Express</code>
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SQLEXPRWT</code> = <code>Express with Tools</code>
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SQLManagementStudio</code> = <code>SQL Studio Manager Express</code>
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SQLEXPRADV</code> = <code>Express + Advanced Services</code>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SqlLocalDB</code> refers to <code>LocalDB</code>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SQLEXPR</code> refers to <code>Express</code>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SQLEXPRWT</code> refers to <code>Express with Tools</code>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SQLManagementStudio</code> refers to <code>SQL Studio Manager Express</code>
+      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull; <code>SQLEXPRADV</code> refers to <code>Express + Advanced Services</code>
     </i></sub>
   </td>
   <td><a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads">Download (source)</a>

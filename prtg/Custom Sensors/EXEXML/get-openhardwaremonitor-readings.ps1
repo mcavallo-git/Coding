@@ -1,38 +1,7 @@
 # ------------------------------------------------------------
-# 
-# 
-#    PowerShell.exe -File "${Home}\Documents\GitHub\Coding\prtg\Custom Sensors\EXEXML\get-openhardwaremonitor-readings.ps1"
-# 
-# 
+# get-openhardwaremonitor-readings.ps1
 # ------------------------------------------------------------
-#
-# PRTG - Parse CSV logs output from "Open Hardware Monitor (e.g. OHW)" (system health monitoring software)
-#
-# ------------------------------------------------------------
-#
-# STEP 1) Setup Open Hardware Monitor (OHW)
-#  > Download from URL:  https://openhardwaremonitor.org/downloads/
-#   > Place OHW's downloaded files into directory "C:\ISO\OpenHardwareMonitor\" (modifiable, below - see variable "${Logfile_Dirname_OHW}")
-#
-# ------------------------------------------------------------
-#
-# STEP 2) Setting-up CSV logging in OHW:
-#  > Run OHW
-#   > Select "Options" (top)
-#    > Select "Log Sensors" (will have a checkmark next to it if actively logging to CSV)
-#
-# ------------------------------------------------------------
-#
-# STEP 3) Setup a Scheduled Task to run OpenHardwareMonitor.exe at startup
-#
-# ------------------------------------------------------------
-#
-# STEP 4) Setup a Scheduled Task to run this PowerShell script at startup, and repeating every minute
-#
-# ------------------------------------------------------------
-#
-# STEP 5) Create a new PRTG Sensor with type "EXE/Script Advanced" which runs a batch file in "../EXE/*.bat" (which target only one of the many sensors' output TXT files, shown below)
-#
+# Note: This script is intended to be triggered by a Scheduled Task every minute (to pull latest sensor data for upstream monitoring software)
 # ------------------------------------------------------------
 
 $Benchmark = New-Object System.Diagnostics.Stopwatch;
@@ -102,8 +71,15 @@ $Sensor_ErrorMessage="ERROR - Open Hardware Monitor reading returned a null or e
 
 # ------------------------------------------------------------
 #
-# Get the latest sensor data from "Remote Sensor Monitor"
-#
+# Get the latest sensor data from "HWiNFO" via "Remote Sensor Monitor"
+#  |
+#  |--> Setup HWiNFO:
+#        > Download HWiNFO:  https://www.hwinfo.com/download/
+#         > Subscribe to HWiNFO to get a Personal License ($25.00 as of 05-Jan-2023)
+#        > Download Remote Sensor Monitor:  https://www.hwinfo.com/forum/threads/introducing-remote-sensor-monitor-a-restful-web-server.1025/
+#        > Setup a Scheduled Task to run HWiNFO & Remote Sensor Monitor at machine startup (not logon)
+
+# STEP 1) Setup OHW and/or HWiNFO (See below for each)
 
 If ($True) {
 
@@ -332,14 +308,17 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-# Get Data from "OpenHardwareMonitor"
-#
+# Get the latest sensor data from "OpenHardwareMonitor"
+#  |
+#  |--> Setup Open Hardware Monitor (OHW):
+#        > Download OHW:  https://openhardwaremonitor.org/downloads/
+#        > Place OHW's downloaded files into directory "C:\ISO\OpenHardwareMonitor\" (modifiable, below - see variable "${Logfile_Dirname_OHW}")
+#        > Setup CSV logging in OHW via "Options" > "Log Sensors" (will have a checkmark next to it if actively logging to CSV)
+#        > Setup a Scheduled Task to run OpenHardwareMonitor at machine startup (not logon)
 
+# Parse CSV logs output from "Open Hardware Monitor (e.g. OHW)" (system health monitoring software)
 $Logfile_OHW_StartsWith = "OpenHardwareMonitorLog-";
-
 $Logfile_OHW_Input_FullPath = "${Logfile_Dirname_OHW}\${Logfile_OHW_StartsWith}$(Get-Date -UFormat '%Y-%m-%d').csv";
-
-# Make sure the Logfile exists
 If ((Test-Path -PathType "Leaf" -Path ("${Logfile_OHW_Input_FullPath}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 
   $Sensor_ErrorMessage="ERROR - Open Hardware Monitor logfile not found: ${Logfile_OHW_Input_FullPath}";
@@ -616,7 +595,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_OHW_Input_FullPath}") -ErrorAc
 
 # ------------------------------------------------------------
 #
-# Get Data from NVidia's standalone EXE: "nvidia-smi.exe"
+# Get the latest sensor data from NVidia's standalone EXE: "nvidia-smi.exe"
 #
 
 If ($False) {
@@ -638,7 +617,7 @@ If ($False) {
 
 # ------------------------------------------------------------
 #
-# Get data from local disk's S.M.A.R.T. values (if no value exists for it already)
+# Get the latest sensor data from local disk's S.M.A.R.T. values (if no value exists for it already)
 #
 
 If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Min))) {

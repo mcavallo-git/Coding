@@ -409,7 +409,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
       <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">(Docs) ESXi 6.5 Installation/Setup</a></li>
       <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">(Docs) ESXi 6.0 Installation/Setup</a></li>
       <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">(Docs) ESXi 5.5 Installation/Setup</a></li>
-      <br />&nbsp;&nbsp;&nbsp;A bootable USB drive can be created (from an ESXI .iso file) using <a href="https://rufus.ie/">Rufus</a>
+      <br />&nbsp;&nbsp;&nbsp;ISO file(s) can be converted to bootable USB drive(s) via <a href="https://rufus.ie/">Rufus</a>
     </i></sub>
   </td>
   <td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a></td>

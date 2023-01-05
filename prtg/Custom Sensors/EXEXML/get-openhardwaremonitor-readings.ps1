@@ -664,6 +664,8 @@ $ErrorActionPreference = $EA_Bak;
 # Get Data from "Remote Sensor Monitor"
 #
 
+If ($True) {
+
 $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
 $RSM_Host="localhost";
 $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
@@ -699,12 +701,16 @@ If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
       # $RoundedValue=([Math]::Round(${SensorValue},4));
       # Output the results to sensor-specific files
       If ([String]::IsNullOrEmpty(${SensorValue})) {
-        Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
+        # Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
+        Set-Content -Path ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage}");
       } Else {
-        Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
+        # Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
+        Set-Content -Path ("${ResultsFile}") -Value ("${SensorValue}:OK");
       }
     }
   }
+}
+
 }
 
 

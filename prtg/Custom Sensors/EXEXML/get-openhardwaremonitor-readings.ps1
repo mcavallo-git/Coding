@@ -149,7 +149,7 @@ If ($True) {
 
   $RSM_Results_Dirname="${RSM_Dirname}\results";
 
-  If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
+  If (-Not ([String]::IsNullOrEmpty("${RSM_Port}"))) {
 
     $ProgressPreference=0;
 
@@ -174,6 +174,16 @@ If ($True) {
     # Check if a valid response was received
     If ((-Not ([String]::IsNullOrEmpty("${RSM_RawContent}"))) -And ((${RSM_JsonObj}.Count) -GT 1)) {
 
+      # Get local hardware info (for sensor parsing)
+      $Win32_BaseBoard = (Get-CimInstance -ClassName "Win32_BaseBoard");
+      $MotherboardModel = (${Win32_BaseBoard}.Product);  # Motherboard Model
+      If ([String]::IsNullOrEmpty("${MotherboardModel}")) {
+        $MotherboardModel = "${env:COMPUTERNAME}";
+        If ([String]::IsNullOrEmpty("${MotherboardModel}")) {
+          $MotherboardModel = "ERROR - INVALID MOBO MODEL";
+        }
+      }
+
       # Ensure the output directory exists
       If ((Test-Path "${RSM_Results_Dirname}") -NE $True) {
         New-Item -ItemType ("Directory") -Path ("${RSM_Results_Dirname}") | Out-Null;
@@ -191,99 +201,156 @@ If ($True) {
         $SensorUpdateTime = ($_.SensorUpdateTime);
 
         # ------------------------------
+
+        # If (${SensorClass} -Match "System") {
+
+        # ------------------------------
         #
         # Mobo Readings
         #
-        # If (${Each_HeaderPath} -Match "lpc/.+/control/") {
-        #   $Updated_HeaderDescription=("Mobo Fans (% PWM), ${Each_HeaderDescription}");
+        If (${SensorClass} -Match "${MotherboardModel}") {
 
-        # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/fan/") {
-        #   $Updated_HeaderDescription=("Mobo Fans (RPM), ${Each_HeaderDescription}");
+          Write-Host "MOBO SENSOR:  [${SensorName}]";
 
-        # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/voltage/") {
-        #   $Updated_HeaderDescription=("Mobo Voltages, ${Each_HeaderDescription}");
+          # If (${Each_HeaderPath} -Match "lpc/.+/fan/") {
+          #   $Updated_HeaderDescription=("Mobo Fans (% PWM), ${Each_HeaderDescription}");
 
-        # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/temperature/") {
-        #   $Updated_HeaderDescription=("Mobo Temps, ${Each_HeaderDescription}");
+          # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/fan/") {
+          #   $Updated_HeaderDescription=("Mobo Fans (RPM), ${Each_HeaderDescription}");
 
-        # # ------------------------------
-        # #
-        # # Processor (CPU) Readings
-        # #
-        # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/load/") {
-        #   $Updated_HeaderDescription=("CPU Load, ${Each_HeaderDescription}");
+          # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/voltage/") {
+          #   $Updated_HeaderDescription=("Mobo Voltages, ${Each_HeaderDescription}");
 
-        # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/power/") {
-        #   $Updated_HeaderDescription=("CPU Power, ${Each_HeaderDescription}");
+          # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/temperature/") {
+          #   $Updated_HeaderDescription=("Mobo Temps, ${Each_HeaderDescription}");
+          # }
 
-        # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/temperature/") {
-        #   $Updated_HeaderDescription=("CPU Temps, ${Each_HeaderDescription}");
+        # ------------------------------
+        #
+        # Processor (CPU) Readings
+        #
+        } ElseIf (${SensorClass} -Match "^CPU \[[^\[]+\]: ") {
 
-        # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/clock/") {
-        #   $Updated_HeaderDescription=("CPU Clocks, ${Each_HeaderDescription}");
+          Write-Host "CPU SENSOR:  [${SensorName}]";
 
-        # # ------------------------------
-        # #
-        # # Memory (RAM) Readings
-        # #
-        # } ElseIf (${Each_HeaderPath} -Match "/ram/load/") {
-        #   $Updated_HeaderDescription=("RAM Load, ${Each_HeaderDescription}");
+          # If (${Each_HeaderPath} -Match "cpu/.+/load/") {
+          #   $Updated_HeaderDescription=("CPU Load, ${Each_HeaderDescription}");
 
-        # } ElseIf (${Each_HeaderPath} -Match "/ram/data/") {
-        #   $Updated_HeaderDescription=("RAM Data, ${Each_HeaderDescription}");
+          # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/power/") {
+          #   $Updated_HeaderDescription=("CPU Power, ${Each_HeaderDescription}");
 
-        # # ------------------------------
-        # #
-        # # Graphics Card (GPU) Readings
-        # #
-        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/temperature/") {
-        #   $Updated_HeaderDescription=("GPU Temps, ${Each_HeaderDescription}");
+          # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/temperature/") {
+          #   $Updated_HeaderDescription=("CPU Temps, ${Each_HeaderDescription}");
 
-        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/clock/") {
-        #   $Updated_HeaderDescription=("GPU Clocks, ${Each_HeaderDescription}");
-
-        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/control/") {
-        #   $Updated_HeaderDescription=("GPU Fan (% PWM), ${Each_HeaderDescription}");
-
-        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/fan/") {
-        #   $Updated_HeaderDescription=("GPU Fan (RPM), ${Each_HeaderDescription}");
-
-        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/smalldata/") {
-        #   $Updated_HeaderDescription=("GPU Memory, ${Each_HeaderDescription}");
-
-        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/load/") {
-        #   $Updated_HeaderDescription=("GPU Load, ${Each_HeaderDescription}");
-
-        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/power/") {
-        #   $Updated_HeaderDescription=("GPU Power, ${Each_HeaderDescription}");
-
-        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/throughput/") {
-        #   $Updated_HeaderDescription=("GPU Rx/Tx, ${Each_HeaderDescription}");
-
-        # # ------------------------------
-        # #
-        # # Storage Disk (HDD/SSD) Readings
-        # #
-        # } ElseIf (${Each_HeaderPath} -Match "hdd/.+/load/") {
-        #   $Updated_HeaderDescription=("Disk Load, ${Each_HeaderDescription}");
-
-        # # ------------------------------
-        # }
+          # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/clock/") {
+          #   $Updated_HeaderDescription=("CPU Clocks, ${Each_HeaderDescription}");
+          # }
 
 
         # ------------------------------
-        # Output the results to sensor-specific files
+        #
+        # Graphics Card (GPU) Readings
+        #
+        } ElseIf (${SensorClass} -Match "^GPU \[[^\[]+\]: ") {
 
-        # Handle invalid characters in sensor names
-        $Results_Basename=(("${SensorApp}.${SensorClass}.${SensorName}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
-        $ResultsFile=("${RSM_Results_Dirname}\${Results_Basename}");
+          Write-Host "GPU SENSOR:  [${SensorName}]";
 
-        If ([String]::IsNullOrEmpty(${SensorValue})) {
-          # Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
-          Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage}") -NoNewline;
+          # If (${Each_HeaderPath} -Match "gpu/.+/temperature/") {
+          #   $Updated_HeaderDescription=("GPU Temps, ${Each_HeaderDescription}");
+
+          # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/clock/") {
+          #   $Updated_HeaderDescription=("GPU Clocks, ${Each_HeaderDescription}");
+
+          # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/control/") {
+          #   $Updated_HeaderDescription=("GPU Fan (% PWM), ${Each_HeaderDescription}");
+
+          # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/fan/") {
+          #   $Updated_HeaderDescription=("GPU Fan (RPM), ${Each_HeaderDescription}");
+
+          # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/smalldata/") {
+          #   $Updated_HeaderDescription=("GPU Memory, ${Each_HeaderDescription}");
+
+          # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/load/") {
+          #   $Updated_HeaderDescription=("GPU Load, ${Each_HeaderDescription}");
+
+          # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/power/") {
+          #   $Updated_HeaderDescription=("GPU Power, ${Each_HeaderDescription}");
+
+          # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/throughput/") {
+          #   $Updated_HeaderDescription=("GPU Rx/Tx, ${Each_HeaderDescription}");
+
+          # }
+
+        # ------------------------------
+        #
+        # Memory (RAM) Readings
+        #
+        } ElseIf (${SensorClass} -Match "^(Memory Timings)|(DIMM)") {
+
+          Write-Host "MEMORY SENSOR:  [${SensorName}]";
+
+          # If (${Each_HeaderPath} -Match "/ram/load/") {
+          #   $Updated_HeaderDescription=("RAM Load, ${Each_HeaderDescription}");
+
+          # } ElseIf (${Each_HeaderPath} -Match "/ram/data/") {
+          #   $Updated_HeaderDescription=("RAM Data, ${Each_HeaderDescription}");
+
+          # }
+
+
+        # ------------------------------
+        #
+        # Storage Disk (HDD/SSD) Readings
+        #
+        } ElseIf (${Each_HeaderPath} -Match "(Drive)|(S\.M\.A\.R\.T)") {
+
+          Write-Host "SSD SENSOR:  [${SensorName}]";
+          
+          # If (${Each_HeaderPath} -Match "hdd/.+/load/") {
+          #   $Updated_HeaderDescription=("Disk Load, ${Each_HeaderDescription}");
+          # }
+
+
+        # ------------------------------
+        #
+        # Uninterruptible Power Supply (UPS) Readings
+        #
+        } ElseIf (${Each_HeaderPath} -Match "^UPS$") {
+
+          Write-Host "UPS SENSOR:  [${SensorName}]";
+          
+          # If (${Each_HeaderPath} -Match "hdd/.+/load/") {
+          #   $Updated_HeaderDescription=("Disk Load, ${Each_HeaderDescription}");
+          # }
+
+
+        # ------------------------------
+        #
+        # Fallthrough Readings
+        #
         } Else {
-          # Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
-          Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:OK") -NoNewline;
+
+          Write-Host "FALLTHROUGH:  [${SensorName}]";
+
+        # ------------------------------
+        }
+
+        If ($False) {
+          # ------------------------------
+          # Output the results to sensor-specific files
+
+          # Handle invalid characters in sensor names
+          $Results_Basename=(("${SensorApp}.${SensorClass}.${SensorName}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
+          $ResultsFile=("${RSM_Results_Dirname}\${Results_Basename}");
+
+          If ([String]::IsNullOrEmpty(${SensorValue})) {
+            # Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
+            Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage}") -NoNewline;
+          } Else {
+            # Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
+            Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:OK") -NoNewline;
+          }
+          
         }
 
       }
@@ -832,7 +899,7 @@ $ErrorActionPreference = $EA_Bak;
 
 $Benchmark.Stop();
 $RunDuration=("$(${Benchmark}.Elapsed)");
-If ([String]::IsNullOrEmpty(${RunDuration})) {
+If ([String]::IsNullOrEmpty("${RunDuration}")) {
   Write-Output "${RunDuration}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_RunDuration}.txt";
 } Else {
   Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_RunDuration}.txt";

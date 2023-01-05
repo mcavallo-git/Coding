@@ -67,6 +67,8 @@ Write-Host "[double]:`nMin=[$([double]::MinValue)],`nMax=[$([double]::MaxValue)]
 #
 # Citation(s)
 #
+#   devblogs.microsoft.com  |  "Understanding Numbers in PowerShell - Scripting Blog"  |  https://devblogs.microsoft.com/scripting/understanding-numbers-in-powershell/
+#
 #   docs.microsoft.com  |  "Get-Date - Gets the current date and time."  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/get-date
 #
 #   docs.microsoft.com  |  "Math.Floor Method (System) | Microsoft Docs"  |  https://docs.microsoft.com/en-us/dotnet/api/system.math.floor

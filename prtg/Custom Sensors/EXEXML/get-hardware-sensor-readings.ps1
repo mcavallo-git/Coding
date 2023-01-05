@@ -13,7 +13,7 @@ $Benchmark.Start();
 # Get the Temperature, fan speeds, etc. through Dell's oproprietary config but nt on the 730...Openhardware"'s  OpenHardwareMonitor's logfile (second line is column title, third row is values)
 #
 
-$Logfile_Dirname_HWiNFO = "C:\ISO\HWiNFO64\Sensors";
+$Logfile_Dirname_HWiNFO = "C:\ISO\HWiNFO64";
 
 $Logfile_Dirname_OHW = "C:\ISO\OpenHardwareMonitor";
 

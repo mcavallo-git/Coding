@@ -1,6 +1,11 @@
 Windows_RefreshTrayIcons()
 
 ; ------------------------------
+; Call from PowerShell via:
+;
+;   Start-Process -Filepath ((Get-Content env:\\ProgramFiles)+(write \AutoHotkey-v2\AutoHotkey64.exe)) -ArgumentList ((Get-Content env:\\USERPROFILE)+(write \Documents\GitHub\Coding\ahk\Archive\Windows_RefreshTrayIcons.ahkv2)) -NoNewWindow;
+;
+; ------------------------------
 ;
 ; Windows_RefreshTrayIcons
 ;   |--> Removes any 'dead' tray icons from the notification area / system tray

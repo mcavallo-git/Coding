@@ -28,22 +28,22 @@ $Clock_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-CPU-Core";};
 $Clock_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Core";};
 $Clock_GPU_Memory = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Memory";};
 $Clock_GPU_Shader = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Shader";};
-$Clock_Memory = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-RAM";};
+$Clock_RAM_DIMMS = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-RAM";};
 
-$Load_CPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-CPU";};
-$Load_GPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU";};
+$Load_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-CPU";};
+$Load_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU";};
 $Load_GPU_MemoryController = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-MemoryController";};
 $Load_GPU_MemoryUsage = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-MemoryUsage";};
 
-$Speed_FAN_CHA = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Chassis";};
-$Speed_FAN_PMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Pump";};
-$Speed_FAN_RAD = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Radiator";};
-$Speed_FAN_SSD = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-SSD";};
+$Speed_FAN_RPM_CHA_FAN1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Radiator";};
+$Speed_FAN_RPM_CHA_FAN2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Chassis";};
+$Speed_FAN_RPM_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-SSD";};
+$Speed_FAN_RPM_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Pump";};
 
-$Speed_FAN_CHA_PRC = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Chassis";};
-$Speed_FAN_PMP_PRC = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Pump";};
-$Speed_FAN_RAD_PRC = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Radiator";};
-$Speed_FAN_SSD_PRC = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-SSD";};
+$Speed_FAN_PRC_CHA_FAN1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Radiator";};
+$Speed_FAN_PRC_CHA_FAN2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Chassis";};
+$Speed_FAN_PRC_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-SSD";};
+$Speed_FAN_PRC_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Pump";};
 
 $Power_CPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-CPU";};
 $Power_GPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-GPU";};
@@ -147,7 +147,7 @@ If ($True) {
           Write-Host "CPU SENSOR:  [${SensorName}]";
 
                 If (${SensorName} -Match "^Core Clocks") {        $Clock_CPU_Core.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Total CPU Usage") {    $Load_CPU.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Total CPU Usage") {    $Load_CPU_Core.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^CPU Package Power") {  $Power_CPU.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^CPU \(Tctl\/Tdie\)") { $Temp_CPU.HWiNFO=(${SensorValue});
           }
@@ -163,7 +163,7 @@ If ($True) {
                 If (${SensorName} -Match "^GPU Clock") {                  $Clock_GPU_Core.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Memory Clock") {           $Clock_GPU_Memory.HWiNFO=(${SensorValue});
         # } ElseIf (${SensorName} -Match "^GPU Shader Clock") {           $Clock_GPU_Shader.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^GPU Core Load") {              $Load_GPU.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^GPU Core Load") {              $Load_GPU_Core.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Memory Controller Load") { $Load_GPU_MemoryController.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Memory Usage") {           $Load_GPU_MemoryUsage.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Power") {                  $Power_GPU.HWiNFO=(${SensorValue});
@@ -178,7 +178,7 @@ If ($True) {
 
           Write-Host "MEMORY SENSOR:  [${SensorName}]";
 
-                If (${SensorName} -Match "^Memory Clock") {          $Clock_Memory.HWiNFO=(${SensorValue});
+                If (${SensorName} -Match "^Memory Clock") {          $Clock_RAM_DIMMS.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^DIMM\[0\] Temperature") { $Temp_RAM_DIMM_0.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^DIMM\[1\] Temperature") { $Temp_RAM_DIMM_1.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^DIMM\[2\] Temperature") { $Temp_RAM_DIMM_2.HWiNFO=(${SensorValue});
@@ -199,10 +199,10 @@ If ($True) {
           } ElseIf (${SensorName} -Match "^3VCC") {          $Voltage_Motherboard_03V.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^\+5V") {          $Voltage_Motherboard_05V.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^\+12V") {         $Voltage_Motherboard_12V.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^W_PUMP\+") {      $Speed_FAN_PMP.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Chassis1") {      $Speed_FAN_RAD.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Chassis2") {      $Speed_FAN_CHA.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Chassis3") {      $Speed_FAN_SSD.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^W_PUMP\+") {      $Speed_FAN_RPM_W_PUMP.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Chassis1") {      $Speed_FAN_RPM_CHA_FAN1.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Chassis2") {      $Speed_FAN_RPM_CHA_FAN2.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Chassis3") {      $Speed_FAN_RPM_CHA_FAN3.HWiNFO=(${SensorValue});
           }
 
         # ------------------------------
@@ -227,7 +227,7 @@ If ($True) {
 
                 If (${SensorName} -Match "^Drive Temperature") {    $Temp_SSD.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^Drive Remaining Life") { $SSD_RemainingLife.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Total Host Writes") { $SSD_TotalHostWrites.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Total Host Writes") {    $SSD_TotalHostWrites.HWiNFO=(${SensorValue});
           }
 
         # ------------------------------
@@ -496,7 +496,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAc
         ${Clock_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "CPU Load, CPU Total") {
-        ${Load_CPU}.(${_}) = (${Each_Value}.(${_}));
+        ${Load_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "CPU Power, CPU Cores") {
         ${Power_CPU}.(${_}) = (${Each_Value}.(${_}));
@@ -507,7 +507,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAc
         # ------------------------------
 
       } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Core") {
-        ${Load_GPU}.(${_}) = (${Each_Value}.(${_}));
+        ${Load_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {
         ${Power_GPU}.(${_}) = (${Each_Value}.(${_}));
@@ -533,22 +533,22 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAc
       #   ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  # Chassis Fan 1
-        ${Speed_FAN_RAD}.(${_}) = (${Each_Value}.(${_}));
+        ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #1") {  # Chassis Fan 1
-        ${Speed_FAN_RAD_PRC}.(${_}) = (${Each_Value}.(${_}));
+        ${Speed_FAN_PRC_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #3") {  # Chassis Fan 2
-        ${Speed_FAN_CHA}.(${_}) = (${Each_Value}.(${_}));
+        ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  # Chassis Fan 2
-        ${Speed_FAN_CHA_PRC}.(${_}) = (${Each_Value}.(${_}));
+        ${Speed_FAN_PRC_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  # Chassis Fan 3
-        ${Speed_FAN_SSD}.(${_}) = (${Each_Value}.(${_}));
+        ${Speed_FAN_RPM_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {  # Chassis Fan 3
-        ${Speed_FAN_SSD_PRC}.(${_}) = (${Each_Value}.(${_}));
+        ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
         #
         #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ Chassis Fan 3 Min. Duty Cycle (%) ] + [ Chassis Fan 3 Lower Temperature ]
         #           ↓
@@ -562,10 +562,10 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAc
         }
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  # W_PUMP+
-        ${Speed_FAN_PMP}.(${_}) = (${Each_Value}.(${_}));
+        ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {  # W_PUMP+
-        ${Speed_FAN_PMP_PRC}.(${_}) = (${Each_Value}.(${_}));
+        ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
 
         # ------------------------------
 
@@ -595,7 +595,7 @@ If ($False) {
 
   Set-Location -Path ("${Dirname_NVidiaSMI}");
 
-  $Load_GPU = (nvidia-smi.exe --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0);
+  $Load_GPU_Core = (nvidia-smi.exe --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0);
 
   # $Temp_GPU = (nvidia-smi.exe --query-gpu=temperature.gpu --format="csv,nounits,noheader" --id=0);
 
@@ -690,75 +690,81 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
   } Else {
     Write-Output "$(${Clock_GPU_Shader}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Shader}.Logfile).${_}.txt";
   }
+  # Clock - RAM DIMMs (Memory)
+  If ([String]::IsNullOrEmpty(${Clock_RAM_DIMMS}.(${_}))) {  # May equal zero without errors
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_RAM_DIMMS}.Logfile).${_}.txt";
+  } Else {
+    Write-Output "$(${Clock_RAM_DIMMS}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_RAM_DIMMS}.Logfile).${_}.txt";
+  }
 
   # ------------------------------
 
   # Fan Speed (RPM) - Water-Pump (W_PUMP+)
-  If ([Math]::Ceiling("$(${Speed_FAN_PMP}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PMP}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Speed_FAN_RPM_W_PUMP}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Speed_FAN_PMP}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PMP}.Logfile).${_}.txt";
+    Write-Output "$(${Speed_FAN_RPM_W_PUMP}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
   }
   # Fan Speed (RPM) - Radiator (CHA_FAN1)
-  If ([Math]::Ceiling("$(${Speed_FAN_RAD}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RAD}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Speed_FAN_RPM_CHA_FAN1}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN1}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Speed_FAN_RAD}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RAD}.Logfile).${_}.txt";
+    Write-Output "$(${Speed_FAN_RPM_CHA_FAN1}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN1}.Logfile).${_}.txt";
   }
   # Fan Speed (RPM) - Chassis (CHA_FAN2)
-  If ([Math]::Ceiling("$(${Speed_FAN_CHA}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_CHA}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Speed_FAN_RPM_CHA_FAN2}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN2}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Speed_FAN_CHA}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_CHA}.Logfile).${_}.txt";
+    Write-Output "$(${Speed_FAN_RPM_CHA_FAN2}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN2}.Logfile).${_}.txt";
   }
   # Fan Speed (RPM) - SSD (CHA_FAN3)
-  If ([Math]::Ceiling("$(${Speed_FAN_SSD}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_SSD}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Speed_FAN_RPM_CHA_FAN3}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN3}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Speed_FAN_SSD}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_SSD}.Logfile).${_}.txt";
+    Write-Output "$(${Speed_FAN_RPM_CHA_FAN3}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN3}.Logfile).${_}.txt";
   }
 
   # ------------------------------
 
   # Fan Speed (%) - Water-Pump (W_PUMP+)
-  If ([Math]::Ceiling("$(${Speed_FAN_PMP_PRC}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PMP_PRC}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Speed_FAN_PRC_W_PUMP}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Speed_FAN_PMP_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PMP_PRC}.Logfile).${_}.txt";
+    Write-Output "$(${Speed_FAN_PRC_W_PUMP}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
   }
   # Fan Speed (%) - Radiator (CHA_FAN1)
-  If ([Math]::Ceiling("$(${Speed_FAN_RAD_PRC}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RAD_PRC}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Speed_FAN_PRC_CHA_FAN1}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Speed_FAN_RAD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RAD_PRC}.Logfile).${_}.txt";
+    Write-Output "$(${Speed_FAN_PRC_CHA_FAN1}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
   }
   # Fan Speed (%) - Chassis (CHA_FAN2)
-  If ([Math]::Ceiling("$(${Speed_FAN_CHA_PRC}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_CHA_PRC}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Speed_FAN_PRC_CHA_FAN2}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN2}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Speed_FAN_CHA_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_CHA_PRC}.Logfile).${_}.txt";
+    Write-Output "$(${Speed_FAN_PRC_CHA_FAN2}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN2}.Logfile).${_}.txt";
   }
   # Fan Speed (%) - SSD (CHA_FAN3)
-  If ([Math]::Ceiling("$(${Speed_FAN_SSD_PRC}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_SSD_PRC}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Speed_FAN_PRC_CHA_FAN3}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN3}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_SSD_PRC}.Logfile).${_}.txt";
+    Write-Output "$(${Speed_FAN_PRC_CHA_FAN3}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN3}.Logfile).${_}.txt";
   }
 
   # ------------------------------
 
   # Load - CPU
-  If ([String]::IsNullOrEmpty(${Load_CPU}.(${_}))) {  # May equal zero without errors
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU}.Logfile).${_}.txt";
+  If ([String]::IsNullOrEmpty(${Load_CPU_Core}.(${_}))) {  # May equal zero without errors
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU_Core}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Load_CPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU}.Logfile).${_}.txt";
+    Write-Output "$(${Load_CPU_Core}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU_Core}.Logfile).${_}.txt";
   }
 
   # Load - GPU
-  If ([String]::IsNullOrEmpty(${Load_GPU}.(${_}))) {  # May equal zero without errors
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU}.Logfile).${_}.txt";
+  If ([String]::IsNullOrEmpty(${Load_GPU_Core}.(${_}))) {  # May equal zero without errors
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_Core}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Load_GPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU}.Logfile).${_}.txt";
+    Write-Output "$(${Load_GPU_Core}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_Core}.Logfile).${_}.txt";
   }
   # Load - GPU Memory Controller
   If ([String]::IsNullOrEmpty(${Load_GPU_MemoryController}.(${_}))) {  # May equal zero without errors

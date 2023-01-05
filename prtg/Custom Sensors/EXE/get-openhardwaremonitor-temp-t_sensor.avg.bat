@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\Temp-Motherboard-T_SENSOR.Avg.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\Sensors\Temp-Motherboard-T_SENSOR.Avg.txt
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

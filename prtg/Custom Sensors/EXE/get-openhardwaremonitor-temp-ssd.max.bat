@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\Temp-SSD.Max.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\Sensors\Temp-SSD.Max.txt
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

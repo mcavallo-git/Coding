@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\FanRPM-Radiator.Min.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\Sensors\FanRPM-Radiator.Min.txt
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

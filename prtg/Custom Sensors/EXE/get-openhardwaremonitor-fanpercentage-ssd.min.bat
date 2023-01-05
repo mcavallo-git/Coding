@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\FanPercentage-SSD.Min.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\Sensors\FanPercentage-SSD.Min.txt
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\Temp-CPU.Min.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\Sensors\Temp-CPU.Min.txt
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

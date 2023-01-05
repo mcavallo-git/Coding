@@ -1,1 +1,0 @@
-TYPE C:\ISO\OpenHardwareMonitor\All.xml

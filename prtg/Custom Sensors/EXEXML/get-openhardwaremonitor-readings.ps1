@@ -664,47 +664,48 @@ $ErrorActionPreference = $EA_Bak;
 # Get Data from "Remote Sensor Monitor"
 #
 
-# $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
-# $RSM_Host="localhost";
-# $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-# $RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt");
-# $ErrorActionPreference = $EA_Bak;
-# $RSM_Results="${RSM_Dirname}\results";
-# If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
-#   $ProgressPreference=0;
-#   $RegexPattern_JsonBody='\n((\[(\n|.)+\n\])|(\{(\n|.)+\n\}))';
-#   # Pull the latest sensor data from "Remote Sensor Monitor"
-#   $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-#   $RSM_HtmlResponse=((Invoke-WebRequest -UseBasicParsing -Uri "http://${RSM_Host}:${RSM_Port}").RawContent);
-#   $ErrorActionPreference = $EA_Bak;
-#   If ((-Not ([String]::IsNullOrEmpty(${RSM_HtmlResponse}))) -And (([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Success) -Eq $True)) {
-#     # Ensure the output directory exists
-#     If ((Test-Path "${RSM_Results}") -NE $True) {
-#       New-Item -ItemType ("Directory") -Path ("${RSM_Results}") | Out-Null;
-#     }
-#     # Parse the JSON response
-#     $JsonResponse=([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Captures.Groups[1].Value);
-#     # Walk through each item in the JSON response
-#     (${JsonResponse} | ConvertFrom-Json) | ForEach-Object {
-#       # ------------------------------
-#       $SensorApp = ($_.SensorApp);
-#       $SensorClass = ($_.SensorClass);
-#       $SensorName = ($_.SensorName);
-#       $SensorValue = ($_.SensorValue);
-#       $SensorUnit = ($_.SensorUnit);
-#       $SensorUpdateTime = ($_.SensorUpdateTime);
-#       # ------------------------------
-#       $ResultsFile=("${RSM_Results}\${SensorApp}.${SensorClass}.${SensorName}.txt");
-#       # $RoundedValue=([Math]::Round(${SensorValue},4));
-#       # Output the results to sensor-specific files
-#       If ([String]::IsNullOrEmpty(${SensorValue})) {
-#         Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
-#       } Else {
-#         Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
-#       }
-#     }
-#   }
-# }
+$RSM_Dirname="C:\ISO\RemoteSensorMonitor";
+$RSM_Host="localhost";
+$EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+$RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt");
+$ErrorActionPreference = $EA_Bak;
+$RSM_Results="${RSM_Dirname}\results";
+If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
+  $ProgressPreference=0;
+  $RegexPattern_JsonBody='\n((\[(\n|.)+\n\])|(\{(\n|.)+\n\}))';
+  # Pull the latest sensor data from "Remote Sensor Monitor"
+  $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+  $RSM_HtmlResponse=((Invoke-WebRequest -UseBasicParsing -Uri "http://${RSM_Host}:${RSM_Port}").RawContent);
+  $ErrorActionPreference = $EA_Bak;
+  If ((-Not ([String]::IsNullOrEmpty(${RSM_HtmlResponse}))) -And (([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Success) -Eq $True)) {
+    # Ensure the output directory exists
+    If ((Test-Path "${RSM_Results}") -NE $True) {
+      New-Item -ItemType ("Directory") -Path ("${RSM_Results}") | Out-Null;
+    }
+    # Parse the JSON response
+    $JsonResponse=([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Captures.Groups[1].Value);
+    # Walk through each item in the JSON response
+    (${JsonResponse} | ConvertFrom-Json) | ForEach-Object {
+      # ------------------------------
+      $SensorApp = ($_.SensorApp);
+      $SensorClass = ($_.SensorClass);
+      $SensorName = ($_.SensorName);
+      $SensorValue = ($_.SensorValue);
+      $SensorUnit = ($_.SensorUnit);
+      $SensorUpdateTime = ($_.SensorUpdateTime);
+      # ------------------------------
+      # Handle invalid characters in sensor names
+      $ResultsFile=(("${RSM_Results}\${SensorApp}.${SensorClass}.${SensorName}.txt").Split([IO.Path]::GetInvalidFileNameChars()) -join '_');
+      # $RoundedValue=([Math]::Round(${SensorValue},4));
+      # Output the results to sensor-specific files
+      If ([String]::IsNullOrEmpty(${SensorValue})) {
+        Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
+      } Else {
+        Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
+      }
+    }
+  }
+}
 
 
 # ------------------------------

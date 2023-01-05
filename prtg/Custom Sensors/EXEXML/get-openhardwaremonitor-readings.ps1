@@ -98,47 +98,47 @@ $Exe_NVidiaSMI = "C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe";
 
 # $CsvHeadersArr = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
-$Clock_CPU_Core = @{Avg="";Max="";Min="";Current="";};
-$Clock_GPU_Core = @{Avg="";Max="";Min="";Current="";};
-$Clock_GPU_Mem = @{Avg="";Max="";Min="";Current="";};
-$Clock_GPU_Shad = @{Avg="";Max="";Min="";Current="";};
-$Clock_Memory = @{Avg="";Max="";Min="";Current="";};
+$Clock_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";};
+$Clock_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";};
+$Clock_GPU_Mem = @{Avg="";Max="";Min="";HWiNFO="";};
+$Clock_GPU_Shad = @{Avg="";Max="";Min="";HWiNFO="";};
+$Clock_Memory = @{Avg="";Max="";Min="";HWiNFO="";};
 
-$Load_CPU = @{Avg="";Max="";Min="";Current="";};
-$Load_GPU = @{Avg="";Max="";Min="";Current="";};
-$Load_GPU_MemoryController = @{Avg="";Max="";Min="";Current="";};
-$Load_GPU_MemoryUsage = @{Avg="";Max="";Min="";Current="";};
+$Load_CPU = @{Avg="";Max="";Min="";HWiNFO="";};
+$Load_GPU = @{Avg="";Max="";Min="";HWiNFO="";};
+$Load_GPU_MemoryController = @{Avg="";Max="";Min="";HWiNFO="";};
+$Load_GPU_MemoryUsage = @{Avg="";Max="";Min="";HWiNFO="";};
 
-$Speed_FAN_PMP = @{Avg="";Max="";Min="";Current="";};
-$Speed_FAN_PMP_PRC = @{Avg="";Max="";Min="";Current="";};
-$Speed_FAN_RAD = @{Avg="";Max="";Min="";Current="";};
-$Speed_FAN_RAD_PRC = @{Avg="";Max="";Min="";Current="";};
-$Speed_FAN_CHA = @{Avg="";Max="";Min="";Current="";};
-$Speed_FAN_CHA_PRC = @{Avg="";Max="";Min="";Current="";};
-$Speed_FAN_SSD = @{Avg="";Max="";Min="";Current="";};
-$Speed_FAN_SSD_PRC = @{Avg="";Max="";Min="";Current="";};
+$Speed_FAN_PMP = @{Avg="";Max="";Min="";HWiNFO="";};
+$Speed_FAN_PMP_PRC = @{Avg="";Max="";Min="";HWiNFO="";};
+$Speed_FAN_RAD = @{Avg="";Max="";Min="";HWiNFO="";};
+$Speed_FAN_RAD_PRC = @{Avg="";Max="";Min="";HWiNFO="";};
+$Speed_FAN_CHA = @{Avg="";Max="";Min="";HWiNFO="";};
+$Speed_FAN_CHA_PRC = @{Avg="";Max="";Min="";HWiNFO="";};
+$Speed_FAN_SSD = @{Avg="";Max="";Min="";HWiNFO="";};
+$Speed_FAN_SSD_PRC = @{Avg="";Max="";Min="";HWiNFO="";};
 
-$Power_CPU = @{Avg="";Max="";Min="";Current="";};
-$Power_GPU = @{Avg="";Max="";Min="";Current="";};
+$Power_CPU = @{Avg="";Max="";Min="";HWiNFO="";};
+$Power_GPU = @{Avg="";Max="";Min="";HWiNFO="";};
 
-$SSD_RemainingLife = @{Avg="";Max="";Min="";Current="";};
-$SSD_TotalHostWrites = @{Avg="";Max="";Min="";Current="";};
+$SSD_RemainingLife = @{Avg="";Max="";Min="";HWiNFO="";};
+$SSD_TotalHostWrites = @{Avg="";Max="";Min="";HWiNFO="";};
 
-$Temp_CPU = @{Avg="";Max="";Min="";Current="";};
-$Temp_GPU = @{Avg="";Max="";Min="";Current="";};
-$Temp_MEMORY_DIMM_0 = @{Avg="";Max="";Min="";Current="";};
-$Temp_MEMORY_DIMM_1 = @{Avg="";Max="";Min="";Current="";};
-$Temp_MEMORY_DIMM_2 = @{Avg="";Max="";Min="";Current="";};
-$Temp_MEMORY_DIMM_3 = @{Avg="";Max="";Min="";Current="";};
-$Temp_PCH = @{Avg="";Max="";Min="";Current="";};
-$Temp_SSD = @{Avg="";Max="";Min="";Current="";};
-$Temp_T_SENSOR = @{Avg="";Max="";Min="";Current="";};
+$Temp_CPU = @{Avg="";Max="";Min="";HWiNFO="";};
+$Temp_GPU = @{Avg="";Max="";Min="";HWiNFO="";};
+$Temp_MEMORY_DIMM_0 = @{Avg="";Max="";Min="";HWiNFO="";};
+$Temp_MEMORY_DIMM_1 = @{Avg="";Max="";Min="";HWiNFO="";};
+$Temp_MEMORY_DIMM_2 = @{Avg="";Max="";Min="";HWiNFO="";};
+$Temp_MEMORY_DIMM_3 = @{Avg="";Max="";Min="";HWiNFO="";};
+$Temp_PCH = @{Avg="";Max="";Min="";HWiNFO="";};
+$Temp_SSD = @{Avg="";Max="";Min="";HWiNFO="";};
+$Temp_T_SENSOR = @{Avg="";Max="";Min="";HWiNFO="";};
 
-$Time_Range = @{Avg="";Max="";Min="";Current="";};
+$Time_Range = @{Avg="";Max="";Min="";HWiNFO="";};
 
-$Voltage_03VCC = @{Avg="";Max="";Min="";Current="";};
-$Voltage_05VCC = @{Avg="";Max="";Min="";Current="";};
-$Voltage_12VCC = @{Avg="";Max="";Min="";Current="";};
+$Voltage_03VCC = @{Avg="";Max="";Min="";HWiNFO="";};
+$Voltage_05VCC = @{Avg="";Max="";Min="";HWiNFO="";};
+$Voltage_12VCC = @{Avg="";Max="";Min="";HWiNFO="";};
 
 # $XmlFooter = "</prtg>";
 # $XmlHeader = "<?xml version=`"1.0`" encoding=`"Windows-1252`" ?>`n<prtg>";
@@ -224,10 +224,10 @@ If ($True) {
 
           Write-Host "CPU SENSOR:  [${SensorName}]";
 
-                If (${SensorName} -Match "^Core Clocks") {        $Clock_CPU_Core.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Total CPU Usage") {    $Load_CPU.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^CPU Package Power") {  $Power_CPU.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^CPU \(Tctl\/Tdie\)") { $Temp_CPU.Current=(${SensorValue});
+                If (${SensorName} -Match "^Core Clocks") {        $Clock_CPU_Core.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Total CPU Usage") {    $Load_CPU.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^CPU Package Power") {  $Power_CPU.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^CPU \(Tctl\/Tdie\)") { $Temp_CPU.HWiNFO=(${SensorValue});
           }
 
         # ------------------------------
@@ -238,14 +238,14 @@ If ($True) {
 
           Write-Host "GPU SENSOR:  [${SensorName}]";
 
-                If (${SensorName} -Match "^GPU Clock") {                  $Clock_GPU_Core.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^GPU Memory Clock") {           $Clock_GPU_Mem.Current=(${SensorValue});
-        # } ElseIf (${SensorName} -Match "^GPU Shader Clock") {           $Clock_GPU_Shad.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^GPU Core Load") {              $Load_GPU.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^GPU Memory Controller Load") { $Load_GPU_MemoryController.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^GPU Memory Usage") {           $Load_GPU_MemoryUsage.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^GPU Power") {                  $Power_GPU.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^GPU Temperature") {            $Temp_GPU.Current=(${SensorValue});
+                If (${SensorName} -Match "^GPU Clock") {                  $Clock_GPU_Core.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^GPU Memory Clock") {           $Clock_GPU_Mem.HWiNFO=(${SensorValue});
+        # } ElseIf (${SensorName} -Match "^GPU Shader Clock") {           $Clock_GPU_Shad.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^GPU Core Load") {              $Load_GPU.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^GPU Memory Controller Load") { $Load_GPU_MemoryController.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^GPU Memory Usage") {           $Load_GPU_MemoryUsage.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^GPU Power") {                  $Power_GPU.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^GPU Temperature") {            $Temp_GPU.HWiNFO=(${SensorValue});
           }
 
         # ------------------------------
@@ -256,11 +256,11 @@ If ($True) {
 
           Write-Host "MEMORY SENSOR:  [${SensorName}]";
 
-                If (${SensorName} -Match "^Memory Clock") {          $Clock_Memory.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^DIMM\[0\] Temperature") { $Temp_MEMORY_DIMM_0.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^DIMM\[1\] Temperature") { $Temp_MEMORY_DIMM_1.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^DIMM\[2\] Temperature") { $Temp_MEMORY_DIMM_2.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^DIMM\[3\] Temperature") { $Temp_MEMORY_DIMM_3.Current=(${SensorValue});
+                If (${SensorName} -Match "^Memory Clock") {          $Clock_Memory.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^DIMM\[0\] Temperature") { $Temp_MEMORY_DIMM_0.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^DIMM\[1\] Temperature") { $Temp_MEMORY_DIMM_1.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^DIMM\[2\] Temperature") { $Temp_MEMORY_DIMM_2.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^DIMM\[3\] Temperature") { $Temp_MEMORY_DIMM_3.HWiNFO=(${SensorValue});
           }
 
         # ------------------------------
@@ -271,16 +271,16 @@ If ($True) {
 
           Write-Host "MOBO SENSOR:  [${SensorName}]";
 
-                If (${SensorName} -Match "^Chipset") {       $Temp_PCH.Current=(${SensorValue});
-        # } ElseIf (${SensorName} -Match "\(PCH\)") {        $Temp_PCH.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Motherboard$") {  $Temp_T_SENSOR.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^3VCC") {          $Voltage_03VCC.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^\+5V") {          $Voltage_05VCC.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^\+12V") {         $Voltage_12VCC.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^W_PUMP\+") {      $Speed_FAN_PMP.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Chassis1") {      $Speed_FAN_RAD.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Chassis2") {      $Speed_FAN_CHA.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Chassis3") {      $Speed_FAN_SSD.Current=(${SensorValue});
+                If (${SensorName} -Match "^Chipset") {       $Temp_PCH.HWiNFO=(${SensorValue});
+        # } ElseIf (${SensorName} -Match "\(PCH\)") {        $Temp_PCH.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Motherboard$") {  $Temp_T_SENSOR.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^3VCC") {          $Voltage_03VCC.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^\+5V") {          $Voltage_05VCC.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^\+12V") {         $Voltage_12VCC.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^W_PUMP\+") {      $Speed_FAN_PMP.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Chassis1") {      $Speed_FAN_RAD.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Chassis2") {      $Speed_FAN_CHA.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Chassis3") {      $Speed_FAN_SSD.HWiNFO=(${SensorValue});
           }
 
         # ------------------------------
@@ -289,10 +289,10 @@ If ($True) {
         #
         } ElseIf (${SensorClass} -Match "^Network: ") {
 
-          #       If (${SensorName} -Match "^Total DL") {        $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^Total UP") {        $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^Current DL rate") { $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^Current UP rate") { $_____.Current=(${SensorValue});
+          #       If (${SensorName} -Match "^Total DL") {        $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^Total UP") {        $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^Current DL rate") { $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^Current UP rate") { $_____.HWiNFO=(${SensorValue});
           # }
 
         # ------------------------------
@@ -303,9 +303,9 @@ If ($True) {
 
           Write-Host "SSD SENSOR:  [${SensorName}]";
 
-                If (${SensorName} -Match "^Drive Temperature") {    $Temp_SSD.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Drive Remaining Life") { $SSD_RemainingLife.Current=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^Total Host Writes") { $SSD_TotalHostWrites.Current=(${SensorValue});
+                If (${SensorName} -Match "^Drive Temperature") {    $Temp_SSD.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Drive Remaining Life") { $SSD_RemainingLife.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^Total Host Writes") { $SSD_TotalHostWrites.HWiNFO=(${SensorValue});
           }
 
         # ------------------------------
@@ -314,11 +314,11 @@ If ($True) {
         #
         } ElseIf (${SensorClass} -Match "^UPS$") {
 
-          #       If (${SensorName} -Match "^Battery Voltage") {                         $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^Input Voltage") {                           $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^Charge Level") {                            $_____.Current=(${SensorValue});
-          # } ElseIf ((${SensorName} -Match "^UPS Load") -And (${SensorUnit} -Eq "W")) { $_____.Current=(${SensorValue});
-          # } ElseIf ((${SensorName} -Match "^UPS Load") -And (${SensorUnit} -Eq "%")) { $_____.Current=(${SensorValue});
+          #       If (${SensorName} -Match "^Battery Voltage") {                         $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^Input Voltage") {                           $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^Charge Level") {                            $_____.HWiNFO=(${SensorValue});
+          # } ElseIf ((${SensorName} -Match "^UPS Load") -And (${SensorUnit} -Eq "W")) { $_____.HWiNFO=(${SensorValue});
+          # } ElseIf ((${SensorName} -Match "^UPS Load") -And (${SensorUnit} -Eq "%")) { $_____.HWiNFO=(${SensorValue});
           # }
 
         # ------------------------------
@@ -327,9 +327,9 @@ If ($True) {
         #
         } ElseIf (${SensorClass} -Match "^((System)|(Windows ))") {
 
-          #       If (${SensorName} -Match "^Virtual Memory Load") {  $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^Physical Memory Load") { $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^Page File Usage") {      $_____.Current=(${SensorValue});
+          #       If (${SensorName} -Match "^Virtual Memory Load") {  $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^Physical Memory Load") { $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^Page File Usage") {      $_____.HWiNFO=(${SensorValue});
           # }
 
         # ------------------------------
@@ -338,9 +338,9 @@ If ($True) {
         #
         } Else {
 
-          #       If (${SensorName} -Match "^_____") { $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^_____") { $_____.Current=(${SensorValue});
-          # } ElseIf (${SensorName} -Match "^_____") { $_____.Current=(${SensorValue});
+          #       If (${SensorName} -Match "^_____") { $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^_____") { $_____.HWiNFO=(${SensorValue});
+          # } ElseIf (${SensorName} -Match "^_____") { $_____.HWiNFO=(${SensorValue});
           # }
 
         }

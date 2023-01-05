@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\Power-GPU.Max.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\Sensors\$1
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

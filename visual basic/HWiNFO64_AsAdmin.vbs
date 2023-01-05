@@ -9,6 +9,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (((Get-Process -Na
 '
 '   Trigger:
 '     At system startup
+'       Repeat task every 5 minutes for a duration of 1436 minutes
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

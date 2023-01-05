@@ -690,7 +690,7 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
   } Else {
     Write-Output "$(${Clock_GPU_Shader}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Shader}.Logfile).${_}.txt";
   }
-  # Clock - RAM DIMMs (Memory)
+  # Clock - RAM DIMMs
   If ([String]::IsNullOrEmpty(${Clock_RAM_DIMMS}.(${_}))) {  # May equal zero without errors
     Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_RAM_DIMMS}.Logfile).${_}.txt";
   } Else {
@@ -699,56 +699,56 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
 
   # ------------------------------
 
-  # Fan Speed (RPM) - Water-Pump (W_PUMP+)
-  If ([Math]::Ceiling("$(${Speed_FAN_RPM_W_PUMP}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
-  } Else {
-    Write-Output "$(${Speed_FAN_RPM_W_PUMP}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
-  }
-  # Fan Speed (RPM) - Radiator (CHA_FAN1)
-  If ([Math]::Ceiling("$(${Speed_FAN_RPM_CHA_FAN1}.(${_}))") -Eq 0) {
+  # Fan Speed (RPM) - CHA_FAN1
+  If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN1}.(${_}))) {  # May equal zero without errors
     Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN1}.Logfile).${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_RPM_CHA_FAN1}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN1}.Logfile).${_}.txt";
   }
-  # Fan Speed (RPM) - Chassis (CHA_FAN2)
-  If ([Math]::Ceiling("$(${Speed_FAN_RPM_CHA_FAN2}.(${_}))") -Eq 0) {
+  # Fan Speed (RPM) - CHA_FAN2
+  If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN2}.(${_}))) {  # May equal zero without errors
     Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN2}.Logfile).${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_RPM_CHA_FAN2}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN2}.Logfile).${_}.txt";
   }
-  # Fan Speed (RPM) - SSD (CHA_FAN3)
-  If ([Math]::Ceiling("$(${Speed_FAN_RPM_CHA_FAN3}.(${_}))") -Eq 0) {
+  # Fan Speed (RPM) - CHA_FAN3
+  If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN3}.(${_}))) {  # May equal zero without errors
     Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN3}.Logfile).${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_RPM_CHA_FAN3}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN3}.Logfile).${_}.txt";
   }
+  # Fan Speed (RPM) - W_PUMP+
+  If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_W_PUMP}.(${_}))) {  # May equal zero without errors
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
+  } Else {
+    Write-Output "$(${Speed_FAN_RPM_W_PUMP}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
+  }
 
   # ------------------------------
 
-  # Fan Speed (%) - Water-Pump (W_PUMP+)
-  If ([Math]::Ceiling("$(${Speed_FAN_PRC_W_PUMP}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
-  } Else {
-    Write-Output "$(${Speed_FAN_PRC_W_PUMP}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
-  }
-  # Fan Speed (%) - Radiator (CHA_FAN1)
-  If ([Math]::Ceiling("$(${Speed_FAN_PRC_CHA_FAN1}.(${_}))") -Eq 0) {
+  # Fan Speed (%) - CHA_FAN1
+  If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN1}.(${_}))) {  # May equal zero without errors
     Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_PRC_CHA_FAN1}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
   }
-  # Fan Speed (%) - Chassis (CHA_FAN2)
-  If ([Math]::Ceiling("$(${Speed_FAN_PRC_CHA_FAN2}.(${_}))") -Eq 0) {
+  # Fan Speed (%) - CHA_FAN2
+  If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN2}.(${_}))) {  # May equal zero without errors
     Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN2}.Logfile).${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_PRC_CHA_FAN2}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN2}.Logfile).${_}.txt";
   }
-  # Fan Speed (%) - SSD (CHA_FAN3)
-  If ([Math]::Ceiling("$(${Speed_FAN_PRC_CHA_FAN3}.(${_}))") -Eq 0) {
+  # Fan Speed (%) - CHA_FAN3
+  If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN3}.(${_}))) {  # May equal zero without errors
     Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN3}.Logfile).${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_PRC_CHA_FAN3}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN3}.Logfile).${_}.txt";
+  }
+  # Fan Speed (%) - W_PUMP+
+  If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_W_PUMP}.(${_}))) {  # May equal zero without errors
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
+  } Else {
+    Write-Output "$(${Speed_FAN_PRC_W_PUMP}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
   }
 
   # ------------------------------

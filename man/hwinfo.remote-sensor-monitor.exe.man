@@ -30,4 +30,10 @@ Usage:
 
   "Remote Sensor Monitor.exe" [-p=<port_number>] [--hwinfo=<0|1>] [--gpuz=<0|1>] [--aida64=<0|1>] [--ohm=<0|1>]
 
-------------------------------
+------------------------------------------------------------
+
+ Citation(s)
+
+   www.hwinfo.com  |  "Introducing : Remote Sensor Monitor - A RESTful Web Server | HWiNFO Forum"  |  https://www.hwinfo.com/forum/threads/introducing-remote-sensor-monitor-a-restful-web-server.1025/
+
+------------------------------------------------------------

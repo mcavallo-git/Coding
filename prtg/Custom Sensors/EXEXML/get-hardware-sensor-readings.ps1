@@ -92,8 +92,6 @@ If ($True) {
   $RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt" -EA:0);
   $ErrorActionPreference = $EA_Bak;
 
-  $RSM_Results_Dirname="${RSM_Dirname}\results";
-
   If (-Not ([String]::IsNullOrEmpty("${RSM_Port}"))) {
 
     $ProgressPreference=0;
@@ -116,8 +114,6 @@ If ($True) {
       }
     }
 
-
-
     # Check if a valid response was received
     If ((-Not ([String]::IsNullOrEmpty("${RSM_RawContent}"))) -And ((${RSM_JsonObj}.Count) -GT 1)) {
 
@@ -129,11 +125,6 @@ If ($True) {
         If ([String]::IsNullOrEmpty("${MotherboardModel}")) {
           $MotherboardModel = "ERROR - INVALID MOBO MODEL";
         }
-      }
-
-      # Ensure output directory exists
-      If ((Test-Path "${RSM_Results_Dirname}") -NE $True) {
-        New-Item -ItemType ("Directory") -Path ("${RSM_Results_Dirname}") | Out-Null;
       }
 
       # Walk through each item in the JSON response
@@ -278,28 +269,9 @@ If ($True) {
 
         # ------------------------------
 
-        If ($False) {
-          # ------------------------------
-          # Output the results to sensor-specific files
-
-          # Handle invalid characters in sensor names
-          $Results_Basename=(("${SensorApp}.${SensorClass}.${SensorName}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
-          $ResultsFile=("${RSM_Results_Dirname}\${Results_Basename}");
-
-          If ([String]::IsNullOrEmpty(${SensorValue})) {
-            Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage_HWiNFO}") -NoNewline;
-          } Else {
-            Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:OK") -NoNewline;
-          }
-
-        }
-
       }
 
     }
-
-
-
 
   }
 

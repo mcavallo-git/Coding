@@ -435,6 +435,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath}") -ErrorAction
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Voltages, 3VCC") {  <# + 3.3V PSU voltage #>
         ${Voltage_3VCC}.(${_}) = (${Each_Value}.(${_}));
 
+        # ------------------------------
 
       }
 
@@ -485,27 +486,24 @@ If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Te
 
   # Clock - CPU
   If ([Math]::Ceiling("$(${Clock_CPU_Core}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Clock_CPU_Core}.(${_}))) {
     Write-Output "$(${Clock_CPU_Core}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}.${_}.txt";
   } Else {
     Write-Output "$(${Clock_CPU_Core}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_CPU_Core}.${_}.txt";
   }
   # Clock - GPU Core
   If ([Math]::Ceiling("$(${Clock_GPU_Core}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Clock_GPU_Core}.(${_}))) {
     Write-Output "$(${Clock_GPU_Core}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}.${_}.txt";
   } Else {
     Write-Output "$(${Clock_GPU_Core}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Core}.${_}.txt";
   }
   # Clock - GPU Memory
   If ([Math]::Ceiling("$(${Clock_GPU_Mem}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Clock_GPU_Mem}.(${_}))) {
     Write-Output "$(${Clock_GPU_Mem}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}.${_}.txt";
   } Else {
     Write-Output "$(${Clock_GPU_Mem}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Mem}.${_}.txt";
   }
-  # Clock - GPU Shader  (frequently idles at 0 MHz)
-  If ([String]::IsNullOrEmpty(${Clock_GPU_Shad}.(${_}))) {
+  # Clock - GPU Shader
+  If ([String]::IsNullOrEmpty(${Clock_GPU_Shad}.(${_}))) {  # May equal zero without errors
     Write-Output "$(${Clock_GPU_Shad}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}.${_}.txt";
   } Else {
     Write-Output "$(${Clock_GPU_Shad}.${_}):OK" | Out-File -NoNewline "${Logfile_Clock_GPU_Shad}.${_}.txt";
@@ -515,28 +513,24 @@ If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Te
 
   # Fan Speed (RPM) - Water-Pump (W_PUMP+)
   If ([Math]::Ceiling("$(${Speed_FAN_PMP}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Speed_FAN_PMP}.(${_}))) {
     Write-Output "$(${Speed_FAN_PMP}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}.${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_PMP}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_PMP}.${_}.txt";
   }
   # Fan Speed (RPM) - Radiator (CHA_FAN1)
   If ([Math]::Ceiling("$(${Speed_FAN_RAD}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Speed_FAN_RAD}.(${_}))) {
     Write-Output "$(${Speed_FAN_RAD}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}.${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_RAD}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_RAD}.${_}.txt";
   }
   # Fan Speed (RPM) - Chassis (CHA_FAN2)
   If ([Math]::Ceiling("$(${Speed_FAN_CHA}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Speed_FAN_CHA}.(${_}))) {
     Write-Output "$(${Speed_FAN_CHA}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_FanSpeed_CHA}.${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_CHA}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_CHA}.${_}.txt";
   }
   # Fan Speed (RPM) - SSD (CHA_FAN3)
   If ([Math]::Ceiling("$(${Speed_FAN_SSD}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Speed_FAN_SSD}.(${_}))) {
     Write-Output "$(${Speed_FAN_SSD}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}.${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_SSD}.${_}):OK" | Out-File -NoNewline "${Logfile_FanSpeed_SSD}.${_}.txt";
@@ -546,28 +540,24 @@ If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Te
 
   # Fan Speed (%) - Water-Pump (W_PUMP+)
   If ([Math]::Ceiling("$(${Speed_FAN_PMP_PRC}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Speed_FAN_PMP_PRC}.(${_}))) {
     Write-Output "$(${Speed_FAN_PMP_PRC}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_FanPercentage_PMP}.${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_PMP_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_PMP}.${_}.txt";
   }
   # Fan Speed (%) - Radiator (CHA_FAN1)
   If ([Math]::Ceiling("$(${Speed_FAN_RAD_PRC}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Speed_FAN_RAD_PRC}.(${_}))) {
     Write-Output "$(${Speed_FAN_RAD_PRC}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_FanPercentage_RAD}.${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_RAD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_RAD}.${_}.txt";
   }
   # Fan Speed (%) - Chassis (CHA_FAN2)
   If ([Math]::Ceiling("$(${Speed_FAN_CHA_PRC}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Speed_FAN_CHA_PRC}.(${_}))) {
     Write-Output "$(${Speed_FAN_CHA_PRC}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_FanPercentage_CHA}.${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_CHA_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_CHA}.${_}.txt";
   }
   # Fan Speed (%) - SSD (CHA_FAN3)
   If ([Math]::Ceiling("$(${Speed_FAN_SSD_PRC}.(${_}))") -Eq 0) {
-  # If ([String]::IsNullOrEmpty(${Speed_FAN_SSD_PRC}.(${_}))) {
     Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_FanPercentage_SSD}.${_}.txt";
   } Else {
     Write-Output "$(${Speed_FAN_SSD_PRC}.${_}):OK" | Out-File -NoNewline "${Logfile_FanPercentage_SSD}.${_}.txt";
@@ -576,20 +566,20 @@ If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Te
   # ------------------------------
 
   # Load - CPU
-  If ([String]::IsNullOrEmpty(${Load_CPU}.(${_}))) {
+  If ([String]::IsNullOrEmpty(${Load_CPU}.(${_}))) {  # May equal zero without errors
     Write-Output "$(${Load_CPU}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Load_CPU}.${_}.txt";
   } Else {
     Write-Output "$(${Load_CPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Load_CPU}.${_}.txt";
   }
 
   # Load - GPU
-  If ([String]::IsNullOrEmpty(${Load_GPU}.(${_}))) {
+  If ([String]::IsNullOrEmpty(${Load_GPU}.(${_}))) {  # May equal zero without errors
     Write-Output "$(${Load_GPU}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Load_GPU}.${_}.txt";
   } Else {
     Write-Output "$(${Load_GPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Load_GPU}.${_}.txt";
   }
   # Load - GPU Memory
-  If ([String]::IsNullOrEmpty(${GPU_Memory_Load}.(${_}))) {
+  If ([String]::IsNullOrEmpty(${GPU_Memory_Load}.(${_}))) {  # May equal zero without errors
     Write-Output "$(${GPU_Memory_Load}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Load_GPU_Memory}.${_}.txt";
   } Else {
     Write-Output "$(${GPU_Memory_Load}.${_}):OK" | Out-File -NoNewline "${Logfile_Load_GPU_Memory}.${_}.txt";

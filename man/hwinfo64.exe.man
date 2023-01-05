@@ -1,0 +1,16 @@
+HWiNFO64 /?
+
+Usage: HWiNFO64 [-r|-c|-x|-h|-m|-l][LOG_FILENAME]
+
+  Automatically create a Report File:
+    -r   Create Text Report File
+    -c   Create Comma-delimited Report File (CSV)
+    -x   Create XML Report File
+    -h   Create HTML Report File
+    -m   Create MHTML Report File
+
+  Sensor logging:
+    -l   Automatically start sensors with logging
+
+  Example to automatically create a CSV Report File: HWiNFO64 -cMyLog.CSV
+  Example to automatically start sensor logging: HWiNFO64 -lMySensors.CSV

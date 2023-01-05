@@ -80,8 +80,8 @@ $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor sensor reading returned 
 #        > Download Remote Sensor Monitor:  https://www.hwinfo.com/forum/threads/introducing-remote-sensor-monitor-a-restful-web-server.1025/
 #        > Setup a Scheduled Task to run HWiNFO & Remote Sensor Monitor at machine startup (not logon)
 
-$Logfile_HWiNFO_StartsWith = "HWiNFO64-";
-$Logfile_HWiNFO_Input_FullPath = "${Logfile_Dirname_HWiNFO}\${Logfile_HWiNFO_StartsWith}$(Get-Date -UFormat '%Y-%m-%d').csv";
+$Logfile_Input_StarsWith_HWiNFO = "HWiNFO64-";
+$Logfile_Input_FullPath_HWiNFO = "${Logfile_Dirname_HWiNFO}\${Logfile_Input_StarsWith_HWiNFO}$(Get-Date -UFormat '%Y-%m-%d').csv";
 If ($True) {
 
   $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
@@ -302,18 +302,18 @@ If ($True) {
 #        > Setup a Scheduled Task to run OpenHardwareMonitor at machine startup (not logon)
 
 # Parse CSV logs output from "Open Hardware Monitor (e.g. OHW)" (system health monitoring software)
-$Logfile_OHW_StartsWith = "OpenHardwareMonitorLog-";
-$Logfile_OHW_Input_FullPath = "${Logfile_Dirname_OHW}\${Logfile_OHW_StartsWith}$(Get-Date -UFormat '%Y-%m-%d').csv";
-If ((Test-Path -PathType "Leaf" -Path ("${Logfile_OHW_Input_FullPath}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
+$Logfile_Input_StarsWith_OHW = "OpenHardwareMonitorLog-";
+$Logfile_Input_FullPath_OHW = "${Logfile_Dirname_OHW}\${Logfile_Input_StarsWith_OHW}$(Get-Date -UFormat '%Y-%m-%d').csv";
+If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 
-  $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor logfile not found: ${Logfile_OHW_Input_FullPath}";
+  $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor logfile not found: ${Logfile_Input_FullPath_OHW}";
 
 } Else {
 
   $RowCount_HeaderRows=(2);
   $RowCount_DataRows=(60);
 
-  $LogContent_HeaderRows = (Get-Content -Path ("${Logfile_OHW_Input_FullPath}") -TotalCount (${RowCount_HeaderRows}));
+  $LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Input_FullPath_OHW}") -TotalCount (${RowCount_HeaderRows}));
 
   $CsvImport = @{};
   ${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[1])").Split(","));
@@ -323,9 +323,9 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_OHW_Input_FullPath}") -ErrorAc
   # Avoid random bug where OHW doesn't grab the GPU correctly at logfile creation time, which combines with OHW matching the headers on an existing log's data after said bugged run, which truncates all future data which is in addition to an existing log's header columns (truncates GPU data if GPU data wasn't pulled at time of log creation)
   $RequiredPath="gpu";
   If (((${CsvImport}["Paths"] | Where-Object { "${_}" -Like "*${RequiredPath}*" }).Count) -Eq (0)) {
-    $Dirname = [IO.Path]::GetDirectoryName("${Logfile_OHW_Input_FullPath}");
-    $Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_OHW_Input_FullPath}");
-    $Extension = [IO.Path]::GetExtension("${Logfile_OHW_Input_FullPath}");
+    $Dirname = [IO.Path]::GetDirectoryName("${Logfile_Input_FullPath_OHW}");
+    $Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_Input_FullPath_OHW}");
+    $Extension = [IO.Path]::GetExtension("${Logfile_Input_FullPath_OHW}");
     # Reset any logged data from a previous run
     # Get-Item "${Logfile_Dirname_OHW}\Sensors\*.txt" | Remove-Item -Force;
     Get-ChildItem -Path ("${Logfile_Dirname_OHW}\Sensors") -File -Recurse -Force -EA:0 `
@@ -334,12 +334,12 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_OHW_Input_FullPath}") -ErrorAc
 
     # Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns)
     ${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddTHHmmss.fff')${Extension}");
-    Move-Item -Path ("${Logfile_OHW_Input_FullPath}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
+    Move-Item -Path ("${Logfile_Input_FullPath_OHW}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
     # End the current run
     Exit 1;
   }
 
-  $LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_OHW_Input_FullPath}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
+  $LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Input_FullPath_OHW}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
   $LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
 
   $DataRows_SensorReadings=@();
@@ -874,18 +874,31 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
 
 # ------------------------------
 #
-# Cleanup Old Logfiles - OHW
+# Cleanup Old Logfiles
 #
 
-$Retention_Days = "7";
-$Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
-$EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-Get-ChildItem -Path "${Logfile_Dirname_OHW}" -File -Recurse -Force `
-| Where-Object { ($_.Name -Like "${Logfile_OHW_StartsWith}*") } `
-| Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
-| Remove-Item -Recurse -Force -Confirm:$False `
-;
-$ErrorActionPreference = $EA_Bak;
+If ($True) {
+  $Retention_Days = "7";
+  $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
+  $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+  #
+  # Cleanup Old Logfiles - HWiNFO
+  #
+  Get-ChildItem -Path "${Logfile_Dirname_HWiNFO}" -File -Recurse -Force `
+  | Where-Object { ($_.Name -Like "${Logfile_Input_StarsWith_HWiNFO}*") } `
+  | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
+  | Remove-Item -Recurse -Force -Confirm:$False `
+  ;
+  #
+  # Cleanup Old Logfiles - OHW
+  #
+  Get-ChildItem -Path "${Logfile_Dirname_OHW}" -File -Recurse -Force `
+  | Where-Object { ($_.Name -Like "${Logfile_Input_StarsWith_OHW}*") } `
+  | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
+  | Remove-Item -Recurse -Force -Confirm:$False `
+  ;
+  $ErrorActionPreference = $EA_Bak;
+}
 
 # ------------------------------
 

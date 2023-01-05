@@ -4,6 +4,8 @@
 
 If ($True) {
 
+# Remove invalid filename-filepath characters from string
+
 $Invalid_Basename="Invalid<`${!#>  Filename[Characters].txt";
 
 $Valid_Basename="${Invalid_Basename}";
@@ -25,7 +27,6 @@ Set-Content -LiteralPath ("${Output_Dirname}\${Valid_Basename}") -Value (Get-Dat
 notepad.exe "${Output_Dirname}\${Valid_Basename}"
 
 };
-
 
 
 # ------------------------------------------------------------

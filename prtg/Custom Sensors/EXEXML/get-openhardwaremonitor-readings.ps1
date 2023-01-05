@@ -671,7 +671,7 @@ $RSM_Host="localhost";
 $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
 $RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt");
 $ErrorActionPreference = $EA_Bak;
-$RSM_Results="${RSM_Dirname}\results";
+$RSM_Results_Dirname="${RSM_Dirname}\results";
 If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
   $ProgressPreference=0;
   $RegexPattern_JsonBody='\n((\[(\n|.)+\n\])|(\{(\n|.)+\n\}))';
@@ -681,8 +681,8 @@ If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
   $ErrorActionPreference = $EA_Bak;
   If ((-Not ([String]::IsNullOrEmpty(${RSM_HtmlResponse}))) -And (([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Success) -Eq $True)) {
     # Ensure the output directory exists
-    If ((Test-Path "${RSM_Results}") -NE $True) {
-      New-Item -ItemType ("Directory") -Path ("${RSM_Results}") | Out-Null;
+    If ((Test-Path "${RSM_Results_Dirname}") -NE $True) {
+      New-Item -ItemType ("Directory") -Path ("${RSM_Results_Dirname}") | Out-Null;
     }
     # Parse the JSON response
     $JsonResponse=([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Captures.Groups[1].Value);
@@ -697,15 +697,19 @@ If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
       $SensorUpdateTime = ($_.SensorUpdateTime);
       # ------------------------------
       # Handle invalid characters in sensor names
-      $ResultsFile=(("${RSM_Results}\")+(("${SensorApp}.${SensorClass}.${SensorName}.txt").Split([IO.Path]::GetInvalidFileNameChars()) -join '_'));
+      $Results_Basename=("${SensorApp}.${SensorClass}.${SensorName}.txt");
+      $Results_Basename=("${Results_Basename}".Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
+      # $Results_Basename=("${Results_Basename}" -split {@("[","]").Contains($_)} -join '_');
+      # $Results_Basename=([WildcardPattern]::Escape($Results_Basename));
+      $ResultsFile=("${RSM_Results_Dirname}\${Results_Basename}");
       # $RoundedValue=([Math]::Round(${SensorValue},4));
       # Output the results to sensor-specific files
       If ([String]::IsNullOrEmpty(${SensorValue})) {
         # Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
-        Set-Content -Path ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage}");
+        Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage}") -NoNewline;
       } Else {
         # Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
-        Set-Content -Path ("${ResultsFile}") -Value ("${SensorValue}:OK");
+        Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:OK") -NoNewline;
       }
     }
   }
@@ -753,6 +757,8 @@ If ([String]::IsNullOrEmpty(${RunDuration})) {
 #   sites.google.com  |  "Example 2 (WMI/OHM) - Custom sensors for PRTG"  |  https://sites.google.com/site/prtghowto/example-2
 #
 #   stackoverflow.com  |  "How to convert string to decimal in powershell? - Stack Overflow"  |  https://stackoverflow.com/a/63631813
+#
+#   stackoverflow.com  |  "powershell - How to strip illegal characters before trying to save filenames? - Stack Overflow"  |  https://stackoverflow.com/a/52528107
 #
 #   stackoverflow.com  |  "powershell max/first/aggregate functions - Stack Overflow"  |  https://stackoverflow.com/a/19170783
 # 

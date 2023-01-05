@@ -266,7 +266,21 @@ If ($True) {
           # }
 
         }
+        
+        If ($False) {
+          # Output sensor data directly to file
+          # ------------------------------
+          # Handle invalid characters in sensor names
+          $Results_Basename=(("${SensorApp}.${SensorClass}.${SensorName}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
+          $ResultsFile=("${RSM_Dirname}\Sensors\${Results_Basename}");
+          # Output the results to sensor-specific files
+          If ([String]::IsNullOrEmpty(${SensorValue})) {
+            Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage_HWiNFO}") -NoNewline;
+          } Else {
+            Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:OK") -NoNewline;
+          }
 
+        }
         # ------------------------------
 
       }

@@ -15,7 +15,7 @@ $Benchmark.Start();
 
 $Logfile_Dirname_HWiNFO = "C:\ISO\HWiNFO64\Sensors";
 
-$Logfile_Dirname_OHW = "C:\ISO\OpenHardwareMonitor";
+$Logfile_Dirname_OHW = "C:\ISO\OpenHardwareMonitor\Sensors";
 
 # ------------------------------------------------------------
 

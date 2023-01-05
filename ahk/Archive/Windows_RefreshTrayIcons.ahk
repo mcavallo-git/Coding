@@ -1,6 +1,11 @@
 Windows_RefreshTrayIcons()
 
 ; ------------------------------
+; Call from PowerShell via:
+;
+;   Start-Process -Filepath ((Get-Content env:\\ProgramFiles)+(write \AutoHotkey\AutoHotkey.exe)) -ArgumentList ((Get-Content env:\\USERPROFILE)+(write \Documents\GitHub\Coding\ahk\Archive\Windows_RefreshTrayIcons.ahk)) -NoNewWindow;
+;
+; ------------------------------
 ;
 ; Windows_RefreshTrayIcons
 ;   |--> Removes any 'dead' tray icons from the notification area / system tray
@@ -19,12 +24,7 @@ Windows_RefreshTrayIcons() {
           x := wdTray - Each_IconSize/2
           While (x > 0) {
             Point := (y << 16) + x
-
-; MsgBox, % "A_CoordModeToolTip : [" A_CoordModeToolTip "]" "`n" "A_CoordModePixel : [" A_CoordModePixel "]" "`n" "A_CoordModeMouse : [" A_CoordModeMouse "]" "`n" "A_CoordModeCaret : [" A_CoordModeCaret "]" "`n" "A_CoordModeMenu : [" A_CoordModeMenu "]" "`n"
-
-MsgBox % "Point: [" Point "]" "`n" "x: [" x "]" "`n" "y: [" y "]" "`n" "xTray: [" xTray "]" "`n" "yTray: [" yTray "]" "`n" "wdTray: [" wdTray "]" "`n" "htTray: [" htTray "]" "`n" "Each_IconSize: [" Each_IconSize "]"
-
-            ; PostMessage, % WM_MOUSEMOVE, 0, % Point, % Each_ControlName, % Each_Title
+            PostMessage, % WM_MOUSEMOVE, 0, % Point, % Each_ControlName, % Each_Title
             x -= Each_IconSize/2
           }
           y -= Each_IconSize/2

@@ -172,7 +172,7 @@ If ($True) {
     }
 
     # Check if a valid response was received
-    If ((-Not ([String]::IsNullOrEmpty(${RSM_RawContent}))) -And ((${RSM_JsonObj}.Length) -GT 0)) {
+    If ((-Not ([String]::IsNullOrEmpty("${RSM_RawContent}"))) -And ((${RSM_JsonObj}.Count) -GT 1)) {
 
       # Ensure the output directory exists
       If ((Test-Path "${RSM_Results_Dirname}") -NE $True) {
@@ -194,81 +194,81 @@ If ($True) {
         #
         # Mobo Readings
         #
-        If (${Each_HeaderPath} -Match "lpc/.+/control/") {
-          $Updated_HeaderDescription=("Mobo Fans (% PWM), ${Each_HeaderDescription}");
+        # If (${Each_HeaderPath} -Match "lpc/.+/control/") {
+        #   $Updated_HeaderDescription=("Mobo Fans (% PWM), ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "lpc/.+/fan/") {
-          $Updated_HeaderDescription=("Mobo Fans (RPM), ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/fan/") {
+        #   $Updated_HeaderDescription=("Mobo Fans (RPM), ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "lpc/.+/voltage/") {
-          $Updated_HeaderDescription=("Mobo Voltages, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/voltage/") {
+        #   $Updated_HeaderDescription=("Mobo Voltages, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "lpc/.+/temperature/") {
-          $Updated_HeaderDescription=("Mobo Temps, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "lpc/.+/temperature/") {
+        #   $Updated_HeaderDescription=("Mobo Temps, ${Each_HeaderDescription}");
 
-        # ------------------------------
-        #
-        # Processor (CPU) Readings
-        #
-        } ElseIf (${Each_HeaderPath} -Match "cpu/.+/load/") {
-          $Updated_HeaderDescription=("CPU Load, ${Each_HeaderDescription}");
+        # # ------------------------------
+        # #
+        # # Processor (CPU) Readings
+        # #
+        # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/load/") {
+        #   $Updated_HeaderDescription=("CPU Load, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "cpu/.+/power/") {
-          $Updated_HeaderDescription=("CPU Power, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/power/") {
+        #   $Updated_HeaderDescription=("CPU Power, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "cpu/.+/temperature/") {
-          $Updated_HeaderDescription=("CPU Temps, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/temperature/") {
+        #   $Updated_HeaderDescription=("CPU Temps, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "cpu/.+/clock/") {
-          $Updated_HeaderDescription=("CPU Clocks, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "cpu/.+/clock/") {
+        #   $Updated_HeaderDescription=("CPU Clocks, ${Each_HeaderDescription}");
 
-        # ------------------------------
-        #
-        # Memory (RAM) Readings
-        #
-        } ElseIf (${Each_HeaderPath} -Match "/ram/load/") {
-          $Updated_HeaderDescription=("RAM Load, ${Each_HeaderDescription}");
+        # # ------------------------------
+        # #
+        # # Memory (RAM) Readings
+        # #
+        # } ElseIf (${Each_HeaderPath} -Match "/ram/load/") {
+        #   $Updated_HeaderDescription=("RAM Load, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "/ram/data/") {
-          $Updated_HeaderDescription=("RAM Data, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "/ram/data/") {
+        #   $Updated_HeaderDescription=("RAM Data, ${Each_HeaderDescription}");
 
-        # ------------------------------
-        #
-        # Graphics Card (GPU) Readings
-        #
-        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/temperature/") {
-          $Updated_HeaderDescription=("GPU Temps, ${Each_HeaderDescription}");
+        # # ------------------------------
+        # #
+        # # Graphics Card (GPU) Readings
+        # #
+        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/temperature/") {
+        #   $Updated_HeaderDescription=("GPU Temps, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/clock/") {
-          $Updated_HeaderDescription=("GPU Clocks, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/clock/") {
+        #   $Updated_HeaderDescription=("GPU Clocks, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/control/") {
-          $Updated_HeaderDescription=("GPU Fan (% PWM), ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/control/") {
+        #   $Updated_HeaderDescription=("GPU Fan (% PWM), ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/fan/") {
-          $Updated_HeaderDescription=("GPU Fan (RPM), ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/fan/") {
+        #   $Updated_HeaderDescription=("GPU Fan (RPM), ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/smalldata/") {
-          $Updated_HeaderDescription=("GPU Memory, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/smalldata/") {
+        #   $Updated_HeaderDescription=("GPU Memory, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/load/") {
-          $Updated_HeaderDescription=("GPU Load, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/load/") {
+        #   $Updated_HeaderDescription=("GPU Load, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/power/") {
-          $Updated_HeaderDescription=("GPU Power, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/power/") {
+        #   $Updated_HeaderDescription=("GPU Power, ${Each_HeaderDescription}");
 
-        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/throughput/") {
-          $Updated_HeaderDescription=("GPU Rx/Tx, ${Each_HeaderDescription}");
+        # } ElseIf (${Each_HeaderPath} -Match "gpu/.+/throughput/") {
+        #   $Updated_HeaderDescription=("GPU Rx/Tx, ${Each_HeaderDescription}");
 
-        # ------------------------------
-        #
-        # Storage Disk (HDD/SSD) Readings
-        #
-        } ElseIf (${Each_HeaderPath} -Match "hdd/.+/load/") {
-          $Updated_HeaderDescription=("Disk Load, ${Each_HeaderDescription}");
+        # # ------------------------------
+        # #
+        # # Storage Disk (HDD/SSD) Readings
+        # #
+        # } ElseIf (${Each_HeaderPath} -Match "hdd/.+/load/") {
+        #   $Updated_HeaderDescription=("Disk Load, ${Each_HeaderDescription}");
 
-        # ------------------------------
-        }
+        # # ------------------------------
+        # }
 
 
         # ------------------------------

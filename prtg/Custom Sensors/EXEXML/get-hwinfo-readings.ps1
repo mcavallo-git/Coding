@@ -95,20 +95,25 @@ $Voltage_12VCC = "";
 $Sensor_ErrorMessage="ERROR - HWiNFO reading returned a null or empty value";
 
 # ------------------------------
+#
+# Get the latest sensor data from "Remote Sensor Monitor"
+#
 
-# Get the latest sensor data
+If ($True) {
 
-$ProgressPreference=0;
+  $ProgressPreference=0;
 
-$DefaultPort = (Get-Content 'C:\ISO\RemoteSensorMonitor\DefaultPort.txt' -EA:0);
+  $DefaultPort = (Get-Content 'C:\ISO\RemoteSensorMonitor\DefaultPort.txt' -EA:0);
 
-$ResponseObj = (Invoke-WebRequest -UseBasicParsing -Uri ([String]::Format('http://localhost:{0}', ((GV DefaultPort).Value))));
+  $ResponseObj = (Invoke-WebRequest -UseBasicParsing -Uri ([String]::Format('http://localhost:{0}', ((GV DefaultPort).Value))));
 
-$RawJSON = (((${ResponseObj}.RawContent).Split("`n") | Select-String -Pattern '^[\s\]\[\{\}]') -join "`n");
+  $RawJSON = (((${ResponseObj}.RawContent).Split("`n") | Select-String -Pattern '^[\s\]\[\{\}]') -join "`n");
 
-$JsonResponse = (ConvertFrom-Json -InputObject (${RawJSON}));
+  $JsonResponse = (ConvertFrom-Json -InputObject (${RawJSON}));
 
-# $JsonResponse | Format-Table;
+  # $JsonResponse | Format-Table;
+
+}
 
 # ------------------------------
 

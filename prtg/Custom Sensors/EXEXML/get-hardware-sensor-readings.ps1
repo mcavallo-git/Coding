@@ -86,19 +86,19 @@ If ($True) {
 
   $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
 
-  $RSM_Host="localhost";
+  $DefaultHost="localhost";
 
   $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-  $RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt" -EA:0);
+  $DefaultPort=(Get-Content "${RSM_Dirname}\DefaultPort.txt" -EA:0);
   $ErrorActionPreference = $EA_Bak;
 
-  If (-Not ([String]::IsNullOrEmpty("${RSM_Port}"))) {
+  If (-Not ([String]::IsNullOrEmpty("${DefaultPort}"))) {
 
     $ProgressPreference=0;
 
     # Pull the latest sensor data from "Remote Sensor Monitor"
     $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-    $RSM_ResponseObj = (Invoke-WebRequest -UseBasicParsing -Uri ([String]::Format("http://${RSM_Host}:${RSM_Port}")));
+    $RSM_ResponseObj = (Invoke-WebRequest -UseBasicParsing -Uri ([String]::Format("http://${DefaultHost}:${DefaultPort}")));
     $RSM_RawContent = (${RSM_ResponseObj}.RawContent);
     $ErrorActionPreference = $EA_Bak;
 

@@ -134,45 +134,150 @@ $Sensor_ErrorMessage="ERROR - Open Hardware Monitor reading returned a null or e
 
 # ------------------------------------------------------------
 #
-# Get Data from "Remote Sensor Monitor"
+# Get the latest sensor data from "Remote Sensor Monitor"
 #
 
 If ($True) {
 
   $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
+
   $RSM_Host="localhost";
+
   $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-  $RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt");
+  $RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt" -EA:0);
   $ErrorActionPreference = $EA_Bak;
+
   $RSM_Results_Dirname="${RSM_Dirname}\results";
+
   If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
+
     $ProgressPreference=0;
-    $RegexPattern_JsonBody='\n((\[(\n|.)+\n\])|(\{(\n|.)+\n\}))';
+
     # Pull the latest sensor data from "Remote Sensor Monitor"
     $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-    $RSM_HtmlResponse=((Invoke-WebRequest -UseBasicParsing -Uri "http://${RSM_Host}:${RSM_Port}").RawContent);
+    $RSM_ResponseObj = (Invoke-WebRequest -UseBasicParsing -Uri ([String]::Format("http://${RSM_Host}:${RSM_Port}")));
+    $RSM_RawContent = (${RSM_ResponseObj}.RawContent);
     $ErrorActionPreference = $EA_Bak;
-    If ((-Not ([String]::IsNullOrEmpty(${RSM_HtmlResponse}))) -And (([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Success) -Eq $True)) {
+
+    # Parse the JSON response
+    $RSM_RawJSON = (("${RSM_RawContent}".Split("`n") | Select-String -Pattern '^[\s\]\[\{\}]') -join "`n");
+    $RSM_JsonObj = (ConvertFrom-Json -InputObject (${RSM_RawJSON}));
+
+    # Fallback parsing method
+    If ((${RSM_JsonObj}.Length) -Eq 0) {
+      $RegexPattern_JsonBody='\n((\[(\n|.)+\n\])|(\{(\n|.)+\n\}))';
+      If (([Regex]::Match("${RSM_RawContent}","${RegexPattern_JsonBody}").Success) -Eq $True) {
+        $RSM_JsonObj=(([Regex]::Match("${RSM_RawContent}","${RegexPattern_JsonBody}").Captures.Groups[1].Value) | ConvertFrom-Json);
+      }
+    }
+
+    # Check if a valid response was received
+    If ((-Not ([String]::IsNullOrEmpty(${RSM_RawContent}))) -And ((${RSM_JsonObj}.Length) -GT 0)) {
+
       # Ensure the output directory exists
       If ((Test-Path "${RSM_Results_Dirname}") -NE $True) {
         New-Item -ItemType ("Directory") -Path ("${RSM_Results_Dirname}") | Out-Null;
       }
-      # Parse the JSON response
-      $JsonResponse=([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Captures.Groups[1].Value);
+
       # Walk through each item in the JSON response
-      (${JsonResponse} | ConvertFrom-Json) | ForEach-Object {
-        # ------------------------------
+      ${RSM_JsonObj} | ForEach-Object {
+
+        # Parse each sensor object
         $SensorApp = ($_.SensorApp);
         $SensorClass = ($_.SensorClass);
         $SensorName = ($_.SensorName);
         $SensorValue = ($_.SensorValue);
         $SensorUnit = ($_.SensorUnit);
         $SensorUpdateTime = ($_.SensorUpdateTime);
+
         # ------------------------------
+        #
+        # Mobo Readings
+        #
+        If (${Each_HeaderPath} -Match "lpc/.+/control/") {
+          $Updated_HeaderDescription=("Mobo Fans (% PWM), ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "lpc/.+/fan/") {
+          $Updated_HeaderDescription=("Mobo Fans (RPM), ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "lpc/.+/voltage/") {
+          $Updated_HeaderDescription=("Mobo Voltages, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "lpc/.+/temperature/") {
+          $Updated_HeaderDescription=("Mobo Temps, ${Each_HeaderDescription}");
+
+        # ------------------------------
+        #
+        # Processor (CPU) Readings
+        #
+        } ElseIf (${Each_HeaderPath} -Match "cpu/.+/load/") {
+          $Updated_HeaderDescription=("CPU Load, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "cpu/.+/power/") {
+          $Updated_HeaderDescription=("CPU Power, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "cpu/.+/temperature/") {
+          $Updated_HeaderDescription=("CPU Temps, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "cpu/.+/clock/") {
+          $Updated_HeaderDescription=("CPU Clocks, ${Each_HeaderDescription}");
+
+        # ------------------------------
+        #
+        # Memory (RAM) Readings
+        #
+        } ElseIf (${Each_HeaderPath} -Match "/ram/load/") {
+          $Updated_HeaderDescription=("RAM Load, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "/ram/data/") {
+          $Updated_HeaderDescription=("RAM Data, ${Each_HeaderDescription}");
+
+        # ------------------------------
+        #
+        # Graphics Card (GPU) Readings
+        #
+        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/temperature/") {
+          $Updated_HeaderDescription=("GPU Temps, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/clock/") {
+          $Updated_HeaderDescription=("GPU Clocks, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/control/") {
+          $Updated_HeaderDescription=("GPU Fan (% PWM), ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/fan/") {
+          $Updated_HeaderDescription=("GPU Fan (RPM), ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/smalldata/") {
+          $Updated_HeaderDescription=("GPU Memory, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/load/") {
+          $Updated_HeaderDescription=("GPU Load, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/power/") {
+          $Updated_HeaderDescription=("GPU Power, ${Each_HeaderDescription}");
+
+        } ElseIf (${Each_HeaderPath} -Match "gpu/.+/throughput/") {
+          $Updated_HeaderDescription=("GPU Rx/Tx, ${Each_HeaderDescription}");
+
+        # ------------------------------
+        #
+        # Storage Disk (HDD/SSD) Readings
+        #
+        } ElseIf (${Each_HeaderPath} -Match "hdd/.+/load/") {
+          $Updated_HeaderDescription=("Disk Load, ${Each_HeaderDescription}");
+
+        # ------------------------------
+        }
+
+
+        # ------------------------------
+        # Output the results to sensor-specific files
+
         # Handle invalid characters in sensor names
         $Results_Basename=(("${SensorApp}.${SensorClass}.${SensorName}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
         $ResultsFile=("${RSM_Results_Dirname}\${Results_Basename}");
-        # Output the results to sensor-specific files
+
         If ([String]::IsNullOrEmpty(${SensorValue})) {
           # Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
           Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage}") -NoNewline;
@@ -180,8 +285,11 @@ If ($True) {
           # Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
           Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:OK") -NoNewline;
         }
+
       }
+      
     }
+
   }
 
 }

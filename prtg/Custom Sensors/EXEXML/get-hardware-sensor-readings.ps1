@@ -908,9 +908,9 @@ $ErrorActionPreference = $EA_Bak;
 $Benchmark.Stop();
 $RunDuration=("$(${Benchmark}.Elapsed)");
 If ([String]::IsNullOrEmpty("${RunDuration}")) {
-  Write-Output "${RunDuration}:${Sensor_ErrorMessage_OHW}" | Out-File -NoNewline "${Logfile_Dirname_OHW}\RunDuration.txt";
+  Write-Output "${RunDuration}:${Sensor_ErrorMessage_OHW}" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
 } Else {
-  Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_Dirname_OHW}\RunDuration.txt";
+  Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
 }
 
 # ------------------------------------------------------------

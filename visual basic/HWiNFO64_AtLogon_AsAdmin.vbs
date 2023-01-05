@@ -10,12 +10,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 '   Trigger:
 '     At logon (of current user)
 '
-'   Action #1:
-'     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\HWiNFO64_AtLogon_AsAdmin.vbs"
-'
-'
-'   Action #2:
+'   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\HWiNFO64_AtLogon_AsAdmin.vbs"
 '

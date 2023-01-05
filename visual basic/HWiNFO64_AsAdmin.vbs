@@ -18,4 +18,8 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 '   Run with highest privileges (CHECKED)
 '
 '
+'
+' Note(s):
+'   - This requires a paid version of HWiNFO with Shared Memory support
+'
 ' ------------------------------------------------------------

@@ -7,7 +7,7 @@
 '
 '   Trigger:
 '     On a schedule
-'       At 00:00 every day - After triggered, repeat every 1 minute for a duration of 1439 minutes
+'       At 00:00:30 every day - After triggered, repeat every 1 minute for a duration of 1439 minutes
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe

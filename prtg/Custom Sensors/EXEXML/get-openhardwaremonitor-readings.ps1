@@ -697,12 +697,8 @@ If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
       $SensorUpdateTime = ($_.SensorUpdateTime);
       # ------------------------------
       # Handle invalid characters in sensor names
-      $Results_Basename=("${SensorApp}.${SensorClass}.${SensorName}.txt");
-      $Results_Basename=("${Results_Basename}".Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
-      # $Results_Basename=("${Results_Basename}" -split {@("[","]").Contains($_)} -join '_');
-      # $Results_Basename=([WildcardPattern]::Escape($Results_Basename));
+      $Results_Basename=(("${SensorApp}.${SensorClass}.${SensorName}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
       $ResultsFile=("${RSM_Results_Dirname}\${Results_Basename}");
-      # $RoundedValue=([Math]::Round(${SensorValue},4));
       # Output the results to sensor-specific files
       If ([String]::IsNullOrEmpty(${SensorValue})) {
         # Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";

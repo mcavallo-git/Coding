@@ -15,7 +15,7 @@ $Benchmark.Start();
 
 $Logfile_Dirname_HWiNFO = "C:\ISO\HWiNFO64\Sensors";
 
-$Logfile_Dirname_OHW = "C:\ISO\OpenHardwareMonitor\Sensors";
+$Logfile_Dirname_OHW = "C:\ISO\OpenHardwareMonitor";
 
 # ------------------------------------------------------------
 
@@ -63,11 +63,12 @@ $Temp_SSD = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-SSD";};
 
 $Time_Range = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Time";};
 
-$Voltage_Motherboard_03VCC = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-03VCC";};
-$Voltage_Motherboard_05VCC = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-05VCC";};
-$Voltage_Motherboard_12VCC = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-12VCC";};
+$Voltage_Motherboard_03V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-03V";};
+$Voltage_Motherboard_05V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-05V";};
+$Voltage_Motherboard_12V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-12V";};
 
-$Sensor_ErrorMessage="ERROR - Open Hardware Monitor reading returned a null or empty value";
+$Sensor_ErrorMessage_HWiNFO="ERROR - HWiNFO sensor reading returned a null or empty value";
+$Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor sensor reading returned a null or empty value";
 
 # ------------------------------------------------------------
 #
@@ -204,9 +205,9 @@ If ($True) {
                 If (${SensorName} -Match "^Chipset") {       $Temp_Motherboard_PCH.HWiNFO=(${SensorValue});
         # } ElseIf (${SensorName} -Match "\(PCH\)") {        $Temp_Motherboard_PCH.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^Motherboard$") {  $Temp_Motherboard_T_SENSOR.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^3VCC") {          $Voltage_Motherboard_03VCC.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^\+5V") {          $Voltage_Motherboard_05VCC.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^\+12V") {         $Voltage_Motherboard_12VCC.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^3VCC") {          $Voltage_Motherboard_03V.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^\+5V") {          $Voltage_Motherboard_05V.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^\+12V") {         $Voltage_Motherboard_12V.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^W_PUMP\+") {      $Speed_FAN_PMP.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^Chassis1") {      $Speed_FAN_RAD.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^Chassis2") {      $Speed_FAN_CHA.HWiNFO=(${SensorValue});
@@ -286,10 +287,8 @@ If ($True) {
           $ResultsFile=("${RSM_Results_Dirname}\${Results_Basename}");
 
           If ([String]::IsNullOrEmpty(${SensorValue})) {
-            # Write-Output "${SensorValue}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${ResultsFile}";
-            Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage}") -NoNewline;
+            Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:${Sensor_ErrorMessage_HWiNFO}") -NoNewline;
           } Else {
-            # Write-Output "${SensorValue}:OK" | Out-File -NoNewline "${ResultsFile}";
             Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:OK") -NoNewline;
           }
 
@@ -321,7 +320,7 @@ $Logfile_OHW_StartsWith = "OpenHardwareMonitorLog-";
 $Logfile_OHW_Input_FullPath = "${Logfile_Dirname_OHW}\${Logfile_OHW_StartsWith}$(Get-Date -UFormat '%Y-%m-%d').csv";
 If ((Test-Path -PathType "Leaf" -Path ("${Logfile_OHW_Input_FullPath}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 
-  $Sensor_ErrorMessage="ERROR - Open Hardware Monitor logfile not found: ${Logfile_OHW_Input_FullPath}";
+  $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor logfile not found: ${Logfile_OHW_Input_FullPath}";
 
 } Else {
 
@@ -341,8 +340,12 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_OHW_Input_FullPath}") -ErrorAc
     $Dirname = [IO.Path]::GetDirectoryName("${Logfile_OHW_Input_FullPath}");
     $Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_OHW_Input_FullPath}");
     $Extension = [IO.Path]::GetExtension("${Logfile_OHW_Input_FullPath}");
-    # Remove any logged data from a previous run
-    Get-Item "${Logfile_Dirname_OHW}\*.txt" | Remove-Item -Force;
+    # Reset any logged data from a previous run
+    # Get-Item "${Logfile_Dirname_OHW}\Sensors\*.txt" | Remove-Item -Force;
+    Get-ChildItem -Path ("${Logfile_Dirname_OHW}\Sensors") -File -Recurse -Force -EA:0 `
+      | Where-Object { ($_.Name -Like "*.txt") } `
+      | ForEach-Object { Set-Content -LiteralPath ($_.FullName) -Value (":${Sensor_ErrorMessage_OHW}") -NoNewline; };
+
     # Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns)
     ${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddTHHmmss.fff')${Extension}");
     Move-Item -Path ("${Logfile_OHW_Input_FullPath}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
@@ -581,7 +584,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_OHW_Input_FullPath}") -ErrorAc
         # ------------------------------
 
       } ElseIf (${Each_SensorDescription} -Eq "Mobo Voltages, 3VCC") {  # + 3.3V PSU voltage
-        ${Voltage_Motherboard_03VCC}.(${_}) = (${Each_Value}.(${_}));
+        ${Voltage_Motherboard_03V}.(${_}) = (${Each_Value}.(${_}));
 
         # ------------------------------
 
@@ -641,19 +644,27 @@ If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Te
 #
 
 # Ensure output directories exist
-If ((Test-Path "${Logfile_Dirname_HWiNFO}") -NE $True) {
-  New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}") | Out-Null;
+If ((Test-Path "${Logfile_Dirname_HWiNFO}\Sensors") -NE $True) {
+  If ((Test-Path "${Logfile_Dirname_HWiNFO}") -NE $True) {
+    New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}") | Out-Null;
+  }
+  New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}\Sensors") | Out-Null;
 }
-If ((Test-Path "${Logfile_Dirname_OHW}") -NE $True) {
-  New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}") | Out-Null;
+If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
+  If ((Test-Path "${Logfile_Dirname_OHW}") -NE $True) {
+    New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}") | Out-Null;
+  }
+  New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}\Sensors") | Out-Null;
 }
 
 @("Avg","Max","Min","HWiNFO") | ForEach-Object {
 
   If (("${_}") -Eq "HWiNFO") {
-    $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}";
+    $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
+    $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
   } Else {
-    $Logfile_Dirname = "${Logfile_Dirname_OHW}";
+    $Logfile_Dirname = "${Logfile_Dirname_OHW}\Sensors";
+    $Sensor_ErrorMessage = "${Sensor_ErrorMessage_OHW}";
   }
 
   # Output the sensor values to each of their individual log files (intended for simplified PRTG parsing via batch file using [ TYPE ... .txt ])
@@ -851,10 +862,24 @@ If ((Test-Path "${Logfile_Dirname_OHW}") -NE $True) {
   # ------------------------------
 
   # Voltage (V) - 3VCC (+ 3.3V PSU voltage)
-  If ([Math]::Ceiling("$(${Voltage_Motherboard_03VCC}.(${_}))") -Eq 0) {
-    Write-Output "$(${Voltage_Motherboard_03VCC}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03VCC}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Voltage_Motherboard_03V}.(${_}))") -Eq 0) {
+    Write-Output "$(${Voltage_Motherboard_03V}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03V}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Voltage_Motherboard_03VCC}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03VCC}.Logfile).${_}.txt";
+    Write-Output "$(${Voltage_Motherboard_03V}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03V}.Logfile).${_}.txt";
+  }
+
+  # Voltage (V) - +5V (+ 5.0V PSU voltage)
+  If ([Math]::Ceiling("$(${Voltage_Motherboard_05V}.(${_}))") -Eq 0) {
+    Write-Output "$(${Voltage_Motherboard_05V}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_05V}.Logfile).${_}.txt";
+  } Else {
+    Write-Output "$(${Voltage_Motherboard_05V}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_05V}.Logfile).${_}.txt";
+  }
+
+  # Voltage (V) - +12V (+ 12.0V PSU voltage)
+  If ([Math]::Ceiling("$(${Voltage_Motherboard_12V}.(${_}))") -Eq 0) {
+    Write-Output "$(${Voltage_Motherboard_12V}.${_}):${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_12V}.Logfile).${_}.txt";
+  } Else {
+    Write-Output "$(${Voltage_Motherboard_12V}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_12V}.Logfile).${_}.txt";
   }
 
   # ------------------------------
@@ -883,7 +908,7 @@ $ErrorActionPreference = $EA_Bak;
 $Benchmark.Stop();
 $RunDuration=("$(${Benchmark}.Elapsed)");
 If ([String]::IsNullOrEmpty("${RunDuration}")) {
-  Write-Output "${RunDuration}:${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname_OHW}\RunDuration.txt";
+  Write-Output "${RunDuration}:${Sensor_ErrorMessage_OHW}" | Out-File -NoNewline "${Logfile_Dirname_OHW}\RunDuration.txt";
 } Else {
   Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_Dirname_OHW}\RunDuration.txt";
 }

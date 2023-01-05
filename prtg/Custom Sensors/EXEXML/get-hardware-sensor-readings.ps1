@@ -80,8 +80,8 @@ $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor sensor reading returned 
 #        > Download Remote Sensor Monitor:  https://www.hwinfo.com/forum/threads/introducing-remote-sensor-monitor-a-restful-web-server.1025/
 #        > Setup a Scheduled Task to run HWiNFO & Remote Sensor Monitor at machine startup (not logon)
 
-# STEP 1) Setup OHW and/or HWiNFO (See below for each)
-
+$Logfile_HWiNFO_StartsWith = "HWiNFO64-";
+$Logfile_HWiNFO_Input_FullPath = "${Logfile_Dirname_HWiNFO}\${Logfile_HWiNFO_StartsWith}$(Get-Date -UFormat '%Y-%m-%d').csv";
 If ($True) {
 
   $RSM_Dirname="C:\ISO\RemoteSensorMonitor";

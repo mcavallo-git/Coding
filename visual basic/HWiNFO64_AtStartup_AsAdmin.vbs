@@ -8,8 +8,8 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""SV IS_LOGGED_ON ([boo
 '     HWiNFO64_AtStartup_AsAdmin
 '
 '   Trigger:
-'     At system startup
-'       Repeat task every 1 minute for a duration of 1439 minutes
+'     On a schedule
+'       At 00:00 every day - After triggered, repeat every 1 minute for a duration of 1439 minutes
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

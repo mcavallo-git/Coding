@@ -19,9 +19,9 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 '
 '
 ' Note(s):
-'   - This requires a paid version of HWiNFO with Shared Memory support
 '   - Set Remote Sensor Monitor port in file "C:\ISO\RemoteSensorMonitor\DefaultPort.txt"
 '   - Set Remote Sensor Monitor config in file "C:\ISO\RemoteSensorMonitor\DefaultConfig.txt"
 '     - Config is reverse engineered from POST request to [ http://localhost:PORT/config ] in-browser
+'   - Remote Sensor Monitor requires a paid subscription to HWiNFO (for the "Shared Memory Support" feature)
 '
 ' ------------------------------------------------------------

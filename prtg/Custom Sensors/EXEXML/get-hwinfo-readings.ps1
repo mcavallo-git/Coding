@@ -20,7 +20,7 @@ $Logfile_StartsWith = "HWiNFO64-";
 
 # ------------------------------------------------------------
 
-$Logfile_Basename = "${Logfile_Dirname}\OHW-Current";
+$Logfile_Basename = "${Logfile_Dirname}\HWiNFO64-Current";
 
 $Logfile_Clock_CPU_Core = "${Logfile_Basename}-Clock-CPU-Core";
 $Logfile_Clock_GPU_Core = "${Logfile_Basename}-Clock-GPU-Core";
@@ -297,13 +297,13 @@ If ([Math]::Ceiling("$(${Voltage_12VCC}.(${_}))") -Eq 0) {
 
 $Retention_Days = "7";
 $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
-$EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+$EA_Bak=$ErrorActionPreference; $ErrorActionPreference=0;
 Get-ChildItem -Path "${Logfile_Dirname}" -File -Recurse -Force `
 | Where-Object { ($_.Name -Like "${Logfile_StartsWith}*") } `
 | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
 | Remove-Item -Recurse -Force -Confirm:$False `
 ;
-$ErrorActionPreference = $EA_Bak;
+$ErrorActionPreference=$EA_Bak;
 
 
 # ------------------------------
@@ -313,17 +313,17 @@ $ErrorActionPreference = $EA_Bak;
 
 $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
 $RSM_Host="localhost";
-$EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+$EA_Bak=$ErrorActionPreference; $ErrorActionPreference=0;
 $RSM_Port=(Get-Content "${RSM_Dirname}\DefaultPort.txt");
-$ErrorActionPreference = $EA_Bak;
+$ErrorActionPreference=$EA_Bak;
 $RSM_Results="${RSM_Dirname}\results";
 If (-Not ([String]::IsNullOrEmpty(${RSM_Port}))) {
   $ProgressPreference=0;
   $RegexPattern_JsonBody='\n((\[(\n|.)+\n\])|(\{(\n|.)+\n\}))';
   # Pull the latest sensor data from "Remote Sensor Monitor"
-  $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+  $EA_Bak=$ErrorActionPreference; $ErrorActionPreference=0;
   $RSM_HtmlResponse=((Invoke-WebRequest -UseBasicParsing -Uri "http://${RSM_Host}:${RSM_Port}").RawContent);
-  $ErrorActionPreference = $EA_Bak;
+  $ErrorActionPreference=$EA_Bak;
   If ((-Not ([String]::IsNullOrEmpty(${RSM_HtmlResponse}))) -And (([Regex]::Match("${RSM_HtmlResponse}","${RegexPattern_JsonBody}").Success) -Eq $True)) {
     # Ensure the output directory exists
     If ((Test-Path "${RSM_Results}") -NE $True) {

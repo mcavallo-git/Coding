@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\OHW-Current-FanPercentage-Radiator.Avg.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\FanPercentage-Radiator.Avg.txt
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\OHW-Current-FanRPM-Pump.Max.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\FanRPM-Pump.Max.txt
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

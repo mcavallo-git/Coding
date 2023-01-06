@@ -14,6 +14,8 @@
 
 "Hello City!" -Replace "city","World";  <# Returns "Hello World!" - CASE INsensitive #>
 
+"..*[$#(In!#<$>#va!#lid + @!# Char# !>>< act ers)<<].." -Replace "[^a-zA-Z0-9-_%\[\]\(\)\+\.]","";  <# Returns "..[(Invalid+Characters)].."  #>
+
 
 # Regex replacements using capture groups
 

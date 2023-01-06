@@ -1,20 +1,28 @@
 # ------------------------------------------------------------
-# PRTG - Manually trigger a snapshot (force a backup)
+# PRTG - Manually trigger a configuration snapshot (force a backup)
 # ------------------------------------------------------------
 #
-# Create new snapshot
-#  |--> Manually trigger a PRTG configuration snapshot (backup) by browsing to URL:
+# Browser GUI - Create new snapshot
+#  |
+#  |--> Replace "<your-prtg-server>" with your PRTG server's hostname/FQDN
 #
 
-http://<your-prtg-server>/api/savenow.htm
+"You can manually trigger a backup of your configuration under Setup >> System Administration >> Administrative Tools >> Create Configuration Snapshot or via the following API call"
 
-# Note: Replace "<your-prtg-server>" with your PRTG server's hostname/FQDN
+
+# ------------------------------------------------------------
+#
+# API Call - Create new snapshot
+#  |
+#  |--> Replace "<your-prtg-server>" with your PRTG server's hostname/FQDN
+#
+
+http://<your-prtg-server>/api/savenow.htm?username=<admin username>&passhash=<admin passhash>
 
 
 # ------------------------------
 #
-# Get snapshots/backups
-#  |--> Configuration snapshots/backups are saved to the following directory
+# Output - Snapshots are saved to:
 #
 
 %ProgramData%\Paessler\PRTG Network Monitor\Configuration Auto-Backups
@@ -30,5 +38,7 @@ http://<your-prtg-server>/api/savenow.htm
 # Citation(s)
 #
 #   kb.paessler.com  |  "Is there a way to schedule PRTG backups? | Paessler Knowledge Base"  |  https://kb.paessler.com/en/topic/59619-is-there-a-way-to-schedule-prtg-backups
+#
+#   kb.paessler.com  |  "Restore Map | Paessler Knowledge Base"  |  https://kb.paessler.com/en/topic/44833-restore-map#reply-301803
 #
 # ------------------------------------------------------------

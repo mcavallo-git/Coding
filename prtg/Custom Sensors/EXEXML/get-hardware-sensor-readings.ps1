@@ -375,7 +375,7 @@ If ($True) {
 
         Write-Host "------------------------------";
         Write-Host "Each_SensorDescription = [ ${Each_SensorDescription} ]";
-        Write-Host "EachSensorReading_Obj = [ "; ${EachSensorReading_Obj};
+        ${EachSensorReading_Obj};
 
         # ------------------------------
 

@@ -251,7 +251,7 @@ If ($True) {
       $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50);
 
       # Handle invalid characters in sensor names
-      $Output_Basename=(("${Each_Header_Name}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
+      $Output_Basename=(("${Each_Header_Name}.json").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
       $Output_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Output_Basename}");
 
       # Handle errors in the output JSON

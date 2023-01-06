@@ -12,57 +12,57 @@ $Benchmark.Start();
 
 If ($True) {
 
-  $Clock_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-CPU-Core";};
-  $Clock_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Core";};
-  $Clock_GPU_Memory = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Memory";};
-  $Clock_RAM_DIMMS = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-RAM";};
+  $Clock_CPU_Core = @{Avg="";Max="";Min="";Logfile="Clock-CPU-Core";};
+  $Clock_GPU_Core = @{Avg="";Max="";Min="";Logfile="Clock-GPU-Core";};
+  $Clock_GPU_Memory = @{Avg="";Max="";Min="";Logfile="Clock-GPU-Memory";};
+  $Clock_RAM_DIMMS = @{Avg="";Max="";Min="";Logfile="Clock-RAM";};
 
-  $Load_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-CPU";};
-  $Load_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU";};
-  $Load_GPU_MemoryController = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-MemoryController";};
-  $Load_GPU_MemoryUsage = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-MemoryUsage";};
-  $Load_GPU_Power_TDP_Percentage = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-Power-TDP-Percentage";};
-  $Load_UPS_Total = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-UPS-Total";};
+  $Load_CPU_Core = @{Avg="";Max="";Min="";Logfile="Load-CPU";};
+  $Load_GPU_Core = @{Avg="";Max="";Min="";Logfile="Load-GPU";};
+  $Load_GPU_MemoryController = @{Avg="";Max="";Min="";Logfile="Load-GPU-MemoryController";};
+  $Load_GPU_MemoryUsage = @{Avg="";Max="";Min="";Logfile="Load-GPU-MemoryUsage";};
+  $Load_GPU_Power_TDP_Percentage = @{Avg="";Max="";Min="";Logfile="Load-GPU-Power-TDP-Percentage";};
+  $Load_UPS_Total = @{Avg="";Max="";Min="";Logfile="Load-UPS-Total";};
 
-  $Speed_FAN_RPM_AIO_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-AIO-Pump";};
-  $Speed_FAN_RPM_CHA_FAN1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Radiator";};
-  $Speed_FAN_RPM_CHA_FAN2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Chassis";};
-  $Speed_FAN_RPM_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-SSD";};
-  $Speed_FAN_RPM_CHIPSET = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Chipset";};
-  $Speed_FAN_RPM_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Pump";};
+  $Speed_FAN_RPM_AIO_PUMP = @{Avg="";Max="";Min="";Logfile="FanRPM-AIO-Pump";};
+  $Speed_FAN_RPM_CHA_FAN1 = @{Avg="";Max="";Min="";Logfile="FanRPM-Radiator";};
+  $Speed_FAN_RPM_CHA_FAN2 = @{Avg="";Max="";Min="";Logfile="FanRPM-Chassis";};
+  $Speed_FAN_RPM_CHA_FAN3 = @{Avg="";Max="";Min="";Logfile="FanRPM-SSD";};
+  $Speed_FAN_RPM_CHIPSET = @{Avg="";Max="";Min="";Logfile="FanRPM-Chipset";};
+  $Speed_FAN_RPM_W_PUMP = @{Avg="";Max="";Min="";Logfile="FanRPM-Pump";};
 
-  $Speed_FAN_PRC_CHA_FAN1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Radiator";};
-  $Speed_FAN_PRC_CHA_FAN2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Chassis";};
-  $Speed_FAN_PRC_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-SSD";};
-  $Speed_FAN_PRC_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Pump";};
+  $Speed_FAN_PRC_CHA_FAN1 = @{Avg="";Max="";Min="";Logfile="FanPercentage-Radiator";};
+  $Speed_FAN_PRC_CHA_FAN2 = @{Avg="";Max="";Min="";Logfile="FanPercentage-Chassis";};
+  $Speed_FAN_PRC_CHA_FAN3 = @{Avg="";Max="";Min="";Logfile="FanPercentage-SSD";};
+  $Speed_FAN_PRC_W_PUMP = @{Avg="";Max="";Min="";Logfile="FanPercentage-Pump";};
 
-  $Power_CPU_Package = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-CPU-Package";};
-  $Power_GPU_Total = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-GPU-Total";};
-  $Power_UPS_Total = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-UPS-Total";};
+  $Power_CPU_Package = @{Avg="";Max="";Min="";Logfile="Power-CPU-Package";};
+  $Power_GPU_Total = @{Avg="";Max="";Min="";Logfile="Power-GPU-Total";};
+  $Power_UPS_Total = @{Avg="";Max="";Min="";Logfile="Power-UPS-Total";};
 
-  $Lifespan_SSD_RemainingLife = @{Avg="";Max="";Min="";HWiNFO="";Logfile="SSD-RemainingLife";};
-  $Lifespan_SSD_TotalWrites = @{Avg="";Max="";Min="";HWiNFO="";Logfile="SSD-RemainingLife";};
+  $Lifespan_SSD_RemainingLife = @{Avg="";Max="";Min="";Logfile="SSD-RemainingLife";};
+  $Lifespan_SSD_TotalWrites = @{Avg="";Max="";Min="";Logfile="SSD-RemainingLife";};
 
-  $Temp_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-CPU-Core";};
-  $Temp_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-GPU-Core";};
-  $Temp_GPU_Hotspot = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-GPU-Hotspot";};
-  $Temp_Motherboard_PCH_CHIPSET = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-Motherboard-PCH-Chipset";};
-  $Temp_Motherboard_T_SENSOR = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-Motherboard-T_SENSOR";};
-  $Temp_RAM_DIMM_0 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM0";};
-  $Temp_RAM_DIMM_1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM1";};
-  $Temp_RAM_DIMM_2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM2";};
-  $Temp_RAM_DIMM_3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM3";};
-  $Temp_SSD = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-SSD";};
+  $Temp_CPU_Core = @{Avg="";Max="";Min="";Logfile="Temp-CPU-Core";};
+  $Temp_GPU_Core = @{Avg="";Max="";Min="";Logfile="Temp-GPU-Core";};
+  $Temp_GPU_Hotspot = @{Avg="";Max="";Min="";Logfile="Temp-GPU-Hotspot";};
+  $Temp_Motherboard_PCH_CHIPSET = @{Avg="";Max="";Min="";Logfile="Temp-Motherboard-PCH-Chipset";};
+  $Temp_Motherboard_T_SENSOR = @{Avg="";Max="";Min="";Logfile="Temp-Motherboard-T_SENSOR";};
+  $Temp_RAM_DIMM_0 = @{Avg="";Max="";Min="";Logfile="Temp-RAM-DIMM0";};
+  $Temp_RAM_DIMM_1 = @{Avg="";Max="";Min="";Logfile="Temp-RAM-DIMM1";};
+  $Temp_RAM_DIMM_2 = @{Avg="";Max="";Min="";Logfile="Temp-RAM-DIMM2";};
+  $Temp_RAM_DIMM_3 = @{Avg="";Max="";Min="";Logfile="Temp-RAM-DIMM3";};
+  $Temp_SSD = @{Avg="";Max="";Min="";Logfile="Temp-SSD";};
 
-  $Time_Range = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Time";};
+  $Time_Range = @{Avg="";Max="";Min="";Logfile="Time";};
 
-  $Voltage_CPU_Core =         @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-CPU-Core";};
-  $Voltage_GPU_Core =         @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-GPU-Core";};
-  $Voltage_GPU_PCIE_12V =     @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-GPU-PCIE-12V";};
-  $Voltage_Motherboard_03V =  @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-03V";};
-  $Voltage_Motherboard_05V =  @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-05V";};
-  $Voltage_Motherboard_12V =  @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-12V";};
-  $Voltage_Motherboard_VBAT = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-CMOS-Battery";};
+  $Voltage_CPU_Core =         @{Avg="";Max="";Min="";Logfile="Voltage-CPU-Core";};
+  $Voltage_GPU_Core =         @{Avg="";Max="";Min="";Logfile="Voltage-GPU-Core";};
+  $Voltage_GPU_PCIE_12V =     @{Avg="";Max="";Min="";Logfile="Voltage-GPU-PCIE-12V";};
+  $Voltage_Motherboard_03V =  @{Avg="";Max="";Min="";Logfile="Voltage-Motherboard-03V";};
+  $Voltage_Motherboard_05V =  @{Avg="";Max="";Min="";Logfile="Voltage-Motherboard-05V";};
+  $Voltage_Motherboard_12V =  @{Avg="";Max="";Min="";Logfile="Voltage-Motherboard-12V";};
+  $Voltage_Motherboard_VBAT = @{Avg="";Max="";Min="";Logfile="Voltage-Motherboard-CMOS-Battery";};
 
   $Sensor_ErrorMessage_HWiNFO="ERROR - HWiNFO sensor reading returned a null or empty value";
   $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor sensor reading returned a null or empty value";
@@ -941,7 +941,7 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
 
 # @("Avg","Max","Min","HWiNFO") | ForEach-Object {
 
-@("Avg","Max","Min","Units") | ForEach-Object {
+@("Avg","Max","Min") | ForEach-Object {
 
   $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";

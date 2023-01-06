@@ -363,17 +363,18 @@ If ($True) {
         $Each_Header_Name = ($Each_Header_RegexParsed[1].Value);
         $Each_Header_Units = ($Each_Header_RegexParsed[2].Value);
 
-        $MinMaxAvg_Results.(${Each_Header_Name}) = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
+        $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
+
+        $MinMaxAvg_Results.(${Each_Header_Name}) = @{};
         $MinMaxAvg_Results.(${Each_Header_Name}).("Units") = "${Each_Header_Units}";
+        $MinMaxAvg_Results.(${Each_Header_Name}).("Avg") = (${Each_MinMaxAverage}.Average);
+        $MinMaxAvg_Results.(${Each_Header_Name}).("Max") = (${Each_MinMaxAverage}.Maximum);
+        $MinMaxAvg_Results.(${Each_Header_Name}).("Min") = (${Each_MinMaxAverage}.Minimum);
 
         # ------------------------------
 
         If ($False) {
 
-          $Each_Value = @{};
-          ${Each_Value}.Avg = (${Each_MinMaxAverage}.Average);
-          ${Each_Value}.Max = (${Each_MinMaxAverage}.Maximum);
-          ${Each_Value}.Min = (${Each_MinMaxAverage}.Minimum);
 
           @("Avg","Max","Min") | ForEach-Object {
 
@@ -686,9 +687,9 @@ If ($True) {
       $Each_SensorDescription = (${CsvImport}["Descriptions"][${i_Column}] -Replace "`"", "");
 
       $Each_Value = @{};
-      ${Each_Value}.Avg = (${Each_MinMaxAverage}.Average);
-      ${Each_Value}.Max = (${Each_MinMaxAverage}.Maximum);
-      ${Each_Value}.Min = (${Each_MinMaxAverage}.Minimum);
+      ${Each_Value}.("Avg") = (${Each_MinMaxAverage}.Average);
+      ${Each_Value}.("Max") = (${Each_MinMaxAverage}.Maximum);
+      ${Each_Value}.("Min") = (${Each_MinMaxAverage}.Minimum);
 
       # ------------------------------------------------------------
 

@@ -87,6 +87,14 @@ If ($True) {
 
   } Else {
 
+    # Ensure output directories exist
+    If ((Test-Path "${Logfile_Dirname_HWiNFO}\Sensors") -NE $True) {
+      If ((Test-Path "${Logfile_Dirname_HWiNFO}") -NE $True) {
+        New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}") | Out-Null;
+      }
+      New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}\Sensors") | Out-Null;
+    }
+
     If ($True) {
 
       $RowCount_HeaderRows=(1);
@@ -704,6 +712,14 @@ If ($True) {
 #
 #   } Else {
 #
+#     # Ensure output directories exist
+#     If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
+#       If ((Test-Path "${Logfile_Dirname_OHW}") -NE $True) {
+#         New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}") | Out-Null;
+#       }
+#       New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}\Sensors") | Out-Null;
+#     }
+#
 #     $RowCount_HeaderRows=(2);
 #     $RowCount_DataRows=(60);
 #
@@ -1006,354 +1022,345 @@ If ($True) {
 #
 # }
 #
-# ------------------------------------------------------------
+## ------------------------------------------------------------
+##
+## Get the latest sensor data from local disk's S.M.A.R.T. values (if no value exists for it already)
+##
 #
-# Get the latest sensor data from local disk's S.M.A.R.T. values (if no value exists for it already)
+# If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Min))) {
+#   $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+#   $SSD_SMART_Temperature = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature");
+#   $ErrorActionPreference = $EA_Bak;
+#   If ([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) {
+#     ${Temp_SSD}.Avg = (${SSD_SMART_Temperature});
+#   }
+#   If ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) {
+#     ${Temp_SSD}.Max = (${SSD_SMART_Temperature});
+#   }
+#   If ([String]::IsNullOrEmpty(${Temp_SSD}.Min)) {
+#     ${Temp_SSD}.Min = (${SSD_SMART_Temperature});
+#   }
+# }
 #
-
-If (([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) -Or ([String]::IsNullOrEmpty(${Temp_SSD}.Min))) {
-  $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-  $SSD_SMART_Temperature = (Get-Disk | Get-StorageReliabilityCounter | Where-Object { $_.DeviceId -Eq 0; } | Select-Object -ExpandProperty "Temperature");
-  $ErrorActionPreference = $EA_Bak;
-  If ([String]::IsNullOrEmpty(${Temp_SSD}.Avg)) {
-    ${Temp_SSD}.Avg = (${SSD_SMART_Temperature});
-  }
-  If ([String]::IsNullOrEmpty(${Temp_SSD}.Max)) {
-    ${Temp_SSD}.Max = (${SSD_SMART_Temperature});
-  }
-  If ([String]::IsNullOrEmpty(${Temp_SSD}.Min)) {
-    ${Temp_SSD}.Min = (${SSD_SMART_Temperature});
-  }
-}
-
-# ------------------------------------------------------------
-#
-# Output results to logfile(s)
-#
-
-If ($False) {
-
-  # Ensure output directories exist
-  If ((Test-Path "${Logfile_Dirname_HWiNFO}\Sensors") -NE $True) {
-    If ((Test-Path "${Logfile_Dirname_HWiNFO}") -NE $True) {
-      New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}") | Out-Null;
-    }
-    New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}\Sensors") | Out-Null;
-  }
-  If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
-    If ((Test-Path "${Logfile_Dirname_OHW}") -NE $True) {
-      New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}") | Out-Null;
-    }
-    New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}\Sensors") | Out-Null;
-  }
-
-  # @("Avg","Max","Min","HWiNFO") | ForEach-Object {
-
-  @("Avg","Max","Min") | ForEach-Object {
-
-    $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
-    $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
-
-    # If (("${_}") -Eq "HWiNFO") {
-    #   $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
-    #   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
-    # } Else {
-    #   $Logfile_Dirname = "${Logfile_Dirname_OHW}\Sensors";
-    #   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_OHW}";
-    # }
-
-    # Output the sensor values to each of their individual log files (intended for simplified PRTG parsing via batch file using [ TYPE ... .txt ])
-
-    # ------------------------------
-
-    # Clock - CPU
-    If ([Math]::Ceiling("$(${Clock_CPU_Core}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_CPU_Core}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Clock_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_CPU_Core}.Logfile).${_}.txt";
-    }
-    # Clock - GPU Core
-    If ([Math]::Ceiling("$(${Clock_GPU_Core}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Core}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Clock_GPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Core}.Logfile).${_}.txt";
-    }
-    # Clock - GPU Memory
-    If ([Math]::Ceiling("$(${Clock_GPU_Memory}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Memory}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Clock_GPU_Memory}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Memory}.Logfile).${_}.txt";
-    }
-    # Clock - RAM DIMMs
-    If ([String]::IsNullOrEmpty(${Clock_RAM_DIMMS}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_RAM_DIMMS}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Clock_RAM_DIMMS}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_RAM_DIMMS}.Logfile).${_}.txt";
-    }
-
-    # ------------------------------
-
-    # Fan Speed (RPM) - AIO Pump
-    If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_AIO_PUMP}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_AIO_PUMP}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_RPM_AIO_PUMP}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_AIO_PUMP}.Logfile).${_}.txt";
-    }
-    # Fan Speed (RPM) - CHA_FAN1
-    If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN1}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN1}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_RPM_CHA_FAN1}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN1}.Logfile).${_}.txt";
-    }
-    # Fan Speed (RPM) - CHA_FAN2
-    If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN2}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN2}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_RPM_CHA_FAN2}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN2}.Logfile).${_}.txt";
-    }
-    # Fan Speed (RPM) - CHA_FAN3
-    If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN3}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN3}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_RPM_CHA_FAN3}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN3}.Logfile).${_}.txt";
-    }
-    # Fan Speed (RPM) - Chipset
-    If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHIPSET}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHIPSET}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_RPM_CHIPSET}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHIPSET}.Logfile).${_}.txt";
-    }
-    # Fan Speed (RPM) - W_PUMP+
-    If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_W_PUMP}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_RPM_W_PUMP}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
-    }
-
-    # ------------------------------
-
-    # Fan Speed (%) - CHA_FAN1
-    If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN1}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_PRC_CHA_FAN1}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
-    }
-    # Fan Speed (%) - CHA_FAN2
-    If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN2}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN2}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_PRC_CHA_FAN2}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN2}.Logfile).${_}.txt";
-    }
-    # Fan Speed (%) - CHA_FAN3
-    If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN3}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN3}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_PRC_CHA_FAN3}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN3}.Logfile).${_}.txt";
-    }
-    # Fan Speed (%) - W_PUMP+
-    If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_W_PUMP}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Speed_FAN_PRC_W_PUMP}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
-    }
-
-    # ------------------------------
-
-    # Load - CPU
-    If ([String]::IsNullOrEmpty(${Load_CPU_Core}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU_Core}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Load_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU_Core}.Logfile).${_}.txt";
-    }
-
-    # Load - GPU
-    If ([String]::IsNullOrEmpty(${Load_GPU_Core}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_Core}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Load_GPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_Core}.Logfile).${_}.txt";
-    }
-    # Load - GPU Memory Controller
-    If ([String]::IsNullOrEmpty(${Load_GPU_MemoryController}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryController}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Load_GPU_MemoryController}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryController}.Logfile).${_}.txt";
-    }
-    # Load - GPU Memory Usage
-    If ([String]::IsNullOrEmpty(${Load_GPU_MemoryUsage}.(${_}))) {  # May equal zero without errors
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryUsage}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Load_GPU_MemoryUsage}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryUsage}.Logfile).${_}.txt";
-    }
-
-    # ------------------------------
-
-    # Power - CPU
-    If ([Math]::Ceiling("$(${Power_CPU_Package}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU_Package}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Power_CPU_Package}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU_Package}.Logfile).${_}.txt";
-    }
-    # Power - GPU
-    If ([Math]::Ceiling("$(${Power_GPU_Total}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU_Total}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Power_GPU_Total}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU_Total}.Logfile).${_}.txt";
-    }
-
-    # ------------------------------
-
-    # Temperature (°C) - CPU Core  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_CPU_Core}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_CPU_Core}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_CPU_Core}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - GPU Core  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_GPU_Core}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_GPU_Core}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_GPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_GPU_Core}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - GPU Hotspot  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_GPU_Hotspot}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_GPU_Hotspot}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_GPU_Hotspot}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_GPU_Hotspot}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - Motherboard PCH  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_Motherboard_PCH_CHIPSET}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_Motherboard_PCH_CHIPSET}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_Motherboard_PCH_CHIPSET}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_Motherboard_PCH_CHIPSET}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - Motherboard T_SENSOR  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_Motherboard_T_SENSOR}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_Motherboard_T_SENSOR}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_Motherboard_T_SENSOR}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_Motherboard_T_SENSOR}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - RAM DIMM 0  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_RAM_DIMM_0}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_0}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_RAM_DIMM_0}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_0}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - RAM DIMM 1  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_RAM_DIMM_1}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_1}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_RAM_DIMM_1}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_1}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - RAM DIMM 2  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_RAM_DIMM_2}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_2}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_RAM_DIMM_2}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_2}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - RAM DIMM 3  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_RAM_DIMM_3}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_3}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_RAM_DIMM_3}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_3}.Logfile).${_}.txt";
-    }
-    # Temperature (°C) - SSD  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
-    If ([Math]::Ceiling("$(${Temp_SSD}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_SSD}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Temp_SSD}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_SSD}.Logfile).${_}.txt";
-    }
-
-    # ------------------------------
-
-    # Voltage (V) - 3VCC (+ 3.3V PSU voltage)
-    If ([Math]::Ceiling("$(${Voltage_Motherboard_03V}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03V}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Voltage_Motherboard_03V}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03V}.Logfile).${_}.txt";
-    }
-    # Voltage (V) - +5V (+ 5.0V PSU voltage)
-    If ([Math]::Ceiling("$(${Voltage_Motherboard_05V}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_05V}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Voltage_Motherboard_05V}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_05V}.Logfile).${_}.txt";
-    }
-    # Voltage (V) - +12V (+ 12.0V PSU voltage)
-    If ([Math]::Ceiling("$(${Voltage_Motherboard_12V}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_12V}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Voltage_Motherboard_12V}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_12V}.Logfile).${_}.txt";
-    }
-    # Voltage (V) - CPU Core
-    If ([Math]::Ceiling("$(${Voltage_CPU_Core}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_CPU_Core}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Voltage_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_CPU_Core}.Logfile).${_}.txt";
-    }
-    # Voltage (V) - GPU Core
-    If ([Math]::Ceiling("$(${Voltage_GPU_Core}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_GPU_Core}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Voltage_GPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_GPU_Core}.Logfile).${_}.txt";
-    }
-    # Voltage (V) - GPU PCIe +12V Input Voltage
-    If ([Math]::Ceiling("$(${Voltage_GPU_PCIE_12V}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_GPU_PCIE_12V}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Voltage_GPU_PCIE_12V}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_GPU_PCIE_12V}.Logfile).${_}.txt";
-    }
-    # Voltage (V) - VBAT (CMOS Battery Voltage)
-    If ([Math]::Ceiling("$(${Voltage_Motherboard_VBAT}.(${_}))") -Eq 0) {
-      Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_VBAT}.Logfile).${_}.txt";
-    } Else {
-      Write-Output "$(${Voltage_Motherboard_VBAT}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_VBAT}.Logfile).${_}.txt";
-    }
-
-    # ------------------------------
-
-  }
-
-}
-
+## ------------------------------------------------------------
+##
+## Output results to logfile(s)
+##
+# 
+# If ($False) {
+# 
+#   # @("Avg","Max","Min","HWiNFO") | ForEach-Object {
+# 
+#   @("Avg","Max","Min") | ForEach-Object {
+# 
+#     $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
+#     $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
+# 
+#     # If (("${_}") -Eq "HWiNFO") {
+#     #   $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
+#     #   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
+#     # } Else {
+#     #   $Logfile_Dirname = "${Logfile_Dirname_OHW}\Sensors";
+#     #   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_OHW}";
+#     # }
+# 
+#     # Output the sensor values to each of their individual log files (intended for simplified PRTG parsing via batch file using [ TYPE ... .txt ])
+# 
+#     # ------------------------------
+# 
+#     # Clock - CPU
+#     If ([Math]::Ceiling("$(${Clock_CPU_Core}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_CPU_Core}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Clock_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_CPU_Core}.Logfile).${_}.txt";
+#     }
+#     # Clock - GPU Core
+#     If ([Math]::Ceiling("$(${Clock_GPU_Core}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Core}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Clock_GPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Core}.Logfile).${_}.txt";
+#     }
+#     # Clock - GPU Memory
+#     If ([Math]::Ceiling("$(${Clock_GPU_Memory}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Memory}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Clock_GPU_Memory}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Memory}.Logfile).${_}.txt";
+#     }
+#     # Clock - RAM DIMMs
+#     If ([String]::IsNullOrEmpty(${Clock_RAM_DIMMS}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_RAM_DIMMS}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Clock_RAM_DIMMS}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_RAM_DIMMS}.Logfile).${_}.txt";
+#     }
+# 
+#     # ------------------------------
+# 
+#     # Fan Speed (RPM) - AIO Pump
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_AIO_PUMP}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_AIO_PUMP}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_RPM_AIO_PUMP}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_AIO_PUMP}.Logfile).${_}.txt";
+#     }
+#     # Fan Speed (RPM) - CHA_FAN1
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN1}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN1}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_RPM_CHA_FAN1}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN1}.Logfile).${_}.txt";
+#     }
+#     # Fan Speed (RPM) - CHA_FAN2
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN2}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN2}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_RPM_CHA_FAN2}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN2}.Logfile).${_}.txt";
+#     }
+#     # Fan Speed (RPM) - CHA_FAN3
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHA_FAN3}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN3}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_RPM_CHA_FAN3}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHA_FAN3}.Logfile).${_}.txt";
+#     }
+#     # Fan Speed (RPM) - Chipset
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_CHIPSET}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHIPSET}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_RPM_CHIPSET}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_CHIPSET}.Logfile).${_}.txt";
+#     }
+#     # Fan Speed (RPM) - W_PUMP+
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_W_PUMP}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_RPM_W_PUMP}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
+#     }
+# 
+#     # ------------------------------
+# 
+#     # Fan Speed (%) - CHA_FAN1
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN1}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_PRC_CHA_FAN1}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
+#     }
+#     # Fan Speed (%) - CHA_FAN2
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN2}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN2}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_PRC_CHA_FAN2}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN2}.Logfile).${_}.txt";
+#     }
+#     # Fan Speed (%) - CHA_FAN3
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN3}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN3}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_PRC_CHA_FAN3}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN3}.Logfile).${_}.txt";
+#     }
+#     # Fan Speed (%) - W_PUMP+
+#     If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_W_PUMP}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Speed_FAN_PRC_W_PUMP}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
+#     }
+# 
+#     # ------------------------------
+# 
+#     # Load - CPU
+#     If ([String]::IsNullOrEmpty(${Load_CPU_Core}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU_Core}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Load_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU_Core}.Logfile).${_}.txt";
+#     }
+# 
+#     # Load - GPU
+#     If ([String]::IsNullOrEmpty(${Load_GPU_Core}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_Core}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Load_GPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_Core}.Logfile).${_}.txt";
+#     }
+#     # Load - GPU Memory Controller
+#     If ([String]::IsNullOrEmpty(${Load_GPU_MemoryController}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryController}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Load_GPU_MemoryController}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryController}.Logfile).${_}.txt";
+#     }
+#     # Load - GPU Memory Usage
+#     If ([String]::IsNullOrEmpty(${Load_GPU_MemoryUsage}.(${_}))) {  # May equal zero without errors
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryUsage}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Load_GPU_MemoryUsage}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryUsage}.Logfile).${_}.txt";
+#     }
+# 
+#     # ------------------------------
+# 
+#     # Power - CPU
+#     If ([Math]::Ceiling("$(${Power_CPU_Package}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU_Package}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Power_CPU_Package}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU_Package}.Logfile).${_}.txt";
+#     }
+#     # Power - GPU
+#     If ([Math]::Ceiling("$(${Power_GPU_Total}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU_Total}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Power_GPU_Total}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU_Total}.Logfile).${_}.txt";
+#     }
+# 
+#     # ------------------------------
+# 
+#     # Temperature (°C) - CPU Core  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_CPU_Core}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_CPU_Core}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_CPU_Core}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - GPU Core  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_GPU_Core}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_GPU_Core}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_GPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_GPU_Core}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - GPU Hotspot  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_GPU_Hotspot}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_GPU_Hotspot}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_GPU_Hotspot}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_GPU_Hotspot}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - Motherboard PCH  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_Motherboard_PCH_CHIPSET}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_Motherboard_PCH_CHIPSET}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_Motherboard_PCH_CHIPSET}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_Motherboard_PCH_CHIPSET}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - Motherboard T_SENSOR  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_Motherboard_T_SENSOR}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_Motherboard_T_SENSOR}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_Motherboard_T_SENSOR}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_Motherboard_T_SENSOR}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - RAM DIMM 0  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_RAM_DIMM_0}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_0}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_RAM_DIMM_0}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_0}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - RAM DIMM 1  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_RAM_DIMM_1}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_1}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_RAM_DIMM_1}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_1}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - RAM DIMM 2  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_RAM_DIMM_2}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_2}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_RAM_DIMM_2}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_2}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - RAM DIMM 3  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_RAM_DIMM_3}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_3}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_RAM_DIMM_3}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_RAM_DIMM_3}.Logfile).${_}.txt";
+#     }
+#     # Temperature (°C) - SSD  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
+#     If ([Math]::Ceiling("$(${Temp_SSD}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_SSD}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Temp_SSD}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_SSD}.Logfile).${_}.txt";
+#     }
+# 
+#     # ------------------------------
+# 
+#     # Voltage (V) - 3VCC (+ 3.3V PSU voltage)
+#     If ([Math]::Ceiling("$(${Voltage_Motherboard_03V}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03V}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Voltage_Motherboard_03V}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03V}.Logfile).${_}.txt";
+#     }
+#     # Voltage (V) - +5V (+ 5.0V PSU voltage)
+#     If ([Math]::Ceiling("$(${Voltage_Motherboard_05V}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_05V}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Voltage_Motherboard_05V}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_05V}.Logfile).${_}.txt";
+#     }
+#     # Voltage (V) - +12V (+ 12.0V PSU voltage)
+#     If ([Math]::Ceiling("$(${Voltage_Motherboard_12V}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_12V}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Voltage_Motherboard_12V}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_12V}.Logfile).${_}.txt";
+#     }
+#     # Voltage (V) - CPU Core
+#     If ([Math]::Ceiling("$(${Voltage_CPU_Core}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_CPU_Core}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Voltage_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_CPU_Core}.Logfile).${_}.txt";
+#     }
+#     # Voltage (V) - GPU Core
+#     If ([Math]::Ceiling("$(${Voltage_GPU_Core}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_GPU_Core}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Voltage_GPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_GPU_Core}.Logfile).${_}.txt";
+#     }
+#     # Voltage (V) - GPU PCIe +12V Input Voltage
+#     If ([Math]::Ceiling("$(${Voltage_GPU_PCIE_12V}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_GPU_PCIE_12V}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Voltage_GPU_PCIE_12V}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_GPU_PCIE_12V}.Logfile).${_}.txt";
+#     }
+#     # Voltage (V) - VBAT (CMOS Battery Voltage)
+#     If ([Math]::Ceiling("$(${Voltage_Motherboard_VBAT}.(${_}))") -Eq 0) {
+#       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_VBAT}.Logfile).${_}.txt";
+#     } Else {
+#       Write-Output "$(${Voltage_Motherboard_VBAT}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_VBAT}.Logfile).${_}.txt";
+#     }
+# 
+#     # ------------------------------
+# 
+#   }
+# 
+# }
+# 
 # ------------------------------
 #
-# Cleanup Old Logfiles
+# Cleanup Old Logfiles - HWiNFO
 #
 
 If ($True) {
   $Retention_Days = "7";
   $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
   $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
-  #
-  # Cleanup Old Logfiles - HWiNFO
-  #
   Get-ChildItem -Path "${Logfile_Dirname_HWiNFO}" -File -Recurse -Force `
-  | Where-Object { ($_.Name -Like "${Logfile_Input_StarsWith_HWiNFO}*") } `
-  | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
-  | Remove-Item -Recurse -Force -Confirm:$False `
+    | Where-Object { ($_.Name -Like "${Logfile_Input_StarsWith_HWiNFO}*") } `
+    | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
+    | Remove-Item -Recurse -Force -Confirm:$False `
   ;
-  #
-  # Cleanup Old Logfiles - OHW
-  #
-  Get-ChildItem -Path "${Logfile_Dirname_OHW}" -File -Recurse -Force `
-  | Where-Object { ($_.Name -Like "${Logfile_Input_StarsWith_OHW}*") } `
-  | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
-  | Remove-Item -Recurse -Force -Confirm:$False `
-  ;
-  $ErrorActionPreference = $EA_Bak;
 }
 
+## ------------------------------
+##
+## Cleanup Old Logfiles - OHW
+##
+# 
+# If ($True) {
+#   $Retention_Days = "7";
+#   $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
+#   $EA_Bak = $ErrorActionPreference; $ErrorActionPreference = 0;
+#   Get-ChildItem -Path "${Logfile_Dirname_OHW}" -File -Recurse -Force `
+#     | Where-Object { ($_.Name -Like "${Logfile_Input_StarsWith_OHW}*") } `
+#     | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
+#     | Remove-Item -Recurse -Force -Confirm:$False `
+#   ;
+#   $ErrorActionPreference = $EA_Bak;
+# }
+# 
 # ------------------------------
-
-# Benchmark (KEEP AS FINAL RUNTIME (e.g. keep at the very very end of this script)
-
-$Benchmark.Stop();
-$RunDuration=("$(${Benchmark}.Elapsed)");
-If ([String]::IsNullOrEmpty("${RunDuration}")) {
-  Write-Output ":${Sensor_ErrorMessage_OHW}" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
-} Else {
-  Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
-}
-
+# 
+# # Benchmark (KEEP AS FINAL RUNTIME (e.g. keep at the very very end of this script)
+# 
+# $Benchmark.Stop();
+# $RunDuration=("$(${Benchmark}.Elapsed)");
+# If ([String]::IsNullOrEmpty("${RunDuration}")) {
+#   Write-Output ":${Sensor_ErrorMessage_OHW}" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
+# } Else {
+#   Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
+# }
+# 
 # ------------------------------------------------------------
 #
 # Citation(s)

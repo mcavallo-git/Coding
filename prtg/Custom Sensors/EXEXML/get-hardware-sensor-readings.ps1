@@ -9,9 +9,6 @@ $Benchmark.Reset(); # Reuse same benchmark/stopwatch object by resetting it
 $Benchmark.Start();
 
 # ------------------------------------------------------------
-#
-# Get the Temperature, fan speeds, etc. through Dell's oproprietary config but nt on the 730...Openhardware"'s  OpenHardwareMonitor's logfile (second line is column title, third row is values)
-#
 
 $Logfile_Dirname_HWiNFO = "C:\ISO\HWiNFO64";
 
@@ -75,8 +72,6 @@ $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor sensor reading returned 
 #        > Download Remote Sensor Monitor:  https://www.hwinfo.com/forum/threads/introducing-remote-sensor-monitor-a-restful-web-server.1025/
 #        > Setup a Scheduled Task to run HWiNFO & Remote Sensor Monitor at machine startup (not logon)
 
-$Logfile_Input_StarsWith_HWiNFO = "HWiNFO64-";
-$Logfile_Input_FullPath_HWiNFO = "${Logfile_Dirname_HWiNFO}\${Logfile_Input_StarsWith_HWiNFO}$(Get-Date -UFormat '%Y-%m-%d').csv";
 If ($True) {
 
   $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
@@ -286,9 +281,65 @@ If ($True) {
 
 }
 
+# ------------------------------
+#
+# Parse CSV logs output from HWiNFO64
+#
+$Logfile_Input_StarsWith_HWiNFO = "HWiNFO64-";
+$Logfile_Input_FullPath_HWiNFO = "${Logfile_Dirname_HWiNFO}\${Logfile_Input_StarsWith_HWiNFO}$(Get-Date -UFormat '%Y-%m-%d').csv";
+If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_HWiNFO}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
+
+  # $CsvHeadersArr_OHW = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
+
+  $RowCount_HeaderRows=(1);
+  $RowCount_DataRows=(60);
+
+  $LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Input_FullPath_HWiNFO}") -TotalCount (${RowCount_HeaderRows}));
+
+  $CsvImport = @{};
+
+  ${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[0])").Split(","));
+
+  $LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Input_FullPath_HWiNFO}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
+  $LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
+
+  $DataRows_SensorReadings=@();
+
+  $GetCulture=(Get-Culture);  # Get the system's display format of items such as numbers
+
+
+  For ($i_Row=-1; $i_Row -GE (-1 * ${LogContent_DataRows}.Count); $i_Row--) {
+    # Walk through the last minute's worth of sensor data stored in the CSV logfile
+    $Each_DataRow=(${LogContent_DataRows}[$i_Row] -Split ",");
+    $Each_Row_SensorReadings = @{"Time"=(${Each_DataRow}[0][0]);};
+    For ($i_Column=0; $i_Column -LT (${CsvImport}["Paths"].Count); $i_Column++) {
+      # Walk through each column on each row
+      $Each_StringValue=(${Each_DataRow}[${i_Column}] -Replace "`"", "");
+      $Each_Value=0.0;
+      If (${i_Column} -Eq 0) {
+        # Convert [String] to [DateTime] w/o throwing an error
+        $Each_Value=(Get-Date -Date (${Each_StringValue}) -UFormat ("%s"));
+      } Else {
+        # Convert [String] to [DateTime] w/o throwing an error
+        If (([Decimal]::TryParse(${Each_StringValue}, [Globalization.NumberStyles]::Float, ${GetCulture}, [Ref]${Each_Value})) -Eq ($True)) {
+          # Do Nothing (String-to-Decimal conversion already performed in above "If" statement's conditional block
+        }
+      }
+      # Store each values into an object, push the object to an array (below), then calculate min/max later all-at-once
+      ${Each_Row_SensorReadings}.(${CsvImport}["Paths"][${i_Column}]) = (${Each_Value});
+    }
+    ${DataRows_SensorReadings} += ${Each_Row_SensorReadings};
+  }
+
+
+}
+
+
+# ------------------------------------------------------------
+# ------------------------------------------------------------
 # ------------------------------------------------------------
 #
-# Get the latest sensor data from "OpenHardwareMonitor"
+# Get the latest sensor data from OHW (OpenHardwareMonitor)
 #  |
 #  |--> Setup Open Hardware Monitor (OHW):
 #        > Download OHW:  https://openhardwaremonitor.org/downloads/
@@ -296,7 +347,7 @@ If ($True) {
 #        > Setup CSV logging in OHW via "Options" > "Log Sensors" (will have a checkmark next to it if actively logging to CSV)
 #        > Setup a Scheduled Task to run OpenHardwareMonitor at machine startup (not logon)
 
-# Parse CSV logs output from "Open Hardware Monitor (e.g. OHW)" (system health monitoring software)
+# Parse CSV logs output from OHW (Open Hardware Monitor)
 $Logfile_Input_StarsWith_OHW = "OpenHardwareMonitorLog-";
 $Logfile_Input_FullPath_OHW = "${Logfile_Dirname_OHW}\${Logfile_Input_StarsWith_OHW}$(Get-Date -UFormat '%Y-%m-%d').csv";
 If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAction ("SilentlyContinue")) -Eq $False) {

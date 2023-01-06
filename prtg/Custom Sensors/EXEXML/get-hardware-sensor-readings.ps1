@@ -320,19 +320,18 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAc
   # Avoid random bug where OHW doesn't grab the GPU correctly at logfile creation time, which combines with OHW matching the headers on an existing log's data after said bugged run, which truncates all future data which is in addition to an existing log's header columns (truncates GPU data if GPU data wasn't pulled at time of log creation)
   $RequiredPath="gpu";
   If (((${CsvImport}["Paths"] | Where-Object { "${_}" -Like "*${RequiredPath}*" }).Count) -Eq (0)) {
+    # Reset any logged data from a previous run
+    Get-ChildItem -Path ("${Logfile_Dirname_OHW}\Sensors") -File -Recurse -Force -EA:0 `
+      | Where-Object { ($_.Name -Like "*.txt") } `
+      | ForEach-Object { Set-Content -LiteralPath ($_.FullName) -Value (":${Sensor_ErrorMessage_OHW}") -NoNewline; } `
+    ;
+    # Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns)
     $Dirname = [IO.Path]::GetDirectoryName("${Logfile_Input_FullPath_OHW}");
     $Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_Input_FullPath_OHW}");
     $Extension = [IO.Path]::GetExtension("${Logfile_Input_FullPath_OHW}");
-    # Reset any logged data from a previous run
-    # Get-Item "${Logfile_Dirname_OHW}\Sensors\*.txt" | Remove-Item -Force;
-    Get-ChildItem -Path ("${Logfile_Dirname_OHW}\Sensors") -File -Recurse -Force -EA:0 `
-      | Where-Object { ($_.Name -Like "*.txt") } `
-      | ForEach-Object { Set-Content -LiteralPath ($_.FullName) -Value (":${Sensor_ErrorMessage_OHW}") -NoNewline; };
-
-    # Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns)
     ${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddTHHmmss.fff')${Extension}");
     Move-Item -Path ("${Logfile_Input_FullPath_OHW}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
-    # End the current run
+    # End the current run (pick it up later when there's a valid CSV logfile to parse)
     Exit 1;
   }
 

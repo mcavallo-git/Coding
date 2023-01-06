@@ -38,7 +38,7 @@ Mostly Linux compatible:
 ∙					Bullet Operator  |  https://www.compart.com/en/unicode/U+2219
 
 
-°					Degree Sign (Degrees, Temperature, °C, °F, Celsius, Fahrenheit) (&deg;) (&#176;)  |  https://www.compart.com/en/unicode/U+00B0
+°					Degree Sign (Degrees, Temperature, °C, °F, Celsius, Fahrenheit) (&deg;) (&#176;)  |  https://www.compart.com/en/unicode/U+00B0  |  $([char]0x00B0)
 ⌀					Diameter Sign (&#8960;)  |  https://www.compart.com/en/unicode/U+2300
 
 
@@ -52,6 +52,7 @@ Mostly Linux compatible:
 ---  Arrows
 ---    |--> Unicode Block "Arrows"  |  https://www.compart.com/en/unicode/block/U+2190
 ---    |--> Unicode Block "Miscellaneous Symbols and Arrows"  |  https://www.compart.com/en/unicode/block/U+2B00
+---    |--> HTML Arrow Symbols, Entities and Codes  |  https://www.toptal.com/designers/htmlarrows/arrows/
 ---
 
 
@@ -69,6 +70,7 @@ Mostly Linux compatible:
 
 ↕					Up Down Arrow   (&updownarrow;)  |  https://www.compart.com/en/unicode/U+2195
 ↔ 				Left Right Arrow (&LeftRightArrow;)  |  https://www.compart.com/en/unicode/U+2194
+⇿ 				Left Right Open-Headed Arrow (&hoarr;)  |  https://www.compart.com/en/unicode/U+21FF  |  $([char]0x21FF)
 ⇅					Upwards Arrow Leftwards of Downwards Arrow  (&udarr;) (&UpArrowDownArrow;)  |  https://www.compart.com/en/unicode/U+21C5
 🗘				 Clockwise Right and Left Semicircle Arrows  |  https://www.compart.com/en/unicode/U+1F5D8
 
@@ -194,6 +196,7 @@ Mostly Linux compatible:
 ⏰					Alarm Clock  |  https://www.compart.com/en/unicode/U+23F0
 
 
+🗡				Dagger Knife  |  https://www.compart.com/en/unicode/U+1F5E1  |  echo -e "\\xF0\\x9F\\x97\\xA1";  |  "$([char]0xD83D+[char]0xDDE1)"
 🔑				Key  |  https://www.compart.com/en/unicode/U+1F511
 🔒				Lock  |  https://www.compart.com/en/unicode/U+1F512
 🔓				Open Lock  |  https://www.compart.com/en/unicode/U+1F513
@@ -489,5 +492,7 @@ Unusual/Annoying Characters
 //   www.fileformat.info  |  "Unicode Character 'VARIATION SELECTOR-16' (U+FE0F)"  |  https://www.fileformat.info/info/unicode/char/fe0f/index.htm
 //
 //   www.mauvecloud.net  |  "Character Code Finder"  |  http://www.mauvecloud.net/charsets/CharCodeFinder.html
+//
+//   www.toptal.com  |  "HTML Arrow Symbols, Entities and Codes — Toptal Designers"  |  https://www.toptal.com/designers/htmlarrows/arrows/
 //
 // ------------------------------------------------------------

@@ -523,9 +523,28 @@ If ($True) {
 
         # ------------------------------
 
-        } ElseIf (${Each_Header_Units} -Eq "°C") {
+        } ElseIf ((${Each_Header_Units} -Eq "°C") -Or (${Each_Header_Units} -Eq "�C")) {
           #
           # Degrees Celsius
+          #
+
+          #       If (${Each_Header_Name} -Match "^CPU \(Tctl\/Tdie\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^GPU Temperature$")          { ${Temp_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^GPU Hot Spot Temperature$") { ${Temp_GPU_Hotspot}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^Chipset$")                  { ${Temp_Motherboard_PCH_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^T_Sensor$")                 { ${Temp_Motherboard_T_SENSOR}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^Drive Temperature$")        { ${Temp_SSD}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^DIMM\[0\] Temperature$")    { ${Temp_RAM_DIMM_0}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^DIMM\[1\] Temperature$")    { ${Temp_RAM_DIMM_1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^DIMM\[2\] Temperature$")    { ${Temp_RAM_DIMM_2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # } ElseIf (${Each_Header_Name} -Match "^DIMM\[3\] Temperature$")    { ${Temp_RAM_DIMM_3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          # }
+
+        # ------------------------------
+
+        } Else {
+          #
+          # Fallthrough
           #
 
                 If (${Each_Header_Name} -Match "^CPU \(Tctl\/Tdie\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -533,11 +552,11 @@ If ($True) {
           } ElseIf (${Each_Header_Name} -Match "^GPU Hot Spot Temperature$") { ${Temp_GPU_Hotspot}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^Chipset$")                  { ${Temp_Motherboard_PCH_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^T_Sensor$")                 { ${Temp_Motherboard_T_SENSOR}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+          } ElseIf (${Each_Header_Name} -Match "^Drive Temperature$")        { ${Temp_SSD}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^DIMM\[0\] Temperature$")    { ${Temp_RAM_DIMM_0}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^DIMM\[1\] Temperature$")    { ${Temp_RAM_DIMM_1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^DIMM\[2\] Temperature$")    { ${Temp_RAM_DIMM_2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^DIMM\[3\] Temperature$")    { ${Temp_RAM_DIMM_3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-          } ElseIf (${Each_Header_Name} -Match "^Drive Temperature$")        { ${Temp_SSD}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           }
 
         # ------------------------------
@@ -922,7 +941,7 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
 
 # @("Avg","Max","Min","HWiNFO") | ForEach-Object {
 
-@("Avg","Max","Min") | ForEach-Object {
+@("Avg","Max","Min","Units") | ForEach-Object {
 
   $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";

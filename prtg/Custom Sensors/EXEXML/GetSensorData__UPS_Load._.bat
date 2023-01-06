@@ -1,1 +1,1 @@
-TYPE C:\ISO\HWiNFO64\Sensors\UPS_Load.W.json
+TYPE C:\ISO\HWiNFO64\Sensors\UPS_Load._.json

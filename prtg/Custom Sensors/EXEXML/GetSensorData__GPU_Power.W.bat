@@ -1,1 +1,1 @@
-TYPE C:\ISO\HWiNFO64\Sensors\GPU_Power.W.json
+TYPE C:\ISO\HWiNFO64\Sensors\GPU_Power*.W.json

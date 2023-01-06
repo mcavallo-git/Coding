@@ -209,7 +209,7 @@ If ($True) {
     # Output the sensor data to header-named files named based on the header column
     #
 
-    If ($True) {
+    If ($False) {
 
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
         

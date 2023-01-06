@@ -295,13 +295,21 @@ Mostly Linux compatible:
 ▾					Black Down-Pointing Small Triangle  |  https://www.compart.com/en/unicode/U+25BE
 
 
-⭐					White Medium Star  |  https://www.compart.com/en/unicode/U+2B50
-★				 	Black Star  |  https://www.compart.com/en/unicode/U+2605
-☆				 	White Star  |  https://www.compart.com/en/unicode/U+2606
-✦					Black Four Pointed Star  |  https://www.compart.com/en/unicode/U+2726
+🌡️				 Thermometer Emoji  |  https://emojipedia.org/thermometer/  |   "$([char]0xD83C+[char]0xDF21+[char]0xFE0F)"
+🌡				Thermometer  (&#x1F321;) |  https://www.compart.com/en/unicode/U+1F321  |   "$([char]0xD83C+[char]0xDF21)"
 
 
-==--  iOS Emojis - Audio-Related  --==
+☀️			 Sun Emoji |  https://emojipedia.org/sun/  |   "$([char]0x2600+[char]0xFE0F)"
+☀				 Black Sun with Rays  (&#x2600;) |  https://www.compart.com/en/unicode/U+1F321  |   "$([char]0x2600)"
+
+
+⭐				White Medium Star  |  https://www.compart.com/en/unicode/U+2B50
+★				 Black Star  |  https://www.compart.com/en/unicode/U+2605
+☆				 White Star  |  https://www.compart.com/en/unicode/U+2606
+✦				 Black Four Pointed Star  |  https://www.compart.com/en/unicode/U+2726
+
+
+==--  Emojis - Audio-Related  --==
 
 
 🎧 				Headphone  |  https://www.compart.com/en/unicode/U+1F3A7

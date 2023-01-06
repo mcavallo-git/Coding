@@ -7,6 +7,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '   Name/Description:
 '     HWiNFO64_AtLogon_AsAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run with highest privileges (CHECKED)
+'
 '   Trigger:
 '     On a schedule
 '       At 00:00 every day - After triggered, repeat every 1 minute for a duration of 1439 minutes
@@ -14,10 +18,6 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\HWiNFO64_AtLogon_AsAdmin.vbs"
-'
-'   Run only when user is logged on (CHECKED)
-'   Run with highest privileges (CHECKED)
-'
 '
 ' Note(s):
 '   - Set Remote Sensor Monitor port in file "C:\ISO\RemoteSensorMonitor\DefaultPort.txt"

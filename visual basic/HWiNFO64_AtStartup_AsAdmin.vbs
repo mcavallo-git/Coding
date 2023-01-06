@@ -8,8 +8,9 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '     HWiNFO64_AtStartup_AsAdmin
 '
 '   Trigger:
-'     On a schedule
-'       At 00:00 every day - After triggered, repeat every 1 minute for a duration of 1439 minutes
+'     At startup
+'       Delay task for 45 seconds
+'       After triggered, repeat every 1 minute for a duration of 1439 minutes
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

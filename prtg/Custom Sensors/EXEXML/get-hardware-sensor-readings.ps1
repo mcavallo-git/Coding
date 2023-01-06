@@ -419,6 +419,8 @@ If ($True) {
         $MinMaxAvg_Results.(${Each_Header_Name}).("Min") = (${Each_MinMaxAverage}.Minimum);
         $MinMaxAvg_Results.(${Each_Header_Name}).("Units") = ("${Each_Header_Units}");
 
+        $Each_MinMaxAverage = $Null;
+
       }
 
     }

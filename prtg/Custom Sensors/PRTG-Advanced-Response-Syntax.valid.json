@@ -3,11 +3,16 @@
     "result": [
       {
         "channel": "First channel",
+        "unit": "Temperature",
+        "float": 0,
         "value": 10
       },
       {
         "channel": "Second channel",
-        "value": 20
+        "unit": "Temperature",
+        "float": 1,
+        "decimalmode": 3,
+        "value": 20.012345
       }
     ]
   }

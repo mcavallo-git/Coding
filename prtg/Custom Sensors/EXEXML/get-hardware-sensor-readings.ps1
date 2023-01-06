@@ -527,6 +527,7 @@ If ($True) {
           #
           # Degrees Celsius
           #
+          $Each_Header_Units = (([string][char]0xB0)+"C");
 
                 If (${Each_Header_Name} -Match "^CPU \(Tctl\/Tdie\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^GPU Temperature$")          { ${Temp_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));

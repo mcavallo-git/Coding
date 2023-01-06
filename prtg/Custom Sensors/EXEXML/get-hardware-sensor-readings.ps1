@@ -218,7 +218,7 @@ If ($True) {
       }
 
 
-      $OutputJson = @{
+      $Output_HashTable = @{
         "prtg"= @{
           "result"=@(
             @{
@@ -248,22 +248,19 @@ If ($True) {
           )
         }
       };
-
-      $OutputJson | ConvertTo-Json -Depth 50;
-
-      # Write-Host "------------------------------------------------------------";
-      # $Results_Fullpath;
-      # $Each_MinMaxAvg;
+      $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50);
 
       # Handle invalid characters in sensor names
-      $Results_Basename=(("${Each_Header_Name}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
-      $Results_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Results_Basename}");
-      # Output the results to sensor-specific files
-      If ([String]::IsNullOrEmpty(${SensorValue})) {
-        # Set-Content -LiteralPath ("${Results_Fullpath}") -Value (":${Sensor_ErrorMessage_HWiNFO}") -NoNewline;
-      } Else {
-        # Set-Content -LiteralPath ("${Results_Fullpath}") -Value ("${SensorValue}:OK") -NoNewline;
+      $Output_Basename=(("${Each_Header_Name}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
+      $Output_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Output_Basename}");
+
+      # Handle errors in the output JSON
+      If ([String]::IsNullOrEmpty(${Output_Json})) {
+        $Output_Json = ("{`"prtg`":{`"error`":1,`"text`":`"${Sensor_ErrorMessage_HWiNFO}`"}}");
       }
+      
+      # Output the results to sensor-specific files
+      Set-Content -LiteralPath ("${Output_Fullpath}") -Value ("${Output_Json}") -NoNewline;
 
     }
 

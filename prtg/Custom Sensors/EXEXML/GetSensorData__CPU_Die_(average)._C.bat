@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\CPU_Die_(average)._C.json

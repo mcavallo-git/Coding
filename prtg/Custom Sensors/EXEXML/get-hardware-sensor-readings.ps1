@@ -80,7 +80,7 @@ If ($True) {
 #        > Download Remote Sensor Monitor:  https://www.hwinfo.com/forum/threads/introducing-remote-sensor-monitor-a-restful-web-server.1025/
 #        > Setup a Scheduled Task to run HWiNFO & Remote Sensor Monitor at machine startup (not logon)
 
-If ($True) {
+If ($False) {
 
   $RSM_Dirname="C:\ISO\RemoteSensorMonitor";
 
@@ -926,7 +926,9 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
   New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}\Sensors") | Out-Null;
 }
 
-@("Avg","Max","Min","HWiNFO") | ForEach-Object {
+# @("Avg","Max","Min","HWiNFO") | ForEach-Object {
+
+@("Avg","Max","Min") | ForEach-Object {
 
   $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";

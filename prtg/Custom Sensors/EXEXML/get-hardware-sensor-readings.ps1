@@ -360,7 +360,7 @@ If ($True) {
         $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
 
         $EachSensorReading_Obj = @{};
-        $Each_SensorDescription = (${CsvImport}["Descriptions"][${i_Column}] -Replace "`"", "");
+        $Each_SensorDescription = (${CsvImport}["Headers"][${i_Column}] -Replace "`"", "");
 
         $EachSensorReading_Obj["Average"] = (${Each_MinMaxAverage}.Average);
         $EachSensorReading_Obj["Maximum"] = (${Each_MinMaxAverage}.Maximum);

@@ -416,10 +416,10 @@ If ($True) {
         }
 
         $MinMaxAvg_Results.(${Each_Header_Name}) = @{};
-        $MinMaxAvg_Results.(${Each_Header_Name}).("Units") = "${Each_Header_Units}";
         $MinMaxAvg_Results.(${Each_Header_Name}).("Avg") = (${Each_MinMaxAverage}.Average);
         $MinMaxAvg_Results.(${Each_Header_Name}).("Max") = (${Each_MinMaxAverage}.Maximum);
         $MinMaxAvg_Results.(${Each_Header_Name}).("Min") = (${Each_MinMaxAverage}.Minimum);
+        $MinMaxAvg_Results.(${Each_Header_Name}).("Units") = ("${Each_Header_Units}");
 
         # ------------------------------
 

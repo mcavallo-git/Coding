@@ -21,7 +21,6 @@ Write-Host "";
 Write-Host "Output_Dirname: `"${Output_Dirname}`"";
 Write-Host "";
 
-
 Set-Content -LiteralPath ("${Output_Dirname}\${Valid_Basename}") -Value (Get-Date) -NoNewline;
 
 notepad.exe "${Output_Dirname}\${Valid_Basename}"

@@ -15,7 +15,6 @@ If ($True) {
   $Clock_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-CPU-Core";};
   $Clock_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Core";};
   $Clock_GPU_Memory = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Memory";};
-  $Clock_GPU_Shader = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Shader";};
   $Clock_RAM_DIMMS = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-RAM";};
 
   $Load_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-CPU";};
@@ -163,7 +162,6 @@ If ($False) {
 
                 If (${SensorName} -Match "^GPU Clock") {                     $Clock_GPU_Core.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Memory Clock") {              $Clock_GPU_Memory.HWiNFO=(${SensorValue});
-        # } ElseIf (${SensorName} -Match "^GPU Shader Clock") {              $Clock_GPU_Shader.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Core Load") {                 $Load_GPU_Core.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Memory Controller Load") {    $Load_GPU_MemoryController.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Memory Usage") {              $Load_GPU_MemoryUsage.HWiNFO=(${SensorValue});
@@ -580,8 +578,6 @@ If ($False) {
 
   } Else {
 
-    # $CsvHeadersArr_OHW = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
-
     $RowCount_HeaderRows=(2);
     $RowCount_DataRows=(60);
 
@@ -804,9 +800,6 @@ If ($False) {
         } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Memory") {
           ${Clock_GPU_Memory}.(${_}) = (${Each_Value}.(${_}));
 
-        } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Shader") {
-          ${Clock_GPU_Shader}.(${_}) = (${Each_Value}.(${_}));
-
           # ------------------------------
 
         # } ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
@@ -963,12 +956,6 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
     Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Memory}.Logfile).${_}.txt";
   } Else {
     Write-Output "$(${Clock_GPU_Memory}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Memory}.Logfile).${_}.txt";
-  }
-  # Clock - GPU Shader
-  If ([String]::IsNullOrEmpty(${Clock_GPU_Shader}.(${_}))) {  # May equal zero without errors
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Shader}.Logfile).${_}.txt";
-  } Else {
-    Write-Output "$(${Clock_GPU_Shader}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_GPU_Shader}.Logfile).${_}.txt";
   }
   # Clock - RAM DIMMs
   If ([String]::IsNullOrEmpty(${Clock_RAM_DIMMS}.(${_}))) {  # May equal zero without errors

@@ -261,7 +261,7 @@ If ($True) {
           $Output_HashTable.prtg.result += (@{ "value"=${Each_Min}; "channel"="${Each_Header_Name} (Min)"; "unit"="Custom"; "customunit"="${Each_Header_Units}"; "float"=1; "decimalmode"=3; });
         }
 
-        # Error - All of of avg/max/min values found to be empty, send error in the JSON body (instead of sending the empty data)
+        # Error - All of of avg/max/min values found to be empty, send error in the JSON body (instead of sending empty data)
         If (${EmptyValues} -GE 3) {
           $Output_HashTable = @{"prtg"=@{"error"=1;"text"="${Sensor_ErrorMessage_HWiNFO}";};};
         }

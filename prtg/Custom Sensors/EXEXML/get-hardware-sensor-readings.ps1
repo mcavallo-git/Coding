@@ -277,7 +277,7 @@ If ($True) {
         $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50 -Compress);
 
         # Handle invalid characters in sensor names - Note that PRTG does not function if certain unicode characters are in the filename (such as a degree symbol)
-        $Output_Basename=(((("${Each_Header_Name}.${Each_Header_Units}.json").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_') -Replace "[^a-zA-Z0-9-_%\[\]\(\)\+\.]","_") -Replace "\.\.",".");
+        $Output_Basename=(((("${Each_Header_Name}.${Each_Header_Units}.json").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_') -Replace "[^a-zA-Z0-9-_\[\]\(\)\+\.]","_") -Replace "\.\.",".");
         $Output_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Output_Basename}");
 
         # Output the results to sensor-specific files

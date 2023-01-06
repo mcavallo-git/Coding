@@ -1,8 +1,10 @@
 
 # ------------------------------------------------------------
+#
 # Set-Variable
 #  |
 #  |--> Ex) Set the variable  [ $IsLinux ]  (if it isn't already set)
+#
 
 
 SV IsLinux $(If ((Test-Path '/bin') -And (-Not (Test-Path '/Library'))) { 1 } Else { 0 });
@@ -21,9 +23,11 @@ If (-Not (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue')) {
 
 
 # ------------------------------------------------------------
+#
 # Get-Variable
 #  |
 #  |--> Ex) Get the value held by variable [ $IsLinux ]
+#
 
 (GV IsLinux).Value;
 
@@ -41,11 +45,13 @@ Set-Variable -Name 'HTTP_Status' -Value ([Int]((Get-Variable -Name 'HTTP_Respons
 
 
 # ------------------------------------------------------------
+#
 # Clear-Variable
 #  |
 #  |--> Deletes the value of a variable & KEEPS the variable reference.
 #  |
 #  |--> Ex) Delete the value-of variable [ $IsLinux ]
+#
 
 Clear-Variable -Name 'IsLinux';
 
@@ -53,11 +59,13 @@ If (Get-Variable -Name 'IsLinux' -ErrorAction 'SilentlyContinue') { 1 } Else { 0
 
 
 # ------------------------------------------------------------
+#
 # Remove-Variable
 #  |
 #  |--> Deletes the value of a variable & DELETES the variable reference.
 #  |
 #  |--> Ex) Delete the value-of AND unset variable [ $IsLinux ]
+#
 
 Remove-Variable -Name 'IsLinux';
 

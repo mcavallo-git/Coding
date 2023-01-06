@@ -261,7 +261,7 @@ If ($True) {
             )
           }
         };
-        $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50);
+        $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50 -Compress);
 
         # Handle invalid characters in sensor names
         $Output_Basename=(("${Each_Header_Name}.${Each_Header_Units}.json").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');

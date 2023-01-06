@@ -1,0 +1,15 @@
+{
+  "prtg": {
+    "result": [
+      {
+        "channel": "First channel",
+        "value": 10
+      },
+      {
+        "channel": "Second channel",
+        "value": 20
+      }
+    ]
+  }
+}
+// https://www.paessler.com/manuals/prtg/custom_sensors

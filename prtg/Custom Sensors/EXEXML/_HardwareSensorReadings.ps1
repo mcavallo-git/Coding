@@ -242,7 +242,8 @@ If ($True) {
         If ([String]::IsNullOrEmpty(${Each_Avg})) {
           $EmptyValues++;
         } Else {
-          $Append_Result = @{ "value"=[Math]::Round(${Each_Avg},3); "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          $Mantissa_Digits = If (([Decimal]"${Each_Avg}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Avg}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Avg}") -LT (1000.0)) { 1 } Else { 0 };
+          $Append_Result = @{ "value"=[Math]::Round(${Each_Avg},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") {
             $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
           };
@@ -253,7 +254,8 @@ If ($True) {
         If ([String]::IsNullOrEmpty(${Each_Max})) {
           $EmptyValues++;
         } Else {
-          $Append_Result = @{ "value"=[Math]::Round(${Each_Max},3); "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          $Mantissa_Digits = If (([Decimal]"${Each_Max}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Max}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Max}") -LT (1000.0)) { 1 } Else { 0 };
+          $Append_Result = @{ "value"=[Math]::Round(${Each_Max},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") {
             $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
           };
@@ -264,7 +266,8 @@ If ($True) {
         If ([String]::IsNullOrEmpty(${Each_Min})) {
           $EmptyValues++;
         } Else {
-          $Append_Result = @{ "value"=[Math]::Round(${Each_Min},3); "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          $Mantissa_Digits = If (([Decimal]"${Each_Min}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Min}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Min}") -LT (1000.0)) { 1 } Else { 0 };
+          $Append_Result = @{ "value"=[Math]::Round(${Each_Min},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") {
             $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
           };
@@ -289,157 +292,157 @@ If ($True) {
 
     }
 
-    # ------------------------------
+    ## ------------------------------
+    ##
+    ## Parse the sensors by their headers & place them into their respective categories
+    ##
     #
-    # Parse the sensors by their headers & place them into their respective categories
+    # If ($True) {
+    # 
+    #   ${MinMaxAvg_Results}.Keys | ForEach-Object {
+    #     # Walk through the parsed min/max array
+    # 
+    #     $Each_Header_Name_Unique=("$_");
+    #     $Each_Header_Name=(("${Each_Header_Name_Unique}").Split("${Delimiter}")[0]);
+    # 
+    #     $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name_Unique}));
+    # 
+    #     $Each_Header_Units=(${Each_MinMaxAvg}.Units);
+    # 
+    #     $Each_Avg=(${Each_MinMaxAvg}.Avg);
+    #     $Each_Max=(${Each_MinMaxAvg}.Max);
+    #     $Each_Min=(${Each_MinMaxAvg}.Min);
+    # 
+    #     # ------------------------------
+    # 
+    #     @("Avg","Max","Min","Units","UnitCategory") | ForEach-Object {
+    # 
+    #       # ---------------
+    # 
+    #       If (${Each_Header_Units} -Eq "%") {
+    #         #
+    #         # Percentages
+    #         #
+    #         ${Each_MinMaxAvg}.("UnitCategory") = "Percent";
+    # 
+    #               If (${Each_Header_Name} -Match "^Drive Remaining Life")         { ${Lifespan_SSD_RemainingLife}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Core Load")                { ${Load_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Memory Controller Load")   { ${Load_GPU_MemoryController}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Memory Usage")             { ${Load_GPU_MemoryUsage}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Total CPU Usage")              { ${Load_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Total GPU Power \[% of TDP\]") { ${Load_GPU_Power_TDP_Percentage}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^UPS Load")                     { ${Load_UPS_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_CHA_FAN1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_CHA_FAN2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         }
+    # 
+    #       # ---------------
+    # 
+    #       } ElseIf (${Each_Header_Units} -Eq "MHz") {
+    #         #
+    #         # MHz (Megahertz)
+    #         #
+    #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
+    # 
+    #               If (${Each_Header_Name} -Match "^Core Clocks \(avg\)$") { ${Clock_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Clock$")           { ${Clock_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Memory Clock$")    { ${Clock_GPU_Memory}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Memory Clock$")        { ${Clock_RAM_DIMMS}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         }
+    # 
+    #       # ---------------
+    # 
+    #       } ElseIf (${Each_Header_Units} -Eq "RPM") {
+    #         #
+    #         # RPM (Rotations Per Minute)
+    #         #
+    #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
+    # 
+    #               If (${Each_Header_Name} -Match "^AIO Pump") { ${Speed_FAN_RPM_AIO_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Chassis1$") { ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Chassis2$") { ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Chassis3$") { ${Speed_FAN_RPM_CHA_FAN3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Chipset Fan$") { ${Speed_FAN_RPM_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #       # } ElseIf (${Each_Header_Name} -Match "^CPU$") { ${Speed_FAN_RPM_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #       # } ElseIf (${Each_Header_Name} -Match "^CPU_OPT$") { ${Speed_FAN_RPM_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^W_PUMP\+$") { ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         }
+    # 
+    #       # ---------------
+    # 
+    #       } ElseIf (${Each_Header_Units} -Eq "V") {
+    #         #
+    #         # Voltages
+    #         #
+    #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
+    # 
+    #               If (${Each_Header_Name} -Match "^CPU Core Voltage") { ${Voltage_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Core Voltage") { ${Voltage_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU PCIe")         { ${Voltage_GPU_PCIE_12V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^3VCC$")            { ${Voltage_Motherboard_03V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^\+5V$")            { ${Voltage_Motherboard_05V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^\+12V$")           { ${Voltage_Motherboard_12V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^VBAT$")            { ${Voltage_Motherboard_VBAT}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         }
+    # 
+    #       # ---------------
+    # 
+    #       } ElseIf (${Each_Header_Units} -Eq "W") {
+    #         #
+    #         # Watts
+    #         #
+    #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
+    # 
+    #               If (${Each_Header_Name} -Match "^CPU Package Power") { ${Power_CPU_Package}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Power")         { ${Power_GPU_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^UPS Load")          { ${Power_UPS_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         }
+    # 
+    #       # ---------------
+    # 
+    #       } ElseIf (${Each_Header_Units} -Match ".+C") {
+    #         #
+    #         # Degrees Celsius
+    #         #
+    #         ${Each_MinMaxAvg}.("UnitCategory") = "Temperature";
+    # 
+    #         $Each_Header_Units = (([string]([char]0xB0))+("C"));
+    # 
+    #               If (${Each_Header_Name} -Match "^CPU Die \(average\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Temperature$")          { ${Temp_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^GPU Hot Spot Temperature$") { ${Temp_GPU_Hotspot}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Chipset$")                  { ${Temp_Motherboard_PCH_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^T_Sensor$")                 { ${Temp_Motherboard_T_SENSOR}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^Drive Temperature$")        { ${Temp_SSD}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^DIMM\[0\] Temperature$")    { ${Temp_RAM_DIMM_0}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^DIMM\[1\] Temperature$")    { ${Temp_RAM_DIMM_1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^DIMM\[2\] Temperature$")    { ${Temp_RAM_DIMM_2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         } ElseIf (${Each_Header_Name} -Match "^DIMM\[3\] Temperature$")    { ${Temp_RAM_DIMM_3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+    #         }
+    # 
+    #       # ---------------
+    # 
+    #       } Else {
+    #         #
+    #         # Fallthrough
+    #         #
+    # 
+    #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
+    # 
+    # 
+    #       }
+    # 
+    #       # ------------------------------
+    # 
+    #     }
+    # 
+    #   }
+    # 
+    # }
     #
-
-    If ($True) {
-
-      ${MinMaxAvg_Results}.Keys | ForEach-Object {
-        # Walk through the parsed min/max array
-
-        $Each_Header_Name_Unique=("$_");
-        $Each_Header_Name=(("${Each_Header_Name_Unique}").Split("${Delimiter}")[0]);
-
-        $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name_Unique}));
-
-        $Each_Header_Units=(${Each_MinMaxAvg}.Units);
-
-        $Each_Avg=(${Each_MinMaxAvg}.Avg);
-        $Each_Max=(${Each_MinMaxAvg}.Max);
-        $Each_Min=(${Each_MinMaxAvg}.Min);
-
-        # ------------------------------
-
-        @("Avg","Max","Min","Units","UnitCategory") | ForEach-Object {
-
-          # ---------------
-
-          If (${Each_Header_Units} -Eq "%") {
-            #
-            # Percentages
-            #
-            ${Each_MinMaxAvg}.("UnitCategory") = "Percent";
-
-                  If (${Each_Header_Name} -Match "^Drive Remaining Life")         { ${Lifespan_SSD_RemainingLife}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Core Load")                { ${Load_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Memory Controller Load")   { ${Load_GPU_MemoryController}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Memory Usage")             { ${Load_GPU_MemoryUsage}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Total CPU Usage")              { ${Load_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Total GPU Power \[% of TDP\]") { ${Load_GPU_Power_TDP_Percentage}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^UPS Load")                     { ${Load_UPS_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_CHA_FAN1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_CHA_FAN2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            }
-
-          # ---------------
-
-          } ElseIf (${Each_Header_Units} -Eq "MHz") {
-            #
-            # MHz (Megahertz)
-            #
-            ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-
-                  If (${Each_Header_Name} -Match "^Core Clocks \(avg\)$") { ${Clock_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Clock$")           { ${Clock_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Memory Clock$")    { ${Clock_GPU_Memory}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Memory Clock$")        { ${Clock_RAM_DIMMS}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            }
-
-          # ---------------
-
-          } ElseIf (${Each_Header_Units} -Eq "RPM") {
-            #
-            # RPM (Rotations Per Minute)
-            #
-            ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-
-                  If (${Each_Header_Name} -Match "^AIO Pump") { ${Speed_FAN_RPM_AIO_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Chassis1$") { ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Chassis2$") { ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Chassis3$") { ${Speed_FAN_RPM_CHA_FAN3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Chipset Fan$") { ${Speed_FAN_RPM_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-          # } ElseIf (${Each_Header_Name} -Match "^CPU$") { ${Speed_FAN_RPM_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-          # } ElseIf (${Each_Header_Name} -Match "^CPU_OPT$") { ${Speed_FAN_RPM_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^W_PUMP\+$") { ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            }
-
-          # ---------------
-
-          } ElseIf (${Each_Header_Units} -Eq "V") {
-            #
-            # Voltages
-            #
-            ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-
-                  If (${Each_Header_Name} -Match "^CPU Core Voltage") { ${Voltage_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Core Voltage") { ${Voltage_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU PCIe")         { ${Voltage_GPU_PCIE_12V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^3VCC$")            { ${Voltage_Motherboard_03V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^\+5V$")            { ${Voltage_Motherboard_05V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^\+12V$")           { ${Voltage_Motherboard_12V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^VBAT$")            { ${Voltage_Motherboard_VBAT}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            }
-
-          # ---------------
-
-          } ElseIf (${Each_Header_Units} -Eq "W") {
-            #
-            # Watts
-            #
-            ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-
-                  If (${Each_Header_Name} -Match "^CPU Package Power") { ${Power_CPU_Package}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Power")         { ${Power_GPU_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^UPS Load")          { ${Power_UPS_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            }
-
-          # ---------------
-
-          } ElseIf (${Each_Header_Units} -Match ".+C") {
-            #
-            # Degrees Celsius
-            #
-            ${Each_MinMaxAvg}.("UnitCategory") = "Temperature";
-
-            $Each_Header_Units = (([string]([char]0xB0))+("C"));
-
-                  If (${Each_Header_Name} -Match "^CPU Die \(average\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Temperature$")          { ${Temp_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^GPU Hot Spot Temperature$") { ${Temp_GPU_Hotspot}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Chipset$")                  { ${Temp_Motherboard_PCH_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^T_Sensor$")                 { ${Temp_Motherboard_T_SENSOR}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^Drive Temperature$")        { ${Temp_SSD}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^DIMM\[0\] Temperature$")    { ${Temp_RAM_DIMM_0}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^DIMM\[1\] Temperature$")    { ${Temp_RAM_DIMM_1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^DIMM\[2\] Temperature$")    { ${Temp_RAM_DIMM_2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            } ElseIf (${Each_Header_Name} -Match "^DIMM\[3\] Temperature$")    { ${Temp_RAM_DIMM_3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
-            }
-
-          # ---------------
-
-          } Else {
-            #
-            # Fallthrough
-            #
-
-            ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-
-
-          }
-
-          # ------------------------------
-
-        }
-
-      }
-
-    }
-
-    # ------------------------------
+    ## ------------------------------
 
   }
 
@@ -1366,6 +1369,8 @@ If ([String]::IsNullOrEmpty("${RunDuration}")) {
 #   docs.microsoft.com  |  "wmic - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/wmisdk/wmic?redirectedfrom=MSDN
 #
 #   docs.microsoft.com  |  "WMIC switches: Windows Management Instrumentation (WMI); Scripting | Microsoft Docs"  |  https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2003/cc787035(v=ws.10)?redirectedfrom=MSDN
+#
+#   math.stackexchange.com  |  "terminology - What are the numbers before and after the decimal point referred to in mathematics? - Mathematics Stack Exchange"  |  https://math.stackexchange.com/a/64045
 #
 #   pastebin.com  |  "[Batch] calc - Pastebin.com"  |  https://pastebin.com/Kr35D3A4
 #

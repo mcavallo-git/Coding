@@ -11,6 +11,10 @@ encoded_b64=$(echo -n ${plaintext} | base64 --wrap=0;); \
 echo $encoded_b64;
 
 
+### ENCODE (for secrets - to not show as plaintext, only show base64 encoded output)
+echo ""; read -p "Enter a string to base64 encode:  " -s -a plaintext -t 60 <'/dev/tty'; echo ""; echo ""; echo -n ${plaintext} | base64 --wrap=0; unset plaintext; echo ""; echo "";
+
+
 # ------------------------------------------------------ #
 
 ### DECODE

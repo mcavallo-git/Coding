@@ -1,5 +1,5 @@
 @ECHO OFF
-SET LOGFILE=C:\ISO\OpenHardwareMonitor\Sensors\Power-CPU.Avg.txt
+SET LOGFILE=C:\ISO\OpenHardwareMonitor\Sensors\Power-CPU-Package.Avg.txt
 IF NOT EXIST "%LOGFILE%" (
 ECHO :ERROR - File not found: %LOGFILE%
 EXIT 2

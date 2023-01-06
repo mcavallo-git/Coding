@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\GPU_Clock.MHz.json

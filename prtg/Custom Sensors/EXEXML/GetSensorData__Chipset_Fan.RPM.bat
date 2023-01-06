@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\Chipset_Fan.RPM.json

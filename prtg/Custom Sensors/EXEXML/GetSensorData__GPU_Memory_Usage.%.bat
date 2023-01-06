@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\GPU_Memory_Usage.%.json

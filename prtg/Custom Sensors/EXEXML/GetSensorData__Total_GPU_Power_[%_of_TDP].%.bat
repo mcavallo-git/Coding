@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\Total_GPU_Power_[%_of_TDP].%.json

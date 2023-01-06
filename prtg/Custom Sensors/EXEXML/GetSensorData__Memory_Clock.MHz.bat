@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\Memory_Clock.MHz.json

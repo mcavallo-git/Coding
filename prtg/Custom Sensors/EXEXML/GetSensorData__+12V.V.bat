@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\+12V.V.json

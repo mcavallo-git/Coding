@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\AUXFANIN4.RPM.json

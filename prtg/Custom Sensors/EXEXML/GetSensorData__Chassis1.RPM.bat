@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\Chassis1.RPM.json

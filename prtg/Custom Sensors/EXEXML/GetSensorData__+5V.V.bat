@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\+5V.V.json

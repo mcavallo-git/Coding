@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\GPU_Hot_Spot_Temperature._C.json

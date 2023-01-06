@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\CPU_(Tctl_Tdie)._C.json

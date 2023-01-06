@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\Drive_Temperature._C.json

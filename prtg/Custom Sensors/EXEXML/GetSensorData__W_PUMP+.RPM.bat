@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\W_PUMP+.RPM.json

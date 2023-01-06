@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\GPU_PCIe_+12V_Input_Voltage.V.json

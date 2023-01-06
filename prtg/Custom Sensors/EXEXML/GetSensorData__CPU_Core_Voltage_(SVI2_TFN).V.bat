@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\CPU_Core_Voltage_(SVI2_TFN).V.json

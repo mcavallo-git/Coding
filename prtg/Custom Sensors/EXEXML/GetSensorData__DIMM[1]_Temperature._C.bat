@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\DIMM[1]_Temperature._C.json

@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\Core_Clocks_(avg).MHz.json

@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\Total_CPU_Usage.%.json

@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\CPU_Package_Power.W.json

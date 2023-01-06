@@ -7,18 +7,17 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '   Name/Description:
 '     HWiNFO64_AtStartup_AsAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (UNCHECKED)
+'     Run with highest privileges (CHECKED)
+'
 '   Trigger:
 '     At startup
-'       Delay task for 45 seconds
-'       After triggered, repeat every 1 minute for a duration of 1439 minutes
+'       Delay task for 45 seconds - After triggered, repeat every 1 minute for a duration of 1439 minutes
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\HWiNFO64_AtStartup_AsAdmin.vbs"
-'
-'   Run only when user is logged on (UNCHECKED)
-'   Run with highest privileges (CHECKED)
-'
 '
 ' Note(s):
 '   - Set Remote Sensor Monitor port in file "C:\ISO\RemoteSensorMonitor\DefaultPort.txt"

@@ -185,7 +185,7 @@ If ($True) {
               If ($MinMaxAvg_Results.(${Each_Header_Name}) -Eq $Null) {
                 Break;
               } Else {
-                $Each_Header_Name = "${Temp_NameBackup} xzx Duplicate #${i}";
+                $Each_Header_Name = "${Temp_NameBackup}👍Duplicate #${i}";
               }
             }
           }
@@ -211,7 +211,7 @@ If ($True) {
 
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
         
-        $Each_Header_Name=(("$_").Split(" ~~ ")[0]);
+        $Each_Header_Name=(("$_").Split("👍")[0]);
 
         $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
           $Each_Header_Units=(${Each_MinMaxAvg}.Units);
@@ -292,7 +292,7 @@ If ($True) {
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
         # Walk through the parsed min/max array
 
-        $Each_Header_Name=(("$_").Split(" xzx ")[0]);
+        $Each_Header_Name=(("$_").Split("👍")[0]);
 
         $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
 

@@ -20,6 +20,11 @@ http://<your-prtg-server>/api/savenow.htm
 %ProgramData%\Paessler\PRTG Network Monitor\Configuration Auto-Backups
 
 
+# ------------------------------
+#
+# Note (from Paessler):
+#  "By default, PRTG always performs the backup at 3:08am. In case you need more frequent snapshots of the configuration due to a lot of changes made throughout the day. Proceed with the following steps in order to create multiple snapshots per day."
+#
 # ------------------------------------------------------------
 #
 # Citation(s)

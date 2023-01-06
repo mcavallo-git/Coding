@@ -185,7 +185,7 @@ If ($True) {
               If ($MinMaxAvg_Results.(${Each_Header_Name}) -Eq $Null) {
                 Break;
               } Else {
-                $Each_Header_Name = "${Temp_NameBackup} ~~ Duplicate #${i}";
+                $Each_Header_Name = "${Temp_NameBackup} xzx Duplicate #${i}";
               }
             }
           }
@@ -231,7 +231,16 @@ If ($True) {
           # $UnitCategory = "Custom";
         }
 
+        # Handle invalid characters in sensor names
+        $Output_Basename=(("${Each_Header_Name}.${Each_Header_Units}.json").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
+        $Output_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Output_Basename}");
+
+        # Build the output JSON as a hash table / arrays, then convert it to JSON afterward
         $Output_HashTable = @{
+          "Each_Header_Name" = "${Each_Header_Name}";
+          "Each_Header_Units" = "${Each_Header_Units}";
+          "Output_Basename" = "${Output_Basename}";
+          "Output_Fullpath" = "${Output_Fullpath}";
           "prtg"= @{
             "result"=@(
               @{
@@ -263,10 +272,6 @@ If ($True) {
         };
         $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50 -Compress);
 
-        # Handle invalid characters in sensor names
-        $Output_Basename=(("${Each_Header_Name}.${Each_Header_Units}.json").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
-        $Output_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Output_Basename}");
-
         # Handle errors in the output JSON
         If ([String]::IsNullOrEmpty(${Output_Json})) {
           $Output_Json = ("{`"prtg`":{`"error`":1,`"text`":`"${Sensor_ErrorMessage_HWiNFO}`"}}");
@@ -289,7 +294,7 @@ If ($True) {
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
         # Walk through the parsed min/max array
 
-        $Each_Header_Name=(("$_").Split(" ~~ ")[0]);
+        $Each_Header_Name=(("$_").Split(" xzx ")[0]);
 
         $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
 

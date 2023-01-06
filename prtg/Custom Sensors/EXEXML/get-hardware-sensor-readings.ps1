@@ -359,9 +359,23 @@ If ($True) {
       If (-Not ([String]::IsNullOrEmpty("${Each_ColumnHeader}"))) {
         # Only parse columns that have an indentifying header
 
-        $Each_Header_RegexParsed = ([Regex]::Match(${Each_ColumnHeader},'^(.*)(?: \[([^\]]+)\])?$').Captures.Groups);
-        $Each_Header_Name = ($Each_Header_RegexParsed[1].Value);
-        $Each_Header_Units = ($Each_Header_RegexParsed[2].Value);
+        If ($True) {
+
+          $RegexPattern_MatchAll = '^(.+)$';
+          $RegexPattern_NameAndUnits = '^(.+) \[([^\]]+)\]$';
+
+          $Each_Header_RegexParsed = ([Regex]::Match(${Each_ColumnHeader},"${RegexPattern_NameAndUnits}").Captures.Groups);
+          If (${Each_Header_RegexParsed}.Count -GE 3) { # 3 because of 2 capture groups plus the $0 capture group (the whole string)
+            $Each_Header_Name = ($Each_Header_RegexParsed[1].Value);
+            $Each_Header_Units = ($Each_Header_RegexParsed[2].Value);
+          } Else {
+            # Fallback approach
+            $Each_Header_RegexParsed = ([Regex]::Match(${Each_ColumnHeader},"${RegexPattern_MatchAll}").Captures.Groups);
+            $Each_Header_Name = ($Each_Header_RegexParsed[1].Value);
+            $Each_Header_Units = "";
+          }
+
+        }
 
         $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
 

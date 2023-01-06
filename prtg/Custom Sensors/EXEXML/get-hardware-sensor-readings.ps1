@@ -35,8 +35,8 @@ If ($True) {
   $Speed_FAN_PRC_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-SSD";};
   $Speed_FAN_PRC_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Pump";};
 
-  $Power_CPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-CPU";};
-  $Power_GPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-GPU";};
+  $Power_CPU_Package = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-CPU-Package";};
+  $Power_GPU_Total = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-GPU-Total";};
 
   $SSD_RemainingLife = @{Avg="";Max="";Min="";HWiNFO="";Logfile="SSD-RemainingLife";};
   $SSD_TotalHostWrites = @{Avg="";Max="";Min="";HWiNFO="";Logfile="SSD-RemainingLife";};
@@ -143,7 +143,7 @@ If ($True) {
 
                 If (${SensorName} -Match "^Core Clocks$") {                   $Clock_CPU_Core.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^Total CPU Usage$") {               $Load_CPU_Core.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^CPU Package Power$") {             $Power_CPU.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^CPU Package Power$") {             $Power_CPU_Package.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^CPU \(Tctl\/Tdie\)$") {            $Temp_CPU_Core.HWiNFO=(${SensorValue}); # Actual Highest temp
         # } ElseIf (${SensorName} -Match "^CPU Die \(average\)$") {           $Temp_CPU_Core.HWiNFO=(${SensorValue}); # Averaged temp
         # } ElseIf (${SensorName} -Match "^Core Temperatures$") {             $Temp_CPU_Core.HWiNFO=(${SensorValue}); # Aggregated Avg Temp
@@ -164,7 +164,7 @@ If ($True) {
           } ElseIf (${SensorName} -Match "^GPU Core Load") {                 $Load_GPU_Core.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Memory Controller Load") {    $Load_GPU_MemoryController.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Memory Usage") {              $Load_GPU_MemoryUsage.HWiNFO=(${SensorValue});
-          } ElseIf (${SensorName} -Match "^GPU Power") {                     $Power_GPU.HWiNFO=(${SensorValue});
+          } ElseIf (${SensorName} -Match "^GPU Power") {                     $Power_GPU_Total.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Temperature") {               $Temp_GPU_Core.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Hot Spot Temperature") {      $Temp_GPU_Hotspot.HWiNFO=(${SensorValue});
           } ElseIf (${SensorName} -Match "^GPU Core Voltage$") {             $Voltage_GPU_Core.HWiNFO=(${SensorValue});
@@ -427,89 +427,66 @@ If ($True) {
 
           # ------------------------------
 
-          If (${Each_SensorDescription} -Eq "Time") {
+          If (${Each_Header_Name} -Eq "Date/Time") {
             ${Time_Range}.(${_}) = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value}.(${_}))))) -UFormat ("%m/%d/%Y %H:%M:%S"));
 
             # ------------------------------
 
-          } ElseIf (${Each_SensorDescription} -Eq "CPU Clocks, CPU Core #1") {
+          } ElseIf (${Each_Header_Name} -Eq "CPU Clocks, CPU Core #1") {
             ${Clock_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "CPU Load, CPU Total") {
-            ${Load_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "CPU Power, CPU Cores") {
-            ${Power_CPU}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
-            ${Temp_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
-
-            # ------------------------------
-
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Core") {
-            ${Load_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {
-            ${Power_GPU}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Temps, GPU Core") {
-            ${Temp_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Memory") {
-            ${Load_GPU_MemoryUsage}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Core") {
+          } ElseIf (${Each_Header_Name} -Eq "GPU Clocks, GPU Core") {
             ${Clock_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Memory") {
+          } ElseIf (${Each_Header_Name} -Eq "GPU Clocks, GPU Memory") {
             ${Clock_GPU_Memory}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Shader") {
-            ${Clock_GPU_Shader}.(${_}) = (${Each_Value}.(${_}));
+          # ------------------------------
 
-            # ------------------------------
+          } ElseIf (${Each_Header_Name} -Eq "CPU Load, CPU Total") {
+            ${Load_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
+          } ElseIf (${Each_Header_Name} -Eq "GPU Load, GPU Core") {
+            ${Load_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
+          } ElseIf (${Each_Header_Name} -Eq "GPU Load, GPU Memory") {
+            ${Load_GPU_MemoryUsage}.(${_}) = (${Each_Value}.(${_}));
 
-          # } ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
-          #   ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
+          # ------------------------------
 
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  # Chassis Fan 1
+          } ElseIf (${Each_Header_Name} -Eq "CPU Power, CPU Cores") {
+            ${Power_CPU_Package}.(${_}) = (${Each_Value}.(${_}));
+          } ElseIf (${Each_Header_Name} -Eq "GPU Power, GPU Power") {
+            ${Power_GPU_Total}.(${_}) = (${Each_Value}.(${_}));
+
+          # ------------------------------
+
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Fans (RPM), Fan #1") {  # Chassis Fan 1
             ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #1") {  # Chassis Fan 1
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Fans (% PWM), Fan Control #1") {  # Chassis Fan 1
             ${Speed_FAN_PRC_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #3") {  # Chassis Fan 2
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Fans (RPM), Fan #3") {  # Chassis Fan 2
             ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  # Chassis Fan 2
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Fans (% PWM), Fan Control #3") {  # Chassis Fan 2
             ${Speed_FAN_PRC_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  # Chassis Fan 3
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Fans (RPM), Fan #4") {  # Chassis Fan 3
             ${Speed_FAN_RPM_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {  # Chassis Fan 3
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Fans (% PWM), Fan Control #4") {  # Chassis Fan 3
             ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
-            #
-            #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ Chassis Fan 3 Min. Duty Cycle (%) ] + [ Chassis Fan 3 Lower Temperature ]
-            #           ↓
-            #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 55.0 ] + [ 15.0 ]
-            #           ↓
-            #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 40.0 ]
-            #
-            $T_SENSOR_TEMP = ([Double](${Each_Value}.(${_})) - [Double](40.00));
-            If (${T_SENSOR_TEMP} -GT 0.0) {
-              ${Temp_Motherboard_T_SENSOR}.(${_}) = ${T_SENSOR_TEMP};
-            }
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  # W_PUMP+
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Fans (RPM), Fan #6") {  # W_PUMP+
             ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {  # W_PUMP+
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Fans (% PWM), Fan Control #6") {  # W_PUMP+
             ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
 
+          # ------------------------------
+
+          } ElseIf (${Each_Header_Name} -Eq "CPU Temps, CPU Package") {
+            ${Temp_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
+          } ElseIf (${Each_Header_Name} -Eq "GPU Temps, GPU Core") {
+            ${Temp_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Temps, Temperature #2") {
+            ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
+
+
             # ------------------------------
 
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Voltages, 3VCC") {  # + 3.3V PSU voltage
+          } ElseIf (${Each_Header_Name} -Eq "Mobo Voltages, 3VCC") {  # + 3.3V PSU voltage
             ${Voltage_Motherboard_03V}.(${_}) = (${Each_Value}.(${_}));
 
             # ------------------------------
@@ -754,7 +731,7 @@ If ($True) {
           ${Load_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
         } ElseIf (${Each_SensorDescription} -Eq "CPU Power, CPU Cores") {
-          ${Power_CPU}.(${_}) = (${Each_Value}.(${_}));
+          ${Power_CPU_Package}.(${_}) = (${Each_Value}.(${_}));
 
         } ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
           ${Temp_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
@@ -765,7 +742,7 @@ If ($True) {
           ${Load_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
         } ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {
-          ${Power_GPU}.(${_}) = (${Each_Value}.(${_}));
+          ${Power_GPU_Total}.(${_}) = (${Each_Value}.(${_}));
 
         } ElseIf (${Each_SensorDescription} -Eq "GPU Temps, GPU Core") {
           ${Temp_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
@@ -1053,16 +1030,16 @@ If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
   # ------------------------------
 
   # Power - CPU
-  If ([Math]::Ceiling("$(${Power_CPU}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Power_CPU_Package}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU_Package}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Power_CPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU}.Logfile).${_}.txt";
+    Write-Output "$(${Power_CPU_Package}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU_Package}.Logfile).${_}.txt";
   }
   # Power - GPU
-  If ([Math]::Ceiling("$(${Power_GPU}.(${_}))") -Eq 0) {
-    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU}.Logfile).${_}.txt";
+  If ([Math]::Ceiling("$(${Power_GPU_Total}.(${_}))") -Eq 0) {
+    Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU_Total}.Logfile).${_}.txt";
   } Else {
-    Write-Output "$(${Power_GPU}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU}.Logfile).${_}.txt";
+    Write-Output "$(${Power_GPU_Total}.${_}):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU_Total}.Logfile).${_}.txt";
   }
 
   # ------------------------------

@@ -1,0 +1,7 @@
+{
+  "prtg": {
+    "error": 1,
+    "text": "Your error message"
+  }
+}
+// https://www.paessler.com/manuals/prtg/custom_sensors

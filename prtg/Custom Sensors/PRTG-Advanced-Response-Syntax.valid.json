@@ -2,17 +2,25 @@
   "prtg": {
     "result": [
       {
-        "channel": "First channel",
-        "unit": "Temperature",
-        "float": 0,
-        "value": 10
-      },
-      {
-        "channel": "Second channel",
-        "unit": "Temperature",
+        "channel": "_____ (Avg)",
+        "unit": "_____",
         "float": 1,
         "decimalmode": 3,
-        "value": 20.012345
+        "value": _____
+      },
+      {
+        "channel": "_____ (Max)",
+        "unit": "_____",
+        "float": 1,
+        "decimalmode": 3,
+        "value": _____
+      },
+      {
+        "channel": "_____ (Min)",
+        "unit": "_____",
+        "float": 1,
+        "decimalmode": 3,
+        "value": _____
       }
     ]
   }

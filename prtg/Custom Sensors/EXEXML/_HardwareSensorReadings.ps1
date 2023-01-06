@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# get-hardware-sensor-readings.ps1
+# _HardwareSensorReadings.ps1
 # ------------------------------------------------------------
 # Note: This script is intended to be triggered by a Scheduled Task every minute (to pull latest sensor data for upstream monitoring software)
 # ------------------------------------------------------------

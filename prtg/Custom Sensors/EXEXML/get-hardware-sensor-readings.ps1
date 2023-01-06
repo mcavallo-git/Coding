@@ -443,12 +443,13 @@ If ($True) {
 
       # ------------------------------
 
-      @("Avg","Max","Min","Units") | ForEach-Object {
+      @("Avg","Max","Min","Units","UnitCategory") | ForEach-Object {
 
         If (${Each_Header_Units} -Eq "%") {
           #
           # Percentages
           #
+          ${Each_MinMaxAvg}.("UnitCategory") = "Percent";
 
                 If (${Each_Header_Name} -Match "^Drive Remaining Life")         { ${Lifespan_SSD_RemainingLife}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^GPU Core Load")                { ${Load_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -469,6 +470,7 @@ If ($True) {
           #
           # MHz (Megahertz)
           #
+          ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
 
                 If (${Each_Header_Name} -Match "^Core Clocks \(avg\)$") { ${Clock_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^GPU Clock$")           { ${Clock_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -482,6 +484,7 @@ If ($True) {
           #
           # RPM (Rotations Per Minute)
           #
+          ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
 
                 If (${Each_Header_Name} -Match "^AIO Pump") { ${Speed_FAN_RPM_AIO_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^Chassis1$") { ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -499,6 +502,7 @@ If ($True) {
           #
           # Voltages
           #
+          ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
 
                 If (${Each_Header_Name} -Match "^CPU Core Voltage") { ${Voltage_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^GPU Core Voltage") { ${Voltage_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -515,6 +519,7 @@ If ($True) {
           #
           # Watts
           #
+          ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
 
                 If (${Each_Header_Name} -Match "^CPU Package Power") { ${Power_CPU_Package}.(${_}) = (${Each_MinMaxAvg}.(${_}));
           } ElseIf (${Each_Header_Name} -Match "^GPU Power")         { ${Power_GPU_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -527,6 +532,8 @@ If ($True) {
           #
           # Degrees Celsius
           #
+          ${Each_MinMaxAvg}.("UnitCategory") = "Temperature";
+
           $Each_Header_Units = (([string][char]0xB0)+"C");
 
                 If (${Each_Header_Name} -Match "^CPU \(Tctl\/Tdie\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -547,6 +554,8 @@ If ($True) {
           #
           # Fallthrough
           #
+
+          ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
 
         # ------------------------------
 

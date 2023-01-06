@@ -2,25 +2,27 @@
   "prtg": {
     "result": [
       {
-        "channel": "_____ (Avg)",
-        "unit": "_____",
-        "float": 1,
-        "decimalmode": 3,
-        "value": _____
+        "channel": "Integer",
+        "customunit": "NotUnit",
+        "float": 0,
+        "unit": "Custom",
+        "value": 12
       },
       {
-        "channel": "_____ (Max)",
-        "unit": "_____",
-        "float": 1,
+        "channel": "Float (3 digits past the decimal)",
+        "customunit": "NotUnit",
         "decimalmode": 3,
-        "value": _____
+        "float": 1,
+        "unit": "Custom",
+        "value": 12.345
       },
       {
-        "channel": "_____ (Min)",
-        "unit": "_____",
+        "channel": "Float (1 digit past the decimal)",
+        "customunit": "NotUnit",
+        "decimalmode": 1,
         "float": 1,
-        "decimalmode": 3,
-        "value": _____
+        "unit": "Custom",
+        "value": 12.3
       }
     ]
   }

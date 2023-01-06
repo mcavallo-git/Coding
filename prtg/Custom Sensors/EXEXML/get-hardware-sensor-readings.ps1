@@ -240,7 +240,7 @@ If ($True) {
         If ([String]::IsNullOrEmpty(${Each_Avg})) {
           $EmptyValues++;
         } Else {
-          $Append_Result = @{ "value"=${Each_Avg}; "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          $Append_Result = @{ "value"=[Math]::Round(${Each_Avg},3); "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
           If (${UnitCategory} -Eq "Custom") {
             $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
           };
@@ -251,7 +251,7 @@ If ($True) {
         If ([String]::IsNullOrEmpty(${Each_Max})) {
           $EmptyValues++;
         } Else {
-          $Append_Result = @{ "value"=${Each_Max}; "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          $Append_Result = @{ "value"=[Math]::Round(${Each_Max},3); "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
           If (${UnitCategory} -Eq "Custom") {
             $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
           };
@@ -262,7 +262,7 @@ If ($True) {
         If ([String]::IsNullOrEmpty(${Each_Min})) {
           $EmptyValues++;
         } Else {
-          $Append_Result = @{ "value"=${Each_Min}; "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          $Append_Result = @{ "value"=[Math]::Round(${Each_Min},3); "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
           If (${UnitCategory} -Eq "Custom") {
             $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
           };

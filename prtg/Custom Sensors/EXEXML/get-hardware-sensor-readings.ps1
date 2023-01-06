@@ -391,8 +391,7 @@ If ($True) {
             $Each_Header_Units = ($Each_Header_RegexParsed[2].Value);
           } Else {
             # Fallback approach - Use the entire header's string as the name (no units, namely for the 'Date/Time' column)
-            $Each_Header_RegexParsed = ([Regex]::Match(${Each_ColumnHeader},'^(.+)$').Captures.Groups);
-            $Each_Header_Name = ($Each_Header_RegexParsed[1].Value);
+            $Each_Header_Name = "${Each_ColumnHeader}";
             $Each_Header_Units = "";
           }
           # Hotfix temperature unicode character

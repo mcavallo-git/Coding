@@ -236,46 +236,37 @@ If ($True) {
         $Output_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Output_Basename}");
 
         # Build the output JSON as a hash table / arrays, then convert it to JSON afterward
-        $Output_HashTable = @{
-          "Each_Header_Name" = "${Each_Header_Name}";
-          "Each_Header_Units" = "${Each_Header_Units}";
-          "Output_Basename" = "${Output_Basename}";
-          "Output_Fullpath" = "${Output_Fullpath}";
-          "prtg"= @{
-            "result"=@(
-              @{
-                "channel"="${Each_Header_Name} (Avg)";
-                "unit"="Custom";
-                "customunit"="${Each_Header_Units}";
-                "float"=1;
-                "decimalmode"=3;
-                "value"=${Each_Avg};
-              },
-              @{
-                "channel"="${Each_Header_Name} (Max)";
-                "unit"="Custom";
-                "customunit"="${Each_Header_Units}";
-                "float"=1;
-                "decimalmode"=3;
-                "value"=${Each_Max};
-              },
-              @{
-                "channel"="${Each_Header_Name} (Min)";
-                "unit"="Custom";
-                "customunit"="${Each_Header_Units}";
-                "float"=1;
-                "decimalmode"=3;
-                "value"=${Each_Min};
-              }
-            )
-          }
-        };
-        $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50 -Compress);
+        $Output_HashTable = @{ "prtg"= @{ "result"=@(); }; };
 
-        # Handle errors in the output JSON
-        If ([String]::IsNullOrEmpty(${Output_Json})) {
-          $Output_Json = ("{`"prtg`":{`"error`":1,`"text`":`"${Sensor_ErrorMessage_HWiNFO}`"}}");
+        $EmptyValues = 0;
+
+        # Avg Value  -  Append to JSON output
+        If ([String]::IsNullOrEmpty(${Each_Avg})) {
+          $EmptyValues++;
+        } Else {
+          $Output_HashTable.prtg.result += (@{ "value"=${Each_Avg}; "channel"="${Each_Header_Name} (Avg)"; "unit"="Custom"; "customunit"="${Each_Header_Units}"; "float"=1; "decimalmode"=3; });
         }
+
+        # Max Value  -  Append to JSON output
+        If ([String]::IsNullOrEmpty(${Each_Max})) {
+          $EmptyValues++;
+        } Else {
+          $Output_HashTable.prtg.result += (@{ "value"=${Each_Max}; "channel"="${Each_Header_Name} (Max)"; "unit"="Custom"; "customunit"="${Each_Header_Units}"; "float"=1; "decimalmode"=3; });
+        }
+
+        # Min Value  -  Append to JSON output
+        If ([String]::IsNullOrEmpty(${Each_Min})) {
+          $EmptyValues++;
+        } Else {
+          $Output_HashTable.prtg.result += (@{ "value"=${Each_Min}; "channel"="${Each_Header_Name} (Min)"; "unit"="Custom"; "customunit"="${Each_Header_Units}"; "float"=1; "decimalmode"=3; });
+        }
+
+        # Error - All of of avg/max/min values found to be empty, send error in the JSON body (instead of sending the empty data)
+        If (${EmptyValues} -GE 3) {
+          $Output_HashTable = @{ "prtg"= @{ "error"=1; "text"="${Sensor_ErrorMessage_HWiNFO}"; }; };
+        }
+
+        $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50 -Compress);
         
         # Output the results to sensor-specific files
         Set-Content -LiteralPath ("${Output_Fullpath}") -Value ("${Output_Json}") -NoNewline;

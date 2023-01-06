@@ -1,1 +1,1 @@
-TYPE C:\ISO\HWiNFO64\Sensors\GPU_Core_Load.%.json
+TYPE C:\ISO\HWiNFO64\Sensors\GPU_Core_Load._.json

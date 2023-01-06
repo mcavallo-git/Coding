@@ -1,1 +1,1 @@
-TYPE C:\ISO\HWiNFO64\Sensors\Total_CPU_Usage.%.json
+TYPE C:\ISO\HWiNFO64\Sensors\Total_CPU_Usage._.json

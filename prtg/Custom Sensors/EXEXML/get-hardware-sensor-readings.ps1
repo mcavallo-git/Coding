@@ -194,13 +194,88 @@ If ($True) {
 
     # ------------------------------
     #
+    # Output the sensor data to header-named files named based on the header column
+    #
+
+    ${MinMaxAvg_Results}.Keys | ForEach-Object {
+      
+      $Each_Header_Name=(("$_").Split(" ~~ ")[0]);
+
+      $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
+        $Each_Header_Units=(${Each_MinMaxAvg}.Units);
+        $Each_Avg=(${Each_MinMaxAvg}.Avg);
+        $Each_Max=(${Each_MinMaxAvg}.Max);
+        $Each_Min=(${Each_MinMaxAvg}.Min);
+
+      # Unit Categories (PRTG compatible)
+      If (${Each_Header_Units} -Eq "%") {
+        # $UnitCategory = "Percent";
+      } ElseIf (${Each_Header_Units} -Match ".+C") {
+        # $UnitCategory = "Temperature";
+        $Each_Header_Units = (([string][char]0xB0)+"C");
+      } Else {
+        # $UnitCategory = "Custom";
+      }
+
+
+      $OutputJson = @{
+        "prtg"= @{
+          "result"=@(
+            @{
+              "channel"="${Each_Header_Name} (Avg)";
+              "unit"="Custom";
+              "customunit"="${Each_Header_Units}";
+              "float"=1;
+              "decimalmode"=3;
+              "value"=${Each_Avg};
+            },
+            @{
+              "channel"="${Each_Header_Name} (Max)";
+              "unit"="Custom";
+              "customunit"="${Each_Header_Units}";
+              "float"=1;
+              "decimalmode"=3;
+              "value"=${Each_Max};
+            },
+            @{
+              "channel"="${Each_Header_Name} (Min)";
+              "unit"="Custom";
+              "customunit"="${Each_Header_Units}";
+              "float"=1;
+              "decimalmode"=3;
+              "value"=${Each_Min};
+            }
+          )
+        }
+      };
+
+      $OutputJson | ConvertTo-Json -Depth 50;
+
+      # Write-Host "------------------------------------------------------------";
+      # $Results_Fullpath;
+      # $Each_MinMaxAvg;
+
+      # Handle invalid characters in sensor names
+      $Results_Basename=(("${Each_Header_Name}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
+      $Results_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Results_Basename}");
+      # Output the results to sensor-specific files
+      If ([String]::IsNullOrEmpty(${SensorValue})) {
+        # Set-Content -LiteralPath ("${Results_Fullpath}") -Value (":${Sensor_ErrorMessage_HWiNFO}") -NoNewline;
+      } Else {
+        # Set-Content -LiteralPath ("${Results_Fullpath}") -Value ("${SensorValue}:OK") -NoNewline;
+      }
+
+    }
+
+    # ------------------------------
+    #
     # Parse the sensors by their headers & place them into their respective categories
     #
 
     ${MinMaxAvg_Results}.Keys | ForEach-Object {
       # Walk through the parsed min/max array
 
-      $Each_Header_Name=("$_");
+      $Each_Header_Name=(("$_").Split(" ~~ ")[0]);
 
       $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
 
@@ -551,12 +626,12 @@ If ($True) {
 #           # ------------------------------
 #           # Handle invalid characters in sensor names
 #           $Results_Basename=(("${SensorApp}.${SensorClass}.${SensorName}.txt").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_');
-#           $ResultsFile=("${RSM_Dirname}\Sensors\${Results_Basename}");
+#           $Results_Fullpath=("${RSM_Dirname}\Sensors\${Results_Basename}");
 #           # Output the results to sensor-specific files
 #           If ([String]::IsNullOrEmpty(${SensorValue})) {
-#             Set-Content -LiteralPath ("${ResultsFile}") -Value (":${Sensor_ErrorMessage_HWiNFO}") -NoNewline;
+#             Set-Content -LiteralPath ("${Results_Fullpath}") -Value (":${Sensor_ErrorMessage_HWiNFO}") -NoNewline;
 #           } Else {
-#             Set-Content -LiteralPath ("${ResultsFile}") -Value ("${SensorValue}:OK") -NoNewline;
+#             Set-Content -LiteralPath ("${Results_Fullpath}") -Value ("${SensorValue}:OK") -NoNewline;
 #           }
 #
 #         }
@@ -1271,6 +1346,8 @@ If ([String]::IsNullOrEmpty("${RunDuration}")) {
 #   stackoverflow.com  |  "powershell - How to strip illegal characters before trying to save filenames? - Stack Overflow"  |  https://stackoverflow.com/a/52528107
 #
 #   stackoverflow.com  |  "powershell max/first/aggregate functions - Stack Overflow"  |  https://stackoverflow.com/a/19170783
+#
+#   www.paessler.com  |  "Custom Sensors | PRTG Manual"  |  https://www.paessler.com/manuals/prtg/custom_sensors#advanced_elements
 #
 #   www.paessler.com  |  "PRTG Manual: Custom Sensors - Standard EXE/Script Sensor"  |  https://www.paessler.com/manuals/prtg/custom_sensors#standard_exescript
 #

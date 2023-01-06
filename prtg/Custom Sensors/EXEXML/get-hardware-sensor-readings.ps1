@@ -483,7 +483,6 @@ If ($True) {
           } ElseIf (${Each_Header_Name} -Eq "Mobo Temps, Temperature #2") {
             ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
 
-
             # ------------------------------
 
           } ElseIf (${Each_Header_Name} -Eq "Mobo Voltages, 3VCC") {  # + 3.3V PSU voltage
@@ -495,13 +494,9 @@ If ($True) {
 
         }
 
-        # ------------------------------
-
       }
 
     }
-
-    # ------------------------------
 
   }
 

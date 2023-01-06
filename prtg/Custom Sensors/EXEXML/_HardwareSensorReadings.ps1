@@ -279,7 +279,7 @@ If ($True) {
           $EmptyValues++;
         } Else {
           $Mantissa_Digits = If (([Decimal]"${Each_Avg}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Avg}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Avg}") -LT (1000.0)) { 1 } Else { 0 };
-          $Append_Result = @{ "value"=[Math]::Round(${Each_Avg},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
+          $Append_Result = @{ "value"=([Math]::Round(${Each_Avg},${Mantissa_Digits})); "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
           $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
           If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };
@@ -292,7 +292,7 @@ If ($True) {
           $EmptyValues++;
         } Else {
           $Mantissa_Digits = If (([Decimal]"${Each_Max}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Max}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Max}") -LT (1000.0)) { 1 } Else { 0 };
-          $Append_Result = @{ "value"=[Math]::Round(${Each_Max},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
+          $Append_Result = @{ "value"=([Math]::Round(${Each_Max},${Mantissa_Digits})); "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
           $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
           If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };
@@ -305,7 +305,7 @@ If ($True) {
           $EmptyValues++;
         } Else {
           $Mantissa_Digits = If (([Decimal]"${Each_Min}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Min}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Min}") -LT (1000.0)) { 1 } Else { 0 };
-          $Append_Result = @{ "value"=[Math]::Round(${Each_Min},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
+          $Append_Result = @{ "value"=([Math]::Round(${Each_Min},${Mantissa_Digits})); "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
           $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
           If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };

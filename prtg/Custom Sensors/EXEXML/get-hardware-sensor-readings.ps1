@@ -155,7 +155,7 @@ If ($True) {
 
         $Each_ColumnHeader = (${CsvImport}["Headers"][${i_Column}] -Replace "`"", "");
 
-        $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
+        $Each_MinMaxAvg = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
 
         If (-Not ([String]::IsNullOrEmpty("${Each_ColumnHeader}"))) {
 
@@ -191,12 +191,10 @@ If ($True) {
           }
 
           $MinMaxAvg_Results.(${Each_Header_Name}) = @{};
-          $MinMaxAvg_Results.(${Each_Header_Name}).("Avg") = (${Each_MinMaxAverage}.Average);
-          $MinMaxAvg_Results.(${Each_Header_Name}).("Max") = (${Each_MinMaxAverage}.Maximum);
-          $MinMaxAvg_Results.(${Each_Header_Name}).("Min") = (${Each_MinMaxAverage}.Minimum);
+          $MinMaxAvg_Results.(${Each_Header_Name}).("Avg") = (${Each_MinMaxAvg}.Average);
+          $MinMaxAvg_Results.(${Each_Header_Name}).("Max") = (${Each_MinMaxAvg}.Maximum);
+          $MinMaxAvg_Results.(${Each_Header_Name}).("Min") = (${Each_MinMaxAvg}.Minimum);
           $MinMaxAvg_Results.(${Each_Header_Name}).("Units") = ("${Each_Header_Units}");
-
-          Remove-Variable -Name 'Each_MinMaxAverage';
 
         }
 
@@ -865,14 +863,14 @@ If ($True) {
 #
 #       $Each_ColumnHeader = (${CsvImport}["Paths"][${i_Column}]);
 #
-#       $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
+#       $Each_MinMaxAvg = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
 #
 #       $Each_SensorDescription = (${CsvImport}["Descriptions"][${i_Column}] -Replace "`"", "");
 #
 #       $Each_Value = @{};
-#       ${Each_Value}.("Avg") = (${Each_MinMaxAverage}.Average);
-#       ${Each_Value}.("Max") = (${Each_MinMaxAverage}.Maximum);
-#       ${Each_Value}.("Min") = (${Each_MinMaxAverage}.Minimum);
+#       ${Each_Value}.("Avg") = (${Each_MinMaxAvg}.Average);
+#       ${Each_Value}.("Max") = (${Each_MinMaxAvg}.Maximum);
+#       ${Each_Value}.("Min") = (${Each_MinMaxAvg}.Minimum);
 #
 #       # ------------------------------------------------------------
 #

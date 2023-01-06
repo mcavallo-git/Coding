@@ -8,6 +8,8 @@ $Benchmark = New-Object System.Diagnostics.Stopwatch;
 $Benchmark.Reset(); # Reuse same benchmark/stopwatch object by resetting it
 $Benchmark.Start();
 
+$Delimiter = ([string][char]0x21FF);
+
 # ------------------------------------------------------------
 
 If ($True) {
@@ -185,7 +187,7 @@ If ($True) {
               If ($MinMaxAvg_Results.(${Each_Header_Name}) -Eq $Null) {
                 Break;
               } Else {
-                $Each_Header_Name = "${Temp_NameBackup}👍Duplicate #${i}";
+                $Each_Header_Name = "${Temp_NameBackup}${Delimiter}Duplicate #${i}";
               }
             }
           }
@@ -211,7 +213,7 @@ If ($True) {
 
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
         
-        $Each_Header_Name=(("$_").Split("👍")[0]);
+        $Each_Header_Name=(("$_").Split("${Delimiter}")[0]);
 
         $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
           $Each_Header_Units=(${Each_MinMaxAvg}.Units);
@@ -292,7 +294,7 @@ If ($True) {
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
         # Walk through the parsed min/max array
 
-        $Each_Header_Name=(("$_").Split("👍")[0]);
+        $Each_Header_Name=(("$_").Split("${Delimiter}")[0]);
 
         $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
 

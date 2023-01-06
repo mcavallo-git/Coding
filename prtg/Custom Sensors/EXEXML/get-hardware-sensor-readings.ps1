@@ -10,61 +10,59 @@ $Benchmark.Start();
 
 # ------------------------------------------------------------
 
-$Logfile_Dirname_HWiNFO = "C:\ISO\HWiNFO64";
+If ($True) {
 
-$Logfile_Dirname_OHW = "C:\ISO\OpenHardwareMonitor";
+  $Clock_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-CPU-Core";};
+  $Clock_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Core";};
+  $Clock_GPU_Memory = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Memory";};
+  $Clock_GPU_Shader = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Shader";};
+  $Clock_RAM_DIMMS = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-RAM";};
 
-# ------------------------------------------------------------
+  $Load_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-CPU";};
+  $Load_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU";};
+  $Load_GPU_MemoryController = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-MemoryController";};
+  $Load_GPU_MemoryUsage = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-MemoryUsage";};
 
-$Clock_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-CPU-Core";};
-$Clock_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Core";};
-$Clock_GPU_Memory = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Memory";};
-$Clock_GPU_Shader = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-GPU-Shader";};
-$Clock_RAM_DIMMS = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Clock-RAM";};
+  $Speed_FAN_RPM_CHA_FAN1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Radiator";};
+  $Speed_FAN_RPM_CHA_FAN2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Chassis";};
+  $Speed_FAN_RPM_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-SSD";};
+  $Speed_FAN_RPM_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Pump";};
 
-$Load_CPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-CPU";};
-$Load_GPU_Core = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU";};
-$Load_GPU_MemoryController = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-MemoryController";};
-$Load_GPU_MemoryUsage = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Load-GPU-MemoryUsage";};
+  $Speed_FAN_PRC_CHA_FAN1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Radiator";};
+  $Speed_FAN_PRC_CHA_FAN2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Chassis";};
+  $Speed_FAN_PRC_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-SSD";};
+  $Speed_FAN_PRC_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Pump";};
 
-$Speed_FAN_RPM_CHA_FAN1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Radiator";};
-$Speed_FAN_RPM_CHA_FAN2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Chassis";};
-$Speed_FAN_RPM_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-SSD";};
-$Speed_FAN_RPM_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanRPM-Pump";};
+  $Power_CPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-CPU";};
+  $Power_GPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-GPU";};
 
-$Speed_FAN_PRC_CHA_FAN1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Radiator";};
-$Speed_FAN_PRC_CHA_FAN2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Chassis";};
-$Speed_FAN_PRC_CHA_FAN3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-SSD";};
-$Speed_FAN_PRC_W_PUMP = @{Avg="";Max="";Min="";HWiNFO="";Logfile="FanPercentage-Pump";};
+  $SSD_RemainingLife = @{Avg="";Max="";Min="";HWiNFO="";Logfile="SSD-RemainingLife";};
+  $SSD_TotalHostWrites = @{Avg="";Max="";Min="";HWiNFO="";Logfile="SSD-RemainingLife";};
 
-$Power_CPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-CPU";};
-$Power_GPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Power-GPU";};
+  $Temp_CPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-CPU";};
+  $Temp_GPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-GPU";};
+  $Temp_Motherboard_PCH = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-Motherboard-PCH";};
+  $Temp_Motherboard_T_SENSOR = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-Motherboard-T_SENSOR";};
+  $Temp_RAM_DIMM_0 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM0";};
+  $Temp_RAM_DIMM_1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM1";};
+  $Temp_RAM_DIMM_2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM2";};
+  $Temp_RAM_DIMM_3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM3";};
+  $Temp_SSD = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-SSD";};
 
-$SSD_RemainingLife = @{Avg="";Max="";Min="";HWiNFO="";Logfile="SSD-RemainingLife";};
-$SSD_TotalHostWrites = @{Avg="";Max="";Min="";HWiNFO="";Logfile="SSD-RemainingLife";};
+  $Time_Range = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Time";};
 
-$Temp_CPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-CPU";};
-$Temp_GPU = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-GPU";};
-$Temp_Motherboard_PCH = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-Motherboard-PCH";};
-$Temp_Motherboard_T_SENSOR = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-Motherboard-T_SENSOR";};
-$Temp_RAM_DIMM_0 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM0";};
-$Temp_RAM_DIMM_1 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM1";};
-$Temp_RAM_DIMM_2 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM2";};
-$Temp_RAM_DIMM_3 = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-RAM-DIMM3";};
-$Temp_SSD = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Temp-SSD";};
+  $Voltage_Motherboard_03V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-03V";};
+  $Voltage_Motherboard_05V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-05V";};
+  $Voltage_Motherboard_12V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-12V";};
 
-$Time_Range = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Time";};
+  $Sensor_ErrorMessage_HWiNFO="ERROR - HWiNFO sensor reading returned a null or empty value";
+  $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor sensor reading returned a null or empty value";
 
-$Voltage_Motherboard_03V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-03V";};
-$Voltage_Motherboard_05V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-05V";};
-$Voltage_Motherboard_12V = @{Avg="";Max="";Min="";HWiNFO="";Logfile="Voltage-Motherboard-12V";};
-
-$Sensor_ErrorMessage_HWiNFO="ERROR - HWiNFO sensor reading returned a null or empty value";
-$Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor sensor reading returned a null or empty value";
+}
 
 # ------------------------------------------------------------
 #
-# Get the latest sensor data from "HWiNFO" via "Remote Sensor Monitor"
+# Get the latest sensor data from "HWiNFO64" via "Remote Sensor Monitor"
 #  |
 #  |--> Setup HWiNFO:
 #        > Download HWiNFO:  https://www.hwinfo.com/download/
@@ -283,54 +281,59 @@ If ($True) {
 
 # ------------------------------
 #
-# Parse CSV logs output from HWiNFO64
+# Get the latest sensor data from HWiNFO64 via its CSV logfile
 #
-$Logfile_Input_StarsWith_HWiNFO = "HWiNFO64-";
-$Logfile_Input_FullPath_HWiNFO = "${Logfile_Dirname_HWiNFO}\${Logfile_Input_StarsWith_HWiNFO}$(Get-Date -UFormat '%Y-%m-%d').csv";
-If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_HWiNFO}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 
-  # $CsvHeadersArr_OHW = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
+If ($True) {
 
-  $RowCount_HeaderRows=(1);
-  $RowCount_DataRows=(60);
+  $Logfile_Dirname_HWiNFO = "C:\ISO\HWiNFO64";
+  $Logfile_Input_StarsWith_HWiNFO = "HWiNFO64-";
+  $Logfile_Input_FullPath_HWiNFO = "${Logfile_Dirname_HWiNFO}\${Logfile_Input_StarsWith_HWiNFO}$(Get-Date -UFormat '%Y-%m-%d').csv";
+  If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_HWiNFO}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 
-  $LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Input_FullPath_HWiNFO}") -TotalCount (${RowCount_HeaderRows}));
+    # $CsvHeadersArr_OHW = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
-  $CsvImport = @{};
+    $RowCount_HeaderRows=(1);
+    $RowCount_DataRows=(60);
 
-  ${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[0])").Split(","));
+    $LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Input_FullPath_HWiNFO}") -TotalCount (${RowCount_HeaderRows}));
 
-  $LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Input_FullPath_HWiNFO}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
-  $LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
+    $CsvImport = @{};
 
-  $DataRows_SensorReadings=@();
+    ${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[0])").Split(","));
 
-  $GetCulture=(Get-Culture);  # Get the system's display format of items such as numbers
+    $LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Input_FullPath_HWiNFO}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
+    $LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
+
+    $DataRows_SensorReadings=@();
+
+    $GetCulture=(Get-Culture);  # Get the system's display format of items such as numbers
 
 
-  For ($i_Row=-1; $i_Row -GE (-1 * ${LogContent_DataRows}.Count); $i_Row--) {
-    # Walk through the last minute's worth of sensor data stored in the CSV logfile
-    $Each_DataRow=(${LogContent_DataRows}[$i_Row] -Split ",");
-    $Each_Row_SensorReadings = @{"Time"=(${Each_DataRow}[0][0]);};
-    For ($i_Column=0; $i_Column -LT (${CsvImport}["Paths"].Count); $i_Column++) {
-      # Walk through each column on each row
-      $Each_StringValue=(${Each_DataRow}[${i_Column}] -Replace "`"", "");
-      $Each_Value=0.0;
-      If (${i_Column} -Eq 0) {
-        # Convert [String] to [DateTime] w/o throwing an error
-        $Each_Value=(Get-Date -Date (${Each_StringValue}) -UFormat ("%s"));
-      } Else {
-        # Convert [String] to [DateTime] w/o throwing an error
-        If (([Decimal]::TryParse(${Each_StringValue}, [Globalization.NumberStyles]::Float, ${GetCulture}, [Ref]${Each_Value})) -Eq ($True)) {
-          # Do Nothing (String-to-Decimal conversion already performed in above "If" statement's conditional block
+    For ($i_Row=-1; $i_Row -GE (-1 * ${LogContent_DataRows}.Count); $i_Row--) {
+      # Walk through the last minute's worth of sensor data stored in the CSV logfile
+      $Each_DataRow=(${LogContent_DataRows}[$i_Row] -Split ",");
+      $Each_Row_SensorReadings = @{"Time"=(${Each_DataRow}[0][0]);};
+      For ($i_Column=0; $i_Column -LT (${CsvImport}["Paths"].Count); $i_Column++) {
+        # Walk through each column on each row
+        $Each_StringValue=(${Each_DataRow}[${i_Column}] -Replace "`"", "");
+        $Each_Value=0.0;
+        If (${i_Column} -Eq 0) {
+          # Convert [String] to [DateTime] w/o throwing an error
+          $Each_Value=(Get-Date -Date (${Each_StringValue}) -UFormat ("%s"));
+        } Else {
+          # Convert [String] to [DateTime] w/o throwing an error
+          If (([Decimal]::TryParse(${Each_StringValue}, [Globalization.NumberStyles]::Float, ${GetCulture}, [Ref]${Each_Value})) -Eq ($True)) {
+            # Do Nothing (String-to-Decimal conversion already performed in above "If" statement's conditional block
+          }
         }
+        # Store each values into an object, push the object to an array (below), then calculate min/max later all-at-once
+        ${Each_Row_SensorReadings}.(${CsvImport}["Paths"][${i_Column}]) = (${Each_Value});
       }
-      # Store each values into an object, push the object to an array (below), then calculate min/max later all-at-once
-      ${Each_Row_SensorReadings}.(${CsvImport}["Paths"][${i_Column}]) = (${Each_Value});
+      ${DataRows_SensorReadings} += ${Each_Row_SensorReadings};
     }
-    ${DataRows_SensorReadings} += ${Each_Row_SensorReadings};
-  }
 
+  }
 
 }
 
@@ -339,7 +342,7 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_HWiNFO}") -Erro
 # ------------------------------------------------------------
 # ------------------------------------------------------------
 #
-# Get the latest sensor data from OHW (OpenHardwareMonitor)
+# Get the latest sensor data from OHW (OpenHardwareMonitor) via its CSV logfile
 #  |
 #  |--> Setup Open Hardware Monitor (OHW):
 #        > Download OHW:  https://openhardwaremonitor.org/downloads/
@@ -347,279 +350,284 @@ If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_HWiNFO}") -Erro
 #        > Setup CSV logging in OHW via "Options" > "Log Sensors" (will have a checkmark next to it if actively logging to CSV)
 #        > Setup a Scheduled Task to run OpenHardwareMonitor at machine startup (not logon)
 
-# Parse CSV logs output from OHW (Open Hardware Monitor)
-$Logfile_Input_StarsWith_OHW = "OpenHardwareMonitorLog-";
-$Logfile_Input_FullPath_OHW = "${Logfile_Dirname_OHW}\${Logfile_Input_StarsWith_OHW}$(Get-Date -UFormat '%Y-%m-%d').csv";
-If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
+If ($True) {
 
-  $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor logfile not found: ${Logfile_Input_FullPath_OHW}";
+  # Parse CSV logs output from OHW (Open Hardware Monitor)
+  $Logfile_Dirname_OHW = "C:\ISO\OpenHardwareMonitor";
+  $Logfile_Input_StarsWith_OHW = "OpenHardwareMonitorLog-";
+  $Logfile_Input_FullPath_OHW = "${Logfile_Dirname_OHW}\${Logfile_Input_StarsWith_OHW}$(Get-Date -UFormat '%Y-%m-%d').csv";
+  If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 
-} Else {
+    $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor logfile not found: ${Logfile_Input_FullPath_OHW}";
 
-  # $CsvHeadersArr_OHW = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
+  } Else {
 
-  $RowCount_HeaderRows=(2);
-  $RowCount_DataRows=(60);
+    # $CsvHeadersArr_OHW = @('Time', 'Fan Control #1', 'Fan Control #2', 'Fan Control #3', 'Fan Control #4', 'Fan Control #5', 'Fan Control #6', 'Fan Control #7', 'CPU VCore', 'Voltage #2', 'AVCC', '3VCC', 'Voltage #5', 'Voltage #6', 'Voltage #7', '3VSB', 'VBAT', 'VTT', 'Voltage #11', 'Voltage #12', 'Voltage #13', 'Voltage #14', 'Voltage #15', 'Temperature #1', 'Temperature #2', 'Temperature #3', 'Temperature #4', 'Temperature #5', 'Temperature #6', 'Fan #1', 'Fan #2', 'Fan #4', 'Fan #6', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Total', 'CPU Package', 'Bus Speed', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Package', 'CPU CCD #1', 'CPU Core #1', 'CPU Core #2', 'CPU Core #3', 'CPU Core #4', 'CPU Core #5', 'CPU Core #6', 'CPU Cores', 'Memory', 'Used Memory', 'Available Memory', 'GPU Core', 'GPU Core', 'GPU Memory', 'GPU Shader', 'GPU Core', 'GPU Frame Buffer', 'GPU Video Engine', 'GPU Bus Interface', 'GPU Fan', 'GPU', 'GPU Memory Total', 'GPU Memory Used', 'GPU Memory Free', 'GPU Memory', 'GPU Power', 'GPU PCIE Rx', 'GPU PCIE Tx', 'Used Space');
 
-  $LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Input_FullPath_OHW}") -TotalCount (${RowCount_HeaderRows}));
+    $RowCount_HeaderRows=(2);
+    $RowCount_DataRows=(60);
 
-  $CsvImport = @{};
-  ${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[1])").Split(","));
-  ${CsvImport}["Paths"] = (@("$($LogContent_HeaderRows[0])").Split(","));
-  ${CsvImport}["Paths"][0]="Time";  # OHW leaves the first row's first column blank for whatever reason
+    $LogContent_HeaderRows = (Get-Content -Path ("${Logfile_Input_FullPath_OHW}") -TotalCount (${RowCount_HeaderRows}));
 
-  # Avoid random bug where OHW doesn't grab the GPU correctly at logfile creation time, which combines with OHW matching the headers on an existing log's data after said bugged run, which truncates all future data which is in addition to an existing log's header columns (truncates GPU data if GPU data wasn't pulled at time of log creation)
-  $RequiredPath="gpu";
-  If (((${CsvImport}["Paths"] | Where-Object { "${_}" -Like "*${RequiredPath}*" }).Count) -Eq (0)) {
-    # Reset any logged data from a previous run
-    Get-ChildItem -Path ("${Logfile_Dirname_OHW}\Sensors") -File -Recurse -Force -EA:0 `
-      | Where-Object { ($_.Name -Like "*.txt") } `
-      | ForEach-Object { Set-Content -LiteralPath ($_.FullName) -Value (":${Sensor_ErrorMessage_OHW}") -NoNewline; } `
-    ;
-    # Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns)
-    $Dirname = [IO.Path]::GetDirectoryName("${Logfile_Input_FullPath_OHW}");
-    $Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_Input_FullPath_OHW}");
-    $Extension = [IO.Path]::GetExtension("${Logfile_Input_FullPath_OHW}");
-    ${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddTHHmmss.fff')${Extension}");
-    Move-Item -Path ("${Logfile_Input_FullPath_OHW}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
-    # End the current run (pick it up later when there's a valid CSV logfile to parse)
-    Exit 1;
-  }
+    $CsvImport = @{};
+    ${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[1])").Split(","));
+    ${CsvImport}["Paths"] = (@("$($LogContent_HeaderRows[0])").Split(","));
+    ${CsvImport}["Paths"][0]="Time";  # OHW leaves the first row's first column blank for whatever reason
 
-  $LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Input_FullPath_OHW}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
-  $LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
-
-  $DataRows_SensorReadings=@();
-
-  $GetCulture=(Get-Culture);  # Get the system's display format of items such as numbers
-
-  For ($i=0; $i -LT ((${CsvImport}["Paths"]).Count); $i++) {
-
-    $Each_HeaderPath=(${CsvImport}["Paths"][$i]);
-    $Each_HeaderDescription=(${CsvImport}["Descriptions"][$i]);
-    $Updated_HeaderDescription=("");
-
-    # ------------------------------
-    # OHW outputs descriptions which are non-unique - update them to be unique, instead
-    # ------------------------------
-    #
-    # Mobo Readings
-    #
-    If (${Each_HeaderPath} -Match "lpc/.+/control/") {
-      $Updated_HeaderDescription=("Mobo Fans (% PWM), ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "lpc/.+/fan/") {
-      $Updated_HeaderDescription=("Mobo Fans (RPM), ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "lpc/.+/voltage/") {
-      $Updated_HeaderDescription=("Mobo Voltages, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "lpc/.+/temperature/") {
-      $Updated_HeaderDescription=("Mobo Temps, ${Each_HeaderDescription}");
-
-    # ------------------------------
-    #
-    # Processor (CPU) Readings
-    #
-    } ElseIf (${Each_HeaderPath} -Match "cpu/.+/load/") {
-      $Updated_HeaderDescription=("CPU Load, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "cpu/.+/power/") {
-      $Updated_HeaderDescription=("CPU Power, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "cpu/.+/temperature/") {
-      $Updated_HeaderDescription=("CPU Temps, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "cpu/.+/clock/") {
-      $Updated_HeaderDescription=("CPU Clocks, ${Each_HeaderDescription}");
-
-    # ------------------------------
-    #
-    # Memory (RAM) Readings
-    #
-    } ElseIf (${Each_HeaderPath} -Match "/ram/load/") {
-      $Updated_HeaderDescription=("RAM Load, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "/ram/data/") {
-      $Updated_HeaderDescription=("RAM Data, ${Each_HeaderDescription}");
-
-    # ------------------------------
-    #
-    # Graphics Card (GPU) Readings
-    #
-    } ElseIf (${Each_HeaderPath} -Match "gpu/.+/temperature/") {
-      $Updated_HeaderDescription=("GPU Temps, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "gpu/.+/clock/") {
-      $Updated_HeaderDescription=("GPU Clocks, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "gpu/.+/control/") {
-      $Updated_HeaderDescription=("GPU Fan (% PWM), ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "gpu/.+/fan/") {
-      $Updated_HeaderDescription=("GPU Fan (RPM), ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "gpu/.+/smalldata/") {
-      $Updated_HeaderDescription=("GPU Memory, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "gpu/.+/load/") {
-      $Updated_HeaderDescription=("GPU Load, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "gpu/.+/power/") {
-      $Updated_HeaderDescription=("GPU Power, ${Each_HeaderDescription}");
-
-    } ElseIf (${Each_HeaderPath} -Match "gpu/.+/throughput/") {
-      $Updated_HeaderDescription=("GPU Rx/Tx, ${Each_HeaderDescription}");
-
-    # ------------------------------
-    #
-    # Storage Disk (HDD/SSD) Readings
-    #
-    } ElseIf (${Each_HeaderPath} -Match "hdd/.+/load/") {
-      $Updated_HeaderDescription=("Disk Load, ${Each_HeaderDescription}");
-
-    # ------------------------------
+    # Avoid random bug where OHW doesn't grab the GPU correctly at logfile creation time, which combines with OHW matching the headers on an existing log's data after said bugged run, which truncates all future data which is in addition to an existing log's header columns (truncates GPU data if GPU data wasn't pulled at time of log creation)
+    $RequiredPath="gpu";
+    If (((${CsvImport}["Paths"] | Where-Object { "${_}" -Like "*${RequiredPath}*" }).Count) -Eq (0)) {
+      # Reset any logged data from a previous run
+      Get-ChildItem -Path ("${Logfile_Dirname_OHW}\Sensors") -File -Recurse -Force -EA:0 `
+        | Where-Object { ($_.Name -Like "*.txt") } `
+        | ForEach-Object { Set-Content -LiteralPath ($_.FullName) -Value (":${Sensor_ErrorMessage_OHW}") -NoNewline; } `
+      ;
+      # Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns)
+      $Dirname = [IO.Path]::GetDirectoryName("${Logfile_Input_FullPath_OHW}");
+      $Basename = [IO.Path]::GetFileNameWithoutExtension("${Logfile_Input_FullPath_OHW}");
+      $Extension = [IO.Path]::GetExtension("${Logfile_Input_FullPath_OHW}");
+      ${Logfile_Renamed_MissingHeaders}=("${Dirname}\${Basename}_MISSING-[${RequiredPath}]-HEADERS_$(Get-Date -Format 'yyyyMMddTHHmmss.fff')${Extension}");
+      Move-Item -Path ("${Logfile_Input_FullPath_OHW}") -Destination ("${Logfile_Renamed_MissingHeaders}") -Force;
+      # End the current run (pick it up later when there's a valid CSV logfile to parse)
+      Exit 1;
     }
 
-    If ("${Updated_HeaderDescription}" -NE "") {
-      ${CsvImport}["Descriptions"][$i]=("${Updated_HeaderDescription}");
-    }
+    $LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Input_FullPath_OHW}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
+    $LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
 
-  }
+    $DataRows_SensorReadings=@();
 
-  For ($i_Row=-1; $i_Row -GE (-1 * ${LogContent_DataRows}.Count); $i_Row--) {
-    # Walk through the last minute's worth of sensor data stored in the CSV logfile
-    $Each_DataRow=(${LogContent_DataRows}[$i_Row] -Split ",");
-    $Each_Row_SensorReadings = @{"Time"=(${Each_DataRow}[0][0]);};
-    For ($i_Column=0; $i_Column -LT (${CsvImport}["Paths"].Count); $i_Column++) {
-      # Walk through each column on each row
-      $Each_StringValue=(${Each_DataRow}[${i_Column}] -Replace "`"", "");
-      $Each_Value=0.0;
-      If (${i_Column} -Eq 0) {
-        # Convert [String] to [DateTime] w/o throwing an error
-        $Each_Value=(Get-Date -Date (${Each_StringValue}) -UFormat ("%s"));
-      } Else {
-        # Convert [String] to [DateTime] w/o throwing an error
-        If (([Decimal]::TryParse(${Each_StringValue}, [Globalization.NumberStyles]::Float, ${GetCulture}, [Ref]${Each_Value})) -Eq ($True)) {
-          # Do Nothing (String-to-Decimal conversion already performed in above "If" statement's conditional block
-        }
-      }
-      # Store each values into an object, push the object to an array (below), then calculate min/max later all-at-once
-      ${Each_Row_SensorReadings}.(${CsvImport}["Paths"][${i_Column}]) = (${Each_Value});
-    }
-    ${DataRows_SensorReadings} += ${Each_Row_SensorReadings};
-  }
+    $GetCulture=(Get-Culture);  # Get the system's display format of items such as numbers
 
-  # Calculated output data based on latest input data
-  For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
+    For ($i=0; $i -LT ((${CsvImport}["Paths"]).Count); $i++) {
 
-    $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${CsvImport}["Paths"][${i_Column}]) | Measure-Object -Average -Maximum -Minimum);
-
-    $EachSensorReading_Obj = @{};
-    # $Each_SensorPath = (${CsvImport}["Paths"][${i_Column}] -Replace "`"", "");
-    $Each_SensorDescription = (${CsvImport}["Descriptions"][${i_Column}] -Replace "`"", "");
-
-    $EachSensorReading_Obj["Average"] = (${Each_MinMaxAverage}.Average);
-    $EachSensorReading_Obj["Maximum"] = (${Each_MinMaxAverage}.Maximum);
-    $EachSensorReading_Obj["Minimum"] = (${Each_MinMaxAverage}.Minimum);
-
-    $Each_Value = @{};
-    ${Each_Value}.Avg = (${Each_MinMaxAverage}.Average);
-    ${Each_Value}.Max = (${Each_MinMaxAverage}.Maximum);
-    ${Each_Value}.Min = (${Each_MinMaxAverage}.Minimum);
-
-    # ------------------------------------------------------------
-
-    @("Avg","Max","Min") | ForEach-Object {
+      $Each_HeaderPath=(${CsvImport}["Paths"][$i]);
+      $Each_HeaderDescription=(${CsvImport}["Descriptions"][$i]);
+      $Updated_HeaderDescription=("");
 
       # ------------------------------
+      # OHW outputs descriptions which are non-unique - update them to be unique, instead
+      # ------------------------------
+      #
+      # Mobo Readings
+      #
+      If (${Each_HeaderPath} -Match "lpc/.+/control/") {
+        $Updated_HeaderDescription=("Mobo Fans (% PWM), ${Each_HeaderDescription}");
 
-      If (${Each_SensorDescription} -Eq "Time") {
-        ${Time_Range}.(${_}) = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value}.(${_}))))) -UFormat ("%m/%d/%Y %H:%M:%S"));
+      } ElseIf (${Each_HeaderPath} -Match "lpc/.+/fan/") {
+        $Updated_HeaderDescription=("Mobo Fans (RPM), ${Each_HeaderDescription}");
 
-        # ------------------------------
+      } ElseIf (${Each_HeaderPath} -Match "lpc/.+/voltage/") {
+        $Updated_HeaderDescription=("Mobo Voltages, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "CPU Clocks, CPU Core #1") {
-        ${Clock_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "lpc/.+/temperature/") {
+        $Updated_HeaderDescription=("Mobo Temps, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "CPU Load, CPU Total") {
-        ${Load_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
+      # ------------------------------
+      #
+      # Processor (CPU) Readings
+      #
+      } ElseIf (${Each_HeaderPath} -Match "cpu/.+/load/") {
+        $Updated_HeaderDescription=("CPU Load, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "CPU Power, CPU Cores") {
-        ${Power_CPU}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "cpu/.+/power/") {
+        $Updated_HeaderDescription=("CPU Power, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
-        ${Temp_CPU}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "cpu/.+/temperature/") {
+        $Updated_HeaderDescription=("CPU Temps, ${Each_HeaderDescription}");
 
-        # ------------------------------
+      } ElseIf (${Each_HeaderPath} -Match "cpu/.+/clock/") {
+        $Updated_HeaderDescription=("CPU Clocks, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Core") {
-        ${Load_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
+      # ------------------------------
+      #
+      # Memory (RAM) Readings
+      #
+      } ElseIf (${Each_HeaderPath} -Match "/ram/load/") {
+        $Updated_HeaderDescription=("RAM Load, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {
-        ${Power_GPU}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "/ram/data/") {
+        $Updated_HeaderDescription=("RAM Data, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "GPU Temps, GPU Core") {
-        ${Temp_GPU}.(${_}) = (${Each_Value}.(${_}));
+      # ------------------------------
+      #
+      # Graphics Card (GPU) Readings
+      #
+      } ElseIf (${Each_HeaderPath} -Match "gpu/.+/temperature/") {
+        $Updated_HeaderDescription=("GPU Temps, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Memory") {
-        ${Load_GPU_MemoryUsage}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "gpu/.+/clock/") {
+        $Updated_HeaderDescription=("GPU Clocks, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Core") {
-        ${Clock_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "gpu/.+/control/") {
+        $Updated_HeaderDescription=("GPU Fan (% PWM), ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Memory") {
-        ${Clock_GPU_Memory}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "gpu/.+/fan/") {
+        $Updated_HeaderDescription=("GPU Fan (RPM), ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Shader") {
-        ${Clock_GPU_Shader}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "gpu/.+/smalldata/") {
+        $Updated_HeaderDescription=("GPU Memory, ${Each_HeaderDescription}");
 
-        # ------------------------------
+      } ElseIf (${Each_HeaderPath} -Match "gpu/.+/load/") {
+        $Updated_HeaderDescription=("GPU Load, ${Each_HeaderDescription}");
 
-      # } ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
-      #   ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "gpu/.+/power/") {
+        $Updated_HeaderDescription=("GPU Power, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  # Chassis Fan 1
-        ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
+      } ElseIf (${Each_HeaderPath} -Match "gpu/.+/throughput/") {
+        $Updated_HeaderDescription=("GPU Rx/Tx, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #1") {  # Chassis Fan 1
-        ${Speed_FAN_PRC_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
+      # ------------------------------
+      #
+      # Storage Disk (HDD/SSD) Readings
+      #
+      } ElseIf (${Each_HeaderPath} -Match "hdd/.+/load/") {
+        $Updated_HeaderDescription=("Disk Load, ${Each_HeaderDescription}");
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #3") {  # Chassis Fan 2
-        ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
+      # ------------------------------
+      }
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  # Chassis Fan 2
-        ${Speed_FAN_PRC_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
+      If ("${Updated_HeaderDescription}" -NE "") {
+        ${CsvImport}["Descriptions"][$i]=("${Updated_HeaderDescription}");
+      }
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  # Chassis Fan 3
-        ${Speed_FAN_RPM_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
+    }
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {  # Chassis Fan 3
-        ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
-        #
-        #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ Chassis Fan 3 Min. Duty Cycle (%) ] + [ Chassis Fan 3 Lower Temperature ]
-        #           ↓
-        #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 55.0 ] + [ 15.0 ]
-        #           ↓
-        #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 40.0 ]
-        #
-        $T_SENSOR_TEMP = ([Double](${Each_Value}.(${_})) - [Double](40.00));
-        If (${T_SENSOR_TEMP} -GT 0.0) {
-          ${Temp_Motherboard_T_SENSOR}.(${_}) = ${T_SENSOR_TEMP};
+    For ($i_Row=-1; $i_Row -GE (-1 * ${LogContent_DataRows}.Count); $i_Row--) {
+      # Walk through the last minute's worth of sensor data stored in the CSV logfile
+      $Each_DataRow=(${LogContent_DataRows}[$i_Row] -Split ",");
+      $Each_Row_SensorReadings = @{"Time"=(${Each_DataRow}[0][0]);};
+      For ($i_Column=0; $i_Column -LT (${CsvImport}["Paths"].Count); $i_Column++) {
+        # Walk through each column on each row
+        $Each_StringValue=(${Each_DataRow}[${i_Column}] -Replace "`"", "");
+        $Each_Value=0.0;
+        If (${i_Column} -Eq 0) {
+          # Convert [String] to [DateTime] w/o throwing an error
+          $Each_Value=(Get-Date -Date (${Each_StringValue}) -UFormat ("%s"));
+        } Else {
+          # Convert [String] to [DateTime] w/o throwing an error
+          If (([Decimal]::TryParse(${Each_StringValue}, [Globalization.NumberStyles]::Float, ${GetCulture}, [Ref]${Each_Value})) -Eq ($True)) {
+            # Do Nothing (String-to-Decimal conversion already performed in above "If" statement's conditional block
+          }
         }
+        # Store each values into an object, push the object to an array (below), then calculate min/max later all-at-once
+        ${Each_Row_SensorReadings}.(${CsvImport}["Paths"][${i_Column}]) = (${Each_Value});
+      }
+      ${DataRows_SensorReadings} += ${Each_Row_SensorReadings};
+    }
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  # W_PUMP+
-        ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
+    # Calculated output data based on latest input data
+    For ($i_Column=0; $i_Column -LT ((${CsvImport}["Paths"]).Count); $i_Column++) {
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {  # W_PUMP+
-        ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
+      $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${CsvImport}["Paths"][${i_Column}]) | Measure-Object -Average -Maximum -Minimum);
+
+      $EachSensorReading_Obj = @{};
+      # $Each_SensorPath = (${CsvImport}["Paths"][${i_Column}] -Replace "`"", "");
+      $Each_SensorDescription = (${CsvImport}["Descriptions"][${i_Column}] -Replace "`"", "");
+
+      $EachSensorReading_Obj["Average"] = (${Each_MinMaxAverage}.Average);
+      $EachSensorReading_Obj["Maximum"] = (${Each_MinMaxAverage}.Maximum);
+      $EachSensorReading_Obj["Minimum"] = (${Each_MinMaxAverage}.Minimum);
+
+      $Each_Value = @{};
+      ${Each_Value}.Avg = (${Each_MinMaxAverage}.Average);
+      ${Each_Value}.Max = (${Each_MinMaxAverage}.Maximum);
+      ${Each_Value}.Min = (${Each_MinMaxAverage}.Minimum);
+
+      # ------------------------------------------------------------
+
+      @("Avg","Max","Min") | ForEach-Object {
 
         # ------------------------------
 
-      } ElseIf (${Each_SensorDescription} -Eq "Mobo Voltages, 3VCC") {  # + 3.3V PSU voltage
-        ${Voltage_Motherboard_03V}.(${_}) = (${Each_Value}.(${_}));
+        If (${Each_SensorDescription} -Eq "Time") {
+          ${Time_Range}.(${_}) = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value}.(${_}))))) -UFormat ("%m/%d/%Y %H:%M:%S"));
 
-        # ------------------------------
+          # ------------------------------
+
+        } ElseIf (${Each_SensorDescription} -Eq "CPU Clocks, CPU Core #1") {
+          ${Clock_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "CPU Load, CPU Total") {
+          ${Load_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "CPU Power, CPU Cores") {
+          ${Power_CPU}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
+          ${Temp_CPU}.(${_}) = (${Each_Value}.(${_}));
+
+          # ------------------------------
+
+        } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Core") {
+          ${Load_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {
+          ${Power_GPU}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "GPU Temps, GPU Core") {
+          ${Temp_GPU}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Memory") {
+          ${Load_GPU_MemoryUsage}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Core") {
+          ${Clock_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Memory") {
+          ${Clock_GPU_Memory}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Shader") {
+          ${Clock_GPU_Shader}.(${_}) = (${Each_Value}.(${_}));
+
+          # ------------------------------
+
+        # } ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
+        #   ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  # Chassis Fan 1
+          ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #1") {  # Chassis Fan 1
+          ${Speed_FAN_PRC_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #3") {  # Chassis Fan 2
+          ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  # Chassis Fan 2
+          ${Speed_FAN_PRC_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  # Chassis Fan 3
+          ${Speed_FAN_RPM_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {  # Chassis Fan 3
+          ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
+          #
+          #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ Chassis Fan 3 Min. Duty Cycle (%) ] + [ Chassis Fan 3 Lower Temperature ]
+          #           ↓
+          #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 55.0 ] + [ 15.0 ]
+          #           ↓
+          #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 40.0 ]
+          #
+          $T_SENSOR_TEMP = ([Double](${Each_Value}.(${_})) - [Double](40.00));
+          If (${T_SENSOR_TEMP} -GT 0.0) {
+            ${Temp_Motherboard_T_SENSOR}.(${_}) = ${T_SENSOR_TEMP};
+          }
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  # W_PUMP+
+          ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {  # W_PUMP+
+          ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
+
+          # ------------------------------
+
+        } ElseIf (${Each_SensorDescription} -Eq "Mobo Voltages, 3VCC") {  # + 3.3V PSU voltage
+          ${Voltage_Motherboard_03V}.(${_}) = (${Each_Value}.(${_}));
+
+          # ------------------------------
+
+        }
 
       }
 

@@ -223,12 +223,12 @@ If ($True) {
 
         # Unit Categories (PRTG compatible)
         If (${Each_Header_Units} -Eq "%") {
-          # $UnitCategory = "Percent";
+          $UnitCategory = "Percent";
         } ElseIf (${Each_Header_Units} -Match ".+C") {
-          # $UnitCategory = "Temperature";
+          $UnitCategory = "Temperature";
           $Each_Header_Units = (([string]([char]0xB0))+("C"));
         } Else {
-          # $UnitCategory = "Custom";
+          $UnitCategory = "Custom";
         }
 
         # Handle invalid characters in sensor names
@@ -244,21 +244,33 @@ If ($True) {
         If ([String]::IsNullOrEmpty(${Each_Avg})) {
           $EmptyValues++;
         } Else {
-          $Output_HashTable.prtg.result += (@{ "value"=${Each_Avg}; "channel"="${Each_Header_Name} (Avg)"; "unit"="Custom"; "customunit"="${Each_Header_Units}"; "float"=1; "decimalmode"=3; });
+          $Append_Result = @{ "value"=${Each_Avg}; "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          If (${UnitCategory} -Eq "Custom") {
+            $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
+          };
+          $Output_HashTable.prtg.result += ${Append_Result};
         }
 
         # Max Value  -  Append to JSON output
         If ([String]::IsNullOrEmpty(${Each_Max})) {
           $EmptyValues++;
         } Else {
-          $Output_HashTable.prtg.result += (@{ "value"=${Each_Max}; "channel"="${Each_Header_Name} (Max)"; "unit"="Custom"; "customunit"="${Each_Header_Units}"; "float"=1; "decimalmode"=3; });
+          $Append_Result = @{ "value"=${Each_Max}; "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          If (${UnitCategory} -Eq "Custom") {
+            $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
+          };
+          $Output_HashTable.prtg.result += ${Append_Result};
         }
 
         # Min Value  -  Append to JSON output
         If ([String]::IsNullOrEmpty(${Each_Min})) {
           $EmptyValues++;
         } Else {
-          $Output_HashTable.prtg.result += (@{ "value"=${Each_Min}; "channel"="${Each_Header_Name} (Min)"; "unit"="Custom"; "customunit"="${Each_Header_Units}"; "float"=1; "decimalmode"=3; });
+          $Append_Result = @{ "value"=${Each_Min}; "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=3; };
+          If (${UnitCategory} -Eq "Custom") {
+            $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
+          };
+          $Output_HashTable.prtg.result += ${Append_Result};
         }
 
         # Error - All of of avg/max/min values found to be empty, send error in the JSON body (instead of sending empty data)

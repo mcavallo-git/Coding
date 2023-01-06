@@ -351,126 +351,122 @@ If ($True) {
     # Calculate min/max/avg values from parsed sensor data
     #
 
+    $MinMaxAvg_Results = @{};
+
     For ($i_Column=0; $i_Column -LT ((${CsvImport}["Headers"]).Count); $i_Column++) {
 
       $Each_ColumnHeader = (${CsvImport}["Headers"][${i_Column}] -Replace "`"", "");
       If (-Not ([String]::IsNullOrEmpty("${Each_ColumnHeader}"))) {
         # Only parse columns that have an indentifying header
 
-        $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
+        $Each_Header_RegexParsed = ([Regex]::Match(${Each_ColumnHeader},'^(.*)(?: \[([^\]]+)\])?$').Captures.Groups);
+        $Each_Header_Name = ($Each_Header_RegexParsed[1].Value);
+        $Each_Header_Units = ($Each_Header_RegexParsed[2].Value);
 
-        $Each_Header_RegexParsed = ([Regex]::Match(${Each_ColumnHeader},'^(.+)(?: \[([^\]]+)\])?$').Captures.Groups);
-        $Each_Sensor_Name = ($Each_Header_RegexParsed[1].Value);
-        $Each_Sensor_Units = ($Each_Header_RegexParsed[2].Value);
-
-        $EachSensorReading_Obj = @{};
-        $EachSensorReading_Obj["Average"] = (${Each_MinMaxAverage}.Average);
-        $EachSensorReading_Obj["Maximum"] = (${Each_MinMaxAverage}.Maximum);
-        $EachSensorReading_Obj["Minimum"] = (${Each_MinMaxAverage}.Minimum);
-
-        $Each_Value = @{};
-        ${Each_Value}.Avg = (${Each_MinMaxAverage}.Average);
-        ${Each_Value}.Max = (${Each_MinMaxAverage}.Maximum);
-        ${Each_Value}.Min = (${Each_MinMaxAverage}.Minimum);
+        $MinMaxAvg_Results.(${Each_Header_Name}) = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
+        $MinMaxAvg_Results.(${Each_Header_Name}).("Units") = "${Each_Header_Units}";
 
         # ------------------------------
 
-        Write-Host "------------------------------";
-        Write-Host "Each_SensorDescription = [ ${Each_SensorDescription} ]";
-        ${EachSensorReading_Obj};
+        If ($False) {
 
-        # ------------------------------
+          $Each_Value = @{};
+          ${Each_Value}.Avg = (${Each_MinMaxAverage}.Average);
+          ${Each_Value}.Max = (${Each_MinMaxAverage}.Maximum);
+          ${Each_Value}.Min = (${Each_MinMaxAverage}.Minimum);
 
-        @("Avg","Max","Min") | ForEach-Object {
-
-          # ------------------------------
-
-          If (${Each_SensorDescription} -Eq "Time") {
-            ${Time_Range}.(${_}) = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value}.(${_}))))) -UFormat ("%m/%d/%Y %H:%M:%S"));
+          @("Avg","Max","Min") | ForEach-Object {
 
             # ------------------------------
 
-          } ElseIf (${Each_SensorDescription} -Eq "CPU Clocks, CPU Core #1") {
-            ${Clock_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
+            If (${Each_SensorDescription} -Eq "Time") {
+              ${Time_Range}.(${_}) = (Get-Date -Date ($((New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor(${Each_Value}.(${_}))))) -UFormat ("%m/%d/%Y %H:%M:%S"));
 
-          } ElseIf (${Each_SensorDescription} -Eq "CPU Load, CPU Total") {
-            ${Load_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
+              # ------------------------------
 
-          } ElseIf (${Each_SensorDescription} -Eq "CPU Power, CPU Cores") {
-            ${Power_CPU}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "CPU Clocks, CPU Core #1") {
+              ${Clock_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
-            ${Temp_CPU}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "CPU Load, CPU Total") {
+              ${Load_CPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
-            # ------------------------------
+            } ElseIf (${Each_SensorDescription} -Eq "CPU Power, CPU Cores") {
+              ${Power_CPU}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Core") {
-            ${Load_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "CPU Temps, CPU Package") {
+              ${Temp_CPU}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {
-            ${Power_GPU}.(${_}) = (${Each_Value}.(${_}));
+              # ------------------------------
 
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Temps, GPU Core") {
-            ${Temp_GPU}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Core") {
+              ${Load_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Memory") {
-            ${Load_GPU_MemoryUsage}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "GPU Power, GPU Power") {
+              ${Power_GPU}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Core") {
-            ${Clock_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "GPU Temps, GPU Core") {
+              ${Temp_GPU}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Memory") {
-            ${Clock_GPU_Memory}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "GPU Load, GPU Memory") {
+              ${Load_GPU_MemoryUsage}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Shader") {
-            ${Clock_GPU_Shader}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Core") {
+              ${Clock_GPU_Core}.(${_}) = (${Each_Value}.(${_}));
 
-            # ------------------------------
+            } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Memory") {
+              ${Clock_GPU_Memory}.(${_}) = (${Each_Value}.(${_}));
 
-          # } ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
-          #   ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "GPU Clocks, GPU Shader") {
+              ${Clock_GPU_Shader}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  # Chassis Fan 1
-            ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
+              # ------------------------------
 
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #1") {  # Chassis Fan 1
-            ${Speed_FAN_PRC_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
+            # } ElseIf (${Each_SensorDescription} -Eq "Mobo Temps, Temperature #2") {
+            #   ${Temp_SSD}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #3") {  # Chassis Fan 2
-            ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #1") {  # Chassis Fan 1
+              ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  # Chassis Fan 2
-            ${Speed_FAN_PRC_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #1") {  # Chassis Fan 1
+              ${Speed_FAN_PRC_CHA_FAN1}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  # Chassis Fan 3
-            ${Speed_FAN_RPM_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #3") {  # Chassis Fan 2
+              ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
 
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {  # Chassis Fan 3
-            ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
-            #
-            #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ Chassis Fan 3 Min. Duty Cycle (%) ] + [ Chassis Fan 3 Lower Temperature ]
-            #           ↓
-            #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 55.0 ] + [ 15.0 ]
-            #           ↓
-            #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 40.0 ]
-            #
-            $T_SENSOR_TEMP = ([Double](${Each_Value}.(${_})) - [Double](40.00));
-            If (${T_SENSOR_TEMP} -GT 0.0) {
-              ${Temp_Motherboard_T_SENSOR}.(${_}) = ${T_SENSOR_TEMP};
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #3") {  # Chassis Fan 2
+              ${Speed_FAN_PRC_CHA_FAN2}.(${_}) = (${Each_Value}.(${_}));
+
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #4") {  # Chassis Fan 3
+              ${Speed_FAN_RPM_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
+
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #4") {  # Chassis Fan 3
+              ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_Value}.(${_}));
+              #
+              #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ Chassis Fan 3 Min. Duty Cycle (%) ] + [ Chassis Fan 3 Lower Temperature ]
+              #           ↓
+              #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 55.0 ] + [ 15.0 ]
+              #           ↓
+              #     -  T_SENSOR = [ Chassis Fan 3 Current Speed (%) ] - [ 40.0 ]
+              #
+              $T_SENSOR_TEMP = ([Double](${Each_Value}.(${_})) - [Double](40.00));
+              If (${T_SENSOR_TEMP} -GT 0.0) {
+                ${Temp_Motherboard_T_SENSOR}.(${_}) = ${T_SENSOR_TEMP};
+              }
+
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  # W_PUMP+
+              ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
+
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {  # W_PUMP+
+              ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
+
+              # ------------------------------
+
+            } ElseIf (${Each_SensorDescription} -Eq "Mobo Voltages, 3VCC") {  # + 3.3V PSU voltage
+              ${Voltage_Motherboard_03V}.(${_}) = (${Each_Value}.(${_}));
+
+              # ------------------------------
+
             }
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (RPM), Fan #6") {  # W_PUMP+
-            ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Fans (% PWM), Fan Control #6") {  # W_PUMP+
-            ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_Value}.(${_}));
-
-            # ------------------------------
-
-          } ElseIf (${Each_SensorDescription} -Eq "Mobo Voltages, 3VCC") {  # + 3.3V PSU voltage
-            ${Voltage_Motherboard_03V}.(${_}) = (${Each_Value}.(${_}));
-
-            # ------------------------------
 
           }
 
@@ -687,13 +683,7 @@ If ($True) {
 
       $Each_MinMaxAverage = (${DataRows_SensorReadings}.(${Each_ColumnHeader}) | Measure-Object -Average -Maximum -Minimum);
 
-      $EachSensorReading_Obj = @{};
-
       $Each_SensorDescription = (${CsvImport}["Descriptions"][${i_Column}] -Replace "`"", "");
-
-      $EachSensorReading_Obj["Average"] = (${Each_MinMaxAverage}.Average);
-      $EachSensorReading_Obj["Maximum"] = (${Each_MinMaxAverage}.Maximum);
-      $EachSensorReading_Obj["Minimum"] = (${Each_MinMaxAverage}.Minimum);
 
       $Each_Value = @{};
       ${Each_Value}.Avg = (${Each_MinMaxAverage}.Average);

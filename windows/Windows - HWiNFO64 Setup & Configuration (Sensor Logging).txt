@@ -65,7 +65,7 @@ Open HWiNFO64
           > Click "Define Custom Colors >>"
             > Set values { "Red"="168", "Green"="255", "Blue"="0" }
             > Click "OK" in the "Color" window *** closes window ***
-  > Click sensor "CPU (Tctl/Tdie)" in the device list settings  (should be the top sensor under the "CPU [#0]: ..." device)
+  > Click sensor "CPU Die (average)" in the device list settings  (should be the top sensor under the "CPU [#0]: ..." device)
         > Check "Show in Tray"
         > Set "Truncate to:" to "2" (digits)
         > Click the button next to "Font:" to set the font

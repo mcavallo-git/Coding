@@ -404,7 +404,7 @@ If ($True) {
 
             $Each_Header_Units = (([string]([char]0xB0))+("C"));
 
-                  If (${Each_Header_Name} -Match "^CPU \(Tctl\/Tdie\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
+                  If (${Each_Header_Name} -Match "^CPU Die \(average\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
             } ElseIf (${Each_Header_Name} -Match "^GPU Temperature$")          { ${Temp_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
             } ElseIf (${Each_Header_Name} -Match "^GPU Hot Spot Temperature$") { ${Temp_GPU_Hotspot}.(${_}) = (${Each_MinMaxAvg}.(${_}));
             } ElseIf (${Each_Header_Name} -Match "^Chipset$")                  { ${Temp_Motherboard_PCH_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -520,8 +520,8 @@ If ($True) {
 #                 If (${SensorName} -Match "^Core Clocks$") {                   $Clock_CPU_Core.HWiNFO=(${SensorValue});
 #           } ElseIf (${SensorName} -Match "^Total CPU Usage$") {               $Load_CPU_Core.HWiNFO=(${SensorValue});
 #           } ElseIf (${SensorName} -Match "^CPU Package Power$") {             $Power_CPU_Package.HWiNFO=(${SensorValue});
-#           } ElseIf (${SensorName} -Match "^CPU \(Tctl\/Tdie\)$") {            $Temp_CPU_Core.HWiNFO=(${SensorValue}); # Actual Highest temp
-#         # } ElseIf (${SensorName} -Match "^CPU Die \(average\)$") {           $Temp_CPU_Core.HWiNFO=(${SensorValue}); # Averaged temp
+#           } ElseIf (${SensorName} -Match "^CPU Die \(average\)$") {           $Temp_CPU_Core.HWiNFO=(${SensorValue}); # Averaged temp
+#         # } ElseIf (${SensorName} -Match "^CPU \(Tctl\/Tdie\)$") {            $Temp_CPU_Core.HWiNFO=(${SensorValue}); # Highest temp
 #         # } ElseIf (${SensorName} -Match "^Core Temperatures$") {             $Temp_CPU_Core.HWiNFO=(${SensorValue}); # Aggregated Avg Temp
 #           } ElseIf (${SensorName} -Match "^CPU Core Voltage \(SVI2 TFN\)$") { $Voltage_CPU_Core.HWiNFO=(${SensorValue});
 #           }
@@ -1379,6 +1379,8 @@ If ([String]::IsNullOrEmpty("${RunDuration}")) {
 #   stackoverflow.com  |  "powershell - How to strip illegal characters before trying to save filenames? - Stack Overflow"  |  https://stackoverflow.com/a/52528107
 #
 #   stackoverflow.com  |  "powershell max/first/aggregate functions - Stack Overflow"  |  https://stackoverflow.com/a/19170783
+#
+#   www.hwinfo.com  |  "CPU temp sensors explanation | HWiNFO Forum"  |  https://www.hwinfo.com/forum/threads/cpu-temp-sensors-explanation.5597/
 #
 #   www.paessler.com  |  "Custom Sensors | PRTG Manual"  |  https://www.paessler.com/manuals/prtg/custom_sensors#advanced_elements
 #

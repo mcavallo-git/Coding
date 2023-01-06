@@ -226,7 +226,7 @@ If ($True) {
           # $UnitCategory = "Percent";
         } ElseIf (${Each_Header_Units} -Match ".+C") {
           # $UnitCategory = "Temperature";
-          $Each_Header_Units = (([string][char]0xB0)+"C");
+          $Each_Header_Units = (([string]([char]0xB0))+("C"));
         } Else {
           # $UnitCategory = "Custom";
         }
@@ -236,7 +236,7 @@ If ($True) {
         $Output_Fullpath=("${Logfile_Dirname_HWiNFO}\Sensors\${Output_Basename}");
 
         # Build the output JSON as a hash table / arrays, then convert it to JSON afterward
-        $Output_HashTable = @{ "prtg"= @{ "result"=@(); }; };
+        $Output_HashTable = @{"prtg"=@{"result"=@();};};
 
         $EmptyValues = 0;
 
@@ -263,7 +263,7 @@ If ($True) {
 
         # Error - All of of avg/max/min values found to be empty, send error in the JSON body (instead of sending the empty data)
         If (${EmptyValues} -GE 3) {
-          $Output_HashTable = @{ "prtg"= @{ "error"=1; "text"="${Sensor_ErrorMessage_HWiNFO}"; }; };
+          $Output_HashTable = @{"prtg"=@{"error"=1;"text"="${Sensor_ErrorMessage_HWiNFO}";};};
         }
 
         $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50 -Compress);
@@ -390,7 +390,7 @@ If ($True) {
             #
             ${Each_MinMaxAvg}.("UnitCategory") = "Temperature";
 
-            $Each_Header_Units = (([string][char]0xB0)+"C");
+            $Each_Header_Units = (([string]([char]0xB0))+("C"));
 
                   If (${Each_Header_Name} -Match "^CPU \(Tctl\/Tdie\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
             } ElseIf (${Each_Header_Name} -Match "^GPU Temperature$")          { ${Temp_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));

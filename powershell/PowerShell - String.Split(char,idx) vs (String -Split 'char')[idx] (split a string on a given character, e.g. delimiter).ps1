@@ -8,11 +8,11 @@
 ("1|2|3|4|5".Split("|"))[-1];
 
 
-# Split on one of many characters (Method 1)
+# Split on one of many characters
 "Test[String]Split" -split {@("[","]").Contains($_)};
 
-# Split on one of many characters (Method 2)
-"Test[String]Split" -split {($_ -Eq "[") -Or ($_ -Eq "]")};
+# Split on one of many characters - Recombine after removing desired character(s)
+"Test[String]Split" -split {($_ -Eq "[") -Or ($_ -Eq "]")} -join "";
 
 
 # ------------------------------------------------------------

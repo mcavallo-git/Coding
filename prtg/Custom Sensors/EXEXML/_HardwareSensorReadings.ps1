@@ -231,14 +231,42 @@ If ($True) {
           $Each_Max=(${Each_MinMaxAvg}.Max);
           $Each_Min=(${Each_MinMaxAvg}.Min);
 
-        # Unit Categories (PRTG compatible)
+        Clear-Variable LimitMaxError,LimitMinError,LimitMode -EA:0;
+
+        # PRTG Setup/Prep
         If (${Each_Header_Units} -Eq "%") {
-          $UnitCategory = "Percent";
+          $UnitCategory = "Percent"; # The unit of the value. The default is Custom. This is useful for PRTG to convert volumes and times.
+          $LimitMaxError = "100";    # Define an upper error limit for the channel. If enabled, the sensor is set to the Down status if this value is exceeded and the LimitMode is activated.
+          $LimitMinError = "0";      # Define a lower error limit for the channel. If enabled, the sensor is set to the Down status if this value falls below the defined limit and the LimitMode is activated.
+          $LimitMode = 1;            # Define if the limit settings defined above are active. The default is 0 (no; limits inactive). If 0 is used, the limits are written to the channel settings as predefined values, but limits are disabled.
+        } ElseIf (${Each_Header_Units} -Eq "RPM") {
+          $UnitCategory = "Custom";
+          $LimitMaxError = "50000";
+          $LimitMinError = "0";
+          $LimitMode = 1;
+        } ElseIf (${Each_Header_Units} -Eq "W") {
+          $UnitCategory = "Custom";
+          $LimitMaxError = "2000";
+          $LimitMinError = "0";
+          $LimitMode = 1;
+        } ElseIf (${Each_Header_Units} -Eq "V") {
+          $UnitCategory = "Custom";
+          $LimitMaxError = "250";
+          $LimitMinError = "0.1";
+          $LimitMode = 1;
+        } ElseIf (${Each_Header_Units} -Eq "MHz") {
+          $UnitCategory = "Custom";
+          $LimitMinError = "0";
+          $LimitMode = 1;
         } ElseIf (${Each_Header_Units} -Match ".+C") {
+          $Each_Header_Units = (([string]([char]0xB0))+("C")); # Force-set the correct temperature degree unicode character
           $UnitCategory = "Temperature";
-          $Each_Header_Units = (([string]([char]0xB0))+("C"));
+          $LimitMaxError = "150";
+          $LimitMinError = "0";
+          $LimitMode = 1;
         } Else {
           $UnitCategory = "Custom";
+          $LimitMode = 0;
         }
 
         # Build the output JSON as a hash table / arrays, then convert it to JSON afterward
@@ -247,38 +275,41 @@ If ($True) {
         $EmptyValues = 0;
 
         # Avg Value  -  Append to JSON output
-        If ([String]::IsNullOrEmpty(${Each_Avg})) {
+        If ([String]::IsNullOrEmpty("${Each_Avg}")) {
           $EmptyValues++;
         } Else {
           $Mantissa_Digits = If (([Decimal]"${Each_Avg}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Avg}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Avg}") -LT (1000.0)) { 1 } Else { 0 };
           $Append_Result = @{ "value"=[Math]::Round(${Each_Avg},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
-          If (${UnitCategory} -Eq "Custom") {
-            $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
-          };
+          If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
+          $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMinError}"))) { $Append_Result += @{ "limitminerror"="${LimitMinError}"; }; };
           $Output_HashTable.prtg.result += ${Append_Result};
         }
 
         # Max Value  -  Append to JSON output
-        If ([String]::IsNullOrEmpty(${Each_Max})) {
+        If ([String]::IsNullOrEmpty("${Each_Max}")) {
           $EmptyValues++;
         } Else {
           $Mantissa_Digits = If (([Decimal]"${Each_Max}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Max}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Max}") -LT (1000.0)) { 1 } Else { 0 };
           $Append_Result = @{ "value"=[Math]::Round(${Each_Max},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
-          If (${UnitCategory} -Eq "Custom") {
-            $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
-          };
+          If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
+          $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMinError}"))) { $Append_Result += @{ "limitminerror"="${LimitMinError}"; }; };
           $Output_HashTable.prtg.result += ${Append_Result};
         }
 
         # Min Value  -  Append to JSON output
-        If ([String]::IsNullOrEmpty(${Each_Min})) {
+        If ([String]::IsNullOrEmpty("${Each_Min}")) {
           $EmptyValues++;
         } Else {
           $Mantissa_Digits = If (([Decimal]"${Each_Min}") -LT (10.0)) { 3 } ElseIf (([Decimal]"${Each_Min}") -LT (100.0)) { 2 } ElseIf (([Decimal]"${Each_Min}") -LT (1000.0)) { 1 } Else { 0 };
           $Append_Result = @{ "value"=[Math]::Round(${Each_Min},${Mantissa_Digits}); "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
-          If (${UnitCategory} -Eq "Custom") {
-            $Append_Result += @{ "customunit"="${Each_Header_Units}"; };
-          };
+          If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
+          $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMinError}"))) { $Append_Result += @{ "limitminerror"="${LimitMinError}"; }; };
           $Output_HashTable.prtg.result += ${Append_Result};
         }
 

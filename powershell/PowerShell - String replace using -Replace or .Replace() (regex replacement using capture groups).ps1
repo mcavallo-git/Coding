@@ -60,6 +60,8 @@ $TZ_MinutesOffset=$(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d
 #
 # Citation(s)
 #
+#   devblogs.microsoft.com  |  "Weekend Scripter: Remove Non-Alphabetic Characters from String - Scripting Blog"  |  https://devblogs.microsoft.com/scripting/weekend-scripter-remove-non-alphabetic-characters-from-string/
+#
 #   docs.microsoft.com  |  "about_Comparison_Operators - PowerShell | Microsoft Docs"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_comparison_operators?view=powershell-5.1#replacement-operator
 #
 #   powershell.org  |  "Regular Expressions are a -replace's best friend – PowerShell.org"  |  https://powershell.org/2013/08/regular-expressions-are-a-replaces-best-friend/

@@ -231,38 +231,38 @@ If ($True) {
           $Each_Max=(${Each_MinMaxAvg}.Max);
           $Each_Min=(${Each_MinMaxAvg}.Min);
 
-        Clear-Variable LimitMaxError,LimitMinError,LimitMode -EA:0;
+        Clear-Variable LimitMaxWarning,LimitMinWarning,LimitMode -EA:0;
 
         # PRTG Setup/Prep
         If (${Each_Header_Units} -Eq "%") {
           $UnitCategory = "Percent"; # The unit of the value. The default is Custom. This is useful for PRTG to convert volumes and times.
-          $LimitMaxError = "100";    # Define an upper error limit for the channel. If enabled, the sensor is set to the Down status if this value is exceeded and the LimitMode is activated.
-          $LimitMinError = "0";      # Define a lower error limit for the channel. If enabled, the sensor is set to the Down status if this value falls below the defined limit and the LimitMode is activated.
+          $LimitMaxWarning = "100";  # Define an upper error limit for the channel. If enabled, the sensor is set to the Down status if this value is exceeded and the LimitMode is activated.
+          $LimitMinWarning = "0";    # Define a lower error limit for the channel. If enabled, the sensor is set to the Down status if this value falls below the defined limit and the LimitMode is activated.
           $LimitMode = 1;            # Define if the limit settings defined above are active. The default is 0 (no; limits inactive). If 0 is used, the limits are written to the channel settings as predefined values, but limits are disabled.
         } ElseIf (${Each_Header_Units} -Eq "RPM") {
           $UnitCategory = "Custom";
-          $LimitMaxError = "50000";
-          $LimitMinError = "0";
+          $LimitMaxWarning = "50000";
+          $LimitMinWarning = "0";
           $LimitMode = 1;
         } ElseIf (${Each_Header_Units} -Eq "W") {
           $UnitCategory = "Custom";
-          $LimitMaxError = "2000";
-          $LimitMinError = "0";
+          $LimitMaxWarning = "2000";
+          $LimitMinWarning = "0";
           $LimitMode = 1;
         } ElseIf (${Each_Header_Units} -Eq "V") {
           $UnitCategory = "Custom";
-          $LimitMaxError = "250";
-          $LimitMinError = "0.1";
+          $LimitMaxWarning = "250";
+          $LimitMinWarning = "0.1";
           $LimitMode = 1;
         } ElseIf (${Each_Header_Units} -Eq "MHz") {
           $UnitCategory = "Custom";
-          $LimitMinError = "0";
+          $LimitMinWarning = "0";
           $LimitMode = 1;
         } ElseIf (${Each_Header_Units} -Match ".+C") {
           $Each_Header_Units = (([string]([char]0xB0))+("C")); # Force-set the correct temperature degree unicode character
           $UnitCategory = "Temperature";
-          $LimitMaxError = "150";
-          $LimitMinError = "0";
+          $LimitMaxWarning = "150";
+          $LimitMinWarning = "0";
           $LimitMode = 1;
         } Else {
           $UnitCategory = "Custom";
@@ -282,8 +282,8 @@ If ($True) {
           $Append_Result = @{ "value"=([Math]::Round(${Each_Avg},${Mantissa_Digits})); "channel"="${Each_Header_Name} (Avg)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
           $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
-          If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };
-          If (-Not ([String]::IsNullOrEmpty("${LimitMinError}"))) { $Append_Result += @{ "limitminerror"="${LimitMinError}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMaxWarning}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxWarning}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMinWarning}"))) { $Append_Result += @{ "limitminerror"="${LimitMinWarning}"; }; };
           $Output_HashTable.prtg.result += ${Append_Result};
         }
 
@@ -295,8 +295,8 @@ If ($True) {
           $Append_Result = @{ "value"=([Math]::Round(${Each_Max},${Mantissa_Digits})); "channel"="${Each_Header_Name} (Max)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
           $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
-          If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };
-          If (-Not ([String]::IsNullOrEmpty("${LimitMinError}"))) { $Append_Result += @{ "limitminerror"="${LimitMinError}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMaxWarning}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxWarning}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMinWarning}"))) { $Append_Result += @{ "limitminerror"="${LimitMinWarning}"; }; };
           $Output_HashTable.prtg.result += ${Append_Result};
         }
 
@@ -308,8 +308,8 @@ If ($True) {
           $Append_Result = @{ "value"=([Math]::Round(${Each_Min},${Mantissa_Digits})); "channel"="${Each_Header_Name} (Min)"; "unit"="${UnitCategory}"; "float"=1; "decimalmode"=${Mantissa_Digits}; };
           If (${UnitCategory} -Eq "Custom") { $Append_Result += @{ "customunit"="${Each_Header_Units}"; }; };
           $Append_Result += @{ "limitmode"=[int]${LimitMode}; };
-          If (-Not ([String]::IsNullOrEmpty("${LimitMaxError}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxError}"; }; };
-          If (-Not ([String]::IsNullOrEmpty("${LimitMinError}"))) { $Append_Result += @{ "limitminerror"="${LimitMinError}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMaxWarning}"))) { $Append_Result += @{ "limitmaxerror"="${LimitMaxWarning}"; }; };
+          If (-Not ([String]::IsNullOrEmpty("${LimitMinWarning}"))) { $Append_Result += @{ "limitminerror"="${LimitMinWarning}"; }; };
           $Output_HashTable.prtg.result += ${Append_Result};
         }
 

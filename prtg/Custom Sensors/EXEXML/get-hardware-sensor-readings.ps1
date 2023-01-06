@@ -304,21 +304,21 @@ If ($True) {
 
     $CsvImport = @{};
 
-    ${CsvImport}["Descriptions"] = (@("$($LogContent_HeaderRows[0])").Split(","));
+    ${CsvImport}["Headers"] = (@("${LogContent_HeaderRows}").Split(",") -Replace "`"", "");
+    ${CsvImport}["Values"] = @{};
 
     $LogContent_DataAndHeaderCheck=(Get-Content -Path ("${Logfile_Input_FullPath_HWiNFO}") -Tail (${RowCount_DataRows}+${RowCount_HeaderRows}));
     $LogContent_DataRows=(${LogContent_DataAndHeaderCheck} | Select-Object -Last ((${LogContent_DataAndHeaderCheck}.Count)-${RowCount_HeaderRows}));
 
-    $DataRows_SensorReadings=@();
+    $DataRows_SensorReadings = @();
 
     $GetCulture=(Get-Culture);  # Get the system's display format of items such as numbers
-
 
     For ($i_Row=-1; $i_Row -GE (-1 * ${LogContent_DataRows}.Count); $i_Row--) {
       # Walk through the last minute's worth of sensor data stored in the CSV logfile
       $Each_DataRow=(${LogContent_DataRows}[$i_Row] -Split ",");
-      $Each_Row_SensorReadings = @{"Time"=(${Each_DataRow}[0][0]);};
-      For ($i_Column=0; $i_Column -LT (${CsvImport}["Paths"].Count); $i_Column++) {
+      $Each_Row_SensorReadings = @{};
+      For ($i_Column=0; $i_Column -LT (${CsvImport}["Headers"].Count); $i_Column++) {
         # Walk through each column on each row
         $Each_StringValue=(${Each_DataRow}[${i_Column}] -Replace "`"", "");
         $Each_Value=0.0;
@@ -326,15 +326,16 @@ If ($True) {
           # Convert [String] to [DateTime] w/o throwing an error
           $Each_Value=(Get-Date -Date (${Each_StringValue}) -UFormat ("%s"));
         } Else {
-          # Convert [String] to [DateTime] w/o throwing an error
+          # Convert [String] to [Decimal] w/o throwing an error
           If (([Decimal]::TryParse(${Each_StringValue}, [Globalization.NumberStyles]::Float, ${GetCulture}, [Ref]${Each_Value})) -Eq ($True)) {
             # Do Nothing (String-to-Decimal conversion already performed in above "If" statement's conditional block
           }
         }
         # Store each values into an object, push the object to an array (below), then calculate min/max later all-at-once
-        ${Each_Row_SensorReadings}.(${CsvImport}["Paths"][${i_Column}]) = (${Each_Value});
+        ${Each_Row_SensorReadings}.(${CsvImport}["Headers"][${i_Column}]) = (${Each_Value});
       }
       ${DataRows_SensorReadings} += ${Each_Row_SensorReadings};
+
     }
 
   }
@@ -509,7 +510,7 @@ If ($True) {
           # Convert [String] to [DateTime] w/o throwing an error
           $Each_Value=(Get-Date -Date (${Each_StringValue}) -UFormat ("%s"));
         } Else {
-          # Convert [String] to [DateTime] w/o throwing an error
+          # Convert [String] to [Decimal] w/o throwing an error
           If (([Decimal]::TryParse(${Each_StringValue}, [Globalization.NumberStyles]::Float, ${GetCulture}, [Ref]${Each_Value})) -Eq ($True)) {
             # Do Nothing (String-to-Decimal conversion already performed in above "If" statement's conditional block
           }

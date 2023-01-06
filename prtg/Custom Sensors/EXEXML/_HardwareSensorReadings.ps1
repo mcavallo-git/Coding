@@ -180,23 +180,24 @@ If ($True) {
           }
 
           # Check for duplicate header names (plausible since HWiNFO loses its sensor classes when exporting to CSV)
-          If ($MinMaxAvg_Results.(${Each_Header_Name}) -NE $Null) {
+          $Each_Header_Name_Unique = "${Each_Header_Name}";
+          If ($MinMaxAvg_Results.(${Each_Header_Name_Unique}) -NE $Null) {
             # Continue to append different integers onto the name until we find a unique combination, then set that as the name of this duplicate
-            $Temp_NameBackup = "${Each_Header_Name}";
+            $Temp_NameBackup = "${Each_Header_Name_Unique}";
             For ($i=0; $i -LT 1000; $i++) {
-              If ($MinMaxAvg_Results.(${Each_Header_Name}) -Eq $Null) {
+              If ($MinMaxAvg_Results.(${Each_Header_Name_Unique}) -Eq $Null) {
                 Break;
               } Else {
-                $Each_Header_Name = "${Temp_NameBackup}${Delimiter}Duplicate #${i}";
+                $Each_Header_Name_Unique = "${Temp_NameBackup}${Delimiter}Duplicate #${i}";
               }
             }
           }
 
-          $MinMaxAvg_Results.(${Each_Header_Name}) = @{};
-          $MinMaxAvg_Results.(${Each_Header_Name}).("Avg") = (${Each_MinMaxAvg}.Average);
-          $MinMaxAvg_Results.(${Each_Header_Name}).("Max") = (${Each_MinMaxAvg}.Maximum);
-          $MinMaxAvg_Results.(${Each_Header_Name}).("Min") = (${Each_MinMaxAvg}.Minimum);
-          $MinMaxAvg_Results.(${Each_Header_Name}).("Units") = ("${Each_Header_Units}");
+          $MinMaxAvg_Results.(${Each_Header_Name_Unique}) = @{};
+          $MinMaxAvg_Results.(${Each_Header_Name_Unique}).("Avg") = (${Each_MinMaxAvg}.Average);
+          $MinMaxAvg_Results.(${Each_Header_Name_Unique}).("Max") = (${Each_MinMaxAvg}.Maximum);
+          $MinMaxAvg_Results.(${Each_Header_Name_Unique}).("Min") = (${Each_MinMaxAvg}.Minimum);
+          $MinMaxAvg_Results.(${Each_Header_Name_Unique}).("Units") = ("${Each_Header_Units}");
 
         }
 
@@ -213,9 +214,10 @@ If ($True) {
 
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
         
-        $Each_Header_Name=(("$_").Split("${Delimiter}")[0]);
+        $Each_Header_Name_Unique=("$_");
+        $Each_Header_Name=(("${Each_Header_Name_Unique}").Split("${Delimiter}")[0]);
 
-        $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
+        $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name_Unique}));
           $Each_Header_Units=(${Each_MinMaxAvg}.Units);
           $Each_Avg=(${Each_MinMaxAvg}.Avg);
           $Each_Max=(${Each_MinMaxAvg}.Max);
@@ -297,9 +299,10 @@ If ($True) {
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
         # Walk through the parsed min/max array
 
-        $Each_Header_Name=(("$_").Split("${Delimiter}")[0]);
+        $Each_Header_Name_Unique=("$_");
+        $Each_Header_Name=(("${Each_Header_Name_Unique}").Split("${Delimiter}")[0]);
 
-        $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name}));
+        $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name_Unique}));
 
         $Each_Header_Units=(${Each_MinMaxAvg}.Units);
 

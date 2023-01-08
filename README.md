@@ -489,7 +489,8 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <hr />
 
 
-<!-- ------------------------------------------------------------
+<!--
+------------------------------------------------------------
 #
 # Citation(s)
 #
@@ -513,4 +514,5 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 #
 #   www.guru3d.com  |  "Benchmarks & Demos"  |  https://www.guru3d.com/files-categories/benchmarks-demos.html
 #
---- ------------------------------------------------------------ -->
+------------------------------------------------------------
+-->

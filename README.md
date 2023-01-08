@@ -421,14 +421,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>Splashtop Personal</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Access Client</i></sub></td><td><a href="https://www.splashtop.com/downloadstart?product=stp&platform=windows-client">Download (source)</a></td></tr>
 <tr><td><strong>Splashtop Streamer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Access Host/Server</i></sub></td><td><a href="https://www.splashtop.com/downloadstart?platform=windows">Download (source)</a></td></tr>
 <tr><td><strong>TeamViewer</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Remote Access Host/Server</i></sub></td><td><a href="https://www.teamviewer.com/en/download/windows/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.teamviewer.com/en/download/previous-versions/">Download (previous versions)</a></sub></td></tr>
-<tr>
-  <td><strong>Windows Terminal</strong> <i><sub>
-    <br />&nbsp;&nbsp;&nbsp;Multi-tabbed terminal emulator by Microsoft
-    <br />&nbsp;&nbsp;&nbsp;Load good <a href="https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/Windows%20Terminal/settings.json">settings.json</a> (requires <a href="https://github.com/tonsky/FiraCode/releases">Fira Code</a> font)
-    <br />&nbsp;&nbsp;&nbsp;
-    </i></sub>
-  </td>
-  <td><a href="https://www.microsoft.com/store/productId/9N0DX20HK701">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/microsoft/terminal/releases">Download (all releases)</a></sub></td>
+<tr><td><strong>Windows Terminal</strong> <i><sub><br />&nbsp;&nbsp;&nbsp;Multi-tabbed terminal emulator developed by Microsoft<br />&nbsp;&nbsp;&nbsp;Load good <a href="https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/Windows%20Terminal/settings.json">settings.json</a> (requires <a href="https://github.com/tonsky/FiraCode/releases">Fira Code</a> font)<br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/mcavallo-git/Coding/blob/main/windows/Windows%20Terminal/Windows%20Terminal%20-%20Good%20Settings.md">View Docs (Windows Terminal - Good Settings)</a></i></sub></td><td><a href="https://www.microsoft.com/store/productId/9N0DX20HK701">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://github.com/microsoft/terminal/releases">Download (all releases)</a></sub></td>
 </tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

@@ -14,7 +14,7 @@
     - Ctrl + E
 ***
   - Action:
-    - - Open target URL in a new tab (keeping current tab unchanged)
+    - Open target URL in a new tab (keeping current tab unchanged)
   - Hotkey(s):
     - Middle-click (click the mouse-wheel on a given link)
     - Alt + Enter (while in the address bar)

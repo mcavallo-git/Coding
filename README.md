@@ -398,7 +398,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="server-runtimes"><br />Server Runtimes<br /><br /></h5></th></tr>
-<tr><td><strong>Apache httpd</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross Platform Web Server</i></sub></td><td><a href="https://httpd.apache.org/download.cgi">Download (source)</a></td></tr>
+<tr><td><strong>Apache HTTP Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>Apache httpd</code><br />&nbsp;&nbsp;&nbsp;Open Source, Cross Platform Web Server</i></sub></td><td><a href="https://httpd.apache.org/download.cgi">Download (source)</a></td></tr>
 <tr><td><strong>Artifactory</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Binary Repository Manager (relative to Source Code Repo)<br />&nbsp;&nbsp;&nbsp;Artifact Storage for Build Servers</i></sub></td><td><a href="https://www.jfrog.com/confluence/display/JFROG/Installing+Artifactory">View (source)</a></td></tr>
 <tr><td><strong>Docker - Containerized</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Linux LXC Container Management</i></sub></td><td><a href="https://get.docker.com">View (source)</a></td></tr>
 <tr><td><strong>Jenkins - CI/CD Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Automates Continuous Integration (CI)<br />&nbsp;&nbsp;&nbsp;Facilitates Continuous-Deployment (CD)</i></sub></td><td><a href="https://jenkins.io">View (source)</a></td></tr>

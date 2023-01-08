@@ -1,10 +1,6 @@
-# ------------------------------------------------------------
-#
-#  Browser Hotkeys
-#   |
-#   |--> Google Chrome, Microsoft Edge, Mozilla Firefox, Windows Explorer (uncommon)
-#
-# ------------------------------------------------------------
+### Browser Hotkeys - Google Chrome, Microsoft Edge, Mozilla Firefox, Windows Explorer (uncommon)
+
+*** <!-- ------------------------------ -->
 
 Action:
   Select the Address (URL) bar
@@ -15,7 +11,7 @@ Hotkey(s):
   Ctrl + L
 
 
-# ------------------------------------------------------------
+*** <!-- ------------------------------ -->
 
 Action:
   Launch a search query
@@ -24,7 +20,7 @@ Hotkey(s):
   Ctrl + E
 
 
-# ------------------------------------------------------------
+*** <!-- ------------------------------ -->
 
 Action:
   Open target URL in a new tab (keeping current tab unchanged)
@@ -34,6 +30,7 @@ Hotkey(s):
   Alt + Enter (while in the address bar)
 
 
+<!--
 # ------------------------------------------------------------
 #
 # Citation(s)
@@ -41,3 +38,4 @@ Hotkey(s):
 #   www.system-overload.org  |  "Windows Shortcuts"  |  https://www.system-overload.org/windows-shortcuts.html
 #
 # ------------------------------------------------------------
+-->

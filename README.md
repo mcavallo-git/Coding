@@ -215,7 +215,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>Brother P-touch Editor</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Drivers & Software for Brother Label Printer(s)</i></sub></td><td><a href="https://support.brother.com/g/b/downloadtop.aspx?c=eu_ot&lang=en&prod=p710bteuk">Download (source)</a></td></tr>
 <tr><td><strong>Corsair iCUE</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Fan-Speed & RGB Lighting controller<br />&nbsp;&nbsp;&nbsp;<a href="https://help.corsair.com/hc/en-us/articles/360025166712-Perform-a-clean-reinstallation-of-the-Corsair-Utility-Engine-iCUE-">View Docs (iCUE clean reinstallation)</a></i></sub></td><td><a href="https://www.corsair.com/us/en/downloads">Download (source)</a></td></tr>
 <tr><td><strong>Darik's Boot and Nuke</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>DBAN</code><br />&nbsp;&nbsp;&nbsp;Designed to securely erase a hard disks until its<br />&nbsp;&nbsp;&nbsp;data is permanently removed and no longer recoverable<br />&nbsp;&nbsp;&nbsp;Note: Incompatible with UEFI boot mode</i></sub></td><td><a href="https://dban.org/">Download (source)</a></td></tr>
-<tr><td><strong>Easy2Boot <sub>(E2B)</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multi-ISO Bootable Flash Drive<br />&nbsp;&nbsp;&nbsp;<a href="https://easy2boot.xyz/#1_Download_E2B">View Docs (installing/setting up Easy2Boot on a USB drive)</a></i></sub></td><td><a href="https://www.fosshub.com/Easy2Boot.html">Download (source)</a></td></tr>
+<tr><td><strong>Easy2Boot</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>E2B</code>&nbsp;&nbsp;&nbsp;Multi-ISO Bootable Flash Drive<br />&nbsp;&nbsp;&nbsp;<a href="https://easy2boot.xyz/#1_Download_E2B">View Docs (installing/setting up Easy2Boot on a USB drive)</a></i></sub></td><td><a href="https://www.fosshub.com/Easy2Boot.html">Download (source)</a></td></tr>
 <tr><td><strong>EKWB Configurator</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Search for EK water blocks filtered by hardware compatibility</i></sub></td><td><a href="https://www.ekwb.com/configurator/">View (source)</a></td></tr>
 <tr><td><strong>ESXCLI</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;ESXi Embedded Host Client (SSH)</i></sub></td><td><a href="https://flings.vmware.com/esxi-embedded-host-client#instructions">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="http://download3.vmware.com/software/vmw-tools/esxui/esxui-signed-latest.vib">Download (direct)</a></sub></td></tr>
 <tr><td><strong>EVGA Precision X1</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;GPU/GRAM Overclocking Software<br />&nbsp;&nbsp;&nbsp;Controls for Core-Clock, Voltage, Fans, & RGB</i></sub></td><td><a href="https://www.evga.com/precisionx1/">Download (source)</a></td></tr>
@@ -227,17 +227,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>Intel NUC Kits</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Exhaustive list of all Intel NUC models<br />&nbsp;&nbsp;&nbsp;Includes product specifications & MSRP (on individual product pages)</i></sub></td><td><a href="https://ark.intel.com/content/www/us/en/ark/products/series/70407/intel-nuc-kits.html#@nofilter">View (source)</a></td></tr>
 <tr><td><strong>ImDisk Toolkit</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;RamDisk utility for Windows<br />&nbsp;&nbsp;&nbsp;Allows mounting of image files</i></sub></td><td><a href="https://sourceforge.net/projects/imdisk-toolkit/">Download (source)</a></td></tr>
 <tr><td><strong>LG Monitor Drivers</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Drivers/Software for <a href="https://www.lg.com/us/support/product/lg-34UC88-B.AUS">LG 34UC88-B (75 Hz)</a><br />&nbsp;&nbsp;&nbsp;Drivers/Software for <a href="https://www.lg.com/us/support/product/lg-34GP83A-B.AUS">LG 34GP83A-B (160 Hz)</a></i></sub></td><td><a href="https://www.lg.com/us/monitors">View (source)</a></td></tr>
-<tr>
-  <td><strong>Lian Li L-Connect 3</strong>
-    <sub><i>
-      <br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>L-Connect3</code>
-      <br />&nbsp;&nbsp;&nbsp;For <a href="https://lian-li.com/l-connect3#device">compatible Lian-Li products</a>, allows users to control:
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Control <code>Fan/Pump RPM</code> (PWM signal)
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Control <code>Lighting Effects</code> (ARGB signal)
-      <br />&nbsp;&nbsp;&nbsp;<a href="https://lian-li.com/l-connect3/l3_update_manually/">View Docs (Manual Update Firmware For L-Connect 3 [Controller])</a>
-    </i></sub>
-  </td>
-  <td><a href="https://lian-li.com/l-connect3">Download (source)</a></td></tr>
+<tr><td><strong>Lian Li L-Connect 3</strong><sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>L-Connect3</code><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;Controls <code>fan/pump RPM (PWM)</code> & <code>lighting effects (ARGB)</code><br />&nbsp;&nbsp;&nbsp;<a href="https://lian-li.com/l-connect3#device">View Docs (L-Connect 3 Compatible Products)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://lian-li.com/l-connect3/l3_update_manually/">View Docs (Manual Update Firmware For L-Connect 3 [Controller])</a></i></sub></td><td><a href="https://lian-li.com/l-connect3">Download (source)</a></td></tr>
 <tr><td><strong>Logitech G Hub</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Keyboard/Mouse RGB (+3rd Party Tools)</i></sub></td><td><a href="https://support.logi.com/hc/en-us/articles/360025298133">Download (source)</a></td></tr>
 <tr><td><strong>Logitech MyHarmony</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Configuration Utility for Logitech Harmony Hubs & Remotes</i></sub></td><td><a href="https://support.myharmony.com/en-us/download">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://app.myharmony.com/prod/win/1.0/MyHarmony-App.msi">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Logitech Options</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Enhanced functionality for Logitech devices</i></sub></td><td><a href="https://www.logitech.com/en-us/product/options">Download (source)</a></td></tr>
@@ -337,9 +327,9 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>Shadowplay</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;NVIDIA Hardware-accelerated screen capture ('screencap') utility<br />&nbsp;&nbsp;&nbsp;Requires Windows OS w/ Nvidia GeForce GPU</i></sub></td><td><a href="https://www.nvidia.com/en-us/geforce/geforce-experience/shadowplay/">Download (source)</a></td></tr>
 <tr><td><strong>Shotcut</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross-Platform Video Editor</i></sub></td><td><a href="https://shotcut.org/download/">Download (source)</a></td></tr>
 <tr><td><strong>Spotify</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Music Streaming</i></sub></td><td><a href="https://www.spotify.com/us/download/other/">Download (source)</a></td></tr>
-<tr><td><strong>SVG Explorer Extension <sub>'SvgSee'</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Windows Explorer icon thumbnails for .svg files<br />&nbsp;&nbsp;&nbsp;Note: The signed .exe release is incompatible with Windows 10</i></sub></td><td><a href="https://github.com/tibold/svg-explorer-extension/releases/latest">Download (source)</a></td></tr>
+<tr><td><strong>SVG Explorer Extension</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>SvgSee</code><br />&nbsp;&nbsp;&nbsp;Windows Explorer icon thumbnails for .svg files<br />&nbsp;&nbsp;&nbsp;Note: The signed .exe release is incompatible with Windows 10</i></sub></td><td><a href="https://github.com/tibold/svg-explorer-extension/releases/latest">Download (source)</a></td></tr>
 <tr><td><strong>Twitch App</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Live-Streaming & Mod Management</i></sub></td><td><a href="https://twitch.tv/downloads">Download (source)</a></td></tr>
-<tr><td><strong>VirtualDub <sub>Virtual Dub</sub></strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Video Capture, Processing & Editing Utility<br />&nbsp;&nbsp;&nbsp;XVid Video Compression<br />&nbsp;&nbsp;&#8627;&nbsp;Requires XVid Installation - <a href="https://www.xvid.com/download/">Download (Codec - XVid)</a><br />&nbsp;&nbsp;&#8627;&nbsp;Enable via: <kbd><kbd>CTRL</kbd>+<kbd>P</kbd></kbd> &rarr; <code>Xvid MPEG-4 Codem</code> &rarr; <code>OK</code></i></sub></td><td><a href="https://sourceforge.net/projects/virtualdub/files/latest/download">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://sourceforge.net/projects/virtualdubffmpeginputplugin/files/latest/download">Download (Codec - FFMpeg)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.xvid.com/download/">Download (Codec - XVid)</a></sub></td></tr>
+<tr><td><strong>VirtualDub</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>Virtual Dub</code>&nbsp;&nbsp;&nbsp;Open Source Video Capture, Processing & Editing Utility<br />&nbsp;&nbsp;&nbsp;XVid Video Compression<br />&nbsp;&nbsp;&#8627;&nbsp;Requires XVid Installation - <a href="https://www.xvid.com/download/">Download (Codec - XVid)</a><br />&nbsp;&nbsp;&#8627;&nbsp;Enable via: <kbd><kbd>CTRL</kbd>+<kbd>P</kbd></kbd> &rarr; <code>Xvid MPEG-4 Codem</code> &rarr; <code>OK</code></i></sub></td><td><a href="https://sourceforge.net/projects/virtualdub/files/latest/download">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://sourceforge.net/projects/virtualdubffmpeginputplugin/files/latest/download">Download (Codec - FFMpeg)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.xvid.com/download/">Download (Codec - XVid)</a></sub></td></tr>
 <tr><td><strong>VLC Media Player</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source, Cross Platform Multimedia Player<br />&nbsp;&nbsp;&nbsp;Tip: Set playlist preference to <code>Play and pause</code>&nbsp;<sup><a href="https://www.vlchelp.com/define-action-vlc-playlist-ends/">[Citation]</a></sup></i></sub></td><td><a href="https://www.videolan.org/vlc/index.html">Download (source)</a></td></tr>
 <tr><td><strong>Xbox App</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Xbox Application for Windows 10</i></sub></td><td><a href="https://www.xbox.com/en-US/apps/xbox-app-for-windows-10">Download (source)</a></td></tr>
 <!-- -->
@@ -367,16 +357,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2"><h5 id="operating-systems"><br />Operating Systems (OS)<br /><br /></h5></th></tr>
-<tr><td><strong>CentOS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Community Enterprise Operating System</i></sub></td><td>
-  <details><summary>CentOS Mirror(s)</summary>
-    <ul>
-      <li><sub><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></sub></li>
-      <li><sub><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/">https://mirror.vcu.edu/pub/gnu_linux/centos/</a></sub></li>
-      <li><sub><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></sub></li>
-      <li><sub><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></sub></li>
-    </ul>
-  </details>
-</td></tr>
+<tr><td><strong>CentOS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Community Enterprise Operating System</i></sub></td><td><details><summary>CentOS Mirror(s)</summary><ul><li><sub><a href="https://mirror.math.princeton.edu/pub/centos/">https://mirror.math.princeton.edu/pub/centos/</a></sub></li><li><sub><a href="https://mirror.vcu.edu/pub/gnu_linux/centos/">https://mirror.vcu.edu/pub/gnu_linux/centos/</a></sub></li><li><sub><a href="https://mirrors.rit.edu/centos/">https://mirrors.rit.edu/centos/</a></sub></li><li><sub><a href="https://packages.oit.ncsu.edu/centos/">https://packages.oit.ncsu.edu/centos/</a></sub></li></ul></details></td></tr>
 <tr><td><strong>Dell PowerEdge Bootable ISOs</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Official Dell Driver + Firmware Bootlable ISOs<br />&nbsp;&nbsp;&nbsp;View <a href="https://www.dell.com/support/article/en-us/sln296511/update-poweredge-servers-with-platform-specific-bootable-iso?lang=en#2">Update PowerEdge Servers with Platform Specific Bootable ISO</a><br />&nbsp;&nbsp;&nbsp;View <a href="https://www.dell.com/support/article/en-us/sln296810/how-to-create-a-bootable-usb-device-with-rufus-to-update-dell-servers?lang=en">Create Bootable Dell Server ISO</a></i></sub></td><td><a href="https://www.dell.com/support/article/en-us/sln296511/update-poweredge-servers-with-platform-specific-bootable-iso?lang=en#2">Download (source)</a></td></tr>
 <tr><td><strong>FreeNAS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Storage Operating System<br />&nbsp;&nbsp;&nbsp;Based on FreeBSD & OpenZFS file system<br />&nbsp;&nbsp;&nbsp;<a href="https://www.netcomplete.ch/bwl-knowledge-base/install-freenas-esxi/">FreeNAS as ESXi Storage Controller</a></i></sub></td><td><a href="https://www.freenas.org/download-freenas-release/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://archive.freenas.org/">Download (archive)</a></sub></td></tr>
 <tr><td><strong>Home Assistant</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>HomeAssistant</code>,<code>Hassio</code>,<code>Hass.io</code><blockquote cite="https://en.wikipedia.org/wiki/Home_Assistant"><pre>Home Assistant is free and open-source software for home<br />automation designed to be a central control system for smart<br />home devices with a focus on local control and privacy.</pre></blockquote>&nbsp;&nbsp;&nbsp;<a href="https://developers.home-assistant.io/docs/core/entity/">View Docs (Home Assistant Entity Types)</a></i></sub></td><td><a href="https://www.home-assistant.io/installation/">Download (source)</a></td></tr>
@@ -385,35 +366,9 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>NOOBS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>New Out of Box Software</code><br />&nbsp;&nbsp;&nbsp;<blockquote>An easy Operating System installer for the Raspberry Pi&nbsp;<sup><a href="https://github.com/raspberrypi/noobs">[Citation]</a></sup></blockquote></i></sub></td><td><a href="https://github.com/raspberrypi/noobs">Download (source)</a></td></tr>
 <tr><td><strong>Raspberry Pi OS</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Renamed from "Raspbian" in mid 2020 for 64-bit OS release<br />&nbsp;&nbsp;&nbsp;Install OS onto Raspi's SD card using Rufus</i></sub></td><td><a href="https://www.raspberrypi.org/software/operating-systems/">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://ubuntu.com/download/raspberry-pi">Download (Ubuntu for Raspi)</a></sub></td></tr>
 <tr><td><strong>Ubuntu Desktop</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/desktop">Download (source)</a></td></tr>
-<tr>
-  <td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td>
-  <td>
-    <a href="https://ubuntu.com/download/server">Download (source)</a>
-    <sub>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/22.04/">Ubuntu 22.04 LTS (Server)</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/20.04/">Ubuntu 20.04 LTS (Server)</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/18.04/">Ubuntu 18.04 LTS (Server)</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/16.04/">Ubuntu 16.04 LTS (Server)</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/14.04/">Ubuntu 14.04 LTS (Server)</a>
-    </sub>
-  </td>
-</tr>
+<tr><td><strong>Ubuntu Server</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Debian Linux</i></sub></td><td><a href="https://ubuntu.com/download/server">Download (source)</a><sub><br />&nbsp;&#8627;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/22.04/">Ubuntu 22.04 LTS (Server)</a><br />&nbsp;&#8627;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/20.04/">Ubuntu 20.04 LTS (Server)</a><br />&nbsp;&#8627;&nbsp;<a href="https://mirror.umd.edu/ubuntu-iso/18.04/">Ubuntu 18.04 LTS (Server)</a></sub></td></tr>
 <tr><td><strong>VMware (All Downloads)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;VMware vSphere/Workstation/Fusion/Player/etc.</i></sub></td><td><a href="https://my.vmware.com/web/vmware/downloads">Download (source)</a></td></tr>
-<tr>
-  <td>
-    <strong>VMware ESXi</strong>
-    <sub><i>
-      <br />&nbsp;&nbsp;&nbsp;VMware vSphere Hypervisor
-      <br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)
-      <br />&nbsp;&nbsp;&nbsp;ISO file(s) can be converted to bootable USB drive(s) via <a href="https://rufus.ie/">Rufus</a>
-      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">View Docs (ESXi 6.7 Installation/Setup)</a></li>
-      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">View Docs (ESXi 6.5 Installation/Setup)</a></li>
-      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">View Docs (ESXi 6.0 Installation/Setup)</a></li>
-      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">View Docs (ESXi 5.5 Installation/Setup)</a></li>
-    </i></sub>
-  </td>
-  <td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a></td>
-</tr>
+<tr><td><strong>VMware ESXi</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Acronyms/Synonyms: <code>VMware vSphere Hypervisor</code><br />&nbsp;&nbsp;&nbsp;Requires a <a href="https://customerconnect.vmware.com/login"><code>My VMware</code></a> account (free to create)<br />&nbsp;&nbsp;&nbsp;ISO file(s) can be converted to bootable USB drive(s) via <a href="https://rufus.ie/">Rufus</a><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.7/vsphere-esxi-67-installation-setup-guide.pdf">View Docs (ESXi 6.7 Installation/Setup)</a></li><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.5/vsphere-esxi-vcenter-server-65-installation-setup-guide.pdf">View Docs (ESXi 6.5 Installation/Setup)</a></li><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/6.0/vsphere-esxi-vcenter-server-602-installation-setup-guide.pdf">View Docs (ESXi 6.0 Installation/Setup)</a></li><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.vmware.com/en/VMware-vSphere/5.5/vsphere-esxi-vcenter-server-552-installation-setup-guide.pdf">View Docs (ESXi 5.5 Installation/Setup)</a></li></i></sub></td><td><a href="https://www.vmware.com/go/get-free-esxi">Download (source)</a></td></tr>
 <tr><td><strong>VMware Workstation Player</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(Free) Desktop Virtualization for a Single (1) VM</i></sub></td><td><a href="https://www.vmware.com/products/workstation-player.html">Download (source)</a></td></tr>
 <tr><td><strong>VMware Workstation Pro</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;(Paid) Desktop Virtualization for a Multiple VMs</i></sub></td><td><a href="https://www.vmware.com/products/workstation-pro.html">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://my.vmware.com/web/vmware/searchresults#q=VMWare%20Workstation%20Pro%2015">Download (older versions)</a></sub></td></tr>
 <tr><td><strong>Windows 10</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Media Creation Tool - Creates Win10 Installation Media<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/windows/release-health/release-information">View Docs (Windows 10 Versions & Builds)</a></i></sub></td><td><a href="https://www.microsoft.com/en-us/software-download/windows10">Download (source)</a></td></tr>
@@ -505,31 +460,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>MongoDB</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Cross Platform, Document-Oriented Database</i></sub></td><td><a href="https://www.mongodb.com/download-center/community">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-red-hat/">Installation Guide</a></sub></td></tr>
 <tr><td><strong>Microsoft JDBC Driver</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Java Database Connectivity API<br />&nbsp;&nbsp;&nbsp;Defines how a client may access a database</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/connect/jdbc/microsoft-jdbc-driver-for-sql-server">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft ODBC Driver</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;DLL allowing apps to query T-SQL DBs</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server">Download (source)</a></td></tr>
-<tr>
-  <td><strong>Microsoft SQL Server</strong>
-    <sub><i>
-      <br />&nbsp;&nbsp;&nbsp;Microsoft's Relational Database Management System
-      <br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/sql/database-engine/install-windows/latest-updates-for-microsoft-sql-server">View Docs (Latest updates for Microsoft SQL Server)</a>
-      <br />&nbsp;&nbsp;&nbsp;SQL Server Download Types
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;<code>SqlLocalDB</code> refers to <code>LocalDB</code>
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;<code>SQLEXPR</code> refers to <code>Express</code>
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;<code>SQLEXPRWT</code> refers to <code>Express with Tools</code>
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;<code>SQLManagementStudio</code> refers to <code>SQL Studio Manager Express</code>
-      <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;<code>SQLEXPRADV</code> refers to <code>Express + Advanced Services</code>
-    </i></sub>
-  </td>
-  <td><a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads">Download (source)</a>
-    <sub>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://go.microsoft.com/fwlink/p/?linkid=2215158">SQL Server 2022 Developer</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://go.microsoft.com/fwlink/p/?linkid=2216019">SQL Server 2022 Express</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://www.microsoft.com/en-us/download/details.aspx?id=101064">SQL Server 2019 Express</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://www.microsoft.com/en-us/download/details.aspx?id=55994">SQL Server 2017 Express</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://www.microsoft.com/en-us/download/details.aspx?id=56836">SQL Server 2016 SP2</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://www.microsoft.com/en-us/download/details.aspx?id=57474">SQL Server 2014 SP3</a>
-      <br />&nbsp;&#8627;&nbsp;<a href="https://www.microsoft.com/en-us/download/details.aspx?id=49996">SQL Server 2012 SP3</a>
-    </sub>
-  </td>
-</tr>
+<tr><td><strong>Microsoft SQL Server</strong><sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft's Relational Database Management System<br />&nbsp;&nbsp;&nbsp;<a href="https://docs.microsoft.com/en-us/sql/database-engine/install-windows/latest-updates-for-microsoft-sql-server">View Docs (Latest updates for Microsoft SQL Server)</a></i></sub></td><td><a href="https://www.microsoft.com/en-us/sql-server/sql-server-downloads">Download (source)</a><sub><br />&nbsp;&#8627;&nbsp;<a href="https://go.microsoft.com/fwlink/p/?linkid=2216019">SQL Server 2022 Express</a><br />&nbsp;&#8627;&nbsp;<a href="https://www.microsoft.com/en-us/download/details.aspx?id=101064">SQL Server 2019 Express</a><br />&nbsp;&#8627;&nbsp;<a href="https://www.microsoft.com/en-us/download/details.aspx?id=55994">SQL Server 2017 Express</a></sub></td></tr>
 <tr><td><strong>Microsoft SQL Server PowerShell Module</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Contains the following PowerShell Cmdlets:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;SQLPS Module<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;SqlServer Module (which contains SQLPS' cmdlets)</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/powershell/download-sql-server-ps-module">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<details><summary>Install SqlServer (pwsh)</summary><p><ol><li><pre><code>PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProgressPreference SilentlyContinue; Install-Module -Name SqlServer -AllowClobber -Force; Start-Sleep -Seconds 5;') -Verb RunAs -Wait -PassThru | Out-Null;";</code></pre></li></ol></p></details></sub></td></tr>
 <tr><td><strong>Microsoft SQLCMD</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Uses ODBC to execute Transact-SQL batches<br />&nbsp;&nbsp;&nbsp;!!! Requires Microsoft ODBC Driver !!!</i></sub></td><td><a href="https://docs.microsoft.com/en-us/sql/tools/sqlcmd-utility">Download (source)</a></td></tr>
 <tr><td><strong>NGINX</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Web Server, Reverse Proxy,<br />&nbsp;&nbsp;&nbsp;Load Balancer, Mail Proxy, & HTTP Cache</i></sub></td><td><a href="https://nginx.org/en/download.html">Download (source)</a></td></tr>

@@ -18,54 +18,63 @@ DISM /Online /Cleanup-Image /RestoreHealth
 #
 
 
-#
-# Step 1: Acquire a "Windows.iso" file (or plug in an external installation media USB drive)
-#  |
-#  |-->  Create a new "Windows.iso" file via "Create Windows 10 installation media" tool @ https://www.microsoft.com/en-us/software-download/windows10
-#  |      |
-#  |      |--> Mount a "Windows.iso" file via right-click -> "Mount" option
-#  |
-#  |-->  If your Windows source contains an "sources/install.wim" file, use it instead and skip Step 2 & Step 3, below
-#
-
 If ($True) {
-  Mount-DiskImage -ImagePath ("C:\ISO\Windows.iso");  # Mount the ISO
-  $ISO_Esd_FullPath=[string]"D:\sources\install.esd";
+  #
+  # Step 1: Acquire a "Windows.iso" file (or plug in an external installation media USB drive)
+  #  |
+  #  |-->  Create a new "Windows.iso" file via "Create Windows 10 installation media" tool @ https://www.microsoft.com/en-us/software-download/windows10
+  #  |      |
+  #  |      |--> Mount a "Windows.iso" file via right-click -> "Mount" option
+  #  |
+  #  |-->  If your Windows source contains an "sources/install.wim" file, use it instead and skip Step 2 & Step 3, below
+  #
+
+  $Windows_Iso_FullPath=[string]"C:\ISO\Windows.iso";
   $Input_Esd_FullPath=[string]"C:\ISO\install.esd";
-  Copy-Item -Path ("${ISO_Esd_FullPath}") -Destination ("${Input_Esd_FullPath}") -Force;  # Extract ISO file's "sources/install.esd"
-  Dismount-DiskImage -ImagePath ("C:\ISO\Windows.iso");  # Unmount the ISO
+
+  Mount-DiskImage -ImagePath ("${Windows_Iso_FullPath}");  # Mount the ISO
+  $Iso_Esd_FullPath=[string]"D:\sources\install.esd";  # Locate the "install.esd" on the ISO
+
+  Copy-Item -Path ("${Iso_Esd_FullPath}") -Destination ("${Input_Esd_FullPath}") -Force;  # Extract ISO file's "sources/install.esd"
+  Dismount-DiskImage -ImagePath ("${Windows_Iso_FullPath}");  # Unmount the ISO
 }
 
 
-#
-# Step 2: Determine install.esd's "index" for your desired OS
-#  |
-#  |--> Ignore all images whose name ends in " N" (unless you are certain that's the type of OS image you're trying to repair)
-#
 
 If ($True) {
+  #
+  # Step 2: Determine install.esd's "index" for your desired OS
+  #  |
+  #  |--> Ignore all images whose name ends in " N" (unless you are certain that's the type of OS image you're trying to repair)
+  #
+
   $Input_Esd_FullPath=[string]"C:\ISO\install.esd";
+
   DISM /Get-WimInfo /WimFile:"${Input_Esd_FullPath}"
+
+  #
+  # Example output (find OS list that matches your OS - use that index, below)
+  #   Index : 6
+  #   Name : Windows 10 Pro
+  #   Description : Windows 10 Pro
+  #   Size : 15,071,438,212 bytes
+  #
 }
 
-#
-# Example output (find OS list that matches your OS - use that index, below)
-#   Index : 6
-#   Name : Windows 10 Pro
-#   Description : Windows 10 Pro
-#   Size : 15,071,438,212 bytes
-#
 
 
-#
-# Step 3: Convert "install.esd" + [index] into "install.wim"  (will output with a single index of 1)
-#
 
 If ($True) {
+  #
+  # Step 3: Convert "install.esd" + [index] into "install.wim"  (will output with a single index of 1)
+  #
+
   $Input_Esd_Index=[int](6);
   $Input_Esd_FullPath=[string]"C:\ISO\install.esd";
   $Output_Wim_FullPath=[string]"C:\ISO\install.wim";
+
   DISM /Export-Image /SourceImageFile:"${Input_Esd_FullPath}" /SourceIndex:"${Input_Esd_Index}" /DestinationImageFile:"${Output_Wim_FullPath}" /Compress:none /CheckIntegrity
+
 }
 
 #

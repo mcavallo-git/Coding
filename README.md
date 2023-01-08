@@ -482,8 +482,8 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 
 <ul>
-  <li><strong><a href="windows#windows-one-time-setup">(Continued) Windows One-time setup (per device)</a></strong></li>
-  <li><strong><a href="hotkeys/browser-hotkeys.txt">(Continued) Web-Browser & Windows-Explorer Hotkeys</a></strong></li>
+  <li><a href="windows#windows-one-time-setup">(Continued) Windows One-time setup (per device)</a></li>
+  <li><a href="hotkeys/browser-hotkeys.txt">(Continued) Web-Browser & Windows-Explorer Hotkeys</a></li>
 </ul>
 
 <hr />

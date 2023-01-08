@@ -56,7 +56,7 @@
 
 ## Splicing [ 7-pin SL-INF ] into [ 3-pin ARGB ] + [ 4-pin PWM ]
 
-* Use any additional 7-pin Uni Fan SL-INF cables you have (if you purchased a 3-pack), or purchase addiCut any additional 7-pin cables you have, or puchase additional Lian Li 7-pin cables via model `SLV2-1`.
+* Use any additional 7-pin Uni Fan SL-INF cables you have (if you purchased a 3-pack), or puchase additional Lian Li 7-pin cables via model `SLV2-1`.
   - Cut the cable with plenty of excess on both sides (for later use, if so desired).
   - Using above pinout diagram:
     - Splice wires `1`, `2`, and `3` to a female `ARGB` (3-pin) cable

@@ -11,7 +11,7 @@
   -> Right-Click the Connection you wish to remove
    -> Select "Uninstall device"
     -> On Popup window select "Uninstall"
--> Repeat workflow for any connections to-be-delted
+-> Repeat workflow for any connections to be deleted
 
 
 # ------------------------------------------------------------

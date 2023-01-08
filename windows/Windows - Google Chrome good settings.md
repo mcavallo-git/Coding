@@ -1,4 +1,4 @@
-## Google Account & Google Chrome - settings to apply</summary>
+## Google Account & Google Chrome - Good settings</summary>
 
 <ol>
  <br /><li>Browse to <code>chrome://settings/content/camera</code><ul><li>Select <code>Don't allow sites to use your camera</code></li></ul></li>

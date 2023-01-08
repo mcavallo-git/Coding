@@ -1,4 +1,6 @@
-## Google Account & Google Chrome - Good settings</summary>
+<!-- https://github.com/mcavallo-git/Coding/blob/main/windows/Google%20Chrome/Google%20Chrome%20-%20Good%20Settings.md -->
+
+## Google Account & Google Chrome - Good Settings
 
 <ol>
  <br /><li>Browse to <code>chrome://settings/content/camera</code><ul><li>Select <code>Don't allow sites to use your camera</code></li></ul></li>

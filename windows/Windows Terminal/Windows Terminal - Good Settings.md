@@ -1,3 +1,5 @@
+<!-- https://github.com/mcavallo-git/Coding/blob/main/windows/ -->
+
 ## Windows Terminal - Good Settings
 
 <details><summary>Add a "Git Bash" profile to Windows Terminal</summary><p><pre><ul><li>WindowsTerminal.exe > "⚙️ Settings" > "+ Add a new profile"</li><li>Enter the following (into the new profile's fields):<ul><li><code>Name:  Git Bash</code></li><li><code>Command Line:  %ProgramFiles%\Git\bin\bash.exe --login -i</code></li><li><code>Starting Directory:  ☑ Use parent process directory</code></li><li><code>Icon:  %ProgramFiles%/Git/mingw64/share/git/git-for-windows.ico</code></li></ul></li></ul></pre></p></details>

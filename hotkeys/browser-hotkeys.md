@@ -2,33 +2,33 @@
 
 ***
 
-Action:
-  Select the Address (URL) bar
+  Action:
+    Select the Address (URL) bar
 
-Hotkey(s):
-  Alt + D  (also works in Windows Explorer)
-  F6
-  Ctrl + L
-
-
-***
-
-Action:
-  Launch a search query
-
-Hotkey(s):
-  Ctrl + E
-
+  Hotkey(s):
+    Alt + D  (also works in Windows Explorer)
+    F6
+    Ctrl + L
 
 ***
 
-Action:
-  Open target URL in a new tab (keeping current tab unchanged)
+  Action:
+    Launch a search query
 
-Hotkey(s):
-  Middle-click (click the mouse-wheel on a given link)
-  Alt + Enter (while in the address bar)
+  Hotkey(s):
+    Ctrl + E
 
+***
+
+  Action:
+    Open target URL in a new tab (keeping current tab unchanged)
+
+  Hotkey(s):
+    Middle-click (click the mouse-wheel on a given link)
+    Alt + Enter (while in the address bar)
+
+
+***
 
 <!--
 # ------------------------------------------------------------

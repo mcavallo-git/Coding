@@ -1532,9 +1532,9 @@ AppsKey & WheelDown::
 ^#c::
 {
 
-  Windows_RefreshTrayIcons()
+  ; Windows_RefreshTrayIcons()
 
-  ClickLoop(-1,-1,250,1200)
+  ClickLoop(-1,-1,250,12000)
 
   ; ClickLoop(1247,1100,25,7200)
 

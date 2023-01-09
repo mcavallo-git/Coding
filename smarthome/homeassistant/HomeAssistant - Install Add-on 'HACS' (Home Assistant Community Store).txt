@@ -2,15 +2,29 @@
 # HomeAssistant - Install Add-on 'HACS' (Home Assistant Community Store)
 # ------------------------------------------------------------
 
-- Follow the installation steps @ https://hacs.xyz/docs/setup/download/
-  - Open an SSH terminal as root into your Home Assistant instance
-    - Run the HACS installation convenience script:
-      ```wget -O - https://get.hacs.xyz | bash -```
+***
+
+- Step 1) Download & Install HACS
+  - Follow the installation steps @ https://hacs.xyz/docs/setup/download/
+    - Open an SSH terminal as root into your Home Assistant instance
+      - Run the HACS installation convenience script:
+        ```wget -O - https://get.hacs.xyz | bash -```
+
+***
+
+- Step 2) Enable & Configure HACS
+  - Follow the initial configuration guide @ https://hacs.xyz/docs/configuration/basic
+    - In your Home Assistant instance, go to "+ ADD INTEGRATION" > enter "HACS" and install the integration
+      - [ TO DO - ENTER REMAINING CONFIGURATION STEPS HERE ]
+
+***
 
 # ------------------------------------------------------------
 #
 # Citation(s)
 #
 #   hacs.xyz  |  "Download | HACS"  |  https://hacs.xyz/docs/setup/download/
+#
+#   hacs.xyz  |  "Initial Configuration | HACS"  |  https://hacs.xyz/docs/configuration/basic
 #
 # ------------------------------------------------------------

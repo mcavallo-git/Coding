@@ -278,22 +278,37 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
+;   APP-SPECIFIC HOTKEY(S):  Runescape
+;
+; #HotIf WinActive("ahk_exe rs2client.exe")
+;   ;
+;   ;   HOTKEY:  Right Mouse Click
+;   ;   ACTION:  Send [ Middle Mouse Click ] key, instead
+;   ;
+;   RButton:: MButton
+;   ;
+;   ;   HOTKEY:  Middle Mouse Click
+;   ;   ACTION:  Send [ Right Mouse Click ] key, instead
+;   ;
+;   MButton:: RButton
+; ------------------------------------------------------------
+;
 ;   APP-SPECIFIC HOTKEY(S):  Cyberpunk 2077
 ;
 #HotIf WinActive("ahk_exe Cyberpunk2077.exe")
   ;
   ;   HOTKEY:  XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button)  (while [ Cyberpunk ] is active)
-  ;   ACTION:  Press [ Escape ] key, instead
+  ;   ACTION:  Send [ Escape ] key, instead
   ;
   XButton1:: Escape
   ;
   ;   HOTKEY:  XButton2 (Mouse-Button 5, Mouse 'Forward' Side-Button)  (while [ Cyberpunk ] is active)
-  ;   ACTION:  Press [ Left Mouse Click ] key, instead
+  ;   ACTION:  Send [ Left Mouse Click ] key, instead
   ;
   XButton2:: Tab
   ;
   ;   HOTKEY:  CapsLock (while [ Cyberpunk ] is active)
-  ;   ACTION:  Press [ Tab ] key, instead
+  ;   ACTION:  Send [ Tab ] key, instead
   ;
   CapsLock:: Tab
 #HotIf !WinActive("ahk_exe Cyberpunk2077.exe")

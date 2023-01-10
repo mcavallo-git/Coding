@@ -41,7 +41,10 @@ SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrol
 
 SetNumLockState "On"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
 
-SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
+; SetTitleMatchMode 1      ; Title must [ START WITH ] the given WinTitle  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
+  SetTitleMatchMode 2      ; Title must [ CONTAIN ] the given WinTitle  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
+; SetTitleMatchMode 3      ; Title must [ EXACTLY MATCH ] the given WinTitle  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
+; SetTitleMatchMode RegEx  ; "Changes WinTitle, WinText, ExcludeTitle, and ExcludeText to accept regular expressions"
 
 SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
 
@@ -135,7 +138,7 @@ If (FileExist(TrayIcon_Default)) {
 AppsKey::RWin
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  Caps Lock
 ;   ACTION:  Permanently DISABLE Capslock (unless the user pressed combo keypress  [ Shift + CapsLock ]  which toggles CapsLock as-normal)
@@ -267,10 +270,10 @@ Pause::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
-; HOTKEY:  WinKey + F3
-; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
+;   HOTKEY:  WinKey + F3
+;   ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
 ;
 #F3::
 {
@@ -749,7 +752,7 @@ AppsKey & ]::
   CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetControlDelay -1
-  SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
+  SetTitleMatchMode 1  ; Title must [ START WITH ] the given WinTitle
   ; Save current monitor config (to compare against once it's been updated)
   MonitorCountBefore := SysGet(80)
   ViewportWidthBefore := SysGet(78)
@@ -941,9 +944,10 @@ AppsKey & l::
 }
 
 
-; ------------------------------------------------------------
-; HOTKEY:  WinKey + S
-; ACTION:  Opens "Sound" > "Playback" (control panel window)
+; ------------------------------
+;
+;   HOTKEY:  WinKey + S
+;   ACTION:  Opens "Sound" > "Playback" (control panel window)
 ;
 #s::
 {
@@ -953,11 +957,12 @@ AppsKey & l::
 }
 
 
-; ------------------------------------------------------------
-; HOTKEY:  Alt + WinKey + S
-;          Ctrl + WinKey + S
-;          Shift + WinKey + S
-; ACTION:  Opens "Sound" > "Recording" (control panel window)
+; ------------------------------
+;
+;   HOTKEY:  Alt + WinKey + S
+;            Ctrl + WinKey + S
+;            Shift + WinKey + S
+;   ACTION:  Opens "Sound" > "Recording" (control panel window)
 ;
 !#s::
 ^#s::
@@ -1149,7 +1154,7 @@ AppsKey & XButton2::
 
 ; ------------------------------------------------------------
 ;
-; ACTION:  Volume Up/Down/Mute
+;   ACTION:  Volume Up/Down/Mute
 ;
 #F10::
 #F11::
@@ -1272,7 +1277,7 @@ AppsKey & WheelDown::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Open Google Chrome
@@ -1601,7 +1606,110 @@ LShift & RShift::
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 
-; ------------------------------------------------------------
+; ------------------------------
+;
+;   HOTKEY:  Alt + Z  (while [ VS Code ] is NOT active)
+;   ACTION:  Open NVidia GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])
+;
+#HotIf !WinActive("ahk_exe Code.exe")
+  !z::
+  {
+    SetKeyDelay 0, -1
+    SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
+    AwaitModifierKeyup()  ; Wait until all modifier keys are released
+    Send "+!z"
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
+;   ACTION:  Edit > Add Text
+;
+#HotIf WinActive("ahk_exe FoxitPhantomPDF.exe")
+  #a::
+  {
+    global DebugMode
+    CoordMode "Mouse", "Screen"
+    SetDefaultMouseSpeed 0
+    SetControlDelay -1
+    SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+    WinTitle := WinGetTitle("A")
+    If (DebugMode == 1) {
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Add Text'"  ; Toast Notification
+    }
+    ; Click the "Edit" tab
+    xpos := 223
+    ypos := 40
+    ControlClick ("x" xpos " y" ypos), WinTitle
+    Sleep 100
+    ; Click the "Add Text" button
+    xpos := 338
+    ypos := 87
+    ControlClick ("x" xpos " y" ypos), WinTitle
+    Return
+  }
+  ;
+  ;   HOTKEY:  Ctrl + B  (while [ Foxit PhantomPDF ] is active)
+  ;   ACTION:  Edit > Bold
+  ;
+  ^b::
+  {
+    global DebugMode
+    CoordMode "Mouse", "Screen"
+    SetDefaultMouseSpeed 0
+    SetControlDelay -1
+    SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+    WinTitle := WinGetTitle("A")
+    If (DebugMode == 1) {
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Bold'"  ; Toast Notification
+    }
+    ; Click the "Edit" tab
+    xpos := 223
+    ypos := 40
+    ControlClick ("x" xpos " y" ypos), WinTitle
+    
+    Sleep 100
+    ; Click the "B" (Bold) button
+    xpos := 448
+    ypos := 106
+    ControlClick ("x" xpos " y" ypos), WinTitle
+    Return
+  }
+  ;
+  ;   HOTKEY:  Ctrl + Y  (while [ Foxit PhantomPDF ] is active)
+  ;   ACTION:  Redo
+  ;
+  ^y::
+  {
+    global DebugMode
+    ; CoordMode "Mouse", "Window"
+    SetDefaultMouseSpeed 0
+    SetControlDelay -1
+    SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+    WinTitle := WinGetTitle("A")
+    If (DebugMode == 1) {
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Redo'"  ; Toast Notification
+    }
+    ; Click the "Redo" button
+    xpos := 187
+    ypos := 15
+    Use_ControlClick := 0
+    If (Use_ControlClick == 1) {
+      ControlClick ("x" xpos " y" ypos), WinTitle
+    } Else {
+      MouseGetPos &MouseX, &MouseY
+      MouseClick "Left", xpos, ypos
+      MouseMove MouseX, MouseY
+    }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
 ;
 ;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ Cyberpunk ] is active)
 ;   ACTION:  Send [ Escape ] key, instead
@@ -1611,7 +1719,7 @@ LShift & RShift::
 #HotIf
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  XButton2 (Mouse Button 5 - Forward Side Button)  (while [ Cyberpunk ] is active)
 ;   ACTION:  Send [ Left Mouse Click ] key, instead
@@ -1621,7 +1729,63 @@ LShift & RShift::
 #HotIf
 
 
-; ------------------------------------------------------------
+; ------------------------------
+;
+;   HOTKEY:  Numpad Enter  (while [ Destiny 2 ] is active)
+;   ACTION:  Do nothing  (avoids accidental presses during mouse sweeps)
+;
+#HotIf WinActive("ahk_exe destiny2.exe")
+  NumpadEnter:: Return
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  Left Mouse-Click  (while [ Halo Infinite ] is active)
+;   ACTION:  Halo Infinite - Send "Mark" Hotkey
+;
+#HotIf WinActive("ahk_exe HaloInfinite.exe")
+  LButton::
+  {
+    Send "{XButton1}"  ; (Mouse Button 4 - Back Side Button)
+    ; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
+    Sleep 2000
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  Numpad Enter  (while [ Overwatch ] is active)
+;   ACTION:  Do nothing  (avoids accidental presses during mouse sweeps)
+;
+#HotIf WinActive("ahk_exe Overwatch.exe")
+  NumpadEnter:: Return
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ RuneScape ] is active)
+;   ACTION:  Send [ U ] key, instead
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  XButton1:: U
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  XButton2 (Mouse Button 5 - Forward Side Button)  (while [ RuneScape ] is active)
+;   ACTION:  Send [ T ] key, instead
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  XButton2:: T
+#HotIf
+
+
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F5  (while [ Cyberpunk ] is active)
 ;   ACTION:  Farm Cyberpunk Athletics EXP
@@ -1640,23 +1804,7 @@ LShift & RShift::
 #HotIf
 
 
-; ------------------------------------------------------------
-;
-;   HOTKEY:  Left Mouse-Click  (while [ Halo Infinite ] is active)
-;   ACTION:  Halo Infinite - Send "Mark" Hotkey
-;
-#HotIf WinActive("ahk_exe HaloInfinite.exe")
-  LButton::
-  {
-    Send "{XButton1}"  ; (Mouse Button 4 - Back Side Button)
-    ; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
-    Sleep 2000
-    Return
-  }
-#HotIf
-
-
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F5  (while [ Minecraft ] is active)
 ;   ACTION:  Minecraft - do various actions
@@ -1664,7 +1812,7 @@ LShift & RShift::
 #HotIf WinActive("Minecraft")
   #F5::
   {
-    SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
+    SetTitleMatchMode 1  ; Title must [ START WITH ] the given WinTitle
     AwaitModifierKeyup()  ; Wait until all modifier keys are released
     WinTitle := "Minecraft"
     Max_LoopDuration_Seconds := 7200
@@ -1705,10 +1853,10 @@ LShift & RShift::
 #HotIf
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
-; HOTKEY:  WinKey + F5  (while [ Xbox Console Companion ] is active)
-; ACTION:  Xbox - Download & delete game clips & screenshots
+;   HOTKEY:  WinKey + F5  (while [ Xbox Console Companion ] is active)
+;   ACTION:  Xbox - Download & delete game clips & screenshots
 ;
 #HotIf WinActive("Xbox Console Companion")
   #F5::
@@ -1719,10 +1867,10 @@ LShift & RShift::
 #HotIf
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
-; HOTKEY:  WinKey + F5  (while [ Youtube Channel Content ] is active)
-; ACTION:  Youtube - Walk uploads from "Draft" to live state
+;   HOTKEY:  WinKey + F5  (while [ Youtube Channel Content ] is active)
+;   ACTION:  Youtube - Walk uploads from "Draft" to live state
 ;
 #HotIf WinActive("Channel content - YouTube Studio - Google Chrome")
   #F5::
@@ -1733,12 +1881,12 @@ LShift & RShift::
 #HotIf
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
-;   HOTKEY:  WinKey + F5  (Fallthrough)
+;   HOTKEY:  WinKey + F5  (fallthrough)
 ;   ACTION:  Debug/quick-test hotkey
 ;
-#HotIf !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe HaloInfinite.exe") && !WinActive("ahk_exe rs2client.exe") && !WinActive("Xbox Console Companion") && !WinActive("Channel content - YouTube Studio - Google Chrome")
+#HotIf !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe rs2client.exe") && !WinActive("Xbox Console Companion") && !WinActive("Channel content - YouTube Studio - Google Chrome")
   #F5::
   {
 
@@ -1759,152 +1907,9 @@ LShift & RShift::
 #HotIf
 
 
-; ------------------------------
-;
-;   HOTKEY:  Alt + Z  (while [ VS Code ] is NOT active)
-;   ACTION:  Open NVidia GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])
-;
-#HotIf !WinActive("ahk_exe Code.exe")
-  !z::
-  {
-    SetKeyDelay 0, -1
-    SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-    AwaitModifierKeyup()  ; Wait until all modifier keys are released
-    Send "+!z"
-    Return
-  }
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
-;   ACTION:  Edit > Add Text
-;
-#HotIf WinActive("ahk_exe FoxitPhantomPDF.exe")
-  #a::
-  {
-    global DebugMode
-    CoordMode "Mouse", "Screen"
-    SetDefaultMouseSpeed 0
-    SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinTitle := WinGetTitle("A")
-    If (DebugMode == 1) {
-      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Add Text'"  ; Toast Notification
-    }
-    ; Click the "Edit" tab
-    xpos := 223
-    ypos := 40
-    ControlClick ("x" xpos " y" ypos), WinTitle
-    Sleep 100
-    ; Click the "Add Text" button
-    xpos := 338
-    ypos := 87
-    ControlClick ("x" xpos " y" ypos), WinTitle
-    Return
-  }
-  ;
-  ;   HOTKEY:  Ctrl + B  (while [ Foxit PhantomPDF ] is active)
-  ;   ACTION:  Edit > Bold
-  ;
-  ^b::
-  {
-    global DebugMode
-    CoordMode "Mouse", "Screen"
-    SetDefaultMouseSpeed 0
-    SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinTitle := WinGetTitle("A")
-    If (DebugMode == 1) {
-      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Bold'"  ; Toast Notification
-    }
-    ; Click the "Edit" tab
-    xpos := 223
-    ypos := 40
-    ControlClick ("x" xpos " y" ypos), WinTitle
-    
-    Sleep 100
-    ; Click the "B" (Bold) button
-    xpos := 448
-    ypos := 106
-    ControlClick ("x" xpos " y" ypos), WinTitle
-    Return
-  }
-  ;
-  ;   HOTKEY:  Ctrl + Y  (while [ Foxit PhantomPDF ] is active)
-  ;   ACTION:  Redo
-  ;
-  ^y::
-  {
-    global DebugMode
-    ; CoordMode "Mouse", "Window"
-    SetDefaultMouseSpeed 0
-    SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinTitle := WinGetTitle("A")
-    If (DebugMode == 1) {
-      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Redo'"  ; Toast Notification
-    }
-    ; Click the "Redo" button
-    xpos := 187
-    ypos := 15
-    Use_ControlClick := 0
-    If (Use_ControlClick == 1) {
-      ControlClick ("x" xpos " y" ypos), WinTitle
-    } Else {
-      MouseGetPos &MouseX, &MouseY
-      MouseClick "Left", xpos, ypos
-      MouseMove MouseX, MouseY
-    }
-    Return
-  }
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ RuneScape ] is active)
-;   ACTION:  Send [ U ] key, instead
-;
-#HotIf WinActive("ahk_exe rs2client.exe")
-  XButton1:: U
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  XButton2 (Mouse Button 5 - Forward Side Button)  (while [ RuneScape ] is active)
-;   ACTION:  Send [ T ] key, instead
-;
-#HotIf WinActive("ahk_exe rs2client.exe")
-  XButton2:: T
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  Numpad Enter  (while [ Overwatch ] is active)
-;   ACTION:  Do nothing  (avoids accidental presses during mouse sweeps)
-;
-#HotIf WinActive("ahk_exe Overwatch.exe")
-  NumpadEnter:: Return
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   HOTKEY:  Numpad Enter  (while [ Destiny 2 ] is active)
-;   ACTION:  Do nothing  (avoids accidental presses during mouse sweeps)
-;
-#HotIf WinActive("ahk_exe destiny2.exe")
-  NumpadEnter:: Return
-#HotIf
-
-
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
-; ---                       FUNCTIONS                      ---
+; ---                      FUNCTION(S)                     ---
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 
@@ -1920,6 +1925,7 @@ ActiveWindow_Maximize() {
   }
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -1937,6 +1943,7 @@ AwaitModifierKeyup() {
   KeyWait "RWin"    ; Wait for [ Right-WinKey ] to be released
   Sleep 10
 }
+
 
 ; ------------------------------
 ;
@@ -1985,6 +1992,7 @@ BrowserHover() {
   }
 }
 
+
 ; ------------------------------
 ;
 ; ClearTooltip
@@ -1999,6 +2007,7 @@ ClearTooltip(Period:=0, WhichToolTip:=1) {
   }
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2042,6 +2051,7 @@ ClickLoop(MouseX:=-1, MouseY:=-1, Timeout:=250, MaxLoopIterations:=-1) {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; CreateCitationsFooter
@@ -2082,6 +2092,7 @@ CreateCitationsFooter() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; CommentCurrentLine
@@ -2092,6 +2103,7 @@ CommentCurrentLine() {
   Sleep 10
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2104,6 +2116,7 @@ CommentCurrentLine_NoSpace() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; DoLogging
@@ -2115,6 +2128,7 @@ DoLogging(LogText) {
   FileAppend LogText, OutputLogfile
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2146,6 +2160,7 @@ Duplicate_Keypress() {
   ClearTooltip(10)
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2196,6 +2211,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
   Return ReturnedString
 }
 
+
 ; ------------------------------
 ;
 ; Get_ahk_id_from_pid
@@ -2203,7 +2219,7 @@ EscapeSpecialCharacters(StringToEscape:="") {
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;
 Get_ahk_id_from_pid(WinPid, ExcludeTitle:="") {
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   ; ControlGet OutputVar, Hwnd,,, ("ahk_pid " WinPid)
   WinTitle := "ahk_pid " WinPid
   OutputVar := WinGetID(WinTitle,,ExcludeTitle)
@@ -2212,6 +2228,7 @@ Get_ahk_id_from_pid(WinPid, ExcludeTitle:="") {
   ; Return dat_ahk_id
 }
 
+
 ; ------------------------------
 ;
 ; Get_ahk_id_from_title
@@ -2219,11 +2236,12 @@ Get_ahk_id_from_pid(WinPid, ExcludeTitle:="") {
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;
 Get_ahk_id_from_title(WinTitle, ExcludeTitle:="") {
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   ; ControlGet OutputVar, Hwnd,,, WinTitle,, ExcludeTitle
   OutputVar := WinGetID(WinTitle,,ExcludeTitle)
   Return ("ahk_id " OutputVar)
 }
+
 
 ; ------------------------------
 ;
@@ -2234,6 +2252,7 @@ GetCommandOutput(CMD_Command) {
   WScript_Shell_StdOut := RunWaitMany(CMD_Command)
   Return WScript_Shell_StdOut
 }
+
 
 ; ------------------------------
 ;
@@ -2254,6 +2273,7 @@ GetMicroseconds() {
   Return ReturnedVal
 }
 
+
 ; ------------------------------
 ;
 ; GetMilliseconds
@@ -2264,6 +2284,7 @@ GetMicroseconds() {
 GetMilliseconds() {
   Return A_MSec
 }
+
 
 ; ------------------------------
 ;
@@ -2286,6 +2307,7 @@ GetNanoseconds() {
   Return ReturnedVal
 }
 
+
 ; ------------------------------
 ;
 ; GetPID
@@ -2296,6 +2318,7 @@ GetPID(ProcName) {
   PID := ProcessExist(ProcName)
   Return PID
 }
+
 
 ; ------------------------------
 ;
@@ -2405,6 +2428,7 @@ GetRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLetter
   Return ReturnedString
 }
 
+
 ; ------------------------------
 ;
 ; GetTimestamp
@@ -2422,6 +2446,7 @@ GetTimestamp(YMD_Separator:="-", HMS_Separator:=":", DT_Field_Separator:="T") {
   Timestamp_Format := "yyyy" YMD_Separator "MM" YMD_Separator "dd" DT_Field_Separator "HH" HMS_Separator "mm" HMS_Separator "ss"
   Return FormatTime("",Timestamp_Format)
 }
+
 
 ; ------------------------------
 ;
@@ -2462,6 +2487,7 @@ GetTimezoneOffset(&Output_TZ, HMS_Separator:=":", UTC_ReplacementStr:="Z", Strip
   Return
 }
 
+
 ; ------------------------------
 ;
 ; GetTimezoneOffset_P
@@ -2473,6 +2499,7 @@ GetTimezoneOffset_P(&Output_TZ_P) {
   Output_TZ_P := StrReplace(Output_TZ_P, "+", "P")
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2654,6 +2681,7 @@ GetWindowSpecs_OnRightClick(LV, Item, IsRightClick, X, Y) {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; IfProcessExist (proxy-function for GetPID(...))
@@ -2663,6 +2691,7 @@ GetWindowSpecs_OnRightClick(LV, Item, IsRightClick, X, Y) {
 IfProcessExist(ProcName) {
   Return (GetPID(ProcName)>0) ? True : False
 }
+
 
 ; ------------------------------
 ;
@@ -2686,6 +2715,7 @@ ImplodeArray(Array:="",Delimiter:="",ShowIndexes:=False) {
   Return ReturnedVal
 }
 
+
 ; ------------------------------
 ;
 ; IsArray
@@ -2696,6 +2726,7 @@ IsArray(TestVar:="") {
   Return (IsObject(TestVar))  ; https://www.autohotkey.com/board/topic/70596-isarray/?p=447071
   ; Return (!ObjCount(TestArray) || ObjMinIndex(TestArray) == 1 && ObjMaxIndex(TestArray) == ObjCount(TestArray) && TestArray.Clone().Delete(1, TestArray.MaxIndex()) == ObjCount(TestArray))  ; https://www.autohotkey.com/boards/viewtopic.php?t=64332
 }
+
 
 ; ------------------------------
 ;
@@ -2714,6 +2745,7 @@ KeyWaitAny(Options:="")
   Return ih.EndKey  ; Return the key name
 }
 
+
 ; ------------------------------
 ;
 ; LockWorkstation
@@ -2726,6 +2758,7 @@ LockWorkstation() {
   ; Monitor_PowerOff()
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2741,6 +2774,7 @@ Monitor_ActivateLowPowerMode() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Monitor_PowerOff
@@ -2755,6 +2789,7 @@ Monitor_PowerOff() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Monitor_PowerOn
@@ -2768,6 +2803,7 @@ Monitor_PowerOn() {
   SendMessage(0x112, 0xF170, -1,, "Program Manager")
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2785,6 +2821,7 @@ Monitor_ShowScreenSaver() {
   ;
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2817,6 +2854,7 @@ MouseGet_MonitorIndex() {
   Return Mouse_MonitorIndex
 }
 
+
 ; ------------------------------
 ;
 ; Open_Chrome
@@ -2824,7 +2862,7 @@ MouseGet_MonitorIndex() {
 ;
 Open_Chrome() {
   global DebugMode
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   FullPath_RunExe := ""
   FullPath_RunExe_x64 := "C:\Program Files\Google\Chrome\Application\chrome.exe"
   FullPath_RunExe_x86 := "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
@@ -2866,6 +2904,7 @@ Open_Chrome() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Open_ControlPanel_NetworkConnections
@@ -2875,7 +2914,7 @@ Open_Chrome() {
 Open_ControlPanel_NetworkConnections() {
   global DebugMode
   WinTitle := "Network Connections"
-  SetTitleMatchMode 3  ; 3: A window's title must exactly match WinTitle to be a match.
+  SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   If (!WinExist(WinTitle)) {
     If (DebugMode == 1) {
@@ -2892,6 +2931,7 @@ Open_ControlPanel_NetworkConnections() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Open_ControlPanel_Sound
@@ -2901,7 +2941,7 @@ Open_ControlPanel_NetworkConnections() {
 Open_ControlPanel_Sound(TabToOpen:="Playback") {
   global DebugMode
   WinTitle := "Sound"
-  SetTitleMatchMode 3  ; 3: A window's title must exactly match WinTitle to be a match.
+  SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Tab_Desc := "Playback"
   Tab_Int := 0
@@ -2935,6 +2975,7 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
   }
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -2974,6 +3015,7 @@ Open_Exe(ExeFullpath) {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Open_VisualStudioCode
@@ -2981,7 +3023,7 @@ Open_Exe(ExeFullpath) {
 ;
 Open_VisualStudioCode() {
   global DebugMode
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   ; ------------------------------
   FullPath_RunExe := "C:\Windows\System32\notepad.exe"  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
   Exe_Args:=""
@@ -3005,6 +3047,7 @@ Open_VisualStudioCode() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Open_WindowsTerminal
@@ -3012,7 +3055,7 @@ Open_VisualStudioCode() {
 ;
 Open_WindowsTerminal() {
   global DebugMode
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   ; ------------------------------
   FullPath_RunExe := "C:\Windows\explorer.exe"
   Win10_AppName := "Microsoft.WindowsTerminal_8wekyb3d8bbwe"  ; App name acquired via powershell call [ (Get-AppxPackage Microsoft.WindowsTerminal).PackageFamilyName; ]
@@ -3041,6 +3084,7 @@ Open_WindowsTerminal() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; PasteClipboardAsBinary
@@ -3062,6 +3106,7 @@ PasteClipboardAsBinary() {
   Sleep 25
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3105,6 +3150,7 @@ PasteClipboardAsText(StringToPaste:="") {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; PasteClipboard_TextOrBinary
@@ -3126,7 +3172,7 @@ PasteClipboard_TextOrBinary() {
   Return
 }
 Custom_MsgBox_Buttons(MsgBox_WinTitle:="", Start_TickCount:=0, Period:=5000) {
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
   If (Remaining_TickCount <= 0) {
     SetTimer , 0  ; Mark the timer for deletion
@@ -3141,6 +3187,7 @@ Custom_MsgBox_Buttons(MsgBox_WinTitle:="", Start_TickCount:=0, Period:=5000) {
   }
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3299,6 +3346,7 @@ PrintEnv() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; ProcessExist (proxy-function for GetPID(...))
@@ -3309,6 +3357,7 @@ ProcessExist(ProcName) {
   Return (GetPID(ProcName)>0) ? True : False
 }
 
+
 ; ------------------------------
 ;
 ; RegexConsolidateNewlines
@@ -3317,6 +3366,7 @@ ProcessExist(ProcName) {
 RegexConsolidateNewlines(StringToConsolidate:="") {
   Return RegExReplace(StringToConsolidate,"\r\n?|\n\r?","`n")
 }
+
 
 ; ------------------------------
 ;
@@ -3378,6 +3428,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; RunWaitOne
@@ -3397,6 +3448,7 @@ RunWaitOne(CMD_Command) {
   WScript_Shell_Exec := WScript_Shell.Run(Run_Command, 0, true)
   Return WScript_Shell_Exec
 }
+
 
 ; ------------------------------
 ;
@@ -3421,6 +3473,7 @@ RunWaitMany(CMD_Commands) {
   Return WScript_Shell_Exec.StdOut.ReadAll()
 }
 
+
 ; ------------------------------
 ;
 ; SendDashedLine
@@ -3433,6 +3486,7 @@ SendDashedLine(LineLength:=60) {
   SendInput ("{- " LineLength "}")
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3447,6 +3501,7 @@ SendUnderscoreLine(LineLength:=60) {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; SendHostname
@@ -3455,7 +3510,7 @@ SendUnderscoreLine(LineLength:=60) {
 SendHostname() {
   SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   HostName_VerbosityLevel := 0
   Win_ahk_exe := WinGetProcessName("A")
   WinTitle := WinGetTitle("A")
@@ -3474,6 +3529,7 @@ SendHostname() {
   }
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3497,6 +3553,7 @@ SendPseudoRandomString(CopyStringToClipboard:=1) {
     }
   }
 }
+
 
 ; ------------------------------
 ;
@@ -3527,6 +3584,7 @@ SendRandomString(DesiredStringLength:=20, EnableNumbers:=1, EnableLowercaseLette
   }
 }
 
+
 ; ------------------------------
 ;
 ; SendSpace
@@ -3536,6 +3594,7 @@ SendSpace() {
   Send "{SC039}"
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3573,6 +3632,7 @@ ShowCursorCoordinates(FollowDuration_Seconds:=10) {
   ClearTooltip(0)
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3685,6 +3745,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; ShowToolTip
@@ -3730,6 +3791,7 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
   }
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3817,6 +3879,7 @@ ShowVolumeLevel() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; SpaceUp_Loop
@@ -3832,6 +3895,7 @@ SpaceUp_Loop(LoopIterations) {
   }
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3850,6 +3914,7 @@ StringRepeat(StrToRepeat, Multiplier) {
   }
   Return ReturnedVal
 }
+
 
 ; ------------------------------
 ;
@@ -3898,6 +3963,7 @@ StrLen_Max(StrOrObj_1:="", StrOrObj_2:="") {
   Return LongestString
 }
 
+
 ; ------------------------------
 ;
 ; StrLenUnicode
@@ -3907,6 +3973,7 @@ StrLenUnicode(data) {
   RegExReplace(data, "s).", "", &i)
   Return i
 }
+
 
 ; ------------------------------
 ;
@@ -3922,6 +3989,7 @@ TabSpace_Loop(LoopIterations) {
   }
   Return
 }
+
 
 ; ------------------------------
 ;
@@ -3939,6 +4007,7 @@ TempFile() {
   Return TempFile_Fullpath
 }
 
+
 ; ------------------------------
 ;
 ; Windows_RefreshTrayIcons
@@ -3949,7 +4018,7 @@ Windows_RefreshTrayIcons() {
   CoordMode "Mouse", "Window"
   RB_DetectHiddenWindows := A_DetectHiddenWindows
   DetectHiddenWindows 1
-  SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
+  SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
   WM_MOUSEMOVE := 0x0200  ; https://www.autohotkey.com/docs/v1/misc/SendMessageList.htm
   For Each_Id, Each_Title in ["ahk_class Shell_TrayWnd","ahk_class NotifyIconOverflowWindow"] {
     For Each_Id, Each_ControlName in ["ToolbarWindow321", "ToolbarWindow322", "ToolbarWindow323", "ToolbarWindow324"] {
@@ -3975,6 +4044,7 @@ Windows_RefreshTrayIcons() {
   DetectHiddenWindows RB_DetectHiddenWindows
 }
 
+
 ; ------------------------------
 ;
 ; WinGet_ahk_id
@@ -3995,6 +4065,7 @@ WinGet_ahk_id(WinTitle:="", WinText:="", ExcludeTitle:="", ExcludeText:="") {
   Return Win_ahk_id
 }
 
+
 ; ------------------------------
 ;
 ; WinGet_is_win10_app
@@ -4012,6 +4083,7 @@ WinGet_is_win10_app(WinTitle) {
   }
   Return Win_is_win10_app
 }
+
 
 ; ------------------------------
 ;
@@ -4034,6 +4106,7 @@ WinGet_size_state(WinTitle,WinText:="") {
   }
   Return Win_size_state
 }
+
 
 ; ------------------------------
 ;
@@ -4068,6 +4141,7 @@ WinGet_MonitorIndex(WinTitle,WinText:="") {
   Return Win_MonitorIndex
 }
 
+
 ; ------------------------------
 ;
 ; WinSnap
@@ -4084,7 +4158,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
   global WinSnap_Prior_Destination_Direction
   global WinSnap_Prior_Destination_MonitorNumber
   global WinSnap_Prior_Destination_Size
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   CoordMode "Mouse", "Screen"
   ; Strip the word "Monitor" off of the destination monitor's string (to get it as an integer)
   Destination_MonitorNumber := StrReplace(Destination_MonitorNumber,"Monitor","")
@@ -4379,6 +4453,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
   Return
 }
 
+
 ; ------------------------------
 ;
 ; WinSnap_ToGrid
@@ -4427,6 +4502,7 @@ WinSnap_ToGrid(WinTitle:="A", WinText:="", numRows:=1, numCols:=1, row:=1, col:=
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Win_ToggleRestoreMaximize
@@ -4460,6 +4536,7 @@ Win_ToggleRestoreMaximize(WinTitle:="A") {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Xbox_ExportCaptures
@@ -4471,7 +4548,7 @@ Xbox_ExportCaptures() {
   SetControlDelay -1
   SetDefaultMouseSpeed 0
   SetKeyDelay 0, -1
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   ; ------------------------------------------------------------
   ;
@@ -4911,6 +4988,7 @@ Xbox_ExportCaptures() {
   Return
 }
 
+
 ; ------------------------------
 ;
 ; Youtube_EditDraft_Submit
@@ -4925,7 +5003,7 @@ Youtube_EditDraft_Submit() {
   SetControlDelay -1
   SetDefaultMouseSpeed 0
   SetKeyDelay 0, -1
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+  SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   WinTitle := "Channel content - YouTube Studio - Google Chrome"
   If (WinExist(WinTitle)) {
@@ -5028,6 +5106,7 @@ Youtube_EditDraft_Submit() {
   ClearTooltip(10000)
   Return
 }
+
 
 ; ------------------------------------------------------------
 ;
@@ -5296,46 +5375,13 @@ Youtube_EditDraft_Submit() {
 ;   Return new BrightnessSetter()
 ; }
 ;
-; ------------------------------------------------------------
 ;
-; Under Construction:   Duplicate currently-active Window
-;   |
-;   |--> Planned Workflow & Features (Pseudocode):
-;          |
-;          |--> Get Active Window's EXE-Filepath
-;          |
-;          |--> Get Active Window's Runtime-Parameters
-;          |     |--> Ask user if they want to run with [ same runtime parameters as active window ] or [ input their own runtime parameters (string input from user because of open-ended-ness) ]
-;          |     |--> Ask user if they want to [ run WITH elevated privileges ] or [ run WITHOUT elevated privileges ]
-;          |
-;          |--> Run [ EXE-Filepath ] with [ Runtime-Parameters ] determined by user (above)
-;
-
-  ;                                  ;
- ;;;                                ;;;
-;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
- ;;;                                ;;;
-  ;                                  ;
-
-  ;                                  ;
- ;;;                                ;;;
-;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
- ;;;                                ;;;
-  ;                                  ;
-
-  ;                                  ;
- ;;;                                ;;;
-;;;;;     ADD NEW SCRIPTS HERE     ;;;;;
- ;;;                                ;;;
-  ;                                  ;
-
 ; ------------------------------------------------------------
-;   Documentation
 ; ------------------------------------------------------------
-;
-; SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
-; SetTitleMatchMode 2  ; A window's title can contain WinTitle anywhere inside it to be a match
-; SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
+; ------------------------------------------------------------
+; ---                     DOCUMENTATION                    ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
 ;
 ;
 ; ------------------------------------------------------------

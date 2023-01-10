@@ -101,7 +101,7 @@ If (FileExist(TrayIcon_Default)) {
 
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
-; ---                   HOTKEY-LISTENERS                   ---
+; ---                   HOTKEY LISTENERS                   ---
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 
@@ -129,10 +129,90 @@ If (FileExist(TrayIcon_Default)) {
 
 ; ------------------------------
 ;
-;   HOTKEY:  Apps-Key
+;   HOTKEY:  Apps Key
 ;   ACTION:  Replace functionality with that of the right WinKey by using a "pass-through" (~) hotkey --> https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;
 AppsKey::RWin
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Caps Lock
+;   ACTION:  Permanently DISABLE Capslock (unless the user pressed combo keypress  [ Shift + CapsLock ]  which toggles CapsLock as-normal)
+;
+CapsLock::
+^CapsLock::
+!CapsLock::
+#CapsLock::
+{
+  global DebugMode
+  If (GetKeyState("CapsLock","T") == 0) {
+    If (DebugMode == 1) {
+      TooltipOutput := "Enable CapsLock via Shift+CapsLock"
+      ShowToolTip(TooltipOutput,,,,2500)
+    }
+  }
+  SetCapsLockState "Off"
+  Return
+}
++CapsLock::
+{
+  ; Toggles CapsLock to its opposite state
+  SetCapsLockState !GetKeyState("CapsLock","T")
+  Return
+}
+
+
+; ----------------------------------------------------
+;
+;   HOTKEY:  Num Lock
+;   ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
+;            Allow for a specific config-file, if exists, to keep NumLock disabled by-default (for specific hardware/VM use-cases)
+;
+NumLock::
+^NumLock::
+!NumLock::
+#NumLock::
+{
+  global DebugMode
+  ConfigFilepath_KeepNumLockDisabled := ( EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config" )
+  If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
+    ; Default - Keep NumLock enabled
+    If (GetKeyState("NumLock","T") == 0) {
+      SetNumLockState "On"
+    } Else {
+      If (DebugMode == 1) {
+        TooltipOutput := "Disable NumLock via Shift+NumLock"
+        ShowToolTip(TooltipOutput,,,,2500)
+      }
+    }
+  } Else {
+    ; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
+    If (GetKeyState("NumLock","T") == 1) {
+      SetNumLockState "Off"
+    } Else {
+      If (DebugMode == 1) {
+        TooltipOutput := "Enable NumLock via Shift+NumLock"
+        ShowToolTip(TooltipOutput,,,,2500)
+      }
+    }
+  }
+  Return
+}
++NumLock::
+{
+  ConfigFilepath_KeepNumLockDisabled := ( EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config" )
+  If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
+    ; Default - Toggle NumLock (when using shift)
+    SetNumLockState !GetKeyState("NumLock","T")
+  } Else {
+    ; Reversed-Default - Only allow Shift+NumLock to enable NumLock (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
+    If (GetKeyState("NumLock","T") == 0) {
+      SetNumLockState "On"
+    }
+  }
+  Return
+}
 
 
 ; ------------------------------
@@ -189,276 +269,14 @@ Pause::
 
 ; ------------------------------------------------------------
 ;
-;   APP-SPECIFIC HOTKEY(S):  Foxit PhantomPDF
+; HOTKEY:  WinKey + F3
+; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
 ;
-#HotIf WinActive("ahk_exe FoxitPhantomPDF.exe")
-  ;
-  ;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
-  ;   ACTION:  Edit > Add Text
-  ;
-  #a::
-  {
-    global DebugMode
-    CoordMode "Mouse", "Screen"
-    SetDefaultMouseSpeed 0
-    SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinTitle := WinGetTitle("A")
-    If (DebugMode == 1) {
-      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Add Text'"  ; Toast Notification
-    }
-    ; Click the "Edit" tab
-    xpos := 223
-    ypos := 40
-    ControlClick ("x" xpos " y" ypos), WinTitle
-    Sleep 100
-    ; Click the "Add Text" button
-    xpos := 338
-    ypos := 87
-    ControlClick ("x" xpos " y" ypos), WinTitle
-    Return
-  }
-  ;
-  ;   HOTKEY:  Ctrl + B  (while [ Foxit PhantomPDF ] is active)
-  ;   ACTION:  Edit > Bold
-  ;
-  ^b::
-  {
-    global DebugMode
-    CoordMode "Mouse", "Screen"
-    SetDefaultMouseSpeed 0
-    SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinTitle := WinGetTitle("A")
-    If (DebugMode == 1) {
-      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Bold'"  ; Toast Notification
-    }
-    ; Click the "Edit" tab
-    xpos := 223
-    ypos := 40
-    ControlClick ("x" xpos " y" ypos), WinTitle
-    
-    Sleep 100
-    ; Click the "B" (Bold) button
-    xpos := 448
-    ypos := 106
-    ControlClick ("x" xpos " y" ypos), WinTitle
-    Return
-  }
-  ;
-  ;   HOTKEY:  Ctrl + Y  (while [ Foxit PhantomPDF ] is active)
-  ;   ACTION:  Redo
-  ;
-  ^y::
-  {
-    global DebugMode
-    ; CoordMode "Mouse", "Window"
-    SetDefaultMouseSpeed 0
-    SetControlDelay -1
-    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
-    WinTitle := WinGetTitle("A")
-    If (DebugMode == 1) {
-      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Redo'"  ; Toast Notification
-    }
-    ; Click the "Redo" button
-    xpos := 187
-    ypos := 15
-    Use_ControlClick := 0
-    If (Use_ControlClick == 1) {
-      ControlClick ("x" xpos " y" ypos), WinTitle
-    } Else {
-      MouseGetPos &MouseX, &MouseY
-      MouseClick "Left", xpos, ypos
-      MouseMove MouseX, MouseY
-    }
-    Return
-  }
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   APP-SPECIFIC HOTKEY(S):  RuneScape
-;
-#HotIf WinActive("ahk_exe rs2client.exe")
-  ;
-  ;   HOTKEY:  XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button)  (while [ RuneScape ] is active)
-  ;   ACTION:  Send [ Y ] key, instead
-  ;
-  XButton1:: U
-  ;
-  ;   HOTKEY:  XButton2 (Mouse-Button 5, Mouse 'Forward' Side-Button)  (while [ RuneScape ] is active)
-  ;   ACTION:  Send [ U ] key, instead
-  ;
-  XButton2:: T
-; ------------------------------------------------------------
-;
-;   APP-SPECIFIC HOTKEY(S):  Cyberpunk 2077
-;
-#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
-  ;
-  ;   HOTKEY:  XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button)  (while [ Cyberpunk ] is active)
-  ;   ACTION:  Send [ Escape ] key, instead
-  ;
-  XButton1:: Escape
-  ;
-  ;   HOTKEY:  XButton2 (Mouse-Button 5, Mouse 'Forward' Side-Button)  (while [ Cyberpunk ] is active)
-  ;   ACTION:  Send [ Left Mouse Click ] key, instead
-  ;
-  XButton2:: Tab
-  ;
-  ;   HOTKEY:  CapsLock (while [ Cyberpunk ] is active)
-  ;   ACTION:  Send [ Tab ] key, instead
-  ;
-  CapsLock:: Tab
-; ------------------------------------------------------------
-;
-;   NON APP-SPECIFIC HOTKEY(S)
-;
-#HotIf !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe rs2client.exe")
-  ; ------------------------------------------------------------
-  ;
-  ;   HOTKEY:  CapsLock
-  ;   ACTION:  Permanently DISABLE Capslock (unless the user pressed combo keypress  [ Shift + CapsLock ]  which toggles CapsLock as-normal)
-  ;
-  CapsLock::
-  ^CapsLock::
-  !CapsLock::
-  #CapsLock::
-  {
-    global DebugMode
-    If (GetKeyState("CapsLock","T") == 0) {
-      If (DebugMode == 1) {
-        TooltipOutput := "Enable CapsLock via Shift+CapsLock"
-        ShowToolTip(TooltipOutput,,,,2500)
-      }
-    }
-    SetCapsLockState "Off"
-    Return
-  }
-  +CapsLock::
-  {
-    ; Toggles CapsLock to its opposite state
-    SetCapsLockState !GetKeyState("CapsLock","T")
-    Return
-  }
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   APP-SPECIFIC HOTKEY(S):  Overwatch
-;
-#HotIf WinActive("ahk_exe Overwatch.exe")
-  ;
-  ;   HOTKEY:  Numpad-Enter  (while [ Overwatch ] is active)
-  ;   ACTION:  Do nothing, e.g. Ignore numpad-enter-button presses while in-game (prone to being hit by mouse while sweeping)
-  ;
-  NumpadEnter:: Return
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   APP-SPECIFIC HOTKEY(S):  Destiny 2
-;
-#HotIf WinActive("ahk_exe destiny2.exe")
-  ;
-  ;   HOTKEY:  Numpad-Enter  (while [ Destiny 2 ] is active)
-  ;   ACTION:  Do nothing, e.g. Ignore numpad-enter-button presses while in-game (prone to being hit by mouse while sweeping)
-  ;
-  NumpadEnter:: Return
-#HotIf
-
-
-;   ;
-;   ; SET ANY EXISTENT GAME-WINDOW ACTIVE UPON JOYSTICK BUTTON-/TRIGGER-PRESS
-;   ;
-; Joy1::
-; Joy2::
-; Joy3::
-; Joy4::
-; Joy5::
-; Joy6::
-; Joy7::
-; Joy8::
-; Joy9::
-; Joy10::
-; Joy11::
-; Joy12::
-; Joy13::
-; Joy14::
-; Joy15::
-; Joy16::
-; Joy17::
-; Joy18::
-; Joy19::
-; Joy20::
-; Joy21::
-; Joy22::
-; Joy23::
-; Joy24::
-; Joy25::
-; Joy26::
-; Joy27::
-; Joy28::
-; Joy29::
-; Joy30::
-; Joy31::
-; Joy32::
-; {
-;   ; If (DebugMode == 1) {
-;   Tooltip ( "A_ThisHotkey=[" A_ThisHotkey "] "), 100, 100
-;   ; }
-;   Return
-; }
-
-
-; ------------------------------------------------------------
-;
-;   APP-SPECIFIC HOTKEY(S):  Xbox Console Companion
-;
-#HotIf WinActive("Xbox Console Companion")
-  ;
-  ; HOTKEY:  WinKey + F3  (or "#SC03D")
-  ; ACTION:  Xbox - Download & delete game clips & screenshots
-  ;
-  #F3::
-  {
-    Xbox_ExportCaptures()
-    Return
-  }
-#HotIf
-; ------------------------------------------------------------
-#HotIf !WinActive("Xbox Console Companion")
-  ;
-  ; HOTKEY:  WinKey + F3
-  ; ACTION:  Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
-  ;
-  #F3::
-  {
-    BrowserHover()
-    Return
-  }
-#HotIf
-
-
-; ------------------------------------------------------------
-;
-;   APP-SPECIFIC HOTKEY(S):  Youtube
-;
-; #HotIf WinExist("Youtube")
-#HotIf WinExist("Channel content - YouTube Studio - Google Chrome")
-  ;
-  ; HOTKEY:  WinKey + F4
-  ; ACTION:  Youtube - Walk uploads from "Draft" to live state
-  ;
-  #F4::
-  {
-    Youtube_EditDraft_Submit()
-    Return
-  }
-#HotIf
+#F3::
+{
+  BrowserHover()
+  Return
+}
 
 
 ; ------------------------------
@@ -635,23 +453,6 @@ Pause::
   Send SendKeys
   Return
 }
-
-
-; ------------------------------
-;
-;   HOTKEY:  Alt + Z
-;   ACTION:  Open NVidia GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])
-;
-#HotIf !WinActive("ahk_exe Code.exe")
-!z::
-{
-  SetKeyDelay 0, -1
-  SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "+!z"
-  Return
-}
-#HotIf
 
 
 ; ------------------------------
@@ -1262,7 +1063,7 @@ AppsKey & Down::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey/AppsKey + XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button)
+;   HOTKEY:  WinKey/AppsKey + XButton1 (Mouse Button 4 - Back Side Button)
 ;   ACTION:  Goto Previous Track (in currently-active media player)
 ;
 #XButton1::
@@ -1275,7 +1076,7 @@ AppsKey & XButton1::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey/AppsKey + XButton2 (Mouse-Button 5, Mouse 'Front' Side-Button)
+;   HOTKEY:  WinKey/AppsKey + XButton2 (Mouse Button 5 - Forward Side Button)
 ;   ACTION:  Goto Next Track (in currently-active media player)
 ;
 #XButton2::
@@ -1288,7 +1089,7 @@ AppsKey & XButton2::
 
 ; ------------------------------------------------------------
 ;
-; 3-Key Hotkeys  (Using AppsKey, LWin, or RWin)
+; 3-Key Volume Hotkeys  (Using AppsKey, LWin, or RWin)
 ;
 #HotIf GetKeyState("LWin", "P") || GetKeyState("RWin", "P") || GetKeyState("AppsKey", "P")
   ;
@@ -1344,6 +1145,12 @@ AppsKey & XButton2::
     Return
   }
 #HotIf
+
+
+; ------------------------------------------------------------
+;
+; ACTION:  Volume Up/Down/Mute
+;
 #F10::
 #F11::
 #F12::
@@ -1466,7 +1273,6 @@ AppsKey & WheelDown::
 
 
 ; ------------------------------------------------------------
-#HotIf !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe HaloInfinite.exe")
 ;
 ;   HOTKEY:  WinKey + C
 ;   ACTION:  Open Google Chrome
@@ -1474,101 +1280,6 @@ AppsKey & WheelDown::
 #c::
 {
   Open_Chrome()
-  Return
-}
-; #HotIf WinActive("ahk_exe HaloInfinite.exe")
-; ;
-; ;   HOTKEY:  Left Mouse-Click
-; ;   ACTION:  Halo Infinite - Send XButton1 (Mouse-Button 4, Mouse 'Back' Side-Button - Bind button as "Mark" hotkey)
-; ;
-; LButton::
-;   Send, {XButton1}
-;   ; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
-;   Sleep 2000
-;   Return
-#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
-;
-;   HOTKEY:  WinKey + C
-;   ACTION:  Cyberpunk - Farm Athletics EXP
-;
-#c::
-{
-  Loop {
-    WinActivate "Cyberpunk"
-    Send "{Space}"  ; Jump Spam
-    ; MouseClick "Left"  ; Attack Spam
-    Sleep 10
-  }
-  Return
-}
-#HotIf WinActive("Minecraft")
-;
-;   HOTKEY:  WinKey + C
-;   ACTION:  Minecraft - do various actions
-;
-#c::
-{
-  SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  WinTitle := "Minecraft"
-  Max_LoopDuration_Seconds := 7200
-  Milliseconds_BetweenClicks := 750
-
-  Do_SwordAttackSpam := 1
-  ; Do_SwordAttackSpam := 0
-
-  If (Do_SwordAttackSpam == 0) {
-    ; Minecraft - Spam right click (for placing piston to blow through bedrock)
-    Loop 500 {
-      Sleep 10
-      MouseClick "Right"
-    }
-  } Else {
-    ; Minecraft - Sword attack spam
-    TickCount_BeforeLoop := A_TickCount
-    Loop {
-      Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 2)
-      If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
-        ToolTip "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
-        Break
-      } Else {
-        If (WinActive(WinTitle)) {
-          ToolTip "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
-          MouseClick "Left"
-          Sleep Milliseconds_BetweenClicks
-        } Else {
-          ToolTip "Stopped Minecraft auto-clicker (MC window lost focus"
-          Break
-        }
-      }
-    }
-    ClearTooltip(5000)
-  }
-  Return
-}
-#HotIf
-
-
-; ------------------------------
-;
-;   HOTKEY:  Alt + WinKey + C
-;            Ctrl + WinKey + C
-;   ACTION:  Workbench debug hotkey for quick-testing, one-time wizbangs, etc.
-;
-!#c::
-^#c::
-{
-
-  ; Windows_RefreshTrayIcons()
-
-  ClickLoop(-1,-1,250,12000)
-
-  ; ClickLoop(1247,1100,25,7200)
-
-  ; Loop 20 {
-  ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)
-  ; }
-
   Return
 }
 
@@ -1709,58 +1420,6 @@ LShift & RShift::
 ^#t::
 {
   PrintEnv()
-  Return
-}
-
-
-; ----------------------------------------------------
-;
-;   HOTKEY:  NumLock
-;   ACTION:  Keep NumLock state enabled (unless pressed with shift, which enables it)
-;            Allow for a specific config-file, if exists, to keep NumLock disabled by-default (for specific hardware/VM use-cases)
-;
-NumLock::
-^NumLock::
-!NumLock::
-#NumLock::
-{
-  global DebugMode
-  ConfigFilepath_KeepNumLockDisabled := ( EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config" )
-  If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
-    ; Default - Keep NumLock enabled
-    If (GetKeyState("NumLock","T") == 0) {
-      SetNumLockState "On"
-    } Else {
-      If (DebugMode == 1) {
-        TooltipOutput := "Disable NumLock via Shift+NumLock"
-        ShowToolTip(TooltipOutput,,,,2500)
-      }
-    }
-  } Else {
-    ; Reversed-Default - Keep NumLock disabled (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
-    If (GetKeyState("NumLock","T") == 1) {
-      SetNumLockState "Off"
-    } Else {
-      If (DebugMode == 1) {
-        TooltipOutput := "Enable NumLock via Shift+NumLock"
-        ShowToolTip(TooltipOutput,,,,2500)
-      }
-    }
-  }
-  Return
-}
-+NumLock::
-{
-  ConfigFilepath_KeepNumLockDisabled := ( EnvGet("USERPROFILE") "\.ahk\numlock-keep-disabled.config" )
-  If (!FileExist(ConfigFilepath_KeepNumLockDisabled)) {
-    ; Default - Toggle NumLock (when using shift)
-    SetNumLockState !GetKeyState("NumLock","T")
-  } Else {
-    ; Reversed-Default - Only allow Shift+NumLock to enable NumLock (for laptops with a terrible numpad layout (overlaying keys J, L, etc.))
-    If (GetKeyState("NumLock","T") == 0) {
-      SetNumLockState "On"
-    }
-  }
   Return
 }
 
@@ -1936,6 +1595,313 @@ NumLock::
 ; }
 ;
 ;
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---             APP-SPECIFIC HOTKEY LISTENERS            ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ Cyberpunk ] is active)
+;   ACTION:  Send [ Escape ] key, instead
+;
+#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
+  XButton1:: Escape
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  XButton2 (Mouse Button 5 - Forward Side Button)  (while [ Cyberpunk ] is active)
+;   ACTION:  Send [ Left Mouse Click ] key, instead
+;
+#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
+  XButton2:: Tab
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  WinKey + F5  (while [ Cyberpunk ] is active)
+;   ACTION:  Farm Cyberpunk Athletics EXP
+;
+#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
+  #F5::
+  {
+    Loop {
+      WinActivate "Cyberpunk"
+      Send "{Space}"  ; Spam Jump
+      ; MouseClick "Left"  ; Spam Attack
+      Sleep 10
+    }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Left Mouse-Click  (while [ Halo Infinite ] is active)
+;   ACTION:  Halo Infinite - Send "Mark" Hotkey
+;
+#HotIf WinActive("ahk_exe HaloInfinite.exe")
+  LButton::
+  {
+    Send "{XButton1}"  ; (Mouse Button 4 - Back Side Button)
+    ; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
+    Sleep 2000
+    Return
+  }
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  WinKey + F5  (while [ Minecraft ] is active)
+;   ACTION:  Minecraft - do various actions
+;
+#HotIf WinActive("Minecraft")
+  #F5::
+  {
+    SetTitleMatchMode 1  ; A window's title must start with the specified WinTitle to be a match
+    AwaitModifierKeyup()  ; Wait until all modifier keys are released
+    WinTitle := "Minecraft"
+    Max_LoopDuration_Seconds := 7200
+    Milliseconds_BetweenClicks := 750
+
+    Do_SwordAttackSpam := 1
+    ; Do_SwordAttackSpam := 0
+
+    If (Do_SwordAttackSpam == 0) {
+      ; Minecraft - Spam right click (for placing piston to blow through bedrock)
+      Loop 500 {
+        Sleep 10
+        MouseClick "Right"
+      }
+    } Else {
+      ; Minecraft - Sword attack spam
+      TickCount_BeforeLoop := A_TickCount
+      Loop {
+        Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 2)
+        If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
+          ToolTip "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
+          Break
+        } Else {
+          If (WinActive(WinTitle)) {
+            ToolTip "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
+            MouseClick "Left"
+            Sleep Milliseconds_BetweenClicks
+          } Else {
+            ToolTip "Stopped Minecraft auto-clicker (MC window lost focus"
+            Break
+          }
+        }
+      }
+      ClearTooltip(5000)
+    }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+; HOTKEY:  WinKey + F5  (while [ Xbox Console Companion ] is active)
+; ACTION:  Xbox - Download & delete game clips & screenshots
+;
+#HotIf WinActive("Xbox Console Companion")
+  #F5::
+  {
+    Xbox_ExportCaptures()
+    Return
+  }
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+; HOTKEY:  WinKey + F5  (while [ Youtube Channel Content ] is active)
+; ACTION:  Youtube - Walk uploads from "Draft" to live state
+;
+#HotIf WinActive("Channel content - YouTube Studio - Google Chrome")
+  #F5::
+  {
+    Youtube_EditDraft_Submit()
+    Return
+  }
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  WinKey + F5  (Fallthrough)
+;   ACTION:  Debug/quick-test hotkey
+;
+#HotIf !WinActive("Minecraft") && !WinActive("ahk_exe Cyberpunk2077.exe") && !WinActive("ahk_exe HaloInfinite.exe") && !WinActive("ahk_exe rs2client.exe") && !WinActive("Xbox Console Companion") && !WinActive("Channel content - YouTube Studio - Google Chrome")
+  #F5::
+  {
+
+    ; Windows_RefreshTrayIcons()
+
+    ; ClickLoop(-1,-1,250,12000)
+
+    ClickLoop(-1,-1,2000,12000)
+
+    ; ClickLoop(1247,1100,25,7200)
+
+    ; Loop 20 {
+    ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)
+    ; }
+
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  Alt + Z  (while [ VS Code ] is NOT active)
+;   ACTION:  Open NVidia GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])
+;
+#HotIf !WinActive("ahk_exe Code.exe")
+  !z::
+  {
+    SetKeyDelay 0, -1
+    SetTitleMatchMode 2  ; Title must CONTAIN [ WinTitle ] as a substring
+    AwaitModifierKeyup()  ; Wait until all modifier keys are released
+    Send "+!z"
+    Return
+  }
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
+;   ACTION:  Edit > Add Text
+;
+#HotIf WinActive("ahk_exe FoxitPhantomPDF.exe")
+  #a::
+  {
+    global DebugMode
+    CoordMode "Mouse", "Screen"
+    SetDefaultMouseSpeed 0
+    SetControlDelay -1
+    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
+    WinTitle := WinGetTitle("A")
+    If (DebugMode == 1) {
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Add Text'"  ; Toast Notification
+    }
+    ; Click the "Edit" tab
+    xpos := 223
+    ypos := 40
+    ControlClick ("x" xpos " y" ypos), WinTitle
+    Sleep 100
+    ; Click the "Add Text" button
+    xpos := 338
+    ypos := 87
+    ControlClick ("x" xpos " y" ypos), WinTitle
+    Return
+  }
+  ;
+  ;   HOTKEY:  Ctrl + B  (while [ Foxit PhantomPDF ] is active)
+  ;   ACTION:  Edit > Bold
+  ;
+  ^b::
+  {
+    global DebugMode
+    CoordMode "Mouse", "Screen"
+    SetDefaultMouseSpeed 0
+    SetControlDelay -1
+    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
+    WinTitle := WinGetTitle("A")
+    If (DebugMode == 1) {
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Edit' > 'Bold'"  ; Toast Notification
+    }
+    ; Click the "Edit" tab
+    xpos := 223
+    ypos := 40
+    ControlClick ("x" xpos " y" ypos), WinTitle
+    
+    Sleep 100
+    ; Click the "B" (Bold) button
+    xpos := 448
+    ypos := 106
+    ControlClick ("x" xpos " y" ypos), WinTitle
+    Return
+  }
+  ;
+  ;   HOTKEY:  Ctrl + Y  (while [ Foxit PhantomPDF ] is active)
+  ;   ACTION:  Redo
+  ;
+  ^y::
+  {
+    global DebugMode
+    ; CoordMode "Mouse", "Window"
+    SetDefaultMouseSpeed 0
+    SetControlDelay -1
+    SetTitleMatchMode 3  ; A window's title must exactly match WinTitle to be a match
+    WinTitle := WinGetTitle("A")
+    If (DebugMode == 1) {
+      TrayTip "AHK", "Foxit PhantomPDF:`nClicking 'Redo'"  ; Toast Notification
+    }
+    ; Click the "Redo" button
+    xpos := 187
+    ypos := 15
+    Use_ControlClick := 0
+    If (Use_ControlClick == 1) {
+      ControlClick ("x" xpos " y" ypos), WinTitle
+    } Else {
+      MouseGetPos &MouseX, &MouseY
+      MouseClick "Left", xpos, ypos
+      MouseMove MouseX, MouseY
+    }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ RuneScape ] is active)
+;   ACTION:  Send [ U ] key, instead
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  XButton1:: U
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  XButton2 (Mouse Button 5 - Forward Side Button)  (while [ RuneScape ] is active)
+;   ACTION:  Send [ T ] key, instead
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  XButton2:: T
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Numpad Enter  (while [ Overwatch ] is active)
+;   ACTION:  Do nothing  (avoids accidental presses during mouse sweeps)
+;
+#HotIf WinActive("ahk_exe Overwatch.exe")
+  NumpadEnter:: Return
+#HotIf
+
+
+; ------------------------------------------------------------
+;
+;   HOTKEY:  Numpad Enter  (while [ Destiny 2 ] is active)
+;   ACTION:  Do nothing  (avoids accidental presses during mouse sweeps)
+;
+#HotIf WinActive("ahk_exe destiny2.exe")
+  NumpadEnter:: Return
+#HotIf
+
+
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 ; ---                       FUNCTIONS                      ---

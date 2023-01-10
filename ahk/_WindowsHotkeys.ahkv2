@@ -702,10 +702,10 @@ Pause::
         ; Exe path-matching failed
         DoPaste := 0
         If (DebugMode == 1) {
-          TrayTip "AHK", ("Error - Invalid exe (allowing paste):" "`n" "'" Win_ahk_exe "'")  ; Toast Notification
+          TrayTip "AHK", ("Error - Invalid exe (blocking paste):" "`n" "'" Win_ahk_exe "'")  ; Toast Notification
         } Else {
           ; !! Always show at-least the shortened form of this error !!
-          TrayTip "AHK", "Error - Invalid exe (allowing paste):"  ; Toast Notification
+          TrayTip "AHK", "Error - Invalid exe (blocking paste):"  ; Toast Notification
         }
       }
     } Else {

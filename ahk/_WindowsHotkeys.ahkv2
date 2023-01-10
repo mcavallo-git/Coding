@@ -11,8 +11,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 0
-; DebugMode := 1
+; DebugMode := 0
+DebugMode := 1
 
 ; ------------------------------------------------------------
 ;
@@ -652,12 +652,31 @@ Pause::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + G
-;   HOTKEY:  WinKey + W
-;   ACTION:  Types the contents of target file - Optionally, only perform the paste if the currently active window's executable filepath matches a predefined 'whitelisted' exe-filepath
+;   HOTKEY:  WinKey + [ G or W ]
+;            Alt + WinKey + [ G or W ]
+;            Ctrl + WinKey + [ G or W ]
+;            Shift + WinKey + [ G or W ]
+;            Ctrl + Alt + WinKey + [ G or W ]
+;            Shift + Alt + WinKey + [ G or W ]
+;            Shift + Ctrl + Alt + WinKey + [ G or W ]
+;   ACTION:  Types the contents of target file - If [ target file + ".exe" ] file exists, only type contents into that exe's window (if it exists)
 ;
 #g::
+!#g::
+^#g::
++#g::
+!^#g::
++!#g::
++^#g::
++!^#g::
 #w::
+!#w::
+^#w::
++#w::
+!^#w::
++!#w::
++^#w::
++!^#w::
 {
   global DebugMode
   FileToPaste_Legend := EnvGet("USERPROFILE") "\.ahk\" A_ThisHotkey
@@ -697,7 +716,8 @@ Pause::
     ; Paste file not found
     DoPaste := 0
     If (DebugMode == 1) {
-        TrayTip "AHK", ("Error (file not found) - Blocking paste" "`n" "FileToPaste_Legend=[" FileToPaste_Legend "]")  ; Toast Notification
+        ; TrayTip "AHK", ("Error (file not found) - Blocking paste" "`n" "ExeToRequire_Legend=[" ExeToRequire_Legend "]")  ; Toast Notification
+        Msgbox ("Error (file not found):" "`n" "`n" "ExeToRequire_Legend=[" ExeToRequire_Legend "]")  ; Toast Notification
     }
   }
   If (DoPaste == 1) {

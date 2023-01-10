@@ -1787,6 +1787,81 @@ LShift & RShift::
 
 ; ------------------------------
 ;
+;   HOTKEY:  WinKey + F5  (Mouse Button 5 - Forward Side Button)  (while [ RuneScape ] is active)
+;   ACTION:  Farm XP
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  ^#c::
+  !#c::
+  #F5::
+  {
+    CoordMode "Mouse", "Screen"
+
+    ; If ( 0 == 1 ) {
+      ;
+      ; Woodcutting/Firemaking XP Farm
+      ;   - Find a tree in-game
+      ;   - Place character 1 tile south of a tree to chop
+      ;   - Zoom the camera in all the way
+      ;   - Pivot camera up/down so it's as high as possible looking down at the top of the character's head
+      ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
+      ;   - NOTE: Fires last 60 (randomly selected at time that fire is created)
+      ;
+      Loop {
+        Loop 2 {
+          ; ----- Chop Tree
+          MouseClick "Right", 1747, 257    ; Right click tree to chop
+          Sleep 500                        ; Wait for menu popup
+          MouseClick "Left", 0, 25,,,,"R"  ; Select menu option #1 - "Chop down ___"
+          Sleep 30000                      ; Wait until we have chopped some wood
+          If (A_Index != 1) {
+            ; ----- Step off Fire
+            MouseClick "Right", 1444, 777    ; Right click 1 tile West (NOT bonfire)
+            Sleep 500                        ; Wait for menu popup
+            MouseClick "Left", 0, 25,,,,"R"  ; Select menu option #1 - "Walk here"
+            Sleep 5000                       ; Wait for character to move
+          }
+          ; ----- Light Fire
+          MouseClick "Right", 2400, 1080   ; Right click logs in inventory
+          Sleep 500                        ; Wait for menu popup
+          MouseClick "Left", 0, 42,,,,"R"  ; Select menu option #2 - "Light ___ logs"
+          Sleep 30000                      ; Wait for logs to light successfully
+          ; ----- Add Logs to Fire
+          MouseClick "Right", 1444, 777    ; Right click 1 tile West (bonfire)
+          Sleep 500                        ; Wait for menu popup
+          MouseClick "Left", 0, 42,,,,"R"  ; Select menu option #2 - "Use Fire"
+          Sleep 2000                       ; Wait for window popup
+          MouseClick "Left", 1792, 385     ; Select "Add to bonfire"
+          Sleep 30000                      ; Wait to throw all logs on the fire
+          If (A_Index == 1) {
+            ; ----- Move South of Tree
+            MouseClick "Right", 1444, 777    ; Right click 1 tile West (bonfire)
+            Sleep 500                        ; Wait for menu popup
+            MouseClick "Left", 0, 25,,,,"R"  ; Select menu option #1 - "Walk here"
+            Sleep 5000                       ; Wait for character to move
+            ; -----
+          }
+        }
+      }
+    ; }
+
+
+    If ( 0 == 1 ) {
+      Loop 240 {
+        MouseClick "Right", 2400, 1080   ; Right click logs in inventory
+        Sleep 500                        ; Wait for menu popup
+        MouseClick "Left", 0, 42,,,,"R"  ; Select menu option #2 - "Light ___ logs"
+        Sleep 4500
+      }
+    }
+
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
 ;   HOTKEY:  WinKey + F5  (while [ Cyberpunk ] is active)
 ;   ACTION:  Farm Cyberpunk Athletics EXP
 ;

@@ -688,21 +688,24 @@ Pause::
     If (FileExist(ExeToRequire_Legend)) {
       ; Get required/whitelisted exe fullpath to match active against
       ExeToRequire_Fullpath := FileRead(ExeToRequire_Legend)
-      Win_fullpath := WinGetProcessPath("A")
+      Win_ahk_id := WinGetID("A")
+      WinHwnd := ("ahk_id " Win_ahk_id)
+      Win_ahk_exe := WinGetProcessName(WinHwnd)
+      Win_fullpath := WinGetProcessPath(WinHwnd)
       If ((ExeToRequire_Fullpath != "") && (ExeToRequire_Fullpath == Win_fullpath)) {
         ; Exe path-matching succeeded
         DoPaste := 1
         If (DebugMode == 1) {
-          TrayTip "AHK", ("Info - Allowing paste" "`n" "Win_fullpath == '" ExeToRequire_Fullpath "'")  ; Toast Notification
+          TrayTip "AHK", ("Info - Valid exe (allowing paste):" "`n" "'" Win_ahk_exe "'")  ; Toast Notification
         }
       } Else {
         ; Exe path-matching failed
         DoPaste := 0
         If (DebugMode == 1) {
-          TrayTip "AHK", ("Error (invalid exe) - Blocking paste" "`n" "Win_fullpath != '" ExeToRequire_Fullpath "'")  ; Toast Notification
+          TrayTip "AHK", ("Error - Invalid exe (allowing paste):" "`n" "'" Win_ahk_exe "'")  ; Toast Notification
         } Else {
           ; !! Always show at-least the shortened form of this error !!
-          TrayTip "AHK", "Error (invalid exe) - Blocking paste"  ; Toast Notification
+          TrayTip "AHK", "Error - Invalid exe (allowing paste):"  ; Toast Notification
         }
       }
     } Else {

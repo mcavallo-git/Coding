@@ -14,88 +14,85 @@ $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.Servic
 
 If ($True) {
 
-	$ISO_FullPath = "${HOME}\Desktop\Windows.iso";
+  $ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
 
+  # Determine if the iso file is already mounted
+  $Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter);
 
-	$ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
+  # If iso file is not already mounted, then mount it now
+  If ($null -eq (Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume)) {
+    Mount-DiskImage -ImagePath ("${ISO_FullPath}") | Out-Null;
+    Start-Sleep -Seconds (1);
+  }
 
-	# Determine if the iso file is already mounted
-	$Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter);
+  # Get the mounted iso file's drive letter
+  $Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter); $Mounted_DriveLetter;
 
-	# If iso file is not already mounted, then mount it now
-	If ($null -eq (Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume)) {
-		Mount-DiskImage -ImagePath ("${ISO_FullPath}") | Out-Null;
-		Start-Sleep -Seconds (1);
-	}
+  If (([String]::IsNullOrEmpty("${Mounted_DriveLetter}")) -Eq $True) {
 
-	# Get the mounted iso file's drive letter
-	$Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter); $Mounted_DriveLetter;
+    # Error(s) mounting ISO file
+    Write-Output "Error:  Unable to mount ISO file `"${ISO_FullPath}`"";
 
-	If (([String]::IsNullOrEmpty("${Mounted_DriveLetter}")) -Eq $True) {
+  } Else {
 
-		# Error(s) mounting ISO file
-		Write-Output "Error:  Unable to mount ISO file `"${ISO_FullPath}`"";
+    # ISO file mounted successfully
+    Write-Output "Info:  Located ISO file `"${ISO_FullPath}`" mounted to drive letter `"${Mounted_DriveLetter}`"";
 
-	} Else {
+    # Get the version # of Windows (stored within the .iso file)
+    $Install_Esd_MountPath = ("${Mounted_DriveLetter}:\sources\install.esd");
 
-		# ISO file mounted successfully
-		Write-Output "Info:  Located ISO file `"${ISO_FullPath}`" mounted to drive letter `"${Mounted_DriveLetter}`"";
+    $DISM_Info=(Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1); $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
 
-		# Get the version # of Windows (stored within the .iso file)
-		$Install_Esd_MountPath = ("${Mounted_DriveLetter}:\sources\install.esd");
+    If (${EXIT_CODE} -NE 0) {
 
-		$DISM_Info=(Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1); $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
+      Write-Output "Error: Unable to get info using DISM - Error message:";
+      Write-Output "------------------------------";
+      ${DISM_Info};
+      Write-Output "------------------------------";
 
-		If (${EXIT_CODE} -NE 0) {
+    } Else {
 
-			Write-Output "Error: Unable to get info using DISM - Error message:";
-			Write-Output "------------------------------";
-			${DISM_Info};
-			Write-Output "------------------------------";
+      $Regex_Win10_Name = "^Name : (.+)";
 
-		} Else {
+      $Regex_Win10_VersionNum = "^Version : (.+)";
+      # $Regex_Win10_VersionNum = "^Version : ([\d]+\.[\d]+\.[\d]+)\s*$";
 
-			$Regex_Win10_Name = "^Name : (.+)";
+      $Regex_Win10_BuildNum = "^ServicePack\s+Build : (.+)";
+      # $Regex_Win10_BuildNum = "^ServicePack\s+Build : (\S+)\s*$";
 
-			$Regex_Win10_VersionNum = "^Version : (.+)";
-			# $Regex_Win10_VersionNum = "^Version : ([\d]+\.[\d]+\.[\d]+)\s*$";
+      $ISO_Name = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_Name})","${Regex_Win10_Name}").Captures.Groups[1].Value);
+      $ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_VersionNum})","${Regex_Win10_VersionNum}").Captures.Groups[1].Value);
+      $ISO_BuildNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_BuildNum})","${Regex_Win10_BuildNum}").Captures.Groups[1].Value);
 
-			$Regex_Win10_BuildNum = "^ServicePack\s+Build : (.+)";
-			# $Regex_Win10_BuildNum = "^ServicePack\s+Build : (\S+)\s*$";
+      If ($False) {
+        Write-Output "Verbose Info - `${DISM_Info}:";
+        Write-Output "------------------------------";
+        ${DISM_Info};
+        Write-Output "------------------------------";
+        Write-Output "`${ISO_Name} = [ ${ISO_Name} ]";
+        Write-Output "`${ISO_VersionNumber} = [ ${ISO_VersionNumber} ]";
+        Write-Output "`${ISO_BuildNumber} = [ ${ISO_BuildNumber} ]";
+      }
 
-			$ISO_Name = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_Name})","${Regex_Win10_Name}").Captures.Groups[1].Value);
-			$ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_VersionNum})","${Regex_Win10_VersionNum}").Captures.Groups[1].Value);
-			$ISO_BuildNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_BuildNum})","${Regex_Win10_BuildNum}").Captures.Groups[1].Value);
+      Write-Output "";
+      Write-Output "------------------------------";
+      Write-Output "";
+      Write-Output "  Filepath:  ${ISO_FullPath}";
+      Write-Output "";
+      Write-Output "  Image Name:  ${ISO_Name}";
+      Write-Output "";
+      Write-Output "  Version.Build:  ${ISO_VersionNumber}.${ISO_BuildNumber}";
+      Write-Output "";
+      Write-Output "------------------------------";
 
-			If ($False) {
-				Write-Output "Verbose Info - `${DISM_Info}:";
-				Write-Output "------------------------------";
-				${DISM_Info};
-				Write-Output "------------------------------";
-				Write-Output "`${ISO_Name} = [ ${ISO_Name} ]";
-				Write-Output "`${ISO_VersionNumber} = [ ${ISO_VersionNumber} ]";
-				Write-Output "`${ISO_BuildNumber} = [ ${ISO_BuildNumber} ]";
-			}
+      Write-Output "";
 
-			Write-Output "";
-			Write-Output "------------------------------";
-			Write-Output "";
-			Write-Output "  Filepath:  ${ISO_FullPath}";
-			Write-Output "";
-			Write-Output "  Image Name:  ${ISO_Name}";
-			Write-Output "";
-			Write-Output "  Version.Build:  ${ISO_VersionNumber}.${ISO_BuildNumber}";
-			Write-Output "";
-			Write-Output "------------------------------";
+    }
 
-			Write-Output "";
+    # Unmount the iso file
+    Get-DiskImage -ImagePath "${ISO_FullPath}" | Dismount-DiskImage | Out-Null;
 
-		}
-
-		# Unmount the iso file
-		Get-DiskImage -ImagePath "${ISO_FullPath}" | Dismount-DiskImage | Out-Null;
-
-	}
+  }
 
 }
 

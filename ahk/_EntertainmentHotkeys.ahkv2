@@ -161,12 +161,14 @@ If (DebugMode == 1) {
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F5  (while [ RuneScape ] is active)
+;            WinKey + F6  (while [ RuneScape ] is active)
+;            WinKey + F7  (while [ RuneScape ] is active)
 ;   ACTION:  Farm XP
 ;
 #HotIf WinExist("ahk_exe rs2client.exe")
-  ^#c::
-  !#c::
-  #F5::
+  #F5::  ; Combat-SafeSpot
+  #F6::  ; Combat-CastCancel
+  #F7::  ; Crafting-Woodcutting-Firemaking
   {
     ; ------------------------------
     Global DebugMode
@@ -185,23 +187,22 @@ If (DebugMode == 1) {
     ;
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
-    ; DoActivity := "Combat-CastCancel"
-    DoActivity := "Combat-SafeSpot"
-    ; DoActivity := "Crafting-Woodcutting-Firemaking"
-
-    If (DoActivity == "Combat-CastCancel") {
-
-      RuneScape_Combat_CastCancel(Ctrl_hwnd, Win_hwnd)
-
-    } Else If (DoActivity == "Combat-SafeSpot") {
-
-      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd)
-
-    } Else If (DoActivity == "Crafting-Woodcutting-Firemaking") {
-
-      RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd, Win_hwnd)
-
+    If (A_ThisHotkey == "#F5") {
+      DoActivity := "Combat-SafeSpot"
+    } Else If (A_ThisHotkey == "#F6") {
+      DoActivity := "Combat-CastCancel"
+    } Else If (A_ThisHotkey == "#F7") {
+      DoActivity := "Crafting-Woodcutting-Firemaking"
     }
+    ; ------------------------------
+    If (DoActivity == "Combat-CastCancel") {
+      RuneScape_Combat_CastCancel(Ctrl_hwnd, Win_hwnd)
+    } Else If (DoActivity == "Combat-SafeSpot") {
+      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd)
+    } Else If (DoActivity == "Crafting-Woodcutting-Firemaking") {
+      RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd, Win_hwnd)
+    }
+    ; ------------------------------
     Return
   }
 #HotIf
@@ -461,14 +462,6 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
   ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire). Must avoid trying to place fires on existing fires
   ;
   ; ------------------------------
-  If (1 == 1) {
-    ; Zoom in & pan up all the way
-    ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
-    Sleep 2500
-    ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
-    Sleep 100
-  }
-  ; ------------------------------
   ;
   ; Walk the user through initial setup
   ;
@@ -478,6 +471,14 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
     If (A_MsgBoxResult == "OK") {
       A_MsgBoxResult := MsgBox("Position your character directly south of the tree (adjacent to it)" "`n" "`n" "The tree should be directly North of your character" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
       If (A_MsgBoxResult == "OK") {
+        ; ------------------------------
+        If (1 == 1) {
+          ; Zoom in & pan up all the way
+          ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
+          Sleep 2500
+          ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
+          Sleep 100
+        }
         ; ------------------------------
         Tooltip_LocateButton := "  Chop Action" "`n" "`n" "    Right click the tree where the Chop action is displayed"
         xpos_2tilesnorth := ""

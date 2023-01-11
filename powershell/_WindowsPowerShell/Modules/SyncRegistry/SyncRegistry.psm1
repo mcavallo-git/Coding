@@ -1541,10 +1541,10 @@ function SyncRegistry {
       };
 
       # Splashtop - Enable remote Virtual Display
-      $Splashtop64_Key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Splashtop Inc.\Splashtop Remote Server";
-      If ((Test-Path -Path (("${Splashtop64_Key}"))) -Eq $False) {
+      $Splashtop32_Key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Splashtop Inc.\Splashtop Remote Server";
+      If ((Test-Path -Path (("${Splashtop32_Key}"))) -Eq $False) {
         $RegEdits += @{
-          Path="${Splashtop64_Key}";
+          Path="${Splashtop32_Key}";
           Props=@(
             @{
               Description="Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
@@ -1556,10 +1556,10 @@ function SyncRegistry {
           )
         };
       };
-      $Splashtop32_Key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Splashtop Inc.\Splashtop Remote Server";
-      If ((Test-Path -Path (("${Splashtop32_Key}"))) -Eq $False) {
+      $Splashtop64_Key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Splashtop Inc.\Splashtop Remote Server";
+      If ((Test-Path -Path (("${Splashtop64_Key}"))) -Eq $False) {
         $RegEdits += @{
-          Path="${Splashtop32_Key}";
+          Path="${Splashtop64_Key}";
           Props=@(
             @{
               Description="Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";

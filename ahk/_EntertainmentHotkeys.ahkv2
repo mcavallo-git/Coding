@@ -722,6 +722,7 @@ RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
       Break
     }
   }
+  Sleep 500
   ; ------------------------------
   ;
   ; Select fishing spot 2

@@ -1862,9 +1862,21 @@ LShift & RShift::
       ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
       ;
       ; ------------------------------
-      Loop 50 {
-        ControlClick(Ctrl_hwnd, Win_hwnd,, "WheelUp", 1, "NA")
-        Sleep 20
+      Loop 2 {
+        ; ControlClick(Ctrl_hwnd, Win_hwnd,, "WheelUp", 1, "NA")
+        ; ControlSendDelayed("PgUp", Ctrl_hwnd, Win_hwnd)
+        ; ControlSendDelayed("Up", Ctrl_hwnd, Win_hwnd)
+        If (A_Index == 1) {
+          Key_Camera_Zoom := "PgDn"
+          Key_Camera_Pan_UpDown := "Down"
+        } Else {
+          Key_Camera_Zoom := "PgUp"
+          Key_Camera_Pan_UpDown := "Up"
+        }
+        ControlSend("{" Key_Camera_Zoom " Down}{" Key_Camera_Pan_UpDown " Down}", Ctrl_hwnd, Win_hwnd)
+        Sleep 2500
+        ControlSend("{" Key_Camera_Zoom " Up}{" Key_Camera_Pan_UpDown " Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 100
       }
       Loop {
         Loop 2 {
@@ -1876,12 +1888,14 @@ LShift & RShift::
           If (DebugMode == 1) {
             ToolTip("Chop tree" "`n" "Start/Restart chopping tree", xpos_tooltip, ypos_tooltip)
           }
-          Loop 40 {
+          Loop 20 {
             ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_2tilesnorth " y" ypos_2tilesnorth))
             ; MouseMove xpos_2tilesnorth, ypos_2tilesnorth
             ; Sleep 500
             ; MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
-            Sleep 1000
+            Loop 2 {
+              Sleep Random(1050,1250)
+            }
           }
           ; ------------------------------
           If (A_Index != 1) {
@@ -1890,11 +1904,11 @@ LShift & RShift::
             }
             ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
             ; MouseClick "Left", xpos_1tilewest, ypos_1tilewest
-            Sleep 1000
+            Sleep Random(1050,1250)
             If (DebugMode == 1) {
               ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
             }
-            Sleep 3000
+            Sleep Random(3050,3250)
           }
           ; ------------------------------
           If (DebugMode == 1) {
@@ -1902,40 +1916,40 @@ LShift & RShift::
           }
           ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot1 " y" ypos_backpackslot1))
           ; MouseClick "Left", xpos_backpackslot1, ypos_backpackslot1
-          Sleep 1000
+          Sleep Random(1050,1250)
           If (DebugMode == 1) {
             ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
           }
           ControlSendDelayed("1", Ctrl_hwnd, Win_hwnd)
           ; ControlSend("{1}", Ctrl_hwnd, Win_hwnd)
           ; Send "1"
-          Sleep 1000
+          Sleep Random(1050,1250)
           If (DebugMode == 1) {
             ToolTip("Light fire" "`n" "Wait for log to catch fire", xpos_tooltip, ypos_tooltip)
           }
-          Sleep 30000
+          Sleep Random(30500,32500)
           If (DebugMode == 1) {
             ToolTip("Light fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
           }
-          Sleep 3000
+          Sleep Random(3050,3250)
           ; ------------------------------
           If (DebugMode == 1) {
             ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
           }
           ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" (xpos_backpackslot1+41) " y" ypos_backpackslot1))
           ; MouseClick "Left", (xpos_backpackslot1+41), ypos_backpackslot1
-          Sleep 1000
+          Sleep Random(1050,1250)
           If (DebugMode == 1) {
             ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
           }
-          Sleep 1000
+          Sleep Random(1050,1250)
           ControlSendDelayed("3", Ctrl_hwnd, Win_hwnd)
           ; ControlSend("{3}",, Win_hwnd)
           ; Send "3"
           If (DebugMode == 1) {
             ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
           }
-          Sleep 30000
+          Sleep Random(30500,32500)
           ; ------------------------------
           If (A_Index == 1) {
             If (DebugMode == 1) {
@@ -1943,11 +1957,11 @@ LShift & RShift::
             }
             ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
             ; MouseClick "Left", xpos_1tilewest, ypos_1tilewest
-            Sleep 1000
+            Sleep Random(1050,1250)
             If (DebugMode == 1) {
               ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
             }
-            Sleep 3000
+            Sleep Random(3050,3250)
           }
           ; ------------------------------
         }

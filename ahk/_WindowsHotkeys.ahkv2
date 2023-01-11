@@ -1797,6 +1797,7 @@ LShift & RShift::
   {
     ; ------------------------------
     Global DebugMode
+    CoordMode "Menu", "Client"
     CoordMode "Mouse", "Client"
     SetControlDelay -1
     SetDefaultMouseSpeed 0
@@ -2016,7 +2017,7 @@ LShift & RShift::
                 If (DebugMode == 1) {
                   ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
                 }
-                ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" ypos_backpackslot2 " y" ypos_backpackslot2))
+                ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot2 " y" ypos_backpackslot2))
                 Sleep Random(1050,1250)
                 If (DebugMode == 1) {
                   ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)

@@ -1809,14 +1809,14 @@ LShift & RShift::
     Win_hwnd := ("ahk_id " Win_ahk_id)
     Ctrl_hwnd := ControlGetHwnd(Ctrl_classnn, WinTitle)
     ; ------------------------------
-    xpos_2tilesnorth := 1718
-    ypos_2tilesnorth := 265
+    xpos_2tilesnorth := 1732
+    ypos_2tilesnorth := 295
     ; ------------------------------
-    xpos_backpackslot1 := 2405
-    ypos_backpackslot1 := 1089
+    xpos_1tilewest := 1448
+    ypos_1tilewest := 706
     ; ------------------------------
-    xpos_1tilewest := 1452
-    ypos_1tilewest := 750
+    xpos_backpackslot1 := 2398
+    ypos_backpackslot1 := 1059
     ; ------------------------------
     xpos_tooltip := xpos_2tilesnorth
     ypos_tooltip := (ypos_2tilesnorth-100)
@@ -1824,8 +1824,8 @@ LShift & RShift::
     ;
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
-    DoActivity := "Magic"
-    ; DoActivity := "Woodcutting/Firemaking"
+    ; DoActivity := "Magic"
+    DoActivity := "Woodcutting/Firemaking"
 
     If (DoActivity == "Magic") {
       ; ------------------------------

@@ -52,8 +52,10 @@ If ($True) {
     $Install_Wim_MountPath = ("${Mounted_DriveLetter}:\sources\install.wim");
     If (Test-Path -PathType "Leaf" -Path ("${Install_Wim_MountPath}")) {
       $Wimfile_MountPath = "${Install_Wim_MountPath}";
+      $Wimfile_Relative = "sources\install.wim";
     } Else {
       $Wimfile_MountPath = "${Install_Esd_MountPath}";
+      $Wimfile_Relative = "sources\install.esd";
     }
 
     # Get the version # of Windows (stored within the sources/install.* file (wim))
@@ -83,7 +85,9 @@ If ($True) {
 
       Write-Output "------------------------------";
       Write-Output "";
-      Write-Output "  Filepath:  ${ISO_FullPath}";
+      Write-Output "  ISO File:  ${ISO_FullPath}";
+      Write-Output "";
+      Write-Output "  Wimfile (contained within):  ${Wimfile_Relative}";
       Write-Output "";
       Write-Output "- - - -";
 

@@ -1542,7 +1542,7 @@ function SyncRegistry {
 
       # Splashtop - Enable remote Virtual Display
       $Splashtop32_Key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Splashtop Inc.\Splashtop Remote Server";
-      If ((Test-Path -Path (("${Splashtop32_Key}"))) -Eq $False) {
+      If ((Test-Path -Path (("${Splashtop32_Key}"))) -Eq $True) {
         $RegEdits += @{
           Path="${Splashtop32_Key}";
           Props=@(
@@ -1557,7 +1557,7 @@ function SyncRegistry {
         };
       };
       $Splashtop64_Key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Splashtop Inc.\Splashtop Remote Server";
-      If ((Test-Path -Path (("${Splashtop64_Key}"))) -Eq $False) {
+      If ((Test-Path -Path (("${Splashtop64_Key}"))) -Eq $True) {
         $RegEdits += @{
           Path="${Splashtop64_Key}";
           Props=@(

@@ -1842,15 +1842,21 @@ LShift & RShift::
         Loop 2 {
           ; ------------------------------
           Do_TreeChopping := 1
-          Regrow_Waits := 0
+          Count_TreesCutDown := 0
+          Tree_RegrowWaits := 0
+          Tree_RequiredChops := 30
           Loop 100 {
             LoopCount_TreeChops := A_Index
             Color_Tree_Check := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)
             If (Color_Tree_Check != Color_Tree_Uncut) {
+              Tree_RegrowWaits := Tree_RegrowWaits + 1
               ToolTip("Chop tree" "`n" "Wait for tree to regrow", xpos_tooltip, ypos_tooltip)
-              Do_TreeChopping := 1
+              If (Do_TreeChopping != 1) {
+                Count_TreesCutDown := Count_TreesCutDown +1
+                Do_TreeChopping := 1
+              }
             } Else {
-              If (Do_TreeChopping==1) {
+              If (Do_TreeChopping == 1) {
                 If (A_Index == 1) {
                   ToolTip("Chop tree" "`n" "Start chopping tree", xpos_tooltip, ypos_tooltip)
                 } Else {
@@ -1863,7 +1869,7 @@ LShift & RShift::
                 MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
               }
             }
-            If ((LoopCount_TreeChops - Regrow_Waits) > 30) {
+            If (((LoopCount_TreeChops - Tree_RegrowWaits) > Tree_RequiredChops) || (Count_TreesCutDown > 2)) {
               Break
             } Else {
               Sleep 1000

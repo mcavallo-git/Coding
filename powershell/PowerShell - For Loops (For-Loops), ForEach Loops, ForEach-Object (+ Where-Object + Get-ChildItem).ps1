@@ -17,9 +17,9 @@ Exit 1;
 
 #   For(...) loop  -  Arrays (iterate over each index)
 $DatArray = @("val1","val2","val3");
-For ($i=0; ($i -LT $DatArray.Count); $i++) {
-  $EachItem = ($DatArray[${i}]);
-  Write-Host "`$DatArray[${i}] = ${EachItem}";
+For ($i=0; ($i -LT ${DatArray}.Count); $i++) {
+  $EachItem = (${DatArray}[${i}]);
+  Write-Host "`${DatArray}[${i}] = ${EachItem}";
 }
 
 
@@ -65,9 +65,9 @@ If ($True) {
       Write-Host "Each_Key=$("???")  ///  Each_Val=$(${_})";
     }
     # Arrays - Option 2:  use [ For ]  (use if you DO need the iterator (array key) for each item)
-    For ($Each_Key=0; $Each_Key -LT $Array.Count; $Each_Key++) {
+    For ($Each_Key=0; $Each_Key -LT ${Array}.Count; $Each_Key++) {
       Write-Host "------------------------------";
-      Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$($Array[${Each_Key}])";
+      Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$(${Array}[${Each_Key}])";
     }
   }
 }

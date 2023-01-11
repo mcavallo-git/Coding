@@ -675,7 +675,6 @@ Pause::
 #F1::
 {
   Open_VisualStudioCode(A_ScriptFullPath)
-  ; Run("notepad.exe " A_ScriptFullPath)
   Return
 }
 

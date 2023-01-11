@@ -1,0 +1,681 @@
+﻿; ------------------------------------------------------------
+;
+; _EntertainmentKeys.ahkv2, by Cavalol  -  https://raw.githubusercontent.com/mcavallo-git/Coding/main/ahk/_EntertainmentKeys.ahkv2
+;
+; ------------------------------------------------------------
+
+#Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
+
+; ------------------------------------------------------------
+;
+; Global Variables - User-Defined
+;
+
+DebugMode := 0
+; DebugMode := 1
+
+; ------------------------------------------------------------
+;
+; AHK - #Commands (Runtime-Configs)  ; https://lexikos.github.io/v2/docs/commands/#hash
+;
+
+Persistent  ; https://lexikos.github.io/v2/docs/commands/Persistent.htm
+
+A_HotkeyInterval := 2000  ; https://lexikos.github.io/v2/docs/misc/A_MaxHotkeysPerInterval.htm
+
+A_MaxHotkeysPerInterval := 2000  ; https://lexikos.github.io/v2/docs/misc/A_MaxHotkeysPerInterval.htm
+
+#SingleInstance Force  ; https://lexikos.github.io/v2/docs/commands/_SingleInstance.htm
+
+; DetectHiddenText 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenText.htm
+
+DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenWindows.htm
+
+InstallKeybdHook  ; Keyboard hook is required to use variables `A_PriorHotkey` & `A_TimeSincePriorHotkey`  ; https://lexikos.github.io/v2/docs/commands/InstallKeybdHook.htm
+
+SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
+
+SetNumLockState "On"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
+
+SetTitleMatchMode 2      ; Title must [ CONTAIN ] the given WinTitle  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
+
+SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
+
+
+; ------------------------------------------------------------
+;
+; Show the Version of AHK currently being used to compile this code
+;
+If (DebugMode == 1) {
+  TrayTip "AHK", ("Version:  v" A_AhkVersion)  ; Toast Notification
+}
+
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                   HOTKEY LISTENERS                   ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + Esc
+;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
+;
+~#Escape::
+{
+  global DebugMode
+  BlockInput("Off")  ;  Stop blocking input (e.g. restore full interaction)
+  Reload  ; Replaces the currently running instance of the script with a new one  -  https://lexikos.github.io/v2/docs/commands/Reload.htm
+  Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
+  ; If (DebugMode == 1) {
+  ;   A_MsgBoxResult := MsgBox("The script could not be reloaded. Would you like to open it for editing?", A_ScriptName " - " A_ThisFunc,4)
+  ;   If (A_MsgBoxResult = "Yes") {
+  ;     Edit
+  ;   }
+  ; }
+  Return
+}
+
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---             APP-SPECIFIC HOTKEY LISTENERS            ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+; ------------------------------
+;
+;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ Cyberpunk ] is active)
+;   ACTION:  Send [ Escape ] key, instead
+;
+#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
+  XButton1:: Escape
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  XButton2 (Mouse Button 5 - Forward Side Button)  (while [ Cyberpunk ] is active)
+;   ACTION:  Send [ Left Mouse Click ] key, instead
+;
+#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
+  XButton2:: Tab
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  Numpad Enter  (while [ Destiny 2 ] is active)
+;   ACTION:  Do nothing  (avoids accidental presses during mouse sweeps)
+;
+#HotIf WinActive("ahk_exe destiny2.exe")
+  NumpadEnter:: Return
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  Left Mouse-Click  (while [ Halo Infinite ] is active)
+;   ACTION:  Halo Infinite - Send "Mark" Hotkey
+;
+#HotIf WinActive("ahk_exe HaloInfinite.exe")
+  LButton::
+  {
+    Send "{XButton1}"  ; (Mouse Button 4 - Back Side Button)
+    ; If you click 15 times too quickly, it gives you a 30 second timeout for marking too frequently, so set a timeout after each click
+    Sleep 2000
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  Numpad Enter  (while [ Overwatch ] is active)
+;   ACTION:  Do nothing  (avoids accidental presses during mouse sweeps)
+;
+#HotIf WinActive("ahk_exe Overwatch.exe")
+  NumpadEnter:: Return
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  XButton2 (Mouse Button 5 - Forward Side Button)  (while [ RuneScape ] is active)
+;   ACTION:  Send [ T ] key, instead
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  XButton2:: T
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ RuneScape ] is active)
+;   ACTION:  Send [ U ] key, instead
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  XButton1:: U
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + F5  (while [ RuneScape ] is active)
+;   ACTION:  Farm XP
+;
+#HotIf WinExist("ahk_exe rs2client.exe")
+  ^#c::
+  !#c::
+  #F5::
+  {
+    ; ------------------------------
+    Global DebugMode
+    CoordMode "Menu", "Client"
+    CoordMode "Mouse", "Client"
+    SetControlDelay -1
+    SetDefaultMouseSpeed 0
+    SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+    Win_ahk_exe := "rs2client.exe"
+    Ctrl_classnn := "JagOpenGLView1"
+    ; ------------------------------
+    WinTitle := ("ahk_exe " Win_ahk_exe)
+    Win_ahk_id := WinGetID(WinTitle)
+    Win_hwnd := ("ahk_id " Win_ahk_id)
+    Ctrl_hwnd := ControlGetHwnd(Ctrl_classnn, WinTitle)
+    ; ------------------------------
+    ;
+    ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
+    ;
+    ; DoActivity := "Magic Cast-Cancel"
+    DoActivity := "Magic Kill-Farm"
+    ; DoActivity := "Woodcutting/Firemaking"
+
+    If (DoActivity == "Magic Cast-Cancel") {
+      ; ------------------------------
+      ;
+      ; Magic Casting EXP Farm
+      ;
+      ; ------------------------------
+      ;
+      ; Get the [Attack] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)"
+      xpos_attack := ""
+      ypos_attack := ""
+      While ((xpos_attack == "") || (ypos_attack == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_attack, &ypos_attack
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      ;
+      ; Get the [Stop-Attacking] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Right click the Cease action bar button (to end combat)" "`n" "`n" "Note: The Cease ability is found under Powers > Defensive > Defence"
+      xpos_cease := ""
+      ypos_cease := ""
+      While ((xpos_cease == "") || (ypos_cease == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_cease, &ypos_cease
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      If (DebugMode == 1) {
+        ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
+      }
+      Loop {
+        ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 250
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
+        Sleep 250
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_cease " y" ypos_cease))
+        Sleep Random(3050,3250)
+      }
+    } Else If (DoActivity == "Magic Kill-Farm") {
+      ; ------------------------------
+      ;
+      ; Magic Mob XP Farm
+      ;
+      ; ------------------------------
+      ;
+      ; Get the [Attack] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)"
+      xpos_attack := ""
+      ypos_attack := ""
+      While ((xpos_attack == "") || (ypos_attack == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_attack, &ypos_attack
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      ;
+      ; Get the [Retreat Direction] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Right click the direction to move back to after every attack" "`n" "`n" "Note: Intended to keep character in safe area(s)"
+      xpos_safe_area := ""
+      ypos_safe_area := ""
+      While ((xpos_safe_area == "") || (ypos_safe_area == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_safe_area, &ypos_safe_area
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      If (DebugMode == 1) {
+        ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
+      }
+      Loop {
+        ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 250
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
+        Sleep 250
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_safe_area " y" ypos_safe_area))
+        Sleep 500
+        ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 250
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
+        Sleep Random(3050,3250)
+      }
+    } Else If (DoActivity == "Woodcutting/Firemaking") {
+      ; ------------------------------
+      ;
+      ; Woodcutting/Firemaking XP Farm
+      ;   - Find a tree in-game & position character directly south from it
+      ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
+      ;   - (DONE BY SCRIPT) Zoom the camera in all the way
+      ;   - (DONE BY SCRIPT) Pivot camera up/down so it's as high as possible looking down at the top of the character's head
+      ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
+      ;
+      ; ------------------------------
+      If (1 == 1) {
+        ; Zoom in & pan up all the way
+        ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
+        Sleep 2500
+        ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 100
+      }
+      ; ------------------------------
+      ;
+      ; Walk the user through initial setup
+      ;
+      A_MsgBoxResult := MsgBox("Locate a tree to farm in-game" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
+      If (A_MsgBoxResult == "OK") {
+        A_MsgBoxResult := MsgBox("Turn your camera to face directly North" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
+        If (A_MsgBoxResult == "OK") {
+          A_MsgBoxResult := MsgBox("Position your character directly south of the tree (adjacent to it)" "`n" "`n" "The tree should be directly North of your character" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
+          If (A_MsgBoxResult == "OK") {
+            ; ------------------------------
+            Tooltip_LocateButton := "Chop Action" "`n" "`n" "Right click the tree where the Chop action is displayed"
+            xpos_2tilesnorth := ""
+            ypos_2tilesnorth := ""
+            While ((xpos_2tilesnorth == "") || (ypos_2tilesnorth == "")) {
+              Tooltip(Tooltip_LocateButton)
+              Sleep 10
+              If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+                MouseGetPos &xpos_2tilesnorth, &ypos_2tilesnorth
+                ClearTooltip(0)
+                Break
+              }
+            }
+            Sleep 500
+            ; ------------------------------
+            ;
+            ; Get the [ 1 Tile West ] x/y mouse coordinates
+            ;
+            Tooltip_LocateButton := "1 Tile West" "`n" "`n" "Right click 1 tile to the West of the player"
+            xpos_1tilewest := ""
+            ypos_1tilewest := ""
+            While ((xpos_1tilewest == "") || (ypos_1tilewest == "")) {
+              Tooltip(Tooltip_LocateButton)
+              Sleep 10
+              If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+                MouseGetPos &xpos_1tilewest, &ypos_1tilewest
+                ClearTooltip(0)
+                Break
+              }
+            }
+            Sleep 500
+            ; ------------------------------
+            ;
+            ; Get the [ Backpack slot 1 ] x/y mouse coordinates
+            ;
+            Tooltip_LocateButton := "Backpack slot #1" "`n" "`n" "Open backpack (keep it open)" "`n" "`n" "Right click backpack slot #1 (top-leftmost, first slot to fill with loot)"
+            xpos_backpackslot1 := ""
+            ypos_backpackslot1 := ""
+            While ((xpos_backpackslot1 == "") || (ypos_backpackslot1 == "")) {
+              Tooltip(Tooltip_LocateButton)
+              Sleep 10
+              If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+                MouseGetPos &xpos_backpackslot1, &ypos_backpackslot1
+                ClearTooltip(0)
+                Break
+              }
+            }
+            Sleep 500
+            ; ------------------------------
+            ;
+            ; Get the [ Backpack slot 2 ] x/y mouse coordinates
+            ;
+            Tooltip_LocateButton := "Backpack slot #2" "`n" "`n" "Open backpack (keep it open)" "`n" "`n" "Right click backpack slot #2 (second slot to fill with loot)"
+            xpos_backpackslot2 := ""
+            ypos_backpackslot2 := ""
+            While ((xpos_backpackslot2 == "") || (ypos_backpackslot2 == "")) {
+              Tooltip(Tooltip_LocateButton)
+              Sleep 10
+              If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+                MouseGetPos &xpos_backpackslot2, &ypos_backpackslot2
+                ClearTooltip(0)
+                Break
+              }
+            }
+            Sleep 500
+            ; ------------------------------
+            If (1 == 1) {
+              ; Zoom in & pan up all the way (again)
+              ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
+              Sleep 2500
+              ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
+              Sleep 100
+            }
+            ; ------------------------------
+            xpos_tooltip := xpos_2tilesnorth
+            ypos_tooltip := (ypos_2tilesnorth-100)
+            ; ------------------------------
+            Loop {
+              Loop 2 {
+                ; ------------------------------
+                Do_TreeChopping := 1
+                Count_TreesCutDown := 0
+                Tree_RegrowWaits := 0
+                Tree_RequiredChops := 30
+                If (DebugMode == 1) {
+                  ToolTip("Chop tree" "`n" "Start/Restart chopping tree", xpos_tooltip, ypos_tooltip)
+                }
+                Loop 20 {
+                  ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_2tilesnorth " y" ypos_2tilesnorth))
+                  Loop 2 {
+                    Sleep Random(1050,1250)
+                  }
+                }
+                ; ------------------------------
+                If (A_Index != 1) {
+                  If (DebugMode == 1) {
+                    ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
+                  }
+                  ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+                  Sleep Random(1050,1250)
+                  If (DebugMode == 1) {
+                    ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+                  }
+                  Sleep Random(5050,5250)
+                }
+                ; ------------------------------
+                If (DebugMode == 1) {
+                  ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)", xpos_tooltip, ypos_tooltip)
+                }
+                ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot1 " y" ypos_backpackslot1))
+                Sleep Random(1050,1250)
+                If (DebugMode == 1) {
+                  ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
+                }
+                ControlSend("1", Ctrl_hwnd, Win_hwnd)
+                Sleep Random(1050,1250)
+                If (DebugMode == 1) {
+                  ToolTip("Light fire" "`n" "Wait for log to catch fire", xpos_tooltip, ypos_tooltip)
+                }
+                Sleep Random(30500,32500)
+                If (DebugMode == 1) {
+                  ToolTip("Light fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+                }
+                Sleep Random(3050,3250)
+                ; ------------------------------
+                If (DebugMode == 1) {
+                  ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
+                }
+                ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot2 " y" ypos_backpackslot2))
+                Sleep Random(1050,1250)
+                If (DebugMode == 1) {
+                  ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
+                }
+                ControlSend("3", Ctrl_hwnd, Win_hwnd)
+                Sleep Random(1050,1250)
+                If (DebugMode == 1) {
+                  ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
+                }
+                Sleep Random(30500,32500)
+                ; ------------------------------
+                If (A_Index == 1) {
+                  If (DebugMode == 1) {
+                    ToolTip("Move south of tree" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
+                  }
+                  ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+                  Sleep Random(1050,1250)
+                  If (DebugMode == 1) {
+                    ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+                  }
+                  Sleep Random(3050,3250)
+                }
+                ; ------------------------------
+              }
+            }
+            ; ------------------------------
+          }
+        }
+      }
+      ; ------------------------------
+    }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + F5  (while [ Cyberpunk ] is active)
+;   ACTION:  Farm Cyberpunk Athletics EXP
+;
+#HotIf WinActive("ahk_exe Cyberpunk2077.exe")
+  #F5::
+  {
+    Loop {
+      WinActivate "Cyberpunk"
+      Send "{Space}"  ; Spam Jump
+      ; MouseClick "Left"  ; Spam Attack
+      Sleep 10
+    }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + F5  (while [ Minecraft ] is active)
+;   ACTION:  Minecraft - do various actions
+;
+#HotIf WinActive("Minecraft")
+  #F5::
+  {
+    SetTitleMatchMode 1  ; Title must [ START WITH ] the given WinTitle
+    AwaitModifierKeyup()  ; Wait until all modifier keys are released
+    WinTitle := "Minecraft"
+    Max_LoopDuration_Seconds := 7200
+    Milliseconds_BetweenClicks := 750
+
+    Do_SwordAttackSpam := 1
+    ; Do_SwordAttackSpam := 0
+
+    If (Do_SwordAttackSpam == 0) {
+      ; Minecraft - Spam right click (for placing piston to blow through bedrock)
+      Loop 500 {
+        Sleep 10
+        MouseClick "Right"
+      }
+    } Else {
+      ; Minecraft - Sword attack spam
+      TickCount_BeforeLoop := A_TickCount
+      Loop {
+        Loop_HasBeenRunningFor_Seconds := Round(((A_TickCount-TickCount_BeforeLoop)/1000), 2)
+        If ( Loop_HasBeenRunningFor_Seconds > Max_LoopDuration_Seconds) {  ; Wait a minimum short-duration per download
+          ToolTip "Loop exceeded maximum runtime of [ " Max_LoopDuration_Seconds " ] seconds  (current value:  [ " Loop_HasBeenRunningFor_Seconds " ] seconds)"
+          Break
+        } Else {
+          If (WinActive(WinTitle)) {
+            ToolTip "Loop has been running for  [ " Loop_HasBeenRunningFor_Seconds " ] seconds"
+            MouseClick "Left"
+            Sleep Milliseconds_BetweenClicks
+          } Else {
+            ToolTip "Stopped Minecraft auto-clicker (MC window lost focus"
+            Break
+          }
+        }
+      }
+      ClearTooltip(5000)
+    }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                      FUNCTION(S)                     ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+; ------------------------------
+;
+; AwaitModifierKeyup
+;   |-->  Wait until all modifier keys are released
+;
+AwaitModifierKeyup() {
+  KeyWait "LAlt"    ; Wait for [ Left-Alt ] to be released
+  KeyWait "LCtrl"   ; Wait for [ Left-Control ] to be released
+  KeyWait "LShift"  ; Wait for [ Left-Shift ] to be released
+  KeyWait "LWin"    ; Wait for [ Left-WinKey ] to be released
+  KeyWait "RAlt"    ; Wait for [ Right-Alt ] to be released
+  KeyWait "RCtrl"   ; Wait for [ Right-Control ] to be released
+  KeyWait "RShift"  ; Wait for [ Right-Shift ] to be released
+  KeyWait "RWin"    ; Wait for [ Right-WinKey ] to be released
+  Sleep 10
+}
+
+
+; ------------------------------
+;
+; ClearTooltip
+;   |--> If called with a positive [ Period ], wait [ Period ] milliseconds before clearing the given ToolTip, otherwise clear it immediately
+;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm#ExAutoHide
+;
+ClearTooltip(Period:=0, WhichToolTip:=1) {
+  If (Period > 0) {
+    SetTimer () => ToolTip(,,,WhichToolTip), (Period * -1)
+  } Else {
+    ToolTip(,,,WhichToolTip)
+  }
+  Return
+}
+
+
+; ------------------------------------------------------------
+;
+; Citation(s)
+;
+;   answers.microsoft.com  |  "Shortcut to sound control panel?"  |  https://answers.microsoft.com/en-us/windows/forum/windows_10-start/shortcut-to-sound-control-panel/32d5a6e7-fa92-4ca7-9033-cd38ba525542
+;
+;   docs.microsoft.com  |  "wscript | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/wscript
+;
+;   docs.microsoft.com  |  "WM_SYSCOMMAND message"  |  https://docs.microsoft.com/en-us/windows/win32/menurc/wm-syscommand
+;
+;   gist.github.com  |  "Advanced Window Snap is a script for AutoHotKey that expands upon Windows built-in window-snapping hotkeys. · GitHub"  |  https://gist.github.com/AWMooreCO/1ef708055a11862ca9dc
+;
+;   gist.github.com  |  "Media keys shortcuts for AutoHotkey · GitHub"  |  https://gist.github.com/mistic100/d3c0c1eb63fb7e4ee545
+;
+;   github.com  |  "AutoHotkeyScripts/LaptopBrightnessSetter at master · qwerty12/AutoHotkeyScripts · GitHub"  |  https://github.com/qwerty12/AutoHotkeyScripts/tree/master/LaptopBrightnessSetter
+;
+;   stackoverflow.com  |  "How can I set AutoHotKey's code to run only in chrome?"  |  https://stackoverflow.com/a/50180863
+;
+;   stackoverflow.com  |  "powershell - Setting screen resolution on Windows 10 - Stack Overflow"  |  https://stackoverflow.com/a/49375988
+;
+;   www.autohotkey.com  |  "Advanced Hotkey Features | AutoHotkey"  |  https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
+;
+;   www.autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm  <-- Example)  ::{7007acc7-3202-11d1-aad2-00805fc1270e}
+;
+;   www.autohotkey.com  |  "ControlGet List - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/7649-controlget-list/
+;
+;   www.autohotkey.com  |  "Detect Current Windows Domain - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/77940-detect-current-windows-domain/?p=495386
+;
+;   www.autohotkey.com  |  "determine if scaling is not 100% for monitor of a window, change PerMonitorSettings in registry, reflect change, verify - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=160615#p160615
+;
+;   www.autohotkey.com  |  "escape double quote - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?t=14082
+;
+;   www.autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
+;
+;   www.autohotkey.com  |  "Get Highest and Lowest value - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88376-get-highest-and-lowest-value/?p=560579
+;
+;   www.autohotkey.com  |  "How to make AHK to type braces (curly brackets) - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=346714&sid=cf868beb68d8b6fefc7e3e69e7cdaeea#p346714
+;
+;   www.autohotkey.com  |  "How to paste multiline text - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/65421-how-to-paste-multiline-text/
+;
+;   www.autohotkey.com  |  "How to quickly generate random strings? - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?t=76052
+;
+;   www.autohotkey.com  |  "How can I send a Windows toast notification? (TrayTip)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=63507&sid=14b947240a145197c869c413824d8c50#p63507
+;
+;   www.autohotkey.com  |  "If Expression check to see if value is in Array"  |  https://www.autohotkey.com/boards/viewtopic.php?p=52627&sid=4e5a541af8d29ab16154c5a6dd379620#p52627
+;
+;   www.autohotkey.com  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/commands/ListView.htm#notify
+;
+;   www.autohotkey.com  |  "Move window to half / quarter of current monitor - Scripts and Functions - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
+;
+;   www.autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
+;
+;   www.autohotkey.com  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options
+;
+;   www.autohotkey.com  |  "PostMessage/SendMessage - #1: Press Win+O to turn off the monitor"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExMonitorPower
+;
+;   www.autohotkey.com  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
+;
+;   www.autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;
+;   www.autohotkey.com  |  "SendInput %Clipboard% adds double linebreaks for Multiline - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88346-sendinput-clipboard-adds-double-linebreaks-for-multiline/
+;
+;   www.autohotkey.com  |  "Single line if statements"  |  https://www.autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
+;
+;   www.autohotkey.com  |  "Trim multiple lines"  |  https://www.autohotkey.com/boards/viewtopic.php?p=175097#p175097
+;
+;   www.autohotkey.com  |  "Windows 10? AutoHotkey Window Title, etc. - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=164262#p164262
+;
+;   www.autohotkey.com  |  "[HELP!] How to WinActivate without specifying window title? - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/102763-help-how-to-winactivate-without-specifying-window-title/
+;
+;   www.reddit.com  |  "Brightness script? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/5u2lvi/brightness_script/
+;
+;   www.reddit.com  |  "Possible to do SubStr() on multiple lines at once? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/9f0qan/possible_to_do_substr_on_multiple_lines_at_once/
+;
+;   www.tenforums.com  |  "Resolution mismatch when using "Change the size of text..." - Windows 10 Forums"  |  https://www.tenforums.com/general-support/69742-resolution-mismatch-when-using-change-size-text.html#post869493
+;
+; ------------------------------------------------------------

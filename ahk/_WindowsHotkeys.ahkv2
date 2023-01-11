@@ -1797,13 +1797,17 @@ LShift & RShift::
   {
     CoordMode "Mouse", "Window"
     CoordMode "Pixel", "Window"
+
     SetDefaultMouseSpeed 0
     SetControlDelay -1
+    ; SetKeyDelay 10, 25  ; https://www.autohotkey.com/docs/v2/lib/SetKeyDelay.htm
+
     ; SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
     SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
 
-    Ctrl_classnn := "JagOpenGLView1"
     Win_ahk_exe := "rs2client.exe"
+    Ctrl_classnn := "JagOpenGLView1"
+    Ctrl_downup_delay := 50
 
     WinTitle := ("ahk_exe " Win_ahk_exe)
 
@@ -1812,19 +1816,58 @@ LShift & RShift::
 
     Ctrl_hwnd := ControlGetHwnd(Ctrl_classnn, WinTitle)
 
-    ; Replace with popup menu which allows user to select an activity at runtime
+    ; ------------------------------
+    xpos_2tilesnorth := 1718
+    ypos_2tilesnorth := 265
+    ; ------------------------------
+    xpos_backpackslot1 := 2405
+    ypos_backpackslot1 := 1089
+    ; ------------------------------
+    xpos_1tilewest := 1452
+    ypos_1tilewest := 750
+    ; ------------------------------
+    xpos_tooltip := xpos_2tilesnorth
+    ypos_tooltip := (ypos_2tilesnorth-100)
+    ; ------------------------------
+    ;
+    ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
+    ;
     ; DoActivity := "Woodcutting/Firemaking"
     DoActivity := "Magic"
 
     If (DoActivity == "Magic") {
-      ToolTip("Magic")
-      ; ToolTip("Magic" "`n" "Ctrl_hwnd=[" Ctrl_hwnd "]")
+      ; ------------------------------
+      ;
+      ; Magic XP Farm
+      ;
+      ; ------------------------------
+      ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
+      Loop {
+        ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
+        Sleep 1000
+        ; Sleep Random(239,412)
+        ControlSendDelayed("T", Ctrl_hwnd, Win_hwnd)
+        Sleep 100
+        ControlSendDelayed("U", Ctrl_hwnd, Win_hwnd)
+        Sleep 2000
+        ; Sleep (1000 + Random(569,769))
+      }
+
+      ; ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
+      ; Sleep Ctrl_downup_delay
+      ; ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
 
 
-      ; ControlSend("{Tab}", "JagOpenGLView1", Win_hwnd)
-      ControlSend("{1}", Ctrl_hwnd, Win_hwnd)
+      ; Send "{1 Down}"
+      ; Sleep 100
+      ; Send "{1 Up}"
+
+      ; Send "{Tab Down}"
+      ; Sleep 100
+      ; Send "{Tab Up}"
 
     } Else If (DoActivity == "Woodcutting/Firemaking") {
+      ; ------------------------------
       ;
       ; Woodcutting/Firemaking XP Farm
       ;   - Find a tree in-game
@@ -1835,20 +1878,7 @@ LShift & RShift::
       ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
       ;
       ; ------------------------------
-      xpos_2tilesnorth := 1718
-      ypos_2tilesnorth := 265
-      ; ------------------------------
-      xpos_backpackslot1 := 2405
-      ypos_backpackslot1 := 1089
-      ; ------------------------------
-      xpos_1tilewest := 1452
-      ypos_1tilewest := 750
-      ; ------------------------------
-      xpos_tooltip := xpos_2tilesnorth
-      ypos_tooltip := (ypos_2tilesnorth-100)
-      ; ------------------------------
       Color_Tree_Uncut := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)
-      ; ------------------------------
       Loop 50 {
         MouseClick("WheelUp")
         Sleep 20
@@ -2277,6 +2307,54 @@ CommentCurrentLine() {
 CommentCurrentLine_NoSpace() {
   Send "{Home}{LControl Down}{q}{LControl Up}{Backspace}"
   Sleep 10
+  Return
+}
+
+
+; ------------------------------
+;
+; ControlSendDelayed
+;   |--> Send a ControlSend but with a delay between the down and up
+;
+ControlSendDelayed(KeysArray:="", Ctrl_hwnd:="", WinTitle:="", WinText:="", ExcludeTitle:="", ExcludeText:="", Delay_DownUp:=50, Delay_Keypress:=10) {
+  ; Handle array- or string-typed inputs
+  CoordMode "Mouse", "Window"
+  CoordMode "Pixel", "Window"
+
+  SetDefaultMouseSpeed 0
+  SetControlDelay -1
+  ; SetKeyDelay 10, 25  ; https://www.autohotkey.com/docs/v2/lib/SetKeyDelay.htm
+
+  ; SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
+  SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+
+  If (IsArray(KeysArray) == True) {
+    ; Handle array-typed inputs
+    For Each_Key in KeysArray {
+      SendKey_Down := "{" Each_Key " Down}"
+      Tooltip(A_ThisFunc "`n" "`n" SendKey_Down)
+      ControlSend(SendKey_Down, Ctrl_hwnd, WinTitle, WinText, ExcludeTitle, ExcludeText)
+      Sleep Delay_Keypress
+    }
+    Sleep Delay_DownUp
+    For Each_Key in ReverseArray(KeysArray) {
+      SendKey_Up := "{" Each_Key " Up}"
+      Tooltip(A_ThisFunc "`n" "`n" SendKey_Up)
+      ControlSend(SendKey_Up, Ctrl_hwnd, WinTitle, WinText, ExcludeTitle, ExcludeText)
+      Sleep Delay_Keypress
+    }
+  } Else {
+    ; Handle string-typed inputs
+    SendKey_Down := "{" KeysArray " Down}"
+    Tooltip(A_ThisFunc "`n" "`n" SendKey_Down)
+    ControlSend(SendKey_Down, Ctrl_hwnd, WinTitle, WinText, ExcludeTitle, ExcludeText)
+    Sleep Delay_Keypress
+    Sleep Delay_DownUp
+    SendKey_Up := "{" KeysArray " Up}"
+    Tooltip(A_ThisFunc "`n" "`n" SendKey_Up)
+    ControlSend(SendKey_Up, Ctrl_hwnd, WinTitle, WinText, ExcludeTitle, ExcludeText)
+    Sleep Delay_Keypress
+  }
   Return
 }
 
@@ -2887,7 +2965,7 @@ IfProcessExist(ProcName) {
 ; ImplodeArray
 ;   |--> Convert an array to a string, delimited by a given delimiter string, and with each index optionally displayed
 ;
-ImplodeArray(Array:="",Delimiter:="",ShowIndexes:=False) {
+ImplodeArray(Array:="",Delimiter:=",",ShowIndexes:=False) {
   ReturnedVal := ""
   If (IsArray(Array) == True) {
     For EachValue in Array {
@@ -3559,6 +3637,21 @@ RegexConsolidateNewlines(StringToConsolidate:="") {
 
 ; ------------------------------
 ;
+; ReverseArray
+;   |--> Reverse an array - https://www.autohotkey.com/boards/viewtopic.php?p=297353#p297353
+;
+ReverseArray(InputArray:="") {
+  Local i:=0, Each_ArrayItem, OutputArray := Array()
+  For Each_ArrayItem in InputArray.Clone() {
+    OutputArray.InsertAt(i,Each_ArrayItem)
+    i := i - 1
+  }
+  Return OutputArray
+}
+
+
+; ------------------------------
+;
 ; RunExe_NON_Admin
 ;   |--> Opens target program without administrative rights (by using a Scheduled Task de-escalation workaround)
 ;
@@ -4128,8 +4221,8 @@ StrLen_Max(StrOrObj_1:="", StrOrObj_2:="") {
       }
     }
   } Else {
+    ; Handle string-typed inputs
     If (StrLen(StrOrObj_1) > StrLen(LongestString)) {
-      ; Handle string-typed inputs
       LongestString := StrOrObj_1
     }
   }
@@ -4145,7 +4238,6 @@ StrLen_Max(StrOrObj_1:="", StrOrObj_2:="") {
   } Else {
     ; Handle string-typed inputs
     If (StrLen(StrOrObj_2) > StrLen(LongestString)) {
-      ; Handle string-typed inputs
       LongestString := StrOrObj_2
     }
   }

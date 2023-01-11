@@ -1836,7 +1836,6 @@ LShift & RShift::
       If (DebugMode == 1) {
         ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
       }
-
       Loop {
         ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
         Sleep 1000
@@ -1847,7 +1846,6 @@ LShift & RShift::
         Sleep 2500
         ; Sleep (1000 + Random(569,769))
       }
-
     } Else If (DoActivity == "Woodcutting/Firemaking") {
       ; ------------------------------
       ;
@@ -1861,10 +1859,8 @@ LShift & RShift::
       ;
       ; ------------------------------
       Loop 2 {
-        ; ControlClick(Ctrl_hwnd, Win_hwnd,, "WheelUp", 1, "NA")
-        ; ControlSendDelayed("PgUp", Ctrl_hwnd, Win_hwnd)
-        ; ControlSendDelayed("Up", Ctrl_hwnd, Win_hwnd)
         If (A_Index == 1) {
+          ; Zoom in & pan up all the way
           Key_Camera_Zoom := "PgDn"
           Key_Camera_Pan_UpDown := "Down"
         } Else {
@@ -1964,6 +1960,7 @@ LShift & RShift::
           ; ------------------------------
         }
       }
+      ; ------------------------------
     }
     Return
   }

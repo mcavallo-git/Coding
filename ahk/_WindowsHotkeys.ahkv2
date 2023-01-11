@@ -674,7 +674,7 @@ Pause::
 ;
 #F1::
 {
-  Open_VisualStudioCode(A_ScriptFullPath)
+  Run("notepad.exe " A_ScriptFullPath)
   Return
 }
 
@@ -3290,7 +3290,6 @@ Open_VisualStudioCode(FilePath_Open:="") {
   SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   ; ------------------------------
   FullPath_RunExe := "C:\Windows\System32\notepad.exe"  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
-  FilePath_Open := ""
   ; ------------------------------
   ; Win_ahk_exe := "Code.exe"                     ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
   ; WinTitle_ahk_exe := ("ahk_exe " Win_ahk_exe)  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
@@ -3299,7 +3298,7 @@ Open_VisualStudioCode(FilePath_Open:="") {
   WinTitle := " - Visual Studio Code"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 20
-  If (!WinExist(WinTitle)) {
+  If (!WinExist(WinTitle) || (FilePath_Open != "")) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, FilePath_Open)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm

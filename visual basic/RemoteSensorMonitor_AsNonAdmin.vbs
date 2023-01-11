@@ -13,6 +13,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '   Name/Description:
 '     RemoteSensorMonitor_AsNonAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run with highest privileges (CHECKED)
+'
 '   Trigger:
 '     At log on
 '
@@ -20,9 +24,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\RemoteSensorMonitor_AsNonAdmin.vbs"
 '
-'   Run only when user is logged on (CHECKED)
-'   Run with highest privileges (CHECKED)
-'
+' ------------------------------
 '
 ' Note(s):
 '   - Set Remote Sensor Monitor port in file "C:\ISO\RemoteSensorMonitor\DefaultPort.txt"

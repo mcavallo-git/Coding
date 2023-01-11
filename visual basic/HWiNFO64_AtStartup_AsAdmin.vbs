@@ -8,7 +8,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '     HWiNFO64_AtStartup_AsAdmin
 '
 '   Security Options:
-'     Run only when user is logged on (UNCHECKED)
+'     Run only when user is logged on (UN-CHECKED)
 '     Run with highest privileges (CHECKED)
 '
 '   Trigger:

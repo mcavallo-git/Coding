@@ -1,27 +1,33 @@
 ' ------------------------------------------------------------
 '
+'
 ' Intended Use:
 '  | 
-'  |->   Replaces [ Notepad.exe ] with [ VS-Code INTO a static Workspace (essential) ]
+'  |--> Replaces [ Notepad.exe ] with [ VS-Code INTO a static Workspace (essential) ]
 '  |
-'  |->   Leverages "Notepad Replacer" (free, open source tool) which redirects "notepad.exe"
-'  |       calls to whatever target you tell it to - in this instance, it should redirect to
-'  |       [ "wscript.exe" ".../VSCode-Redirect.vbs" ]
+'  |--> Leverages "Notepad Replacer" (free, open source tool) which redirects "notepad.exe"
+'  |      calls to whatever target you tell it to - in this instance, it should redirect to
+'  |      [ "wscript.exe" ".../VSCode-Redirect.vbs" ]
 '  |
-'  |->   All filetypes which are desired to always use VS-Code as their default editor should
-'          be "Opened With" (right click in Windows > "Open With") the default "Notepad.exe",
-'          which will be redirected to this script, which opens VS-code with into said
-'          code-workspace (so you have all your workstation/user-specific configs!)
+'  |--> All filetypes which are desired to always use VS-Code as their default editor should
+'         be "Opened With" (right click in Windows > "Open With") the default "Notepad.exe",
+'         which will be redirected to this script, which opens VS-code with into said
+'         code-workspace (so you have all your workstation/user-specific configs!)
 '
 '
 ' ------------------------------------------------------------
 '
+'
 ' [Step 1/3] Download "Notepad Replacer"
 '   |
 '   |--> Automatically via PowerShell convenience-script (forces TLS 1.2, downloads to your "Downloads" directory):
+'   |
 '   |      $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
 '   |
 '   |-->  Manually via "Notepad Replacer" source (BinaryFortress) URL @ https://www.binaryfortress.com/Data/Download/?package=notepadreplacer
+'
+'
+' ------------------------------
 '
 '
 ' [Step 2/3] Install & configure "Notepad Replacer" to redirect from [ notepad.exe ] towards [ this-script ]
@@ -30,6 +36,9 @@
 '   |      Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${Home}\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };
 '   |
 '   |-->  Manually by opening "NotepadReplacerSetup*.exe" runtime & browsing to this file
+'
+'
+' ------------------------------
 '
 '
 ' [Step 3/3] Ensure that "wscript.exe" is the default handler for ".vbs"-extensioned files

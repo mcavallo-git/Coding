@@ -8,6 +8,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '   Name/Description:
 '     Kleopatra_NonAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run with highest privileges (UN-CHECKED)
+'
 '   Trigger:
 '     At log on
 '

@@ -7,17 +7,16 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 '   Name/Description:
 '     HWiNFO64_AtLogon_RestartGui_AsAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run with highest privileges (CHECKED)
+'
 '   Trigger:
 '     At logon (of current user)
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\HWiNFO64_AtLogon_RestartGui_AsAdmin.vbs"
-'
-'
-'   Run only when user is logged on (CHECKED)
-'   Run with highest privileges (CHECKED)
-'
 '
 ' Note(s):
 '   - Set Remote Sensor Monitor port in file "C:\ISO\RemoteSensorMonitor\DefaultPort.txt"

@@ -7,6 +7,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '   Name/Description:
 '     GitSyncAll-Pull_NonAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run with highest privileges (UN-CHECKED)
+'
 '   Trigger:
 '     (1) Begin the task:  At log on
 '          |--> Specific User:  (Same as Author (above))

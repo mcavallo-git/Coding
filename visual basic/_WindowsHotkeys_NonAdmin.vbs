@@ -7,16 +7,16 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '   Name/Description:
 '     _WindowsHotkeys_NonAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run with highest privileges (UN-CHECKED)
+'
 '   Trigger:
 '     At log on
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\_WindowsHotkeys_NonAdmin.vbs"
-'
-'   Run only when user is logged on (CHECKED)
-'   Run with highest privileges (UN-CHECKED)
-'
 '
 ' ------------------------------------------------------------
 '

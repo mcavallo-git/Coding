@@ -8,6 +8,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '   Name/Description:
 '     QuickNoteSniper_NonAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (UN-CHECKED)
+'     Run with highest privileges (UN-CHECKED)
+'
 '   Trigger:
 '     At log on of any user - After triggered, repeat every [ 5 minutes ] for a duration of [ 1436 minutes ]
 '

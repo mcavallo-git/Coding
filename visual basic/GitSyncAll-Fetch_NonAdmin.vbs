@@ -7,6 +7,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '   Name/Description:
 '     GitSyncAll-Fetch_NonAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run with highest privileges (UN-CHECKED)
+'
 '   Trigger:
 '     (1) Begin the task:  At log on
 '          |--> Specific User:  (Same as Author (above))
@@ -22,7 +26,6 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '   Settings:
 '     (CHECK)    Stop this task if it runs longer than:  2 minutes
-'
 '
 ' ------------------------------------------------------------
 '

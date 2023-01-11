@@ -8,16 +8,16 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Stop-Process -Name ng
 '   Name/Description:
 '     NGINX_KillAll
 '
+'   Security Options:
+'     Run only when user is logged on (UN-CHECKED)
+'     Run with highest privileges (UN-CHECKED)
+'
 '   Trigger:
 '     [ Manually triggered ]
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\NGINX_KillAll.vbs"
-'
-'   Run only when user is logged on (UN-CHECKED)
-'   Run with highest privileges (UN-CHECKED)
-'
 '
 ' ------------------------------------------------------------
 '

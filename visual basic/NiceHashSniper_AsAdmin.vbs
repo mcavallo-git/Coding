@@ -8,6 +8,11 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-O
 '   Name/Description:
 '     NiceHashSniper_AsAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (UN-CHECKED)
+'     Run with highest privileges (CHECKED)
+'
+'
 '   Trigger:
 '     At log on (of any user)
 '     On workstation unlock (of any user)
@@ -18,8 +23,5 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-O
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\NiceHashSniper_AsAdmin.vbs"
-'
-'   Run whether user is logged on or not (CHECKED)
-'
 '
 ' ------------------------------------------------------------

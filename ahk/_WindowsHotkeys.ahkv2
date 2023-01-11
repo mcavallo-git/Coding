@@ -1813,13 +1813,14 @@ LShift & RShift::
     ;
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
-    ; DoActivity := "Magic"
-    DoActivity := "Woodcutting/Firemaking"
+    ; DoActivity := "Magic Cast-Cancel"
+    DoActivity := "Magic Kill-Farm"
+    ; DoActivity := "Woodcutting/Firemaking"
 
-    If (DoActivity == "Magic") {
+    If (DoActivity == "Magic Cast-Cancel") {
       ; ------------------------------
       ;
-      ; Magic XP Farm
+      ; Magic Casting EXP Farm
       ;
       ; ------------------------------
       ;
@@ -1866,6 +1867,63 @@ LShift & RShift::
         ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
         Sleep 250
         ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_cease " y" ypos_cease))
+        Sleep Random(3050,3250)
+      }
+    } Else If (DoActivity == "Magic Kill-Farm") {
+      ; ------------------------------
+      ;
+      ; Magic Mob XP Farm
+      ;
+      ; ------------------------------
+      ;
+      ; Get the [Attack] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)"
+      xpos_attack := ""
+      ypos_attack := ""
+      While ((xpos_attack == "") || (ypos_attack == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_attack, &ypos_attack
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      ;
+      ; Get the [Retreat Direction] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Right click the direction to move back to after every attack" "`n" "`n" "Note: Intended to keep character in safe area(s)"
+      xpos_safe_area := ""
+      ypos_safe_area := ""
+      While ((xpos_safe_area == "") || (ypos_safe_area == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_safe_area, &ypos_safe_area
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      If (DebugMode == 1) {
+        ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
+      }
+      Loop {
+        ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 250
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
+        Sleep 250
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_safe_area " y" ypos_safe_area))
+        Sleep 500
+        ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 250
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
         Sleep Random(3050,3250)
       }
     } Else If (DoActivity == "Woodcutting/Firemaking") {
@@ -2010,7 +2068,6 @@ LShift & RShift::
                 If (DebugMode == 1) {
                   ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
                 }
-                ; ControlSendDelayed("1", Ctrl_hwnd, Win_hwnd)
                 ControlSend("1", Ctrl_hwnd, Win_hwnd)
                 Sleep Random(1050,1250)
                 If (DebugMode == 1) {
@@ -2030,7 +2087,6 @@ LShift & RShift::
                 If (DebugMode == 1) {
                   ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
                 }
-                ; ControlSendDelayed("3", Ctrl_hwnd, Win_hwnd)
                 ControlSend("3", Ctrl_hwnd, Win_hwnd)
                 Sleep Random(1050,1250)
                 If (DebugMode == 1) {

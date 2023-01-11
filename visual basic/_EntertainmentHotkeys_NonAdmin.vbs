@@ -9,7 +9,7 @@
 '     At log on  -  Specific user  (current user)
 '
 '   Action:
-'     Program/script:   C:\Program Files\AutoHotkey-v2\AutoHotkey64.exe
+'     Program/script:   "C:\Program Files\AutoHotkey-v2\AutoHotkey64.exe"
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\ahk\_EntertainmentHotkeys.ahkv2"
 '
 '   Run only when user is logged on (CHECKED)

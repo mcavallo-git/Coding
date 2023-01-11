@@ -9,8 +9,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '     QuickNoteSniper_NonAdmin
 '
 '   Trigger:
-'     On a schedule
-'       At 00:00 every day - After triggered, repeat every 5 minutes for a duration of 1436 minutes
+'     At log on of any user - After triggered, repeat every [ 5 minutes ] for a duration of [ 1436 minutes ]
 '
 '   Settings:
 '     (CHECK)    Stop this task if it runs longer than:  2 minutes

@@ -81,7 +81,6 @@ function EnsureProcessIsRunning {
 		# If Process is already running
 		If (${GetProcess} -NE $Null) {
 			$Returned_PIDs = (${GetProcess} | Select-Object -ExpandProperty "Id");
-			Get-Process | Where-Object { (($_.Name -Eq "chrome") -Or ($_.Path -Eq "${env:ProgramFiles}\Google\Chrome\Application\chrome.exe")); } | Stop-Process -Force;
 			If ($PSBoundParameters.ContainsKey('Debug') -Eq $True) {
 				Write-Host "EnsureProcessIsRunning:  Debug: Returned_PIDs=[ ${Returned_PIDs} ]";
 			}

@@ -330,11 +330,11 @@ RuneScape_Combat_CastCancel(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Attack] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Attack ability (start combat)" "`n" "`n" "Right click a low-cooldown (3s) action bar ability" "`n" "`n" "If none exists, drag a 3s cooldown from 'Powers' onto your action bar"
+  Tooltip_LocateButton := "  Attack ability (start combat)" "`n" "`n" "    Right click a low-cooldown (3s) action bar ability" "`n" "`n" "    If none exists, drag a 3s cooldown from 'Powers' onto your action bar"
   xpos_attack := ""
   ypos_attack := ""
   While ((xpos_attack == "") || (ypos_attack == "")) {
-    Tooltip(Tooltip_LocateButton)
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
     Sleep 10
     If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
       MouseGetPos &xpos_attack, &ypos_attack
@@ -347,11 +347,11 @@ RuneScape_Combat_CastCancel(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Stop-Attacking] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Right click the Cease action bar button (to end combat)" "`n" "`n" "Note: The Cease ability is found under Powers > Defensive > Defence"
+  Tooltip_LocateButton := "  Right click the Cease action bar button (to end combat)" "`n" "`n" "    Note: The Cease ability is found under Powers > Defensive > Defence"
   xpos_cease := ""
   ypos_cease := ""
   While ((xpos_cease == "") || (ypos_cease == "")) {
-    Tooltip(Tooltip_LocateButton)
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
     Sleep 10
     If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
       MouseGetPos &xpos_cease, &ypos_cease
@@ -390,11 +390,11 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Attack] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Attack ability (start combat)" "`n" "`n" "Right click a low-cooldown (3s) action bar ability" "`n" "`n" "If none exists, drag a 3s cooldown from 'Powers' onto your action bar"
+  Tooltip_LocateButton := "  Attack ability (start combat)" "`n" "`n" "    Right click a low-cooldown (3s) action bar ability" "`n" "`n" "    If none exists, drag a 3s cooldown from 'Powers' onto your action bar"
   xpos_attack := ""
   ypos_attack := ""
   While ((xpos_attack == "") || (ypos_attack == "")) {
-    Tooltip(Tooltip_LocateButton)
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
     Sleep 10
     If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
       MouseGetPos &xpos_attack, &ypos_attack
@@ -407,11 +407,11 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Retreat Direction] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Safe Area Pullback Direction" "`n" "`n" "Right click the direction relative to your character which is safest" "`n" "`n" "After each attack, a move command is issued at this location to avoid wandering" "`n" "`n" "Moving back towards a 'V' shaped pocket in the wall is optimal"
+  Tooltip_LocateButton := "  Safe Area Pullback Direction" "`n" "`n" "    Right click the direction relative to your character which is safest" "`n" "`n" "    After each attack, a move command is issued at this location to avoid wandering" "`n" "`n" "    Moving back towards a 'V' shaped pocket in the wall is optimal"
   xpos_safe_area := ""
   ypos_safe_area := ""
   While ((xpos_safe_area == "") || (ypos_safe_area == "")) {
-    Tooltip(Tooltip_LocateButton)
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
     Sleep 10
     If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
       MouseGetPos &xpos_safe_area, &ypos_safe_area
@@ -479,11 +479,11 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
       A_MsgBoxResult := MsgBox("Position your character directly south of the tree (adjacent to it)" "`n" "`n" "The tree should be directly North of your character" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
       If (A_MsgBoxResult == "OK") {
         ; ------------------------------
-        Tooltip_LocateButton := "Chop Action" "`n" "`n" "Right click the tree where the Chop action is displayed"
+        Tooltip_LocateButton := "  Chop Action" "`n" "`n" "    Right click the tree where the Chop action is displayed"
         xpos_2tilesnorth := ""
         ypos_2tilesnorth := ""
         While ((xpos_2tilesnorth == "") || (ypos_2tilesnorth == "")) {
-          Tooltip(Tooltip_LocateButton)
+          Tooltip("`n" Tooltip_LocateButton "`n  `n")
           Sleep 10
           If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
             MouseGetPos &xpos_2tilesnorth, &ypos_2tilesnorth
@@ -496,11 +496,11 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
         ;
         ; Get the [ 1 Tile West ] x/y mouse coordinates
         ;
-        Tooltip_LocateButton := "1 Tile West" "`n" "`n" "Right click 1 tile to the West of the player"
+        Tooltip_LocateButton := "  1 Tile West" "`n" "`n" "    Right click 1 tile to the West of the player"
         xpos_1tilewest := ""
         ypos_1tilewest := ""
         While ((xpos_1tilewest == "") || (ypos_1tilewest == "")) {
-          Tooltip(Tooltip_LocateButton)
+          Tooltip("`n" Tooltip_LocateButton "`n  `n")
           Sleep 10
           If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
             MouseGetPos &xpos_1tilewest, &ypos_1tilewest
@@ -513,11 +513,11 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
         ;
         ; Get the [ Backpack slot 1 ] x/y mouse coordinates
         ;
-        Tooltip_LocateButton := "Backpack slot #1" "`n" "`n" "Open backpack (keep it open)" "`n" "`n" "Right click backpack slot #1 (top-leftmost, first slot to fill with loot)"
+        Tooltip_LocateButton := "  Backpack slot #1" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click backpack slot #1 (top-leftmost, first slot to fill with loot)"
         xpos_backpackslot1 := ""
         ypos_backpackslot1 := ""
         While ((xpos_backpackslot1 == "") || (ypos_backpackslot1 == "")) {
-          Tooltip(Tooltip_LocateButton)
+          Tooltip("`n" Tooltip_LocateButton "`n  `n")
           Sleep 10
           If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
             MouseGetPos &xpos_backpackslot1, &ypos_backpackslot1
@@ -530,11 +530,11 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
         ;
         ; Get the [ Backpack slot 2 ] x/y mouse coordinates
         ;
-        Tooltip_LocateButton := "Backpack slot #2" "`n" "`n" "Open backpack (keep it open)" "`n" "`n" "Right click backpack slot #2 (second slot to fill with loot)"
+        Tooltip_LocateButton := "  Backpack slot #2" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click backpack slot #2 (second slot to fill with loot)"
         xpos_backpackslot2 := ""
         ypos_backpackslot2 := ""
         While ((xpos_backpackslot2 == "") || (ypos_backpackslot2 == "")) {
-          Tooltip(Tooltip_LocateButton)
+          Tooltip("`n" Tooltip_LocateButton "`n  `n")
           Sleep 10
           If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
             MouseGetPos &xpos_backpackslot2, &ypos_backpackslot2

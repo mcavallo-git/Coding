@@ -1767,21 +1767,21 @@ LShift & RShift::
 
 ; ------------------------------
 ;
-;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ RuneScape ] is active)
-;   ACTION:  Send [ U ] key, instead
-;
-#HotIf WinActive("ahk_exe rs2client.exe")
-  XButton1:: U
-#HotIf
-
-
-; ------------------------------
-;
 ;   HOTKEY:  XButton2 (Mouse Button 5 - Forward Side Button)  (while [ RuneScape ] is active)
 ;   ACTION:  Send [ T ] key, instead
 ;
 #HotIf WinActive("ahk_exe rs2client.exe")
   XButton2:: T
+#HotIf
+
+
+; ------------------------------
+;
+;   HOTKEY:  XButton1 (Mouse Button 4 - Back Side Button)  (while [ RuneScape ] is active)
+;   ACTION:  Send [ U ] key, instead
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  XButton1:: U
 #HotIf
 
 
@@ -1821,19 +1821,11 @@ LShift & RShift::
     xpos_tooltip := xpos_2tilesnorth
     ypos_tooltip := (ypos_2tilesnorth-100)
     ; ------------------------------
-    If (1 == 1) {
-      ; Zoom in & pan up all the way
-      ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
-      Sleep 2500
-      ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
-      Sleep 100
-    }
-    ; ------------------------------
     ;
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
-    ; DoActivity := "Magic"
-    DoActivity := "Woodcutting/Firemaking"
+    DoActivity := "Magic"
+    ; DoActivity := "Woodcutting/Firemaking"
 
     If (DoActivity == "Magic") {
       ; ------------------------------
@@ -1845,16 +1837,28 @@ LShift & RShift::
         ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
       }
       Loop {
-        ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
-        Sleep 1000
-        ; Sleep Random(239,412)
-        ControlSendDelayed("T", Ctrl_hwnd, Win_hwnd)
-        Sleep 100
-        ControlSendDelayed("U", Ctrl_hwnd, Win_hwnd)
-        Sleep 2500
-        ; Sleep (1000 + Random(569,769))
+        ; ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 250
+        ControlSend("{T Down}", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{T Up}", Ctrl_hwnd, Win_hwnd)
+        ; ControlSendDelayed("T", Ctrl_hwnd, Win_hwnd)
+        Sleep 250
+        ControlSend("{U Down}", Ctrl_hwnd, Win_hwnd)
+        ControlSend("{U Up}", Ctrl_hwnd, Win_hwnd)
+        ; ControlSendDelayed("U", Ctrl_hwnd, Win_hwnd)
+        Sleep Random(3050,3250)
       }
     } Else If (DoActivity == "Woodcutting/Firemaking") {
+      ; ------------------------------
+      If (1 == 1) {
+        ; Zoom in & pan up all the way
+        ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
+        Sleep 2500
+        ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 100
+      }
       ; ------------------------------
       ;
       ; Woodcutting/Firemaking XP Farm
@@ -1908,9 +1912,9 @@ LShift & RShift::
           If (DebugMode == 1) {
             ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
           }
-          ControlSendDelayed("1", Ctrl_hwnd, Win_hwnd)
-          ; ControlSend("{1}", Ctrl_hwnd, Win_hwnd)
           ; Send "1"
+          ; ControlSendDelayed("1", Ctrl_hwnd, Win_hwnd)
+          ControlSend("1", Ctrl_hwnd, Win_hwnd)
           Sleep Random(1050,1250)
           If (DebugMode == 1) {
             ToolTip("Light fire" "`n" "Wait for log to catch fire", xpos_tooltip, ypos_tooltip)
@@ -1925,7 +1929,6 @@ LShift & RShift::
             ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
           }
           ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" (xpos_backpackslot1+41) " y" ypos_backpackslot1))
-          ; MouseClick "Left", (xpos_backpackslot1+41), ypos_backpackslot1
           Sleep Random(1050,1250)
           If (DebugMode == 1) {
             ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)

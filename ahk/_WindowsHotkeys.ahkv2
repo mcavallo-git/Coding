@@ -1787,71 +1787,75 @@ LShift & RShift::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + F5  (Mouse Button 5 - Forward Side Button)  (while [ RuneScape ] is active)
+;   HOTKEY:  WinKey + F5  (while [ RuneScape ] is active)
 ;   ACTION:  Farm XP
 ;
-#HotIf WinActive("ahk_exe rs2client.exe")
+#HotIf WinExist("ahk_exe rs2client.exe")
   ^#c::
   !#c::
   #F5::
   {
-    CoordMode "Mouse", "Screen"
+    CoordMode "Mouse", "Window"
+    SetDefaultMouseSpeed 0
+    SetControlDelay -1
+    ; SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
+    SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
 
-    ; If ( 0 == 1 ) {
-      ;
-      ; Woodcutting/Firemaking XP Farm
-      ;   - Find a tree in-game
-      ;   - Place character 1 tile south of a tree to chop
-      ;   - Zoom the camera in all the way
-      ;   - Pivot camera up/down so it's as high as possible looking down at the top of the character's head
-      ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
-      ;   - NOTE: Fires last 60 (randomly selected at time that fire is created)
-      ;
-      Loop {
-        Loop 2 {
-          ; ----- Chop Tree
-          MouseClick "Right", 1747, 257    ; Right click tree to chop
-          Sleep 500                        ; Wait for menu popup
-          MouseClick "Left", 0, 25,,,,"R"  ; Select menu option #1 - "Chop down ___"
-          Sleep 30000                      ; Wait until we have chopped some wood
-          If (A_Index != 1) {
-            ; ----- Step off Fire
-            MouseClick "Right", 1444, 777    ; Right click 1 tile West (NOT bonfire)
-            Sleep 500                        ; Wait for menu popup
-            MouseClick "Left", 0, 25,,,,"R"  ; Select menu option #1 - "Walk here"
-            Sleep 5000                       ; Wait for character to move
-          }
-          ; ----- Light Fire
-          MouseClick "Right", 2400, 1080   ; Right click logs in inventory
-          Sleep 500                        ; Wait for menu popup
-          MouseClick "Left", 0, 42,,,,"R"  ; Select menu option #2 - "Light ___ logs"
-          Sleep 30000                      ; Wait for logs to light successfully
-          ; ----- Add Logs to Fire
-          MouseClick "Right", 1444, 777    ; Right click 1 tile West (bonfire)
-          Sleep 500                        ; Wait for menu popup
-          MouseClick "Left", 0, 42,,,,"R"  ; Select menu option #2 - "Use Fire"
-          Sleep 2000                       ; Wait for window popup
-          MouseClick "Left", 1792, 385     ; Select "Add to bonfire"
-          Sleep 30000                      ; Wait to throw all logs on the fire
-          If (A_Index == 1) {
-            ; ----- Move South of Tree
-            MouseClick "Right", 1444, 777    ; Right click 1 tile West (bonfire)
-            Sleep 500                        ; Wait for menu popup
-            MouseClick "Left", 0, 25,,,,"R"  ; Select menu option #1 - "Walk here"
-            Sleep 5000                       ; Wait for character to move
-            ; -----
-          }
+    WinTitle := "ahk_exe rs2client.exe"
+    Win_ahk_id := WinGetID(WinTitle)
+    WinHwnd := ("ahk_id " Win_ahk_id)
+
+    ;
+    ; Woodcutting/Firemaking XP Farm
+    ;   - Find a tree in-game
+    ;   - Place character 1 tile south of a tree to chop
+    ;   - Zoom the camera in all the way
+    ;   - Pivot camera up/down so it's as high as possible looking down at the top of the character's head
+    ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
+    ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
+    ;
+    Loop {
+      Loop 2 {
+        ToolTip "Chop Tree", 0, 0
+        xpos := 1718
+        ypos := 265
+      ; ControlClick ("x" xpos " y" ypos), WinHwnd           ; Left click 2 tiles North - Start chopping tree
+        MouseMove xpos, ypos
+        Sleep 1000                                           ; Wait for cursor to change
+        MouseClick "Left", xpos, ypos                        ; Left click 2 tiles North - Start chopping tree
+        Sleep 30000                                          ; Wait for wood to be chopped
+        If (A_Index != 1) {
+          ToolTip "Move to Tile w/o Fire", 0, 0
+          xpos := 1452
+          ypos := 785
+        ; ControlClick ("x" xpos " y" ypos), WinHwnd           ; Left click 1 tile West - Move to tile WITHOUT a fire
+          MouseClick "Left", xpos, ypos                        ; Left click 1 tile West - Move to tile WITHOUT a fire
+          Sleep 5000                                           ; Wait for character to move
         }
-      }
-    ; }
-
-
-    If ( 0 == 1 ) {
-      Loop 240 {
-        MouseClick "Right", 2400, 1080   ; Right click logs in inventory
-        Sleep 500                        ; Wait for menu popup
-        MouseClick "Left", 0, 42,,,,"R"  ; Select menu option #2 - "Light ___ logs"
-        Sleep 4500
+        ToolTip "Light Fire", 0, 0
+        xpos := 2405  ; Top Left Inventory Slot
+        ypos := 1089  ; Top Left Inventory Slot
+      ; ControlClick ("x" xpos " y" ypos), WinHwnd           ; Left click inventory item #1 - Open wood crafting popup window
+        MouseClick "Left", xpos, ypos                        ; Left click inventory item #1 - Open wood crafting popup window
+        Sleep 2000                                           ; Wait for popup window
+      ; ControlSend("{1}",, WinHwnd)                         ; Send keystroke "1" - Select option "Tinderbox"
+        Send "1"                                             ; Send keystroke "1" - Select option "Tinderbox"
+        Sleep 30000                                          ; Wait for logs to light successfully
+        ToolTip "Add Logs to Fire", 0, 0
+      ; ControlClick ("x" (xpos+41) " y" ypos), WinHwnd      ; Left click inventory item #2
+        MouseClick "Left", (xpos+41), ypos                   ; Left click inventory item #2
+        Sleep 2000                                           ; Wait for popup window
+      ; ControlSend("{3}",, WinHwnd)                         ; Send keystroke "3" - Select option "Add to bonfire"
+        Send "3"                                             ; Send keystroke "3" - Select option "Add to bonfire"
+        Sleep 30000                                          ; Wait to throw all logs on the fire
+        If (A_Index == 1) {
+          ToolTip "Move South of Tree", 0, 0
+          xpos := 1452
+          ypos := 785
+        ; ControlClick ("x" xpos " y" ypos), WinHwnd           ; Left click 1 tile West - Move to 1 tile South of tree
+          MouseClick "Left", xpos, ypos                        ; Left click 1 tile West - Move to 1 tile South of tree
+          Sleep 5000                                           ; Wait for character to move
+        }
       }
     }
 
@@ -5507,11 +5511,11 @@ Youtube_EditDraft_Submit() {
 ;
 ; ------------------------------------------------------------
 ;
-; MouseClickDrag, WhichButton, X1, Y1, X2, Y2 [, Speed, "R"]
+; MouseClickDrag WhichButton, X1, Y1, X2, Y2 [, Speed, Relative]
 ;
 ; ------------------------------------------------------------
 ;
-; MouseMove X, Y [, Speed, "R"]
+; MouseMove X, Y [, Speed, Relative]
 ;
 ; ------------------------------------------------------------
 ;

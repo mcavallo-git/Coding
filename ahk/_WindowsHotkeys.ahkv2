@@ -1797,7 +1797,7 @@ LShift & RShift::
   {
     ; ------------------------------
     Global DebugMode
-    CoordMode "Mouse", "Window"
+    CoordMode "Mouse", "Client"
     SetControlDelay -1
     SetDefaultMouseSpeed 0
     SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
@@ -1808,18 +1808,6 @@ LShift & RShift::
     Win_ahk_id := WinGetID(WinTitle)
     Win_hwnd := ("ahk_id " Win_ahk_id)
     Ctrl_hwnd := ControlGetHwnd(Ctrl_classnn, WinTitle)
-    ; ------------------------------
-    xpos_2tilesnorth := 1732
-    ypos_2tilesnorth := 295
-    ; ------------------------------
-    xpos_1tilewest := 1448
-    ypos_1tilewest := 706
-    ; ------------------------------
-    xpos_backpackslot1 := 2398
-    ypos_backpackslot1 := 1059
-    ; ------------------------------
-    xpos_tooltip := xpos_2tilesnorth
-    ypos_tooltip := (ypos_2tilesnorth-100)
     ; ------------------------------
     ;
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
@@ -1833,21 +1821,50 @@ LShift & RShift::
       ; Magic XP Farm
       ;
       ; ------------------------------
+      ;
+      ; Get the [Attack] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Left-click the Attack action bar button (to begin combat)"
+      xpos_attack := ""
+      ypos_attack := ""
+      While ((xpos_attack == "") || (ypos_attack == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("LButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_attack, &ypos_attack
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      ;
+      ; Get the [Stop-Attacking] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Left-click the Cease action bar button (to end combat)`n`nNote: The Cease ability is found under Powers > Defensive > Defence"
+      xpos_cease := ""
+      ypos_cease := ""
+      While ((xpos_cease == "") || (ypos_cease == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("LButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_cease, &ypos_cease
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
       If (DebugMode == 1) {
         ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
       }
       Loop {
-        ; ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
         ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
         ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
         Sleep 250
-        ControlSend("{T Down}", Ctrl_hwnd, Win_hwnd)
-        ControlSend("{T Up}", Ctrl_hwnd, Win_hwnd)
-        ; ControlSendDelayed("T", Ctrl_hwnd, Win_hwnd)
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
         Sleep 250
-        ControlSend("{U Down}", Ctrl_hwnd, Win_hwnd)
-        ControlSend("{U Up}", Ctrl_hwnd, Win_hwnd)
-        ; ControlSendDelayed("U", Ctrl_hwnd, Win_hwnd)
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_cease " y" ypos_cease))
         Sleep Random(3050,3250)
       }
     } Else If (DoActivity == "Woodcutting/Firemaking") {
@@ -1859,6 +1876,77 @@ LShift & RShift::
         ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
         Sleep 100
       }
+      ; ------------------------------
+      ;
+      ; Get the [ 2 Tiles North ] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "2 Tiles North (Tree)" "`n" "`n" "Position your character directly south 2 tiles from a tree to farm" "`n" "`n" "Left click 2 tiles North of the player once positioned (on the Tree)"
+      xpos_2tilesnorth := ""
+      ypos_2tilesnorth := ""
+      While ((xpos_2tilesnorth == "") || (ypos_2tilesnorth == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("LButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_2tilesnorth, &ypos_2tilesnorth
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      ;
+      ; Get the [ 1 Tile West ] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "1 Tile West" "`n" "`n" "Left click 1 tile to the West of the player"
+      xpos_1tilewest := ""
+      ypos_1tilewest := ""
+      While ((xpos_1tilewest == "") || (ypos_1tilewest == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("LButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_1tilewest, &ypos_1tilewest
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      ;
+      ; Get the [ Backpack slot 1 ] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Backpack slot 1" "`n" "`n" "Left click the the first backpack slot (top-leftmost)"
+      xpos_backpackslot1 := ""
+      ypos_backpackslot1 := ""
+      While ((xpos_backpackslot1 == "") || (ypos_backpackslot1 == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("LButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_backpackslot1, &ypos_backpackslot1
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      ;
+      ; Get the [ Backpack slot 2 ] x/y mouse coordinates
+      ;
+      Tooltip_LocateButton := "Backpack slot 2" "`n" "`n" "Left click the the second backpack slot"
+      xpos_backpackslot2 := ""
+      ypos_backpackslot2 := ""
+      While ((xpos_backpackslot2 == "") || (ypos_backpackslot2 == "")) {
+        Tooltip(Tooltip_LocateButton)
+        Sleep 10
+        If (GetKeyState("LButton","P") == 1) { ; Button is being pressed
+          MouseGetPos &xpos_backpackslot2, &ypos_backpackslot2
+          ClearTooltip(0)
+          Break
+        }
+      }
+      Sleep 500
+      ; ------------------------------
+      xpos_tooltip := xpos_2tilesnorth
+      ypos_tooltip := (ypos_2tilesnorth-100)
       ; ------------------------------
       ;
       ; Woodcutting/Firemaking XP Farm
@@ -1882,9 +1970,6 @@ LShift & RShift::
           }
           Loop 20 {
             ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_2tilesnorth " y" ypos_2tilesnorth))
-            ; MouseMove xpos_2tilesnorth, ypos_2tilesnorth
-            ; Sleep 500
-            ; MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
             Loop 2 {
               Sleep Random(1050,1250)
             }
@@ -1895,7 +1980,6 @@ LShift & RShift::
               ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
             }
             ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
-            ; MouseClick "Left", xpos_1tilewest, ypos_1tilewest
             Sleep Random(1050,1250)
             If (DebugMode == 1) {
               ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
@@ -1907,13 +1991,10 @@ LShift & RShift::
             ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)", xpos_tooltip, ypos_tooltip)
           }
           ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot1 " y" ypos_backpackslot1))
-          ; MouseClick "Left", xpos_backpackslot1, ypos_backpackslot1
           Sleep Random(1050,1250)
           If (DebugMode == 1) {
             ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
           }
-          ; Send "1"
-          ; ControlSendDelayed("1", Ctrl_hwnd, Win_hwnd)
           ControlSend("1", Ctrl_hwnd, Win_hwnd)
           Sleep Random(1050,1250)
           If (DebugMode == 1) {
@@ -1928,15 +2009,13 @@ LShift & RShift::
           If (DebugMode == 1) {
             ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
           }
-          ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" (xpos_backpackslot1+41) " y" ypos_backpackslot1))
+          ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" ypos_backpackslot2 " y" ypos_backpackslot2))
           Sleep Random(1050,1250)
           If (DebugMode == 1) {
             ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
           }
           Sleep Random(1050,1250)
           ControlSendDelayed("3", Ctrl_hwnd, Win_hwnd)
-          ; ControlSend("{3}",, Win_hwnd)
-          ; Send "3"
           If (DebugMode == 1) {
             ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
           }
@@ -1947,7 +2026,6 @@ LShift & RShift::
               ToolTip("Move south of tree" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
             }
             ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
-            ; MouseClick "Left", xpos_1tilewest, ypos_1tilewest
             Sleep Random(1050,1250)
             If (DebugMode == 1) {
               ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)

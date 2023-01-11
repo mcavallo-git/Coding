@@ -1821,6 +1821,14 @@ LShift & RShift::
     xpos_tooltip := xpos_2tilesnorth
     ypos_tooltip := (ypos_2tilesnorth-100)
     ; ------------------------------
+    If (1 == 1) {
+      ; Zoom in & pan up all the way
+      ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
+      Sleep 2500
+      ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
+      Sleep 100
+    }
+    ; ------------------------------
     ;
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
@@ -1856,22 +1864,8 @@ LShift & RShift::
       ;   - Pivot camera up/down so it's as high as possible looking down at the top of the character's head
       ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
       ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
-      ;y
+      ;
       ; ------------------------------
-      Loop 2 {
-        If (A_Index == 1) {
-          ; Zoom in & pan up all the way
-          Key_Camera_Zoom := "PgDn"
-          Key_Camera_Pan_UpDown := "Down"
-        } Else {
-          Key_Camera_Zoom := "PgUp"
-          Key_Camera_Pan_UpDown := "Up"
-        }
-        ControlSend("{" Key_Camera_Zoom " Down}{" Key_Camera_Pan_UpDown " Down}", Ctrl_hwnd, Win_hwnd)
-        Sleep 2500
-        ControlSend("{" Key_Camera_Zoom " Up}{" Key_Camera_Pan_UpDown " Up}", Ctrl_hwnd, Win_hwnd)
-        Sleep 100
-      }
       Loop {
         Loop 2 {
           ; ------------------------------

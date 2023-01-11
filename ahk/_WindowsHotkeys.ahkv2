@@ -2001,6 +2001,7 @@ LShift & RShift::
                 If (DebugMode == 1) {
                   ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
                 }
+                ; ControlSendDelayed("1", Ctrl_hwnd, Win_hwnd)
                 ControlSend("1", Ctrl_hwnd, Win_hwnd)
                 Sleep Random(1050,1250)
                 If (DebugMode == 1) {
@@ -2020,8 +2021,9 @@ LShift & RShift::
                 If (DebugMode == 1) {
                   ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
                 }
+                ; ControlSendDelayed("3", Ctrl_hwnd, Win_hwnd)
+                ControlSend("3", Ctrl_hwnd, Win_hwnd)
                 Sleep Random(1050,1250)
-                ControlSendDelayed("3", Ctrl_hwnd, Win_hwnd)
                 If (DebugMode == 1) {
                   ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
                 }

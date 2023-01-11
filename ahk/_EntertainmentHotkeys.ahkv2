@@ -770,6 +770,8 @@ RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
       ; ------------------------------
       Loop 30 {
         ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_drop_fish " y" ypos_drop_fish))
+        Sleep Random(5050,650)
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_drop_fish " y" (ypos_drop_fish+28)))
         Sleep Random(1050,1250)
       }
       ; ------------------------------

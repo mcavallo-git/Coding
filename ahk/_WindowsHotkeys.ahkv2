@@ -1856,7 +1856,7 @@ LShift & RShift::
       ;   - Pivot camera up/down so it's as high as possible looking down at the top of the character's head
       ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
       ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
-      ;
+      ;y
       ; ------------------------------
       Loop 2 {
         If (A_Index == 1) {
@@ -2776,12 +2776,12 @@ GetWindowSpecs(WinTitle:="A") {
       ControlGetPos(&Ctrl_xpos, &Ctrl_ypos, &Ctrl_width, &Ctrl_height, Ctrl_focus_hwnd, Win_hwnd)
       Ctrl_focus_pos := ("x" Ctrl_xpos " y" Ctrl_ypos ", w" Ctrl_width ", h" Ctrl_height )
     }
-    Ctrl_focus_text := ControlGetText(Ctrl_focus_hwnd, Win_hwnd)
+    ; Ctrl_focus_text := ControlGetText(Ctrl_focus_hwnd, Win_hwnd)
   } Else {
     Ctrl_focus_classnn := ""
     Ctrl_focus_isvisible := ""
     Ctrl_focus_pos := ""
-    Ctrl_focus_text := ""
+    ; Ctrl_focus_text := ""
   }
 
   ; Get the value of the longest text field (to scale the width of the GUI off)
@@ -2823,7 +2823,7 @@ GetWindowSpecs(WinTitle:="A") {
   ; --- TABLE - TOTAL ROWS ---
   GUI_ROWCOUNT := 2  ; Header Rows
   GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win Rows
-  GUI_ROWCOUNT := GUI_ROWCOUNT + 8  ; Ctrl Rows
+  GUI_ROWCOUNT := GUI_ROWCOUNT + 7  ; Ctrl Rows
   If (Win_is_win10_app == 1) {
     GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win10 Rows
   }
@@ -2881,7 +2881,7 @@ GetWindowSpecs(WinTitle:="A") {
   LV.Add("", "Ctrl_focus_classnn", Ctrl_focus_classnn)
   LV.Add("", "Ctrl_focus_isvisible", Ctrl_focus_isvisible)
   LV.Add("", "Ctrl_focus_pos", Ctrl_focus_pos)
-  LV.Add("", "Ctrl_focus_text", Ctrl_focus_text)
+  ; LV.Add("", "Ctrl_focus_text", Ctrl_focus_text)
 
   ; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
   LV.Add("", "", "")

@@ -16,6 +16,9 @@ If ($True) {
 
   $ISO_Fullpath = "${HOME}\Desktop\Windows.iso";
 
+  $DebugMode = $False;
+  # $DebugMode = $True;
+
   # Determine if the iso file is already mounted
   $Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter);
 
@@ -39,6 +42,7 @@ If ($True) {
     Write-Output "Info:  Located ISO file `"${ISO_FullPath}`" mounted to drive letter `"${Mounted_DriveLetter}`"";
 
     $Regex_DISM_ErrorCount = "^Error\s*: (.+)";
+    $Regex_DISM_Indexes = "^Index : .+";
     $Regex_DISM_WinName = "^Name : (.+)";
     $Regex_DISM_WinVersion = "^Version : (.+)";
     $Regex_DISM_WinBuild = "^ServicePack Build\s*: (.+)";
@@ -53,9 +57,17 @@ If ($True) {
     }
 
     # Get the version # of Windows (stored within the sources/install.* file (wim))
-    $DISM_Info=(Dism /Get-WimInfo /WimFile:${Wimfile_MountPath} /index:1); $EXIT_CODE_DISM=([int]${EXIT_CODE_DISM}+([int](!${?})));
+    $DISM_Info = (DISM /Get-WimInfo /WimFile:${Wimfile_MountPath}); $EXIT_CODE_DISM=([int]${EXIT_CODE_DISM}+([int](!${?})));
 
     $DISM_ErrorsExist = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_ErrorCount})","${Regex_DISM_ErrorCount}").Success);
+
+    If ($True -Eq ${DebugMode}) {
+      Write-Output "`${DISM_Info}:";
+      Write-Output "= = = =";
+      ${DISM_Info};
+      Write-Output "= = = =";
+      Write-Output "`${DISM_ErrorsExist} = [ ${DISM_ErrorsExist} ]";
+    }
 
     If ((${EXIT_CODE_DISM} -NE 0) -Or (${DISM_ErrorsExist} -Eq $True)) {
 
@@ -66,28 +78,46 @@ If ($True) {
 
     } Else {
 
-      $ISO_Name = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_WinName})","${Regex_DISM_WinName}").Captures.Groups[1].Value);
-      $ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_WinVersion})","${Regex_DISM_WinVersion}").Captures.Groups[1].Value);
-      $ISO_BuildNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_WinBuild})","${Regex_DISM_WinBuild}").Captures.Groups[1].Value);
+      $DISM_Indexes_String = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_Indexes})","${Regex_DISM_Indexes}").Captures.Groups[0].Value);
+      $DISM_Indexes_Arr = (${DISM_Indexes_String}.Split("Index : ") | Where-Object { "" -NE "${_}" });
 
-      If ($False) {
-        Write-Output "Verbose Info - `${DISM_Info}:";
-        Write-Output "------------------------------";
-        ${DISM_Info};
-        Write-Output "------------------------------";
-        Write-Output "`${ISO_Name} = [ ${ISO_Name} ]";
-        Write-Output "`${ISO_VersionNumber} = [ ${ISO_VersionNumber} ]";
-        Write-Output "`${ISO_BuildNumber} = [ ${ISO_BuildNumber} ]";
-      }
-
-      Write-Output "";
       Write-Output "------------------------------";
       Write-Output "";
       Write-Output "  Filepath:  ${ISO_FullPath}";
       Write-Output "";
-      Write-Output "  Image Name:  ${ISO_Name}";
-      Write-Output "";
-      Write-Output "  Version.Build:  ${ISO_VersionNumber}.${ISO_BuildNumber}";
+      Write-Output "- - - -";
+
+      ${DISM_Indexes_Arr} | ForEach-Object {
+
+        $Each_DISM_Index = "${_}";
+
+        $Each_DISM_Args = @("/Get-WimInfo","/WimFile:${Wimfile_MountPath}","/Index:$([int](${Each_DISM_Index}))");
+        $Each_DISM_Index_Info=(DISM ${Each_DISM_Args}); $EXIT_CODE_DISM=([int]${EXIT_CODE_DISM}+([int](!${?})));
+        $Each_DISM_Name = ([Regex]::Match("$(${Each_DISM_Index_Info} -match ${Regex_DISM_WinName})","${Regex_DISM_WinName}").Captures.Groups[1].Value);
+        $Each_DISM_Version = ([Regex]::Match("$(${Each_DISM_Index_Info} -match ${Regex_DISM_WinVersion})","${Regex_DISM_WinVersion}").Captures.Groups[1].Value);
+        $Each_DISM_Build = ([Regex]::Match("$(${Each_DISM_Index_Info} -match ${Regex_DISM_WinBuild})","${Regex_DISM_WinBuild}").Captures.Groups[1].Value);
+
+        If ($True -Eq ${DebugMode}) {
+          Write-Output "Command:  DISM /Get-WimInfo /WimFile:${Wimfile_MountPath} /Index:${Each_DISM_Index}";
+          Write-Output "`${Each_DISM_Index_Info}:";
+          Write-Output "= = = =";
+          ${Each_DISM_Index_Info};
+          Write-Output "= = = =";
+          Write-Output "`${Each_DISM_Name} = [ ${Each_DISM_Name} ]";
+          Write-Output "`${Each_DISM_Version} = [ ${Each_DISM_Version} ]";
+          Write-Output "`${Each_DISM_Build} = [ ${Each_DISM_Build} ]";
+        }
+
+        Write-Output "";
+        Write-Output "  Index:    ${Each_DISM_Index}";
+        Write-Output "";
+        Write-Output "  Name:     ${Each_DISM_Name}";
+        Write-Output "";
+        Write-Output "  Semver:   ${Each_DISM_Version}.${Each_DISM_Build}";
+        Write-Output "";
+        Write-Output "- - - -";
+
+      }
       Write-Output "";
       Write-Output "------------------------------";
 

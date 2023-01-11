@@ -1806,6 +1806,7 @@ LShift & RShift::
     Win_ahk_id := WinGetID(WinTitle)
     WinHwnd := ("ahk_id " Win_ahk_id)
 
+    ; Replace with popup menu which allows user to select an activity at runtime
     DoActivity := "Woodcutting/Firemaking"
 
     If (DoActivity == "Woodcutting/Firemaking") {
@@ -1826,9 +1827,12 @@ LShift & RShift::
       ypos_backpackslot1 := 1089
       ; ------------------------------
       xpos_1tilewest := 1452
-      ypos_1tilewest := 785
+      ypos_1tilewest := 750
       ; ------------------------------
-      Color_Tree_Uncut := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)  ; PixelGetColor, Color, MouseX, MouseY
+      xpos_tooltip := xpos_2tilesnorth
+      ypos_tooltip := (ypos_2tilesnorth-100)
+      ; ------------------------------
+      Color_Tree_Uncut := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)
       ; ------------------------------
       Loop 50 {
         MouseClick("WheelUp")
@@ -1839,63 +1843,73 @@ LShift & RShift::
           ; ------------------------------
           Do_TreeChopping := 1
           Loop 30 {
-            Color_Tree_Check := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)  ; PixelGetColor, Color, MouseX, MouseY
+            Color_Tree_Check := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)
             If (Color_Tree_Check != Color_Tree_Uncut) {
-              ToolTip("Chop tree" "`n" "Wait for tree to regrow")
+              ToolTip("Chop tree" "`n" "Wait for tree to regrow", xpos_tooltip, ypos_tooltip)
               Do_TreeChopping := 1
-            }
-            If ((Do_TreeChopping==1)&&(Color_Tree_Check==Color_Tree_Uncut)) {
-              If (A_Index == 1) {
-                ToolTip("Chop tree" "`n" "Start chopping tree")
-              } Else {
-                ToolTip("Chop tree" "`n" "Restart chopping tree")
+            } Else {
+              If (Do_TreeChopping==1) {
+                If (A_Index == 1) {
+                  ToolTip("Chop tree" "`n" "Start chopping tree", xpos_tooltip, ypos_tooltip)
+                } Else {
+                  ToolTip("Chop tree" "`n" "Restart chopping tree", xpos_tooltip, ypos_tooltip)
+                }
+                Do_TreeChopping := 0
+                MouseMove xpos_2tilesnorth, ypos_2tilesnorth
+                Sleep 500
+                ; ControlClick ("x" xpos_2tilesnorth " y" ypos_2tilesnorth), WinHwnd
+                MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
               }
-              Do_TreeChopping := 0
-              MouseMove xpos_2tilesnorth, ypos_2tilesnorth
-              Sleep 500
-              ; ControlClick ("x" xpos_2tilesnorth " y" ypos_2tilesnorth), WinHwnd
-              MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
             }
             Sleep 1000
           }
           ; ------------------------------
           If (A_Index != 1) {
-            ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West")
+            ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
           ; ControlClick ("x" xpos_1tilewest " y" ypos_1tilewest), WinHwnd
             MouseClick "Left", xpos_1tilewest, ypos_1tilewest
             Sleep 1000
-            ToolTip("Move to tile w/o fire" "`n" "Wait for character to move")
+            ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
             Sleep 5000
           }
           ; ------------------------------
-          ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)")
+          Color_1TileWest_PreLight := PixelGetColor(xpos_1tilewest, ypos_1tilewest)
+          ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)", xpos_tooltip, ypos_tooltip)
         ; ControlClick ("x" xpos_backpackslot1 " y" ypos_backpackslot1), WinHwnd
           MouseClick "Left", xpos_backpackslot1, ypos_backpackslot1
           Sleep 1000
-          ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)")
-          Sleep 1000
+          ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
         ; ControlSend("{1}",, WinHwnd)
           Send "1"
-          ToolTip("Light fire" "`n" "Wait for log to catch fire")
-          Sleep 30000
+          Sleep 1000
+          ToolTip("Light fire" "`n" "Wait for log to catch fire", xpos_tooltip, ypos_tooltip)
+          Loop 30 {
+            Color_1TileWest_Check := PixelGetColor(xpos_1tilewest, ypos_1tilewest)
+            If (Color_1TileWest_Check != Color_1TileWest_PreLight) {
+              Break
+            } Else {
+              Sleep 1000
+            }
+          }
+          Sleep 2000
           ; ------------------------------
-          ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)")
+          ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
         ; ControlClick ("x" (xpos_backpackslot1+41) " y" ypos_backpackslot1), WinHwnd
           MouseClick "Left", (xpos_backpackslot1+41), ypos_backpackslot1
           Sleep 1000
-          ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)")
+          ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
           Sleep 1000
         ; ControlSend("{3}",, WinHwnd)
           Send "3"
-          ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire")
+          ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
           Sleep 30000
           ; ------------------------------
           If (A_Index == 1) {
-            ToolTip("Move south of tree" "`n" "Move 1 tile West")
+            ToolTip("Move south of tree" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
           ; ControlClick ("x" xpos_1tilewest " y" ypos_1tilewest), WinHwnd
             MouseClick "Left", xpos_1tilewest, ypos_1tilewest
             Sleep 1000
-            ToolTip("Move south of tree" "`n" "Wait for character to move")
+            ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
             Sleep 5000
           }
           ; ------------------------------
@@ -3806,7 +3820,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     ;
     CoordMode "Mouse", "Client"
     MouseGetPos &MouseX_Client, &MouseY_Client
-    Color := PixelGetColor(MouseX_Screen, MouseY_Screen)  ; PixelGetColor, Color, MouseX, MouseY
+    Color := PixelGetColor(MouseX_Screen, MouseY_Screen)
     ColorComponent_Blue := (Color & 0xFF)
     ColorComponent_Green := ((Color & 0xFF00) >> 8)
     ColorComponent_Red := ((Color & 0xFF0000) >> 16)

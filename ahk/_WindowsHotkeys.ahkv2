@@ -1869,7 +1869,7 @@ LShift & RShift::
                 MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
               }
             }
-            If (((LoopCount_TreeChops - Tree_RegrowWaits) > Tree_RequiredChops) || (Count_TreesCutDown > 2)) {
+            If (((LoopCount_TreeChops - Tree_RegrowWaits) > Tree_RequiredChops) || (Count_TreesCutDown >= 2)) {
               Break
             } Else {
               Sleep 1000

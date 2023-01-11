@@ -465,176 +465,220 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Walk the user through initial setup
   ;
-  A_MsgBoxResult := MsgBox("Locate a tree to farm in-game" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
-  If (A_MsgBoxResult == "OK") {
-    A_MsgBoxResult := MsgBox("Turn your camera to face directly North" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
-    If (A_MsgBoxResult == "OK") {
-      A_MsgBoxResult := MsgBox("Position your character directly south of the tree (adjacent to it)" "`n" "`n" "The tree should be directly North of your character" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
-      If (A_MsgBoxResult == "OK") {
-        ; ------------------------------
-        If (1 == 1) {
-          ; Zoom in & pan up all the way
-          ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
-          Sleep 2500
-          ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
-          Sleep 100
-        }
-        ; ------------------------------
-        Tooltip_LocateButton := "  Chop Action" "`n" "`n" "    Right click the tree where the Chop action is displayed"
-        xpos_2tilesnorth := ""
-        ypos_2tilesnorth := ""
-        While ((xpos_2tilesnorth == "") || (ypos_2tilesnorth == "")) {
-          Tooltip("`n" Tooltip_LocateButton "`n  `n")
-          Sleep 10
-          If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
-            MouseGetPos &xpos_2tilesnorth, &ypos_2tilesnorth
-            ClearTooltip(0)
-            Break
-          }
-        }
-        Sleep 500
-        ; ------------------------------
-        ;
-        ; Get the [ 1 Tile West ] x/y mouse coordinates
-        ;
-        Tooltip_LocateButton := "  1 Tile West" "`n" "`n" "    Right click 1 tile to the West of the player"
-        xpos_1tilewest := ""
-        ypos_1tilewest := ""
-        While ((xpos_1tilewest == "") || (ypos_1tilewest == "")) {
-          Tooltip("`n" Tooltip_LocateButton "`n  `n")
-          Sleep 10
-          If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
-            MouseGetPos &xpos_1tilewest, &ypos_1tilewest
-            ClearTooltip(0)
-            Break
-          }
-        }
-        Sleep 500
-        ; ------------------------------
-        ;
-        ; Get the [ Backpack slot 1 ] x/y mouse coordinates
-        ;
-        Tooltip_LocateButton := "  Backpack slot #1" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click backpack slot #1 (top-leftmost, first slot to fill with loot)"
-        xpos_backpackslot1 := ""
-        ypos_backpackslot1 := ""
-        While ((xpos_backpackslot1 == "") || (ypos_backpackslot1 == "")) {
-          Tooltip("`n" Tooltip_LocateButton "`n  `n")
-          Sleep 10
-          If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
-            MouseGetPos &xpos_backpackslot1, &ypos_backpackslot1
-            ClearTooltip(0)
-            Break
-          }
-        }
-        Sleep 500
-        ; ------------------------------
-        ;
-        ; Get the [ Backpack slot 2 ] x/y mouse coordinates
-        ;
-        Tooltip_LocateButton := "  Backpack slot #2" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click backpack slot #2 (second slot to fill with loot)"
-        xpos_backpackslot2 := ""
-        ypos_backpackslot2 := ""
-        While ((xpos_backpackslot2 == "") || (ypos_backpackslot2 == "")) {
-          Tooltip("`n" Tooltip_LocateButton "`n  `n")
-          Sleep 10
-          If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
-            MouseGetPos &xpos_backpackslot2, &ypos_backpackslot2
-            ClearTooltip(0)
-            Break
-          }
-        }
-        Sleep 500
-        ; ------------------------------
-        If (1 == 1) {
-          ; Zoom in & pan up all the way (again)
-          ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
-          Sleep 2500
-          ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
-          Sleep 100
-        }
-        ; ------------------------------
-        xpos_tooltip := xpos_2tilesnorth
-        ypos_tooltip := (ypos_2tilesnorth-100)
-        ; ------------------------------
-        Loop {
-          Loop 2 {
-            ; ------------------------------
-            Do_TreeChopping := 1
-            Count_TreesCutDown := 0
-            Tree_RegrowWaits := 0
-            Tree_RequiredChops := 30
-            If (DebugMode == 1) {
-              ToolTip("Chop tree" "`n" "Start/Restart chopping tree", xpos_tooltip, ypos_tooltip)
-            }
-            Loop 20 {
-              ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_2tilesnorth " y" ypos_2tilesnorth))
-              Loop 2 {
-                Sleep Random(1050,1250)
-              }
-            }
-            ; ------------------------------
-            If (A_Index != 1) {
-              If (DebugMode == 1) {
-                ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
-              }
-              ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
-              Sleep Random(1050,1250)
-              If (DebugMode == 1) {
-                ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
-              }
-              Sleep Random(5050,5250)
-            }
-            ; ------------------------------
-            If (DebugMode == 1) {
-              ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)", xpos_tooltip, ypos_tooltip)
-            }
-            ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot1 " y" ypos_backpackslot1))
-            Sleep Random(1050,1250)
-            If (DebugMode == 1) {
-              ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
-            }
-            ControlSend("1", Ctrl_hwnd, Win_hwnd)
-            Sleep Random(1050,1250)
-            If (DebugMode == 1) {
-              ToolTip("Light fire" "`n" "Wait for log to catch fire", xpos_tooltip, ypos_tooltip)
-            }
-            Sleep Random(30500,32500)
-            If (DebugMode == 1) {
-              ToolTip("Light fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
-            }
-            Sleep Random(3050,3250)
-            ; ------------------------------
-            If (DebugMode == 1) {
-              ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
-            }
-            ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot2 " y" ypos_backpackslot2))
-            Sleep Random(1050,1250)
-            If (DebugMode == 1) {
-              ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
-            }
-            ControlSend("3", Ctrl_hwnd, Win_hwnd)
-            Sleep Random(1050,1250)
-            If (DebugMode == 1) {
-              ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
-            }
-            Sleep Random(30500,32500)
-            ; ------------------------------
-            If (A_Index == 1) {
-              If (DebugMode == 1) {
-                ToolTip("Move south of tree" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
-              }
-              ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
-              Sleep Random(1050,1250)
-              If (DebugMode == 1) {
-                ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
-              }
-              Sleep Random(3050,3250)
-            }
-            ; ------------------------------
-          }
-        }
-        ; ------------------------------
+  ; ------------------------------
+  ;
+  ; Locate a tree
+  ;
+  Tooltip_LocateButton := "  Positioning (1/3)" "`n" "`n" "    Locate a tree to farm in-game" "`n" "`n" "    Right click anywhere to proceed"
+  xpos_trash := ""
+  ypos_trash := ""
+  While ((xpos_trash == "") || (ypos_trash == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_trash, &ypos_trash
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  ;
+  ; Turn camera North
+  ;
+  Tooltip_LocateButton := "  Positioning (2/3)" "`n" "`n" "    Turn the camera to face directly North" "`n" "`n" "    (Gray compass needle up, red down)" "`n" "`n" "    Right click anywhere to proceed"
+  xpos_trash := ""
+  ypos_trash := ""
+  While ((xpos_trash == "") || (ypos_trash == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_trash, &ypos_trash
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  ;
+  ; Select chop
+  ;
+  Tooltip_LocateButton := "  Positioning (3/3)" "`n" "`n" "    Position your character next to the tree on its south side" "`n" "`n" "    The tree should be taking up the tile which is 1 tile North of your character" "`n" "`n" "    Right click anywhere to proceed"
+  xpos_trash := ""
+  ypos_trash := ""
+  While ((xpos_trash == "") || (ypos_trash == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_trash, &ypos_trash
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  If (1 == 1) {
+    ; Zoom in & pan up all the way
+    ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
+    Sleep 2500
+    ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
+    Sleep 100
+  }
+  ; ------------------------------
+  ;
+  ; Select chop
+  ;
+  Tooltip_LocateButton := "  Right click Chop action" "`n" "`n" "    Right click the center of the base of the tree where the Chop hover cursor is displayed"
+  xpos_2tilesnorth := ""
+  ypos_2tilesnorth := ""
+  While ((xpos_2tilesnorth == "") || (ypos_2tilesnorth == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_2tilesnorth, &ypos_2tilesnorth
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  ;
+  ; Get the [ 1 Tile West ] x/y mouse coordinates
+  ;
+  Tooltip_LocateButton := "  Right click 1 Tile West" "`n" "`n" "    Right click 1 tile to the West of the player" "`n" "`n" "    Note: This position is used to avoid stacking fires"
+  xpos_1tilewest := ""
+  ypos_1tilewest := ""
+  While ((xpos_1tilewest == "") || (ypos_1tilewest == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_1tilewest, &ypos_1tilewest
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  ;
+  ; Get the [ Backpack slot 1 ] x/y mouse coordinates
+  ;
+  Tooltip_LocateButton := "  Right click backpack slot #1" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click the center of the backpack slot which gets filled with loot first, by default (top-leftmost)"
+  xpos_backpackslot1 := ""
+  ypos_backpackslot1 := ""
+  While ((xpos_backpackslot1 == "") || (ypos_backpackslot1 == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_backpackslot1, &ypos_backpackslot1
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  ;
+  ; Get the [ Backpack slot 2 ] x/y mouse coordinates
+  ;
+  Tooltip_LocateButton := "  Right click backpack slot #2" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click the center of the backpack slot which gets filled with loot second, by default"
+  xpos_backpackslot2 := ""
+  ypos_backpackslot2 := ""
+  While ((xpos_backpackslot2 == "") || (ypos_backpackslot2 == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_backpackslot2, &ypos_backpackslot2
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  If (1 == 1) {
+    ; Zoom in & pan up all the way (again)
+    ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
+    Sleep 2500
+    ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
+    Sleep 100
+  }
+  ; ------------------------------
+  xpos_tooltip := xpos_2tilesnorth
+  ypos_tooltip := (ypos_2tilesnorth-100)
+  ; ------------------------------
+  Loop {
+    Loop 2 {
+      ; ------------------------------
+      Do_TreeChopping := 1
+      Count_TreesCutDown := 0
+      Tree_RegrowWaits := 0
+      Tree_RequiredChops := 30
+      If (DebugMode == 1) {
+        ToolTip("Chop tree" "`n" "Start/Restart chopping tree", xpos_tooltip, ypos_tooltip)
       }
+      Loop 20 {
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_2tilesnorth " y" ypos_2tilesnorth))
+        Loop 2 {
+          Sleep Random(1050,1250)
+        }
+      }
+      ; ------------------------------
+      If (A_Index != 1) {
+        If (DebugMode == 1) {
+          ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
+        }
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+        Sleep Random(1050,1250)
+        If (DebugMode == 1) {
+          ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+        }
+        Sleep Random(5050,5250)
+      }
+      ; ------------------------------
+      If (DebugMode == 1) {
+        ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)", xpos_tooltip, ypos_tooltip)
+      }
+      ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot1 " y" ypos_backpackslot1))
+      Sleep Random(1050,1250)
+      If (DebugMode == 1) {
+        ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
+      }
+      ControlSend("1", Ctrl_hwnd, Win_hwnd)
+      Sleep Random(1050,1250)
+      If (DebugMode == 1) {
+        ToolTip("Light fire" "`n" "Wait for log to catch fire", xpos_tooltip, ypos_tooltip)
+      }
+      Sleep Random(30500,32500)
+      If (DebugMode == 1) {
+        ToolTip("Light fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+      }
+      Sleep Random(3050,3250)
+      ; ------------------------------
+      If (DebugMode == 1) {
+        ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
+      }
+      ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot2 " y" ypos_backpackslot2))
+      Sleep Random(1050,1250)
+      If (DebugMode == 1) {
+        ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
+      }
+      ControlSend("3", Ctrl_hwnd, Win_hwnd)
+      Sleep Random(1050,1250)
+      If (DebugMode == 1) {
+        ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
+      }
+      Sleep Random(30500,32500)
+      ; ------------------------------
+      If (A_Index == 1) {
+        If (DebugMode == 1) {
+          ToolTip("Move south of tree" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
+        }
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+        Sleep Random(1050,1250)
+        If (DebugMode == 1) {
+          ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+        }
+        Sleep Random(3050,3250)
+      }
+      ; ------------------------------
     }
   }
   ; ------------------------------

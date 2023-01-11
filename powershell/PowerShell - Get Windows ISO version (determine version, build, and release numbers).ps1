@@ -87,7 +87,7 @@ If ($True) {
       Write-Output "";
       Write-Output "  ISO File:  ${ISO_FullPath}";
       Write-Output "";
-      Write-Output "  Wimfile (contained within):  ${Wimfile_Relative}";
+      Write-Output "  ISO Wimfile:  ${Wimfile_Relative}";
       Write-Output "";
       Write-Output "- - - -";
 

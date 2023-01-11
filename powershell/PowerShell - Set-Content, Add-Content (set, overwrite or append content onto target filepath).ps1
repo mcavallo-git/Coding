@@ -1,5 +1,5 @@
 # ------------------------------
-# PowerShell - Set-Content (set, overwrite or append content onto target filepath)
+# PowerShell - Set-Content, Add-Content (set, overwrite or append content onto target filepath)
 # ------------------------------
 
 
@@ -40,11 +40,25 @@ If ($True) {
 };
 
 
+# ------------------------------
+#
+# Add-Content - Append to file (there is no "Set-Content -Append")
+#  |
+#  |--> Note that Add-Content always append a newline - You may be able to workaround this with Write-Output + Out-File (need to test)
+#
+
+Add-Content -Path ("${OutputFile}") -Value ("Append Onto File");
+
+Write-Output "Append Onto File" | Add-Content -Path ("${OutputFile}");
+
+
 # ------------------------------------------------------------
 #
 # Citation(s)
 #
-#   docs.microsoft.com  |  "Set-Content - Writes new content or replaces existing content in a file"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-content?view=powershell-5.1
+#   learn.microsoft.com  |  "Add-Content (Microsoft.PowerShell.Management) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/add-content
+#
+#   learn.microsoft.com  |  "Set-Content (Microsoft.PowerShell.Management) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-content
 #
 #   stackoverflow.com  |  "How to list all properties of a PowerShell object - Stack Overflow"  |  https://stackoverflow.com/a/7259178
 #

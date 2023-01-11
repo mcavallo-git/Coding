@@ -744,14 +744,14 @@ RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [ Backpack slot 1 ] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "  Right click backpack slot #1"
-  xpos_backpackslot1 := ""
-  ypos_backpackslot1 := ""
-  While ((xpos_backpackslot1 == "") || (ypos_backpackslot1 == "")) {
+  Tooltip_LocateButton := "  Set the fish on an action bar & set the hotkey as:  ]  (right square bracket)" "`n" "`n" "    Right click anywhere to proceed"
+  xpos_trash := ""
+  ypos_trash := ""
+  While ((xpos_trash == "") || (ypos_trash == "")) {
     Tooltip("`n" Tooltip_LocateButton "`n  `n")
     Sleep 10
     If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
-      MouseGetPos &xpos_backpackslot1, &ypos_backpackslot1
+      MouseGetPos &xpos_trash, &ypos_trash
       ClearTooltip(0)
       Break
     }
@@ -769,9 +769,7 @@ RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
       Sleep Random(2050,2250)
       ; ------------------------------
       Loop 30 {
-        ControlClick(Ctrl_hwnd, Win_hwnd,, "Right",, ("NA x" xpos_backpackslot1 " y" ypos_backpackslot1))
-        Sleep Random(5050,5250)
-        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot1 " y" (ypos_backpackslot1+42)))
+        ControlSend("]", Ctrl_hwnd, Win_hwnd)
         Sleep Random(1050,1250)
       }
       ; ------------------------------

@@ -110,9 +110,7 @@ If ($True) {
 
         Write-Output "";
         Write-Output "  Index:    ${Each_DISM_Index}";
-        Write-Output "";
         Write-Output "  Name:     ${Each_DISM_Name}";
-        Write-Output "";
         Write-Output "  Semver:   ${Each_DISM_Version}.${Each_DISM_Build}";
         Write-Output "";
         Write-Output "- - - -";

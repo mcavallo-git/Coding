@@ -169,6 +169,7 @@ If (DebugMode == 1) {
   #F5::  ; Combat-SafeSpot
   #F6::  ; Combat-CastCancel
   #F7::  ; Crafting-Woodcutting-Firemaking
+  #F8::  ; Crafting-Fishing
   {
     ; ------------------------------
     Global DebugMode
@@ -193,12 +194,16 @@ If (DebugMode == 1) {
       DoActivity := "Combat-CastCancel"
     } Else If (A_ThisHotkey == "#F7") {
       DoActivity := "Crafting-Woodcutting-Firemaking"
+    } Else If (A_ThisHotkey == "#F8") {
+      DoActivity := "Crafting-Fishing"
     }
     ; ------------------------------
     If (DoActivity == "Combat-CastCancel") {
       RuneScape_Combat_CastCancel(Ctrl_hwnd, Win_hwnd)
     } Else If (DoActivity == "Combat-SafeSpot") {
       RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd)
+    } Else If (DoActivity == "Crafting-Fishing") {
+      RuneScape_Crafting_Fishing(Ctrl_hwnd, Win_hwnd)
     } Else If (DoActivity == "Crafting-Woodcutting-Firemaking") {
       RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd, Win_hwnd)
     }
@@ -677,6 +682,94 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
           ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
         }
         Sleep Random(3050,3250)
+      }
+      ; ------------------------------
+    }
+  }
+  ; ------------------------------
+  Return
+}
+
+
+; ------------------------------
+;
+; RuneScape_Crafting_Fishing
+;   |--> Fisning XP Farm
+;
+RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
+  Global DebugMode
+  CoordMode "Mouse", "Client"
+  SetControlDelay -1
+  SetDefaultMouseSpeed 0
+  SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+  ; ------------------------------
+  ;
+  ; Walk the user through initial setup
+  ;
+  ; ------------------------------
+  ;
+  ; Select fishing spot 1
+  ;
+  Tooltip_LocateButton := "  Right click fishing location #1"
+  xpos_fishing_spot_1 := ""
+  ypos_fishing_spot_1 := ""
+  While ((xpos_fishing_spot_1 == "") || (ypos_fishing_spot_1 == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_fishing_spot_1, &ypos_fishing_spot_1
+      ClearTooltip(0)
+      Break
+    }
+  }
+  ; ------------------------------
+  ;
+  ; Select fishing spot 2
+  ;
+  Tooltip_LocateButton := "  Right click fishing location #2"
+  xpos_fishing_spot_2 := ""
+  ypos_fishing_spot_2 := ""
+  While ((xpos_fishing_spot_2 == "") || (ypos_fishing_spot_2 == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_fishing_spot_2, &ypos_fishing_spot_2
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  ;
+  ; Get the [ Backpack slot 1 ] x/y mouse coordinates
+  ;
+  Tooltip_LocateButton := "  Right click drop fish ability on action bar"
+  xpos_drop_fish := ""
+  ypos_drop_fish := ""
+  While ((xpos_drop_fish == "") || (ypos_drop_fish == "")) {
+    Tooltip("`n" Tooltip_LocateButton "`n  `n")
+    Sleep 10
+    If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
+      MouseGetPos &xpos_drop_fish, &ypos_drop_fish
+      ClearTooltip(0)
+      Break
+    }
+  }
+  Sleep 500
+  ; ------------------------------
+  Loop {
+    Loop 2 {
+      ; ------------------------------
+      If (A_Index == 1) {
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_fishing_spot_1 " y" xpos_fishing_spot_1))
+      } Else {
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_fishing_spot_2 " y" xpos_fishing_spot_2))
+      }
+      Sleep Random(2050,2250)
+      ; ------------------------------
+      Loop 30 {
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Right",, ("NA x" xpos_drop_fish " y" ypos_drop_fish))
+        Sleep Random(1050,1250)
       }
       ; ------------------------------
     }

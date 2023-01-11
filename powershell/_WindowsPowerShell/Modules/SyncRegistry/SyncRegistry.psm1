@@ -1540,6 +1540,38 @@ function SyncRegistry {
         )
       };
 
+      # Splashtop - Enable remote Virtual Display
+      $Splashtop64_Key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Splashtop Inc.\Splashtop Remote Server";
+      If ((Test-Path -Path (("${Splashtop64_Key}"))) -Eq $False) {
+        $RegEdits += @{
+          Path="${Splashtop64_Key}";
+          Props=@(
+            @{
+              Description="Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
+              Name="VirtualDisplay";
+              Type="DWord";
+              Value=1;
+              Delete=$False;
+            }
+          )
+        };
+      };
+      $Splashtop32_Key = "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Splashtop Inc.\Splashtop Remote Server";
+      If ((Test-Path -Path (("${Splashtop32_Key}"))) -Eq $False) {
+        $RegEdits += @{
+          Path="${Splashtop32_Key}";
+          Props=@(
+            @{
+              Description="Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
+              Name="VirtualDisplay";
+              Type="DWord";
+              Value=1;
+              Delete=$False;
+            }
+          )
+        };
+      };
+
       # Taskbar - Hide News & Interests
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds";
@@ -2166,6 +2198,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "My 'Edit' context action when right-clicking a Powershell file has disappeared - Super User"  |  https://superuser.com/a/656681
 #
 #   superuser.com  |  "windows 10 - Registry keys to change personalization settings? - Super User"  |  https://superuser.com/a/1395560
+#
+#   support-splashtopbusiness.splashtop.com  |  "What are the Windows Streamer registry settings? – Splashtop Business - Support"  |  https://support-splashtopbusiness.splashtop.com/hc/en-us/articles/360030993692-What-are-the-Windows-Streamer-registry-settings-
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
 #

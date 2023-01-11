@@ -5,6 +5,10 @@
 '   Name/Description:
 '     _EntertainmentHotkeys_NonAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run with highest privileges (UN-CHECKED)
+'
 '   Trigger:
 '     At log on  -  Specific user  (current user)
 '
@@ -12,8 +16,8 @@
 '     Program/script:   "C:\Program Files\AutoHotkey-v2\AutoHotkey64.exe"
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\ahk\_EntertainmentHotkeys.ahkv2"
 '
-'   Run only when user is logged on (CHECKED)
-'   Run with highest privileges (UN-CHECKED)
+'   Settings:
+'     (CHECK)    Stop this task if it runs longer than:  2 minutes
 '
 ' ------------------------------------------------------------
 '

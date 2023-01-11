@@ -674,7 +674,8 @@ Pause::
 ;
 #F1::
 {
-  Run("notepad.exe " A_ScriptFullPath)
+  Open_VisualStudioCode(A_ScriptFullPath)
+  ; Run("notepad.exe " A_ScriptFullPath)
   Return
 }
 
@@ -3282,12 +3283,12 @@ Open_Exe(ExeFullpath) {
 ; Open_VisualStudioCode
 ;   |--> Opens Microsoft's "Visual Studio Code" application (e.g. "VS Code" or "VSCode") - VS Code is a Free Source Code Editor & IDE
 ;
-Open_VisualStudioCode() {
+Open_VisualStudioCode(FilePath_Open:="") {
   global DebugMode
   SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   ; ------------------------------
   FullPath_RunExe := "C:\Windows\System32\notepad.exe"  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
-  Exe_Args:=""
+  FilePath_Open := ""
   ; ------------------------------
   ; Win_ahk_exe := "Code.exe"                     ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
   ; WinTitle_ahk_exe := ("ahk_exe " Win_ahk_exe)  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
@@ -3298,7 +3299,7 @@ Open_VisualStudioCode() {
   WinWait_TimeoutSeconds := 20
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
-    RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
+    RunExe_NON_Admin(FullPath_RunExe, FilePath_Open)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   WinSnap(WinTitle,,,,"Left","Half",1) ; Resize window to left-half of monitor #1

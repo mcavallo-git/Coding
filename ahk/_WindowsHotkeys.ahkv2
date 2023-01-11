@@ -1795,27 +1795,19 @@ LShift & RShift::
   !#c::
   #F5::
   {
+    ; ------------------------------
+    Global DebugMode
     CoordMode "Mouse", "Window"
-    CoordMode "Pixel", "Window"
-
-    SetDefaultMouseSpeed 0
     SetControlDelay -1
-    ; SetKeyDelay 10, 25  ; https://www.autohotkey.com/docs/v2/lib/SetKeyDelay.htm
-
-    ; SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
+    SetDefaultMouseSpeed 0
     SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
-
     Win_ahk_exe := "rs2client.exe"
     Ctrl_classnn := "JagOpenGLView1"
-    Ctrl_downup_delay := 50
-
+    ; ------------------------------
     WinTitle := ("ahk_exe " Win_ahk_exe)
-
     Win_ahk_id := WinGetID(WinTitle)
     Win_hwnd := ("ahk_id " Win_ahk_id)
-
     Ctrl_hwnd := ControlGetHwnd(Ctrl_classnn, WinTitle)
-
     ; ------------------------------
     xpos_2tilesnorth := 1718
     ypos_2tilesnorth := 265
@@ -1832,8 +1824,8 @@ LShift & RShift::
     ;
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
-    ; DoActivity := "Woodcutting/Firemaking"
-    DoActivity := "Magic"
+    ; DoActivity := "Magic"
+    DoActivity := "Woodcutting/Firemaking"
 
     If (DoActivity == "Magic") {
       ; ------------------------------
@@ -1841,30 +1833,22 @@ LShift & RShift::
       ; Magic XP Farm
       ;
       ; ------------------------------
-      ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
-      Loop {
-        ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
-        Sleep 1000
-        ; Sleep Random(239,412)
-        ControlSendDelayed("T", Ctrl_hwnd, Win_hwnd)
-        Sleep 100
-        ControlSendDelayed("U", Ctrl_hwnd, Win_hwnd)
-        Sleep 2000
-        ; Sleep (1000 + Random(569,769))
+      If (DebugMode == 1) {
+        ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
       }
 
-      ; ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
-      ; Sleep Ctrl_downup_delay
-      ; ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
+      ; Loop {
+      ;   ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
+      ;   Sleep 1000
+      ;   ; Sleep Random(239,412)
+      ;   ControlSendDelayed("T", Ctrl_hwnd, Win_hwnd)
+      ;   Sleep 100
+      ;   ControlSendDelayed("U", Ctrl_hwnd, Win_hwnd)
+      ;   Sleep 2500
+      ;   ; Sleep (1000 + Random(569,769))
+      ; }
 
-
-      ; Send "{1 Down}"
-      ; Sleep 100
-      ; Send "{1 Up}"
-
-      ; Send "{Tab Down}"
-      ; Sleep 100
-      ; Send "{Tab Up}"
+      ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
 
     } Else If (DoActivity == "Woodcutting/Firemaking") {
       ; ------------------------------
@@ -1878,9 +1862,8 @@ LShift & RShift::
       ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
       ;
       ; ------------------------------
-      Color_Tree_Uncut := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)
       Loop 50 {
-        MouseClick("WheelUp")
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "WheelUp", 1, "NA")
         Sleep 20
       }
       Loop {
@@ -1890,84 +1873,80 @@ LShift & RShift::
           Count_TreesCutDown := 0
           Tree_RegrowWaits := 0
           Tree_RequiredChops := 30
-          Loop 100 {
-            LoopCount_TreeChops := A_Index
-            Color_Tree_Check := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)
-            If (Color_Tree_Check != Color_Tree_Uncut) {
-              Tree_RegrowWaits := Tree_RegrowWaits + 1
-              ToolTip("Chop tree" "`n" "Wait for tree to regrow", xpos_tooltip, ypos_tooltip)
-              If (Do_TreeChopping != 1) {
-                Count_TreesCutDown := Count_TreesCutDown +1
-                Do_TreeChopping := 1
-              }
-            } Else {
-              If (Do_TreeChopping == 1) {
-                If (A_Index == 1) {
-                  ToolTip("Chop tree" "`n" "Start chopping tree", xpos_tooltip, ypos_tooltip)
-                } Else {
-                  ToolTip("Chop tree" "`n" "Restart chopping tree", xpos_tooltip, ypos_tooltip)
-                }
-                Do_TreeChopping := 0
-                MouseMove xpos_2tilesnorth, ypos_2tilesnorth
-                Sleep 500
-                ; ControlClick ("x" xpos_2tilesnorth " y" ypos_2tilesnorth), Win_hwnd
-                MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
-              }
-            }
-            If (((LoopCount_TreeChops - Tree_RegrowWaits) > Tree_RequiredChops) || (Count_TreesCutDown >= 2)) {
-              Break
-            } Else {
-              Sleep 1000
-            }
+          If (DebugMode == 1) {
+            ToolTip("Chop tree" "`n" "Start/Restart chopping tree", xpos_tooltip, ypos_tooltip)
+          }
+          Loop 40 {
+            ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_2tilesnorth " y" ypos_2tilesnorth))
+            ; MouseMove xpos_2tilesnorth, ypos_2tilesnorth
+            ; Sleep 500
+            ; MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
+            Sleep 1000
           }
           ; ------------------------------
           If (A_Index != 1) {
-            ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
-          ; ControlClick ("x" xpos_1tilewest " y" ypos_1tilewest), Win_hwnd
-            MouseClick "Left", xpos_1tilewest, ypos_1tilewest
+            If (DebugMode == 1) {
+              ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
+            }
+            ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+            ; MouseClick "Left", xpos_1tilewest, ypos_1tilewest
             Sleep 1000
-            ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+            If (DebugMode == 1) {
+              ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+            }
             Sleep 3000
           }
           ; ------------------------------
-          Color_1TileWest_PreLight := PixelGetColor(xpos_1tilewest, ypos_1tilewest)
-          ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)", xpos_tooltip, ypos_tooltip)
-        ; ControlClick ("x" xpos_backpackslot1 " y" ypos_backpackslot1), Win_hwnd
-          MouseClick "Left", xpos_backpackslot1, ypos_backpackslot1
-          Sleep 1000
-          ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
-        ; ControlSend("{1}",, Win_hwnd)
-          Send "1"
-          Sleep 1000
-          ToolTip("Light fire" "`n" "Wait for log to catch fire", xpos_tooltip, ypos_tooltip)
-          Loop 30 {
-            Color_1TileWest_Check := PixelGetColor(xpos_1tilewest, ypos_1tilewest)
-            If (Color_1TileWest_Check != Color_1TileWest_PreLight) {
-              ToolTip("Light fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
-              Sleep 3000
-              Break
-            } Else {
-              Sleep 1000
-            }
+          If (DebugMode == 1) {
+            ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)", xpos_tooltip, ypos_tooltip)
           }
+          ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_backpackslot1 " y" ypos_backpackslot1))
+          ; MouseClick "Left", xpos_backpackslot1, ypos_backpackslot1
+          Sleep 1000
+          If (DebugMode == 1) {
+            ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)", xpos_tooltip, ypos_tooltip)
+          }
+          ControlSendDelayed("1", Ctrl_hwnd, Win_hwnd)
+          ; ControlSend("{1}", Ctrl_hwnd, Win_hwnd)
+          ; Send "1"
+          Sleep 1000
+          If (DebugMode == 1) {
+            ToolTip("Light fire" "`n" "Wait for log to catch fire", xpos_tooltip, ypos_tooltip)
+          }
+          Sleep 30000
+          If (DebugMode == 1) {
+            ToolTip("Light fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+          }
+          Sleep 3000
           ; ------------------------------
-          ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
-        ; ControlClick ("x" (xpos_backpackslot1+41) " y" ypos_backpackslot1), Win_hwnd
-          MouseClick "Left", (xpos_backpackslot1+41), ypos_backpackslot1
+          If (DebugMode == 1) {
+            ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
+          }
+          ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" (xpos_backpackslot1+41) " y" ypos_backpackslot1))
+          ; MouseClick "Left", (xpos_backpackslot1+41), ypos_backpackslot1
           Sleep 1000
-          ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
+          If (DebugMode == 1) {
+            ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)", xpos_tooltip, ypos_tooltip)
+          }
           Sleep 1000
-        ; ControlSend("{3}",, Win_hwnd)
-          Send "3"
-          ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
+          ControlSendDelayed("3", Ctrl_hwnd, Win_hwnd)
+          ; ControlSend("{3}",, Win_hwnd)
+          ; Send "3"
+          If (DebugMode == 1) {
+            ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire", xpos_tooltip, ypos_tooltip)
+          }
           Sleep 30000
           ; ------------------------------
           If (A_Index == 1) {
-            ToolTip("Move south of tree" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
-          ; ControlClick ("x" xpos_1tilewest " y" ypos_1tilewest), Win_hwnd
-            MouseClick "Left", xpos_1tilewest, ypos_1tilewest
+            If (DebugMode == 1) {
+              ToolTip("Move south of tree" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
+            }
+            ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+            ; MouseClick "Left", xpos_1tilewest, ypos_1tilewest
             Sleep 1000
-            ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+            If (DebugMode == 1) {
+              ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+            }
             Sleep 3000
           }
           ; ------------------------------
@@ -2317,44 +2296,53 @@ CommentCurrentLine_NoSpace() {
 ;   |--> Send a ControlSend but with a delay between the down and up
 ;
 ControlSendDelayed(KeysArray:="", Ctrl_hwnd:="", WinTitle:="", WinText:="", ExcludeTitle:="", ExcludeText:="", Delay_DownUp:=50, Delay_Keypress:=10) {
-  ; Handle array- or string-typed inputs
+  Global DebugMode
   CoordMode "Mouse", "Window"
-  CoordMode "Pixel", "Window"
-
   SetDefaultMouseSpeed 0
   SetControlDelay -1
-  ; SetKeyDelay 10, 25  ; https://www.autohotkey.com/docs/v2/lib/SetKeyDelay.htm
-
-  ; SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
-
   If (IsArray(KeysArray) == True) {
+    ; ------------------------------
+    ;
     ; Handle array-typed inputs
+    ;
     For Each_Key in KeysArray {
       SendKey_Down := "{" Each_Key " Down}"
-      Tooltip(A_ThisFunc "`n" "`n" SendKey_Down)
+      If (DebugMode == 1) {
+        Tooltip(A_ThisFunc "`n" "`n" SendKey_Down)
+      }
       ControlSend(SendKey_Down, Ctrl_hwnd, WinTitle, WinText, ExcludeTitle, ExcludeText)
       Sleep Delay_Keypress
     }
     Sleep Delay_DownUp
     For Each_Key in ReverseArray(KeysArray) {
       SendKey_Up := "{" Each_Key " Up}"
-      Tooltip(A_ThisFunc "`n" "`n" SendKey_Up)
+      If (DebugMode == 1) {
+        Tooltip(A_ThisFunc "`n" "`n" SendKey_Up)
+      }
       ControlSend(SendKey_Up, Ctrl_hwnd, WinTitle, WinText, ExcludeTitle, ExcludeText)
       Sleep Delay_Keypress
     }
   } Else {
+    ; ------------------------------
+    ;
     ; Handle string-typed inputs
+    ;
     SendKey_Down := "{" KeysArray " Down}"
-    Tooltip(A_ThisFunc "`n" "`n" SendKey_Down)
+    If (DebugMode == 1) {
+      Tooltip(A_ThisFunc "`n" "`n" SendKey_Down)
+    }
     ControlSend(SendKey_Down, Ctrl_hwnd, WinTitle, WinText, ExcludeTitle, ExcludeText)
     Sleep Delay_Keypress
     Sleep Delay_DownUp
     SendKey_Up := "{" KeysArray " Up}"
-    Tooltip(A_ThisFunc "`n" "`n" SendKey_Up)
+    If (DebugMode == 1) {
+      Tooltip(A_ThisFunc "`n" "`n" SendKey_Up)
+    }
     ControlSend(SendKey_Up, Ctrl_hwnd, WinTitle, WinText, ExcludeTitle, ExcludeText)
     Sleep Delay_Keypress
   }
+  ; ------------------------------
   Return
 }
 

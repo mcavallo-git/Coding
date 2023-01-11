@@ -330,7 +330,7 @@ RuneScape_Combat_CastCancel(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Attack] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)" "`n" "`n" "Drag a low-cooldown (3s) ability to your action bar if none exists"
+  Tooltip_LocateButton := "Attack ability (start combat)" "`n" "`n" "Right click a low-cooldown (3s) action bar ability" "`n" "`n" "If none exists, drag a 3s cooldown from 'Powers' onto your action bar"
   xpos_attack := ""
   ypos_attack := ""
   While ((xpos_attack == "") || (ypos_attack == "")) {
@@ -390,7 +390,7 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Attack] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)" "`n" "`n" "Drag a low-cooldown (3s) ability to your action bar if none exists"
+  Tooltip_LocateButton := "Attack ability (start combat)" "`n" "`n" "Right click a low-cooldown (3s) action bar ability" "`n" "`n" "If none exists, drag a 3s cooldown from 'Powers' onto your action bar"
   xpos_attack := ""
   ypos_attack := ""
   While ((xpos_attack == "") || (ypos_attack == "")) {
@@ -407,7 +407,7 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Retreat Direction] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Right click the direction to move back to after every attack" "`n" "`n" "Note: Intended to keep character in safe area(s)"
+  Tooltip_LocateButton := "Safe Area Pullback Direction" "`n" "`n" "Right click the direction relative to your character which is safest" "`n" "`n" "After each attack, a move command is issued at this location to avoid wandering" "`n" "`n" "Moving back towards a 'V' shaped pocket in the wall is optimal"
   xpos_safe_area := ""
   ypos_safe_area := ""
   While ((xpos_safe_area == "") || (ypos_safe_area == "")) {

@@ -330,7 +330,7 @@ RuneScape_Combat_CastCancel(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Attack] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)"
+  Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)" "`n" "`n" "Drag a low-cooldown (3s) ability to your action bar if none exists"
   xpos_attack := ""
   ypos_attack := ""
   While ((xpos_attack == "") || (ypos_attack == "")) {
@@ -390,7 +390,7 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Attack] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)"
+  Tooltip_LocateButton := "Right click the Attack action bar button (to begin combat)" "`n" "`n" "Drag a low-cooldown (3s) ability to your action bar if none exists"
   xpos_attack := ""
   ypos_attack := ""
   While ((xpos_attack == "") || (ypos_attack == "")) {

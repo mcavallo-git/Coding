@@ -1806,10 +1806,24 @@ LShift & RShift::
     Win_ahk_id := WinGetID(WinTitle)
     WinHwnd := ("ahk_id " Win_ahk_id)
 
-    ; Replace with popup menu which allows user to select an activity at runtime
-    DoActivity := "Woodcutting/Firemaking"
+    CtrlName := "JagOpenGLView1"
+    Ctrl_ahk_id := ControlGetHwnd(CtrlName, WinTitle)
+    CtrlHwnd := ("ahk_id " CtrlHwnd)
 
-    If (DoActivity == "Woodcutting/Firemaking") {
+    ; Replace with popup menu which allows user to select an activity at runtime
+    ; DoActivity := "Woodcutting/Firemaking"
+    DoActivity := "Magic"
+
+    If (DoActivity == "Magic") {
+      ToolTip("Magic")
+      ; ToolTip("Magic" "`n" "CtrlHwnd=[" CtrlHwnd "]")
+
+
+      ; ControlSend("{Tab}", "JagOpenGLView1", WinHwnd)
+      ControlSend("{1}", CtrlHwnd, WinHwnd)
+
+
+    } Else If (DoActivity == "Woodcutting/Firemaking") {
       ;
       ; Woodcutting/Firemaking XP Farm
       ;   - Find a tree in-game
@@ -2674,14 +2688,26 @@ GetWindowSpecs(WinTitle:="A") {
   Win_ahk_pid := WinGetPID(WinHwnd)
   Win_ahk_exe := WinGetProcessName(WinHwnd)
   Win_fullpath := WinGetProcessPath(WinHwnd)
-  Win_control_names := ImplodeArray(WinGetControls(WinHwnd),", ",True) ; Get all control names in this window
-  Win_control_ids := ImplodeArray(WinGetControlsHwnd(WinHwnd),", ",True) ; Get all control ids in this window
   Win_size_state := WinGet_size_state(WinHwnd)
   WinGetPos(&xpos, &ypos, &Win_width, &Win_height, WinHwnd)
 
+  Ctrl_names := ImplodeArray(WinGetControls(WinHwnd),", ",True) ; Get all control names in this window
+  Ctrl_ids := ImplodeArray(WinGetControlsHwnd(WinHwnd),", ",True) ; Get all control ids in this window
+  Ctrl_focus_hwnd := ControlGetFocus(WinHwnd)
+  If (Ctrl_focus_hwnd != 0) {
+    Ctrl_focus_classnn := ControlGetClassNN(Ctrl_focus_hwnd, WinHwnd)
+    Try {
+      ControlGetPos(&Ctrl_xpos, &Ctrl_ypos, &Ctrl_width, &Ctrl_height, Ctrl_focus_hwnd, WinHwnd)
+      Ctrl_focus_pos := ("x" Ctrl_xpos " y" Ctrl_ypos ", w" Ctrl_width ", h" Ctrl_height )
+    }
+  } Else {
+    Ctrl_focus_classnn := ""
+    Ctrl_focus_pos := ""
+  }
+
   ; Get the value of the longest text field (to scale the width of the GUI off)
   Win_longest_field := ""
-  Win_longest_field := StrLen_Max(Win_longest_field,[WinTitle,Win_fullpath,Win_control_names,Win_control_ids,Win_ahk_class])
+  Win_longest_field := StrLen_Max(Win_longest_field,[WinTitle,Win_fullpath,Ctrl_names,Ctrl_ids,Win_ahk_class])
 
   Win_is_win10_app := WinGet_is_win10_app(WinTitle)
   If (Win_is_win10_app == 1) {
@@ -2704,16 +2730,21 @@ GetWindowSpecs(WinTitle:="A") {
   }
 
   ; --- TABLE - TOTAL WIDTH ---
-  GUI_LONGEST_FIELD := StrLen(Win_longest_field)
   GUI_BASE_WIDTH := 200
+  GUI_MAX_WIDTH := Floor(0.4 * A_ScreenWidth)
+  GUI_LONGEST_FIELD := StrLen(Win_longest_field)
   If (Win_is_win10_app == 1) {
     GUI_BASE_WIDTH := GUI_BASE_WIDTH + 64
   }
   GUI_WIDTH := GUI_BASE_WIDTH + Ceil( GUI_LONGEST_FIELD * 8 )  ; <-- 8 to 8.5 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
+  If (GUI_WIDTH > GUI_MAX_WIDTH) {
+    GUI_WIDTH := GUI_MAX_WIDTH
+  }
 
   ; --- TABLE - TOTAL ROWS ---
   GUI_ROWCOUNT := 2  ; Header Rows
-  GUI_ROWCOUNT := GUI_ROWCOUNT + 14  ; WinKey Rows
+  GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win Rows
+  GUI_ROWCOUNT := GUI_ROWCOUNT + 6  ; Ctrl Rows
   If (Win_is_win10_app == 1) {
     GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win10 Rows
   }
@@ -2763,8 +2794,13 @@ GetWindowSpecs(WinTitle:="A") {
   LV.Add("", "xpos, ypos", ( xpos ", " ypos ) )
   LV.Add("", "width, height", ( Win_width ", " Win_height ) )
   ; LV.Add("", "Mimic in AHK", "WinMove,,,xpos,ypos,Win_width,Win_height")
-  LV.Add("", "Win_control_names", Win_control_names)
-  LV.Add("", "Win_control_ids", Win_control_ids)
+
+  LV.Add("", "", "")
+  LV.Add("", "Ctrl_ids", Ctrl_ids)
+  LV.Add("", "Ctrl_names", Ctrl_names)
+  LV.Add("", "Ctrl_focus_hwnd", Ctrl_focus_hwnd)
+  LV.Add("", "Ctrl_focus_classnn", Ctrl_focus_classnn)
+  LV.Add("", "Ctrl_focus_pos", Ctrl_focus_pos)
 
   ; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
   LV.Add("", "", "")

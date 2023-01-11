@@ -1842,7 +1842,9 @@ LShift & RShift::
         Loop 2 {
           ; ------------------------------
           Do_TreeChopping := 1
-          Loop 30 {
+          Regrow_Waits := 0
+          Loop 100 {
+            LoopCount_TreeChops := A_Index
             Color_Tree_Check := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)
             If (Color_Tree_Check != Color_Tree_Uncut) {
               ToolTip("Chop tree" "`n" "Wait for tree to regrow", xpos_tooltip, ypos_tooltip)
@@ -1861,7 +1863,11 @@ LShift & RShift::
                 MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
               }
             }
-            Sleep 1000
+            If ((LoopCount_TreeChops - Regrow_Waits) > 30) {
+              Break
+            } Else {
+              Sleep 1000
+            }
           }
           ; ------------------------------
           If (A_Index != 1) {
@@ -1886,12 +1892,13 @@ LShift & RShift::
           Loop 30 {
             Color_1TileWest_Check := PixelGetColor(xpos_1tilewest, ypos_1tilewest)
             If (Color_1TileWest_Check != Color_1TileWest_PreLight) {
+              ToolTip("Light fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+              Sleep 5000
               Break
             } Else {
               Sleep 1000
             }
           }
-          Sleep 2000
           ; ------------------------------
           ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)", xpos_tooltip, ypos_tooltip)
         ; ControlClick ("x" (xpos_backpackslot1+41) " y" ypos_backpackslot1), WinHwnd

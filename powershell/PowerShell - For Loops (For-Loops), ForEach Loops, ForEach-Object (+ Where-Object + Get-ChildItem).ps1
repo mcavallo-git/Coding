@@ -52,6 +52,22 @@ For (;;) {
 
 # ------------------------------------------------------------
 
+<#   Strings  "" split into Arrays  @()   #>
+
+If ($True) {
+  $String = "Index : 1 Index : 2 Index : 3 Index : 4 Index : 5 Index : 6 Index : 7";
+  Write-Host "------------------------------";
+  Write-Host "String=${String}";
+  $Array = (${String}.Split("Index : ") | Where-Object { "" -NE "${_}" });
+  For ($Each_Key=0; $Each_Key -LT ${Array}.Count; $Each_Key++) {
+    Write-Host "------------------------------";
+    Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$(${Array}[${Each_Key}])";
+  }
+}
+
+
+# ------------------------------------------------------------
+
 <#   Arrays  @()   #>
 If ($True) {
   $Array = @();

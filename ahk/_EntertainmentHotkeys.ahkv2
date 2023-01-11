@@ -762,9 +762,9 @@ RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
     Loop 2 {
       ; ------------------------------
       If (A_Index == 1) {
-        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_fishing_spot_1 " y" xpos_fishing_spot_1))
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_fishing_spot_1 " y" ypos_fishing_spot_1))
       } Else {
-        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_fishing_spot_2 " y" xpos_fishing_spot_2))
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_fishing_spot_2 " y" ypos_fishing_spot_2))
       }
       Sleep Random(2050,2250)
       ; ------------------------------

@@ -408,7 +408,7 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Retreat Direction] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "  Right click Safe Area (pullback direction)" "`n" "`n" "    Right click the direction (relative to your character) which is safest" "`n" "`n" "    After each attack, a move command is issued at this location to avoid wandering" "`n" "`n" "    Moving back towards a 'V' shaped pocket in the wall is optimal"
+  Tooltip_LocateButton := "  Right click Safe Area (pullback direction)" "`n" "`n" "    Right click the direction (relative to your character) which is safest, such as towards the V in a wall" "`n" "`n" "    After each attack, a move command is issued at this location to avoid wandering"
   xpos_safe_area := ""
   ypos_safe_area := ""
   While ((xpos_safe_area == "") || (ypos_safe_area == "")) {

@@ -2781,10 +2781,12 @@ GetWindowSpecs(WinTitle:="A") {
       ControlGetPos(&Ctrl_xpos, &Ctrl_ypos, &Ctrl_width, &Ctrl_height, Ctrl_focus_hwnd, Win_hwnd)
       Ctrl_focus_pos := ("x" Ctrl_xpos " y" Ctrl_ypos ", w" Ctrl_width ", h" Ctrl_height )
     }
+    Ctrl_focus_text := ControlGetText(Ctrl_focus_hwnd, Win_hwnd)
   } Else {
     Ctrl_focus_classnn := ""
     Ctrl_focus_isvisible := ""
     Ctrl_focus_pos := ""
+    Ctrl_focus_text := ""
   }
 
   ; Get the value of the longest text field (to scale the width of the GUI off)
@@ -2826,7 +2828,7 @@ GetWindowSpecs(WinTitle:="A") {
   ; --- TABLE - TOTAL ROWS ---
   GUI_ROWCOUNT := 2  ; Header Rows
   GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win Rows
-  GUI_ROWCOUNT := GUI_ROWCOUNT + 7  ; Ctrl Rows
+  GUI_ROWCOUNT := GUI_ROWCOUNT + 8  ; Ctrl Rows
   If (Win_is_win10_app == 1) {
     GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win10 Rows
   }
@@ -2884,6 +2886,7 @@ GetWindowSpecs(WinTitle:="A") {
   LV.Add("", "Ctrl_focus_classnn", Ctrl_focus_classnn)
   LV.Add("", "Ctrl_focus_isvisible", Ctrl_focus_isvisible)
   LV.Add("", "Ctrl_focus_pos", Ctrl_focus_pos)
+  LV.Add("", "Ctrl_focus_text", Ctrl_focus_text)
 
   ; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
   LV.Add("", "", "")
@@ -5402,61 +5405,6 @@ Youtube_EditDraft_Submit() {
 ;   Return
 ; }
 ;
-; ------------------------------
-;
-;   HOTKEY:  Ctrl + WinKey + Z
-;            Shift + WinKey + Z
-;   ACTION:  Show all (current) Window Titles
-;
-; ^#z::
-; +#z::
-; {
-;   ShowWindowTitles()
-;   Return
-; }
-;
-; ShowWindowTitles
-;   |--> Lists all window-titles (in current user's environment)
-;
-; ShowWindowTitles() {
-;   ; Gui WinTitles:Default
-;   MyGui := Gui()
-;   MyGui.Name := "WinTitles"
-
-;   ; Create the ListView with two columns, Name and Size:
-;   ; Gui Add, ListView, r50 w1000 gShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles, WindowTitle
-;   LV := MyGui.Add("ListView","r50 w1000",["WindowTitle"])
-;   LV.OnEvent("DoubleClick", ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles)
-
-;   Window := WinGetList("A")
-;   Loop Window {
-;     Id := ("Window" A_Index)
-;     WinTitle := WinGetTitle("ahk_id " Id)
-;     If (WinTitle != "") {
-;       LV.Add("", WinTitle)
-;       ("Window" A_Index) := WinTitle ;use this if you want an array
-;       tList.=WinTitle "`n" ;use this if you just want the list
-;     }
-;   }
-;   ; Gui Add, Text,, tList
-;   ; MyGui.Add(...)
-;   ; Gui Show
-;   MyGui.Show()
-;   ; MsgBox(tList)
-;   Return
-; }
-; ;
-; ; ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles
-; ;   |--> Sub-Function of "ShowWindowTitles()"
-; ;
-; ShowWindowTitles_OnDoubleClick_GuiDestroy_WinTitles(LV, RowNumber) {
-;   ; Gui WinTitles:Default
-;   MyGui := Gui()
-;   MyGui.Name := "WinTitles"
-;   ; Gui Destroy
-;   MyGui.Destroy()
-;   Return
-; }
 ;
 ; ------------------------------------------------------------
 ;

@@ -892,7 +892,7 @@ AppsKey & ]::
 ;
 #RButton::
 {
-  FollowDuration_Seconds := 20
+  FollowDuration_Seconds := 60
   ; ShowCursorCoordinates(FollowDuration_Seconds)
   ShowCursorPixelColor(FollowDuration_Seconds)
   Return
@@ -910,7 +910,7 @@ AppsKey & ]::
 !#RButton::
 ^#RButton::
 {
-  FollowDuration_Seconds := 20
+  FollowDuration_Seconds := 60
   ; ShowCursorCoordinates(FollowDuration_Seconds)
   ShowCursorPixelColor(FollowDuration_Seconds)
   Return
@@ -1824,8 +1824,8 @@ LShift & RShift::
     ;
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
-    ; DoActivity := "Magic"
-    DoActivity := "Woodcutting/Firemaking"
+    DoActivity := "Magic"
+    ; DoActivity := "Woodcutting/Firemaking"
 
     If (DoActivity == "Magic") {
       ; ------------------------------
@@ -1837,18 +1837,16 @@ LShift & RShift::
         ToolTip(DoActivity, xpos_2tilesnorth, ypos_2tilesnorth)
       }
 
-      ; Loop {
-      ;   ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
-      ;   Sleep 1000
-      ;   ; Sleep Random(239,412)
-      ;   ControlSendDelayed("T", Ctrl_hwnd, Win_hwnd)
-      ;   Sleep 100
-      ;   ControlSendDelayed("U", Ctrl_hwnd, Win_hwnd)
-      ;   Sleep 2500
-      ;   ; Sleep (1000 + Random(569,769))
-      ; }
-
-      ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+      Loop {
+        ControlSendDelayed("Tab", Ctrl_hwnd, Win_hwnd)
+        Sleep 1000
+        ; Sleep Random(239,412)
+        ControlSendDelayed("T", Ctrl_hwnd, Win_hwnd)
+        Sleep 100
+        ControlSendDelayed("U", Ctrl_hwnd, Win_hwnd)
+        Sleep 2500
+        ; Sleep (1000 + Random(569,769))
+      }
 
     } Else If (DoActivity == "Woodcutting/Firemaking") {
       ; ------------------------------
@@ -1908,7 +1906,7 @@ LShift & RShift::
             If (DebugMode == 1) {
               ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
             }
-            Sleep Random(3050,3250)
+            Sleep Random(5050,5250)
           }
           ; ------------------------------
           If (DebugMode == 1) {

@@ -1,8 +1,12 @@
 
-Deployment Image Servicing and Management tool
-Version: 10.0.19041.572
+------------------------------------------------------------
 
-Image Version: 10.0.19042.630
+DISM /Online /?
+
+Deployment Image Servicing and Management tool
+Version: 10.0.19041.844
+
+Image Version: 10.0.19045.2364
 
 
 The following commands may be used to service the image:
@@ -148,4 +152,137 @@ specify a command immediately before /?.
          DISM.exe /Image:C:\test\offline /Get-Features /?
          DISM.exe /Online /Get-Drivers /?
 
+
+
+------------------------------------------------------------
+
+DISM /Online /Cleanup-Image /?
+
+Deployment Image Servicing and Management tool
+Version: 10.0.19041.844
+
+Image Version: 10.0.19045.2364
+
+
+/Cleanup-Image /RevertPendingActions 
+
+  WARNING! You should use the /RevertPendingActions option only in a 
+  system-recovery scenario to perform recovery operations on a Windows image 
+  that did not boot. 
+
+    Example: 
+      DISM.exe /Image:C:\test\offline /Cleanup-Image /RevertPendingActions 
+
+/Cleanup-Image /spsuperseded [/hidesp] 
+  Use /SPSuperseded to remove any backup files created during the installation 
+  of a service pack. Use /HideSP to prevent the service pack from being listed 
+  in the Installed Updates for the operating system. 
+
+  WARNING! The service pack cannot be uninstalled after the /SPSuperseded 
+  operation is completed. 
+
+    Example: 
+      DISM.exe /Image:C:\test\offline /Cleanup-Image /spsuperseded /hidesp 
+
+/Cleanup-Image {/CheckHealth | /ScanHealth | /RestoreHealth} 
+  Use /CheckHealth to check whether the image has been flagged as corrupted 
+  by a failed process and whether the corruption can be repaired. 
+  Use /ScanHealth to scan the image for component store corruption. 
+  Use /RestoreHealth to scan the image for component store corruption, and 
+  then perform repair operations automatically. 
+  Use /Source with /RestoreHealth to specify the location of known good 
+  versions of files that can be used for the repair. For more information on 
+  specifying a source location, see 
+  https://go.microsoft.com/fwlink/?LinkId=243077. 
+  Use /LimitAccess to prevent DISM from contacting WU/WSUS. 
+
+    Example: 
+      DISM.exe /Online /Cleanup-Image /ScanHealth
+
+      DISM.exe /Image:c:\offline /Cleanup-Image /RestoreHealth 
+      /Source:c:\test\mount 
+
+/Cleanup-Image /StartComponentCleanup [/ResetBase [/Defer]]
+  Use /StartComponentCleanup to clean up the superseded components and reduce
+  the size of the component store. Use /ResetBase to reset the base of 
+  superseded components, which can further reduce the component store size.
+  Use /Defer with /ResetBase to defer long-running cleanup operations to the 
+  next automatic maintenance. 
+
+  WARNING!  The installed Windows Updates cannot be uninstalled after the 
+  /StartComponentCleanup with /ResetBase operation is completed. 
+
+    Example: 
+      DISM.exe /Image:C:\test\offline /Cleanup-Image /StartComponentCleanup
+
+/Cleanup-Image /AnalyzeComponentStore 
+  Use /AnalyzeComponentStore to create a report of the WinSxS component store.
+  For more information about the WinSxS report and how to use the information
+  provided in the report, see
+  https://go.microsoft.com/fwlink/?LinkId=293367. 
+
+    Example: 
+      DISM.exe /Image:C:\test\offline /Cleanup-Image /AnalyzeComponentStore
+
+
+
+------------------------------------------------------------
+
+DISM /Online /Enable-Feature /?
+
+Deployment Image Servicing and Management tool
+Version: 10.0.19041.844
+
+Image Version: 10.0.19045.2364
+
+
+/Enable-Feature /FeatureName:<name_in_image> [/PackageName:<name_in_image>] 
+  [/Source:<source>] [/LimitAccess] [/All] 
+
+  Enables the feature specified by the FeatureName command argument. 
+  You do not have to specify the /PackageName if it is the Windows Foundation Package. 
+  Otherwise, use /PackageName to specify the parent package of the feature. 
+
+  Multiple /FeatureName arguments can be used if the features are components in 
+  the same parent package. 
+
+  You can restore and enable a feature that has previously been removed from the 
+  image. Use the /Source argument to specify the location of the files needed to 
+  restore the feature. Multiple /Source arguments can be used. 
+  Use /LimitAccess to prevent DISM from contacting WU/WSUS. 
+  Use /All to enable all parent features of the specified feature. 
+
+    Example: 
+      DISM.exe /Online /Enable-Feature /FeatureName:Hearts /All 
+
+      DISM.exe /Image:c:\offline /Enable-Feature /FeatureName:Calc 
+        /PackageName:Microsoft.Windows.Calc.Demo~6595b6144ccf1df~x86~en~1.0.0.0 
+
+      DISM.exe /Image:c:\offline /Enable-Feature /FeatureName:Feature 
+        /Source:c:\test\mount 
+
+
+
+------------------------------------------------------------
+
+DISM /Online /Get-WimInfo /?
+
+Deployment Image Servicing and Management tool
+Version: 10.0.19041.844
+
+Image Version: 10.0.19045.2364
+
+
+/Get-WimInfo /WimFile:<WIM_file> [/Index:<image_index> | /Name:<image_name>] 
+
+  Displays information about the images contained in the specified WIM file. 
+
+    Examples: 
+      DISM.exe /Get-WimInfo /WimFile:C:\test\images\myimage.wim 
+
+      DISM.exe /Get-WimInfo /WimFile:C:\test\images\myimage.wim /Index:1 
+
+
+
+------------------------------------------------------------
 

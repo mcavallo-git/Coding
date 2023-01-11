@@ -26,7 +26,7 @@ If ($True) {
   }
 
   # Get the mounted iso file's drive letter
-  $Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter); $Mounted_DriveLetter;
+  $Mounted_DriveLetter = ((Get-DiskImage -ImagePath "${ISO_FullPath}" | Get-Volume).DriveLetter);
 
   If (([String]::IsNullOrEmpty("${Mounted_DriveLetter}")) -Eq $True) {
 
@@ -38,12 +38,26 @@ If ($True) {
     # ISO file mounted successfully
     Write-Output "Info:  Located ISO file `"${ISO_FullPath}`" mounted to drive letter `"${Mounted_DriveLetter}`"";
 
-    # Get the version # of Windows (stored within the .iso file)
+    $Regex_DISM_ErrorCount = "^Error\s*: (.+)";
+    $Regex_DISM_WinName = "^Name : (.+)";
+    $Regex_DISM_WinVersion = "^Version : (.+)";
+    $Regex_DISM_WinBuild = "^ServicePack Build\s*: (.+)";
+
+    # Locate the wimfile
     $Install_Esd_MountPath = ("${Mounted_DriveLetter}:\sources\install.esd");
+    $Install_Wim_MountPath = ("${Mounted_DriveLetter}:\sources\install.wim");
+    If (Test-Path -PathType "Leaf" -Path ("${Install_Wim_MountPath}")) {
+      $Wimfile_MountPath = "${Install_Wim_MountPath}";
+    } Else {
+      $Wimfile_MountPath = "${Install_Esd_MountPath}";
+    }
 
-    $DISM_Info=(Dism /Get-WimInfo /WimFile:${Install_Esd_MountPath} /index:1); $EXIT_CODE=([int]${EXIT_CODE}+([int](!${?})));
+    # Get the version # of Windows (stored within the sources/install.* file (wim))
+    $DISM_Info=(Dism /Get-WimInfo /WimFile:${Wimfile_MountPath} /index:1); $EXIT_CODE_DISM=([int]${EXIT_CODE_DISM}+([int](!${?})));
 
-    If (${EXIT_CODE} -NE 0) {
+    $DISM_ErrorsExist = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_ErrorCount})","${Regex_DISM_ErrorCount}").Success);
+
+    If ((${EXIT_CODE_DISM} -NE 0) -Or (${DISM_ErrorsExist} -Eq $True)) {
 
       Write-Output "Error: Unable to get info using DISM - Error message:";
       Write-Output "------------------------------";
@@ -52,17 +66,9 @@ If ($True) {
 
     } Else {
 
-      $Regex_Win10_Name = "^Name : (.+)";
-
-      $Regex_Win10_VersionNum = "^Version : (.+)";
-      # $Regex_Win10_VersionNum = "^Version : ([\d]+\.[\d]+\.[\d]+)\s*$";
-
-      $Regex_Win10_BuildNum = "^ServicePack\s+Build : (.+)";
-      # $Regex_Win10_BuildNum = "^ServicePack\s+Build : (\S+)\s*$";
-
-      $ISO_Name = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_Name})","${Regex_Win10_Name}").Captures.Groups[1].Value);
-      $ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_VersionNum})","${Regex_Win10_VersionNum}").Captures.Groups[1].Value);
-      $ISO_BuildNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_Win10_BuildNum})","${Regex_Win10_BuildNum}").Captures.Groups[1].Value);
+      $ISO_Name = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_WinName})","${Regex_DISM_WinName}").Captures.Groups[1].Value);
+      $ISO_VersionNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_WinVersion})","${Regex_DISM_WinVersion}").Captures.Groups[1].Value);
+      $ISO_BuildNumber = ([Regex]::Match("$(${DISM_Info} -match ${Regex_DISM_WinBuild})","${Regex_DISM_WinBuild}").Captures.Groups[1].Value);
 
       If ($False) {
         Write-Output "Verbose Info - `${DISM_Info}:";

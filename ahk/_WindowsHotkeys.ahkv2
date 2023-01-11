@@ -1879,8 +1879,16 @@ LShift & RShift::
       ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
       ;
       ; ------------------------------
+      If (1 == 1) {
+        ; Zoom in & pan up all the way
+        ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
+        Sleep 2500
+        ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)
+        Sleep 100
+      }
+      ; ------------------------------
       ;
-      ; Get the [ 2 Tiles North ] x/y mouse coordinates
+      ; Walk the user through initial setup
       ;
       A_MsgBoxResult := MsgBox("Locate a tree to farm in-game" "`n" "`n" "Click 'OK' to proceed", A_ScriptName, 1)
       If (A_MsgBoxResult == "OK") {
@@ -1955,7 +1963,7 @@ LShift & RShift::
             Sleep 500
             ; ------------------------------
             If (1 == 1) {
-              ; Zoom in & pan up all the way
+              ; Zoom in & pan up all the way (again)
               ControlSend("{PgUp Down}{Up Down}", Ctrl_hwnd, Win_hwnd)
               Sleep 2500
               ControlSend("{PgUp Up}{Up Up}", Ctrl_hwnd, Win_hwnd)

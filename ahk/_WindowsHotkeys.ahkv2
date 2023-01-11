@@ -1882,7 +1882,7 @@ LShift & RShift::
             MouseClick "Left", xpos_1tilewest, ypos_1tilewest
             Sleep 1000
             ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
-            Sleep 5000
+            Sleep 3000
           }
           ; ------------------------------
           Color_1TileWest_PreLight := PixelGetColor(xpos_1tilewest, ypos_1tilewest)
@@ -1899,7 +1899,7 @@ LShift & RShift::
             Color_1TileWest_Check := PixelGetColor(xpos_1tilewest, ypos_1tilewest)
             If (Color_1TileWest_Check != Color_1TileWest_PreLight) {
               ToolTip("Light fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
-              Sleep 5000
+              Sleep 3000
               Break
             } Else {
               Sleep 1000
@@ -1923,7 +1923,7 @@ LShift & RShift::
             MouseClick "Left", xpos_1tilewest, ypos_1tilewest
             Sleep 1000
             ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
-            Sleep 5000
+            Sleep 3000
           }
           ; ------------------------------
         }

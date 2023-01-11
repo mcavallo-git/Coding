@@ -391,7 +391,7 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [Attack] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "  Right click low-cooldown (3s) attack ability on action bar" "`n" "`n" "    If none exists, drag a 3s cooldown from 'Powers' onto your action bar"
+  Tooltip_LocateButton := "  Right click a low-cooldown (3s) attack ability on action bar" "`n" "`n" "    If none exists, drag a 3s cooldown from 'Powers' onto your action bar"
   xpos_attack := ""
   ypos_attack := ""
   While ((xpos_attack == "") || (ypos_attack == "")) {

@@ -1796,6 +1796,7 @@ LShift & RShift::
   #F5::
   {
     CoordMode "Mouse", "Window"
+    CoordMode "Pixel", "Window"
     SetDefaultMouseSpeed 0
     SetControlDelay -1
     ; SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
@@ -1805,56 +1806,99 @@ LShift & RShift::
     Win_ahk_id := WinGetID(WinTitle)
     WinHwnd := ("ahk_id " Win_ahk_id)
 
-    ;
-    ; Woodcutting/Firemaking XP Farm
-    ;   - Find a tree in-game
-    ;   - Place character 1 tile south of a tree to chop
-    ;   - Zoom the camera in all the way
-    ;   - Pivot camera up/down so it's as high as possible looking down at the top of the character's head
-    ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
-    ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
-    ;
-    Loop {
-      Loop 2 {
-        ToolTip "Chop Tree", 0, 0
-        xpos := 1718
-        ypos := 265
-      ; ControlClick ("x" xpos " y" ypos), WinHwnd           ; Left click 2 tiles North - Start chopping tree
-        MouseMove xpos, ypos
-        Sleep 1000                                           ; Wait for cursor to change
-        MouseClick "Left", xpos, ypos                        ; Left click 2 tiles North - Start chopping tree
-        Sleep 30000                                          ; Wait for wood to be chopped
-        If (A_Index != 1) {
-          ToolTip "Move to Tile w/o Fire", 0, 0
-          xpos := 1452
-          ypos := 785
-        ; ControlClick ("x" xpos " y" ypos), WinHwnd           ; Left click 1 tile West - Move to tile WITHOUT a fire
-          MouseClick "Left", xpos, ypos                        ; Left click 1 tile West - Move to tile WITHOUT a fire
-          Sleep 5000                                           ; Wait for character to move
-        }
-        ToolTip "Light Fire", 0, 0
-        xpos := 2405  ; Top Left Inventory Slot
-        ypos := 1089  ; Top Left Inventory Slot
-      ; ControlClick ("x" xpos " y" ypos), WinHwnd           ; Left click inventory item #1 - Open wood crafting popup window
-        MouseClick "Left", xpos, ypos                        ; Left click inventory item #1 - Open wood crafting popup window
-        Sleep 2000                                           ; Wait for popup window
-      ; ControlSend("{1}",, WinHwnd)                         ; Send keystroke "1" - Select option "Tinderbox"
-        Send "1"                                             ; Send keystroke "1" - Select option "Tinderbox"
-        Sleep 30000                                          ; Wait for logs to light successfully
-        ToolTip "Add Logs to Fire", 0, 0
-      ; ControlClick ("x" (xpos+41) " y" ypos), WinHwnd      ; Left click inventory item #2
-        MouseClick "Left", (xpos+41), ypos                   ; Left click inventory item #2
-        Sleep 2000                                           ; Wait for popup window
-      ; ControlSend("{3}",, WinHwnd)                         ; Send keystroke "3" - Select option "Add to bonfire"
-        Send "3"                                             ; Send keystroke "3" - Select option "Add to bonfire"
-        Sleep 30000                                          ; Wait to throw all logs on the fire
-        If (A_Index == 1) {
-          ToolTip "Move South of Tree", 0, 0
-          xpos := 1452
-          ypos := 785
-        ; ControlClick ("x" xpos " y" ypos), WinHwnd           ; Left click 1 tile West - Move to 1 tile South of tree
-          MouseClick "Left", xpos, ypos                        ; Left click 1 tile West - Move to 1 tile South of tree
-          Sleep 5000                                           ; Wait for character to move
+    DoActivity := "Woodcutting/Firemaking"
+
+    If (DoActivity == "Woodcutting/Firemaking") {
+      ;
+      ; Woodcutting/Firemaking XP Farm
+      ;   - Find a tree in-game
+      ;   - Place character 1 tile south of a tree to chop
+      ;   - Zoom the camera in all the way
+      ;   - Pivot camera up/down so it's as high as possible looking down at the top of the character's head
+      ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
+      ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire)
+      ;
+      ; ------------------------------
+      xpos_2tilesnorth := 1718
+      ypos_2tilesnorth := 265
+      ; ------------------------------
+      xpos_backpackslot1 := 2405
+      ypos_backpackslot1 := 1089
+      ; ------------------------------
+      xpos_1tilewest := 1452
+      ypos_1tilewest := 785
+      ; ------------------------------
+      Color_Tree_Uncut := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)  ; PixelGetColor, Color, MouseX, MouseY
+      ; ------------------------------
+      Loop 50 {
+        MouseClick("WheelUp")
+        Sleep 20
+      }
+      Loop {
+        Loop 2 {
+          ; ------------------------------
+          Do_TreeChopping := 1
+          Loop 30 {
+            Color_Tree_Check := PixelGetColor(xpos_2tilesnorth, ypos_2tilesnorth)  ; PixelGetColor, Color, MouseX, MouseY
+            If (Color_Tree_Check != Color_Tree_Uncut) {
+              ToolTip("Chop tree" "`n" "Wait for tree to regrow")
+              Do_TreeChopping := 1
+            }
+            If ((Do_TreeChopping==1)&&(Color_Tree_Check==Color_Tree_Uncut)) {
+              If (A_Index == 1) {
+                ToolTip("Chop tree" "`n" "Start chopping tree")
+              } Else {
+                ToolTip("Chop tree" "`n" "Restart chopping tree")
+              }
+              Do_TreeChopping := 0
+              MouseMove xpos_2tilesnorth, ypos_2tilesnorth
+              Sleep 500
+              ; ControlClick ("x" xpos_2tilesnorth " y" ypos_2tilesnorth), WinHwnd
+              MouseClick "Left", xpos_2tilesnorth, ypos_2tilesnorth
+            }
+            Sleep 1000
+          }
+          ; ------------------------------
+          If (A_Index != 1) {
+            ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West")
+          ; ControlClick ("x" xpos_1tilewest " y" ypos_1tilewest), WinHwnd
+            MouseClick "Left", xpos_1tilewest, ypos_1tilewest
+            Sleep 1000
+            ToolTip("Move to tile w/o fire" "`n" "Wait for character to move")
+            Sleep 5000
+          }
+          ; ------------------------------
+          ToolTip("Light fire" "`n" "Click backpack item #1 (log from tree)")
+        ; ControlClick ("x" xpos_backpackslot1 " y" ypos_backpackslot1), WinHwnd
+          MouseClick "Left", xpos_backpackslot1, ypos_backpackslot1
+          Sleep 1000
+          ToolTip("Light fire" "`n" "Select option 1 (Tinderbox)")
+          Sleep 1000
+        ; ControlSend("{1}",, WinHwnd)
+          Send "1"
+          ToolTip("Light fire" "`n" "Wait for log to catch fire")
+          Sleep 30000
+          ; ------------------------------
+          ToolTip("Add log(s) to fire" "`n" "Click backpack item #2 (log from tree)")
+        ; ControlClick ("x" (xpos_backpackslot1+41) " y" ypos_backpackslot1), WinHwnd
+          MouseClick "Left", (xpos_backpackslot1+41), ypos_backpackslot1
+          Sleep 1000
+          ToolTip("Add log(s) to fire" "`n" "Select option 3 (Add to bonfire)")
+          Sleep 1000
+        ; ControlSend("{3}",, WinHwnd)
+          Send "3"
+          ToolTip("Add log(s) to fire" "`n" "Wait for log(s) to be thrown on fire")
+          Sleep 30000
+          ; ------------------------------
+          If (A_Index == 1) {
+            ToolTip("Move south of tree" "`n" "Move 1 tile West")
+          ; ControlClick ("x" xpos_1tilewest " y" ypos_1tilewest), WinHwnd
+            MouseClick "Left", xpos_1tilewest, ypos_1tilewest
+            Sleep 1000
+            ToolTip("Move south of tree" "`n" "Wait for character to move")
+            Sleep 5000
+          }
+          ; ------------------------------
         }
       }
     }

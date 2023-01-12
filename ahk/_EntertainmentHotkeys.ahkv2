@@ -160,6 +160,16 @@ If (DebugMode == 1) {
 
 ; ------------------------------
 ;
+;   HOTKEY:  Shift + Space
+;   ACTION:  Send [ Shift + ] ] key, instead
+;
+#HotIf WinActive("ahk_exe rs2client.exe")
+  +Space:: +]
+#HotIf
+
+
+; ------------------------------
+;
 ;   HOTKEY:  WinKey + F5  (while [ RuneScape ] is active)
 ;            WinKey + F6  (while [ RuneScape ] is active)
 ;            WinKey + F7  (while [ RuneScape ] is active)
@@ -567,7 +577,7 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [ Backpack slot 1 ] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "  Right click backpack slot #1" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click the center of the backpack slot which gets filled with loot first, by default (top-leftmost)"
+  Tooltip_LocateButton := "  Right click backpack slot #1" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click the center of the backpack slot which gets filled with loot first, by default (top-leftmost)" "`n" "`n" "    Make sure said backpack slot is empty"
   xpos_backpackslot1 := ""
   ypos_backpackslot1 := ""
   While ((xpos_backpackslot1 == "") || (ypos_backpackslot1 == "")) {
@@ -584,7 +594,7 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Get the [ Backpack slot 2 ] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "  Right click backpack slot #2" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click the center of the backpack slot which gets filled with loot second, by default"
+  Tooltip_LocateButton := "  Right click backpack slot #2" "`n" "`n" "    Open backpack (keep it open)" "`n" "`n" "    Right click the center of the backpack slot which gets filled with loot second, by default" "`n" "`n" "    Make sure said backpack slot is empty"
   xpos_backpackslot2 := ""
   ypos_backpackslot2 := ""
   While ((xpos_backpackslot2 == "") || (ypos_backpackslot2 == "")) {
@@ -742,7 +752,7 @@ RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
   Sleep 500
   ; ------------------------------
   ;
-  ; Get the [ Backpack slot 1 ] x/y mouse coordinates
+  ; Select drop-fish ability
   ;
   Tooltip_LocateButton := "  Set the fish on an action bar & set the hotkey as:  ]  (right square bracket)" "`n" "`n" "    Right click anywhere to proceed"
   xpos_trash := ""

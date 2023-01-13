@@ -439,7 +439,7 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
     ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
     Sleep Random(250,325)
     ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
-    Sleep Random(3050,3250)
+    Sleep Random(15250,16250)
   }
   ; ------------------------------
   Return
@@ -770,7 +770,7 @@ RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
       ; ------------------------------
       Loop 30 {
         ControlSend("]", Ctrl_hwnd, Win_hwnd)
-        Sleep Random(100000,110000)
+        Sleep Random(1050,1250)
       }
       ; ------------------------------
     }

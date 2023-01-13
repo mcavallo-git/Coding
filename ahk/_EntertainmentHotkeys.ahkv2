@@ -470,8 +470,8 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
   ; ------------------------------
   ;
   ; Woodcutting/Firemaking XP Farm
-  ;   - Find a tree in-game & position character directly south from it
-  ;   - Pivot camera left/right to face directly north, e.g. so that N points up on minimap
+  ;   - Find a tree in-game & position character directly North from it
+  ;   - Pivot camera left/right to face directly South, e.g. so that N points down on minimap
   ;   - (DONE BY SCRIPT) Zoom the camera in all the way
   ;   - (DONE BY SCRIPT) Pivot camera up/down so it's as high as possible looking down at the top of the character's head
   ;   - NOTE: Fires last 60~180s (randomly selected at time of lighting fire). Must avoid trying to place fires on existing fires
@@ -501,7 +501,7 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Turn camera North
   ;
-  Tooltip_LocateButton := "  Positioning (2/3)" "`n" "`n" "    Turn the camera to face directly North" "`n" "`n" "    (Gray compass needle up, red down)" "`n" "`n" "    Right click anywhere to proceed"
+  Tooltip_LocateButton := "  Positioning (2/3)" "`n" "`n" "    Turn the camera to face directly South" "`n" "`n" "    (Gray compass needle up, red down)" "`n" "`n" "    Right click anywhere to proceed"
   xpos_trash := ""
   ypos_trash := ""
   While ((xpos_trash == "") || (ypos_trash == "")) {
@@ -518,7 +518,7 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
   ;
   ; Select chop
   ;
-  Tooltip_LocateButton := "  Positioning (3/3)" "`n" "`n" "    Position your character next to the tree on its south side" "`n" "`n" "    The tree should be taking up the tile which is 1 tile North of your character" "`n" "`n" "    Right click anywhere to proceed"
+  Tooltip_LocateButton := "  Positioning (3/3)" "`n" "`n" "    Position your character next to the tree on its North side" "`n" "`n" "    The tree should be taking up the tile which is 1 tile South of your character" "`n" "`n" "    Right click anywhere to proceed"
   xpos_trash := ""
   ypos_trash := ""
   While ((xpos_trash == "") || (ypos_trash == "")) {
@@ -558,16 +558,16 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
   Sleep 500
   ; ------------------------------
   ;
-  ; Get the [ 1 Tile West ] x/y mouse coordinates
+  ; Get the [ 1 Tile East ] x/y mouse coordinates
   ;
-  Tooltip_LocateButton := "  Right click 1 Tile West" "`n" "`n" "    Right click 1 tile to the West of the player" "`n" "`n" "    Note: This position is used to avoid stacking fires"
-  xpos_1tilewest := ""
-  ypos_1tilewest := ""
-  While ((xpos_1tilewest == "") || (ypos_1tilewest == "")) {
+  Tooltip_LocateButton := "  Right click 1 Tile East" "`n" "`n" "    Right click 1 tile to the East (left) of the player" "`n" "`n" "    Note: This position is used to avoid stacking fires"
+  xpos_1tileeast := ""
+  ypos_1tileeast := ""
+  While ((xpos_1tileeast == "") || (ypos_1tileeast == "")) {
     Tooltip("`n" Tooltip_LocateButton "`n  `n")
     Sleep 10
     If (GetKeyState("RButton","P") == 1) { ; Button is being pressed
-      MouseGetPos &xpos_1tilewest, &ypos_1tilewest
+      MouseGetPos &xpos_1tileeast, &ypos_1tileeast
       ClearTooltip(0)
       Break
     }
@@ -638,9 +638,9 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
       ; ------------------------------
       If (A_Index != 1) {
         If (DebugMode == 1) {
-          ToolTip("Move to tile w/o fire" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
+          ToolTip("Move to tile w/o fire" "`n" "Move 1 tile East", xpos_tooltip, ypos_tooltip)
         }
-        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tileeast " y" ypos_1tileeast))
         Sleep Random(1050,1250)
         If (DebugMode == 1) {
           ToolTip("Move to tile w/o fire" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
@@ -684,12 +684,12 @@ RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd:="", Win_hwnd:="") {
       ; ------------------------------
       If (A_Index == 1) {
         If (DebugMode == 1) {
-          ToolTip("Move south of tree" "`n" "Move 1 tile West", xpos_tooltip, ypos_tooltip)
+          ToolTip("Move North of tree" "`n" "Move 1 tile East", xpos_tooltip, ypos_tooltip)
         }
-        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tilewest " y" ypos_1tilewest))
+        ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_1tileeast " y" ypos_1tileeast))
         Sleep Random(1050,1250)
         If (DebugMode == 1) {
-          ToolTip("Move south of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
+          ToolTip("Move North of tree" "`n" "Wait for character to move", xpos_tooltip, ypos_tooltip)
         }
         Sleep Random(3050,3250)
       }

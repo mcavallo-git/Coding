@@ -178,12 +178,12 @@ If (DebugMode == 1) {
 ;   ACTION:  Farm XP
 ;
 #HotIf WinExist("ahk_exe rs2client.exe")
-  #F5::  ; Combat-SafeSpot  (15s on each target)
+  #F5::  ; Combat-SafeSpot  (5s on each target)
   #F6::  ; Combat-CastCancel
   #F7::  ; Crafting-Woodcutting-Firemaking
   #F8::  ; Crafting-Fishing
   ^#F5::  ; Combat-SafeSpot (10s on each target)
-  !#F5::  ; Combat-SafeSpot (5s on each target)
+  !#F5::  ; Combat-SafeSpot (15s on each target)
   {
     ; ------------------------------
     Global DebugMode
@@ -203,11 +203,11 @@ If (DebugMode == 1) {
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
     If (A_ThisHotkey == "#F5") {
-      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 15)
+      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 5)
     } Else If (A_ThisHotkey == "^#F5") {
       RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 10)
     } Else If (A_ThisHotkey == "!#F5") {
-      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 5)
+      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 15)
     } Else If (A_ThisHotkey == "#F6") {
       RuneScape_Combat_CastCancel(Ctrl_hwnd, Win_hwnd)
     } Else If (A_ThisHotkey == "#F7") {

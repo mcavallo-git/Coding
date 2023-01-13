@@ -176,10 +176,13 @@ If (DebugMode == 1) {
 ;   ACTION:  Farm XP
 ;
 #HotIf WinExist("ahk_exe rs2client.exe")
-  #F5::  ; Combat-SafeSpot
+  #F5::  ; Combat-SafeSpot  (10s on each target)
   #F6::  ; Combat-CastCancel
   #F7::  ; Crafting-Woodcutting-Firemaking
   #F8::  ; Crafting-Fishing
+  ^#F5::  ; Combat-SafeSpot (5s on each target)
+  !#F5::  ; Combat-SafeSpot (3s on each target)
+  +#F5::  ; Combat-SafeSpot (1s on each target)
   {
     ; ------------------------------
     Global DebugMode
@@ -199,7 +202,13 @@ If (DebugMode == 1) {
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
     If (A_ThisHotkey == "#F5") {
-      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd)
+      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 10)
+    } Else If (A_ThisHotkey == "^#F5") {
+      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 5)
+    } Else If (A_ThisHotkey == "!#F5") {
+      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 3)
+    } Else If (A_ThisHotkey == "+#F5") {
+      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 1)
     } Else If (A_ThisHotkey == "#F6") {
       RuneScape_Combat_CastCancel(Ctrl_hwnd, Win_hwnd)
     } Else If (A_ThisHotkey == "#F7") {
@@ -386,7 +395,7 @@ RuneScape_Combat_CastCancel(Ctrl_hwnd:="", Win_hwnd:="") {
 ; RuneScape_Combat_SafeSpot
 ;   |--> Safe Spot Combat EXP Farm
 ;
-RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="", Retarget_Delay_Seconds:=20) {
+RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="", Retarget_Delay_Seconds:=10) {
   Global DebugMode
   CoordMode "Mouse", "Client"
   SetControlDelay -1
@@ -433,9 +442,9 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="", Retarget_Delay_Seconds:=2
     Sleep Random(250,325)
     ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
     Sleep Random(250,325)
-    Loop Floor(Retarget_Delay_Seconds/2) {
+    Loop Floor(Retarget_Delay_Seconds*2) {
       ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_safe_area " y" ypos_safe_area))
-      Sleep Random(500,625)
+      Sleep Random(475,525)
     }
   }
   ; ------------------------------

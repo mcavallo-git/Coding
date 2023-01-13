@@ -199,23 +199,13 @@ If (DebugMode == 1) {
     ; Replace this variable with a dynamic instantiation based on user response via popup menu selection
     ;
     If (A_ThisHotkey == "#F5") {
-      DoActivity := "Combat-SafeSpot"
-    } Else If (A_ThisHotkey == "#F6") {
-      DoActivity := "Combat-CastCancel"
-    } Else If (A_ThisHotkey == "#F7") {
-      DoActivity := "Crafting-Woodcutting-Firemaking"
-    } Else If (A_ThisHotkey == "#F8") {
-      DoActivity := "Crafting-Fishing"
-    }
-    ; ------------------------------
-    If (DoActivity == "Combat-CastCancel") {
-      RuneScape_Combat_CastCancel(Ctrl_hwnd, Win_hwnd)
-    } Else If (DoActivity == "Combat-SafeSpot") {
       RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd)
-    } Else If (DoActivity == "Crafting-Fishing") {
-      RuneScape_Crafting_Fishing(Ctrl_hwnd, Win_hwnd)
-    } Else If (DoActivity == "Crafting-Woodcutting-Firemaking") {
+    } Else If (A_ThisHotkey == "#F6") {
+      RuneScape_Combat_CastCancel(Ctrl_hwnd, Win_hwnd)
+    } Else If (A_ThisHotkey == "#F7") {
       RuneScape_Crafting_Woodcutting_Firemaking(Ctrl_hwnd, Win_hwnd)
+    } Else If (A_ThisHotkey == "#F8") {
+      RuneScape_Crafting_Fishing(Ctrl_hwnd, Win_hwnd)
     }
     ; ------------------------------
     Return
@@ -440,14 +430,14 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
   Loop {
     ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
     ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
-    Sleep 250
+    Sleep Random(250,325)
     ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
-    Sleep 250
+    Sleep Random(250,325)
     ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_safe_area " y" ypos_safe_area))
-    Sleep 500
+    Sleep Random(500,625)
     ControlSend("{Tab Down}", Ctrl_hwnd, Win_hwnd)
     ControlSend("{Tab Up}", Ctrl_hwnd, Win_hwnd)
-    Sleep 250
+    Sleep Random(250,325)
     ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
     Sleep Random(3050,3250)
   }
@@ -780,7 +770,7 @@ RuneScape_Crafting_Fishing(Ctrl_hwnd:="", Win_hwnd:="") {
       ; ------------------------------
       Loop 30 {
         ControlSend("]", Ctrl_hwnd, Win_hwnd)
-        Sleep Random(1050,1250)
+        Sleep Random(100000,110000)
       }
       ; ------------------------------
     }

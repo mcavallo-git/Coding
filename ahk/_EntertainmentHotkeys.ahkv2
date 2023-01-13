@@ -170,9 +170,12 @@ If (DebugMode == 1) {
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + F5  (while [ RuneScape ] is active)
-;            WinKey + F6  (while [ RuneScape ] is active)
-;            WinKey + F7  (while [ RuneScape ] is active)
+;   HOTKEY:  WinKey + F5          (while [ RuneScape ] is active)
+;            WinKey + F6          (while [ RuneScape ] is active)
+;            WinKey + F7          (while [ RuneScape ] is active)
+;            Ctrl + WinKey + F5   (while [ RuneScape ] is active)
+;            Alt + WinKey + F5    (while [ RuneScape ] is active)
+;            Shift + WinKey + F5  (while [ RuneScape ] is active)
 ;   ACTION:  Farm XP
 ;
 #HotIf WinExist("ahk_exe rs2client.exe")
@@ -182,7 +185,7 @@ If (DebugMode == 1) {
   #F8::  ; Crafting-Fishing
   ^#F5::  ; Combat-SafeSpot (5s on each target)
   !#F5::  ; Combat-SafeSpot (3s on each target)
-  +#F5::  ; Combat-SafeSpot (1s on each target)
+  +#F5::  ; Combat-SafeSpot (15s on each target)
   {
     ; ------------------------------
     Global DebugMode
@@ -208,7 +211,7 @@ If (DebugMode == 1) {
     } Else If (A_ThisHotkey == "!#F5") {
       RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 3)
     } Else If (A_ThisHotkey == "+#F5") {
-      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 1)
+      RuneScape_Combat_SafeSpot(Ctrl_hwnd, Win_hwnd, 15)
     } Else If (A_ThisHotkey == "#F6") {
       RuneScape_Combat_CastCancel(Ctrl_hwnd, Win_hwnd)
     } Else If (A_ThisHotkey == "#F7") {

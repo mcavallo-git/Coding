@@ -433,10 +433,10 @@ RuneScape_Combat_SafeSpot(Ctrl_hwnd:="", Win_hwnd:="") {
     Sleep Random(250,325)
     ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
     Sleep Random(250,325)
-    ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_safe_area " y" ypos_safe_area))
-    Sleep Random(500,625)
-    ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_attack " y" ypos_attack))
-    Sleep Random(10250,10750)
+    Loop 6 {
+      ControlClick(Ctrl_hwnd, Win_hwnd,, "Left",, ("NA x" xpos_safe_area " y" ypos_safe_area))
+      Sleep Random(500,625)
+    }
   }
   ; ------------------------------
   Return

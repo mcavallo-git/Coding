@@ -11,7 +11,7 @@
 '     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:
-'     At log on of [current user] - After triggered, repeat every [ 5 minutes ] for a duration of [ Indefinitely ]
+'     At log on of [current user]
 '
 '   Action:
 '     Program/script:   "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe"

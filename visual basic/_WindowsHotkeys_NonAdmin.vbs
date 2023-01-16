@@ -13,7 +13,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:
-'     At log on of [current user] - After triggered, repeat every [ 5 minutes ] for a duration of [ Indefinitely ]
+'     At log on of [current user]
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

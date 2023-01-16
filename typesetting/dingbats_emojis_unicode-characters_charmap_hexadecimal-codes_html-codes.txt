@@ -237,8 +237,8 @@ Mostly Linux compatible:
 ☁️				Cloud Emoji   (white-filled in Chrome)  |  https://emojipedia.org/cloud/
 
 
-⚙️				Gear (Cog) (Colored)  |  https://emojipedia.org/gear/
-⚙					Gear (Cog)  |  https://www.compart.com/en/unicode/U+2699
+⚙️				Gear (Cog) (Colored)  (&#x2699;&#xFE0F;)  |  https://emojipedia.org/gear/
+⚙					Gear (Cog)  (&#x2699;)  |  https://www.compart.com/en/unicode/U+2699
 ⛭					Gear Without Hub  |  https://www.compart.com/en/unicode/U+26ED
 
 

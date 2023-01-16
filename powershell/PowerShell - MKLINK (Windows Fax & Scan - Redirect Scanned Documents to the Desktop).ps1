@@ -12,7 +12,8 @@ If ($True) {
   <# *** WINDOWS FAX AND SCAN *** - Redirect scans going into [ "Documents\Scanned Documents" ] (default) to goto the Desktop, instead #>
   $REDIRECT_FROM_LINK="${HOME}\Documents\Scanned Documents";
   $REDIRECT_TO_EXISTING="${HOME}\Desktop";
-  If ((Get-Item "${REDIRECT_FROM_LINK}").Attributes.ToString() -Match "ReparsePoint") {
+  <# Check if symbolic link already exists #>
+  If ((Test-Path -Path ("${REDIRECT_FROM_LINK}")) -And ((Get-Item "${REDIRECT_FROM_LINK}").Attributes.ToString() -Match "ReparsePoint")) {
     Write-Host "Path `"${REDIRECT_FROM_LINK}`" is already Symbolic Link / MKLink";
   } Else {
     <# Make sure destination directory exists #>

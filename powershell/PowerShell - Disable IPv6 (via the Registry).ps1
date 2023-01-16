@@ -36,8 +36,6 @@ If ($True) {
     Write-Output "Info:  Confirmed - Disabling IPv6....";
     <# If the previous ping command responds with an IPv6 address (such as ::1), run following registry setting to disable IPv6 via the Registry --> reboot for the change to take effect #>
     Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters" -Name "DisabledComponents"  -Type "DWord" -Value (${DisabledComponents_HexVal});
-    <# Restore the previously-defined networking security protocol #>
-    [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
     <# Check for pending reboot #>
     $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Set-ExecutionPolicy "ByPass" -Scope "CurrentUser" -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/CheckPendingRestart/CheckPendingRestart.psm1')); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
     CheckPendingRestart;

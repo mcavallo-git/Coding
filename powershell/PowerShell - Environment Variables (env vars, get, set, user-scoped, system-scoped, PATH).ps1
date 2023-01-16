@@ -80,7 +80,7 @@ If ($True) {
 #   env:NG_CLI_ANALYTICS   (System)
 If ($True) {
   $Env_Name = "NG_CLI_ANALYTICS";
-  $Env_Value = "false";
+  $Env_Value = "ci";
   Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
   [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
 }

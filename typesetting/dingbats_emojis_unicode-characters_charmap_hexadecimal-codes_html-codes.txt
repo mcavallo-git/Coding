@@ -103,7 +103,7 @@ Mostly Linux compatible:
 ------------------------------------------------------------
 
 
-✔					Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2714  |  echo -e "\\xE2\\x9C\\x94";  |  "$([char]0x2714)"
+✔					Heavy Check Mark  (&#x2714;)  |  https://www.compart.com/en/unicode/U+2714  |  echo -e "\\xE2\\x9C\\x94";  |  "$([char]0x2714)"
 ✔️				Heavy Check Mark (Colored) (&#x2714;&#xFE0F;) |  https://emojipedia.org/check-mark/  |  echo -e "\\xE2\\x9C\\x94\\xEF\\xB8\\x8F";  |  "$([char]0x2714+[char]0xFE0F)"
 🗸				 Light Check Mark  |  https://www.compart.com/en/unicode/U+1F5F8
 ✓					Check Mark (&check;)  |  https://www.compart.com/en/unicode/U+2713
@@ -119,7 +119,7 @@ Mostly Linux compatible:
 ✗					Ballot X  |  https://www.compart.com/en/unicode/U+2717
 ✘					Heavy Ballot X  |  https://www.compart.com/en/unicode/U+2718
 🗙				 Cancellation X  |  https://www.compart.com/en/unicode/U+1F5D9
-❌				 Cross Mark  |  https://www.compart.com/en/unicode/U+274C  |  echo -e "\\xE2\\x9D\\x8C";  |  "$([char]0x274C)"
+❌				 Cross Mark  (&#x274C;)  |  https://www.compart.com/en/unicode/U+274C  |  echo -e "\\xE2\\x9D\\x8C";  |  "$([char]0x274C)"
 ❎					Negative Squared Cross Mark  |  https://www.compart.com/en/unicode/U+274E
 ✅					White Heavy Check Mark  |  https://www.compart.com/en/unicode/U+2705
 

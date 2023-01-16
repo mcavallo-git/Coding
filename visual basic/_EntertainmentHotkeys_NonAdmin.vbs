@@ -11,7 +11,7 @@
 '     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:
-'     At log on  -  Specific user  (current user)
+'     At log on of [current user]
 '
 '   Action:
 '     Program/script:   "C:\Program Files\AutoHotkey-v2\AutoHotkey64.exe"

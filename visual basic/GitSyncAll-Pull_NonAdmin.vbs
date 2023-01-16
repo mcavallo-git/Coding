@@ -13,11 +13,8 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:
-'     (1) Begin the task:  At log on
-'          |--> Specific User:  (Same as Author (above))
-'          |--> Delay task for:  15 seconds
-'     (2) Begin the task:  On workstation unlock
-'          |--> Specific User:  (Same as Author (above))
+'     At log on of [current user] (delay task for 15 seconds)
+'     On workstation unlock of [current user] (no delay)
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

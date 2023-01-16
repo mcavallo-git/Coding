@@ -25,6 +25,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '   Settings:
 '     (CHECK)    Stop this task if it runs longer than:  2 minutes
+'     (CHECK)    If the task is already running, then the following rule applies: [ Do not start a new instance ]
 '
 ' ------------------------------------------------------------
 '

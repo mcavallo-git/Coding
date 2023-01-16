@@ -20,7 +20,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Fetch_NonAdmin.vbs"
 '
 '   Conditions:
-'     (UNCHECK)  Start the task only if the computer is on AC power
+'     (UN-CHECK) Start the task only if the computer is on AC power
 '     (CHECK)    Start only if the following network connection is available: [ Any connection ]
 '
 '   Settings:

@@ -19,8 +19,8 @@ SETUP YUBICO OTP
   > click "Yubico OTP" (top-left)
    > click "Quick"
     > click "Configuration Slot 1" or "Configuration Slot 2" (depending on which you wish to set - if unknown, set Slot 1)
-     > click (uncheck) "Hide values"
-      > Copy all click (uncheck) "Hide values"
+     > click (un-check) "Hide values"
+      > Copy all click (un-check) "Hide values"
        > !!! If desired, copy values to a SECURED backup location - Note: Best practice for hardware keys is to never copy these values down and to leave them on the key, only)
         > click "Write Configuration"
          > click "Upload to Yubico"

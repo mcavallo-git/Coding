@@ -62,19 +62,19 @@ Instructions for version:
 				
 					(TOP CATEGORY)
 						Click Button "AutoCorrect Options"
-							(UNCHECK) Correct TWo INitial CApitals
-							(UNCHECK) Capitalize first letter of sentences
-							(UNCHECK) Capitalize names of days
-							(UNCHECK) Correct accidental use of cAPS LOCK key
-							(UNCHECK) Replace text as you type
+							(UN-CHECK) Correct TWo INitial CApitals
+							(UN-CHECK) Capitalize first letter of sentences
+							(UN-CHECK) Capitalize names of days
+							(UN-CHECK) Correct accidental use of cAPS LOCK key
+							(UN-CHECK) Replace text as you type
 							(Click "OK")
 					
 					(MIDDLE CATEGORY) - When correcting spelling in Microsoft Office programs
-						(UNCHECK) Flag repeated words
+						(UN-CHECK) Flag repeated words
 					
 					(BOTTOM CATEGORY) - When correcting spelling in OneNote
-						(UNCHECK) Check spelling as you type
-						(UNCHECK) Check grammar with spelling
+						(UN-CHECK) Check spelling as you type
+						(UN-CHECK) Check grammar with spelling
 						(Click "OK")
 
 ------------------------------------------------------------

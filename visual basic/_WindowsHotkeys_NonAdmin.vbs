@@ -13,11 +13,18 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:
-'     At log on
+'     At log on of [current user] - After triggered, repeat every [ 5 minutes ] for a duration of [ Indefinitely ]
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\_WindowsHotkeys_NonAdmin.vbs"
+'
+'   Conditions:
+'     (UN-CHECK) Start the task only if the computer is on AC power
+'
+'   Settings:
+'     (UN-CHECK) Stop this task if it runs longer than:  (UN-CHECK)
+'     (CHECK)    If the task is already running, then the following rule applies: [ Do not start a new instance ]
 '
 ' ------------------------------------------------------------
 '

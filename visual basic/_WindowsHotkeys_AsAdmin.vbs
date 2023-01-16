@@ -1,5 +1,7 @@
-CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/EnsureProcessIsRunning/EnsureProcessIsRunning.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'EnsureProcessIsRunning' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\EnsureProcessIsRunning\EnsureProcessIsRunning.psm1', ((Get-Variable -Name 'HOME').Value))); }; EnsureProcessIsRunning -Name 'Autohotkey' -Path 'C:\Program Files\AutoHotkey-v2\AutoHotkeyU64.exe' -Args ((${HOME})+('\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2')) -AsAdmin -Quiet;"" ", 0, True
-
+' ------------------------------------------------------------
+'
+' CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/EnsureProcessIsRunning/EnsureProcessIsRunning.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'EnsureProcessIsRunning' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\EnsureProcessIsRunning\EnsureProcessIsRunning.psm1', ((Get-Variable -Name 'HOME').Value))); }; EnsureProcessIsRunning -Name 'Autohotkey' -Path 'C:\Program Files\AutoHotkey-v2\AutoHotkeyU64.exe' -Args ((${HOME})+('\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2')) -AsAdmin -Quiet;"" ", 0, True
+'
 ' ------------------------------------------------------------
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:
@@ -13,11 +15,18 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '     Run with highest privileges (CHECKED)
 '
 '   Trigger:
-'     At log on
+'     At log on of [current user] - After triggered, repeat every [ 5 minutes ] for a duration of [ Indefinitely ]
 '
 '   Action:
-'     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\_WindowsHotkeys_AsAdmin.vbs"
+'     Program/script:   "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe"
+'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2"
+'
+'   Conditions:
+'     (UN-CHECK) Start the task only if the computer is on AC power
+'
+'   Settings:
+'     (UN-CHECK) Stop this task if it runs longer than:  (UN-CHECK)
+'     (CHECK)    If the task is already running, then the following rule applies: [ Do not start a new instance ]
 '
 ' ------------------------------------------------------------
 '

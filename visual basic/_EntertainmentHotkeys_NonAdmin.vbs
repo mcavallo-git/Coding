@@ -11,14 +11,18 @@
 '     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:
-'     At log on of [current user]
+'     At log on of [current user] - After triggered, repeat every [ 5 minutes ] for a duration of [ Indefinitely ]
 '
 '   Action:
-'     Program/script:   "C:\Program Files\AutoHotkey-v2\AutoHotkey64.exe"
+'     Program/script:   "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe"
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\ahk\_EntertainmentHotkeys.ahkv2"
 '
+'   Conditions:
+'     (UN-CHECK) Start the task only if the computer is on AC power
+'
 '   Settings:
-'     (CHECK)    Stop this task if it runs longer than:  2 minutes
+'     (UN-CHECK) Stop this task if it runs longer than:  (UN-CHECK)
+'     (CHECK)    If the task is already running, then the following rule applies: [ Do not start a new instance ]
 '
 ' ------------------------------------------------------------
 '

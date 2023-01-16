@@ -6,6 +6,8 @@
 '     WakeOnLan__ServerName   <-- Replace 'ServerName' with the server to Wake
 '
 '   Security Options:
+'     When running the task, use the following user account:
+'       SYSTEM
 '     Run only when user is logged on (UN-CHECKED)
 '     Run whether user is logged on or not (CHECKED)
 '     Run with highest privileges (UN-CHECKED)

@@ -13,10 +13,10 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:
-'     At log on of any user - After triggered, repeat every [ 5 minutes ] for a duration of [ 1436 minutes ]
+'     At log on of specific user: [ current user ] - After triggered, repeat every [ 5 minutes ] for a duration of [ Indefinitely ]
 '
 '   Settings:
-'     (CHECK)    Stop this task if it runs longer than:  2 minutes
+'     (CHECK)    Stop this task if it runs longer than:  30 seconds
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

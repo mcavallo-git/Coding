@@ -10,6 +10,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '   Security Options:
 '     Run only when user is logged on (CHECKED)
+'     Run whether user is logged on or not (UN-CHECKED)
 '     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:

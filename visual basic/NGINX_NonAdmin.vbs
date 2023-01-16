@@ -8,15 +8,17 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '   Name/Description:
 '     NGINX_NonAdmin
 '
+'   Security Options:
+'     Run only when user is logged on (CHECKED)
+'     Run whether user is logged on or not (UN-CHECKED)
+'     Run with highest privileges (UN-CHECKED)
+'
 '   Trigger:
-'     Either [ At log on [ or [ Manually triggered ] (depending on use case)
+'     Either [ At log on ] or [ Manually triggered ] (depending on use case)
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
 '     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\NGINX_NonAdmin.vbs"
-'
-'   Run only when user is logged on (CHECKED)
-'   Run with highest privileges (UN-CHECKED)
 '
 '
 ' ------------------------------------------------------------

@@ -1,6 +1,5 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Stop-Process -Name nginx -ErrorAction SilentlyContinue;"" ", 0, True
 
-
 ' ------------------------------------------------------------
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:

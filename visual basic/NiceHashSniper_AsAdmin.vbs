@@ -1,6 +1,5 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-Object { @('app_nhm','excavator','NiceHashMiner').Contains($_.Name) } | Stop-Process -Force; "" ", 0, True
 
-
 ' ------------------------------------------------------------
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:

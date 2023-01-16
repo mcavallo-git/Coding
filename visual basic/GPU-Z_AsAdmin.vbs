@@ -1,6 +1,5 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Start-Process -Filepath ('C:\Program Files (x86)\GPU-Z\GPU-Z.exe') -ArgumentList (@('-restarted -minimized')) -NoNewWindow -Wait -PassThru -EA:0;"" ", 0, True
 
-
 ' ------------------------------------------------------------
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:

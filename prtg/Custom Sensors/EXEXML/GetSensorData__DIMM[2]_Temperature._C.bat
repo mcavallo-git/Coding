@@ -1,1 +1,1 @@
-TYPE C:\ISO\HWiNFO64\Sensors\DIMM[2]_Temperature._C.json
+TYPE C:\ISO\HWiNFO64\Sensors\DIMM[2]_Temperature_(BANK_2_DIMM_B1)._C.json

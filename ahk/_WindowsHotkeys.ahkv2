@@ -44,30 +44,6 @@ SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorki
 
 ; ------------------------------------------------------------
 ;
-; Global Variables - Standardized / Statics
-;
-
-; Newline Characters
-CR := "`r"
-LF := "`n"
-
-; Associative array used to avoid store the latest updates for each ToolTip "WhichToolTip" available window (out of 20)
-WhichToolTips_TickCounts := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
-
-; ------------------------------------------------------------
-;
-; RFC3339-Specific Variables ( Internet date-time/timestamp standardization values, https://tools.ietf.org/html/rfc3339 )
-;  |
-;  |-->  Example - RFC-3339 timestamp w/ timezone:   "2020-07-25 05:46:03-05:00"
-;
-RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
-RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
-RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
-RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
-RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
-
-; ------------------------------------------------------------
-;
 ; Setup targeting [ Windows Explorer ]-classed windows
 ;
 
@@ -107,16 +83,29 @@ If (FileExist(TrayIcon_Default)) {
 ;
 ~#Escape::
 {
-  global DebugMode
   BlockInput("Off")  ;  Stop blocking input (e.g. restore full interaction)
   Reload  ; Replaces the currently running instance of the script with a new one  -  https://lexikos.github.io/v2/docs/commands/Reload.htm
-  Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
+  Sleep 1000 ; If successful, the reload will close this instance during the sleep, so this line and everything below it will never be reached
+  ; global DebugMode
   ; If (DebugMode == 1) {
   ;   A_MsgBoxResult := MsgBox("The script could not be reloaded. Would you like to open it for editing?", A_ScriptName " - " A_ThisFunc,4)
   ;   If (A_MsgBoxResult = "Yes") {
   ;     Edit
   ;   }
   ; }
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + F1
+;   ACTION:  Edit this Script (the one you're reading right now)
+;
+#F1::
+{
+  Edit
+  ; Run("notepad.exe " A_ScriptFullPath)
   Return
 }
 
@@ -568,13 +557,17 @@ Pause::
 ; +#d::  ;  20221020T203014.000                (Shift + WinKey + D)  <-- Note:  Keeps bringing up start menu...?
 {
   global DebugMode
-  global RFC3339_DateAndTimeField_Separator
-  global RFC3339_DecimalSeconds_Separator
-  global RFC3339_HourMinuteSecond_Separator
-  global RFC3339_UTC_ZeroHourReplacement
-  global RFC3339_YearMonthDay_Separator
   SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  ; ------------------------------
+  ;
+  ; RFC3339 compliant datetime/timestamp separators ( Date and Time on the Internet: Timestamps - https://tools.ietf.org/html/rfc3339 )
+  ;
+  RFC3339_DateAndTimeField_Separator := "T"  ; Character-separator between [ date- and time-fields ]
+  RFC3339_DecimalSeconds_Separator := "."  ; Character-separator between [ seconds and fractions-of-a-second (microsecond/millisecond) values ]
+  RFC3339_HourMinuteSecond_Separator := ":"  ; Character-separator between [ hour, minute, and second time-field ] values
+  RFC3339_UTC_ZeroHourReplacement := "Z"  ; Replacement-string to use for timezone when the UTC timezone (UTC+00:00) is output
+  RFC3339_YearMonthDay_Separator := "-"  ; Character-separator between [ year, month, and day date-field values ]
   ; ------------------------------
   AltPressed := InStr(A_ThisHotkey,"!")
   CtrlPressed := InStr(A_ThisHotkey,"^")
@@ -654,18 +647,6 @@ Pause::
   ; ------------------------------
   ; Send the timestamp
   Send SendKeys
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  WinKey + F1
-;   ACTION:  Edit this Script (the one you're reading right now)
-;
-#F1::
-{
-  Run("notepad.exe " A_ScriptFullPath)
   Return
 }
 
@@ -3697,9 +3678,9 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm
 ;
 ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
-  global WhichToolTips_TickCounts
+  global ShowToolTip_TickCountsMap
   Start_TickCount := A_TickCount
-  WhichToolTips_TickCounts[WhichToolTip] := Start_TickCount
+  ShowToolTip_TickCountsMap[WhichToolTip] := Start_TickCount
   SetTimer () => ShowToolTip_Auto(Text, X, Y, WhichToolTip, Period, Start_TickCount), 50
   ; SetTimer () => ClearTooltip(0,WhichToolTip), (Period * -1)
   ; ClearTooltip(0,WhichToolTip)
@@ -3707,11 +3688,11 @@ ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
 }
 ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_TickCount:=0) {
   global DebugMode
-  global WhichToolTips_TickCounts
+  global ShowToolTip_TickCountsMap
   CoordMode "Mouse", "Screen"
   CoordMode "ToolTip", "Screen"
   Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
-  If ((WhichToolTips_TickCounts[WhichToolTip] != Start_TickCount) || (Remaining_TickCount <= 0)) {
+  If ((ShowToolTip_TickCountsMap[WhichToolTip] != Start_TickCount) || (Remaining_TickCount <= 0)) {
     ClearTooltip(0,WhichToolTip)  ; Remove the tooltip
     SetTimer , 0  ; Mark the timer for deletion
   } Else {
@@ -3735,6 +3716,8 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
   }
   Return
 }
+; Map (associative array) used by parent functions "ShowToolTip" & "ShowToolTip_Auto" to store the latest updates for each "WhichToolTip" available window (out of 20)
+ShowToolTip_TickCountsMap := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
 
 
 ; ------------------------------
@@ -5526,6 +5509,8 @@ Youtube_EditDraft_Submit() {
 ;   stackoverflow.com  |  "How can I set AutoHotKey's code to run only in chrome?"  |  https://stackoverflow.com/a/50180863
 ;
 ;   stackoverflow.com  |  "powershell - Setting screen resolution on Windows 10 - Stack Overflow"  |  https://stackoverflow.com/a/49375988
+;
+;   tools.ietf.org  |  "RFC 3339: Date and Time on the Internet: Timestamps"  |  https://tools.ietf.org/html/rfc3339
 ;
 ;   www.autohotkey.com  |  "Advanced Hotkey Features | AutoHotkey"  |  https://www.autohotkey.com/docs/HotkeyFeatures.htm#pass-through
 ;

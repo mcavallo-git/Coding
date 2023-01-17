@@ -6,11 +6,12 @@
 '     HardwareSensorReadings_AsAdmin
 '
 '   Security Options:
-'     Run only when user is logged on (UNCHECKED)
+'     Run only when user is logged on (UN-CHECKED)
+'     Run whether user is logged on or not (CHECKED)
 '     Run with highest privileges (CHECKED)
 '
 '   Trigger:
-'     On a schedule - At 00:00:30 every day - After triggered, repeat every 1 minute for a duration of 1439 minutes
+'     On a schedule - At 00:00:30 every day - After triggered, repeat every 1 minute for a duration of [ Indefinitely ]
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe

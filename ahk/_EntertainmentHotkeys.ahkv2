@@ -64,16 +64,29 @@ If (DebugMode == 1) {
 ;
 ~#Escape::
 {
-  global DebugMode
   BlockInput("Off")  ;  Stop blocking input (e.g. restore full interaction)
   Reload  ; Replaces the currently running instance of the script with a new one  -  https://lexikos.github.io/v2/docs/commands/Reload.htm
-  Sleep 1000 ; If successful, the reload will close this instance during the sleep, so the line below will never be reached.
+  Sleep 1000 ; If successful, the reload will close this instance during the sleep, so this line and everything below it will never be reached
+  ; global DebugMode
   ; If (DebugMode == 1) {
   ;   A_MsgBoxResult := MsgBox("The script could not be reloaded. Would you like to open it for editing?", A_ScriptName " - " A_ThisFunc,4)
   ;   If (A_MsgBoxResult = "Yes") {
   ;     Edit
   ;   }
   ; }
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  Ctrl + WinKey + F1
+;   ACTION:  Edit this Script (the one you're reading right now)
+;
+^#F1::
+{
+  Edit
+  ; Run("notepad.exe " A_ScriptFullPath)
   Return
 }
 

@@ -108,7 +108,7 @@ If (FileExist(TrayIcon_Default)) {
 #F1::
 {
   ; Edit
-  Run("notepad.exe " A_ScriptFullPath)  ; Avoids the error "Another instance of X is already running as Administrator"
+  Run("notepad.exe " A_ScriptFullPath)  ; Avoids the error [ Another instance of Code is already running as administrator. Please close the other instance and try again. ]
   Return
 }
 

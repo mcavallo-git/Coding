@@ -44,12 +44,13 @@ SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorki
 
 ; ------------------------------------------------------------
 ;
-; Setup targeting [ Windows Explorer ]-classed windows
+; Setup targeting for [ Windows Explorer ]-classed windows
 ;
 
 GroupAdd("Explorer", "ahk_class ExploreWClass") ; Unused on Vista and later
 
 GroupAdd("Explorer", "ahk_class CabinetWClass")
+
 
 ; ------------------------------------------------------------
 ;
@@ -58,6 +59,7 @@ GroupAdd("Explorer", "ahk_class CabinetWClass")
 If (DebugMode == 1) {
   TrayTip "AHK", ("Version:  v" A_AhkVersion)  ; Toast Notification
 }
+
 
 ; ------------------------------------------------------------
 ;
@@ -69,6 +71,7 @@ TrayIcon_Gray := "_WindowsHotkeys.gray.ico"
 If (FileExist(TrayIcon_Default)) {
   TraySetIcon(TrayIcon_Default)
 }
+
 
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
@@ -4074,9 +4077,6 @@ WinGet_MonitorIndex(WinTitle,WinText:="") {
 ;   |--> "I wanted to be able to set a window to the top half or bottom half of a monitor just like windows 7 can do with left and right. I couldn't find a good script that worked well with my 3 monitor landscape / portrait layout. So I wrote one." -MrMaxP
 ;   |--> https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
-WinSnap_Prior_Destination_Direction := ""
-WinSnap_Prior_Destination_MonitorNumber := 0
-WinSnap_Prior_Destination_Size := ""
 WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_Direction:="Left",Destination_Size:="Half",Destination_MonitorNumber:="UseCurrentMonitor") {
   ; Destination_Direction := [ "Left", "Right", "Top", "Bottom", "Maximized", "Restored" ]
   ; Destination_Size := [ "Half","Left","Right","Top","Bottom" ]
@@ -4378,6 +4378,10 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
   }
   Return
 }
+; Variables to track the recent previous calls to function "WinSnap"
+WinSnap_Prior_Destination_Direction := ""
+WinSnap_Prior_Destination_MonitorNumber := 0
+WinSnap_Prior_Destination_Size := ""
 
 
 ; ------------------------------

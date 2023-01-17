@@ -274,7 +274,6 @@ function ExclusionsListUpdate {
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AMD\CNext\CNext"; Depth=""; Parent=""; Basename="RadeonSettings.exe"; }; # AMD-Radeon (GPU)
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="Ahk2Exe.exe"; }; # AHK (AutoHotkey)
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey"; Depth=""; Parent=""; Basename="AutoHotkey*.exe"; }; # AHK (AutoHotkey)
-    $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="AutoHotkey-v2"; Depth="0"; Parent=""; Basename="AutoHotkey*.exe"; }; # AHK (AutoHotkey)
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Classic Shell"; Depth="1"; Parent=""; Basename="*.exe"; }; # Classic Shell
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="Common Files\McAfee\SystemCore"; Depth="1"; Parent=""; Basename="*.exe"; }; # McAfee Management Service
     $ExcludedProcesses += @{ Dirname=${ProgFilesX64}; AddDir="CONEXANT"; Depth=""; Parent=""; Basename="*.exe"; }; # Conexant SmartAudio (audio driver)

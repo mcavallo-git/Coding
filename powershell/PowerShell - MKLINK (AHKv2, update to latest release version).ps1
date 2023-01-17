@@ -18,7 +18,7 @@ If ($True) {
   Write-Host "Info:  AHKv2 - latest available version = [ ${LatestVersion} ]" -ForegroundColor "Green";
   # ------------------------------
   # Update MKLINKs
-  $ParentDirectory="${env:ProgramFiles}\AutoHotkey-v2";
+  $ParentDirectory="${env:ProgramFiles}\AutoHotkey\v2";
   $LatestVersionDirectory="${ParentDirectory}\AutoHotkey_${LatestVersion}";
   If (-Not (Test-Path -PathType "Container" -Path ("${ParentDirectory}"))) {
     Write-Host "ERROR - Directory not found: `"${ParentDirectory}`" " -ForegroundColor "Yellow";

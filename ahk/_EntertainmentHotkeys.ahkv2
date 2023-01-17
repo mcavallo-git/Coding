@@ -27,6 +27,8 @@ A_MaxHotkeysPerInterval := 2000  ; https://lexikos.github.io/v2/docs/misc/A_MaxH
 
 #SingleInstance Force  ; https://lexikos.github.io/v2/docs/commands/_SingleInstance.htm
 
+; DetectHiddenText 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenText.htm
+
 DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenWindows.htm
 
 InstallKeybdHook  ; Keyboard hook is required to use variables `A_PriorHotkey` & `A_TimeSincePriorHotkey`  ; https://lexikos.github.io/v2/docs/commands/InstallKeybdHook.htm

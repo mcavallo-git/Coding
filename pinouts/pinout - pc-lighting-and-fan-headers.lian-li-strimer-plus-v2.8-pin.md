@@ -39,7 +39,7 @@
     * `5` --> `_____` | `_____`
     * `6` --> `_____` | `_____`
     * `7` --> `_____` | `_____`
-    * `8` --> `_____` | `_____` (White wire)
+    * `8` --> `_____` | `_____` (\* white wire)
 
   * \* Note: A visual landmark on the Strimer Plus V2 cables is the white `_____` wire (#8)
 

@@ -1787,17 +1787,17 @@ BrowserHover() {
   SetDefaultMouseSpeed 0
   SetControlDelay -1
   AwaitModifierKeyup()
-  TrayIcon := TrayIcon_Cached
+  TrayIcon := TrayIcon_Gray
   MoveDistance := 1
   Updated_TrayIcon := 0
   HoverAfter_Seconds := 240
-  If (FileExist(TrayIcon_Cached)) {
-    BusyIcon := TrayIcon_Cached
+  If (FileExist(TrayIcon_Gray)) {
+    BusyIcon := TrayIcon_Gray
   } Else {
     BusyIcon := TrayIcon_Default
   }
-  If (FileExist(TrayIcon_Gray)) {
-    WaitIcon := TrayIcon_Gray
+  If (FileExist(TrayIcon_Cached)) {
+    WaitIcon := TrayIcon_Cached
   } Else {
     WaitIcon := TrayIcon_Default
   }

@@ -1,13 +1,11 @@
 ## Lian Li UNI Fan SL-INF (7-Pin Header)
 
-* Along with the below pinout diagram, splicing instructions, and testing notes, I have also created a [visual pinout diagram for future reference](https://raw.githubusercontent.com/mcavallo-git/Coding/main/pinouts/pinout%20-%20pc-lighting-and-fan-headers.lian-li-sl-inf.7-pin.jpg)
-   * The below ascii art pinout diagram exists to avoid a dependency on the above visual image going missing, getting renamed, etc. (and ending up as a dead link)
+* This document exists for myself and others' future reference on how to directly connect Lian Li's SL-INF (infinity mirror) fans to separate, user selected `ARGB` & `PWM` sources. This is done to avoid requiring the use of Lian Li's included SL-INF controller, which resets every time the PC is restarted, and only works as-configured again once the connected PC is booted up, logged in, and has the Lian Li proprietary L-Connect software running (for more on this, see section `Testing & Verification` at the bottom of this document)
 
-&#x200B;
 
 ## Pinout Diagram
 
-* The following diagram below depicts a Lian Li UNI Fan SL-INF 7-pin male connector
+* The following diagram depicts a Lian Li UNI Fan SL-INF 7-pin male connector
   * The view is looking "down" on the male connector, which has its clip facing "up" towards the perspective of the viewer
 
                 1     2     3     4     5     6     7        
@@ -51,9 +49,9 @@
     * `6` --> `PWM` | `TACH`*
     * `7` --> `PWM` | `CONTROL`/`PWM`
 
-  * \* On 7-pin Y-splitter cables, a visual landmark is the `TACH` wire, as it is missing on one of the two Y-splitter outputs *(since only one fan's `TACH` (RPM sensor) data may be handed back to the upstream 4-pin PWM source, such as a motherboard).*
+  * \* Note: A visual landmark on the SL-INF 7-pin Y-splitter cables is the `TACH` wire, as it is missing on one of the two Y-splitter female outputs *(since only one fan's `TACH` (RPM sensor) data may be handed back to the upstream 4-pin PWM source, such as a motherboard).*
 
-&#x200B;
+  * \* Note: The ascii art pinout diagram exists to avoid depending on the image URL for my [visual pinout diagram](https://raw.githubusercontent.com/mcavallo-git/Coding/main/pinouts/pinout%20-%20pc-lighting-and-fan-headers.lian-li-sl-inf.7-pin.jpg) going missing, getting renamed, etc. (and ending up as a dead link)
 
 ## Splicing Instructions
 
@@ -64,10 +62,14 @@
     * Splice wires `4`, `5`, `6` and `7` to a female `PWM` (4-pin) cable
   * If you cut an existing 7-pin cable, make sure to leave plenty of excess on either side of the cut (for later use, if so desired)
   * If no additional 7-pin cables/Y-splitters are at-hand, the following crimp housings may be used to make new cables:
-    * [`Molex 50-57-9407` (male)](https://www.molex.com/molex/products/part-detail/crimp_housings/0050579407)
-    * [`Molex 70107-0006` (female)](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070006)
+    * [`Molex 50-57-9407` *(7-pin SL-INF male connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0050579407)
+    * [`Molex 70107-0006` *(7-pin SL-INF female connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070006)
 
-&#x200B;
+<!--
+  * Note that other Lian Li products (namely the Strimer line of PSU extensions) use a different 8-pin crimp housing:
+    * [`Molex 50-57-9408` *(8-pin Strimer male connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0050579408)
+    * [`Molex 70107-0007` *(8-pin Strimer female connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070007)
+-->
 
 ## Testing & Verification
 
@@ -78,11 +80,6 @@
 * Before beginning this endeavor, I contacted Lian Li's customer support regarding the cold boot RGB puke issue (RGB doesn't work as intended until you boot Windows > logon > run L-Connect3, and runs rainbow patterns over the fans until that point) and also requested a pinout of the 7-pin headers (which I didn't honestly expect them to provide).
    * They didn't offer a solution other than to not let the controller lose power on the USB input (which doesn't help my exact use case), otherwise it'll reset the device (to rainbow puke), or in their words, `discontinued power supply after cold boot that will back to default setting`.
    * They also politely declined to provide a pinout for the 7-pin connector, which is very understandable why they wouldn't give that info out (to avoid potentially accepting liability of users making custom cables, namely).
-
-* I hope this helps others to have more insight going into this splicing endavor than I had initially (none).
-
-&#x200B;
-
 
 <!-- https://github.com/mcavallo-git/Coding/blob/main/pinouts/pinout%20-%20pc-lighting-and-fan-headers.lian-li-sl-inf.7-pin.md -->
 

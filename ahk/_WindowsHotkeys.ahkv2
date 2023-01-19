@@ -65,7 +65,8 @@ If (DebugMode == 1) {
 ;
 ; Tray-Icon - Use a custom one instead of default AHK Icon (in Notification area next to clock, bottom-right)
 ;
-TrayIcon_Cached := "_WindowsHotkeys.cached.ico"
+TrayIcon_Cached_Default := "_WindowsHotkeys.cached.ico"
+TrayIcon_Cached_Gray := "_WindowsHotkeys.gray.cached.ico"
 TrayIcon_Default := "_WindowsHotkeys.ico"
 TrayIcon_Gray := "_WindowsHotkeys.gray.ico"
 If (FileExist(TrayIcon_Default)) {
@@ -1780,32 +1781,37 @@ AwaitModifierKeyup() {
 ;   |--> Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
 ;
 BrowserHover() {
-  global TrayIcon_Cached
+  global TrayIcon_Cached_Default
+  global TrayIcon_Cached_Gray
   global TrayIcon_Default
   global TrayIcon_Gray
   CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetControlDelay -1
   AwaitModifierKeyup()
-  TrayIcon := TrayIcon_Gray
+  TrayIcon := TrayIcon_Cached_Gray
   MoveDistance := 1
   Updated_TrayIcon := 0
   HoverAfter_Seconds := 240
-  If (FileExist(TrayIcon_Gray)) {
-    BusyIcon := TrayIcon_Gray
+  If (FileExist(TrayIcon_Cached_Gray)) {
+    BusyIcon := TrayIcon_Cached_Gray
   } Else {
     BusyIcon := TrayIcon_Default
   }
-  If (FileExist(TrayIcon_Cached)) {
-    WaitIcon := TrayIcon_Cached
+  If (FileExist(TrayIcon_Cached_Default)) {
+    WaitIcon := TrayIcon_Cached_Default
   } Else {
     WaitIcon := TrayIcon_Default
   }
-  TraySetIcon(WaitIcon)
+  If (FileExist(WaitIcon)) {
+    TraySetIcon(WaitIcon)
+  }
   Loop {
     If (A_TimeIdlePhysical >= (HoverAfter_Seconds * 1000)) {
       If (Updated_TrayIcon==0) {
-        TraySetIcon(BusyIcon)
+        If (FileExist(BusyIcon)) {
+          TraySetIcon(BusyIcon)
+        }
         Updated_TrayIcon := 1
       }
       MouseMove MoveDistance, 0, 0, "R"
@@ -1813,7 +1819,9 @@ BrowserHover() {
       MouseMove (MoveDistance * -1), 0, 0, "R"
     } Else {
       If (Updated_TrayIcon==1) {
-        TraySetIcon(WaitIcon)
+        If (FileExist(WaitIcon)) {
+          TraySetIcon(WaitIcon)
+        }
         Updated_TrayIcon := 0
       }
     }

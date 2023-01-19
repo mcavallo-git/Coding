@@ -1798,8 +1798,8 @@ BrowserHover() {
   } Else {
     BusyIcon := TrayIcon_Default
   }
-  If (FileExist(TrayIcon_Cached_Default)) {
-    WaitIcon := TrayIcon_Cached_Default
+  If (FileExist(TrayIcon_Gray)) {
+    WaitIcon := TrayIcon_Gray
   } Else {
     WaitIcon := TrayIcon_Default
   }

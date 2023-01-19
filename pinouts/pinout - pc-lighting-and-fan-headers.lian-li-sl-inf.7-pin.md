@@ -1,6 +1,6 @@
 ## Pinout - Lian Li UNI Fan SL-Infinity (SL-INF) 7-Pin Connector/Header
 
-* This document exists for myself and others' future reference on how to directly connect Lian Li's SL-INF (infinity mirror) fans to separate, user selected `ARGB` & `PWM` sources. This is done to avoid requiring the use of Lian Li's included SL-INF controller, which resets every time the PC is restarted, and only works as-configured again once the connected PC is booted up, logged in, and has the Lian Li proprietary L-Connect software running (for more on this, see section `Testing & Verification` at the bottom of this document)
+* This document exists for myself and others' future reference on how to directly connect Lian Li's SL-INF (infinity mirror) fans to separate, user selected `ARGB` & `PWM` sources. This is done to avoid requiring the use of Lian Li's proprietary SL-INF controller, which resets every time the PC is restarted, and only works as-configured again once the connected PC is booted up, logged in, and has the Lian Li L-Connect software running (for more on this, see section `Testing & Verification` at the bottom of this document)
 
 ## Pinout Diagram
 

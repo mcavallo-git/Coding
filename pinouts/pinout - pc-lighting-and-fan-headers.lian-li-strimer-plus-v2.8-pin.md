@@ -50,4 +50,8 @@
   * [`Molex 50-57-9408` *(8-pin PV2 male connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0050579408)
   * [`Molex 70107-0007` *(8-pin PV2 female connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070007
 
+## Testing & Verification
+
+* Pinout determined by manually checking the voltages (via multimeter) running across each lane of a Lian Li Strimer Plus V2 8-pin connector (while hot) & comparing its voltages against a control case of a standard ARGB connection's voltages
+
 <!-- https://github.com/mcavallo-git/Coding/blob/main/pinouts/pinout%20-%20pc-lighting-and-fan-headers.lian-li-strimer-plus-v2.8-pin.md -->

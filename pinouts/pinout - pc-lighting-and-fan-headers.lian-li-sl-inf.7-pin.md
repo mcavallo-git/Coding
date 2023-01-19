@@ -1,4 +1,4 @@
-## Lian Li UNI Fan SL-INF (7-Pin Header)
+## Pinout - Lian Li UNI Fan SL-Infinity (SL-INF) 7-Pin Connector/Header
 
 * This document exists for myself and others' future reference on how to directly connect Lian Li's SL-INF (infinity mirror) fans to separate, user selected `ARGB` & `PWM` sources. This is done to avoid requiring the use of Lian Li's included SL-INF controller, which resets every time the PC is restarted, and only works as-configured again once the connected PC is booted up, logged in, and has the Lian Li proprietary L-Connect software running (for more on this, see section `Testing & Verification` at the bottom of this document)
 
@@ -59,16 +59,10 @@
     * Splice wires `1`, `2`, and `3` to a female `ARGB` (3-pin) cable
       * Note: A female ARGB termination can act as a male termination via an `ARGB` 3-pin male to male adapter
     * Splice wires `4`, `5`, `6` and `7` to a female `PWM` (4-pin) cable
-  * If you cut an existing 7-pin cable, make sure to leave plenty of excess on either side of the cut (for later use, if so desired)
-  * If no additional 7-pin cables/Y-splitters are at-hand, the following crimp housings may be used to make new cables:
-    * [`Molex 50-57-9407` *(7-pin SL-INF male connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0050579407)
-    * [`Molex 70107-0006` *(7-pin SL-INF female connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070006)
-
-<!--
-  * Note that other Lian Li products (namely the Strimer line of PSU extensions) use a different 8-pin crimp housing:
-    * [`Molex 50-57-9408` *(8-pin Strimer male connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0050579408)
-    * [`Molex 70107-0007` *(8-pin Strimer female connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070007)
--->
+* If you cut an existing 7-pin cable, make sure to leave plenty of excess on either side of the cut (for later use, if so desired)
+* If no additional 7-pin cables are at-hand, the following crimp housings may be used to make new cables:
+  * [`Molex 50-57-9407` *(7-pin SL-INF male connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0050579407)
+  * [`Molex 70107-0006` *(7-pin SL-INF female connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070006)
 
 ## Testing & Verification
 

@@ -9,7 +9,7 @@
 ## Pinout Diagram
 
         1     2     3     4     5     6     7   
-                                               
+                                                
      -------------------------------------------
      | 5V  |  D  |  G  |  G  | 12V |  T  |  C  |
      -------------------------------------------
@@ -25,13 +25,13 @@
      |     |     |     |     |     |     |     |
      |     |     |     |     |     |     |     |
      -------------------------------------------
-       |     |     |     |     |     |     |
-       |     |     |     |     |     |     |
-           |     |     |  |  |     |     |
-           |     |     |  |  |     |     |
-               |    |   |||   |    |
-               |    |   |||   |    |
-                   |   |||||   |
+       |     |     |     |     |     |     |    
+       |     |     |     |     |     |     |    
+           |     |     |  |  |     |     |      
+           |     |     |  |  |     |     |      
+               |    |   |||   |    |            
+               |    |   |||   |    |            
+                   |   |||||   |                
                    |   |||||   |
                        |||||||
                        |||||||
@@ -87,7 +87,7 @@
 
 Hope this helps others going into this endavor less blind than myself!
 
-<!-- https://raw.githubusercontent.com/mcavallo-git/Coding/main/pinouts/pinout%20-%20pc-lighting-and-fan-headers.lian-li-sl-inf.7-pin.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/pinouts/pinout%20-%20pc-lighting-and-fan-headers.lian-li-sl-inf.7-pin.md -->
 
 <!-- https://www.reddit.com/r/lianli/comments/vg180s/sl_infinity_cables/ -->
 <!-- https://www.reddit.com/r/lianli/comments/vspuvp/hi_im_trying_to_install_the_uni_fan_sl_inf_120/ -->

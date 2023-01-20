@@ -7,30 +7,30 @@
 * The following diagram depicts a Lian Li Strimer Plus V2 8-pin male connector
   * The view is looking "down" on the male connector, which has its two tabs facing "up" towards the perspective of the viewer
 
-                1     2     3     4     5     6     7     8        
-                                                                   
-             -------------------------------------------------     
-             |  G  |  D  |  D  |  D  |  D  |  D  |  D  | 5V  |     
-             -------------------------------------------------     
-             |       |                               |       |     
-             |       |                               |       |     
-             |       |                               |       |     
-             |       |                               |       |     
-             |       |-------------------------------|       |     
-             |                                               |     
-             -------------------------------------------------     
-                |     |     |     |     |     |     |     |        
-                |     |     |     |     |     |     |     |        
-                  |     |     |    |   |    |     |     |          
-                    |     |    |   |   |   |    |     |            
-                      |    |   |   |   |   |   |    |              
-                       |   |   |   |   |   |   |   |               
-                       |   |   |   |   |   |   |   |               
-                       |   |   |   |   |   |   |   |               
-                       |   |   |   |   |   |   |   |               
-                       |   |   |   |   |   |   |   |               
-                       |   |   |   |   |   |   |   |               
-                       |   |   |   |   |   |   |   |               
+           1     2     3     4     5     6     7     8   
+                                                         
+        -------------------------------------------------
+        |  G  |  D  |  D  |  D  |  D  |  D  |  D  | 5V  |
+        -------------------------------------------------
+        |       |                               |       |
+        |       |                               |       |
+        |       |                               |       |
+        |       |                               |       |
+        |       |-------------------------------|       |
+        |                                               |
+        -------------------------------------------------
+           |     |     |     |     |     |     |     |   
+           |     |     |     |     |     |     |     |   
+             |     |     |    |   |    |     |     |     
+               |     |    |   |   |   |    |     |       
+                 |    |   |   |   |   |   |    |         
+                  |   |   |   |   |   |   |   |          
+                  |   |   |   |   |   |   |   |          
+                  |   |   |   |   |   |   |   |          
+                  |   |   |   |   |   |   |   |          
+                  |   |   |   |   |   |   |   |          
+                  |   |   |   |   |   |   |   |          
+                  |   |   |   |   |   |   |   |          
 
   * In order from left to right, the pinout is:
     * `1` --> `ARGB` | `GROUND`
@@ -48,7 +48,7 @@
 
 * If no additional 8-pin cables are at-hand, the following crimp housings may be used to make new cables:
   * [`Molex 50-57-9408` *(8-pin PV2 male connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0050579408)
-  * [`Molex 70107-0007` *(8-pin PV2 female connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070007
+  * [`Molex 70107-0007` *(8-pin PV2 female connector)*](https://www.molex.com/molex/products/part-detail/crimp_housings/0701070007)
 
 ## Testing & Verification
 

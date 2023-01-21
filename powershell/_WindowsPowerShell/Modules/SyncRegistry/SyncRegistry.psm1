@@ -1697,6 +1697,32 @@ function SyncRegistry {
         )
       };
 
+      # Xbox Game Bar - Disable Windows-Key + G Hotkey (by disabling game DVR captures)
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR";
+        Props=@(
+          @{
+            Description="Set to [ 0 ] to Disable, [ 1 ] to Enable option 'Enable Xbox Game Bar for things like recording game clips, chatting with friends, and receiving game invites. (Some games require Xbox Game Bar for receiving game invites.)' under Win10 Settings > Home > Gaming > Xbox Game Bar";
+            Name="AppCaptureEnabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\System\GameConfigStore";
+        Props=@(
+          @{
+            Description="Set to [ 0 ] to Disable, [ 1 ] to Enable option 'Record game clips and take screenshots using Game DVR' under Xbox App > Settings > Game DVR";
+            Name="GameDVR_Enabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+
       # Windows Update - Force-pull from Microsoft servers instead of local/WSUS servers
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
@@ -2196,6 +2222,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #
+#   superuser.com  |  "keyboard shortcuts - How to disable Windows Gamebar mapping? - Super User"  |  https://superuser.com/a/1097169
+#
 #   superuser.com  |  "My 'Edit' context action when right-clicking a Powershell file has disappeared - Super User"  |  https://superuser.com/a/656681
 #
 #   superuser.com  |  "windows 10 - Registry keys to change personalization settings? - Super User"  |  https://superuser.com/a/1395560
@@ -2245,6 +2273,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.tenforums.com  |  "How to Specify Target Feature Update Version in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/159624-how-specify-target-feature-update-version-windows-10-a.html#6
 #
 #   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
+#
+#   www.thewindowsclub.net  |  "Enable or Disable Game DVR or Game Bar in Windows 11/10"  |  https://www.thewindowsclub.com/enable-disable-game-dvr-windows-10
 #
 #   www.thewindowsclub.net  |  "Enable or Disable News and Interests on Taskbar in Windows 10"  |  https://www.thewindowsclub.com/enable-or-disable-news-and-interests-on-taskbar
 #

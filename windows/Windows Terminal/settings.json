@@ -52,7 +52,8 @@
         "guid": "{04074ee9-099c-4af8-80d5-5b10185887b9}",
         "hidden": false,
         "icon": "%ProgramFiles%\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-        "name": "Git Bash"
+        "name": "Git Bash",
+        "suppressApplicationTitle": true
       },
       {
         "commandline": "%windir%\\System32\\wsl.exe -d Ubuntu",

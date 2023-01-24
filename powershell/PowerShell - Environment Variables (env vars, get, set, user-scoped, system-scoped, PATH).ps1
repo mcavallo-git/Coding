@@ -109,8 +109,8 @@ If ($True) {
 If ($True) {
   $User_Env_PATH_Appends_Arr = @();
   $User_Env_PATH_Appends_Arr += @("C:\ISO\PATH";);
-  $User_Env_PATH_Appends_Arr += @("${HOME}\Documents\GitHub\cloud-infrastructure\usr\local\bin");
-  $User_Env_PATH_Appends_Arr += @("${HOME}\Documents\GitHub\cloud-infrastructure\usr\local\sbin");
+  $User_Env_PATH_Appends_Arr += @("${HOME}\Documents\GitHub\cloud-infrastructure\usr\local\bin");  # For docker_* scripts
+  $User_Env_PATH_Appends_Arr += @("${HOME}\Documents\GitHub\cloud-infrastructure\usr\local\sbin"); # For install_* scripts
   $User_Env_PATH_Appends_Arr | ForEach-Object {
     $AppendPath=(${_});
     If ((Test-Path -Path ("${AppendPath}")) -NE ($False)) {

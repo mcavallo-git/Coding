@@ -268,19 +268,24 @@ fi;
 if [[ 1 -eq 1 ]]; then
   # Clean up empty git directories (after they've been migrated to ${REPOS_DIR})
   DIRECTORY_TO_CLEAN="${HOME}/git";
-  # Show the directories to delete
-  echo "------------------------------";
-  echo "--- Listing empty directories...";
-  echo "";
-  find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -print;
-  echo "";
-  echo "------------------------------";
-  # Require user confirmation (press 'y' to confirm)
-  echo "";
-  read -p "Delete the above directories?  (press 'y' to confirm)  " -n 1 -t 60 <'/dev/tty'; EXIT_CODE=${?};
-  if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
-    # Delete the matched directories
-    find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -delete;
+  # Continue only if one or more empty directories exist
+  if [[ "$(find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -print 2>'/dev/null'| wc -l;)" -gt 0 ]]; do
+    # Show the directories to delete
+    echo "------------------------------";
+    echo "--- Listing empty directories...";
+    echo "";
+    find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -print;
+    echo "";
+    echo "------------------------------";
+    # Require user confirmation (press 'y' to confirm)
+    echo "";
+    read -p "Delete the above directories?  (press 'y' to confirm)  " -n 1 -t 60 <'/dev/tty'; EXIT_CODE=${?};
+    if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+      # Delete the matched directories
+      find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -delete;
+    else
+      break;
+    fi;
   fi;
 fi;
 

@@ -5,6 +5,24 @@
 # Note: Use [ <'/dev/tty' ] to pipe terminal input to the 'read' command so that it functions with curl'ed scripts
 # Note: Avoid using the [ -r ] argument when calling 'read', as it breaks curl'ed scripts containing escaped characters
 # ------------------------------------------------------------
+
+if [[ 1 -eq 1 ]]; then
+#
+# Require user confirmation (press 'y' to confirm)
+#
+
+read -p "Continue?  (press 'y' to confirm)  " -n 1 -t 60 <'/dev/tty'; EXIT_CODE=${?};
+if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+  echo "Confirmed - Continuing...";
+else
+  echo "Denied";
+fi;
+
+
+fi;
+
+
+# ------------------------------------------------------------
 #
 # Single character entry
 #

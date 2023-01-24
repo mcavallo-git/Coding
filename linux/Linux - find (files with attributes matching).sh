@@ -282,7 +282,8 @@ if [[ 1 -eq 1 ]]; then
     read -p "Delete the above directories?  (press 'y' to confirm)  " -n 1 -t 60 <'/dev/tty'; EXIT_CODE=${?};
     if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
       # Delete the matched directories
-      find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -delete;
+      find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -delete -print; # Delete transparently by adding the "-print" argument
+    # find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -delete; # Delete silently by not adding the "-print" argument
     else
       break;
     fi;

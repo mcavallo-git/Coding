@@ -243,19 +243,45 @@ fi;
 
 
 # ------------------------------
-
+#
 # Delete items within a directory older than X days
+#
 
 if [[ 1 -eq 1 ]]; then
-# Cleanup NGINX Logs
-DIRECTORY_TO_CLEAN="/var/log/nginx/";
-RETENTION_DAYS=60;
-find ${DIRECTORY_TO_CLEAN} \
--type f \
--mtime +${RETENTION_DAYS} \
--exec printf "$(date --utc +'%Y-%m-%dT%H:%M:%S.%NZ';) $(whoami)@$(hostname) | " \; \
--exec rm -v -- '{}' \; \
-;
+  # Cleanup NGINX Logs
+  DIRECTORY_TO_CLEAN="/var/log/nginx/";
+  RETENTION_DAYS=60;
+  find ${DIRECTORY_TO_CLEAN} \
+    -type f \
+    -mtime +${RETENTION_DAYS} \
+    -exec printf "$(date --utc +'%Y-%m-%dT%H:%M:%S.%NZ';) $(whoami)@$(hostname) | " \; \
+    -exec rm -v -- '{}' \; \
+  ;
+fi;
+
+
+# ------------------------------
+#
+# Delete empty directories
+#
+
+if [[ 1 -eq 1 ]]; then
+  # Clean up empty git directories (after they've been migrated to ${REPOS_DIR})
+  DIRECTORY_TO_CLEAN="${HOME}/git";
+  # Show the directories to delete
+  echo "------------------------------";
+  echo "--- Listing empty directories...";
+  echo "";
+  find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -print;
+  echo "";
+  echo "------------------------------";
+  # Require user confirmation (press 'y' to confirm)
+  echo "";
+  read -p "Delete the above directories?  (press 'y' to confirm)  " -n 1 -t 60 <'/dev/tty'; EXIT_CODE=${?};
+  if [[ "${REPLY}" =~ ^[Yy]$ ]]; then
+    # Delete the matched directories
+    find "${DIRECTORY_TO_CLEAN}" -type "d" -empty -delete;
+  fi;
 fi;
 
 
@@ -377,5 +403,7 @@ fi;
 # Citation(s)
 #
 #   linux.die.net  |  "find(1) - Linux man linux"  |  https://linux.die.net/man/1/find
+#
+#   unix.stackexchange.com  |  "linux - how can I recursively delete empty directories in my home directory? - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/46326
 #
 # ------------------------------------------------------------

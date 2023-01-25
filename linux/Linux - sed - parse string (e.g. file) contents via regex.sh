@@ -98,10 +98,26 @@ sed -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" -i".$(date +'%
 
 # ------------------------------------------------------------
 #
-# sed -z  (match multiple lines, newline matching - requires GNU sed)
+# sed -z  (Ex 1)  (match multiple lines, newline matching - requires GNU sed)
 #
 
 echo -e "This is\na test\nPlease do not\nbe alarmed" | sed -z 's/a test\nPlease do not\nbe/not a test\nBe/'
+
+# ------------------------------------------------------------
+#
+# sed -z  (Ex 2)  (match multiple lines, newline matching - requires GNU sed)
+#
+
+if [[ 1 -eq 1 ]]; then
+  REMOTE_HOST="github.com";
+  SSH_CONFIG_APPEND="# git_init - Disable StrictHostKeyChecking for \"${REMOTE_HOST}\" (git repo provider)\nHost ${REMOTE_HOST}\n  StrictHostKeyChecking no";  # \n  UserKnownHostsFile /dev/null
+  TEST_STRING="$(printf -- "-%.0s" {1..60};)\n${SSH_CONFIG_APPEND}\n$(printf -- "=%.0s" {1..60};)";
+  echo -e "\n\n\nShow the string BEFORE slicing multiple lines out of it\n";
+  echo -n -e "${TEST_STRING}";
+  echo -e "\n\n\nShow the string AFTER slicing multiple lines out of it\n";
+  SED_PATTERN_SSH_CONFIG_UNDO="s/${SSH_CONFIG_APPEND}/#--REMOVED--#/";
+  echo -n -e "${TEST_STRING}" | sed -z "${SED_PATTERN_SSH_CONFIG_UNDO}";
+fi;
 
 
 # ------------------------------------------------------------

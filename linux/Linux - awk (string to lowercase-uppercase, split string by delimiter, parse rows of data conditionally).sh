@@ -55,6 +55,8 @@ find "${HOME}/" -type f -exec realpath "{}" \; 2>'/dev/null' | awk '(length >= 4
 #
 #   stackoverflow.com  |  "awk partly string match (if column/word partly matches) - Stack Overflow"  |  https://stackoverflow.com/a/17001897
 #
+#   stackoverflow.com  |  "How to convert a string to lower case in Bash? - Stack Overflow"  |  https://stackoverflow.com/a/2264537
+#
 #   stackoverflow.com  |  "regex - sed one-liner to convert all uppercase to lowercase? - Stack Overflow"  |  https://stackoverflow.com/a/11638374
 #
 #   unix.stackexchange.com  |  "bash - Filter and save in-place, lines with value less than or equal <= X in a specific column and with header - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/392316

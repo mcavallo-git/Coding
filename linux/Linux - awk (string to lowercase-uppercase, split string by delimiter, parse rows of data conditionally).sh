@@ -10,11 +10,10 @@ echo "Piped-String" | awk '{print "[ "$0" ] "}';
 # ------------------------------
 
 
-# Lowercase
+# Lowercase - awk (POSIX standard)
 echo "TO_LOWERCASE" | awk '{print tolower($0)}';
 
-
-# Uppercase
+# Uppercase - awk (POSIX standard)
 echo "to_uppercase" | awk '{print toupper($0)}';
 
 

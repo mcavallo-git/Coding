@@ -3,6 +3,12 @@
 # Linux - awk (string to lowercase-uppercase, split string by delimiter, parse rows of data conditionally)
 # ------------------------------------------------------------
 
+# Output a piped string
+echo "Piped-String" | awk '{print "[ "$0" ] "}';
+
+
+# ------------------------------
+
 
 # Lowercase
 echo "TO_LOWERCASE" | awk '{print tolower($0)}';

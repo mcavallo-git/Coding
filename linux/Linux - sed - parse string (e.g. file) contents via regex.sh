@@ -97,6 +97,14 @@ sed -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" -i".$(date +'%
 
 
 # ------------------------------------------------------------
+#
+# sed -z  (match multiple lines, newline matching - requires GNU sed)
+#
+
+echo -e "This is\na test\nPlease do not\nbe alarmed" | sed -z 's/a test\nPlease do not\nbe/not a test\nBe/'
+
+
+# ------------------------------------------------------------
 # 
 # Bulk-Rename files by within a given working-directory using regex-matched variable(s)
 #
@@ -526,6 +534,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #   unix.stackexchange.com  |  "How can I use sed to replace a multi-line string?"  |  https://unix.stackexchange.com/a/26290
 #
 #   unix.stackexchange.com  |  "linux - Remove duplicate lines from a file but leave 1 occurrence"  |  https://unix.stackexchange.com/a/504047
+#
+#   unix.stackexchange.com  |  "regular expression - How can I use sed to replace a multi-line string? - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/525524
 #
 #   unix.stackexchange.com  |  "shell script - Convert underscore to PascalCase, ie UpperCamelCase - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/196241
 #

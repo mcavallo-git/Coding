@@ -38,9 +38,10 @@ Open the Start Menu
 # Test Wake on LAN using configuration via [ a separate Windows PC ]
 #
 
-#   - Get the MAC address of the NIC (to be awoken) - Use it to replace "A1:B2:C3:D4:E5:F6" in the below powershell oneliner
+#   1) Get the MAC address of the NIC (to be awoken) - Use it to replace "A1:B2:C3:D4:E5:F6" in the below powershell oneliner
 
-#   - Shut down the PC, then attempt to wake it by sending a magic packet over the LAN via the following PowerShell script:
+#   2) Shut down the PC, then attempt to wake it by sending a magic packet over the LAN via the following PowerShell script:
+
 sv mac (write A1:B2:C3:D4:E5:F6); sv split_mac (@(((gv mac).Value).split((write :)) | foreach {((gv _).Value).insert(0,(write 0x))})); sv mac_byte_array ([Byte[]](((gv split_mac).Value)[0],((gv split_mac).Value)[1],((gv split_mac).Value)[2],((gv split_mac).Value)[3],((gv split_mac).Value)[4],((gv split_mac).Value)[5])); sv magic_packet ([Byte[]](,0xFF * 102)); 6..101 | ForEach-Object { ((gv magic_packet).Value)[((gv _).Value)] = ((gv mac_byte_array).Value)[(((gv _).Value)%6)]}; sv UDPclient (New-Object System.Net.Sockets.UdpClient); ((gv UDPclient).Value).Connect(([System.Net.IPAddress]::Broadcast),4000); ((gv UDPclient).Value).Send(((gv magic_packet).Value), ((gv magic_packet).Value).Length) | Out-Null;
 
 ### ^  Note that this syntax intentionally does not use quotes (double or single), and can be easily incorporated into a scheduled task
@@ -49,18 +50,16 @@ sv mac (write A1:B2:C3:D4:E5:F6); sv split_mac (@(((gv mac).Value).split((write 
 #
 # Test Wake on LAN using configuration via [ a mobile device ]
 #
-#   - Download a Wake on LAN app on your mobile device - For iOS devices, a suggested Wake on LAN app is 'Wolow"
+#   1) Download a Wake on LAN app on your mobile device - For iOS devices, a suggested Wake on LAN app is 'Wolow"
 #
-#   - Setup a Wake on Lan device on the mobile app with the following:
-#       Device Name = [ Nickname of device to wake ]
-#       MAC Address = [ MAC address of the NIC to wake ]
-#       IP Address = [ Broadcast address of the NIC to wake's network ]  (example(s): "192.168.0.255", "172.16.0.0", "10.0.0.255")
-#       IP Address = [ LAN IPv4 address of the NIC to wake ]  (ideally set this to static in router DHCP server)
-#       Wake on LAN port = [ 7 ]  (magic packet port - some devices use port 9 instead of 7)
+#   2) Setup a Wake on Lan device on the mobile app with the following:
+#        Device Name = [ Nickname of device to wake ]
+#        MAC Address = [ MAC address of the NIC to wake ]
+#        IP Address = [ Broadcast address of the NIC to wake's network ]  (example(s): "192.168.0.255", "172.16.0.0", "10.0.0.255")
+#        IP Address = [ LAN IPv4 address of the NIC to wake ]  (ideally set this to static in router DHCP server)
+#        Wake on LAN port = [ 7 ]  (magic packet port - some devices use port 9 instead of 7)
 #
-#   - Test your Wake on LAN configuration by shutting down the NIC (to be awoken)
-#
-#   - Once the PC is shut down, attempt to wake it by sending a magic packet over the LAN
+#   3) Shut down the PC, then attempt to wake it by sending a magic packet over the LAN via your mobile app
 #
 # ------------------------------
 #

@@ -1657,10 +1657,14 @@ function SyncRegistry {
         )
       };
 
-      # Screen Saver Settings
-      @("HKEY_LOCAL_MACHINE","${HKEY_USERS_SID_OR_CURRENT_USER}") | ForEach-Object {
+      # Screen Saver Settings (Desktop & Logon Screen)
+      @(
+        "Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop",  # Screen Saver Settings @ Desktop (All Users)
+        "Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop",  # Screen Saver Settings @ Desktop (Current User)
+        "Registry::HKEY_USERS\.DEFAULT\Control Panel\Desktop"  # Screen Saver Settings @ Logon Screen
+      ) | ForEach-Object {
         $RegEdits += @{
-          Path="Registry::${_}\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop";
+          Path="${_}";
           Props=@(
             @{
               Description="Password protect the screen saver - [1]=Enabled, e.g. all screen savers are password protected - Enables option 'On resume, display logon screen' under Screen Saver Settings in the Control Panel. [0]=Disabled, e.g. password protection cannot be set on any screen saver. This setting also disables the 'On resume, display logon screen' checkbox on the Screen Saver dialog in the Personalization or Display Control Panel, preventing users from changing the password protection setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverIsSecure]";
@@ -1695,18 +1699,18 @@ function SyncRegistry {
       };
 
       # Screen Saver Settings - Logon Screen
-      # $RegEdits += @{
-      #   Path="Registry::HKEY_LOCAL_MACHINE\______";
-      #   Props=@(
-      #     @{
-      #       Description="https://support.microsoft.com/en-us/topic/how-to-change-the-logon-screen-saver-in-windows-ab28d230-ffb9-65f8-74a9-c26c5e00ec73";
-      #       Name="_____";
-      #       Type="_____";
-      #       Value=_____;
-      #       Delete=$False;
-      #     }
-      #   )
-      # };
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\______";
+        Props=@(
+          @{
+            Description="https://support.microsoft.com/en-us/topic/how-to-change-the-logon-screen-saver-in-windows-ab28d230-ffb9-65f8-74a9-c26c5e00ec73";
+            Name="_____";
+            Type="_____";
+            Value=_____;
+            Delete=$False;
+          }
+        )
+      };
 
       # Windows Update - Block update to Windows 11
       $RegEdits += @{

@@ -50,38 +50,17 @@ sv mac (write A1:B2:C3:D4:E5:F6); sv split_mac (@(((gv mac).Value).split((write 
 #
 # Test Wake on LAN using configuration via [ a mobile device ]
 #
-#   1) Download a Wake on LAN app on your mobile device - For iOS devices, a suggested Wake on LAN app is 'Wolow"
+#   1) Download a Wake on LAN app on your mobile device - A decent Wake on LAN app for iOS is "Wolow"
 #
 #   2) Setup a Wake on Lan device on the mobile app with the following:
 #        Device Name = [ Nickname of device to wake ]
 #        MAC Address = [ MAC address of the NIC to wake ]
-#        IP Address = [ Broadcast address of the NIC to wake's network ]  (example(s): "192.168.0.255", "172.16.0.0", "10.0.0.255")
-#        IP Address = [ LAN IPv4 address of the NIC to wake ]  (ideally set this to static in router DHCP server)
+#        IP Address = [ Broadcast address of the NIC to wake's network ]  (if in a /24 subnet, it will be x.x.x.255, such as 192.168.0.255, 172.16.0.255 or 10.0.0.255, depending on your subnet IP range)
+#        IP Address = [ LAN IPv4 address of the NIC to wake ]  (ideally set this to static in router/DHCP server)
 #        Wake on LAN port = [ 7 ]  (magic packet port - some devices use port 9 instead of 7)
 #
 #   3) Shut down the PC, then attempt to wake it by sending a magic packet over the LAN via your mobile app
 #
-# ------------------------------
-#
-# Test Wake on LAN capability from another Windows computer
-#
-
-Download an app such as "Wolow" for iOS or "Wake On Lan" for Android
-
-> Set "Name" to the hostname of the WoL device
- 
-> Set "MAC Address" to the MAC address of the primary network adapter (configured above)
- 
-> Set "Broadcast Address" to the broadcast address of the current network (if in a /24 subnet, it will be x.x.x.255, such as 192.168.1.255 or 10.0.0.255, depending on your subnet IP range)
-
-> Set "IP Address" to the IP address of your device (ideally set as static via the router/DHCP server)
-
-> Set "wake on LAN port" to "7"
-
-
-Fire away - Shut down your computer and test the Wake on LAN (WoL) functionality by sending a magic packet and seeing if it wakes your device
-
-
 # ------------------------------------------------------------
 #
 # Citation(s)

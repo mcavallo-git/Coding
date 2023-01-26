@@ -1921,7 +1921,7 @@ function SyncRegistry {
         #
         # Power Options
         #
-        Write-Output "Power Options";
+        Write-Output "`n Power Options";
 
         # Set idle timeouts to 20 minutes
         Write-Output "  |-->  Setting idle/monitor timeout to 20 minutes";

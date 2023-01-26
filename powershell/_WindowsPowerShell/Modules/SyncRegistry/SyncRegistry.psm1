@@ -1698,20 +1698,6 @@ function SyncRegistry {
         };
       };
 
-      # Screen Saver Settings - Logon Screen
-      $RegEdits += @{
-        Path="Registry::HKEY_LOCAL_MACHINE\______";
-        Props=@(
-          @{
-            Description="https://support.microsoft.com/en-us/topic/how-to-change-the-logon-screen-saver-in-windows-ab28d230-ffb9-65f8-74a9-c26c5e00ec73";
-            Name="_____";
-            Type="_____";
-            Value=_____;
-            Delete=$False;
-          }
-        )
-      };
-
       # Windows Update - Block update to Windows 11
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";

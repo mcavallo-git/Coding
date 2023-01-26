@@ -3,10 +3,12 @@ function SyncRegistry {
 
     [Switch]$DisableClearType,  <# Disables 'ClearType' visual effect (to enable, do not pass this parameter #>
 
-    [Switch]$EnableWindowsUpdateActiveHours,  <# Enables Windows Update's 'Active Hours' functionality (to disable, do not pass this parameter )
+    [Switch]$EnableWindowsUpdateActiveHours,  <# Enables Windows Update's 'Active Hours' functionality (to disable, do not pass this parameter ) #>
 
     [ValidateSet('Ctrl+Shift','Left-Alt+Shift','Thai')]
     [String]$Hotkey_SwitchInputLanguage="",
+
+    [Switch]$SkipPowercfgUpdates,  <# Skips powercfg updates which [ disable hibernation mode, disable sleep mode, and set the monitor idle timeout ] #>
 
     [String]$UserSID="",   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[UserSID]) <-- To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])  #>
 
@@ -73,13 +75,22 @@ function SyncRegistry {
       # ------------------------------------------------------------
       # TO-DO
       #
-      #   Power Settings  -->  Monitor Off after 30-min
+      #   Power Options  -->  Turn off the display after: 20 minutes (at Desktop)
+      #    |
+      #    |-->  Via powerfg:
+      #                powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
+      #                powercfg.exe /SETACTIVE SCHEME_CURRENT
       #
-      #   Power Settings  -->  Never Sleep
+      #   Power Options  -->  Turn off the display after: 20 minutes (at Logon Screen)
+      #    |
+      #    |-->  Via powerfg:
+      #                powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
+      #                powercfg.exe /SETACTIVE SCHEME_CURRENT
+      #
+      #   Power Options  -->  Put the computer to sleep:  Never
       #
       #   Sound Scheme -->  Set to "No Sounds"
       #
-
       # ------------------------------------------------------------
       # Define any Network Maps which will be required during the runtime
       #  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)
@@ -1905,8 +1916,42 @@ function SyncRegistry {
       # Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services!MaxCompressionLevel"; <# Example of Registry Path w/ inline Property name #>
 
       # ------------------------------------------------------------
-      # Group-Policy Setting(s)
       #
+      # Power Options
+      #
+
+      If (-Not ($PSBoundParameters.ContainsKey('SkipPowercfgUpdates'))) {
+
+        Write-Output "`n";
+
+        # Set idle timeouts to 20 minutes
+        Write-Output "`nPower Options - Setting idle/monitor timeout to 20 minutes";
+        powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
+        powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
+        powercfg.exe -x -monitor-timeout-ac 1200
+        powercfg.exe -x -monitor-timeout-dc 1200
+
+        # Disable Hibernation
+        Write-Output "`nPower Options - Disabling hibernation";
+        powercfg.exe -hibernate off
+        powercfg.exe -x -hibernate-timeout-ac 0
+        powercfg.exe -x -hibernate-timeout-dc 0
+
+        # Disable Sleep Mode
+        Write-Output "`nPower Options - Disabling sleep mode";
+        powercfg.exe -x -standby-timeout-ac 0
+        powercfg.exe -x -standby-timeout-dc 0
+
+        Write-Output "`nPower Options - Saving current power scheme";
+        powercfg.exe -setactive SCHEME_CURRENT
+
+        Write-Output "`n";
+
+      }
+
+      # ------------------------------------------------------------
+      #
+      # Group-Policy Setting(s)
       #
       # EXPLANATION - WHY REGISTRY EDITS DON'T AFFECT GROUP POLICIES (GPEDIT.MSC)
       #  |
@@ -2275,6 +2320,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   superuser.com  |  "My 'Edit' context action when right-clicking a Powershell file has disappeared - Super User"  |  https://superuser.com/a/656681
 #
+#   superuser.com  |  "windows 7 - How to disable sleep mode via CMD? - Super User"  |  https://superuser.com/a/1330613
+#
 #   superuser.com  |  "windows 10 - Registry keys to change personalization settings? - Super User"  |  https://superuser.com/a/1395560
 #
 #   support-splashtopbusiness.splashtop.com  |  "What are the Windows Streamer registry settings? – Splashtop Business - Support"  |  https://support-splashtopbusiness.splashtop.com/hc/en-us/articles/360030993692
@@ -2308,6 +2355,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.howtogeek.com  |  "How to Make Windows 10’s Taskbar Clock Display Seconds"  |  https://www.howtogeek.com/325096/how-to-make-windows-10s-taskbar-clock-display-seconds/
 #
 #   www.howtogeek.com  |  "How to Remove the 'Send To' Menu from Windows' Context Menu"  |  https://www.howtogeek.com/howto/windows-vista/disable-the-send-to-folder-on-the-windows-explorer-context-menu/
+#
+#   www.makeuseof.com  |  "How to Change the Lock Screen and Screen Saver Timeout Settings on Windows"  |  https://www.makeuseof.com/windows-lock-screen-saver-timeout/
 #
 #   www.microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
 #

@@ -209,7 +209,7 @@ NumLock::
 ;
 ScrollLock::
 {
-  ; Send "^!+Z"
+  ; Send "!^+Z"
   Send "!+{F10}"
   Return
 }
@@ -361,7 +361,7 @@ Pause::
 ;   ACTION:  Paste the Clipboard
 ;
 *+^v::
-*^!v::
+*!^v::
 *^#v::
 {
   PasteClipboardAsBinary()
@@ -1214,7 +1214,7 @@ AppsKey & WheelDown::
 ;   ACTION:  Send a Checkmark
 ;
 +^k::
-^!k::
+!^k::
 ^#k::
 >#k::
 {
@@ -1231,7 +1231,7 @@ AppsKey & WheelDown::
 ;            Ctrl + Shift  + X
 ;   ACTION:  Send a Red X ("Cross Mark")
 ;
-^!x::
+!^x::
 ^#x::
 {
   SetKeyDelay 0, -1
@@ -1716,18 +1716,20 @@ LShift & RShift::
 ; ------------------------------
 ;
 ;   HOTKEY:  Alt + WinKey + C
+;            Ctrl + WinKey + C
+;            Ctrl + Alt + WinKey + C
 ;   ACTION:  Debug/quick-test hotkey
 ;
+!#c::
 ^#c::
+!^#c::
 {
+
+  ClickLoop()
 
   ; Windows_RefreshTrayIcons()
 
-  ; ClickLoop(-1,-1,250,12000)
-
-  ClickLoop(-1,-1,2000,12000)
-
-  ; ClickLoop(1247,1100,25,7200)
+  ; ClickLoop(1247,1100,25)
 
   ; Loop 20 {
   ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)
@@ -1849,9 +1851,9 @@ ClearTooltip(Period:=0, WhichToolTip:=1) {
 ; ------------------------------
 ;
 ; ClickLoop
-;   |--> Left click loop until script is cancelled or after MaxLoopIterations loop iterations
+;   |--> Click loop until script is cancelled (or after MaxLoopIterations loop iterations are reached if set to a value other than -1)
 ;
-ClickLoop(MouseX:=-1, MouseY:=-1, Timeout:=250, MaxLoopIterations:=-1) {
+ClickLoop(WhichButton:="Left", MouseX:=-1, MouseY:=-1, Timeout:=1000, MaxLoopIterations:=-1) {
   CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetKeyDelay 0, -1
@@ -1875,8 +1877,8 @@ ClickLoop(MouseX:=-1, MouseY:=-1, Timeout:=250, MaxLoopIterations:=-1) {
       TooltipOutput := "Clicking every " Timeout " ms..."
       ShowToolTip(TooltipOutput,,,,(Timeout*10))
     }
-    ; Send the left click
-    MouseClick "Left", Click_MouseX, Click_MouseY
+    ; Send the click event
+    MouseClick WhichButton, Click_MouseX, Click_MouseY
     ; Stop looping after MaxLoopIterations iterations (if specified)
     If (MaxLoopIterations != -1) {
       If (A_Index > MaxLoopIterations) {

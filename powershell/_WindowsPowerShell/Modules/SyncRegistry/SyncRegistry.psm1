@@ -1659,7 +1659,6 @@ function SyncRegistry {
 
       # Screen Saver Settings
       $RegEdits += @{
-      # Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop";
         Props=@(
           @{

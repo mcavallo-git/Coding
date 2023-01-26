@@ -1686,7 +1686,7 @@ function SyncRegistry {
             Description="Screen Saver executable name - [FILEPATH]=A filepath to a '.scr' screen saver file to use as the screen saver at user desktops. Can either be the basename of an '.scr' typed file located directly within the '%Systemroot%\System32' directory, or a fully qualified path to a '.scr' file. [EMPTY/FILE-NOT-FOUND/UNSET]=Disabled, e.g. Users can select any screen saver - If the specified screen saver is not installed on a computer to which this setting applies, it is equivalent to this setting being disabled. [Notes]=This setting disables the drop-down list of screen savers in the Screen Saver dialog in the Personalization or Display Control Panel, which prevents users from changing the screen saver. The file 'scrnsave.scr' refers to the 'Blank' screen saver option. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_SetScreenSaver]";
             Name="SCRNSAVE.EXE";
             Type="String";
-            Value="scrnsave.scr";
+            Value="%SYSTEMROOT%\System32\scrnsave.scr";
             Delete=$False;
           }
         )

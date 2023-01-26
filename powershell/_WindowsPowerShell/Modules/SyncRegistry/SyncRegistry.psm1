@@ -1914,7 +1914,6 @@ function SyncRegistry {
           powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
           powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
           powercfg.exe -x -monitor-timeout-ac 1200
-          powercfg.exe -setactive SCHEME_CURRENT
           Write-Output "  |-->  Setting `"Turn off the display after:`" to `"5 minutes`" while `"On battery`"";
           powercfg.exe -x -monitor-timeout-dc 300
           powercfg.exe -setactive SCHEME_CURRENT

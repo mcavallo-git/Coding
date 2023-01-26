@@ -23,10 +23,10 @@ echo "  a  b  c           d  " | awk '{$1=$1;print}';
 
 # ------------------------------------------------------------
 #
-# Piped strings
+# Piped string formatting
 #
 
-# Output a piped string
+# Output a piped string with desired format
 echo "Piped-String" | awk '{print "[ "$0" ] "}';
 
 

@@ -35,7 +35,7 @@ Open the Start Menu
 
 # ------------------------------
 #
-# Test Wake on LAN capability using mobile device to send WoL signal
+# Test Wake on LAN capability using either another Windows computer (with below PowerShell script) or a mobile device connected to the same LAN with an app that can send WoL magic packets (such as 'Wolow' for iOS)
 #
 
 > Replace the the value of "A1:B2:C3:D4:E5:F6" below with the MAC address of the primary network adapter (configured above)

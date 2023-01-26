@@ -1920,12 +1920,12 @@ function SyncRegistry {
           powercfg.exe -x -monitor-timeout-dc 300
           powercfg.exe -setactive SCHEME_CURRENT
           # Disable Sleep Mode
-          Write-Output "  |-->  Setting `"Put the computer to sleep:`" to `"Never`" (e.g. disable Sleep States S1-S3)";
+          Write-Output "  |-->  Setting `"Put the computer to sleep:`" to `"Never`"  (e.g. disable Sleep States S1-S3)";
           powercfg.exe -x -standby-timeout-ac 0
           powercfg.exe -x -standby-timeout-dc 0
           powercfg.exe -setactive SCHEME_CURRENT
           # Disable Hibernation
-          Write-Output "  |-->  Disabling Hibernation (e.g. disable Sleep States S4)";
+          Write-Output "  |-->  Setting `"Hibernation`" to `"Disabled`"  (e.g. disable Sleep States S4)";
           powercfg.exe -hibernate off
           powercfg.exe -x -hibernate-timeout-ac 0
           powercfg.exe -x -hibernate-timeout-dc 0

@@ -74,9 +74,10 @@ function SyncRegistry {
       # TO-DO
       #
       #   Power Settings  -->  Monitor Off after 30-min
-      #   Power Settings  -->  Never Sleep
-      #   Screen Saver  -->  Activate  [ Blank-Screensaver ("None" option) ]  after  [ 20-min ]
       #
+      #   Power Settings  -->  Never Sleep
+      #
+      #   Sound Scheme -->  Set to "No Sounds"
       #
 
       # ------------------------------------------------------------
@@ -202,19 +203,61 @@ function SyncRegistry {
         )
       };
 
-      # DateTimes
+      # Date and Time - Timestamp Formats ("Regional Settings")
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\International";
+        Props=@(
+          @{
+            Description="Date and time formats - Long date";
+            Name="sLongDate";
+            Type="String";
+            Value="dddd   dd MMMM, yyyy";
+            Delete=$False;
+          },
+          @{
+            Description="Date and time formats - Short date";
+            Name="sShortDate";
+            Type="String";
+            Value="yyyy-MM-dd";
+            Delete=$False;
+          },
+          @{
+            Description="Date and time formats - Short time";
+            Name="sShortTime";
+            Type="String";
+            Value="HH:mm";
+            Delete=$False;
+          },
+          @{
+            Description="Date and time formats - Long time";
+            Name="sTimeFormat";
+            Type="String";
+            Value="HH:mm:ss";
+            Delete=$False;
+          },
+          @{
+            Description="Date and time formats - _____";
+            Name="sYearMonth";
+            Type="String";
+            Value="MMMM yyyy";
+            Delete=$False;
+          }
+        )
+      };
+
+      # Date and Time - NTP Synchronization Settings
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\W32Time\Parameters";
         Props=@(
           @{
-            Description="DateTimes - Sets the clock to use NTP";
+            Description="Windows Time service tools and settings - 'Type' indicates which peers to accept synchronization from: [NoSync]=The time service does not synchronize with other sources. [NTP]=The time service synchronizes from the servers specified in the NtpServer (default value on stand-alone clients). registry entry. [NT5DS]=The time service synchronizes from the domain hierarchy (default value on domain members). [AllSync]=The time service uses all the available synchronization mechanisms. Citation=[https://learn.microsoft.com/en-us/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings#windows-registry-reference]";
             Name="Type";
             Type="String";
             Value="NTP";
             Delete=$False;
           },
           @{
-            Description="DateTimes - $?";
+            Description="Windows Time service tools and settings - 'ServiceMain' is maintained by W32Time. It contains reserved data that is used by the Windows operating system, and any changes to this setting can cause unpredictable results. The default value on domain members is SvchostEntry_W32Time. The default value on stand-alone clients and servers is SvchostEntry_W32Time. Citation=[https://learn.microsoft.com/en-us/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings]";
             Name="ServiceMain";
             Type="String";
             Value="SvchostEntry_W32Time";
@@ -1049,6 +1092,34 @@ function SyncRegistry {
         )
       };
 
+      # Mouse - Cursor/Pointer Appearance
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Cursors";
+        Props=@(
+          @{
+            Description="Set the mouse cursor's appearance - Can be any of [ Magnified, Windows Black (extra large), Windows Black (large), Windows Black, Windows Default (extra large), Windows Default (large), Windows Default, Windows Inverted (extra large), Windows Inverted (large), Windows Inverted, Windows Standard (extra large), Windows Standard (large), Blank (uses the pointer scheme '(None)') ]";
+            Name="(Default)";
+            Type="String";
+            Value="Windows Black (extra large)";
+            Delete=$False;
+          }
+        )
+      };
+
+      # Mouse - Set Sensitivity
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Mouse";
+        Props=@(
+          @{
+            Description="Set the mouse sensitivity between a minimum of [ 1 ] and a maximum of [ 20 ] (affects DPI calculations for current mouse)";
+            Name="MouseSensitivity";
+            Type="String";
+            Value=10;
+            Delete=$False;
+          }
+        )
+      };
+
       # Multimedia - Gaming Priority
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Multimedia\SystemProfile";
@@ -1319,6 +1390,7 @@ function SyncRegistry {
           }
         )
       };
+
       # Office 2016 Settings - Outlook
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\16.0\Outlook\Options\Mail";
@@ -1390,6 +1462,20 @@ function SyncRegistry {
         )
       };
 
+      # Power - Shut down/Restart Settings
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
+        Props=@(
+          @{
+            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shut Down/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+            Name="AutoEndTasks";
+            Type="String";
+            Value=1;
+            Delete=$False;
+          }
+        )
+      };
+
       # Prefetch
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters";
@@ -1418,96 +1504,12 @@ function SyncRegistry {
         )
       };
 
-      # Mouse - Cursor/Pointer Appearance
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Cursors";
-        Props=@(
-          @{
-            Description="Set the mouse cursor's appearance - Can be any of [ Magnified, Windows Black (extra large), Windows Black (large), Windows Black, Windows Default (extra large), Windows Default (large), Windows Default, Windows Inverted (extra large), Windows Inverted (large), Windows Inverted, Windows Standard (extra large), Windows Standard (large), Blank (uses the pointer scheme '(None)') ]";
-            Name="(Default)";
-            Type="String";
-            Value="Windows Black (extra large)";
-            Delete=$False;
-          }
-        )
-      };
-
-      # Shut down/Restart Settings
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
-        Props=@(
-          @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shut Down/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
-            Name="AutoEndTasks";
-            Type="String";
-            Value=1;
-            Delete=$False;
-          }
-        )
-      };
-
-      # Mouse - Set Sensitivity
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Mouse";
-        Props=@(
-          @{
-            Description="Set the mouse sensitivity between a minimum of [ 1 ] and a maximum of [ 20 ] (affects DPI calculations for current mouse)";
-            Name="MouseSensitivity";
-            Type="String";
-            Value=10;
-            Delete=$False;
-          }
-        )
-      };
-
-      # Date and time formats
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\International";
-        Props=@(
-          @{
-            Description="Date and time formats - Long date";
-            Name="sLongDate";
-            Type="String";
-            Value="dddd   dd MMMM, yyyy";
-            Delete=$False;
-          },
-          @{
-            Description="Date and time formats - Short date";
-            Name="sShortDate";
-            Type="String";
-            Value="yyyy-MM-dd";
-            Delete=$False;
-          },
-          @{
-            Description="Date and time formats - Short time";
-            Name="sShortTime";
-            Type="String";
-            Value="HH:mm";
-            Delete=$False;
-          },
-          @{
-            Description="Date and time formats - Long time";
-            Name="sTimeFormat";
-            Type="String";
-            Value="HH:mm:ss";
-            Delete=$False;
-          },
-          @{
-            Description="Date and time formats - _____";
-            Name="sYearMonth";
-            Type="String";
-            Value="MMMM yyyy";
-            Delete=$False;
-          }
-        )
-      };
-
       # SmartScreen for Microsoft Edge, Microsoft Store Apps
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System";
         Props=@(
           @{
-            Description="Set this value to [ 0 ] to turn off SmartScreen, [ 1 ] to give user a warning before running downloaded unknown software, [ 2 ] to require approval from an administrator before running downloaded unknown software ( from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen )";
+            Description="Set this value to [ 0 ] to turn off SmartScreen, [ 1 ] to give user a warning before running downloaded unknown software, [ 2 ] to require approval from an administrator before running downloaded unknown software ( from https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen )";
             Name="EnableSmartScreen";
             Type="DWord";
             Value=0;
@@ -1519,7 +1521,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
         Props=@(
           @{
-            Description="Set this value to [ 0 ] to allow users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious files, [ 1 ] to prevent users from bypassing the warnings, blocking them from downloading of the unverified file(s) (from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-files )";
+            Description="Set this value to [ 0 ] to allow users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious files, [ 1 ] to prevent users from bypassing the warnings, blocking them from downloading of the unverified file(s) (from https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-files )";
             Name="PreventOverrideAppRepUnknown";
             Type="DWord";
             Value=0;
@@ -1531,7 +1533,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
         Props=@(
           @{
-            Description="By default, Microsoft Edge allows users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious sites, allowing them to continue to the site. With this policy though, you can configure Microsoft Edge to prevent users from bypassing the warnings, blocking them from continuing to the site (from https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-sites )";
+            Description="By default, Microsoft Edge allows users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious sites, allowing them to continue to the site. With this policy though, you can configure Microsoft Edge to prevent users from bypassing the warnings, blocking them from continuing to the site (from https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-sites )";
             Name="PreventOverride";
             Type="DWord";
             Value=0;
@@ -1589,7 +1591,7 @@ function SyncRegistry {
 
       # Telemetry - Disable (as much as possible)  -  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::AllowTelemetry
       $RegEdits += @{
-        Path="Registry::HKEY_LOCAL_MACHINE\Software\Policies\Microsoft\Windows\DataCollection";
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection";
         Props=@(
           @{
             Description="Requires Windows 10 Enterprise Edition - Changes the level of diagnostic and usage (telemetry) data sent to Microsoft - 0=[Diagnostic data off], 1=[Send required diagnostic data], 2=[Send optional diagnostic data]";
@@ -1654,6 +1656,56 @@ function SyncRegistry {
           }
         )
       };
+
+      # Screen Saver Settings
+      $RegEdits += @{
+        # Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop";
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop";
+        Props=@(
+          @{
+            Description="Password protect the screen saver - [1]=Enabled, e.g. all screen savers are password protected. [0]=Disabled, e.g. password protection cannot be set on any screen saver. This setting also disables the 'On resume, display logon screen' checkbox on the Screen Saver dialog in the Personalization or Display Control Panel, preventing users from changing the password protection setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverIsSecure]";
+            Name="ScreenSaverIsSecure";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Screen saver timeout (in seconds) - When configured, this idle time can be set from a minimum of 1 second to a maximum of 86,400 seconds, or 24 hours. If set to zero, the screen saver will not be started. This setting has no effect under any of the following circumstances: If [ the setting is disabled or not configured ], if [ The wait time is set to zero ], if [ the 'Enable Screen Saver' setting is disabled ] or if [ Neither the 'Screen saver executable name' setting nor the Screen Saver dialog of the client computer's Personalization or Display Control Panel specifies a valid existing screen saver program on the client ]. When not configured, whatever wait time is set on the client through the Screen Saver dialog in the Personalization or Display Control Panel is used. The default is 15 minutes. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut]";
+            Name="ScreenSaveTimeOut";
+            Type="DWord";
+            Value=1200;
+            Delete=$False;
+          },
+          @{
+            Description="Enable screen saver - [1]=Enabled, e.g. a screen saver runs, provided the following two conditions hold: First, a valid screen saver on the client is specified through the 'Screen Saver executable name' setting or through Control Panel on the client computer. Second, the screen saver timeout is set to a nonzero value through the setting or Control Panel. [0]=Disabled, e.g. screen savers do not run. Also, this setting disables the Screen Saver section of the Screen Saver dialog in the Personalization or Display Control Panel. As a result, users cannot change the screen saver options. [Empty/Deleted]=Unconfigured, e.g. this setting has no effect on the system. Also, see the 'Prevent changing Screen Saver' setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_EnableScreenSaver]";
+            Name="ScreenSaveActive";
+            Type="String";
+            Value=1;
+            Delete=$False;
+          }
+          # , @{
+          #   Description="Screen Saver executable name - [FILEPATH]=A filepath to a '.scr' screen saver file to use as the screen saver at user desktops. Can either be the basename of an '.scr' typed file located directly within the '%Systemroot%\System32' directory, or a fully qualified path to a '.scr' file. [EMPTY/FILE-NOT-FOUND/UNSET]=Disabled, e.g. Users can select any screen saver - If the specified screen saver is not installed on a computer to which this setting applies, it is equivalent to this setting being disabled. [Notes]=This setting disables the drop-down list of screen savers in the Screen Saver dialog in the Personalization or Display Control Panel, which prevents users from changing the screen saver. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_SetScreenSaver]";
+          #   Name="SCRNSAVE.EXE";
+          #   Type="String";
+          #   Value="scrnsave.scr";
+          #   Delete=$False;
+          # }
+        )
+      };
+
+      # Screen Saver Settings - Logon Screen
+      # $RegEdits += @{
+      #   Path="Registry::HKEY_LOCAL_MACHINE\______";
+      #   Props=@(
+      #     @{
+      #       Description="https://support.microsoft.com/en-us/topic/how-to-change-the-logon-screen-saver-in-windows-ab28d230-ffb9-65f8-74a9-c26c5e00ec73";
+      #       Name="_____";
+      #       Type="_____";
+      #       Value=_____;
+      #       Delete=$False;
+      #     }
+      #   )
+      # };
 
       # Windows Update - Block update to Windows 11
       $RegEdits += @{
@@ -1824,7 +1876,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
         Props=@(
           @{
-            Description="Set this value to [ 1 ] to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://docs.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
+            Description="Set this value to [ 1 ] to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://learn.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
             Name="UseWUServer";
             Type="DWord";
             Value=0;
@@ -2158,51 +2210,57 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   admx.help  |  "Font smoothing"  |  https://admx.help/?Category=ClassicShell&Policy=IvoSoft.Policies.ClassicStartMenu::CSM_FontSmoothing
 #
+#   admx.help  |  "Screen saver timeout"  |  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut
+#
+#   admx.help  |  "Password protect the screen saver"  |  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverIsSecure
+#
 #   answers.microsoft.com  |  "Automatic files - Automatic file downloads"  |  https://answers.microsoft.com/en-us/windows/forum/all/automatic-files/91b91138-0096-4fbc-a3e2-5de5176a6ca5
 #
 #   answers.microsoft.com  |  "Microsoft Meet Now fouled up my microphone settings - Microsoft Community"  |  https://answers.microsoft.com/en-us/skype/forum/all/microsoft-meet-now-fouled-up-my-microphone/1b6e05a8-b651-4404-89a7-b24c83403c1e
 #
 #   autohotkey.com  |  "Windows key (#) + letter keeps locking the pc (even if it is not #L)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=46949&sid=490d0a443a7f78557b54c2bfb079350f#p46949
 #
-#   docs.microsoft.com  |  "[MS-GPPREF]: GlobalFolderOptions element | Microsoft Docs"  |  https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/3c837e92-016e-4148-86e5-b4f0381a757f
-#
-#   docs.microsoft.com  |  "[MS-GPPREF]: GlobalFolderOptionsVista element | Microsoft Docs"  |  https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/a6ca3a17-1971-4b22-bf3b-e1a5d5c50fca
-#
-#   docs.microsoft.com  |  "[MS-GPPREF]: StartMenu Inner Element | Microsoft Docs"  |  https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/adf64850-92a6-4131-ab31-906f9a419d2b
-#
-#   docs.microsoft.com  |  "[MS-GPPREF]: StartMenuVista Inner Element | Microsoft Docs"  |  https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/1d9120b4-aa9d-4ea8-89b7-cb64f79b83d5
-#
-#   docs.microsoft.com  |  "Adhering to System Policy Settings | Microsoft Docs"  |  https://docs.microsoft.com/en-us/previous-versions/windows/desktop/policy/adhering-to-system-policy-settings
-#
-#   docs.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://docs.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
-#
-#   docs.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
-#
-#   docs.microsoft.com  |  "HKEY_CLASSES_ROOT Key - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/sysinfo/hkey-classes-root-key
-#
-#   docs.microsoft.com  |  "Manage connections from Windows 10 and Windows 11 operating system components to Microsoft services - Windows Privacy | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services#1816-feedback--diagnostics
-#
-#   docs.microsoft.com  |  "Multimedia Class Scheduler Service - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/procthread/multimedia-class-scheduler-service
-#
-#   docs.microsoft.com  |  "New-PSDrive - Creates temporary and persistent mapped network drives"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-psdrive
-#
-#   docs.microsoft.com  |  "Remove-ItemProperty - Deletes the property and its value from an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-itemproperty
-#
-#   docs.microsoft.com  |  "Run and RunOnce Registry Keys - Windows applications | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys
-#
-#   docs.microsoft.com  |  "Set-ItemProperty - Creates or changes the value of a property of an item"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
-#
-#   docs.microsoft.com  |  "Manage connections from Windows 10 operating system components to Microsoft services - Windows Privacy | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
-#
 #   getadmx.com  |  "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services"  |  https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
 #
 #   getadmx.com  |  "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"  |  https://getadmx.com/HKCU/Software/Microsoft/Windows/CurrentVersion/Policies/System
 #
+#   jonathanmedd.net  |  "Testing for the Presence of a Registry Key and Value"  |  https://www.jonathanmedd.net/2014/02/testing-for-the-presence-of-a-registry-key-and-value.html
+#
 #   learn.microsoft.com  |  "Configure Automatic Updates in a Non–Active Directory Environment | Microsoft Learn"  |  https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499
+#
+#   learn.microsoft.com  |  "[MS-GPPREF]: GlobalFolderOptions element | Microsoft Docs"  |  https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/3c837e92-016e-4148-86e5-b4f0381a757f
+#
+#   learn.microsoft.com  |  "[MS-GPPREF]: GlobalFolderOptionsVista element | Microsoft Docs"  |  https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/a6ca3a17-1971-4b22-bf3b-e1a5d5c50fca
+#
+#   learn.microsoft.com  |  "[MS-GPPREF]: StartMenu Inner Element | Microsoft Docs"  |  https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/adf64850-92a6-4131-ab31-906f9a419d2b
+#
+#   learn.microsoft.com  |  "[MS-GPPREF]: StartMenuVista Inner Element | Microsoft Docs"  |  https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/1d9120b4-aa9d-4ea8-89b7-cb64f79b83d5
+#
+#   learn.microsoft.com  |  "Adhering to System Policy Settings | Microsoft Docs"  |  https://learn.microsoft.com/en-us/previous-versions/windows/desktop/policy/adhering-to-system-policy-settings
+#
+#   learn.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
+#
+#   learn.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
+#
+#   learn.microsoft.com  |  "HKEY_CLASSES_ROOT Key - Win32 apps | Microsoft Docs"  |  https://learn.microsoft.com/en-us/windows/win32/sysinfo/hkey-classes-root-key
 #
 #   learn.microsoft.com  |  "Hotkey | Microsoft Learn"  |  https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-2000-server/cc976564(v=technet.10)?redirectedfrom=MSDN
 #
-#   jonathanmedd.net  |  "Testing for the Presence of a Registry Key and Value"  |  https://www.jonathanmedd.net/2014/02/testing-for-the-presence-of-a-registry-key-and-value.html
+#   learn.microsoft.com  |  "Manage connections from Windows 10 and Windows 11 operating system components to Microsoft services - Windows Privacy | Microsoft Docs"  |  https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services#1816-feedback--diagnostics
+#
+#   learn.microsoft.com  |  "Manage connections from Windows 10 operating system components to Microsoft services - Windows Privacy | Microsoft Docs"  |  https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services
+#
+#   learn.microsoft.com  |  "Multimedia Class Scheduler Service - Win32 apps | Microsoft Docs"  |  https://learn.microsoft.com/en-us/windows/win32/procthread/multimedia-class-scheduler-service
+#
+#   learn.microsoft.com  |  "New-PSDrive - Creates temporary and persistent mapped network drives"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/new-psdrive
+#
+#   learn.microsoft.com  |  "Remove-ItemProperty - Deletes the property and its value from an item"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/remove-itemproperty
+#
+#   learn.microsoft.com  |  "Run and RunOnce Registry Keys - Windows applications | Microsoft Docs"  |  https://learn.microsoft.com/en-us/windows/win32/setupapi/run-and-runonce-registry-keys
+#
+#   learn.microsoft.com  |  "Set-ItemProperty - Creates or changes the value of a property of an item"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/set-itemproperty
+#
+#   learn.microsoft.com  |  "Windows Time service tools and settings | Microsoft Learn"  |  https://learn.microsoft.com/en-us/windows-server/networking/windows-time-service/windows-time-service-tools-and-settings
 #
 #   social.msdn.microsoft.com  |  ".NET Framework 3.5 doesn't install. Windows 10.. Error code: 0x800F081F"  |  https://social.msdn.microsoft.com/Forums/en-US/4ea808e7-c503-4f99-9480-aa8e6938be3d
 #
@@ -2231,6 +2289,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   support-splashtopbusiness.splashtop.com  |  "What are the Windows Streamer registry settings? – Splashtop Business - Support"  |  https://support-splashtopbusiness.splashtop.com/hc/en-us/articles/360030993692
 #
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
+#
+#   support.microsoft.com  |  "How to change the logon screen saver in Windows - Microsoft Support"  |  https://support.microsoft.com/en-us/topic/how-to-change-the-logon-screen-saver-in-windows-ab28d230-ffb9-65f8-74a9-c26c5e00ec73
 #
 #   winaero.org  |  "Disable Windows Update Active hours in Windows 10"  |  https://winaero.com/disable-windows-update-active-hours-in-windows-10/
 #

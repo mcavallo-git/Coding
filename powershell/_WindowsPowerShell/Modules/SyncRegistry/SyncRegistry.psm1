@@ -1659,30 +1659,30 @@ function SyncRegistry {
 
       # Screen Saver Settings
       $RegEdits += @{
-      # Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop";
+      # Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop";
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
         Props=@(
           @{
             Description="Password protect the screen saver - [1]=Enabled, e.g. all screen savers are password protected. [0]=Disabled, e.g. password protection cannot be set on any screen saver. This setting also disables the 'On resume, display logon screen' checkbox on the Screen Saver dialog in the Personalization or Display Control Panel, preventing users from changing the password protection setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverIsSecure]";
             Name="ScreenSaverIsSecure";
-            Type="DWord";
+            Type="String";
             Value=1;
             Delete=$False;
           },
           @{
             Description="Screen saver timeout (in seconds) - [Any-Positive-Integer]=The idle time to run the screen saver after - can be set from a minimum of 1 second to a maximum of 86400 seconds (or 24 hours). [0]=Disables the screen saver. This setting has no effect under any of the following circumstances: If [ the setting is disabled or not configured ], if [ The wait time is set to zero ], if [ the 'Enable Screen Saver' setting is disabled ] or if [ Neither the 'Screen saver executable name' setting nor the Screen Saver dialog of the client computer's Personalization or Display Control Panel specifies a valid existing screen saver program on the client ]. When not configured, whatever wait time is set on the client through the Screen Saver dialog in the Personalization or Display Control Panel is used. The default is 15 minutes. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut]";
             Name="ScreenSaveTimeOut";
-            Type="DWord";
+            Type="String";
             Value=1200;
             Delete=$False;
-          },
-          @{
-            Description="Enable screen saver - [1]=Enabled, e.g. a screen saver runs, provided the following two conditions hold: First, a valid screen saver on the client is specified through the 'Screen Saver executable name' setting or through Control Panel on the client computer. Second, the screen saver timeout is set to a nonzero value through the setting or Control Panel. [0]=Disabled, e.g. screen savers do not run. Also, this setting disables the Screen Saver section of the Screen Saver dialog in the Personalization or Display Control Panel. As a result, users cannot change the screen saver options. [Empty/Deleted]=Unconfigured, e.g. this setting has no effect on the system. Also, see the 'Prevent changing Screen Saver' setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_EnableScreenSaver]";
-            Name="ScreenSaveActive";
-            Type="String";
-            Value=1;
-            Delete=$False;
           }
+          # , @{
+          #   Description="Enable screen saver - [1]=Enabled, e.g. a screen saver runs, provided the following two conditions hold: First, a valid screen saver on the client is specified through the 'Screen Saver executable name' setting or through Control Panel on the client computer. Second, the screen saver timeout is set to a nonzero value through the setting or Control Panel. [0]=Disabled, e.g. screen savers do not run. Also, this setting disables the Screen Saver section of the Screen Saver dialog in the Personalization or Display Control Panel. As a result, users cannot change the screen saver options. [Empty/Deleted]=Unconfigured, e.g. this setting has no effect on the system. Also, see the 'Prevent changing Screen Saver' setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_EnableScreenSaver]";
+          #   Name="ScreenSaveActive";
+          #   Type="String";
+          #   Value=1;
+          #   Delete=$False;
+          # }
           # , @{
           #   Description="Screen Saver executable name - [FILEPATH]=A filepath to a '.scr' screen saver file to use as the screen saver at user desktops. Can either be the basename of an '.scr' typed file located directly within the '%Systemroot%\System32' directory, or a fully qualified path to a '.scr' file. [EMPTY/FILE-NOT-FOUND/UNSET]=Disabled, e.g. Users can select any screen saver - If the specified screen saver is not installed on a computer to which this setting applies, it is equivalent to this setting being disabled. [Notes]=This setting disables the drop-down list of screen savers in the Screen Saver dialog in the Personalization or Display Control Panel, which prevents users from changing the screen saver. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_SetScreenSaver]";
           #   Name="SCRNSAVE.EXE";

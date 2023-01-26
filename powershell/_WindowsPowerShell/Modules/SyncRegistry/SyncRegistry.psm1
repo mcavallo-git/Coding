@@ -1659,8 +1659,7 @@ function SyncRegistry {
 
       # Screen Saver Settings
       $RegEdits += @{
-        # Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop";
-        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Control Panel\Desktop";
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
         Props=@(
           @{
             Description="Password protect the screen saver - [1]=Enabled, e.g. all screen savers are password protected. [0]=Disabled, e.g. password protection cannot be set on any screen saver. This setting also disables the 'On resume, display logon screen' checkbox on the Screen Saver dialog in the Personalization or Display Control Panel, preventing users from changing the password protection setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverIsSecure]";

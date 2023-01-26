@@ -1906,22 +1906,6 @@ function SyncRegistry {
       # Power Options
       #
 
-      #
-      #   Power Options  -->  Turn off the display after: 20 minutes (at Desktop)
-      #    |
-      #    |-->  Via powerfg:
-      #                powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
-      #                powercfg.exe /SETACTIVE SCHEME_CURRENT
-      #
-      #   Power Options  -->  Turn off the display after: 20 minutes (at Logon Screen)
-      #    |
-      #    |-->  Via powerfg:
-      #                powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
-      #                powercfg.exe /SETACTIVE SCHEME_CURRENT
-      #
-      #   Power Options  -->  Put the computer to sleep:  Never
-
-
       If (-Not ($PSBoundParameters.ContainsKey('SkipPowercfgUpdates'))) {
         If ( ($Null) -NE (Get-Command "powercfg.exe" -EA:0) ) {
           Write-Output "`n Power Options / Power Plans";

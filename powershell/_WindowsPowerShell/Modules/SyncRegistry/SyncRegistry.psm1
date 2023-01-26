@@ -1910,11 +1910,12 @@ function SyncRegistry {
         If ( ($Null) -NE (Get-Command "powercfg.exe" -EA:0) ) {
           Write-Output "`n Power Options / Power Plans";
           # Set idle timeouts to 20 minutes
-          Write-Output "  |-->  Setting `"Turn off the display after:`" to `"20 minutes`"";
+          Write-Output "  |-->  Setting `"Turn off the display after:`" to `"20 minutes`" while `"Plugged in`"";
           powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
           powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
           powercfg.exe -x -monitor-timeout-ac 1200
-          powercfg.exe -x -monitor-timeout-dc 1200
+          Write-Output "  |-->  Setting `"Turn off the display after:`" to `"5 minutes`" while `"On battery`"";
+          powercfg.exe -x -monitor-timeout-dc 300
           powercfg.exe -setactive SCHEME_CURRENT
           # Disable Sleep Mode
           Write-Output "  |-->  Setting `"Put the computer to sleep:`" to `"Never`" (e.g. disable Sleep States S1-S3)";

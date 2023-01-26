@@ -1916,34 +1916,32 @@ function SyncRegistry {
       # Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services!MaxCompressionLevel"; <# Example of Registry Path w/ inline Property name #>
 
       # ------------------------------------------------------------
-
+      #
+      # Power Options
+      #
       If (-Not ($PSBoundParameters.ContainsKey('SkipPowercfgUpdates'))) {
-        #
-        # Power Options
-        #
-        Write-Output "`n Power Options";
-
-        # Set idle timeouts to 20 minutes
-        Write-Output "  |-->  Setting idle/monitor timeout to 20 minutes";
-        powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
-        powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
-        powercfg.exe -x -monitor-timeout-ac 1200
-        powercfg.exe -x -monitor-timeout-dc 1200
-
-        # Disable Hibernation
-        Write-Output "  |-->  Disabling hibernation";
-        powercfg.exe -hibernate off
-        powercfg.exe -x -hibernate-timeout-ac 0
-        powercfg.exe -x -hibernate-timeout-dc 0
-
-        # Disable Sleep Mode
-        Write-Output "  |-->  Disabling sleep mode";
-        powercfg.exe -x -standby-timeout-ac 0
-        powercfg.exe -x -standby-timeout-dc 0
-
-        Write-Output "  |-->  Saving current power scheme";
-        powercfg.exe -setactive SCHEME_CURRENT
-
+        If ( ($Null) -NE (Get-Command "powercfg.exe" -EA:0) ) {
+          Write-Output "`n Power Options";
+          # Set idle timeouts to 20 minutes
+          Write-Output "  |-->  Setting idle/monitor timeout to 20 minutes";
+          powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
+          powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
+          powercfg.exe -x -monitor-timeout-ac 1200
+          powercfg.exe -x -monitor-timeout-dc 1200
+          powercfg.exe -setactive SCHEME_CURRENT
+          # Disable Hibernation
+          Write-Output "  |-->  Disabling hibernation";
+          powercfg.exe -hibernate off
+          powercfg.exe -x -hibernate-timeout-ac 0
+          powercfg.exe -x -hibernate-timeout-dc 0
+          powercfg.exe -setactive SCHEME_CURRENT
+          # Disable Sleep Mode
+          Write-Output "  |-->  Disabling sleep mode";
+          powercfg.exe -x -standby-timeout-ac 0
+          powercfg.exe -x -standby-timeout-dc 0
+          powercfg.exe -setactive SCHEME_CURRENT
+          Write-Output "";
+        }
       }
 
       # ------------------------------------------------------------

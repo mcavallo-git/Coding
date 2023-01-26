@@ -1674,21 +1674,21 @@ function SyncRegistry {
             Type="String";
             Value=1200;
             Delete=$False;
+          },
+          @{
+            Description="Enable screen saver - [1]=Enabled, e.g. a screen saver runs, provided the following two conditions hold: First, a valid screen saver on the client is specified through the 'Screen Saver executable name' setting or through Control Panel on the client computer. Second, the screen saver timeout is set to a nonzero value through the setting or Control Panel. [0]=Disabled, e.g. screen savers do not run. Also, this setting disables the Screen Saver section of the Screen Saver dialog in the Personalization or Display Control Panel. As a result, users cannot change the screen saver options. [Empty/Deleted]=Unconfigured, e.g. this setting has no effect on the system. Also, see the 'Prevent changing Screen Saver' setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_EnableScreenSaver]";
+            Name="ScreenSaveActive";
+            Type="String";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Screen Saver executable name - [FILEPATH]=A filepath to a '.scr' screen saver file to use as the screen saver at user desktops. Can either be the basename of an '.scr' typed file located directly within the '%Systemroot%\System32' directory, or a fully qualified path to a '.scr' file. [EMPTY/FILE-NOT-FOUND/UNSET]=Disabled, e.g. Users can select any screen saver - If the specified screen saver is not installed on a computer to which this setting applies, it is equivalent to this setting being disabled. [Notes]=This setting disables the drop-down list of screen savers in the Screen Saver dialog in the Personalization or Display Control Panel, which prevents users from changing the screen saver. The file 'scrnsave.scr' refers to the 'Blank' screen saver option. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_SetScreenSaver]";
+            Name="SCRNSAVE.EXE";
+            Type="String";
+            Value="scrnsave.scr";
+            Delete=$False;
           }
-          # , @{
-          #   Description="Enable screen saver - [1]=Enabled, e.g. a screen saver runs, provided the following two conditions hold: First, a valid screen saver on the client is specified through the 'Screen Saver executable name' setting or through Control Panel on the client computer. Second, the screen saver timeout is set to a nonzero value through the setting or Control Panel. [0]=Disabled, e.g. screen savers do not run. Also, this setting disables the Screen Saver section of the Screen Saver dialog in the Personalization or Display Control Panel. As a result, users cannot change the screen saver options. [Empty/Deleted]=Unconfigured, e.g. this setting has no effect on the system. Also, see the 'Prevent changing Screen Saver' setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_EnableScreenSaver]";
-          #   Name="ScreenSaveActive";
-          #   Type="String";
-          #   Value=1;
-          #   Delete=$False;
-          # }
-          # , @{
-          #   Description="Screen Saver executable name - [FILEPATH]=A filepath to a '.scr' screen saver file to use as the screen saver at user desktops. Can either be the basename of an '.scr' typed file located directly within the '%Systemroot%\System32' directory, or a fully qualified path to a '.scr' file. [EMPTY/FILE-NOT-FOUND/UNSET]=Disabled, e.g. Users can select any screen saver - If the specified screen saver is not installed on a computer to which this setting applies, it is equivalent to this setting being disabled. [Notes]=This setting disables the drop-down list of screen savers in the Screen Saver dialog in the Personalization or Display Control Panel, which prevents users from changing the screen saver. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_SetScreenSaver]";
-          #   Name="SCRNSAVE.EXE";
-          #   Type="String";
-          #   Value="";  # "scrnsave.scr"
-          #   Delete=$False;
-          # }
         )
       };
 

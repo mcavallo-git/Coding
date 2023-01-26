@@ -24,8 +24,8 @@ Open the Start Menu
     > Click "Configure" (top right of "Networking" tab)
 
      > Select tab "Advanced" (top left)
-      > Set property "Enable PME" to "Enabled"
-      > Set property "Wake on Magic Packet" to "Enabled"
+      > Set property "Enable PME" to "Enabled"             ⭐⭐⭐
+      > Set property "Wake on Magic Packet" to "Enabled"   ⭐⭐⭐
 
      > Select tab "Power Management" (top right)
       > Check option "Allow this device to wake the computer"

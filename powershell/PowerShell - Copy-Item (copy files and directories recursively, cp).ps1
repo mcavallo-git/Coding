@@ -1,4 +1,6 @@
 # ------------------------------------------------------------
+# PowerShell - Copy-Item (copy files and directories recursively, cp)
+# ------------------------------------------------------------
 #
 # PowerShell - Copy file(s) from Source filepath to Destination filepath
 #

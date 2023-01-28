@@ -1413,6 +1413,14 @@ function SyncRegistry {
               Type="DWord";
               Value=6;
               Delete=$False;
+            },
+            @{
+              Description="Office 2016/2019 Telemetry - [0]=Disable, [1]=Enable Microsoft Office Diagnostics. Office Diagnostics enables Microsoft to diagnose system problems by periodically downloading a small file to the computer. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_UpdateReliabilityPolicy]";
+              Hotfix=$Null;
+              Name="UpdateReliabilityData";
+              Type="DWord";
+              Value=0;
+              Delete=$False;
             }
           )
         };
@@ -1444,11 +1452,11 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 Opt-in Wizard - [1]=Enable, [0]=Disable the Opt-in Wizard the first time a Microsoft Office 2016 application is ran. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOptinWizard]";
+              Description="Office 2016/2019 Opt-in Wizard - [0]=Disable, [1]=Enable, [2]=(Assume yes to) the Opt-in Wizard the first time a Microsoft Office 2016 application is ran. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOptinWizard]";
               Hotfix=$Null;
               Name="ShownFirstRunOptin";
               Type="DWord";
-              Value=0;
+              Value=2;
               Delete=$False;
             }
           )

@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# Windows - Run, RunOnce (run program-script at user logon, edit task manager startup programs)
+# Windows - Run, RunOnce (startup programs in task manager, run program-script at user logon)
 # ------------------------------------------------------------
 #
 # Microsoft: "Use Run or RunOnce registry keys to make a program run when a user logs on."

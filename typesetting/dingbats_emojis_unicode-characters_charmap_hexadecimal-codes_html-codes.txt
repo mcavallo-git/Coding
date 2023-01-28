@@ -61,7 +61,6 @@ Mostly Linux compatible:
 ←					Leftwards Arrow  (Left Arrow)  (&larr;)  |  https://www.compart.com/en/unicode/U+2190
 →					Rightwards Arrow (Right Arrow) (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
 
-
 ⇧					Upwards White Arrow (&#x21E7;)  |  https://www.compart.com/en/unicode/U+21E7
 ⇩					Downwards White Arrow (&#x21E9;)  |  https://www.compart.com/en/unicode/U+21E9
 ⇦					Leftwards White Arrow (&#x21E6;)  |  https://www.compart.com/en/unicode/U+21E6
@@ -98,6 +97,9 @@ Mostly Linux compatible:
 ⇏					Rightwards Double Arrow with Stroke  |  https://www.compart.com/en/unicode/U+21CF
 ➾					Open-Outlined Rightwards Arrow   |  https://www.compart.com/en/unicode/U+27BE
 ➧ 				Squat Black Rightwards Arrow  |  https://www.compart.com/en/unicode/U+27A7
+
+
+&darr;<br />&UnderBar;&UnderBar;      Download Icon (Arrow pointing down into a horizontal bar)
 
 
 ------------------------------------------------------------

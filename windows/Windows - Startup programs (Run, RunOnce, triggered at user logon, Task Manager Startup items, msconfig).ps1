@@ -6,24 +6,24 @@
 #
 
 # Run  (System)    -  Run a given command the next time ANY user logs on       ⚠️ Startup Program(s) ⚠️
-"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run"
+HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
 
 # Run  (System)    -  Run a given command the next time CURRENT user logs on   ⚠️ Startup Program(s) ⚠️
-"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run"
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 
 
 # RunOnce  (User)  -  Run a given command the next time ANY user logs on (but first remove the command from the "RunOnce" registry key)
-"HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce"
+HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
 
 # RunOnce  (User)  -  Run a given command the next time CURRENT user logs on (but first remove the command from the "RunOnce" registry key)
-"HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce"
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce
 
 
 # Start menu startup directory (System)
-"${env:ProgramData}\Microsoft\Windows\Start Menu\Programs\StartUp"
+%ProgramData%\Microsoft\Windows\Start Menu\Programs\StartUp
 
 # Start menu startup directory (User)
-"${env:APPDATA}\Microsoft\Windows\Start Menu\Programs\Startup"
+%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup
 
 
 # ------------------------------------------------------------

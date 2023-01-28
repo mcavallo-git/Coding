@@ -1,3 +1,5 @@
+#SingleInstance Force  ; https://lexikos.github.io/v2/docs/commands/_SingleInstance.htm
+
 Windows_RefreshTrayIcons()
 
 ; ------------------------------

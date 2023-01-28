@@ -12,6 +12,29 @@ fi;
 
 # ------------------------------------------------------------
 #
+# Switch branches by cloning a branch from the source repo
+#
+
+
+# General Syntax:
+git checkout -b remote_branch origin/remote_branch;
+
+
+if [[ 1 -eq 1 ]]; then
+  # If current branch is not the desired branch, switch to using the desired branch, instead
+  CURRENT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)";
+  DESIRED_BRANCH="main";
+  echo "CURRENT_BRANCH=[${CURRENT_BRANCH}]";
+  echo "DESIRED_BRANCH=[${DESIRED_BRANCH}]";
+  if [[ -n "${CURRENT_BRANCH}" ]] && [[ "${CURRENT_BRANCH}" != "${DESIRED_BRANCH}" ]]; then
+    echo "Calling [ git reset --hard \"origin/${LOCAL_BRANCH_TO_RESET}\"; ]...";
+    git checkout -b "${DESIRED_BRANCH}" "origin/${DESIRED_BRANCH}";
+  fi;
+fi;
+
+
+# ------------------------------------------------------------
+#
 # Reset current local branch to match remote (origin) branch  -->  Note that this is more effective than [ git reset --hard "HEAD"; ] as it resets the local to match the remote
 #
 if [[ 1 -eq 1 ]]; then
@@ -53,6 +76,8 @@ git branch -D "branch-name" && git push "repo-name" -v --delete "branch-name";
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   stackoverflow.com  |  "git checkout - How do I check out a remote Git branch? - Stack Overflow"  |  https://stackoverflow.com/a/13770793
 #
 #   stackoverflow.com  |  "How to get the current branch name in Git? - Stack Overflow"  |  https://stackoverflow.com/a/12142066
 #

@@ -23,10 +23,28 @@
 
 # ------------------------------------------------------------
 #
+# Wipe disk completely using diskpart
+#
+
+> LIST DISK
+
+> SELECT DISK [X]
+
+> DETAIL DISK
+
+> LIST PARTITION
+
+> CLEAN
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   learn.microsoft.com  |  "diskpart | Microsoft Learn"  |  https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/diskpart
 #
 #   www.easeus.com  |  "Tutorial: Use DiskPart Delete All Partitions | Everything You Need to Know - EaseUS"  |  https://www.easeus.com/partition-master/diskpart-delete-all-partitions.html
+#
+#   www.seagate.com  |  "How to Diskpart Erase/Clean a Drive Through the Command Prompt | Support Seagate US"  |  https://www.seagate.com/support/kb/how-to-diskpart-eraseclean-a-drive-through-the-command-prompt-005929en/
 #
 # ------------------------------------------------------------

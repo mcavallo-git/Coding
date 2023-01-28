@@ -103,7 +103,7 @@ git branch -D "branch-name";
 if [[ 1 -eq 1 ]]; then
   DEPRECATED_BRANCH="master";
   # Check for branch to delete
-  if [ `git rev-parse --verify ${DEPRECATED_BRANCH} 2>/dev/null` ]; then
+  if [[ "$(git rev-parse --verify "${DEPRECATED_BRANCH}" 2>'/dev/null' | wc -l;)" -gt 0 ]]; then
     echo "Calling [ git branch --delete --force \"${DEPRECATED_BRANCH}\"; ]...";
     git branch --delete --force "${DEPRECATED_BRANCH}";
   fi;

@@ -1395,7 +1395,7 @@ function SyncRegistry {
               Hotfix=$Null;
               Name="UI Theme";
               Type="DWord";
-              Value=6;
+              Value=5;
               Delete=$False;
             }
           )

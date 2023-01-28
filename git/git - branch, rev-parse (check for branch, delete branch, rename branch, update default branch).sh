@@ -107,7 +107,7 @@ if [[ 1 -eq 1 ]]; then
     echo "Calling [ git branch --delete --force \"${DEPRECATED_BRANCH}\"; ]...";
     git branch --delete --force "${DEPRECATED_BRANCH}";
   fi;
-  # Prune - Remove said nonexistent remote trackers
+  # Prune - Remove nonexistent remote trackers
   git fetch --all --prune;
 fi;
 

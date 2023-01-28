@@ -23,9 +23,9 @@ function SyncRegistry {
     <# Run SyncRegistry using current user's SID (instead of Admin user's SID) #>
     $MODULE_ARGS="-UserSID $(((whoami /user /fo table /nh) -split ' ')[1];)"; PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/SyncRegistry/SyncRegistry.psm1)) ).Content) } Catch {}; If (-Not (Get-Command -Name (Write-Output SyncRegistry) -ErrorAction SilentlyContinue)) { Import-Module ([String]::Format((((GV HOME).Value)+(Write-Output \Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\SyncRegistry\SyncRegistry.psm1)), ((GV HOME).Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value); SyncRegistry ${MODULE_ARGS};') -Verb RunAs -Wait -PassThru | Out-Null;";
 
-    # $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/SyncRegistry/SyncRegistry.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'SyncRegistry' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\SyncRegistry\SyncRegistry.psm1', ((Get-Variable -Name 'HOME').Value))); }; SyncRegistry;
-
     # SyncRegistry -UserSID (((whoami /user /fo table /nh) -split ' ')[1]);
+
+    Import-Module "${HOME}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\SyncRegistry\SyncRegistry.psm1"; SyncRegistry -UserSID (((whoami /user /fo table /nh) -split ' ')[1]);
 
   }
   # ------------------------------------------------------------
@@ -1358,63 +1358,115 @@ function SyncRegistry {
         )
       };
 
-      # Office 2013 Settings - Excel
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\15.0\Common\General";
-        Props=@(
-          @{
-            Description="Office 2013 Settings - Set to [ 2147483648 ] to Disable Microsoft Office Clipboard (Excel-Only?)";
-            Hotfix=$Null;
-            Name="AcbControl";
-            Type="DWord";
-            Value=2147483648;
-            Delete=$False;
-          }
-        )
+      # Office 2013 Settings
+      $Office_2013_Key="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\15.0";
+      If ((Test-Path -Path ("${Office_2013_Key}")) -Eq $True) {
+        $RegEdits += @{
+          Path="${Office_2013_Key}\Common\General";
+          Props=@(
+            @{
+              Description="Office 2013 Clipboard - [2147483648]=Disables the Microsoft Office Clipboard entirely. Citation=[https://stackoverflow.com/a/53070256]";
+              Hotfix=$Null;
+              Name="AcbControl";
+              Type="DWord";
+              Value=2147483648;
+              Delete=$False;
+            }
+          )
+        };
       };
 
-      # Office 2016 Settings - Excel
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\16.0\Common\General";
-        Props=@(
-          @{
-            Description="Office 2016 Settings - Set to [ 2147483648 ] to Disable Microsoft Office Clipboard (Excel-Only?)";
-            Hotfix=$Null;
-            Name="AcbControl";
-            Type="DWord";
-            Value=2147483648;
-            Delete=$False;
-          }
-        )
+      # Office 2016/2019 Settings
+      $Office_2016_2019_Key="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\16.0 FirstRun";
+      If ((Test-Path -Path ("${Office_2016_2019_Key}")) -Eq $True) {
+        $RegEdits += @{
+          Path="${Office_2016_2019_Key}\Common";
+          Props=@(
+            @{
+              Description="Office 2016/2019 Theme - Set Office Theme to: [0]=Colorful, [3]=Dark Gray, [4]=Black, [5]=White, [6]=Use system settings. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DefaultUIThemeUser]";
+              Hotfix=$Null;
+              Name="Default UI Theme";
+              Type="DWord";
+              Value=5;
+              Delete=$False;
+            },
+            @{
+              Description="Office 2016/2019 Theme - Set Office Theme to: [0]=Colorful, [3]=Dark Gray, [4]=Black, [5]=White, [6]=Use system settings. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DefaultUIThemeUser]";
+              Hotfix=$Null;
+              Name="UI Theme";
+              Type="DWord";
+              Value=6;
+              Delete=$False;
+            }
+          )
+        };
+        $RegEdits += @{
+          Path="${Office_2016_2019_Key}\Common\General";
+          Props=@(
+            @{
+              Description="Office 2016/2019 Clipboard - [2147483648]=Disables the Microsoft Office Clipboard entirely. [1]=Prevents the Office Clipboard from automatically appearing when multiple Copy commands are performed in any of the Office programs. [0]=Permits the Office Clipboard to appear automatically when multiple Copy commands are performed in Office programs. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableClipboardToolbartriggers , https://stackoverflow.com/a/53070256]";
+              Hotfix=$Null;
+              Name="AcbControl";
+              Type="DWord";
+              Value=2147483648;
+              Delete=$False;
+            }
+            @{
+              Description="Office 2016/2019 Start Screen - [1]=Disable the Start Screen in all Office 2016/2019 applications. [0]=Enable the Start Screen in all Office 2016/2019 applications. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOfficeStartGlobal]";
+              Hotfix=$Null;
+              Name="DisableBootToOfficeStart";
+              Type="DWord";
+              Value=1;
+              Delete=$False;
+            },
+            @{
+              Description="Office 2016/2019 First-Run (Backend Flag) - Sets a flag for whether Office has been opened at least once: [1]=True (has been opened at least once), [0]=False (has not been opened at least once)";
+              Hotfix=$Null;
+              Name="FirstRun";
+              Type="DWord";
+              Value=0;
+              Delete=$False;
+            },
+            @{
+              Description="Office 2016/2019 Opt-in Wizard - [1]=Enable, [0]=Disable the Opt-in Wizard the first time a Microsoft Office 2016 application is ran. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOptinWizard]";
+              Hotfix=$Null;
+              Name="ShownFirstRunOptin";
+              Type="DWord";
+              Value=0;
+              Delete=$False;
+            }
+          )
+        };
+        $RegEdits += @{
+          Path="${Office_2016_2019_Key}\Outlook\Options\Mail";
+          Props=@(
+            @{
+              Description="Outlook 2016/2019 - Set the limit for (or hide, disable) the 'Recent Items' when adding an attachment";
+              Hotfix=$Null;
+              Name="MaxAttachmentMenuItems";
+              Type="DWord";
+              Value=00000000;
+              Delete=$False;
+            }
+          )
+        };
       };
 
-      # Office 2016 Settings - Outlook
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\16.0\Outlook\Options\Mail";
-        Props=@(
-          @{
-            Description="Office 2016 Settings - Outlook - Set the limit for (or hide, disable) the 'Recent Items' when adding an attachment";
-            Hotfix=$Null;
-            Name="MaxAttachmentMenuItems";
-            Type="DWord";
-            Value=00000000;
-            Delete=$False;
-          }
-        )
-      };
-
-      # Office (Windows 10 Application, ~2019+) Settings
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Classes\ms-officeapp\Shell\Open\Command";
-        Props=@(
-          @{
-            Description="Microsoft Office (Windows 10 Application) - Disable the hotkey which automatically binds to [ Shift + Ctrl + Alt + Windows-Key ] upon installing office on a given device";
-            Name="(Default)";
-            Type="String";
-            Value="rundll32";
-            Delete=$False;
-          }
-        )
+      # Office 365 App (~2019+) Settings
+      $Office_365_App_Key="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Classes\ms-officeapp";
+      If ((Test-Path -Path ("${Office_365_App_Key}")) -Eq $True) {
+        $RegEdits += @{
+          Path="${Office_365_App_Key}\Shell\Open\Command";
+          Props=@(
+            @{
+              Description="Office 365 Hotkey - Disable the hotkey which automatically binds to [ Shift + Ctrl + Alt + Windows-Key ] upon installing office on a given device";
+              Name="(Default)";
+              Type="String";
+              Value="rundll32";
+              Delete=$False;
+            }
+          )
+        };
       };
 
       # Windows To Go
@@ -2229,6 +2281,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 # Citation(s)
 #
+#   admx.help  |  "Disable the Office Start screen for all Office applications"  |  https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOfficeStartGlobal
+#
 #   admx.help  |  "Font smoothing"  |  https://admx.help/?Category=ClassicShell&Policy=IvoSoft.Policies.ClassicStartMenu::CSM_FontSmoothing
 #
 #   admx.help  |  "Screen saver timeout"  |  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut
@@ -2244,6 +2298,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   getadmx.com  |  "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services"  |  https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
 #
 #   getadmx.com  |  "HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Policies\System"  |  https://getadmx.com/HKCU/Software/Microsoft/Windows/CurrentVersion/Policies/System
+#
+#   gist.github.com  |  "These settings are designed to allow a user a better exxperience by removing annoyances. This works for Office 2016 and 2019 · GitHub"  |  https://gist.github.com/Carm01/0df027dd1ddc57dd3044ca87565a6194
 #
 #   jonathanmedd.net  |  "Testing for the Presence of a Registry Key and Value"  |  https://www.jonathanmedd.net/2014/02/testing-for-the-presence-of-a-registry-key-and-value.html
 #
@@ -2298,6 +2354,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   stackoverflow.com  |  "Retrieve (Default) Value in Registry key"  |  https://stackoverflow.com/a/31711000
 #
 #   stackoverflow.com  |  "The IDynamicPropertyCmdletProvider interface is not implemented by this provider"  |  https://stackoverflow.com/a/54237993
+#
+#   stackoverflow.com  |  "windows - How do you disable the office 2013 clipboard? - Stack Overflow"  |  https://stackoverflow.com/a/53070256
 #
 #   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #

@@ -1,10 +1,9 @@
 # ------------------------------------------------------------
 # PowerShell - Remove-Service (delete services by name)
 # ------------------------------------------------------------
-#
+
 
 # Remove service(s) starting with "Corsair"  (case insensitive) - Used for iCUE full uninstallation
-
 Get-Service -Name ("Corsair*") | ForEach-Object {
 	If ("$($_.Status)" -Eq "Running") { Stop-Service -Name ($_.Name) -Force; }; <# Stop the service (if it is running) #> 
 	$_ | Remove-Service -Confirm; <# Remove the service (require confirmation) #>

@@ -54,12 +54,20 @@ fi;
 
 
 # ------------------------------------------------------------
+#
+# Rename branch
+#
 
 # Rename branch, local repository
 git branch -m "branch-name" "branch-name-new";
 
 # Rename branch, remote repository
 git push -u "branch-name" "branch-name-new";
+
+# ------------------------------------------------------------
+#
+# Delete branch
+#
 
 # Delete branch, local repository
 git branch -D "branch-name";
@@ -77,14 +85,14 @@ git branch -D "branch-name" && git push "repo-name" -v --delete "branch-name";
 
 
 # ------------------------------------------------------------
-
-
-# Test git commands (rename, delete, etc.) safely @ https://try.github.io
-
-
+#
+# Note:  Safely test git commands (rename, delete, etc.) via https://try.github.io
+#
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   stackoverflow.com  |  "git - How do I delete a branch without an error message if the branch does not exist? - Stack Overflow"  |  https://stackoverflow.com/a/22402618
 #
 #   stackoverflow.com  |  "git checkout - How do I check out a remote Git branch? - Stack Overflow"  |  https://stackoverflow.com/a/13770793
 #

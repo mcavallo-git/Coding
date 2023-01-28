@@ -1,6 +1,6 @@
 If ($True) {
   #
-  # PowerShell - Sync "_icons_du_dope" to System32 directory
+  # PowerShell - _icons_du_dope (sync to windir-system32 directory)
   #
   [String]$Source="${env:REPOS_DIR}\Coding\windows\windows-icons\_icons_du_dope\*";
   [String]$Destination="${env:windir}\System32\_icons_du_dope\";

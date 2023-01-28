@@ -1377,7 +1377,7 @@ function SyncRegistry {
       };
 
       # Office 2016/2019 Settings
-      $Office_2016_2019_Key="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\16.0 FirstRun";
+      $Office_2016_2019_Key="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Office\16.0";
       If ((Test-Path -Path ("${Office_2016_2019_Key}")) -Eq $True) {
         $RegEdits += @{
           Path="${Office_2016_2019_Key}\Common";

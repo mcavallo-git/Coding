@@ -164,8 +164,8 @@ Mostly Linux compatible:
 ⊞				 Squared Plus (&plusb;) (Windows Key / Winkey)  |  https://www.compart.com/en/unicode/U+229E
 
 
-ℹ					Information Source  |  https://www.compart.com/en/unicode/U+2139  |  echo -e "\\xE2\\x84\\xB9";  |  "$([char]0x2139)"
-ℹ️				 Information (Colored)  |  https://emojipedia.org/information/  |  echo -e "\\xE2\\x84\\xB9\\xEF\\xB8\\x8F";  |  "$([char]0x2139+[char]0xFE0F)"
+ℹ					Information Source  (&#x2139;)  |  https://www.compart.com/en/unicode/U+2139  |  echo -e "\\xE2\\x84\\xB9";  |  "$([char]0x2139)"
+ℹ️				 Information Source Emoji  (&#x2139;&#xFE0F;)  |  https://emojipedia.org/information/  |  echo -e "\\xE2\\x84\\xB9\\xEF\\xB8\\x8F";  |  "$([char]0x2139+[char]0xFE0F)"
 ∴					Therefore (&therefore;)  |  https://www.compart.com/en/unicode/U+2234
 ≠					Not Equal To (&ne;)  |  https://www.compart.com/en/unicode/U+2260
 ≡					Identical To (&equiv;)  |  https://www.compart.com/en/unicode/U+2261

@@ -1387,7 +1387,7 @@ function SyncRegistry {
               Hotfix=$Null;
               Name="Default UI Theme";
               Type="DWord";
-              Value=5;
+              Value=6;
               Delete=$False;
             },
             @{
@@ -1395,7 +1395,7 @@ function SyncRegistry {
               Hotfix=$Null;
               Name="UI Theme";
               Type="DWord";
-              Value=5;
+              Value=6;
               Delete=$False;
             }
           )

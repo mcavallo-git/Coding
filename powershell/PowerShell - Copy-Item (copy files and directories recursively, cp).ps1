@@ -2,26 +2,62 @@
 # PowerShell - Copy-Item (copy files and directories recursively, cp)
 # ------------------------------------------------------------
 #
-# PowerShell - Copy file(s) from Source filepath to Destination filepath
+# Copy file
 #
 
-Copy-Item -Path ("${Source}") -Destination ("${Destination}") -Force;
+Copy-Item -Path (${Source}) -Destination (${Destination}) -Force;
 
 
 # ------------------------------------------------------------
 #
-# PowerShell - Copy files and directories from Source directory to Destination directory
+# Copy directory & all contents
 #
 
 If ($True) {
-  [string]$Source="${env:USERPROFILE}\Desktop\Source\*";
-  [string]$Destination="${env:USERPROFILE}\Desktop\Destination\";
+  [String]$Source="${env:USERPROFILE}\Desktop\Source\*";
+  [String]$Destination="${env:USERPROFILE}\Desktop\Destination\";
   # Ensure destination directory exists
   If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
     New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
   }
   # Copy files & directories from source to destination
-  Copy-Item -Force -Recurse -Path ("${Source}") -Destination ("${Destination}");
+  Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination});
+}
+
+
+# ------------------------------------------------------------
+#
+# Copy directory & contents >>ONLY<< matching one or more extensions  (only seems to work 1 directory deep?)
+#
+
+If ($True) {
+  [String]$Source="${env:USERPROFILE}\Desktop\Source\*";
+  [String]$Destination="${env:USERPROFILE}\Desktop\Destination\";
+  [String[]]$Includes=@("*.ico","*.url");
+  # Ensure destination directory exists
+  If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
+    New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
+  }
+  # Copy files & directories from source to destination
+  Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination}) -Include (${Includes});
+}
+
+
+# ------------------------------------------------------------
+#
+# Copy directory & contents >>NOT<< matching one or more extensions
+#
+
+If ($True) {
+  [String]$Source="${env:USERPROFILE}\Desktop\Source\*";
+  [String]$Destination="${env:USERPROFILE}\Desktop\Destination\";
+  [String[]]$Excludes=@("*.lnk","*.url");
+  # Ensure destination directory exists
+  If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
+    New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
+  }
+  # Copy files & directories from source to destination
+  Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination}) -Exclude (${Excludes});
 }
 
 

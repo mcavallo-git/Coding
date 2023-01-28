@@ -1383,14 +1383,6 @@ function SyncRegistry {
           Path="${Office_2016_2019_Key}\Common";
           Props=@(
             @{
-              Description="Office 2016/2019 Theme - Set Office Theme to: [0]=Colorful, [3]=Dark Gray, [4]=Black, [5]=White, [6]=Use system settings. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DefaultUIThemeUser]";
-              Hotfix=$Null;
-              Name="Default UI Theme";
-              Type="DWord";
-              Value=6;
-              Delete=$False;
-            },
-            @{
               Description="Office 2016/2019 Telemetry - [0]=Disable, [1]=Enable the Customer Experience Improvement Program (CEIP). Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_EnableCustomerExperienceImprovementProgram]";
               Hotfix=$Null;
               Name="QMEnable";
@@ -2265,7 +2257,7 @@ function SyncRegistry {
 
       # If ZERO changes were made, report it
       If (${Count_ChangesMade} -Eq 0) {
-        Write-Output "`n  No changes made  -->  Registry is already up-to-date$(If (($PSBoundParameters.ContainsKey('Verbose')) -Eq ($False)) { Write-Output "                   -->  For additional info, run using argument `"-Verbose`""; };)";
+        Write-Output "`n  No changes made  -->  Registry is already up-to-date$(If (($PSBoundParameters.ContainsKey('Verbose')) -Eq ($False)) { Write-Output "`n                   -->  For additional info, run using the '-Verbose' argument"; };)";
       }
 
     }

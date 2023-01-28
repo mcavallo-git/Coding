@@ -74,16 +74,16 @@ fi;
 
 # ------------------------------------------------------------
 #
-# Update default branch
+# Update the local trunk branch reference (refs/remotes/origin/HEAD)
 #
 
 if [[ 1 -eq 1 ]]; then
-  # Update the local HEAD reference (remotes/origin/HEAD)
-  CURRENT_DEFAULT_BRANCH="$(git symbolic-ref --short "refs/remotes/origin/HEAD" | sed -rne "s/^\s*origin\/(\S+)\s*$/\1/p";)";
-  DESIRED_DEFAULT_BRANCH="main";
-  if [[ -n "${CURRENT_DEFAULT_BRANCH}" ]] && [[ "${CURRENT_DEFAULT_BRANCH}" != "${DESIRED_DEFAULT_BRANCH}" ]]; then
-    echo "Calling [ git symbolic-ref \"refs/remotes/origin/HEAD\" \"refs/remotes/origin/${DESIRED_DEFAULT_BRANCH}\"; ]...";
-    git symbolic-ref "refs/remotes/origin/HEAD" "refs/remotes/origin/${DESIRED_DEFAULT_BRANCH}";
+  # Update the local trunk branch reference (refs/remotes/origin/HEAD)
+  CURRENT_TRUNK_BRANCH_REF="$(git symbolic-ref --short "refs/remotes/origin/HEAD" | sed -rne "s/^\s*origin\/(\S+)\s*$/\1/p";)";
+  DESIRED_BRANCH="main";
+  if [[ -n "${CURRENT_TRUNK_BRANCH_REF}" ]] && [[ "${CURRENT_TRUNK_BRANCH_REF}" != "${DESIRED_BRANCH}" ]]; then
+    echo "Calling [ git symbolic-ref \"refs/remotes/origin/HEAD\" \"refs/remotes/origin/${DESIRED_BRANCH}\"; ]...";
+    git symbolic-ref "refs/remotes/origin/HEAD" "refs/remotes/origin/${DESIRED_BRANCH}";
   fi;
 fi;
 

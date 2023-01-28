@@ -1,7 +1,7 @@
 https://emojipedia.org/emojipedia/5.0/
 ------------------------------------------------------------
 
-utf8-chartest ∙●○◌☁Δ■💬╳✔✅❎❌⭐⚡⚠️⚠❗❓☢☣⛠⛔✕✖✗✘□☑☒▢✉🔍🔎🔎⛺⛳✆➧⇒➾↶↳✦≠▶▷►◆◇◈◊❖⌨…
+utf8-chartest ∙●○◌☁Δ■💬╳✔✅❎❌⭐⚡⚠️⚠❕❗❓☢☣⛠⛔✕✖✗✘□☑☒▢✉🔍🔎🔎⛺⛳✆➧⇒➾↶↳✦≠▶▷►◆◇◈◊❖⌨…
 
 ------------------------------------------------------------
 
@@ -174,6 +174,7 @@ Mostly Linux compatible:
 ⅀					Double-Struck N-Ary Summation  |  https://www.compart.com/en/unicode/U+2140
 
 
+
 🔤					Input Symbol For Latin Letters &#x1F524;  |  https://www.compart.com/en/unicode/U+1F524
 🆓					Squared Free &#x1F193;  |  https://www.compart.com/en/unicode/U+1F193
 🆕					Squared New &#x1F195;  |  https://www.compart.com/en/unicode/U+1F195  |  echo -e "\\xF0\\x9F\\x86\\x95";
@@ -211,8 +212,10 @@ Mostly Linux compatible:
 ⚠️				Warning Sign (Colored)  |  https://emojipedia.org/warning/  |  echo -e "\\xE2\\x9A\\xA0\\xEF\\xB8\\x8F";  |  "$([char]0x26A0+[char]0xFE0F)"
 ⛔				 No Entry  |  https://www.compart.com/en/unicode/U+26D4
 🚫				No Entry Sign  |  https://www.compart.com/en/unicode/U+1F6AB
-❗					Heavy Exclamation Mark Symbol  |  https://www.compart.com/en/unicode/U+2757
-❓					Black Question Mark Ornament &#10067; &#x2753;  |  https://www.compart.com/en/unicode/U+2753
+❕					White Exclamation Mark Ornament  (&#x2755;)  |  https://www.compart.com/en/unicode/U+2755
+❗					Heavy Exclamation Mark Symbol  (&#x2757;)  |  https://www.compart.com/en/unicode/U+2757
+❓					Black Question Mark Ornament  (&#x2753;)  |  https://www.compart.com/en/unicode/U+2753
+❔					White Question Mark Ornament  (&#x2754;)  |  https://www.compart.com/en/unicode/U+2754
 
 
 🗇				 Empty Note Pad  |  https://www.compart.com/en/unicode/U+1F5C7  |  echo -e "\\xF0\\x9F\\x97\\x87";  |  "$([char]0xD83D+[char]0xDDC7)"

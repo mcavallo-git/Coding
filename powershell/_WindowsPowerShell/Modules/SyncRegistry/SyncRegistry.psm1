@@ -1391,6 +1391,22 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
+              Description="Office 2016/2019 Telemetry - [0]=Disable, [1]=Enable the Customer Experience Improvement Program (CEIP). Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_EnableCustomerExperienceImprovementProgram]";
+              Hotfix=$Null;
+              Name="QMEnable";
+              Type="DWord";
+              Value=0;
+              Delete=$False;
+            },
+            @{
+              Description="Office 2016/2019 Telemetry - [0]=Disable, [1]=Enable the sending of personal information to Office. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_Sendcustomerdata]";
+              Hotfix=$Null;
+              Name="SendCustomerData";
+              Type="DWord";
+              Value=0;
+              Delete=$False;
+            },
+            @{
               Description="Office 2016/2019 Theme - Set Office Theme to: [0]=Colorful, [3]=Dark Gray, [4]=Black, [5]=White, [6]=Use system settings. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DefaultUIThemeUser]";
               Hotfix=$Null;
               Name="UI Theme";

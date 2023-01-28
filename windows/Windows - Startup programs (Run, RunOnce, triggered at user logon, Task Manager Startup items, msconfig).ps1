@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# Windows - Run, RunOnce (startup programs in task manager, run program-script at user logon)
+# Windows - Startup programs (Run, RunOnce, triggered at user logon, Task Manager Startup items, msconfig)
 # ------------------------------------------------------------
 #
 # Microsoft: "Use Run or RunOnce registry keys to make a program run when a user logs on."

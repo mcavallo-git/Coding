@@ -44,6 +44,18 @@ fi;
 
 # ------------------------------------------------------------
 #
+# Rename branch
+#
+
+# Rename branch, local repository
+git branch -m "branch-name" "branch-name-new";
+
+# Rename branch, remote repository
+git push -u "branch-name" "branch-name-new";
+
+
+# ------------------------------------------------------------
+#
 # Reset current local branch to match remote (origin) branch  -->  Note that this is more effective than [ git reset --hard "HEAD"; ] as it resets the local to match the remote
 #
 if [[ 1 -eq 1 ]]; then
@@ -55,33 +67,56 @@ fi;
 
 # ------------------------------------------------------------
 #
-# Rename branch
+# Update default branch
 #
 
-# Rename branch, local repository
-git branch -m "branch-name" "branch-name-new";
+if [[ 1 -eq 1 ]]; then
+  # Update the local HEAD reference (remotes/origin/HEAD)
+  CURRENT_DEFAULT_BRANCH="$(git symbolic-ref --short "refs/remotes/origin/HEAD" | sed -rne "s/^\s*origin\/(\S+)\s*$/\1/p";)";
+  DESIRED_DEFAULT_BRANCH="main";
+  if [[ -n "${CURRENT_DEFAULT_BRANCH}" ]] && [[ "${CURRENT_DEFAULT_BRANCH}" != "${DESIRED_DEFAULT_BRANCH}" ]]; then
+    echo "Calling [ git symbolic-ref \"refs/remotes/origin/HEAD\" \"refs/remotes/origin/${DESIRED_DEFAULT_BRANCH}\"; ]...";
+    git symbolic-ref "refs/remotes/origin/HEAD" "refs/remotes/origin/${DESIRED_DEFAULT_BRANCH}";
+  fi;
+fi;
 
-# Rename branch, remote repository
-git push -u "branch-name" "branch-name-new";
+# CURRENT_DEFAULT_BRANCH="$(git branch --all | sed -rne "s/^\s*remotes\/origin\/HEAD\s*->\s*origin\/(\S+)\s*$/\1/p";)";
+
 
 # ------------------------------------------------------------
 #
 # Delete branch
 #
 
-# Delete branch, local repository
+# Delete LOCAL branch
 git branch -D "branch-name";
 
-# Delete branch, remote repository
+
+# Delete LOCAL branch & refs (only if it exists)
+if [[ 1 -eq 1 ]]; then
+  DEPRECATED_BRANCH="master";
+  ALL_BRANCHES="$(git branch --all;)"; 
+  # Check for branch to delete
+  BRANCH_EXISTS="$(echo "${ALL_BRANCHES}" | sed -rne "s/^\s*(${DEPRECATED_BRANCH})\s*$/\1/p" | wc -l;)";
+  if [[ "${BRANCH_EXISTS}" -gt 0 ]]; then
+    echo "Calling [ git branch --delete --force \"${DEPRECATED_BRANCH}\"; ]...";
+    git branch --delete --force "${DEPRECATED_BRANCH}";
+  fi;
+  # Prune - Show which nonexistent remote trackers would be removed
+  git fetch --all --prune --dry-run;
+  # Prune - Remove said nonexistent remote trackers
+  git fetch --all --prune;
+fi;
+
+
+# Delete REMOTE branch
 git push "repo-name" -v --delete "branch-name";
 
-# Delete branch, remote repository (method 2)
+
+# Delete REMOTE branch (method 2)
 #  |--> by pushing the branch as ":branch-name" (instead of "repository-name:branch-name"), git pushes a branch referring to a nonexistent source repository
 #  |--> pushing a branch from a nonexistent source repository causes the branch in the pushed-to repository (if it exists) to be deleted
 git push "repo-name" ":branch-name";
-
-# Delete branch, local & remote repository (both)
-git branch -D "branch-name" && git push "repo-name" -v --delete "branch-name";
 
 
 # ------------------------------------------------------------
@@ -91,6 +126,8 @@ git branch -D "branch-name" && git push "repo-name" -v --delete "branch-name";
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   docs.gitlab.com  |  "Default branch | GitLab"  |  https://docs.gitlab.com/ee/user/project/repository/branches/default.html#update-the-default-branch-name-in-your-repository
 #
 #   stackoverflow.com  |  "git - How do I delete a branch without an error message if the branch does not exist? - Stack Overflow"  |  https://stackoverflow.com/a/22402618
 #

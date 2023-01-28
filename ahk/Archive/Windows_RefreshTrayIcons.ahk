@@ -1,3 +1,5 @@
+#SingleInstance Force  ; https://www.autohotkey.com/docs/v1/lib/_SingleInstance.htm
+
 Windows_RefreshTrayIcons()
 
 ; ------------------------------

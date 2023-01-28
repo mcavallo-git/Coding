@@ -8,6 +8,13 @@
 
 git branch -v -a;
 
+# ------------------------------------------------------------
+#
+# Check if a branch exists
+#
+
+TEST_BRANCH="main"; if [ `git rev-parse --verify ${TEST_BRANCH} 2>/dev/null` ]; then echo "Branch \"${TEST_BRANCH}\" exists!"; else echo "Branch \"${TEST_BRANCH}\" does NOT exist"; fi;
+
 
 # ------------------------------------------------------------
 #
@@ -95,15 +102,11 @@ git branch -D "branch-name";
 # Delete LOCAL branch & refs (only if it exists)
 if [[ 1 -eq 1 ]]; then
   DEPRECATED_BRANCH="master";
-  ALL_BRANCHES="$(git branch --all;)"; 
   # Check for branch to delete
-  BRANCH_EXISTS="$(echo "${ALL_BRANCHES}" | sed -rne "s/^\s*(${DEPRECATED_BRANCH})\s*$/\1/p" | wc -l;)";
-  if [[ "${BRANCH_EXISTS}" -gt 0 ]]; then
+  if [ `git rev-parse --verify ${DEPRECATED_BRANCH} 2>/dev/null` ]; then
     echo "Calling [ git branch --delete --force \"${DEPRECATED_BRANCH}\"; ]...";
     git branch --delete --force "${DEPRECATED_BRANCH}";
   fi;
-  # Prune - Show which nonexistent remote trackers would be removed
-  git fetch --all --prune --dry-run;
   # Prune - Remove said nonexistent remote trackers
   git fetch --all --prune;
 fi;
@@ -132,6 +135,8 @@ git push "repo-name" ":branch-name";
 #   stackoverflow.com  |  "git - How do I delete a branch without an error message if the branch does not exist? - Stack Overflow"  |  https://stackoverflow.com/a/22402618
 #
 #   stackoverflow.com  |  "git checkout - How do I check out a remote Git branch? - Stack Overflow"  |  https://stackoverflow.com/a/13770793
+#
+#   stackoverflow.com  |  "Is there a better way to find out if a local git branch exists? - Stack Overflow"  |  https://stackoverflow.com/a/28776049
 #
 #   stackoverflow.com  |  "How to get the current branch name in Git? - Stack Overflow"  |  https://stackoverflow.com/a/12142066
 #

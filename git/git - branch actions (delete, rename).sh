@@ -2,9 +2,20 @@
 # ------------------------------------------------------------
 # git - branch actions (delete, rename)
 # ------------------------------------------------------------
+#
+# List all branches
+#
+
+git branch -v -a;
+
+
+# ------------------------------------------------------------
+#
+# Get current branch name
+#
 
 if [[ 1 -eq 1 ]]; then
-  # Get current branch name
+  # Show the name of the current branch in target Git repo
   CURRENT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)";
   echo "CURRENT_BRANCH=[${CURRENT_BRANCH}]";
 fi;
@@ -13,12 +24,10 @@ fi;
 # ------------------------------------------------------------
 #
 # Switch branches by cloning a branch from the source repo
+#  |
+#  |--> General Syntax:
+#         git checkout -b remote_branch origin/remote_branch;
 #
-
-
-# General Syntax:
-git checkout -b remote_branch origin/remote_branch;
-
 
 if [[ 1 -eq 1 ]]; then
   # If current branch is not the desired branch, switch to using the desired branch, instead
@@ -27,7 +36,7 @@ if [[ 1 -eq 1 ]]; then
   echo "CURRENT_BRANCH=[${CURRENT_BRANCH}]";
   echo "DESIRED_BRANCH=[${DESIRED_BRANCH}]";
   if [[ -n "${CURRENT_BRANCH}" ]] && [[ "${CURRENT_BRANCH}" != "${DESIRED_BRANCH}" ]]; then
-    echo "Calling [ git reset --hard \"origin/${LOCAL_BRANCH_TO_RESET}\"; ]...";
+    echo "Calling [ git checkout -b \"${DESIRED_BRANCH}\" \"origin/${DESIRED_BRANCH}\"; ]...";
     git checkout -b "${DESIRED_BRANCH}" "origin/${DESIRED_BRANCH}";
   fi;
 fi;

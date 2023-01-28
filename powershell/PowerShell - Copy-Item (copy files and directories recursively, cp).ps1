@@ -16,12 +16,15 @@ Copy-Item -Path (${Source}) -Destination (${Destination}) -Force;
 If ($True) {
   [String]$Source="${env:USERPROFILE}\Desktop\Source\*";
   [String]$Destination="${env:USERPROFILE}\Desktop\Destination\";
-  # Ensure destination directory exists
-  If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
-    New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
+  # Ensure source directory exists
+  If (($True) -Eq (Test-Path -PathType "Container" -Path (${Source} -split {($_ -Eq "*") -Or ($_ -Eq "]")} -join ""))) {
+    # Ensure destination directory exists
+    If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
+      New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
+    }
+    # Copy files & directories from source to destination
+    Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination});
   }
-  # Copy files & directories from source to destination
-  Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination});
 }
 
 
@@ -34,12 +37,15 @@ If ($True) {
   [String]$Source="${env:USERPROFILE}\Desktop\Source\*";
   [String]$Destination="${env:USERPROFILE}\Desktop\Destination\";
   [String[]]$Includes=@("*.ico","*.url");
-  # Ensure destination directory exists
-  If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
-    New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
+  # Ensure source directory exists
+  If (($True) -Eq (Test-Path -PathType "Container" -Path (${Source} -split {($_ -Eq "*") -Or ($_ -Eq "]")} -join ""))) {
+    # Ensure destination directory exists
+    If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
+      New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
+    }
+    # Copy files & directories from source to destination
+    Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination}) -Include (${Includes});
   }
-  # Copy files & directories from source to destination
-  Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination}) -Include (${Includes});
 }
 
 
@@ -52,12 +58,15 @@ If ($True) {
   [String]$Source="${env:USERPROFILE}\Desktop\Source\*";
   [String]$Destination="${env:USERPROFILE}\Desktop\Destination\";
   [String[]]$Excludes=@("*.lnk","*.url");
-  # Ensure destination directory exists
-  If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
-    New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
+  # Ensure source directory exists
+  If (($True) -Eq (Test-Path -PathType "Container" -Path (${Source} -split {($_ -Eq "*") -Or ($_ -Eq "]")} -join ""))) {
+    # Ensure destination directory exists
+    If (($False) -Eq (Test-Path -PathType "Container" -Path ("${Destination}"))) {
+      New-Item -ItemType "Directory" -Path ("${Destination}") | Out-Null;
+    }
+    # Copy files & directories from source to destination
+    Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination}) -Exclude (${Excludes});
   }
-  # Copy files & directories from source to destination
-  Copy-Item -Force -Recurse -Path (${Source}) -Destination (${Destination}) -Exclude (${Excludes});
 }
 
 

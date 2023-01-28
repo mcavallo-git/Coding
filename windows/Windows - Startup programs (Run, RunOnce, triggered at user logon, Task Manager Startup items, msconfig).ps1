@@ -5,15 +5,15 @@
 # Microsoft: "Use Run or RunOnce registry keys to make a program run when a user logs on."
 #
 
-# Run  (System)    -  Run a given command the next time ANY user logs on  ⚠️ Task MAnager Startup Program(s) ⚠️
+# Run  (System)  -  Run a given command the next time ANY user logs on  ⚠️ These are listed under Task Manager's "startup" tab ⚠️
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\Run
 
-# Run  (System)    -  Run a given command the next time CURRENT user logs on  ⚠️ Task MAnager Startup Program(s) ⚠️
-HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
-
-
-# RunOnce  (User)  -  Run a given command the next time ANY user logs on (but first remove the command from the "RunOnce" registry key)
+# RunOnce  (System)  -  Run a given command the next time ANY user logs on (but first remove the command from the "RunOnce" registry key)
 HKEY_LOCAL_MACHINE\Software\Microsoft\Windows\CurrentVersion\RunOnce
+
+
+# Run  (User)  -  Run a given command the next time CURRENT user logs on  ⚠️ These are listed under Task Manager's "startup" tab ⚠️
+HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Run
 
 # RunOnce  (User)  -  Run a given command the next time CURRENT user logs on (but first remove the command from the "RunOnce" registry key)
 HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce

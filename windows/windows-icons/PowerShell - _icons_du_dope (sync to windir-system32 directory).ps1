@@ -1,6 +1,8 @@
 If ($True) {
   #
   # PowerShell - _icons_du_dope (sync to windir-system32 directory)
+  #  |
+  #  |--> Must be ran using the "Run as administrator" option
   #
   [String]$Source="${env:REPOS_DIR}\Coding\windows\windows-icons\_icons_du_dope\*";
   [String]$Destination="${env:windir}\System32\_icons_du_dope\";

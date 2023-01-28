@@ -1,18 +1,24 @@
 #!/bin/bash
 # ------------------------------------------------------------
+# git - branch actions (delete, rename)
+# ------------------------------------------------------------
 
-
-# Get current branch name
-CHECKOUT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)";
-echo "CHECKOUT_BRANCH=[ ${CHECKOUT_BRANCH} ]";
+if [[ 1 -eq 1 ]]; then
+  # Get current branch name
+  CURRENT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)";
+  echo "CURRENT_BRANCH=[${CURRENT_BRANCH}]";
+fi;
 
 
 # ------------------------------------------------------------
 #
 # Reset current local branch to match remote (origin) branch  -->  Note that this is more effective than [ git reset --hard "HEAD"; ] as it resets the local to match the remote
 #
-CHECKOUT_BRANCH="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)";
-git reset --hard "origin/${CHECKOUT_BRANCH}";
+if [[ 1 -eq 1 ]]; then
+  LOCAL_BRANCH_TO_RESET="$(if [ "$(git rev-parse --abbrev-ref HEAD;)" != "HEAD" ]; then git rev-parse --abbrev-ref HEAD; else git symbolic-ref --short HEAD; fi;)";
+  echo "Calling [ git reset --hard \"origin/${LOCAL_BRANCH_TO_RESET}\"; ]...";
+  git reset --hard "origin/${LOCAL_BRANCH_TO_RESET}";
+fi;
 
 
 # ------------------------------------------------------------

@@ -38,4 +38,6 @@ HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\RunOnce
 #
 #   superuser.com  |  "boot - What is the difference between Run registry key and Startup Folder (in Start Menu)? - Super User"  |  https://superuser.com/a/300116
 #
+#   support.microsoft.com  |  "authentication - What's the order of Windows startup? - Stack Overflow"  |  https://support.microsoft.com/en-us/windows/add-an-app-to-run-automatically-at-startup-in-windows-10-150da165-dcd9-7230-517b-cf3c295d89dd
+#
 # ------------------------------------------------------------

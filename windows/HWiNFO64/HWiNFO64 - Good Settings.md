@@ -6,10 +6,13 @@
 
 ***
 
-### Prerequisite Install(s)
+### Installing HWiNFO64
   - `HWiNFO64` (System Information Tool)
     - Download URL: https://www.hwinfo.com/download
       - Note: Comes `RTSS (RivaTuner Statistics Server)`, a pre-packaged `OSD (On-Screen Display)` utility for viewing metrics in real time
+
+***
+### Installing Fonts
   - `Fira Code`
     - Download URL:  https://fonts.google.com/specimen/Fira+Code
       - Install via Right-Click > `Install for all users`
@@ -19,7 +22,7 @@
 
 ***
 
-### HWiNFO64 - Good Settings
+### Applying Settings
   - Open `HWiNFO64.EXE` Settings
     - Locate the window titled `HWiNFO64 v_.__-____ Sensor Status` (with numbers where underscores are)
       - Click the cog in the bottom-right hand side of the sensors window --> `HWiNFO64 Sensor Settings` window opens 

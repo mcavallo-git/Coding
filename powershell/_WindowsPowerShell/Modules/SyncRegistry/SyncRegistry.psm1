@@ -33,10 +33,16 @@ function SyncRegistry {
   # TODO:
   #
   #  - Themes > Desktop Icon Settings > Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
+  #
   #  - Themes > Desktop Icon Settings > Uncheck "Allow themes to change desktop icons"
+  #
   #  - Change system sounds > Set "Sound Scheme" to "No Sounds"
+  #
   #  - File Explorer Options > General > Uncheck "Show recently used files in Quick Access"
-  #  - File Explorer Options > General > Uncheck "Show frequentlly used folders in Quick Access"
+  #     |--> Key="HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer"; Property="ShowRecent"; Type="DWord"; Value=0;
+  #
+  #  - File Explorer Options > General > Uncheck "Show frequently used folders in Quick Access"
+  #     |--> Key="HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer"; Property="ShowFrequent"; Type="DWord"; Value=0;
   #
   # ------------------------------------------------------------
 

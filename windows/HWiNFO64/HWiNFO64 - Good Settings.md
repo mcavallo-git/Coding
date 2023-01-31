@@ -22,7 +22,7 @@
 
 ***
 
-### HWiNFO64 Configuration (to Apply)
+### Update `HWiNFO64 Configuration`
   - Close any running instances (including background instances) of `HWiNFO64`
     - Open file for editing: `C:\Program Files\HWiNFO64\HWiNFO64.INI`
       - Update with settings from: [HWiNFO64.INI](./HWiNFO64.INI)

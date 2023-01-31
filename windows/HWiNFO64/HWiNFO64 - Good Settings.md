@@ -49,7 +49,7 @@
         - `Font`
           - Font: `Fira Sans`
           - Font style: `Regular`
-          - Size: `14` (type it in by hand)
+          - Size: `14`
         - `Color`
           - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
           - Set `Text` to: { `Red`=`0`, `Green`=`255`, `Blue`=`255` }
@@ -59,7 +59,7 @@
         - `Font`
           - Font: `Fira Sans`
           - Font style: `Regular`
-          - Size: `14` (type it in by hand)
+          - Size: `14`
         - `Color`
           - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
           - Set `Text` to: { `Red`=`168`, `Green`=`255`, `Blue`=`0` }
@@ -69,7 +69,7 @@
         - `Font`
           - Font: `Fira Sans`
           - Font style: `Regular`
-          - Size: `14` (type it in by hand)
+          - Size: `14`
         - `Color`
           - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
           - Set `Text` to: { `Red`=`255`, `Green`=`138`, `Blue`=`255` }

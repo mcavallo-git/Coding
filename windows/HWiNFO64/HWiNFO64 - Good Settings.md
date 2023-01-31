@@ -22,17 +22,17 @@
 
 ***
 
-### Open `Sensors Settings`
-  - Run `HWiNFO64.exe`
-    - Open the `Sensors Status` page
-     - Click the bottom-right `⚙️ (Configure Sensors)` button --> `HWiNFO64 Sensor Settings` window opens 
-
-***
-
 ### Update `HWiNFO64.INI`
   - Close any running instances (including background instances) of `HWiNFO64`
     - Open file for editing: `C:\Program Files\HWiNFO64\HWiNFO64.INI`
       - Update with settings from: [HWiNFO64.INI](./HWiNFO64.INI)
+
+***
+
+### Open `Sensors Settings`
+  - Run `HWiNFO64.exe`
+    - Open the `Sensors Status` page
+     - Click the bottom-right `⚙️ (Configure Sensors)` button --> `HWiNFO64 Sensor Settings` window opens 
 
 ***
 

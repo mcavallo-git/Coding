@@ -44,38 +44,42 @@
         - Set `Size` to `14`   <-- After you apply changes, if the text in the sensors list is illegible, increase font size as needed
         - Click `OK` in the `Font` window --> window closes
     - Tab: `System Tray`
-      - Click sensor `GPU Temperature` in the device list settings  (!!SHORTCUT: Click anywhere in the scroll area, press the `G` key (on your keyboard))
-        - Check `Show in Tray`
-        - Set `Truncate to:` to `2` (digits)
-        - Click the button next to `Font:` to set the font
-          - Set `Font` to `Fira Sans`
-          - Set `Font style` to `Regular`
-          - Set `Size` to `14` (type it into field, manually)
-          - Click `OK` in the `Font` window  --> window closes
-        - Click the colored square to the right of text `Background:`  --> `Color` window opens 
-          - Click `Define Custom Colors >>`
-            - Set values { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
-            - Click `OK` in the `Color` window --> window closes
-        - Click the colored square to the right of text `Text:`  --> `Color` window opens 
-          - Click `Define Custom Colors >>`
-            - Set values { `Red`=`168`, `Green`=`255`, `Blue`=`0` }
-            - Click `OK` in the `Color` window --> window closes
+      - ***
       - Click sensor `CPU Die (average)` in the device list settings  (should be the top sensor under the `CPU [#0]: ...` device)
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)
-        - Click the button next to `Font:` to set the font
+        - Open font settings by clicking the font-name next to `Font:`
           - Set `Font` to `Fira Sans`
           - Set `Font style` to `Regular`
           - Set `Size` to `14` (type it into field, manually)
           - Click `OK` in the `Font` window  --> window closes
-        - Click the colored square to the right of text `Background:`  --> `Color` window opens 
-          - Click `Define Custom Colors >>`
-            - Set values { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
-            - Click `OK` in the `Color` window --> window closes
-        - Click the colored square to the right of text `Text:`  --> `Color` window opens 
-          - Click `Define Custom Colors >>`
-            - Set values { `Red`=`0`, `Green`=`255`, `Blue`=`255` }
-            - Click `OK` in the `Color` window --> window closes
+          - Color
+            - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
+            - Set `Text` to: { `Red`=`0`, `Green`=`255`, `Blue`=`255` }
+      - ***
+      - Click sensor `GPU Temperature` in the device list settings  (!!SHORTCUT: Click anywhere in the scroll area, press the `G` key (on your keyboard))
+        - Check `Show in Tray`
+        - Set `Truncate to:` to `2` (digits)
+        - Open font settings by clicking the font-name next to `Font:`
+          - Set `Font` to `Fira Sans`
+          - Set `Font style` to `Regular`
+          - Set `Size` to `14` (type it into field, manually)
+          - Click `OK` in the `Font` window  --> window closes
+          - Color
+            - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
+            - Set `Text` to: { `Red`=`168`, `Green`=`255`, `Blue`=`0` }
+      - ***
+      - Click sensor `Drive Temperature` in the device list settings  (should be the top sensor under the `S.M.A.R.T.: ...` device)
+        - Check `Show in Tray`
+        - Set `Truncate to:` to `2` (digits)
+        - Open font settings by clicking the font-name next to `Font:`
+          - Set `Font` to `Fira Sans`
+          - Set `Font style` to `Regular`
+          - Set `Size` to `14` (type it into field, manually)
+          - Click `OK` in the `Font` window  --> window closes
+          - Color
+            - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
+            - Set `Text` to: { `Red`=`255`, `Green`=`138`, `Blue`=`255` }
     - Tab: `OSD (RTSS)`
       - !! Set option(s) [ `Show value in OSD` to Checked ], [ `Show label in OSD` to Checked ], & [ `Use color:` to white (Red=`255`, Green=`255`, Blue=`255`) ] for each of the following sensors:
         - `GPU [#0]: ...`
@@ -84,6 +88,7 @@
           - `GPU Clock`
         - `RTSS`
           - `Framerate`
+    - Click `OK` in the `HWiNFO64 - Sensor Settings` window  --> window closes
 
 ***
 

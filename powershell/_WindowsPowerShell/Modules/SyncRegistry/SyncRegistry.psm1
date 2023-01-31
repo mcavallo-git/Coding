@@ -29,6 +29,14 @@ function SyncRegistry {
 
   }
   # ------------------------------------------------------------
+  #
+  # TODO:
+  #
+  #  - Themes > Desktop Icon Settings > Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
+  #  - Themes > Desktop Icon Settings > Uncheck "Allow themes to change desktop icons"
+  #  - Change system sounds > Set "Sound Scheme" to "No Sounds"
+  #
+  # ------------------------------------------------------------
 
   $EXIT_CODE=0;
 
@@ -72,11 +80,6 @@ function SyncRegistry {
 
     If ($EXIT_CODE -Eq 0) {
 
-      # ------------------------------------------------------------
-      # TO-DO
-      #
-      #   Sound Scheme -->  Set to "No Sounds"
-      #
       # ------------------------------------------------------------
       # Define any Network Maps which will be required during the runtime
       #  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)

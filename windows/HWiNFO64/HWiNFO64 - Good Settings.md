@@ -9,7 +9,7 @@
 ### Installing HWiNFO64
   - `HWiNFO64` (System Information Tool)
     - Download URL: https://www.hwinfo.com/download
-      - Note: Comes `RTSS (RivaTuner Statistics Server)`, a pre-packaged `OSD (On-Screen Display)` utility for viewing metrics in real time
+      - <sub>Includes `RTSS (RivaTuner Statistics Server)`, a pre-packaged OSD (On-Screen Display) utility for viewing metrics in real time</sub>
 
 ***
 ### Installing Fonts (`.ttf`)

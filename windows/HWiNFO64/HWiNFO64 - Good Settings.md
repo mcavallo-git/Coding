@@ -29,7 +29,7 @@
 
 ***
 
-### Open `Sensors Settings`
+### Open `HWiNFO64 Sensors Settings`
   - Run `HWiNFO64.exe`
     - Open the `Sensors Status` page
      - Click the bottom-right `⚙️ (Configure Sensors)` button --> `HWiNFO64 Sensor Settings` window opens 

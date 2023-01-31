@@ -30,11 +30,11 @@
 ***
 
 ### Update HWiNFO64 User Settings
-  1. Open `HWiNFO64 Sensors Settings`
+  - Open `HWiNFO64 Sensors Settings`
     - Run `HWiNFO64.exe`
       - Open the `Sensors Status` page
         - Click the bottom-right `⚙️ (Configure Sensors)` button --> `HWiNFO64 Sensor Settings` window opens 
-  2. Update `HWiNFO64 Sensor Settings`
+  - Update `HWiNFO64 Sensor Settings`
     - Tab: `General`
       - Check `Minimize Graphs with Sensors Window`  (bottom left)
       - Check `Log all values for Report (consumes memory)`  (bottom left)

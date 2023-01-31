@@ -53,9 +53,9 @@
           - Set `Font style` to `Regular`
           - Set `Size` to `14` (type it into field, manually)
           - Click `OK` in the `Font` window  --> window closes
-          - Color
-            - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
-            - Set `Text` to: { `Red`=`0`, `Green`=`255`, `Blue`=`255` }
+        - `Color`
+          - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
+          - Set `Text` to: { `Red`=`0`, `Green`=`255`, `Blue`=`255` }
       - ***
       - Click sensor `GPU Temperature` in the device list settings  (!!SHORTCUT: Click anywhere in the scroll area, press the `G` key (on your keyboard))
         - Check `Show in Tray`
@@ -65,9 +65,9 @@
           - Set `Font style` to `Regular`
           - Set `Size` to `14` (type it into field, manually)
           - Click `OK` in the `Font` window  --> window closes
-          - Color
-            - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
-            - Set `Text` to: { `Red`=`168`, `Green`=`255`, `Blue`=`0` }
+        - `Color`
+          - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
+          - Set `Text` to: { `Red`=`168`, `Green`=`255`, `Blue`=`0` }
       - ***
       - Click sensor `Drive Temperature` in the device list settings  (should be the top sensor under the `S.M.A.R.T.: ...` device)
         - Check `Show in Tray`
@@ -77,9 +77,9 @@
           - Set `Font style` to `Regular`
           - Set `Size` to `14` (type it into field, manually)
           - Click `OK` in the `Font` window  --> window closes
-          - Color
-            - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
-            - Set `Text` to: { `Red`=`255`, `Green`=`138`, `Blue`=`255` }
+        - `Color`
+          - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
+          - Set `Text` to: { `Red`=`255`, `Green`=`138`, `Blue`=`255` }
     - Tab: `OSD (RTSS)`
       - !! Set option(s) [ `Show value in OSD` to Checked ], [ `Show label in OSD` to Checked ], & [ `Use color:` to white (Red=`255`, Green=`255`, Blue=`255`) ] for each of the following sensors:
         - `GPU [#0]: ...`

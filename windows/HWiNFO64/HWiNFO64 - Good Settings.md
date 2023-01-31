@@ -22,14 +22,14 @@
 
 ***
 
-### Update `HWiNFO64 Configuration`
+### Update HWiNFO64 Configuration
   - Close any running instances (including background instances) of `HWiNFO64`
     - Open file for editing: `C:\Program Files\HWiNFO64\HWiNFO64.INI`
       - Update with settings from: [HWiNFO64.INI](./HWiNFO64.INI)
 
 ***
 
-### Update `HWiNFO64 User Settings`
+### Update HWiNFO64 User Settings
   1. Open `HWiNFO64 Sensors Settings`
     - Run `HWiNFO64.exe`
       - Open the `Sensors Status` page

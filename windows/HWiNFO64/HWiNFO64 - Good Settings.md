@@ -33,26 +33,24 @@
   - Open `HWiNFO64 Sensors Settings`
     - Run `HWiNFO64.exe`
       - Open the `Sensors Status` page
-        - Click the bottom-right `⚙️ (Configure Sensors)` button --> `HWiNFO64 Sensor Settings` window opens 
+        - Click the bottom-right `⚙️ (Configure Sensors)` button
   - Update `HWiNFO64 Sensor Settings`
     - Tab: `General`
       - Check `Minimize Graphs with Sensors Window`  (bottom left)
       - Check `Log all values for Report (consumes memory)`  (bottom left)
       - Click `Change Font`  (bottom right)
         - Set `Font` to `Fira Code`
-        - Set `Font style` to `Regular`
+        - Font style: `Regular`
         - Set `Size` to `14`   <-- After you apply changes, if the text in the sensors list is illegible, increase font size as needed
-        - Click `OK` in the `Font` window --> window closes
     - Tab: `System Tray`
       - ***
       - Click sensor `CPU Die (average)` in the device list settings  (should be the top sensor under the `CPU [#0]: ...` device)
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)
-        - Open font settings by clicking the font-name next to `Font:`
-          - Set `Font` to `Fira Sans`
-          - Set `Font style` to `Regular`
-          - Set `Size` to `14` (type it into field, manually)
-          - Click `OK` in the `Font` window  --> window closes
+        - `Font`
+          - Font: `Fira Sans`
+          - Font style: `Regular`
+          - Size: `14` (type it in by hand)
         - `Color`
           - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
           - Set `Text` to: { `Red`=`0`, `Green`=`255`, `Blue`=`255` }
@@ -60,11 +58,10 @@
       - Click sensor `GPU Temperature` in the device list settings  (!!SHORTCUT: Click anywhere in the scroll area, press the `G` key (on your keyboard))
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)
-        - Open font settings by clicking the font-name next to `Font:`
-          - Set `Font` to `Fira Sans`
-          - Set `Font style` to `Regular`
-          - Set `Size` to `14` (type it into field, manually)
-          - Click `OK` in the `Font` window  --> window closes
+        - `Font`
+          - Font: `Fira Sans`
+          - Font style: `Regular`
+          - Size: `14` (type it in by hand)
         - `Color`
           - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
           - Set `Text` to: { `Red`=`168`, `Green`=`255`, `Blue`=`0` }
@@ -72,11 +69,10 @@
       - Click sensor `Drive Temperature` in the device list settings  (should be the top sensor under the `S.M.A.R.T.: ...` device)
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)
-        - Open font settings by clicking the font-name next to `Font:`
-          - Set `Font` to `Fira Sans`
-          - Set `Font style` to `Regular`
-          - Set `Size` to `14` (type it into field, manually)
-          - Click `OK` in the `Font` window  --> window closes
+        - `Font`
+          - Font: `Fira Sans`
+          - Font style: `Regular`
+          - Size: `14` (type it in by hand)
         - `Color`
           - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
           - Set `Text` to: { `Red`=`255`, `Green`=`138`, `Blue`=`255` }
@@ -88,7 +84,6 @@
           - `GPU Clock`
         - `RTSS`
           - `Framerate`
-    - Click `OK` in the `HWiNFO64 - Sensor Settings` window  --> window closes
 
 ***
 
@@ -96,7 +91,7 @@
   - Steps for: `Creating a backup of HWiNFO64 User Settings`
     - Run `HWiNFO64`
       - Right-click its icon in the system tray (bottom right)
-        - Click `Settings` --> Popup window `HWiNFO64 Settings` opens
+        - Click `Settings`
           - Click tab `General / User Interface`
             -  Click `Backup User Settings`
               - Save the output (registry) file wherever you see fit (backup location, ideally)

@@ -12,13 +12,13 @@
       - <sub>Includes `RTSS (RivaTuner Statistics Server)`, a pre-packaged OSD (On-Screen Display) utility for viewing metrics in real time</sub>
 
 ***
-### Install Fonts (`.ttf`)
+### Install Fonts
   - `Fira Code`
     - Download URL:  https://github.com/tonsky/FiraCode/releases
-      - Install via Right-Click > `Install for all users`
+      - Install `.ttf` font(s) via Right-Click > `Install for all users`
   - `Fira Sans`
     - Download URL:  https://fonts.google.com/specimen/Fira+Sans
-      - Install via Right-Click > `Install for all users`
+      - Install `.ttf` font(s) via Right-Click > `Install for all users`
 
 ***
 

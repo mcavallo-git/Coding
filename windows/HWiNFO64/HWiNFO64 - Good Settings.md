@@ -43,7 +43,6 @@
         - Font style: `Regular`
         - Set `Size` to `14`   <-- After you apply changes, if the text in the sensors list is illegible, increase font size as needed
     - Tab: `System Tray`
-      - ***
       - Click sensor `CPU Die (average)` in the device list settings  (should be the top sensor under the `CPU [#0]: ...` device)
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)
@@ -54,7 +53,6 @@
         - `Color`
           - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
           - Set `Text` to: { `Red`=`0`, `Green`=`255`, `Blue`=`255` }
-      - ***
       - Click sensor `GPU Temperature` in the device list settings  (!!SHORTCUT: Click anywhere in the scroll area, press the `G` key (on your keyboard))
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)
@@ -65,7 +63,6 @@
         - `Color`
           - Set `Background` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
           - Set `Text` to: { `Red`=`168`, `Green`=`255`, `Blue`=`0` }
-      - ***
       - Click sensor `Drive Temperature` in the device list settings  (should be the top sensor under the `S.M.A.R.T.: ...` device)
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)

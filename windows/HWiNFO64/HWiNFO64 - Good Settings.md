@@ -1,3 +1,5 @@
+<!-- https://github.com/mcavallo-git/Coding/blob/main/windows/HWiNFO64/HWiNFO64%20-%20Good%20Settings.md -->
+
 ***
 
 # HWiNFO64 - Good Settings

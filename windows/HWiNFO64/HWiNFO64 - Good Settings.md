@@ -23,7 +23,7 @@
 ***
 
 ### Applying Settings
-  - Open `HWiNFO64.EXE` Settings
+  - Open `HWiNFO64`
     - Click the bottom-right `⚙️ (Configure Sensors)` button --> `HWiNFO64 Sensor Settings` window opens 
       - Tab: `General`
         - Check `Minimize Graphs with Sensors Window`  (bottom left)

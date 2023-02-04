@@ -1339,7 +1339,7 @@ RShift & LShift::
       WinMove(0, 0, Viewport_Width, Viewport_Height, "A")
     } Else {
       ; Window is already mega maximized - Restore it
-      WinMove(Floor(0.05*A_ScreenWidth), Floor(0.05*A_ScreenHeight), Floor(0.55*A_ScreenWidth), Floor(0.8*A_ScreenHeight), "A")
+      WinMove(Floor(0.01*A_ScreenWidth), Floor(0.025*A_ScreenHeight), Floor(0.48*A_ScreenWidth), Floor(0.90*A_ScreenHeight), "A")
     }
     Return
   }

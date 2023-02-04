@@ -5,7 +5,7 @@ Windows_RefreshTrayIcons()
 ; ------------------------------
 ; Call from PowerShell via:
 ;
-;   Start-Process -Filepath ((Get-Content env:\\ProgramFiles)+(write \AutoHotkey\AutoHotkey.exe)) -ArgumentList ((Get-Content env:\\USERPROFILE)+(write \Documents\GitHub\Coding\ahk\Archive\Windows_RefreshTrayIcons.ahk)) -NoNewWindow;
+;   Start-Process -Filepath ((gc env:\\ProgramFiles)+(write \AutoHotkey\AutoHotkey.exe)) -ArgumentList ((gc env:\\REPOS_DIR)+(write \Coding\ahk\Archive\Windows_RefreshTrayIcons.ahk)) -NoNewWindow;
 ;
 ; ------------------------------
 ;

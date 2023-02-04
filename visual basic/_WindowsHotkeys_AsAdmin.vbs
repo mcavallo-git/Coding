@@ -1,6 +1,6 @@
 ' ------------------------------------------------------------
 '
-' CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/EnsureProcessIsRunning/EnsureProcessIsRunning.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'EnsureProcessIsRunning' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\EnsureProcessIsRunning\EnsureProcessIsRunning.psm1', ((Get-Variable -Name 'HOME').Value))); }; EnsureProcessIsRunning -Name 'Autohotkey' -Path 'C:\Program Files\AutoHotkey\v2\AutoHotkey.exe' -Args ((${HOME})+('\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2')) -AsAdmin -Quiet;"" ", 0, True
+' CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/EnsureProcessIsRunning/EnsureProcessIsRunning.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'EnsureProcessIsRunning' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Coding\powershell\_WindowsPowerShell\Modules\EnsureProcessIsRunning\EnsureProcessIsRunning.psm1', ((Get-ChildItem -Path 'Env:\REPOS_DIR').Value))); }; EnsureProcessIsRunning -Name 'Autohotkey' -Path 'C:\Program Files\AutoHotkey\v2\AutoHotkey.exe' -Args ((${env:REPOS_DIR})+('\Coding\ahk\_WindowsHotkeys.ahkv2')) -AsAdmin -Quiet;"" ", 0, True
 '
 ' ------------------------------------------------------------
 '
@@ -19,7 +19,7 @@
 '
 '   Action:
 '     Program/script:   "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe"
-'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2"
+'     Add arguments:    "%REPOS_DIR%\Coding\ahk\_WindowsHotkeys.ahkv2"
 '
 '   Conditions:
 '     (UN-CHECK) Start the task only if the computer is on AC power

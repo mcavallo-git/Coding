@@ -1070,7 +1070,7 @@ AppsKey & XButton2::
 
 ; ------------------------------------------------------------
 ;
-; 3-Key Volume Hotkeys  (Using AppsKey, LWin, or RWin)
+; 3-Key Volume Hotkeys  (Using AppsKey, LWin or RWin)
 ;
 #HotIf GetKeyState("LWin", "P") || GetKeyState("RWin", "P") || GetKeyState("AppsKey", "P")
   ;
@@ -1312,12 +1312,38 @@ AppsKey & WheelDown::
 ; SC136 & SC02a::   ;SC02A = LShift
 ; >+LShift::        ;>+ = RShift (Modifier)
 ; <+RShift::        ;<+ = LShift (Modifier)
-RShift & LShift::
 LShift & RShift::
+RShift & LShift::
 {
   Win_ToggleRestoreMaximize()
   Return
 }
+
+
+; ------------------------------------------------------------
+;
+; 3-Key Volume Hotkeys  (Using LCtrl or RCtrl)
+;
+#HotIf GetKeyState("LCtrl", "P") || GetKeyState("RCtrl", "P")
+  ;
+  ;   ACTION:  Mega Maximize (cover entire viewport)
+  ;
+  LShift & RShift::
+  RShift & LShift::
+  {
+    Viewport_Width := SysGet(78)  ; SM_CXVIRTUALSCREEN
+    Viewport_Height := SysGet(79)  ; SM_CYVIRTUALSCREEN
+    WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "A")
+    If ((Win_width != Viewport_Width) || (Win_height != Viewport_Height)) {
+      ; Mega maximize the window
+      WinMove(0, 0, Viewport_Width, Viewport_Height, "A")
+    } Else {
+      ; Window is already mega maximized - Restore it
+      WinMove(Floor(0.05*A_ScreenWidth), Floor(0.05*A_ScreenHeight), Floor(0.55*A_ScreenWidth), Floor(0.8*A_ScreenHeight), "A")
+    }
+    Return
+  }
+#HotIf
 
 
 ; ------------------------------
@@ -3020,7 +3046,7 @@ PasteClipboardAsBinary() {
   Sleep 250
   A_Clipboard := ClipboardAll()
   Sleep 25
-  A_Clipboard := A_Clipboard  ; Convert any copied files, HTML, or other formatted text to plain text
+  A_Clipboard := A_Clipboard  ; Convert any copied files, HTML or other formatted text to plain text
   Sleep 25
   If (StrLen(A_Clipboard)>=5000) {
     MsgBox("Warning! You are about to paste [ " StrLen(A_Clipboard) " ] characters. This may take some type to type. Press WinKey + ESC to cancel", A_ScriptName " - " A_ThisFunc)
@@ -4029,7 +4055,7 @@ WinGet_is_win10_app(WinTitle) {
 ; WinGet_size_state
 ;   |
 ;   |--> Description:
-;   |      Returns "Minimized", "Restored", or "Maximized" depending on the value returned from WinGetMinMax
+;   |      Returns "Minimized", "Restored" or "Maximized" depending on the value returned from WinGetMinMax
 ;   |
 ;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
 ;

@@ -2,7 +2,7 @@
 REM ------------------------------------------------------------
 REM
 REM
-REM  "%USERPROFILE%\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"
+REM  "%REPOS_DIR%\Coding\cmd\cmd - VSCode-Workspace.bat"
 REM
 REM
 REM ------------------------------------------------------------
@@ -27,8 +27,8 @@ SET /A VSCODE_ALREADY_RUNNING=1
 
 IF %VSCODE_ALREADY_RUNNING% EQU 0 (
 ECHO VSCode not found to be on its feet 1>NUL 2>&1
-ECHO Opening "%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace" 1>NUL 2>&1
-START "C:\Program Files\Microsoft VS Code\Code.exe" "%USERPROFILE%\Documents\GitHub\cloud-infrastructure\.vscode\github.code-workspace" | ECHO 1>NUL 2>&1
+ECHO Opening "%REPOS_DIR%\cloud-infrastructure\.vscode\github.code-workspace" 1>NUL 2>&1
+START "C:\Program Files\Microsoft VS Code\Code.exe" "%REPOS_DIR%\cloud-infrastructure\.vscode\github.code-workspace" | ECHO 1>NUL 2>&1
 TIMEOUT /T 1 1>NUL 2>&1
 FOR /L %%N IN (1,1,10) DO (
 FOR /F "tokens=2-2 delims= " %%A IN ('TASKLIST /NH /FI "IMAGENAME eq Code.exe" ^| MORE +3') DO (

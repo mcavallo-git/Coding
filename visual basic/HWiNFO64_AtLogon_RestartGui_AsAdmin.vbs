@@ -2,6 +2,13 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 
 ' ------------------------------------------------------------
 '
+' ! ! Update to use the registry to detect if user is signed in or not
+'      |
+'      |--> Key:  HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
+'      |--> Property:  UserSignedIn
+'
+' ------------------------------------------------------------
+'
 ' Create a Scheduled Task (which targets this script) by using the following values:
 '
 '   Name/Description:

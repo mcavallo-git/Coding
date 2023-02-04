@@ -1,3 +1,11 @@
+# ------------------------------------------------------------
+#
+# ! ! Update to use the registry to detect if user is signed in or not
+#      |
+#      |--> Key:  HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
+#      |--> Property:  UserSignedIn
+#
+# ------------------------------------------------------------
 If ((GV True).Value) {
   SV IS_LOGON_SCRIPT ((GV True).Value);
   SV ACTIVE_SESSION_EXISTS ([bool]((C:\Windows\System32\query.exe user (gc env:\\USERNAME) | Select-String ' Active ').Count));

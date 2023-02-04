@@ -66,20 +66,16 @@
 ' RUN THIS SCRIPT (VIA CMD):
 '
 ' NO ARGS
-'   "C:\Windows\System32\wscript.exe" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs"
+'   "C:\Windows\System32\wscript.exe" "%REPOS_DIR%\Coding\visual basic\VSCode-Redirect.vbs"
 '
 ' 1 ARGUMENT
-'   "C:\Windows\System32\wscript.exe" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs" "%USERPROFILE%\Desktop\test.txt"
+'   "C:\Windows\System32\wscript.exe" "%REPOS_DIR%\Coding\visual basic\VSCode-Redirect.vbs" "%USERPROFILE%\Desktop\test.txt"
 '
 ' ------------------------------------------------------------
 
-' Set ObjShell = CreateObject("Shell.Application")
-' Set VSCode_Workspace = ObjShell.Environment("USER").Item("USERPROFILE") & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"
+REPOS_DIR = CreateObject("WScript.Shell").ExpandEnvironmentStrings("%REPOS_DIR%")
 
-UserProfile = CreateObject("WScript.Shell").ExpandEnvironmentStrings("%USERPROFILE%")
-' MsgBox UserProfile
-
-VSCode_Workspace = UserProfile & "\Documents\GitHub\Coding\cmd\cmd - VSCode-Workspace.bat"
+VSCode_Workspace = REPOS_DIR & "\Coding\cmd\cmd - VSCode-Workspace.bat"
 
 Set WScriptArguments = WScript.Arguments
 

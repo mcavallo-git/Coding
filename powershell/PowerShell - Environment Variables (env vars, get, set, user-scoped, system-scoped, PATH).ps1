@@ -40,42 +40,6 @@ Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment";
 ((gci env:\USERPROFILE).Value);  # Shorthand - Method 2
 
 
-# ------------------------------------------------------------
-#
-# User Environment Variables
-#  |--> Saved to the environment behind the current user (running the commands)
-#
-
-
-#   env:REPOS_DIR   (User)
-If ($True) {
-  $Env_Name = "REPOS_DIR";
-  $Env_Value = "${HOME}\Documents\GitHub";
-  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
-  [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
-}
-
-
-#   env:WSLENV   (User)
-If ($True) {
-  $Env_Name = "WSLENV";
-  $Env_Value = "HELM_EXPERIMENTAL_OCI:NG_CLI_ANALYTICS:ProgramFiles/up:REPOS_DIR/up:TEMP/up:TMP/up:USERPROFILE/up:windir/up";
-  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
-  [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
-}
-
-
-#   env:PATH   (User)
-If ($True) {
-  # Adds a directory to current User's PATH (if not already on current PATH variable)
-  $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
-  $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);
-  If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
-    Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "Path" -Value "${UserPath};${AppendPath}";
-    [System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
-  }
-}
-
 
 # ------------------------------
 #
@@ -105,18 +69,77 @@ If ($True) {
 #   env:PATH   (System)
 If ($True) {
   # Adds a directory to current system's PATH (if not already on current PATH variable)
-  $AppendPath = "C:\Program Files (x86)\VMware\VMware Workstation";
+  $AppendPath = "${env:ProgramFiles(x86)}\VMware\VMware Workstation";
   $SystemPath = ((Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment").Path);
-  If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
-    Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" -Value "${SystemPath};${AppendPath}";
-    [System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+  If (($False) -NE (Test-Path -Path ("${AppendPath}"))) {
+    # Directory must exist
+    If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+      # Directory must not already exist in the PATH environment variable
+      Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" -Value "${SystemPath};${AppendPath}";
+      [System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+    }
+  }
+}
+
+
+#   env:REPOS_DIR   (System)
+If ($True) {
+  $Env_Name = "REPOS_DIR";
+  $Env_Value = "C:\ISO\Repos";
+  If (($False) -NE (Test-Path -Path ("${Env_Value}"))) {
+    # Directory must exist
+    Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+    [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
   }
 }
 
 
 # ------------------------------------------------------------
 #
-# env:PATH  (USER-SCOPED)
+# User Environment Variables
+#  |--> Saved to the environment behind the current user (running the commands)
+#
+
+
+#   env:REPOS_DIR   (User)
+If ($True) {
+  $Env_Name = "REPOS_DIR";
+  $Env_Value = "${HOME}\Documents\GitHub";
+  If (($False) -NE (Test-Path -Path ("${Env_Value}"))) {
+    # Directory must exist
+    Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+    [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
+  }
+}
+
+
+#   env:WSLENV   (User)
+If ($True) {
+  $Env_Name = "WSLENV";
+  $Env_Value = "HELM_EXPERIMENTAL_OCI:NG_CLI_ANALYTICS:ProgramFiles/up:REPOS_DIR/up:TEMP/up:TMP/up:USERPROFILE/up:windir/up";
+  Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+  [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
+}
+
+
+#   env:PATH   (User)
+If ($True) {
+  $AppendPath = "${env:ProgramFiles(x86)}\VMware\VMware Workstation";
+  $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);
+  If (($False) -NE (Test-Path -Path ("${AppendPath}"))) {
+    # Directory must exist
+    If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+      # Directory must not already exist in the PATH environment variable
+      Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "Path" -Value "${UserPath};${AppendPath}";
+      [System.Environment]::SetEnvironmentVariable("Path","${UserPath};${AppendPath}",[System.EnvironmentVariableTarget]::User);
+    }
+  }
+}
+
+
+# ------------------------------------------------------------
+#
+# env:PATH  (User)
 #  |--> Permanently adds a directory to current user's PATH
 #  |--> Doesn't apply change to other users on current system
 #  |--> Change persists through machine/session restarts
@@ -125,13 +148,15 @@ If ($True) {
 If ($True) {
   $User_Env_PATH_Appends_Arr = @();
   $User_Env_PATH_Appends_Arr += @("C:\ISO\PATH";);
-  $User_Env_PATH_Appends_Arr += @("${HOME}\Documents\GitHub\cloud-infrastructure\usr\local\bin");  # For docker_* scripts
-  $User_Env_PATH_Appends_Arr += @("${HOME}\Documents\GitHub\cloud-infrastructure\usr\local\sbin"); # For install_* scripts
+  $User_Env_PATH_Appends_Arr += @("${env:REPOS_DIR}\cloud-infrastructure\usr\local\bin");  # For docker_* scripts
+  $User_Env_PATH_Appends_Arr += @("${env:REPOS_DIR}\cloud-infrastructure\usr\local\sbin"); # For install_* scripts
   $User_Env_PATH_Appends_Arr | ForEach-Object {
     $AppendPath=(${_});
-    If ((Test-Path -Path ("${AppendPath}")) -NE ($False)) {
+    If (($False) -NE (Test-Path -Path ("${AppendPath}"))) {
+      # Directory must exist
       $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);
       If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
+        # Directory must not already exist in the PATH environment variable
         Write-Host "`"${AppendPath}`"";
         Write-Host "   |--> Info:  Appending filepath to the User=scoped PATH environment variable `${env:PATH}...";
         Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "Path" -Value "${UserPath};${AppendPath}";
@@ -163,9 +188,9 @@ If ($False) {
 
   (${Env:Path}).Split([String][Char]59) | Select-String 'git'; <# Non-exact matching #>
 
-  (${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" } | ForEach-Object { $_ }; <# Exact matching #>
+  (${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "${env:ProgramFiles}\Git\cmd" } | ForEach-Object { $_ }; <# Exact matching #>
 
-  ((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "C:\Program Files\Git\cmd" }).Count; <# Count the number of pre-existing exact matches #>
+  ((${Env:Path}).Split([String][Char]59) | Where-Object { $_ -Eq "${env:ProgramFiles}\Git\cmd" }).Count; <# Count the number of pre-existing exact matches #>
 
   # ------------------------------
   #
@@ -174,7 +199,7 @@ If ($False) {
 
   $Env:Path = "C:\Trash";  # Temporarily REPLACES existing path
 
-  $Env:Path += ";C:\Program Files (x86)\VMware\VMware Workstation";  # Temporarily APPENDS TO existing path
+  $Env:Path += ";${env:ProgramFiles(x86)}\VMware\VMware Workstation";  # Temporarily APPENDS TO existing path
 
   # ------------------------------
 

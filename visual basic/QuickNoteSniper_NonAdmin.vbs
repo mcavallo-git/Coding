@@ -20,7 +20,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\QuickNoteSniper_NonAdmin.vbs"
+'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\QuickNoteSniper_NonAdmin.vbs"
 '
 '
 ' ------------------------------------------------------------

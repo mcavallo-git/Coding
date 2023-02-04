@@ -22,6 +22,6 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process | Where-O
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\NiceHashSniper_AsAdmin.vbs"
+'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\NiceHashSniper_AsAdmin.vbs"
 '
 ' ------------------------------------------------------------

@@ -7,7 +7,7 @@ Start-Process "explorer.exe" -ArgumentList ("shell:AppsFolder\$(Get-AppxPackage 
 # ------------------------------------------------------------
 # Task Scheduler Action:
 #   Program/script:   C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-#   Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\windows\LockScreenAsWallpaper\LockScreenAsWallpaper.ps1"
+#   Add arguments:    "%REPOS_DIR%\Coding\windows\LockScreenAsWallpaper\LockScreenAsWallpaper.ps1"
 # 
 # ------------------------------------------------------------
 #

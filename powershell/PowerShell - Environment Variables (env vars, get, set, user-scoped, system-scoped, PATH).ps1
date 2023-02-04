@@ -32,9 +32,12 @@ Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment";
 # Get the value of one, specific environment variable
 #
 
-((Get-ChildItem -Path 'env:\USERPROFILE').Value);  # Longhand
+(Get-Content -Path 'env:\USERPROFILE');  # Longhand - Method 1
+(gc env:\USERPROFILE);  # Shorthand - Method 1
 
-((gci env:\USERPROFILE).Value);  # Shorthand
+
+((Get-ChildItem -Path 'env:\USERPROFILE').Value);  # Longhand - Method 2
+((gci env:\USERPROFILE).Value);  # Shorthand - Method 2
 
 
 # ------------------------------------------------------------

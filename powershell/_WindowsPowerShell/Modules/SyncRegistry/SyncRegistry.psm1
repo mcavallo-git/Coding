@@ -1633,7 +1633,7 @@ function SyncRegistry {
           Path="${Splashtop32_Key}";
           Props=@(
             @{
-              Description="Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
+              Description="For virtual display to work, you must also run [ C:\Program Files (x86)\Splashtop\Splashtop Remote\Server\Driver\LciDisplay\install_driver.bat ]. Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
               Name="VirtualDisplay";
               Type="DWord";
               Value=1;
@@ -1649,7 +1649,7 @@ function SyncRegistry {
           Path="${Splashtop64_Key}";
           Props=@(
             @{
-              Description="Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
+              Description="For virtual display to work, you must also run [ C:\Program Files (x86)\Splashtop\Splashtop Remote\Server\Driver\LciDisplay\install_driver64.bat ]. Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
               Name="VirtualDisplay";
               Type="DWord";
               Value=1;

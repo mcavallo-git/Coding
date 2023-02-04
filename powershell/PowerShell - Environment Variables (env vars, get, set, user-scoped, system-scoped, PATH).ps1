@@ -86,7 +86,7 @@ If ($True) {
 If ($True) {
   $Env_Name = "REPOS_DIR";
   $Env_Value = "C:\ISO\Repos";
-  If (($False) -NE (Test-Path -Path ("${Env_Value}"))) {
+  If (Test-Path -PathType "Container" -Path ("${Env_Value}")) {
     # Directory must exist
     Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
     [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
@@ -105,7 +105,7 @@ If ($True) {
 If ($True) {
   $Env_Name = "REPOS_DIR";
   $Env_Value = "${HOME}\Documents\GitHub";
-  If (($False) -NE (Test-Path -Path ("${Env_Value}"))) {
+  If (Test-Path -PathType "Container" -Path ("${Env_Value}")) {
     # Directory must exist
     Set-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
     [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::User);
@@ -126,7 +126,7 @@ If ($True) {
 If ($True) {
   $AppendPath = "${env:ProgramFiles(x86)}\VMware\VMware Workstation";
   $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);
-  If (($False) -NE (Test-Path -Path ("${AppendPath}"))) {
+  If (Test-Path -PathType "Container" -Path ("${AppendPath}")) {
     # Directory must exist
     If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
       # Directory must not already exist in the PATH environment variable
@@ -152,7 +152,7 @@ If ($True) {
   $User_Env_PATH_Appends_Arr += @("${env:REPOS_DIR}\cloud-infrastructure\usr\local\sbin"); # For install_* scripts
   $User_Env_PATH_Appends_Arr | ForEach-Object {
     $AppendPath=(${_});
-    If (($False) -NE (Test-Path -Path ("${AppendPath}"))) {
+    If (Test-Path -PathType "Container" -Path ("${AppendPath}")) {
       # Directory must exist
       $UserPath = ((Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment").Path);
       If (((${UserPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {

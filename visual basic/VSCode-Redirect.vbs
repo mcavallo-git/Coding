@@ -33,7 +33,7 @@
 ' [Step 2/3] Install & configure "Notepad Replacer" to redirect from [ notepad.exe ] towards [ this-script ]
 '   |
 '   |--> Automatically via PowerShell convenience-script (some click-through & license acceptance still req'd):
-'   |      Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${Home}\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };
+'   |      Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${env:REPOS_DIR}\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };
 '   |
 '   |-->  Manually by opening "NotepadReplacerSetup*.exe" runtime & browsing to this file
 '
@@ -58,7 +58,7 @@
 ' Consolidated Steps 2 & 3 (from above)
 '
 '
-'   $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${Home}\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };
+'   $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $(New-Object Net.WebClient).DownloadFile(([Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${Home}\Downloads\NotepadReplacerSetup.exe"); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${env:REPOS_DIR}\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };
 '
 '
 ' ------------------------------------------------------------

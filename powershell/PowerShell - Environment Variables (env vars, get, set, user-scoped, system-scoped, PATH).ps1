@@ -5,13 +5,16 @@
 # ------------------------------------------------------------
 
 #
-# Shorthand - List all environment variables
+# List all environment variables
 #
-gci env:
+
+gci env:;  # Shorthand
+
+Get-ChildItem -Path 'Env:\';  # Longhand
 
 
 #
-# List All environment variables
+# List all environment variables  (split by source)
 #
 If ((gcm printenv -EA:0) -And (gcm sort -EA:0)) { Write-Output ---` printenv` ---; printenv | sort -u; } Else { If (($Host.UI.RawUI) -And (-Not (gcm uname -EA:0))) { $rawUI=$Host.UI.RawUI; $oldSize=$rawUI.BufferSize; $typeName=$oldSize.GetType( ).FullName; $newSize=New-Object $typeName (16384, $oldSize.Height); $rawUI.BufferSize=$newSize; }; Write-Output ---` env:*` ---; Get-ChildItem env: | Format-Table -AutoSize; If ($Null -NE ${env:Path}) { Write-Output ---` env:PATH` ---; (${env:Path}).Split([String][Char]59) | Sort-Object; }; };  Write-Output ----------------; <# List all environment variables (one-liner) #>
 
@@ -22,6 +25,16 @@ Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Co
 
 # List User environment variables
 Get-ItemProperty -Path "Registry::HKEY_CURRENT_USER\Environment";
+
+
+# ------------------------------------------------------------
+#
+# Get the value of one, specific environment variable
+#
+
+((Get-ChildItem -Path 'env:\USERPROFILE').Value);  # Longhand
+
+((gci env:\USERPROFILE).Value);  # Shorthand
 
 
 # ------------------------------------------------------------
@@ -175,5 +188,7 @@ If ($False) {
 #   docs.microsoft.com  |  "SetEnvironmentVariable function (winbase.h) - Win32 apps | Microsoft Docs"  |  https://docs.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-setenvironmentvariable
 #
 #   stackoverflow.com  |  "Setting Windows PowerShell environment variables"  |  https://stackoverflow.com/a/2571200
+#
+#   www.tutorialspoint.com  |  "How to get environment variable value using PowerShell?"  |  https://www.tutorialspoint.com/how-to-get-environment-variable-value-using-powershell
 #
 # ------------------------------------------------------------

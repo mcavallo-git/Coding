@@ -14,8 +14,32 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <details><summary>What is DevOps?</summary>
   <br />
   <div>To quote <a href="https://aws.amazon.com/devops/what-is-devops">Amazon Web Services (AWS)</a>:</div><blockquote cite="https://aws.amazon.com/devops/what-is-devops">DevOps is the combination of cultural philosophies, practices, and tools that increases an organization’s ability to deliver applications and services at high velocity: evolving and improving products at a faster pace than organizations using traditional software development and infrastructure management processes. This speed enables organizations to better serve their customers and compete more effectively in the market.<br /><a href="https://aws.amazon.com/devops/what-is-devops"><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/what-is-devops.aws.png" /></a></blockquote>
-  <div>To quote <a href="https://www.atlassian.com/devops">Atlassian</a>:</div><blockquote cite="https://www.atlassian.com/devops">DevOps is a set of practices, tools, and a cultural philosophy that automate and integrate the processes between software development and IT teams. It emphasizes team empowerment, cross-team communication and collaboration, and technology automation.<br /><a href="https://www.atlassian.com/devops"><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/what-is-devops.atlassian.png" /></a></blockquote>
-  <div>To quote <a href="https://en.wikipedia.org/wiki/DevOps">Wikipedia</a>:</div><blockquote cite="https://en.wikipedia.org/wiki/DevOps">DevOps is a methodology in the software development and IT industry. Used as a set of practices and tools, DevOps integrates and automates the work of software development (Dev) and IT operations (Ops) as a means for improving and shortening the systems development life cycle. DevOps is complementary to agile software development; several DevOps aspects came from the agile way of working.</blockquote>
+  <div>
+    <a href="https://aws.amazon.com/devops/what-is-devops">
+      <div>
+        <blockquote cite="https://aws.amazon.com/devops/what-is-devops">
+          <div>DevOps is the combination of cultural philosophies, practices, and tools that increases an organization’s ability to deliver applications and services at high velocity: evolving and improving products at a faster pace than organizations using traditional software development and infrastructure management processes. This speed enables organizations to better serve their customers and compete more effectively in the market.</div>
+          <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/what-is-devops.aws.png" /></div>
+        </blockquote>
+      </div>
+      <div style="text-align:right;">
+        <i>- Amazon Web Services (AWS)</i>
+      </div>
+    </a>
+  </div>
+  <div>
+    <a href="https://www.atlassian.com/devops">
+      <div>
+        <blockquote cite="https://www.atlassian.com/devops">
+          <div>DevOps is a set of practices, tools, and a cultural philosophy that automate and integrate the processes between software development and IT teams. It emphasizes team empowerment, cross-team communication and collaboration, and technology automation.</div>
+          <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/what-is-devops.atlassian.png" /></div>
+        </blockquote>
+      </div>
+      <div style="text-align:right;">
+        <i>- Atlassian</i>
+      </div>
+    </a>
+  </div>
 </details>
 
 <hr />

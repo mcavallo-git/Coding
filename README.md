@@ -12,24 +12,29 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <br />
 
 <details open><summary>What is DevOps?</summary>
+  <br />
   <ul>
     <li>
       <a href="https://aws.amazon.com/devops/what-is-devops">
         <blockquote cite="https://aws.amazon.com/devops/what-is-devops">
-          <div><hr /></div>
-          <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/what-is-devops.aws.png" /></div>
+          <br />
           <div>DevOps is the combination of cultural philosophies, practices, and tools that increases an organization’s ability to deliver applications and services at high velocity: evolving and improving products at a faster pace than organizations using traditional software development and infrastructure management processes. This speed enables organizations to better serve their customers and compete more effectively in the market.</div>
           <div style="text-align:right;"><i>- Amazon Web Services (AWS)</i></div>
-          <div><hr /></div>
+          <br />
+          <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/what-is-devops.aws.png" width="912"/></div>
+          <br />
         </blockquote>
       </a>
     </li>
     <li>
-      <a href="https://www.atlassian.com/devops">
-        <blockquote cite="https://www.atlassian.com/devops">
-          <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/what-is-devops.atlassian.png" width="300" /></div>
-          <div>DevOps is a set of practices, tools, and a cultural philosophy that automate and integrate the processes between software development and IT teams. It emphasizes team empowerment, cross-team communication and collaboration, and technology automation.</div>
-          <div style="text-align:right;"><i>- Atlassian</i></div>
+      <a href="https://learn.microsoft.com/en-us/devops/what-is-devops">
+        <blockquote cite="https://learn.microsoft.com/en-us/devops/what-is-devops">
+          <br />
+          <div>DevOps combines development (Dev) and operations (Ops) to unite people, process, and technology in application planning, development, delivery, and operations. DevOps enables coordination and collaboration between formerly siloed roles like development, IT operations, quality engineering, and security.</div>
+          <div style="text-align:right;"><i>- Microsoft</i></div>
+          <br />
+          <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/archive/what-is-devops.microsoft.png" width="912" /></div>
+          <br />
         </blockquote>
       </a>
     </li>

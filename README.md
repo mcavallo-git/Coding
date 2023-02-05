@@ -79,8 +79,8 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 
 <!-- ------------------------------------------------------------ -->
 
-<h3 id="software" width="1000000pt">Software</h3>
-<details open width="1000000pt"><summary><i>Show/Hide Content</i></summary>
+<h3 id="software">Software</h3>
+<details open><summary><i>Show/Hide Content</i></summary>
 <br />
 
 
@@ -96,7 +96,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 -->
 
 
-<table width="1000000pt">
+<table>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

@@ -100,7 +100,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th colspan="2" style="width: max-content;"><h5 id="benchmarking-tools"><br />Benchmarking<br /><br /></h5></th></tr>
+<tr><th colspan="2" width="100%"><h5 id="benchmarking-tools"><br />Benchmarking<br /><br /></h5></th></tr>
 <tr><td><strong>3DMark CPU/GPU Results</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Based on results from various 3DMark software<br/>&nbsp;&nbsp;&nbsp;Quickly compare processors and/or video cards<br/>&nbsp;&nbsp;&nbsp;</i></sub></td><td><a href="https://www.3dmark.com/search#advanced">View (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://www.3dmark.com/search#/?mode=basic">View (basic search)</a></sub></td></tr>
 <tr><td><strong>3DMark Time Spy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;GPU Benchmarking Utility<br />&nbsp;&nbsp;&nbsp;DirectX 12 Benchmark (Graphics Cards, GPU)</i></sub></td><td><a href="https://store.steampowered.com/app/496100/3DMark_Time_Spy_benchmark/">Download (source)</a></td></tr>
 <tr><td><strong>Cinebench R20</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;CPU Benchmarking Utility developed by Maxon<blockquote cite="https://www.maxon.net/en/cinebench"><pre>Cinebench is a real-world cross-platform test suite<br />that evaluates your computer's hardware capabilities.</pre></blockquote></i></sub></td><td><a href="https://www.maxon.net/en-us/support/downloads/#collapse-64981">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="http://http.maxon.net/pub/cinebench/CinebenchR20.zip">Download (direct)</a></sub></td></tr>

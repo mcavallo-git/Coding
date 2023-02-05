@@ -32,6 +32,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
       <li>Prereq: SSH Terminal w/ Elevated Privileges (running via <code>sudo</code> or as user <code>root</code>)</li>
       <li>
         <div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
+        <pre><code lang="bash">curl -sL "https://mcavallo.com/sh" | bash -s -- --all;</code></pre>
         <pre lang="bash">curl -sL "https://mcavallo.com/sh" | bash -s -- --all;</pre>
       </li>
       <li>

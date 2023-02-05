@@ -1,6 +1,6 @@
-### Browser Hotkeys
-<div>&nbsp;&nbsp;&nbsp;<sub>Usable in: <kbd>Google Chrome</kbd>, <kbd>Microsoft Edge</kbd>, <kbd>Mozilla Firefox</kbd>, <kbd>Windows Explorer</kbd></sub></div>
+<h2 id="hotkeys">Browser Hotkeys</h2>
 
+<div>&nbsp;&nbsp;&nbsp;<sub>Usable in: <kbd>Google Chrome</kbd>, <kbd>Microsoft Edge</kbd>, <kbd>Mozilla Firefox</kbd>, <kbd>Windows Explorer</kbd></sub></div>
 
 ***
   - Action:

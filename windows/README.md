@@ -1,10 +1,10 @@
 <!-- ------------------------------------------------------------ -->
 
-<!-- This file (on GitHub):  https://github.com/mcavallo-git/Coding/tree/main/windows#windows-one-time-setup -->
+<!-- This file (on GitHub):  https://github.com/mcavallo-git/Coding/tree/main/windows#windows-workstation-setup -->
 
 <!-- ------------------------------------------------------------ -->
 
-<h3 id="windows-one-time-setup">Windows - One-time setup (per device)</h3>
+<h2 id="workstation-setup">Windows Workstation Setup</h2>
 <details open><summary><i>Show/Hide Content</i></summary>
 <p>
 
@@ -21,7 +21,7 @@ Resource | Source
 
 <!-- ------------------------------------------------------------ -->
 
-<h3>Windows - Notable Filepaths</h3>
+<h2>Notable Filepaths</h2>
 <details open><summary><i>Show/Hide Content</i></summary>
 <p>
 
@@ -42,7 +42,7 @@ Resource | Source
 
 <!-- ------------------------------------------------------------ -->
 
-<h3>Productivity Tweaks (Windows)</h3>
+<h2>Productivity Tweaks (Windows)</h2>
 <details><summary><i>Show/Hide Content</i></summary>
 <p>
 

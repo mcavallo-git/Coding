@@ -508,8 +508,8 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 
 <ul>
-  <li><a href="hotkeys/browser-hotkeys.md#browser-hotkeys">View Docs (Hotkeys - Web-Browser & Windows-Explorer)</a></li>
-  <li><a href="windows#windows---one-time-setup-per-device">View Docs (Windows One-time setup (per device))</a></li>
+  <li><a href="hotkeys/browser-hotkeys.md#hotkeys">View Docs (Hotkeys - Web-Browser & Windows-Explorer)</a></li>
+  <li><a href="windows#workstation-setup">View Docs (Windows One-time setup (per device))</a></li>
 </ul>
 
 <hr />

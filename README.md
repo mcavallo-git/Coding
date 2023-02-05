@@ -25,18 +25,18 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 
 <strong>Bash (Shellscript) Module Sync to [ <a href="https://github.com/mcavallo-git/cloud-infrastructure/tree/main/">mcavallo-git/cloud-infrastructure</a> ] GitHub Repo</strong>
-<details open><summary><i>Show/Hide Content</i></summary>
+<details><summary><i>Show/Hide Content</i></summary>
   <p>
     <ol>
       <li>Prereq: Debian- or Fedora-based Linux environment (Ubuntu, Raspbian, CentOS, RHEL, etc.)</li>
       <li>Prereq: SSH Terminal w/ Elevated Privileges (running via <code>sudo</code> or as user <code>root</code>)</li>
       <li>
         <div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
-        <pre lang="bash">curl -sL "https://mcavallo.com/sh" | bash -s -- --all;</pre>
+        <pre lang="shell">curl -sL "https://mcavallo.com/sh" | bash -s -- --all;</pre>
       </li>
       <li>
         <div>Once initial sync completes, you may trigger a manual re-sync via command: </div>
-        <pre><code>sync_cloud_infrastructure;</code></pre>
+        <pre lang="shell">sync_cloud_infrastructure;</pre>
       </li>
     </ol>
   </p>
@@ -64,11 +64,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
       <li>Prereq: PowerShell Terminal w/ Elevated Privileges (running in <code>Run as Admin</code> mode)</li>
       <li>
         <div>If Pre-Reqs are met, run the following command to sync PowerShell Modules:</div>
-        <pre><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;</code></pre>
+        <pre lang="powershell">Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)")); [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;</pre>
       </li>
       <li>
         <div>Fallback Method:</div>
-        <pre><code>Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -Force -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)"))) | Out-Null; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</code></pre>
+        <pre lang="powershell">Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; Clear-DnsClientCache; $SyncTemp="${Env:TEMP}\sync.$($(Date).Ticks).ps1"; New-Item -Force -ItemType "File" -Path ("${SyncTemp}") -Value (($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/mcavallo-git/Coding/main/sync.ps1?t=$((Date).Ticks)"))) | Out-Null; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; . "${SyncTemp}"; Remove-Item "${SyncTemp}";</pre>
       </li>
     </ol>
   </p>

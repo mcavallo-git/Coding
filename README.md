@@ -25,14 +25,14 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 
 <strong>Bash (Shellscript) Module Sync to [ <a href="https://github.com/mcavallo-git/cloud-infrastructure/tree/main/">mcavallo-git/cloud-infrastructure</a> ] GitHub Repo</strong>
-<details><summary><i>Show/Hide Content</i></summary>
+<details open><summary><i>Show/Hide Content</i></summary>
   <p>
     <ol>
       <li>Prereq: Debian- or Fedora-based Linux environment (Ubuntu, Raspbian, CentOS, RHEL, etc.)</li>
       <li>Prereq: SSH Terminal w/ Elevated Privileges (running via <code>sudo</code> or as user <code>root</code>)</li>
       <li>
         <div>Action (if above pre-reqs are met): Run the following command to sync Bash modules: </div>
-        <pre><code class="language-shell">curl -sL "https://mcavallo.com/sh" | bash -s -- --all;</code></pre>
+        <pre lang="bash">curl -sL "https://mcavallo.com/sh" | bash -s -- --all;</pre>
       </li>
       <li>
         <div>Once initial sync completes, you may trigger a manual re-sync via command: </div>

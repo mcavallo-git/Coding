@@ -1,4 +1,6 @@
-### Browser Hotkeys - Google Chrome, Microsoft Edge, Mozilla Firefox, Windows Explorer (uncommon)
+### Browser Hotkeys
+<div>&nbsp;&nbsp;&nbsp;<sub>Usable in: <kbd>Google Chrome</kbd>, <kbd>Microsoft Edge</kbd>, <kbd>Mozilla Firefox</kbd>, <kbd>Windows Explorer</kbd></sub></div>
+
 
 ***
   - Action:

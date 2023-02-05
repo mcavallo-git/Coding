@@ -54,7 +54,7 @@ sudo apt-key adv --keyserver "keyserver.ubuntu.com" --recv "0C49F3730359A1451858
 echo "deb https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse" | sudo tee "/etc/apt/sources.list.d/mongodb-org-3.4.list";
 apt-get update -y;
 #  |--> HOTFIX 4 (2019-08-01_08-27-52) - Note: Not a Unifi Fingeprint, but rather the "Raspberry Pi Archive Signing Key" - errors were still shown when trying to update Unifi
-HOTFIX_FINGERPRINT="82B129927FA3303E"; gpg --keyserver "hkps://hkps.pool.sks-keyservers.net:443" --recv-key ${HOTFIX_FINGERPRINT}; gpg -a --export ${HOTFIX_FINGERPRINT} | sudo apt-key add -;
+HOTFIX_FINGERPRINT="82B129927FA3303E"; gpg --keyserver "hkps://keyserver.ubuntu.com:443" --recv-key ${HOTFIX_FINGERPRINT}; gpg -a --export ${HOTFIX_FINGERPRINT} | sudo apt-key add -;
 
 # REPEAT
 apt-get -y update;

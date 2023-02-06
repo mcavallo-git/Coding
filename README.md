@@ -17,8 +17,6 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
   </tr>
 </table>
 
-<hr />
-
 <!-- ------------------------------------------------------------ -->
 
 <table id="devops-resource-reference">

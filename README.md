@@ -4,14 +4,9 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 
 --- ------------------------------------------------------------- -->
 
-
-<h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1>
-<img width="140" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" />
-
-<!-- ------------------------------------------------------------ -->
-
 <table id="devops-resource-reference">
-<tr><th width="784"><!-- Static Width - Column 1 --></th><th width="196"><!-- Static Width - Column 2 --></th></tr>
+<tr><th colspan="2" style="text-align:center;"><h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1></th></tr>
+<tr><th colspan="2" style="text-align:center;"><img width="140" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></th></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
@@ -393,6 +388,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
+<tr><th width="784"><!-- Static Width - Column 1 --></th><th width="196"><!-- Static Width - Column 2 --></th></tr>
 </table>
 
 <hr />

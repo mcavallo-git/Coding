@@ -6,18 +6,20 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 
 <table id="devops-resource-reference">
 <tr><th colspan="2" style="text-align:center;">
-  <br />
+  <span>
   <table>
     <tr>
-      <th>
-        <div><img width="140" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>
+      <th width="140">
+        <br />
+        <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>
+        <br />
       </th>
-      <th>
+      <th width="750">
         <h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1>
       </th>
     </tr>
   </table>
-  <br />
+  </span>
 </th></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

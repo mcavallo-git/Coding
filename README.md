@@ -8,6 +8,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
   <tr>
     <th width="500" style="text-align:center;">
       <h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1>
+      <br />
     </th>
     <th width="500" style="text-align:center;">
       <br />
@@ -15,7 +16,6 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
         <div><img width="100" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>
         <div><i><h6>by MCavallo</h6></i></div>
       </a>
-      <br />
     </th>
   </tr>
 </table>

@@ -4,8 +4,8 @@
   - Right click the device to configure for port `9100` and select `Printer properties`
     - Under the `ports` tab, select `Add Port...`
       - Under `Available port types:` select `Standard TCP/IP Port` and click `New Port...`
-        - Next to `Printer Name or IP Address:` enter said printer's hostname/FQDN or static IP address
-        - Next to `Port Name` enter `9100`
+        - Next to `Printer Name or IP Address:` enter the printer's static `[Hostname]` or `[IP_Address]`
+        - Next to `Port Name` enter `[Name]:9100`
         - Click `Next >`, let the Wizard attempt to resolve the port, and, assuming all goes well, click `Finish`
           - On the `Printer Ports` window, click `Close`
           - On the `[PrinterName] Properties` window, ensure that Port `9100` is checked, click `Apply` then click `OK`

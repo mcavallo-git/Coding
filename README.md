@@ -388,7 +388,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th width="784"><!-- Static Width (100%=980px) - Column 1 --></th><th width="196"><!-- Static Width (100%=980px) - Column 2 --></th></tr>
+<tr><th width="735"><!-- Static Width (100%=980px) - Column 1 --></th><th width="245"><!-- Static Width (100%=980px) - Column 2 --></th></tr>
 </table>
 
 <hr />

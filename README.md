@@ -6,7 +6,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 
 <table id="devops-resource-reference">
 <tr><th colspan="2" style="text-align:center;">
-  <span>
+  <br >
   <table>
     <tr>
       <th width="140">
@@ -19,7 +19,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
       </th>
     </tr>
   </table>
-  </span>
+  <br >
 </th></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

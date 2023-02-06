@@ -9,7 +9,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr>
-  <th width="784px">
+  <td width="784px">
     <div style="text-align:left;">
       <h3><a href="https://mcavallo.com">DevOps Resource Reference</a></h3>
       <details><summary>What is DevOps?</summary>
@@ -46,12 +46,12 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
         </ul>
       </details>
     </div>
-  </th>
-  <th width="196px" style="text-align:center;">
+  </td>
+  <td width="196px" style="text-align:center;">
     <a href="https://github.com/mcavallo-git">
       <img height="120px" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" />
     </a>
-  </th>
+  </td>
 </tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

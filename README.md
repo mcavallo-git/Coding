@@ -8,7 +8,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
   <tr>
     <th width="100">
       <br />
-      <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>
+      <div><img width="100" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>
       <br />
     </th>
     <th width="900">

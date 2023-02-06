@@ -10,7 +10,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- -->
 <tr>
   <td width="784px">
-    <div style="text-align:left;">
+    <div style="text-align:left; padding-left:20px;">
       <h3><a href="https://mcavallo.com">DevOps Resource Reference</a></h3>
       <details><summary>What is DevOps?</summary>
         <br />

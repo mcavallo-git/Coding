@@ -4,23 +4,22 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 
 --- ------------------------------------------------------------- -->
 
+<table>
+  <tr>
+    <th width="100">
+      <br />
+      <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>
+      <br />
+    </th>
+    <th width="900">
+      <h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1>
+    </th>
+  </tr>
+</table>
+
+<!-- ------------------------------------------------------------ -->
+
 <table id="devops-resource-reference">
-<tr><th colspan="2" style="text-align:center;">
-  <br >
-  <table>
-    <tr>
-      <th width="140">
-        <br />
-        <div><img src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>
-        <br />
-      </th>
-      <th width="750">
-        <h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1>
-      </th>
-    </tr>
-  </table>
-  <br >
-</th></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
@@ -402,7 +401,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->
-<tr><th width="735"><!-- Static Width (100%=980px) - Column 1 --></th><th width="245"><!-- Static Width (100%=980px) - Column 2 --></th></tr>
+<tr><th width="750"><!-- Static Width (100%=980px) - Column 1 --></th><th width="250"><!-- Static Width (100%=980px) - Column 2 --></th></tr>
 </table>
 
 <hr />

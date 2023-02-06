@@ -6,11 +6,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 
 <table>
   <tr>
-    <th width="500" style="text-align:center;">
+    <th width="600" style="text-align:center;">
       <h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1>
       <br />
     </th>
-    <th width="500" style="text-align:center;">
+    <th width="400" style="text-align:center;">
       <br />
       <a href="https://github.com/mcavallo-git">
         <div><img width="100" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>

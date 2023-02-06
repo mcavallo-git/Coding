@@ -15,9 +15,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
   <th width="196" style="text-align:center;">
     <a href="https://github.com/mcavallo-git">
       <br />
-      <br />
       <img height="120" width="auto" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" />
-      <br />
       <br />
     </a>
   </th>

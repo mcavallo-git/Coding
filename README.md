@@ -5,8 +5,8 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 --- ------------------------------------------------------------- -->
 
 <table id="devops-resource-reference">
-<tr><th colspan="2" style="text-align:center;"><h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1></th></tr>
 <tr><th colspan="2" style="text-align:center;"><br /><div><img width="140" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div><br /></th></tr>
+<tr><th colspan="2" style="text-align:center;"><br /><h1><a href="https://mcavallo.com">DevOps Resource Reference</a></h1><br /></th></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

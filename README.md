@@ -43,11 +43,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
       </ul>
     </details>
   </td>
-  <td width="196">
+  <th width="196">
     <a href="https://github.com/mcavallo-git">
       <img height="120" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" />
     </a>
-  </td>
+  </th>
 </tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->

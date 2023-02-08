@@ -10,7 +10,7 @@ esxcli system settings advanced list --option "/Net/FollowHardwareMac";  # Get A
 
 
 # Set the value of an Advanced Option
-vim-cmd hostsvc/advopt/update "Net.FollowHardwareMac" int 1;  # Set Advanced Option using "vim-cmd"
+vim-cmd hostsvc/advopt/update "Net.FollowHardwareMac" long "1";
 esxcli system settings advanced set --option "/Net/FollowHardwareMac" --int-value=1;  # Set Advanced Option using "esxcli"
 
 

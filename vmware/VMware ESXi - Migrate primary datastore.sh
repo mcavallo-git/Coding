@@ -1,28 +1,35 @@
 #!/bin/sh
 # ------------------------------------------------------------
 
-# Migrate coredump file
+# Remove the old coredump file
 
-esxcli system coredump file list;  # Show the current coredump file
+esxcli system coredump file get;  # "Get the dump file path. This command will print the path to the active and/or configured VMFS Dump File."
 
-esxcli system coredump file set --unconfigure;  # Unconfigure the coredump file (while in transitionary state)
+esxcli system coredump file list;  # "List the active and configured VMFS Diagnostic Files."
 
-esxcli system coredump file remove --file=/vmfs/volumes/DATASTORE_2_ID/vmkdump/DUMPFILE_ID.dumpfile;  # Remove the coredump file
+esxcli system coredump file set --unconfigure;  # "Unconfigure the current VMFS Dump file."
 
-
-# Disable datastore swap file
-
-esxcli sched swap system get;  # Determine if "Datastore Enabled" is set to true or not
-
-esxcli sched swap system set --datastore-enabled false;  # Disable datastore swap file
+esxcli system coredump file remove --file=/vmfs/volumes/DATASTORE_2_ID/vmkdump/DUMPFILE_ID.dumpfile;  # "Specify the file name of the Dump File to be removed.  If not given, the configured dump file will be removed."
 
 
-# Create a "vmkdump" folder on the new datastore
+# Remove the old swapfile
 
-esxcli system coredump file set --enable true --smart;  # Reconfigure the coredump file automatically (once migration is complete)
+esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space." --> determine if "Datastore Enabled" is set to true or not
+
+esxcli sched swap system set --datastore-enabled false;  # Disable the datastore option for the system-wide shared swap space.
 
 
-# Migrate scratch file
+# Create the new coredump file
+DATASTORE_UUID="NEW_DATASTORE_UUID_HERE";
+
+mkdir -p "/vmfs/volumes/${DATASTORE_UUID}/vmkdump";  # Create a "vmkdump" folder on the new datastore
+
+esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
+
+esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel dump file ... to be selected using the smart selection algorithm."
+
+
+# Create the new swapfile
 
 ScratchConfig.ConfiguredScratchLocation  # Update property manually (on ESXi GUI)
 # |--> Create the ".locker" folder on the new scratch datastore
@@ -33,6 +40,62 @@ ScratchConfig.ConfiguredScratchLocation  # Update property manually (on ESXi GUI
 #
 # DUMPFILE_FILENAME=$(find "/vmfs/volumes/datastore1/vmkdump/" -iname "*.dumpfile";);
 #
+# ------------------------------------------------------------
+# 
+#   > esxcli system coredump file set --help
+#
+# Usage: esxcli system coredump file set [cmd options]
+# 
+# Description:
+#   set                   Set the active and configured VMkernel Dump VMFS file for this system.
+# 
+# Cmd options:
+#   -e|--enable           Enable or disable the VMkernel dump file. This option cannot be specified when unconfiguring the dump file.
+#   -p|--path=<str>       The path of the VMFS Dump File to use. This must be a pre-allocated file.
+#   -s|--smart            This flag can be used only with --enable=true. It will cause the file to be selected using the smart selection algorithm.
+#   -u|--unconfigure      Unconfigure the current VMFS Dump file.
+# 
+# ------------------------------------------------------------
+#
+#   > esxcli system coredump file add --help
+#
+# Usage: esxcli system coredump file add [cmd options]
+# 
+# Description:
+#   add                   Create a VMkernel Dump VMFS file for this system.
+# 
+# Cmd options:
+#   -a|--auto             Automatically create a file if none found and autoCreateDumpFile kernel option is set.
+#   -d|--datastore=<str>  Manually specify the datastore the Dump File is created in.  If not provided, a datastore of sufficient size will be automatically chosen.
+#   -e|--enable           Enable diagnostic file after creation.
+#   -f|--file=<str>       Manually specify the file name of the created Dump File.  If not provided, a unique name will be chosen.
+#   -s|--size=<long>      Manually set the size in MB of the created Dump File.  If not provided, a default size for the current machine will be calculated.
+# 
+# ------------------------------------------------------------
+# 
+#   > esxcli sched swap system set --help
+#
+# Usage: esxcli sched swap system set [cmd options]
+# 
+# Description:
+#   set                   Change the configuration of system-wide shared swap space.
+# 
+# Cmd options:
+#   -d|--datastore-enabled
+#                         If the datastore option should be enabled or not.
+#   -n|--datastore-name=<str>
+#                         The name of the datastore used by the datastore option.
+#   -D|--datastore-order=<long>
+#                         The order of the datastore option in the preference of the options
+#   -c|--hostcache-enabled
+#                         If the host cache option should be enabled or not.
+#   -C|--hostcache-order=<long>
+#                         The order of the host cache option in the preference of the options.
+#   -l|--hostlocalswap-enabled
+#                         If the host local swap option should be enabled or not.
+#   -L|--hostlocalswap-order=<long>
+#                         The order of the host local swap option in the preference of the options.
+# 
 # ------------------------------------------------------------
 #
 # Citation(s)

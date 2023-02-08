@@ -2,12 +2,14 @@
 exit 1;
 # ------------------------------------------------------------
 
-NEW_DUMPFILE_UUID="NEW_DUMPFILE_DISK_UUID";
+NEW_DUMPFILE_DATASTORE_NAME="NEW_DUMPFILE_DATASTORE_NAME";
+NEW_DUMPFILE_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_DUMPFILE_DATASTORE_NAME}" |  awk '{print $3}';)";
 
-OLD_DUMPFILE_DIRNAME="/vmfs/volumes/datastore1/vmkdump/*.dumpfile";
+OLD_DUMPFILE_DATASTORE_NAME="OLD_DUMPFILE_DATASTORE_NAME";
+OLD_DUMPFILE_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${OLD_DUMPFILE_DATASTORE_NAME}" |  awk '{print $3}';)";
 
-OLD_DUMPFILE_FILENAME=$(find "/vmfs/volumes/datastore1/vmkdump/" -iname "*.dumpfile";);
-
+OLD_DUMPFILE_DIRNAME="/vmfs/volumes/${OLD_DUMPFILE_DATASTORE_UUID}/vmkdump/*.dumpfile";
+OLD_DUMPFILE_FILENAME=$(find "/vmfs/volumes/${OLD_DUMPFILE_DATASTORE_UUID}/vmkdump/" -iname "*.dumpfile";);
 
 esxcli system coredump file list;  # Show the current coredump file
 
@@ -15,7 +17,7 @@ esxcli system coredump file set --unconfigure;  # Unconfigure the coredump file
 
 esxcli system coredump file remove -F --file=${OLD_DUMPFILE_FILENAME};  # Remove the coredump file
 
-esxcli system coredump file add --datastore=${NEW_DUMPFILE_UUID} --file=coredump; # Add the new coredump file
+esxcli system coredump file add --datastore=${NEW_DUMPFILE_DATASTORE_UUID} --file=coredump; # Add the new coredump file
 
 esxcli system coredump file set --smart --enable true;
 

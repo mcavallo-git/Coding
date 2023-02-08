@@ -6,7 +6,7 @@
 
 if [[ 1 -eq 1 ]]; then
   esxcli storage core device list | sed -rne "s/^\s+Other UIDs:\s+(.+)$/\1/p" | while read EACH_DEVICE_UUID; do
-    EACH_DEVICE_MODEL="$(esxcli storage core device list --device="${EACH_DEVICE_UUID}" | sed -rne "s/^\s+Model:\s+(.+)\s*$/\1/p";)";
+    EACH_DEVICE_MODEL="$(esxcli storage core device list --device="${EACH_DEVICE_UUID}" | sed -rne "s/^\s+Model:\s+(.+)$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
     echo "";
     echo "------------------------------";
     echo "";
@@ -21,6 +21,7 @@ if [[ 1 -eq 1 ]]; then
     esxcli storage core device stats get --device="${EACH_DEVICE_UUID}";
     echo "";
   done;
+  echo "------------------------------";
   echo "";
 fi;
 

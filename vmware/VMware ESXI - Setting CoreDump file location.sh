@@ -4,16 +4,18 @@ exit 1;
 
 NEW_DUMPFILE_UUD="NEW_DUMPFILE_DISK_UUID";
 
-OLD_DUMPFILE_DIRNAME="/vmfs/volumes/datastore1/vmkdump/*.dumnpfile";
+OLD_DUMPFILE_DIRNAME="/vmfs/volumes/datastore1/vmkdump/*.dumpfile";
 
-OLD_DUMPFILE_FILENAME=$(find "/vmfs/volumes/datastore1/vmkdump/" -iname "*.dumnpfile";);
+OLD_DUMPFILE_FILENAME=$(find "/vmfs/volumes/datastore1/vmkdump/" -iname "*.dumpfile";);
 
 
-esxcli system coredump file remove -F -f "${OLD_DUMPFILE_DIRNAME}/${OLD_DUMPFILE_FILENAME}";
+esxcli system coredump file list;  # Show the current coredump file
 
-esxcli system coredump file set -u;
+esxcli system coredump file set --unconfigure;  # Unconfigure the coredump file
 
-esxcli system coredump file add -d ${NEW_DUMPFILE_UUD}-f coredump;
+esxcli system coredump file remove -F --file=${OLD_DUMPFILE_FILENAME};  # Remove the coredump file
+
+esxcli system coredump file add --datastore=${NEW_DUMPFILE_UUD} --file=coredump; # Add the new coredump file
 
 esxcli system coredump file set --smart --enable true;
 

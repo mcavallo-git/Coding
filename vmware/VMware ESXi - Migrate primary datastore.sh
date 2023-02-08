@@ -66,13 +66,6 @@ esxcli sched swap system set --datastore-enabled true --datastore-name=${SCRATCH
 #   -s|--size=<long>      Manually set the size in MB of the created Dump File.  If not provided, a default size for the current machine will be calculated.
 # 
 # ------------------------------------------------------------
-# Usage: esxcli sched swap system get [cmd options]
-# 
-# Description:
-#   get                   Get current state of the options of the system-wide shared swap space.
-# 
-# Cmd options:
-# ------------------------------------------------------------
 # 
 #   > esxcli sched swap system set --help
 #

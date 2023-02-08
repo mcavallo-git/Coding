@@ -10,6 +10,7 @@ esxcli system coredump file remove --file=/vmfs/volumes/DATASTORE_2_ID/vmkdump/D
 # Remove the old scratch/swap file
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."  (determine if "Datastore Enabled" is set to true or not)
 esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
+vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # "The directory configured to be used for scratch space. Changes will take effect on next reboot."
 
 
 # Create the new coredump file
@@ -18,16 +19,16 @@ mkdir -p "/vmfs/volumes/${COREDUMP_DATASTORE_UUID}/vmkdump";  # Create the cored
 esxcli system coredump file add --datastore=${COREDUMP_DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
 esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel dump file ... to be selected using the smart selection algorithm."
 
+
 # Create the new scratch/swap file (via GUI)
 SCRATCH_DATASTORE_NAME="datastore_nvme";
 SCRATCH_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${SCRATCH_DATASTORE_NAME}" |  awk '{print $3}';)";
 SCRATCH_LOCKER_FULLPATH="/vmfs/volumes/${SCRATCH_DATASTORE_UUID}/.locker";
 mkdir -p "${SCRATCH_LOCKER_FULLPATH}";  # Create the scratch/swap directory on target datastore
-#
-#  ⚠️ Manually update key "ScratchConfig.ConfiguredScratchLocation" to contain the value "${SCRATCH_LOCKER_FULLPATH}" via the ESXi GUI under "Manage" > "System" (tab) > "Advanced Settings"
-#
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
 esxcli sched swap system set --datastore-enabled true --datastore-name=${SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
+vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${SCRATCH_LOCKER_FULLPATH}"; # Set the new Scratch location - "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+# Reboot required to apply changes
 
 
 # ------------------------------------------------------------
@@ -90,5 +91,7 @@ esxcli sched swap system set --datastore-enabled true --datastore-name=${SCRATCH
 #   kb.vmware.com  |  "Configuring ESXi coredump to file instead of partition (2077516)"  |  https://kb.vmware.com/s/article/2077516?lang=en_US
 #
 #   kb.vmware.com  |  "How to detach a LUN device from ESXi hosts (2004605)"  |  https://kb.vmware.com/s/article/2004605
+#
+#   sites.google.com  |  "Fix My ScratchConfig Location - MyTechNotesProject"  |  https://sites.google.com/site/mytechnotesproject/vmware/fix-my-scratchconfig-location
 #
 # ------------------------------------------------------------

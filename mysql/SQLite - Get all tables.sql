@@ -6,7 +6,7 @@
 SELECT
   NAME
 FROM
-  sqlite_master
+  `sqlite_master`
 WHERE
   TYPE='table'
   AND NAME NOT LIKE 'sqlite_%'
@@ -18,9 +18,9 @@ ORDER BY
 -- ------------------------------------------------------------
 --
 -- Note: Different versions of SQLite use different schema tables:
---        |--> Table "sqlite_schema" is used by versions since v3.33.0
---        |--> Table "sqlite_master" is used by versions before v3.33.0
---              |--> Note that "sqlite_master" is commonly an alias to "sqlite_schema"
+--        |--> Table `sqlite_schema` is used by versions since v3.33.0
+--        |--> Table `sqlite_master` is used by versions before v3.33.0
+--              |--> Note that "sqlite_master" is commonly an alias to `sqlite_schema`
 --
 -- ------------------------------------------------------------
 --

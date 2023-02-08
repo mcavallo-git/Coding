@@ -2,38 +2,32 @@
 # ------------------------------------------------------------
 
 # Remove the old coredump file
-
 esxcli system coredump file get;  # "Get the dump file path. This command will print the path to the active and/or configured VMFS Dump File."
-
 esxcli system coredump file list;  # "List the active and configured VMFS Diagnostic Files."
-
 esxcli system coredump file set --unconfigure;  # "Unconfigure the current VMFS Dump file."
-
 esxcli system coredump file remove --file=/vmfs/volumes/DATASTORE_2_ID/vmkdump/DUMPFILE_ID.dumpfile;  # "Specify the file name of the Dump File to be removed.  If not given, the configured dump file will be removed."
 
-
-# Remove the old swapfile
-
-esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space." --> determine if "Datastore Enabled" is set to true or not
-
-esxcli sched swap system set --datastore-enabled false;  # Disable the datastore option for the system-wide shared swap space.
+# Remove the old scratch/swap file
+esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."  (determine if "Datastore Enabled" is set to true or not)
+esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
 
 
 # Create the new coredump file
-DATASTORE_UUID="NEW_DATASTORE_UUID_HERE";
-
-mkdir -p "/vmfs/volumes/${DATASTORE_UUID}/vmkdump";  # Create a "vmkdump" folder on the new datastore
-
-esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
-
+COREDUMP_DATASTORE_UUID="COREDUMP_DATASTORE_UUID";
+mkdir -p "/vmfs/volumes/${COREDUMP_DATASTORE_UUID}/vmkdump";  # Create the coredump directory on target datastore
+esxcli system coredump file add --datastore=${COREDUMP_DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
 esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel dump file ... to be selected using the smart selection algorithm."
 
-
-# Create the new swapfile
-
-ScratchConfig.ConfiguredScratchLocation  # Update property manually (on ESXi GUI)
-# |--> Create the ".locker" folder on the new scratch datastore
-#        |--> Set "ScratchConfig.ConfiguredScratchLocation" to value "/vmfs/volumes/NEW_DATASTORE_ID/.locker"
+# Create the new scratch/swap file (via GUI)
+SCRATCH_DATASTORE_NAME="datastore_nvme";
+SCRATCH_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${SCRATCH_DATASTORE_NAME}" |  awk '{print $3}';)";
+SCRATCH_LOCKER_FULLPATH="/vmfs/volumes/${SCRATCH_DATASTORE_UUID}/.locker";
+mkdir -p "${SCRATCH_LOCKER_FULLPATH}";  # Create the scratch/swap directory on target datastore
+#
+#  ⚠️ Manually update key "ScratchConfig.ConfiguredScratchLocation" to contain the value "${SCRATCH_LOCKER_FULLPATH}" via the ESXi GUI under "Manage" > "System" (tab) > "Advanced Settings"
+#
+esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
+esxcli sched swap system set --datastore-enabled true --datastore-name=${SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
 
 
 # ------------------------------------------------------------
@@ -71,6 +65,13 @@ ScratchConfig.ConfiguredScratchLocation  # Update property manually (on ESXi GUI
 #   -f|--file=<str>       Manually specify the file name of the created Dump File.  If not provided, a unique name will be chosen.
 #   -s|--size=<long>      Manually set the size in MB of the created Dump File.  If not provided, a default size for the current machine will be calculated.
 # 
+# ------------------------------------------------------------
+# Usage: esxcli sched swap system get [cmd options]
+# 
+# Description:
+#   get                   Get current state of the options of the system-wide shared swap space.
+# 
+# Cmd options:
 # ------------------------------------------------------------
 # 
 #   > esxcli sched swap system set --help

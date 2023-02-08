@@ -9,7 +9,7 @@
 vim-cmd hostsvc/advopt/options;  # "Get the list of all supported options."
 vim-cmd hostsvc/advopt/settings;  # "Get the list of all current settings"
 esxcli system settings advanced list;  # "List the advanced options available from the VMkernel."
-esxcli system settings advanced list --delta;  # "Only display options whose values differ from their default."
+esxcli system settings advanced list --delta;  # (⚠️Doesn't truly show all updated values as compared to Advanced Options in the GUI?) "Only display options whose values differ from their default."
 
 
 # Get - Specific Advanced Option

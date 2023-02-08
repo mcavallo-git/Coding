@@ -273,7 +273,7 @@ echo ".7213" | sed 's/\([^0-9]\|^\)\(\.[0-9]*\)/\10\2/g';
 # sed - Trim leading/trailing whitespace
 #  |--> Method #1 - Runs between -3% and 3% faster than Method #2
 STRING="  a  b  c  d  ";
-STRING_TRIMMED="$(echo -e "${STRING}" | sed -e 's/^[[:space:]]*//' -e 's/[[:space:]]*$//';)";
+STRING_TRIMMED="$(echo -e "${STRING}" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
 echo "STRING=[${STRING}]";
 echo "STRING_TRIMMED=[${STRING_TRIMMED}]";
 

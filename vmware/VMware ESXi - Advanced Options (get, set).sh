@@ -6,9 +6,10 @@
 
 
 # Get - All Advanced Options
-vim-cmd hostsvc/advopt/options;
-vim-cmd hostsvc/advopt/settings;
-esxcli system settings advanced list;
+vim-cmd hostsvc/advopt/options;  # "Get the list of all supported options."
+vim-cmd hostsvc/advopt/settings;  # "Get the list of all current settings"
+esxcli system settings advanced list;  # "List the advanced options available from the VMkernel."
+esxcli system settings advanced list --delta;  # "Only display options whose values differ from their default."
 
 
 # Get - Specific Advanced Option

@@ -4,7 +4,7 @@
 
 
 SELECT
-  NAME
+  NAME as 'Table Name'
 FROM
   `sqlite_master`
 WHERE

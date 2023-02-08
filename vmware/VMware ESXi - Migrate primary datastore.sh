@@ -27,7 +27,7 @@ SCRATCH_LOCKER_FULLPATH="/vmfs/volumes/${SCRATCH_DATASTORE_UUID}/.locker";
 mkdir -p "${SCRATCH_LOCKER_FULLPATH}";  # Create the scratch/swap directory on target datastore
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
 esxcli sched swap system set --datastore-enabled true --datastore-name=${SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
-vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${SCRATCH_LOCKER_FULLPATH}"; # Set the new Scratch location - "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${SCRATCH_LOCKER_FULLPATH}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
 # Reboot required to apply changes
 
 

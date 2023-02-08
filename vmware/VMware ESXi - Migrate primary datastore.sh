@@ -75,20 +75,13 @@ esxcli sched swap system set --datastore-enabled true --datastore-name=${SCRATCH
 #   set                   Change the configuration of system-wide shared swap space.
 # 
 # Cmd options:
-#   -d|--datastore-enabled
-#                         If the datastore option should be enabled or not.
-#   -n|--datastore-name=<str>
-#                         The name of the datastore used by the datastore option.
-#   -D|--datastore-order=<long>
-#                         The order of the datastore option in the preference of the options
-#   -c|--hostcache-enabled
-#                         If the host cache option should be enabled or not.
-#   -C|--hostcache-order=<long>
-#                         The order of the host cache option in the preference of the options.
-#   -l|--hostlocalswap-enabled
-#                         If the host local swap option should be enabled or not.
-#   -L|--hostlocalswap-order=<long>
-#                         The order of the host local swap option in the preference of the options.
+#   -d|--datastore-enabled           If the datastore option should be enabled or not.
+#   -n|--datastore-name=<str>        The name of the datastore used by the datastore option.
+#   -D|--datastore-order=<long>      The order of the datastore option in the preference of the options
+#   -c|--hostcache-enabled           If the host cache option should be enabled or not.
+#   -C|--hostcache-order=<long>      The order of the host cache option in the preference of the options.
+#   -l|--hostlocalswap-enabled       If the host local swap option should be enabled or not.
+#   -L|--hostlocalswap-order=<long>  The order of the host local swap option in the preference of the options.
 # 
 # ------------------------------------------------------------
 #

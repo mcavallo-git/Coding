@@ -7,6 +7,7 @@
 
 # Get - All Advanced Options
 vim-cmd hostsvc/advopt/options;
+vim-cmd hostsvc/advopt/settings;
 esxcli system settings advanced list;
 
 
@@ -23,6 +24,8 @@ esxcli system settings advanced set --option="/Net/FollowHardwareMac" --int-valu
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   wiki.vi-toolkit.com  |  "Category:Vimsh - VI-Toolkit"  |  https://wiki.vi-toolkit.com/index.php/Category:Vimsh
 #
 #   sites.google.com  |  "Fix My ScratchConfig Location - MyTechNotesProject"  |  https://sites.google.com/site/mytechnotesproject/vmware/fix-my-scratchconfig-location
 #

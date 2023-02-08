@@ -4,7 +4,24 @@
 # Get S.M.A.R.T. disk values for all disks (if they exist)
 #
 
-esxcli storage core device list | grep -i 'Other UIDs:' | awk '{print $3}' | while read EACH_DEVICE_ID; do echo -e "\n\n------------------------------\nEACH_DEVICE_ID:  ${EACH_DEVICE_ID}\nListing Smart Device Parameters...\n"; esxcli storage core device smart get -d "${EACH_DEVICE_ID}"; done; echo -e "\n";
+if [[ 1 -eq 1 ]]; then
+  esxcli storage core device list | sed -rne "s/^\s+Other UIDs:\s+(.+)$/\1/p" | while read EACH_DEVICE_UUID; do
+    EACH_DEVICE_MODEL="$(esxcli storage core device list --device="${EACH_DEVICE_UUID}" | sed -rne "s/^\s+Model:\s+(.+)\s*$/\1/p";)";
+    echo "";
+    echo "------------------------------";
+    echo "--- Device Model:  \"${EACH_DEVICE_MODEL}\"";
+    echo "";
+    echo "--- Calling [ esxcli storage core device smart get --device-name=\"${EACH_DEVICE_UUID}\" ]...";
+    echo "";
+    esxcli storage core device smart get --device-name="${EACH_DEVICE_UUID}";
+    echo "";
+    echo "--- Calling [ esxcli storage core device stats get --device=\"${EACH_DEVICE_UUID}\" ]...";
+    echo "";
+    esxcli storage core device stats get --device="${EACH_DEVICE_UUID}";
+    echo "";
+  done;
+  echo "";
+fi;
 
 
 # ------------------------------

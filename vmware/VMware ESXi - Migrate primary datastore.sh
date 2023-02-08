@@ -10,7 +10,7 @@ esxcli system coredump file remove --file=/vmfs/volumes/DATASTORE_2_ID/vmkdump/D
 # Remove the old scratch/swap file
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."  (determine if "Datastore Enabled" is set to true or not)
 esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
-vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
 
 
 # Create the new coredump file

@@ -4,12 +4,18 @@
 # VMware ESXi - Advanced Options (get, set)
 #
 
-# Get the value of an Advanced Option
-vim-cmd hostsvc/advopt/view "Net.FollowHardwareMac";  # Get Advanced Option using "vim-cmd"
+
+# Get - All Advanced Options
+vim-cmd hostsvc/advopt/options;
+esxcli system settings advanced list;
+
+
+# Get - Specific Advanced Option
+vim-cmd hostsvc/advopt/options "Net.FollowHardwareMac";  # Get Advanced Option using "vim-cmd"
 esxcli system settings advanced list --option="/Net/FollowHardwareMac";  # Get Advanced Option using "esxcli"
 
 
-# Set the value of an Advanced Option
+# Set - Specific Advanced Option
 vim-cmd hostsvc/advopt/update "Net.FollowHardwareMac" long "1";
 esxcli system settings advanced set --option="/Net/FollowHardwareMac" --int-value=1;  # Set Advanced Option using "esxcli"
 

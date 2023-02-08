@@ -31,7 +31,6 @@ if [[ 1 -eq 1 ]]; then
     echo "";
     esxcli nvme device log smart get --adapter="${EACH_ADAPTER_NAME}";
     echo "";
-
   done;
   echo "------------------------------";
   echo "";

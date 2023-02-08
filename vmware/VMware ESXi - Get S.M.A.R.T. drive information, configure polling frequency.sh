@@ -21,8 +21,8 @@ if [[ 1 -eq 1 ]]; then
     esxcli storage core device stats get --device="${EACH_DEVICE_UUID}";
     echo "";
   done;
-  # esxcli nvme device list
-  # esxcli nvme device log smart get -A vmhba0
+  # esxcli nvme device list | sed -rne "s/^(vmhba[0-9]+) .*$/\1/p" | while read EACH_DEVICE_UUID; do
+  # esxcli nvme device log smart get -A vmhba1
   echo "------------------------------";
   echo "";
 fi;

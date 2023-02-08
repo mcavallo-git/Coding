@@ -9,13 +9,14 @@ if [[ 1 -eq 1 ]]; then
     EACH_DEVICE_MODEL="$(esxcli storage core device list --device="${EACH_DEVICE_UUID}" | sed -rne "s/^\s+Model:\s+(.+)\s*$/\1/p";)";
     echo "";
     echo "------------------------------";
-    echo "--- Device Model:  \"${EACH_DEVICE_MODEL}\"";
     echo "";
-    echo "--- Calling [ esxcli storage core device smart get --device-name=\"${EACH_DEVICE_UUID}\" ]...";
+    echo ">>> Device Model:  \"${EACH_DEVICE_MODEL}\"";
+    echo "";
+    echo ">>> Calling [ esxcli storage core device smart get --device-name=\"${EACH_DEVICE_UUID}\" ]...";
     echo "";
     esxcli storage core device smart get --device-name="${EACH_DEVICE_UUID}";
     echo "";
-    echo "--- Calling [ esxcli storage core device stats get --device=\"${EACH_DEVICE_UUID}\" ]...";
+    echo ">>> Calling [ esxcli storage core device stats get --device=\"${EACH_DEVICE_UUID}\" ]...";
     echo "";
     esxcli storage core device stats get --device="${EACH_DEVICE_UUID}";
     echo "";

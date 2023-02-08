@@ -1,5 +1,7 @@
 #!/bin/sh
 # ------------------------------
+# VMware ESXi - S.M.A.R.T. data (get sata-nvme ssd disk drives smart info, configure smartd polling frequency)
+# ------------------------------
 #
 # Get S.M.A.R.T. disk values for all disks (if they exist)
 #

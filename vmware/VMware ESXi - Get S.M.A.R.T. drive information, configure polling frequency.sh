@@ -12,17 +12,27 @@ if [[ 1 -eq 1 ]]; then
     echo "";
     echo ">>> Device Model:  \"${EACH_DEVICE_MODEL}\"";
     echo "";
-    echo ">>> Calling [ esxcli storage core device smart get --device-name=\"${EACH_DEVICE_UUID}\" ]...";
+    echo ">>> Calling [ esxcli storage core device smart get --device-name=\"${EACH_DEVICE_UUID}\"; ]...";
     echo "";
     esxcli storage core device smart get --device-name="${EACH_DEVICE_UUID}";
     echo "";
-    echo ">>> Calling [ esxcli storage core device stats get --device=\"${EACH_DEVICE_UUID}\" ]...";
+    echo ">>> Calling [ esxcli storage core device stats get --device=\"${EACH_DEVICE_UUID}\"; ]...";
     echo "";
     esxcli storage core device stats get --device="${EACH_DEVICE_UUID}";
     echo "";
   done;
-  # esxcli nvme device list | sed -rne "s/^(vmhba[0-9]+) .*$/\1/p" | while read EACH_DEVICE_UUID; do
-  # esxcli nvme device log smart get -A vmhba1
+  esxcli nvme device list | sed -rne "s/^(vmhba[0-9]+) .*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//" | while read EACH_ADAPTER_NAME; do
+    echo "";
+    echo "------------------------------";
+    echo "";
+    echo ">>> NVMe Adapter Name:  \"${EACH_ADAPTER_NAME}\"";
+    echo "";
+    echo ">>> Calling [ esxcli nvme device log smart get --adapter=\"${EACH_ADAPTER_NAME}\"; ]...";
+    echo "";
+    esxcli nvme device log smart get --adapter="${EACH_ADAPTER_NAME}";
+    echo "";
+
+  done;
   echo "------------------------------";
   echo "";
 fi;

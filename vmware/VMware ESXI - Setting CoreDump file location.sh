@@ -2,7 +2,7 @@
 exit 1;
 # ------------------------------------------------------------
 
-NEW_DUMPFILE_UUD="NEW_DUMPFILE_DISK_UUID";
+NEW_DUMPFILE_UUID="NEW_DUMPFILE_DISK_UUID";
 
 OLD_DUMPFILE_DIRNAME="/vmfs/volumes/datastore1/vmkdump/*.dumpfile";
 
@@ -15,7 +15,7 @@ esxcli system coredump file set --unconfigure;  # Unconfigure the coredump file
 
 esxcli system coredump file remove -F --file=${OLD_DUMPFILE_FILENAME};  # Remove the coredump file
 
-esxcli system coredump file add --datastore=${NEW_DUMPFILE_UUD} --file=coredump; # Add the new coredump file
+esxcli system coredump file add --datastore=${NEW_DUMPFILE_UUID} --file=coredump; # Add the new coredump file
 
 esxcli system coredump file set --smart --enable true;
 

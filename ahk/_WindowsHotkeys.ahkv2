@@ -1207,15 +1207,11 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Ctrl + WinKey + K
-;            Ctrl + Alt  + K
-;            Ctrl + Shift  + K
+;   HOTKEY:  Left-WinKey + K
 ;            Right-WinKey  + K
-;   ACTION:  Send a Checkmark
+;   ACTION:  Send a green "Heavy Check Mark" emoji
 ;
-+^k::
-!^k::
-^#k::
+<#k::
 >#k::
 {
   SetKeyDelay 0, -1
@@ -1226,29 +1222,47 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Ctrl + WinKey + X
-;            Ctrl + Alt  + X
-;            Ctrl + Shift  + X
-;   ACTION:  Send a Red X ("Cross Mark")
+;   HOTKEY:  Ctrl + WinKey + K
+;            Ctrl + Alt  + K
+;            Ctrl + Shift  + K
+;   ACTION:  Send a "Thumbs Up Sign" emoji
 ;
-!^x::
-^#x::
++^k::
+!^k::
+^#k::
 {
   SetKeyDelay 0, -1
-  Send "❌️"   ; Cross Mark
+  Send "👍"  ; Thumbs Up Sign
+  Return
+}
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + 1
+;            Ctrl + WinKey + 1
+;   ACTION:  Send a yellow "Warning Sign" emoji
+;
+#1::
+^#1::
+{
+  SetKeyDelay 0, -1
+  Send "⚠️"  ; Warning Sign (Colored)
   Return
 }
 
 
 ; ------------------------------
 ;
-;   HOTKEY:  Left-WinKey + K
-;   ACTION:  Send a Thumbs-Up
+;   HOTKEY:  Ctrl + WinKey + X
+;            Ctrl + Alt  + X
+;            Ctrl + Shift  + X
+;   ACTION:  Send a red "Cross Mark" emoji
 ;
-<#k::
+!^x::
+^#x::
 {
   SetKeyDelay 0, -1
-  Send "👍"  ; Thumbs Up
+  Send "❌️"   ; Cross Mark
   Return
 }
 

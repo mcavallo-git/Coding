@@ -2,9 +2,11 @@
 # Linux - smartctl (get disk S.M.A.R.T. values, remaining disk life, wear leveling count)
 # ------------------------------------------------------------
 
+
 # Install smartctl
 sudo apt-get -y update;
 sudo apt-get -y install smartmontools;
+
 
 # Enable S.M.A.R.T. on target disk
 smartctl --smart=on /dev/sda

@@ -8,7 +8,7 @@
   - [View Docs (HACS Configuration Guide)](https://hacs.xyz/docs/configuration/basic)
 - ### Step 2) Install 'Philips Hue Play HDMI Sync Box' from the HACS Store
   - [View Docs ('Philips Hue Play HDMI Sync Box' Installation Guide)](https://github.com/mvdwetering/huesyncbox#hacs)
-- ### Step 3) [ TO DO - ENTER REMAINING CONFIGURATION STEPS HERE ]
+  - [ TO DO - ENTER CONFIGURATION STEPS HERE ]
 
 ***
 

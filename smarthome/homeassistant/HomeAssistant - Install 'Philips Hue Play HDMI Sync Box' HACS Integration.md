@@ -18,7 +18,7 @@
   - Open the default HomeAssistant `Integrations` page
     - Select `+ Add Integration` & type/paste `Philips Hue Play HDMI Sync Box`
       - Click the `Philips Hue Play HDMI Sync Box` integration to install it
-        - Once the `Sync Box` integration has been installed, click `Configure` to begin initial configuration & syncing to your Philips Hue Play HDMI Sync Box device
+        - Once the `Sync Box` integration has been installed, click `Configure` & follow the instructions to sync the integration to your Philips Hue Play HDMI Sync Box device
 
 ***
 

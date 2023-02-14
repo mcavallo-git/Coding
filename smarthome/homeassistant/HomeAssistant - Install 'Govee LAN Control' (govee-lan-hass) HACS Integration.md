@@ -6,7 +6,7 @@
 - ### Step 1) Install & Configure HACS (Home Assistant Community Store)
   - [View Docs (HACS Installation Guide)](https://hacs.xyz/docs/setup/download/)
   - [View Docs (HACS Configuration Guide)](https://hacs.xyz/docs/configuration/basic)
-- ### Step 1) Install 'Govee LAN Control' (govee-lan-hass) from the HACS Store
+- ### Step 2) Install 'Govee LAN Control' (govee-lan-hass) from the HACS Store
   - [View Docs ('Govee LAN Control' (govee-lan-hass) Installation Guide)](https://github.com/wez/govee-lan-hass#installation)
   - [ TO DO - ENTER CONFIGURATION STEPS HERE ]
 

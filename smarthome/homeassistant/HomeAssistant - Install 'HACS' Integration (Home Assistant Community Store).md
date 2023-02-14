@@ -1,5 +1,5 @@
 
-# HomeAssistant - Install Add-on 'HACS' (Home Assistant Community Store)
+# HomeAssistant - Install 'HACS' Integration (Home Assistant Community Store)
 
 ***
 

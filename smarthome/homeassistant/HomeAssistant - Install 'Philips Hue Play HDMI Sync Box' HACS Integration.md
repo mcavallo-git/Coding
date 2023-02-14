@@ -11,7 +11,7 @@
   - Open `HACS` in HomeAssistant
     - Under HACS' `Integrations` page, select `+ Explore & Download Repositories`
       - In the `Search for repository` field, type/paste `Philips Hue Play HDMI Sync Box`
-        - Click the `Philips Hue Play HDMI Sync Box` HACS integration, then select `↓ Download`
+        - Click the `Philips Hue Play HDMI Sync Box` HACS integration, then select `↓ Download` (bottom right)
           - In the `Select version` field, select the latest version & click `Download`
             - Wait for the HACS `Integrations` page to display a `restart required` (or similarly worded) message
               - Restart Home Assistant to complete the installation of the HACS integration

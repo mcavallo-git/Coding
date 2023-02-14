@@ -8,6 +8,10 @@
   - [View Docs (HACS Configuration Guide)](https://hacs.xyz/docs/configuration/basic)
 - ### Step 2) Install 'Govee LAN Control' (govee-lan-hass) from the HACS Store
   - [View Docs ('Govee LAN Control' (govee-lan-hass) Installation Guide)](https://github.com/wez/govee-lan-hass#installation)
+  - Create a `Govee Home` account via the `Govee Home` mobile app
+    - Link Govee light(s) to control to your `Govee Home` account
+    - Request an API key for your `Govee Home` account via `Profile` > `Settings` > `Apply for API Key`
+      -  Wait for API key to arrive in the inbox for the email address tied to your `Govee Home` account
   - Open `HACS` in HomeAssistant
     - Under HACS' `Integrations` page, select `+ Explore & Download Repositories`
       - In the `Search for repository` field, type/paste `Govee LAN Control`

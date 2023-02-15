@@ -200,9 +200,8 @@ Mostly Linux compatible:
 ⏰					Alarm Clock  |  https://www.compart.com/en/unicode/U+23F0
 
 
-🗡				Dagger Knife  |  https://www.compart.com/en/unicode/U+1F5E1  |  echo -e "\\xF0\\x9F\\x97\\xA1";  |  "$([char]0xD83D+[char]0xDDE1)"
 🔑				Key  |  https://www.compart.com/en/unicode/U+1F511
-🔒				Lock  |  https://www.compart.com/en/unicode/U+1F512
+🔒				Lock (&#x1F512;)  |  https://www.compart.com/en/unicode/U+1F512  |  echo -e "\\xF0\\x9F\\x94\\x92";  |  "$([char]0xD83D+[char]0xDD12)"
 🔓				Open Lock  |  https://www.compart.com/en/unicode/U+1F513
 🔐				Closed Lock with Key  |  https://www.compart.com/en/unicode/U+1F510
 🔏				Lock with Ink Pen  |  https://www.compart.com/en/unicode/U+1F50F
@@ -255,6 +254,7 @@ Mostly Linux compatible:
 ☢				Radioactive Sign  |  https://www.compart.com/en/unicode/U+2622
 ☣️			Biohazard Sign Emoji  |  https://emojipedia.org/biohazard/
 ☣				Biohazard Sign  |  https://www.compart.com/en/unicode/U+2623
+🗡				Dagger Knife  |  https://www.compart.com/en/unicode/U+1F5E1  |  echo -e "\\xF0\\x9F\\x97\\xA1";  |  "$([char]0xD83D+[char]0xDDE1)"
 
 
 💲					Heavy Dollar Sign

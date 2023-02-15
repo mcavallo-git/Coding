@@ -356,8 +356,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8618;&nbsp;Click <kbd>Private Keys</kbd> (top tab)
 <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8618;&nbsp;Set <kbd>Expire cached PINs after N seconds</kbd> to <kbd>desired PIN timeout (seconds)</kbd>
 <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8618;&nbsp;Set <kbd>Set maximum PIN cache lifetime to N seconds</kbd> to <kbd>desired PIN timeout (seconds)</kbd>
-<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8618;&nbsp;Click <kbd>&#x2714; Apply</kbd> then <kbd>&#x2714; OK</kbd>
-</pre></p></details>
+<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&#8618;&nbsp;Click <kbd>&#x2714; Apply</kbd> then <kbd>&#x2714; OK</kbd></pre></p></details>
 </i></sub></td><td><a href="https://www.gpg4win.org/thanks-for-download.html">View (source)</a></td></tr>
 <tr><td><strong>JQ</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Linux command-line JSON interpreter/processor<br />&nbsp;&nbsp;&nbsp;Parses JSON using the <code>JSON query language</code> syntax</i></sub></td><td><a href="https://github.com/stedolan/jq/releases">Download (source)</a></td></tr>
 <tr><td><strong>Microsoft .NET Framework</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Software framework developed by Microsoft</i></sub></td><td><a href="https://dotnet.microsoft.com/download/dotnet-framework">Download (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://dotnet.microsoft.com/download/dotnet-framework/net40">Download (Version 4.0-4.8)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=21">Download (Version 3.5)<br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=3005">Download (Version 3.0)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://www.microsoft.com/en-us/download/confirmation.aspx?id=6523">Download (Version 2.0)</a></sub></td></tr>

@@ -1,3 +1,7 @@
+<!-- ------------------------------------------------------------
+https://github.com/mcavallo-git/Coding/blob/main/vmware/VMware%20ESXi%20-%20Intel%20NUC%20Compatibility%20&%20CPU%20Core-Thread%20Comparison.md
+------------------------------------------------------------- -->
+
 # Intel NUC ESXi Compatibility & CPU Comparisons
 
 <hr />

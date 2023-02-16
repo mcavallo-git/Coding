@@ -1,4 +1,4 @@
-# Intel NUC CPU Comparisons
+# Intel NUC ESXi Compatibility & CPU Core-Thread Comparison
 
 <hr />
 

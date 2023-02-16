@@ -86,7 +86,16 @@
 
 <hr />
 
-## NUC Naming Schema
+- ## VMware ESXi - Calculating CPU Capacity
+  - CPU capacity is calculated by ESXi using the following formula:
+    `Capacity = Core_Count * Base_Clock`
+    - Two important things to note:
+      &#49;. Formula ignores `HyperThreading` by using CPU `Core_Count` and not CPU `Thread_Count`
+      &#50;. Formula ignores `Turbo Boost` by using CPU `Base_Clock` and not CPU `Max_Clock`
+
+<hr />
+
+- ## NUC Naming Schema
   - ### Intel NUC Generations 11 and higher
     - Schema: `NUC` + `[NUC_GEN]` + `[NUC_FAMILY_CODE]` + `[FORM_FACTOR_CODE]` + `[CPU_GEN]`
       - Example: `NUC12WSHi5`
@@ -113,5 +122,7 @@
   - [Intel NUC Model Lineup (VMware ESXi in homelabs) | www.virten.net](https://www.virten.net/vmware/homelab/intel-nuc-model-lineup)
 
   - [Kit Differences - NUC11TN (Pro) vs. NUC11PA (Performance) | www.reddit.com](https://www.reddit.com/r/intelnuc/comments/njyydd/difference_between_these_2_nucs)
+
+  - [vSphere CPU Capacity calculation - VMware Technology Network VMTN | communities.vmware.com](https://communities.vmware.com/t5/vSphere-Hypervisor-Discussions/vSphere-CPU-Capacity-calculation/m-p/2858931/highlight/true#M6695)
 
 <hr />

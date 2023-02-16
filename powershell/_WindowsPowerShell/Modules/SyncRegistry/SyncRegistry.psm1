@@ -1463,11 +1463,11 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 [File-]Save Options - [0]=Enable, [1]=Disable option [ Save to Computer by default ] found under Options > Save (left tab).";
+              Description="Office 2016/2019 [File-]Save Options - [0]=Enable, [1]=Disable option [ Save to Computer by default (located under Options > Save (left tab)) ].";
               Hotfix=$Null;
               Name="PreferCloudSaveLocations";
               Type="DWord";
-              Value=1;
+              Value=0;
               Delete=$False;
             },
             @{
@@ -1479,9 +1479,17 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 [File-]Save Options - [0]=Disable, [1]=Enable the save option [ Don't show the Backstage when opening or saving files with keyboard shortcuts ] found under Options > Save (left tab).";
+              Description="Office 2016/2019 [File-]Save Options - [0]=Disable, [1]=Enable option [ Don't show the Backstage when opening or saving files with keyboard shortcuts (located under Options > Save (left tab)) ].";
               Hotfix=$Null;
               Name="SkipOpenAndSaveAsPlace";
+              Type="DWord";
+              Value=1;
+              Delete=$False;
+            },
+            @{
+              Description="Office 2016/2019 [File-]Save Options - [0]=Disable, [1]=Enable option [ Show additional places for saving, even if sign-in may be required (located under Options > Save (left tab)) ].";
+              Hotfix=$Null;
+              Name="SkyDriveSignInOption";
               Type="DWord";
               Value=1;
               Delete=$False;

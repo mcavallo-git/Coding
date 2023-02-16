@@ -26,9 +26,9 @@
 | `NUC11` <sub>*(11th Gen)*</sub> | `Performance`              | `NUC11PAHi5`       | `i5-1135G7`                  | `8T`                 | `4`                | `2.4/4.2 GHz`                     |
 | `NUC11` <sub>*(11th Gen)*</sub> | `Pro`                      | `NUC11TNHi5`       | `i5-1135G7`                  | `8T`                 | `4`                | `2.4/4.2 GHz`                     |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
-| `NUC10` <sub>*(10th Gen)*</sub> | `Performance`              | `NUC10i7FNH`       | `i7-10710U`                  | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC10` <sub>*(10th Gen)*</sub> | `Performance`              | `NUC10i5FNH`       | `i5-10210U`                  | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC10` <sub>*(10th Gen)*</sub> | `Performance`              | `NUC10i3FNH`       | `i3-10110U`                  | `_T`                 | `_`                | `_______ GHz`                     |
+| `NUC10` <sub>*(10th Gen)*</sub> | `Performance`              | `NUC10i7FNH`       | `i7-10710U`                  | `12T`                | `6`                | `1.1/4.7 GHz`                     |
+| `NUC10` <sub>*(10th Gen)*</sub> | `Performance`              | `NUC10i5FNH`       | `i5-10210U`                  | `8T`                 | `4`                | `1.6/4.2 GHz`                     |
+| `NUC10` <sub>*(10th Gen)*</sub> | `Performance`              | `NUC10i3FNH`       | `i3-10110U`                  | `4T`                 | `2`                | `2.1/4.1 GHz`                     |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
 | `NUC9` <sub>*(9th Gen)*</sub>   | `Extreme`                  | `NUC9i9QNX`        | `i9-9980HK`                  | `_T`                 | `_`                | `_______ GHz`                     |
 | `NUC9` <sub>*(9th Gen)*</sub>   | `Pro`                      | `NUC9V7QNX`        | `i7-9850H`                   | `_T`                 | `_`                | `_______ GHz`                     |

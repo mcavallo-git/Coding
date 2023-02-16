@@ -1490,7 +1490,7 @@ function SyncRegistry {
               Hotfix=$Null;
               Name="SkyDriveSignInOption";
               Type="DWord";
-              Value=1;
+              Value=0;
               Delete=$False;
             }
           )

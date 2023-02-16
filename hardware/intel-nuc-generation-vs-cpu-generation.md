@@ -1,4 +1,8 @@
+# Intel NUC Generation vs CPU Generation
 
+| NUC Generation  | NUC Model Example | Intel CPU Generation | CPU Model Example |
+| --------------- | ----------------- | -------------------- | ----------------- |
+| 13th Gen NUCs   | NUC13RNGi5        | 13th Gen Intel CPUs  | i5-13600K         |
 
 <!-- ---------------------------------------------------------
 #

@@ -1,8 +1,8 @@
-# Intel NUC ESXi Compatibility & CPU Core-Thread Comparison
+# Intel NUC ESXi Compatibility & CPU Comparisons
 
 <hr />
 
-## NUC Model Comparisons
+## NUC Model/CPU Comparisons
 | <h4>NUC Generation</h4>         | <h4>Family (Kit) Type</h4> | <h4>NUC Model</h4> | <h4>CPU Model</h4>           | <h4>CPU Threads</h4> | <h4>CPU Cores</h4> | <h4>CPU Frequency (Base/Max)</h4> |
 | ------------------------------- | -------------------------- | ------------------ | ---------------------------- | -------------------- | ------------------ | --------------------------------- |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
@@ -70,18 +70,6 @@
 
 <hr />
 
-## NUC Naming Schema
-  - ### Intel NUC Generations 11 and higher
-    - Schema: `NUC` + `[NUC_GEN]` + `[NUC_FAMILY_CODE]` + `[FORM_FACTOR_CODE]` + `[CPU_GEN]`
-      - Example: `NUC12WSHi5`
-      - Reference: [Product Code Naming Convention for Intel® NUC (Gen 11+)](https://www.intel.com/content/www/us/en/support/articles/000060119/intel-nuc.html)
-  - ### Intel NUC Generations 10 and lower
-    - Schema: `NUC` + `[NUC_GEN]` + `[CPU_GEN]` + `[NUC_FAMILY_CODE]` + `[FORM_FACTOR_CODE]`
-      - Reference: [Product Code Naming Convention for Intel® NUC (Up to Gen 10)](https://www.intel.com/content/www/us/en/support/articles/000031273/intel-nuc.html)
-      - Example: `NUC5i7RYH`
-
-<hr />
-
 ## VMware ESXi on 12th Gen Intel NUCs
 - VMware ESXI `8.0`
   - No additional action(s) are required for ESXi to run
@@ -95,6 +83,18 @@
           `runweasel cdromBoot cpuUniformityHardCheckPanic=FALSE`
         - While ESXi is running (permanent, use once ESXi has been installed):
           `esxcli system settings kernel set -s cpuUniformityHardCheckPanic -v FALSE`
+
+<hr />
+
+## NUC Naming Schema
+  - ### Intel NUC Generations 11 and higher
+    - Schema: `NUC` + `[NUC_GEN]` + `[NUC_FAMILY_CODE]` + `[FORM_FACTOR_CODE]` + `[CPU_GEN]`
+      - Example: `NUC12WSHi5`
+      - Reference: [Product Code Naming Convention for Intel® NUC (Gen 11+)](https://www.intel.com/content/www/us/en/support/articles/000060119/intel-nuc.html)
+  - ### Intel NUC Generations 10 and lower
+    - Schema: `NUC` + `[NUC_GEN]` + `[CPU_GEN]` + `[NUC_FAMILY_CODE]` + `[FORM_FACTOR_CODE]`
+      - Reference: [Product Code Naming Convention for Intel® NUC (Up to Gen 10)](https://www.intel.com/content/www/us/en/support/articles/000031273/intel-nuc.html)
+      - Example: `NUC5i7RYH`
 
 <hr />
 

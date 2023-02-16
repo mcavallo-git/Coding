@@ -86,7 +86,7 @@
 
   - [Intel NUC Kits Product Specifications | ark.intel.com](https://ark.intel.com/content/www/us/en/ark/products/series/70407/intel-nuc-kits.html#@nofilter)
 
-  - [Intel NUC Model Lineup | www.virten.net](https://www.virten.net/vmware/homelab/intel-nuc-model-lineup/)
+  - [Intel NUC Model Lineup (VMware ESXi in homelabs) | www.virten.net](https://www.virten.net/vmware/homelab/intel-nuc-model-lineup/)
 
   - [Kit Differences - NUC11TN (Pro) vs. NUC11PA (Performance) | www.reddit.com](https://www.reddit.com/r/intelnuc/comments/njyydd/difference_between_these_2_nucs/)
 

@@ -10,11 +10,11 @@
 | `NUC13` <sub>*(13th Gen)*</sub> | `Extreme`                  | `NUC13RNGi7`       | `i7-13700K`                  | `24`                      | `8P`+`8E`               | `P:3.4/5.3 GHz` , `E:2.5/4.2 GHz` |
 | `NUC13` <sub>*(13th Gen)*</sub> | `Extreme`                  | `NUC13RNGi5`       | `i5-13600K`                  | `20`                      | `6P`+`8E`               | `P:3.5/5.1 GHz` , `E:2.6/3.9 GHz` |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />                    | <hr />                  | <hr />                            |
-| `NUC12` <sub>*(12th Gen)*</sub> | `Extreme`                  | `NUC12DCMi9`       | `i9-12900`                   |                           |                         |                                   |
-| `NUC12` <sub>*(12th Gen)*</sub> | `Pro`                      | `NUC12WSHv7`       | `i7-1270P`                   |                           |                         |                                   |
-| `NUC12` <sub>*(12th Gen)*</sub> | `Pro`                      | `NUC12WSHi7`       | `i7-1260P`                   |                           |                         |                                   |
-| `NUC12` <sub>*(12th Gen)*</sub> | `Pro`                      | `NUC12WSHv5`       | `i5-1250P`                   |                           |                         |                                   |
-| `NUC12` <sub>*(12th Gen)*</sub> | `Pro`                      | `NUC12WSHi5`       | `i5-1240P`                   |                           |                         |                                   |
+| `NUC12` <sub>*(12th Gen)*</sub> | `Extreme`                  | `NUC12DCMi9`       | `i9-12900`                   | `24`                      | `8P`+`8E`               | `P:2.4/5.0 GHz` , `E:1.8/3.8 GHz` |
+| `NUC12` <sub>*(12th Gen)*</sub> | `Pro`                      | `NUC12WSHv7`       | `i7-1270P`                   | `16`                      | `4P`+`8E`               | `P:2.2/4.8 GHz` , `E:1.6/3.5 GHz` |
+| `NUC12` <sub>*(12th Gen)*</sub> | `Pro`                      | `NUC12WSHi7`       | `i7-1260P`                   | `16`                      | `4P`+`8E`               | `P:2.1/4.7 GHz` , `E:1.5/3.4 GHz` |
+| `NUC12` <sub>*(12th Gen)*</sub> | `Pro`                      | `NUC12WSHv5`       | `i5-1250P`                   | `16`                      | `4P`+`8E`               | `P:1.7/4.4 GHz` , `E:1.2/3.3 GHz` |
+| `NUC12` <sub>*(12th Gen)*</sub> | `Pro`                      | `NUC12WSHi5`       | `i5-1240P`                   | `16`                      | `4P`+`8E`               | `P:1.7/4.4 GHz` , `E:1.2/3.3 GHz` |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />                    | <hr />                  | <hr />                            |
 | `NUC11` <sub>*(11th Gen)*</sub> | `Extreme`                  | `NUC11BTMi9`       | `i9-11900KB`                 |                           |                         |                                   |
 | `NUC11` <sub>*(11th Gen)*</sub> | `Pro`                      | `NUC11TNHv7`       | `i7-1185G7`                  |                           |                         |                                   |
@@ -105,6 +105,8 @@
   - [ESXi 7 and 8 Installation fails with "Fatal CPU mismatch on feature" | www.virten.net](https://www.virten.net/2022/11/esxi-7-and-8-installation-fails-with-fatal-cpu-mismatch-on-feature)
 
   - [ESXi on 12th Gen Intel NUC Pro (Wall Street Canyon) | www.virten.net](https://www.virten.net/2022/12/esxi-on-12th-gen-intel-nuc-pro-wall-street-canyon)
+
+  - [Intel Core i5 1240P: performance and specs | nanoreview.net](https://nanoreview.net/en/cpu/intel-core-i5-1240p)
 
   - [Intel NUC Kits Product Specifications | ark.intel.com](https://ark.intel.com/content/www/us/en/ark/products/series/70407/intel-nuc-kits.html#@nofilter)
 

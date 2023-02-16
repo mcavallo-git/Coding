@@ -30,42 +30,42 @@
 | `NUC10` <sub>*(10th Gen)*</sub> | `Performance`              | `NUC10i5FNH`       | `i5-10210U`                  | `8T`                 | `4`                | `1.6/4.2 GHz`                     |
 | `NUC10` <sub>*(10th Gen)*</sub> | `Performance`              | `NUC10i3FNH`       | `i3-10110U`                  | `4T`                 | `2`                | `2.1/4.1 GHz`                     |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
-| `NUC9` <sub>*(9th Gen)*</sub>   | `Extreme`                  | `NUC9i9QNX`        | `i9-9980HK`                  | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC9` <sub>*(9th Gen)*</sub>   | `Pro`                      | `NUC9V7QNX`        | `i7-9850H`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC9` <sub>*(9th Gen)*</sub>   | `Extreme`                  | `NUC9i7QNX`        | `i7-9750H`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC9` <sub>*(9th Gen)*</sub>   | `Extreme`                  | `NUC9i5QNX`        | `i5-9300H`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC9` <sub>*(9th Gen)*</sub>   | `Pro`                      | `NUC9VXQNX`        | `E-2286M` <sub>(Xeon)</sub>  | `_T`                 | `_`                | `_______ GHz`                     |
+| `NUC9` <sub>*(9th Gen)*</sub>   | `Extreme`                  | `NUC9i9QNX`        | `i9-9980HK`                  | `16T`                | `8`                | `2.4/5.0 GHz`                     |
+| `NUC9` <sub>*(9th Gen)*</sub>   | `Pro`                      | `NUC9VXQNX`        | `E-2286M` <sub>(Xeon)</sub>  | `16T`                | `8`                | `2.4/5.0 GHz`                     |
+| `NUC9` <sub>*(9th Gen)*</sub>   | `Pro`                      | `NUC9V7QNX`        | `i7-9850H`                   | `12T`                | `6`                | `2.6/4.6 GHz`                     |
+| `NUC9` <sub>*(9th Gen)*</sub>   | `Extreme`                  | `NUC9i7QNX`        | `i7-9750H`                   | `12T`                | `6`                | `2.6/4.5 GHz`                     |
+| `NUC9` <sub>*(9th Gen)*</sub>   | `Extreme`                  | `NUC9i5QNX`        | `i5-9300H`                   | `8T`                 | `4`                | `2.4/4.1 GHz`                     |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
-| `NUC8` <sub>*(8th Gen)*</sub>   | `Pro`                      | `NUC8v7PNH`        | `i7-8665U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC8` <sub>*(8th Gen)*</sub>   | `(None)`                   | `NUC8i7BEH`        | `i7-8559U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC8` <sub>*(8th Gen)*</sub>   | `Pro`                      | `NUC8v5PNH`        | `i5-8365U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC8` <sub>*(8th Gen)*</sub>   | `(None)`                   | `NUC8i5BEH`        | `i5-8259U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC8` <sub>*(8th Gen)*</sub>   | `Pro`                      | `NUC8i3PNH`        | `i3-8145U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC8` <sub>*(8th Gen)*</sub>   | `(None)`                   | `NUC8i3BEH`        | `i3-8109U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC8` <sub>*(8th Gen)*</sub>   | `Rugged`                   | `NUC8CCHKR`        | `N3350` <sub>(Celeron)</sub> | `_T`                 | `_`                | `_______ GHz`                     |
+| `NUC8` <sub>*(8th Gen)*</sub>   | `Pro`                      | `NUC8v7PNH`        | `i7-8665U`                   | `8T`                 | `4`                | `1.9/4.8 GHz`                     |
+| `NUC8` <sub>*(8th Gen)*</sub>   | `(None)`                   | `NUC8i7BEH`        | `i7-8559U`                   | `8T`                 | `4`                | `2.7/4.5 GHz`                     |
+| `NUC8` <sub>*(8th Gen)*</sub>   | `Pro`                      | `NUC8v5PNH`        | `i5-8365U`                   | `8T`                 | `4`                | `1.6/4.1 GHz`                     |
+| `NUC8` <sub>*(8th Gen)*</sub>   | `(None)`                   | `NUC8i5BEH`        | `i5-8259U`                   | `8T`                 | `4`                | `2.3/3.8 GHz`                     |
+| `NUC8` <sub>*(8th Gen)*</sub>   | `Pro`                      | `NUC8i3PNH`        | `i3-8145U`                   | `4T`                 | `2`                | `2.1/3.9 GHz`                     |
+| `NUC8` <sub>*(8th Gen)*</sub>   | `(None)`                   | `NUC8i3BEH`        | `i3-8109U`                   | `4T`                 | `2`                | `3.0/3.6 GHz`                     |
+| `NUC8` <sub>*(8th Gen)*</sub>   | `Rugged`                   | `NUC8CCHKR`        | `N3350` <sub>(Celeron)</sub> | `2T`                 | `2`                | `1.1/2.4 GHz`                     |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
-| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i7DNHE`       | `i7-8650U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i7BNH`        | `i7-7567U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i5DNHE`       | `i5-7300U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i5BNH`        | `i5-7260U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i3DNHE`       | `i3-7100U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i3BNH`        | `i3-7100U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7PJYHN`        | `J5040` <sub>(Pentium)</sub> | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7CJYHN`        | `J4025` <sub>(Celeron)</sub> | `_T`                 | `_`                | `_______ GHz`                     |
+| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i7DNHE`       | `i7-8650U`                   | `8T`                 | `4`                | `1.9/4.2 GHz`                     |
+| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i7BNH`        | `i7-7567U`                   | `4T`                 | `2`                | `3.5/4.0 GHz`                     |
+| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i5DNHE`       | `i5-7300U`                   | `4T`                 | `2`                | `2.6/3.5 GHz`                     |
+| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i5BNH`        | `i5-7260U`                   | `4T`                 | `2`                | `2.2/3.4 GHz`                     |
+| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i3DNHE`       | `i3-7100U`                   | `4T`                 | `2`                | `2.4/--- GHz` <sub>(No Turbo)</sub> |
+| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7i3BNH`        | `i3-7100U`                   | `4T`                 | `2`                | `2.4/--- GHz` <sub>(No Turbo)</sub> |
+| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7PJYHN`        | `J5040` <sub>(Pentium)</sub> | `4T`                 | `4`                | `2.0/--- GHz` <sub>(No Turbo)</sub> |
+| `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7CJYHN`        | `J4025` <sub>(Celeron)</sub> | `2T`                 | `2`                | `2.0/2.9 GHz`                     |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
-| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i7KYK`        | `i7-6770HQ`                  | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i5SYH`        | `i5-6260U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i3SYH`        | `i3-6100U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6CAYH`         | `J3455` <sub>(Celeron)</sub> | `_T`                 | `_`                | `_______ GHz`                     |
+| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i7KYK`        | `i7-6770HQ`                  | `8T`                 | `4`                | `2.6/3.5 GHz`                     |
+| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i5SYH`        | `i5-6260U`                   | `4T`                 | `2`                | `1.8/2.9 GHz`                     |
+| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i3SYH`        | `i3-6100U`                   | `4T`                 | `2`                | `2.3/--- GHz` <sub>(No Turbo)</sub> |
+| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6CAYH`         | `J3455` <sub>(Celeron)</sub> | `4T`                 | `4`                | `1.5/2.3 GHz`                     |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i7RYH`        | `i7-5557U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5MYHE`       | `i5-5300U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5RYHS`       | `i5-5257U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5RYH`        | `i5-5250U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i3RYHS`       | `i3-5005U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i3RYH`        | `i3-5010U`                   | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5PPYH`         | `N3700` <sub>(Pentium)</sub> | `_T`                 | `_`                | `_______ GHz`                     |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5CPYH`         | `N3060` <sub>(Celeron)</sub> | `_T`                 | `_`                | `_______ GHz`                     |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i7RYH`        | `i7-5557U`                   | `4T`                 | `2`                | `3.1/3.4 GHz`                     |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5MYHE`       | `i5-5300U`                   | `4T`                 | `2`                | `2.3/2.9 GHz`                     |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5RYHS`       | `i5-5257U`                   | `4T`                 | `2`                | `2.7/3.1 GHz`                     |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5RYH`        | `i5-5250U`                   | `4T`                 | `2`                | `1.6/2.7 GHz`                     |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i3RYH`        | `i3-5010U`                   | `4T`                 | `2`                | `2.1/--- GHz` <sub>(No Turbo)</sub> |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i3RYHS`       | `i3-5005U`                   | `4T`                 | `2`                | `2.0/--- GHz` <sub>(No Turbo)</sub> |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5PPYH`         | `N3700` <sub>(Pentium)</sub> | `4T`                 | `4`                | `1.6/2.4 GHz`                     |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5CPYH`         | `N3060` <sub>(Celeron)</sub> | `2T`                 | `2`                | `1.6/2.48 GHz`                    |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       | <hr />               | <hr />             | <hr />                            |
 
 <hr />

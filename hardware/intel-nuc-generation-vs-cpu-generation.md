@@ -33,15 +33,21 @@
 | 11th Gen Intel NUCs  | 11th Gen Intel CPUs  | `NUC11PAHi5`        | `i5-1135G7`                    | `Performance`         |
 | 11th Gen Intel NUCs  | 11th Gen Intel CPUs  | `NUC11TNHi5`        | `i5-1135G7`                    | `Pro`                 |
 | <hr />               | <hr />               | <hr />              | <hr />                         |                       |
-| 10th Gen Intel NUCs  | ___ Gen Intel CPUs   | `_________`         | `________`                     |                       |
+| 10th Gen Intel NUCs  | 10th Gen Intel CPUs  | `NUC10i7FNH`        | `i7-10710U`                    | `Performance`         |
+| 10th Gen Intel NUCs  | 10th Gen Intel CPUs  | `NUC10i5FNH`        | `i5-10210U`                    | `Performance`         |
+| 10th Gen Intel NUCs  | 10th Gen Intel CPUs  | `NUC10i3FNH`        | `i3-10110U`                    | `Performance`         |
 | <hr />               | <hr />               | <hr />              | <hr />                         |                       |
-| 9th Gen Intel NUCs   | ___ Gen Intel CPUs   | `_________`         | `________`                     |                       |
+| 9th Gen Intel NUCs   | 9th Gen Intel CPUs   | `NUC9i9QNX`         | `i9-9980HK`                    | `Extreme`             |
+| 9th Gen Intel NUCs   | 9th Gen Intel CPUs   | `NUC9V7QNX`         | `i7-9850H`                     | `Pro`                 |
+| 9th Gen Intel NUCs   | 9th Gen Intel CPUs   | `NUC9i7QNX`         | `i7-9750H`                     | `Extreme`             |
+| 9th Gen Intel NUCs   | 9th Gen Intel CPUs   | `NUC9i5QNX`         | `i5-9300H`                     | `Extreme`             |
+| 9th Gen Intel NUCs   | 9th Gen Intel CPUs   | `NUC9VXQNX`         | `E-2286M` <sub>(Xeon)</sub>    | `Pro`                 |
 | <hr />               | <hr />               | <hr />              | <hr />                         |                       |
-| 8th Gen Intel NUCs   | ___ Gen Intel CPUs   | `_________`         | `________`                     |                       |
+| 8th Gen Intel NUCs   | 8th Gen Intel CPUs   | `_________`         | `________`                     |                       |
 | <hr />               | <hr />               | <hr />              | <hr />                         |                       |
-| 7th Gen Intel NUCs   | ___ Gen Intel CPUs   | `_________`         | `________`                     |                       |
+| 7th Gen Intel NUCs   | 7th Gen Intel CPUs   | `_________`         | `________`                     |                       |
 | <hr />               | <hr />               | <hr />              | <hr />                         |                       |
-| 6th Gen Intel NUCs   | ___ Gen Intel CPUs   | `_________`         | `________`                     |                       |
+| 6th Gen Intel NUCs   | 6th Gen Intel CPUs   | `_________`         | `________`                     |                       |
 | <hr />               | <hr />               | <hr />              | <hr />                         |                       |
 | 5th Gen Intel NUCs   | 5th Gen Intel CPUs   | `NUC5i7RYH`         | `i7-5557U`                     |                       |
 | <hr />               | <hr />               | <hr />              | <hr />                         |                       |

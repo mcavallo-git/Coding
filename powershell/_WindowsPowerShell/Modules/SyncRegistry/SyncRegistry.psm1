@@ -1463,11 +1463,27 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
+              Description="Office 2016/2019 [File-]Save Options - [0]=Enable, [1]=Disable option [ Save to Computer by default ] found under Options > Save (left tab).";
+              Hotfix=$Null;
+              Name="PreferCloudSaveLocations";
+              Type="DWord";
+              Value=1;
+              Delete=$False;
+            },
+            @{
               Description="Office 2016/2019 Opt-in Wizard - [0]=Disable, [1]=Enable, [2]=(Assume yes to) the Opt-in Wizard the first time a Microsoft Office 2016 application is ran. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOptinWizard]";
               Hotfix=$Null;
               Name="ShownFirstRunOptin";
               Type="DWord";
               Value=2;
+              Delete=$False;
+            },
+            @{
+              Description="Office 2016/2019 [File-]Save Options - [0]=Disable, [1]=Enable the save option [ Don't show the Backstage when opening or saving files with keyboard shortcuts ] found under Options > Save (left tab).";
+              Hotfix=$Null;
+              Name="SkipOpenAndSaveAsPlace";
+              Type="DWord";
+              Value=1;
               Delete=$False;
             }
           )

@@ -1,4 +1,6 @@
-# Intel NUC Hardware Comparisons
+# Intel NUC CPU Comparisons
+
+<hr />
 
 ## NUC Naming Schema
   - ## Up to Gen 10
@@ -10,8 +12,10 @@
       - Example: `NUC12WSHi5`
       - Reference: [Product Code Naming Convention for Intel® NUC (Gen 11+)](https://www.intel.com/content/www/us/en/support/articles/000060119/intel-nuc.html)
 
-## Intel NUC Generation vs CPU Generation
-| <h3>NUC Generation</h3>         | <h3>Family (Kit) Type</h3> | <h3>NUC Model</h3> | <h3>CPU Model</h3>      |
+<hr />
+
+## Intel NUC Models vs Included CPU
+| <h4>NUC Generation</h4>         | <h4>Family (Kit) Type</h4> | <h4>NUC Model</h4> | <h4>Included CPU</h4>        |
 | ------------------------------- | -------------------------- | ------------------ | ---------------------------- |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       |
 | `NUC13` <sub>*(13th Gen)*</sub> | `Extreme`                  | `NUC13RNGi9`       | `i5-13900K`                  |
@@ -61,13 +65,29 @@
 | `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7PJYHN`        | `J5040` <sub>(Pentium)</sub> |
 | `NUC7` <sub>*(7th Gen)*</sub>   | `(None)`                   | `NUC7CJYHN`        | `J4025` <sub>(Celeron)</sub> |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       |
-| `NUC6` <sub>*(6th Gen)*</sub>   | `____`                     | `NUC6_____`        | `________`                   |
+| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i7KYK`        | `i7-6770HQ`                  |
+| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i5SYH`        | `i5-6260U`                   |
+| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6i3SYH`        | `i3-6100U`                   |
+| `NUC6` <sub>*(6th Gen)*</sub>   | `(None)`                   | `NUC6CAYH`         | `J3455` <sub>(Celeron)</sub> |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       |
-| `NUC5` <sub>*(5th Gen)*</sub>   | `____`                     | `NUC5i7RYH`        | `i7-5557U`                   |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i7RYH`        | `i7-5557U`                   |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5MYHE`       | `i5-5300U`                   |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5RYHS`       | `i5-5257U`                   |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i5RYH`        | `i5-5250U`                   |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i3RYHS`       | `i3-5005U`                   |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5i3RYH`        | `i3-5010U`                   |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5PPYH`         | `N3700` <sub>(Pentium)</sub> |
+| `NUC5` <sub>*(5th Gen)*</sub>   | `(None)`                   | `NUC5CPYH`         | `N3060` <sub>(Celeron)</sub> |
 | <hr />                          | <hr />                     | <hr />             | <hr />                       |
 
+<hr />
 
 ## Citation(s)
-- [Intel NUC Model Lineup | virten.net](https://www.virten.net/vmware/homelab/intel-nuc-model-lineup/)
-- [Intel® NUC Kits Product Specifications](https://ark.intel.com/content/www/us/en/ark/products/series/70407/intel-nuc-kits.html#@nofilter)
-- [NUC11 Family Code Differences - NUC11TN (`Pro Kit`) vs. NUC11PA (`Performance Kit`)](https://www.reddit.com/r/intelnuc/comments/njyydd/difference_between_these_2_nucs/)
+
+  - [Intel NUC Kits Product Specifications | ark.intel.com](https://ark.intel.com/content/www/us/en/ark/products/series/70407/intel-nuc-kits.html#@nofilter)
+
+  - [Intel NUC Model Lineup | www.virten.net](https://www.virten.net/vmware/homelab/intel-nuc-model-lineup/)
+
+  - [Kit Differences - NUC11TN (Pro) vs. NUC11PA (Performance) | www.reddit.com](https://www.reddit.com/r/intelnuc/comments/njyydd/difference_between_these_2_nucs/)
+
+<hr />

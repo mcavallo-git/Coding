@@ -43,8 +43,8 @@ if [[ 1 -eq 1 ]]; then
   # Show scratch file status & associated value(s)
   CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
   CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
-  echo -e "\nAdvanced setting \"ScratchConfig.CurrentScratchLocation\"    = \"${CURRENT_SCRATCH_LOCATION}\"";
-  echo -e "\nAdvanced setting \"ScratchConfig.ConfiguredScratchLocation\" = \"${CONFIGURED_SCRATCH_LOCATION}\"";
+  echo -e "\nAdvanced setting \"ScratchConfig.CurrentScratchLocation\"    = \"${CURRENT_SCRATCH_LOCATION}\"  (current scratch space being used)";
+  echo -e "\nAdvanced setting \"ScratchConfig.ConfiguredScratchLocation\" = \"${CONFIGURED_SCRATCH_LOCATION}\"  (scratch space to use after next reboot)";
   # ---
   NEW_SCRATCH_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_SCRATCH_DATASTORE_NAME}" | awk '{print $3}';)";
   NEW_SCRATCH_LOCATION="/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}/.locker";
@@ -69,14 +69,14 @@ if [[ 1 -eq 1 ]]; then
       # Show scratch file status & associated value(s)
       CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
       CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
-      echo -e "\nAdvanced setting \"ScratchConfig.CurrentScratchLocation\"    = \"${CURRENT_SCRATCH_LOCATION}\"";
-      echo -e "\nAdvanced setting \"ScratchConfig.ConfiguredScratchLocation\" = \"${CONFIGURED_SCRATCH_LOCATION}\"";
+      echo -e "\nAdvanced setting \"ScratchConfig.CurrentScratchLocation\"    = \"${CURRENT_SCRATCH_LOCATION}\"  (current scratch space being used)";
+      echo -e "\nAdvanced setting \"ScratchConfig.ConfiguredScratchLocation\" = \"${CONFIGURED_SCRATCH_LOCATION}\"  (scratch space to use after next reboot)";
     else
       echo -e "\nInfo:  Scratch location already set to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
     fi;
   fi;
   if [[ "${CURRENT_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
-    echo -e "\n ! Reboot of ESXi host is required to update \"ScratchConfig.CurrentScratchLocation\" (current scratch space being used) to equal \"ScratchConfig.ConfiguredScratchLocation\" (scratch space to use after next reboot)";
+    echo -e "\n ! Reboot of ESXi host is required to update \"ScratchConfig.CurrentScratchLocation\" to equal \"ScratchConfig.ConfiguredScratchLocation\"";
     echo -e   "    |";
     echo -e   "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCATION}\"";
   fi;

@@ -3,7 +3,7 @@
 # VMware ESXi - Migrate coredump, swapfile-scratchfile, datastore
 # ------------------------------------------------------------
 
-if [[ 1 eq 1 ]]; then
+if [[ 1 -eq 1 ]]; then
 
 # Remove the old coredump file
 esxcli system coredump file get;  # "Get the dump file path. This command will print the path to the active and/or configured VMFS Dump File."

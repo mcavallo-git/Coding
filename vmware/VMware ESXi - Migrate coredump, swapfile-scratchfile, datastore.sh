@@ -36,8 +36,9 @@ sleep 2;
 echo "------------------------------------------------------------";
 
 
+if [[ 1 -eq 1 ]]; then
+# Check if we need to update the scratch/swap file
 # ---
-# Create the new scratch/swap file
 # NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
 NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
 # ---
@@ -61,6 +62,7 @@ sleep 2;
 # Show scratch file status & associated value(s)
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
 vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+fi;
 fi;
 
 

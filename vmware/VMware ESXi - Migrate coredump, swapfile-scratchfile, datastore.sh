@@ -67,7 +67,7 @@ if [[ -n "${NEW_SCRATCH_LOCKER_FULLPATH}" ]]; then
     esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
     vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
   else
-    echo -e "\nInfo:  Scratch location already set as-intended to: \"${NEW_SCRATCH_LOCKER_FULLPATH}\"";
+    echo -e "\nInfo:  Scratch location already set as-intended to: \"${NEW_SCRATCH_LOCKER_FULLPATH}\"  (on datastore \"${NEW_SCRATCH_DATASTORE_NAME}\")";
   fi;
 fi;
 

@@ -38,7 +38,8 @@ echo "------------------------------------------------------------";
 
 # ---
 # Create the new scratch/swap file
-NEW_SCRATCH_DATASTORE_NAME="${NEW_COREDUMP_DATASTORE_NAME}";
+# NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
+NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
 # ---
 # Show scratch file status & associated value(s)
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."

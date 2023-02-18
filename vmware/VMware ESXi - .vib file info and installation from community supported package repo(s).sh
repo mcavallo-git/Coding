@@ -9,6 +9,9 @@ esxcli network firewall ruleset set -e true -r httpClient;
 # List packages available in the V-Front depot:
 esxcli software sources vib list -d http://vibsdepot.v-front.de;
 
+# List packages available in the VMware depot:
+esxcli software sources vib list -d https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml;
+
 # Get information about a package in the V-Front depot
 esxcli software sources vib get -d http://vibsdepot.v-front.de -n sata-xahci;
 

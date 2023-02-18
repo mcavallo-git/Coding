@@ -54,9 +54,12 @@ CONFIGURED_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig
 mkdir -p "${NEW_SCRATCH_LOCKER_FULLPATH}";  # Create the scratch/swap directory on target datastore
 if [[ -n "${NEW_SCRATCH_LOCKER_FULLPATH}" ]] && [[ "${NEW_SCRATCH_LOCKER_FULLPATH}" != "${CONFIGURED_SCRATCH_LOCKER_FULLPATH}" ]]; then
 # Perform the update to the scratch file
+echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled false; ]...";
 esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
 sleep 2;
+echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME}; ]...";
 esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
+echo -e "\nCalling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCKER_FULLPATH}\"; ]...";
 vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCKER_FULLPATH}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
 sleep 2;
 # Show scratch file status & associated value(s)

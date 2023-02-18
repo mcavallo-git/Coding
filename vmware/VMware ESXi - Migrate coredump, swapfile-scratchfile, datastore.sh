@@ -24,8 +24,8 @@ sleep 2;
 
 
 # Create the new coredump file
-# NEW_COREDUMP_DATASTORE_NAME="datastore_nvme";
-NEW_COREDUMP_DATASTORE_NAME="datastore_sata";
+# NEW_COREDUMP_DATASTORE_NAME="datastore_sata";
+NEW_COREDUMP_DATASTORE_NAME="datastore_nvme";
 NEW_COREDUMP_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_COREDUMP_DATASTORE_NAME}" | awk '{print $3}';)";
 mkdir -p "/vmfs/volumes/${NEW_COREDUMP_DATASTORE_UUID}/vmkdump";  # Create the coredump directory on target datastore
 esxcli system coredump file add --datastore=${NEW_COREDUMP_DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"

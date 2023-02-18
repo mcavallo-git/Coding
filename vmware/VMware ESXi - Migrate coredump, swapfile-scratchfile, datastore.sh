@@ -47,7 +47,7 @@ sleep 2;
 # Reboot required to apply changes
 echo "";
 echo " - Reboot required to apply changes";
-# Alert user to delete the old scratch/swap file after reboot
+# Alert user to delete the old scratch/swap directory after reboot
 ADVOPT_CURRENTSCRATCHLOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
 ADVOPT_CONFIGUREDSCRATCHLOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
 if [[ -n "${ADVOPT_CURRENTSCRATCHLOCATION}" ]] && [[ "${ADVOPT_CURRENTSCRATCHLOCATION}" != "${ADVOPT_CONFIGUREDSCRATCHLOCATION}" ]]; then

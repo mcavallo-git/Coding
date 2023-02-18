@@ -76,7 +76,7 @@ if [[ 1 -eq 1 ]]; then
     fi;
   fi;
   if [[ "${CURRENT_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
-    echo -e "\n ! Reboot of ESXi host is required to update \"ScratchConfig.CurrentScratchLocation\" (current scratch space) to equal \"ScratchConfig.ConfiguredScratchLocation\" (scratch space after next reboot)";
+    echo -e "\n ! Reboot of ESXi host is required to update \"ScratchConfig.CurrentScratchLocation\" (current scratch space being used) to equal \"ScratchConfig.ConfiguredScratchLocation\" (scratch space to use after next reboot)";
     echo -e   "    |";
     echo -e   "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCATION}\"";
   fi;

@@ -39,8 +39,8 @@ echo "------------------------------------------------------------";
 if [[ 1 -eq 1 ]]; then
 # Check if we need to update the scratch/swap file
 # ---
-# NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
-NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
+NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
+# NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
 # ---
 # Show scratch file status & associated value(s)
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
@@ -52,20 +52,25 @@ NEW_SCRATCH_LOCKER_FULLPATH="/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}/.locker
 CURRENT_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
 CONFIGURED_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
 mkdir -p "${NEW_SCRATCH_LOCKER_FULLPATH}";  # Create the scratch/swap directory on target datastore
-if [[ -n "${NEW_SCRATCH_LOCKER_FULLPATH}" ]] && [[ "${NEW_SCRATCH_LOCKER_FULLPATH}" != "${CONFIGURED_SCRATCH_LOCKER_FULLPATH}" ]]; then
-# Perform the update to the scratch file
-echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled false; ]...";
-esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
-sleep 2;
-echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME}; ]...";
-esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
-echo -e "\nCalling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCKER_FULLPATH}\"; ]...";
-vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCKER_FULLPATH}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
-sleep 2;
-# Show scratch file status & associated value(s)
-esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
-vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+if [[ -n "${NEW_SCRATCH_LOCKER_FULLPATH}" ]]; then
+  if [[ "${NEW_SCRATCH_LOCKER_FULLPATH}" != "${CONFIGURED_SCRATCH_LOCKER_FULLPATH}" ]]; then
+    # Perform the update to the scratch file
+    echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled false; ]...";
+    esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
+    sleep 2;
+    echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME}; ]...";
+    esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
+    echo -e "\nCalling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCKER_FULLPATH}\"; ]...";
+    vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCKER_FULLPATH}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+    sleep 2;
+    # Show scratch file status & associated value(s)
+    esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
+    vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+  else
+    echo -e "\nInfo:  Scratch location already set as-intended to: \"${NEW_SCRATCH_LOCKER_FULLPATH}\"";
+  fi;
 fi;
+
 fi;
 
 

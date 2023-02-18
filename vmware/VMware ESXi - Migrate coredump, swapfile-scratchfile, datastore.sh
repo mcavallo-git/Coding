@@ -52,7 +52,7 @@ if [[ 1 -eq 1 ]]; then
   if [[ -n "${NEW_SCRATCH_LOCATION}" ]]; then
     if [[ "${NEW_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
       # Perform the update to the scratch file
-      echo -e "\nInfo:  Updating scratch location to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\"";
+      echo -e "\nInfo:  Updating scratch location to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
       DATASTORE_ENABLED="$(esxcli sched swap system get | sed -rne "s/^\s*Datastore Enabled: ([^\s]+)$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
       if [[ "${DATASTORE_ENABLED}" == "true" ]]; then
         echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled false; ]...";
@@ -72,7 +72,7 @@ if [[ 1 -eq 1 ]]; then
       echo -e "\nAdvanced setting \"ScratchConfig.CurrentScratchLocation\"    = \"${CURRENT_SCRATCH_LOCATION}\"";
       echo -e "\nAdvanced setting \"ScratchConfig.ConfiguredScratchLocation\" = \"${CONFIGURED_SCRATCH_LOCATION}\"";
     else
-      echo -e "\nInfo:  Scratch location already set to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" as-intended";
+      echo -e "\nInfo:  Scratch location already set to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
     fi;
   fi;
   echo "";

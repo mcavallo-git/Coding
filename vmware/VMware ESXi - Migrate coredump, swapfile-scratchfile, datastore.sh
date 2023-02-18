@@ -43,8 +43,8 @@ if [[ 1 -eq 1 ]]; then
   # Show scratch file status & associated value(s)
   CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
   CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
-  echo -e "\n""\"ScratchConfig.CurrentScratchLocation\"  -  Advanced option defining [ scratch space currently in use ]:\n  ${CURRENT_SCRATCH_LOCATION}";
-  echo -e "\n""\"ScratchConfig.ConfiguredScratchLocation\"  -  Advanced option defining [ scratch space to use after next reboot]:\n  ${CONFIGURED_SCRATCH_LOCATION}";
+  echo -e "\n""\"ScratchConfig.CurrentScratchLocation\"  -  Advanced option defining [ scratch location currently in use ]:\n  ${CURRENT_SCRATCH_LOCATION}";
+  echo -e "\n""\"ScratchConfig.ConfiguredScratchLocation\"  -  Advanced option defining [ scratch location to use after next reboot]:\n  ${CONFIGURED_SCRATCH_LOCATION}";
   # ---
   NEW_SCRATCH_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_SCRATCH_DATASTORE_NAME}" | awk '{print $3}';)";
   NEW_SCRATCH_LOCATION="/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}/.locker";
@@ -52,7 +52,7 @@ if [[ 1 -eq 1 ]]; then
   if [[ -n "${NEW_SCRATCH_LOCATION}" ]]; then
     if [[ "${NEW_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
       # Perform the update to the scratch file
-      echo -e "\nInfo:  Updating scratch location to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
+      echo -e "\nInfo:  Configuring scratch location to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
       DATASTORE_ENABLED="$(esxcli sched swap system get | sed -rne "s/^\s*Datastore Enabled: ([^\s]+)$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
       if [[ "${DATASTORE_ENABLED}" == "true" ]]; then
         echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled false; ]...";
@@ -69,10 +69,10 @@ if [[ 1 -eq 1 ]]; then
       # Show scratch file status & associated value(s)
       CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
       CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
-      echo -e "\n""\"ScratchConfig.CurrentScratchLocation\"  -  Advanced option defining [ scratch space currently in use ]:\n  ${CURRENT_SCRATCH_LOCATION}";
-      echo -e "\n""\"ScratchConfig.ConfiguredScratchLocation\"  -  Advanced option defining [ scratch space to use after next reboot]:\n  ${CONFIGURED_SCRATCH_LOCATION}";
+      echo -e "\n""\"ScratchConfig.CurrentScratchLocation\"  -  Advanced option defining [ scratch location currently in use ]:\n  ${CURRENT_SCRATCH_LOCATION}";
+      echo -e "\n""\"ScratchConfig.ConfiguredScratchLocation\"  -  Advanced option defining [ scratch location to use after next reboot]:\n  ${CONFIGURED_SCRATCH_LOCATION}";
     else
-      echo -e "\nInfo:  Scratch location already set to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
+      echo -e "\nInfo:  Scratch location already configured to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
     fi;
   fi;
   if [[ "${CURRENT_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then

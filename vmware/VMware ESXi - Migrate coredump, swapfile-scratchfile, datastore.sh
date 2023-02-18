@@ -43,6 +43,7 @@ if [[ 1 -eq 1 ]]; then
   # Show scratch file status & associated value(s)
   CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
   CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+  sleep 2;
   echo -e "\n""\"ScratchConfig.CurrentScratchLocation\"  -  Advanced option defining [ scratch location currently in use ]:\n  ${CURRENT_SCRATCH_LOCATION}";
   echo -e "\n""\"ScratchConfig.ConfiguredScratchLocation\"  -  Advanced option defining [ scratch location to use after next reboot]:\n  ${CONFIGURED_SCRATCH_LOCATION}";
   # ---
@@ -69,6 +70,7 @@ if [[ 1 -eq 1 ]]; then
       # Show scratch file status & associated value(s)
       CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
       CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+      sleep 2;
       echo -e "\n""\"ScratchConfig.CurrentScratchLocation\"  -  Advanced option defining [ scratch location currently in use ]:\n  ${CURRENT_SCRATCH_LOCATION}";
       echo -e "\n""\"ScratchConfig.ConfiguredScratchLocation\"  -  Advanced option defining [ scratch location to use after next reboot]:\n  ${CONFIGURED_SCRATCH_LOCATION}";
     else

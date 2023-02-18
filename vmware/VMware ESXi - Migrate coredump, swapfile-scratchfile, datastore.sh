@@ -33,7 +33,6 @@ if [[ 1 -eq 1 ]]; then
 fi;
 
 
-
 if [[ 1 -eq 1 ]]; then
   # Check if we need to update the scratch/swap file
   echo "------------------------------------------------------------";
@@ -57,8 +56,10 @@ if [[ 1 -eq 1 ]]; then
       sleep 2;
       echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME}; ]...";
       esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
+      sleep 2;
       echo -e "\nCalling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCKER_FULLPATH}\"; ]...";
       vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCKER_FULLPATH}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+      sleep 2;
       # Show scratch file status & associated value(s)
       esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
       vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
@@ -66,7 +67,6 @@ if [[ 1 -eq 1 ]]; then
       echo -e "\nInfo:  Scratch location already set as-intended to: \"${NEW_SCRATCH_LOCKER_FULLPATH}\"  (on datastore \"${NEW_SCRATCH_DATASTORE_NAME}\")";
     fi;
   fi;
-  sleep 2;
 fi;
 
 

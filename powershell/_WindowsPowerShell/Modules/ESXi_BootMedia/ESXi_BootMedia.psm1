@@ -102,7 +102,7 @@ Function ESXi_BootMedia() {
 				# Download the latest ESXi-Customizer-PS PowerShell script-file
 				Write-Host "";
 				Write-Host "Downloading the latest version of `"ESXi-Customizer-PS`"...";
-				New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://vibsdepot.v-front.de/tools/ESXi-Customizer-PS-v2.6.0.ps1")) -Force | Out-Null;
+				New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/VFrontDe-Org/ESXi-Customizer-PS/master/ESXi-Customizer-PS.ps1")) -Force | Out-Null;
 				New-Item -ItemType ("Directory") -Path ("${LogFilesDir}") | Out-Null;
 
 				# ------------------------------------------------------------

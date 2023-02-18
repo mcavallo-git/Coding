@@ -29,7 +29,6 @@ esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel d
 
 
 # Create the new scratch/swap file
-if [[ 1 eq 1 ]]; then
 # NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
 NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
 NEW_SCRATCH_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_SCRATCH_DATASTORE_NAME}" | awk '{print $3}';)";
@@ -38,8 +37,12 @@ mkdir -p "${NEW_SCRATCH_LOCKER_FULLPATH}";  # Create the scratch/swap directory 
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
 esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
 vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCKER_FULLPATH}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+
+
 # Reboot required to apply changes
-fi;
+echo "";
+echo "   > > Reboot required to apply changes < <";
+echo "";
 
 fi;
 

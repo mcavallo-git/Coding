@@ -102,11 +102,11 @@ Function ESXi_BootMedia() {
 				# Download the latest ESXi-Customizer-PS PowerShell script-file
 				Write-Host "";
 				Write-Host "Downloading the latest version of `"ESXi-Customizer-PS`"...";
-				New-Item -Path .\ESXi-Customizer-PS-v2.6.0.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/VFrontDe-Org/ESXi-Customizer-PS/master/ESXi-Customizer-PS.ps1")) -Force | Out-Null;
+				New-Item -Path .\ESXi-Customizer-PS.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/VFrontDe-Org/ESXi-Customizer-PS/master/ESXi-Customizer-PS.ps1")) -Force | Out-Null;
 				New-Item -ItemType ("Directory") -Path ("${LogFilesDir}") | Out-Null;
 
 				# ------------------------------------------------------------
-				### OUTPUT FROM  [ ${Home}\Desktop\ESXi-Customizer-PS-v2.6.0.ps1 -help ]
+				### OUTPUT FROM  [ ${Home}\Desktop\ESXi-Customizer-PS.ps1 -help ]
 				#
 				# This is ESXi-Customizer-PS Version 2.6.0 (visit https://ESXi-Customizer-PS.v-front.de for more information!)
 				#
@@ -142,7 +142,7 @@ Function ESXi_BootMedia() {
 				#    -test              : skip package download and image build (for testing)
 				#
 
-				.\ESXi-Customizer-PS-v2.6.0.ps1 -help 1>"${LogFilesDir}\ESXi-Customizer-PS-v2.6.0.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
+				.\ESXi-Customizer-PS.ps1 -help 1>"${LogFilesDir}\ESXi-Customizer-PS.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
 
 				# ------------------------------------------------------------
 
@@ -308,19 +308,19 @@ Function ESXi_BootMedia() {
 
 					} Else {
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}`"); ]  ...";
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}`"); ]  ...";
 						If ($ESXiVersion -Eq "5.0") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v50 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v50 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "5.1") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v51 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v51 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "5.5") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v55 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v55 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "6.0") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v60 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v60 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "6.5") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "6.7") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v67 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v67 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						}
 					}
 				}
@@ -342,38 +342,38 @@ Function ESXi_BootMedia() {
 						<# Fix .vib attachments in customizer #>
 						$regex = 'Get-EsxSoftwarePackage -PackageUrl \$vibFile -ErrorAction SilentlyContinue';
 						$replacement = "Get-EsxSoftwarePackage -PackageUrl `$(Get-Content `$vibFile) -ErrorAction SilentlyContinue";
-						(Get-Content "${WorkingDir}\ESXi-Customizer-PS-v2.6.0.ps1") -Replace $regex, $replacement | Set-Content "${WorkingDir}\ESXi-Customizer-PS-v2.6.0.ps1";
+						(Get-Content "${WorkingDir}\ESXi-Customizer-PS.ps1") -Replace $regex, $replacement | Set-Content "${WorkingDir}\ESXi-Customizer-PS.ps1";
 
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
 						If ($ESXiVersion -Eq "5.0") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v50 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v50 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "5.1") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v51 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v51 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "5.5") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v55 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v55 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "6.0") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v60 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v60 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "6.5") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "6.7") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v67 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v67 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						}
 					} Else {
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS-v2.6.0.ps1 ${VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
 						If ($ESXiVersion -Eq "5.0") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v50 -vft -load $VibNames_Valid -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v50 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "5.1") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v51 -vft -load $VibNames_Valid -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v51 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "5.5") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v55 -vft -load $VibNames_Valid -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v55 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "6.0") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v60 -vft -load $VibNames_Valid -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v60 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "6.5") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "6.7") {
-							.\ESXi-Customizer-PS-v2.6.0.ps1 -v67 -vft -load $VibNames_Valid -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v67 -vft -load $VibNames_Valid -outDir (".");
 						}
 					}
 				}

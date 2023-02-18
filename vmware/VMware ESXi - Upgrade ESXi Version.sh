@@ -20,6 +20,10 @@ esxcli network firewall ruleset set -e true -r httpClient;
 if [[ -z "${DESIRED_ESXI_VERSION}" ]]; then echo "Error - No ugprade version specified. Please set variable \$DESIRED_ESXI_VERSION to the version of ESXi to upgrade to"; else esxcli software profile update -d "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml" -p "${DESIRED_ESXI_VERSION}"; fi;
 
 
+# Upgrade to the desired version of ESXi ! WITHOUT REQUIRING SIGNATURE CHECKING (cross a gap in security to force the update to go through)
+if [[ -z "${DESIRED_ESXI_VERSION}" ]]; then echo "Error - No ugprade version specified. Please set variable \$DESIRED_ESXI_VERSION to the version of ESXi to upgrade to"; else esxcli software profile update -d "https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml" -p "${DESIRED_ESXI_VERSION}" --no-sig-check; fi;
+
+
 # Update the firewall rules to BLOCK outgoing HTTP requests
 esxcli network firewall ruleset set -e false -r httpClient;
 

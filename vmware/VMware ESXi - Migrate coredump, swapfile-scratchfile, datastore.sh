@@ -71,6 +71,12 @@ if [[ 1 -eq 1 ]]; then
       CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
       echo -e "\nAdvanced setting \"ScratchConfig.CurrentScratchLocation\"    = \"${CURRENT_SCRATCH_LOCATION}\"";
       echo -e "\nAdvanced setting \"ScratchConfig.ConfiguredScratchLocation\" = \"${CONFIGURED_SCRATCH_LOCATION}\"";
+      if [[ "${CURRENT_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
+        echo "";
+        echo " - Reboot the ESXi host to apply change(s)";
+        echo "    |";
+        echo "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCATION}\"";
+      fi;
     else
       echo -e "\nInfo:  Scratch location already set to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
     fi;

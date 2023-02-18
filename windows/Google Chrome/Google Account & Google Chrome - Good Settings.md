@@ -14,5 +14,6 @@
  <br /><li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Enhanced spell check</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/syncSetup</code><ul><li>Disable <code>Google Drive search suggestions</code></li></ul></li>
  <br /><li>Browse to <code>https://myaccount.google.com/permissions</code><ul><li>Disable <code>Google Account sign-in prompts</code></li></ul></li>
+ <br /><li>Browse to <code>chrome://flags/#download-bubble</code><ul><li>Set <code>Enable download bubble</code> to <code>Disabled</code></li></ul></li>
  <br /><li>Browse to <code>chrome://flags/#read-later</code><ul><li>Enable <code>Reading List</code> <sub><i>(Note: chrome's setting description for this is backward/reversed relative its value)</i></sub></li><li>Alternatively, use hotkey <kbd><kbd>CTRL</kbd>+<kbd>D</kbd></kbd> instead of clicking the <code>&#9734; Add bookmark</code> / <code>&#9733; Edit bookmark</code> button</li></ul></li>
 </ol>

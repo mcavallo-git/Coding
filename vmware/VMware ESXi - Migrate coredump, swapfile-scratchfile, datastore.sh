@@ -16,7 +16,7 @@ fi;
 sleep 2;
 
 
-# Remove the old scratch/swap file
+# Disable the old scratch/swap file
 esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."  (determine if "Datastore Enabled" is set to true or not)
 esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
 vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
@@ -46,8 +46,16 @@ sleep 2;
 
 # Reboot required to apply changes
 echo "";
-echo "   > > Reboot required to apply changes < <";
+echo " - Reboot required to apply changes";
+# Alert user to delete the old scratch/swap file after reboot
+ADVOPT_CURRENTSCRATCHLOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+ADVOPT_CONFIGUREDSCRATCHLOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+if [[ -n "${ADVOPT_CURRENTSCRATCHLOCATION}" ]] && [[ "${ADVOPT_CURRENTSCRATCHLOCATION}" != "${ADVOPT_CONFIGUREDSCRATCHLOCATION}" ]]; then
+echo "    |";
+echo "    |--> After reboot, remove old scratch directory:  \"${ADVOPT_CURRENTSCRATCHLOCATION}\"";
+fi;
 echo "";
+
 
 fi;
 

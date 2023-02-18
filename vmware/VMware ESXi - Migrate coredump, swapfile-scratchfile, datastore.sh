@@ -37,8 +37,8 @@ if [[ 1 -eq 1 ]]; then
   # Check if we need to update the scratch/swap file
   echo "------------------------------------------------------------";
   # ---
-  NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
-  # NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
+  # NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
+  NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
   # ---
   # Show scratch file status & associated value(s)
   CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";

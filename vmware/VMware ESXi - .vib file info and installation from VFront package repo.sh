@@ -1,4 +1,7 @@
 #!/bin/sh
+# ------------------------------------------------------------
+# VMware ESXi - .vib file info and installation from V-Front package repo
+# ------------------------------------------------------------
 
 # Open firewall for outgoing http/s requests:
 esxcli network firewall ruleset set -e true -r httpClient;
@@ -9,17 +12,24 @@ esxcli software sources vib list -d http://vibsdepot.v-front.de;
 # Get information about a package in the V-Front depot
 esxcli software sources vib get -d http://vibsdepot.v-front.de -n sata-xahci;
 
-# Install a community supported package from the V-Front depot:
-# - Lower the system's acceptance level to match the package
+# ------------------------------
+#
+# Install community supported package(s) from the V-Front depot
+#
+
+# Lower the system's acceptance level to match the package
 esxcli software acceptance set --level=CommunitySupported;
 
-# - Install the package
+# Install a package from the V-Front depot
 esxcli software vib install -d http://vibsdepot.v-front.de -n sata-xahci;
 
-# Install an unsigned package from the V-Front depot:
-esxcli software vib install -d http://vibsdepot.v-front.de -n cpu-microcode --no-sig-check;
+# Install a package at a specific version
+esxcli software vib install -d http://vibsdepot.v-front.de -n "cpu-microcode:7.0.0-1";
 
-# Update installed packages from the V-Front depot:
+# Install an unsigned package from the V-Front depot
+esxcli software vib install -d http://vibsdepot.v-front.de --no-sig-check -n cpu-microcode;
+
+# Update installed packages from the V-Front depot
 esxcli software vib update -d http://vibsdepot.v-front.de;
 
 

@@ -2,22 +2,26 @@
 exit 1;
 # ------------------------------------------------------------
 
-NEW_DUMPFILE_DATASTORE_NAME="NEW_DUMPFILE_DATASTORE_NAME";
-NEW_DUMPFILE_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_DUMPFILE_DATASTORE_NAME}" |  awk '{print $3}';)";
+NEW_COREDUMP_DATASTORE_NAME="NEW_COREDUMP_DATASTORE_NAME";
+NEW_COREDUMP_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_COREDUMP_DATASTORE_NAME}" | awk '{print $3}';)";
 
-OLD_DUMPFILE_DATASTORE_NAME="OLD_DUMPFILE_DATASTORE_NAME";
-OLD_DUMPFILE_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${OLD_DUMPFILE_DATASTORE_NAME}" |  awk '{print $3}';)";
+OLD_COREDUMP_DATASTORE_NAME="OLD_COREDUMP_DATASTORE_NAME";
+OLD_COREDUMP_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${OLD_COREDUMP_DATASTORE_NAME}" | awk '{print $3}';)";
 
-OLD_DUMPFILE_DIRNAME="/vmfs/volumes/${OLD_DUMPFILE_DATASTORE_UUID}/vmkdump/*.dumpfile";
-OLD_DUMPFILE_FILENAME=$(find "/vmfs/volumes/${OLD_DUMPFILE_DATASTORE_UUID}/vmkdump/" -iname "*.dumpfile";);
+OLD_COREDUMP_FULLPATH="$(esxcli system coredump file list | grep '^/vmfs' | awk '{print $1}';)";
+if [[ -z "${OLD_COREDUMP_FULLPATH}" ]] || [[ ! -f "${OLD_COREDUMP_FULLPATH}" ]]; then
+OLD_COREDUMP_FULLPATH=$(find "/vmfs/volumes/${OLD_COREDUMP_DATASTORE_UUID}/vmkdump/" -iname "*.dumpfile";);
+fi;
 
 esxcli system coredump file list;  # Show the current coredump file
 
 esxcli system coredump file set --unconfigure;  # Unconfigure the coredump file
 
-esxcli system coredump file remove -F --file=${OLD_DUMPFILE_FILENAME};  # Remove the coredump file
+if [[ -n "${OLD_COREDUMP_FULLPATH}" ]] && [[ -f "${OLD_COREDUMP_FULLPATH}" ]]; then
+esxcli system coredump file remove -F --file=${OLD_COREDUMP_FULLPATH};  # Remove the coredump file
+fi;
 
-esxcli system coredump file add --datastore=${NEW_DUMPFILE_DATASTORE_UUID} --file=coredump; # Add the new coredump file
+esxcli system coredump file add --datastore=${NEW_COREDUMP_DATASTORE_UUID} --file=coredump; # Add the new coredump file
 
 esxcli system coredump file set --smart --enable true;
 

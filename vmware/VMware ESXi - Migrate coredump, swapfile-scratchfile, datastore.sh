@@ -52,17 +52,17 @@ if [[ 1 -eq 1 ]]; then
   if [[ -n "${NEW_SCRATCH_LOCATION}" ]]; then
     if [[ "${NEW_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
       # Perform the update to the scratch file
-      echo -e "\nInfo:  Configuring scratch location to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
+      echo -e "\n""INFO:  Configuring scratch location to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
       DATASTORE_ENABLED="$(esxcli sched swap system get | sed -rne "s/^\s*Datastore Enabled: ([^\s]+)$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
       if [[ "${DATASTORE_ENABLED}" == "true" ]]; then
-        echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled false; ]...";
+        echo -e "\n""INFO:  Calling [ esxcli sched swap system set --datastore-enabled false; ]...";
         esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
       fi;
       sleep 2;
-      echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME}; ]...";
+      echo -e "\n""INFO:  Calling [ esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME}; ]...";
       esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
       sleep 2;
-      echo -e "\nCalling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCATION}\"; ]...";
+      echo -e "\n""INFO:  Calling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCATION}\"; ]...";
       vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCATION}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
       sleep 2;
       # ---
@@ -72,11 +72,11 @@ if [[ 1 -eq 1 ]]; then
       echo -e "\n""\"ScratchConfig.CurrentScratchLocation\"  -  Advanced option defining [ scratch location currently in use ]:\n  ${CURRENT_SCRATCH_LOCATION}";
       echo -e "\n""\"ScratchConfig.ConfiguredScratchLocation\"  -  Advanced option defining [ scratch location to use after next reboot]:\n  ${CONFIGURED_SCRATCH_LOCATION}";
     else
-      echo -e "\nInfo:  Scratch location already configured to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
+      echo -e "\n""INFO:  Scratch location already configured to use datastore \"${NEW_SCRATCH_DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}\"";
     fi;
   fi;
   if [[ "${CURRENT_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
-    echo -e "\n ! Reboot of ESXi host is required to update \"ScratchConfig.CurrentScratchLocation\" to equal \"ScratchConfig.ConfiguredScratchLocation\"";
+    echo -e "\n""NOTICE:  Reboot of ESXi host is required to update \"ScratchConfig.CurrentScratchLocation\" to equal \"ScratchConfig.ConfiguredScratchLocation\"";
     echo -e   "    |";
     echo -e   "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCATION}\"";
   fi;

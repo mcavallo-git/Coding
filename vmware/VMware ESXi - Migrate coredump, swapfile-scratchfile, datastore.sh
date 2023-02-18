@@ -74,18 +74,22 @@ fi;
 fi;
 
 
-echo "------------------------------------------------------------";
-
-
-# Reboot required to apply changes
-echo "";
-echo " - Reboot required to apply changes";
-# Alert user to delete the old scratch/swap directory after reboot
-if [[ -n "${CURRENT_SCRATCH_LOCKER_FULLPATH}" ]] && [[ "${CURRENT_SCRATCH_LOCKER_FULLPATH}" != "${CONFIGURED_SCRATCH_LOCKER_FULLPATH}" ]]; then
-echo "    |";
-echo "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCKER_FULLPATH}\"";
+if [[ 1 -eq 1 ]]; then
+  # Alert user to reboot ESXi required to apply changes
+  echo "------------------------------------------------------------";
+  echo "";
+  echo " - Reboot the ESXi host to apply change(s)";
+  # ---
+  # Check if scratch directory is awating a reboot
+  CURRENT_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+  CONFIGURED_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+  if [[ -n "${CURRENT_SCRATCH_LOCKER_FULLPATH}" ]] && [[ "${CURRENT_SCRATCH_LOCKER_FULLPATH}" != "${CONFIGURED_SCRATCH_LOCKER_FULLPATH}" ]]; then
+    # Alert user to delete the old scratch/swap directory after reboot
+    echo "    |";
+    echo "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCKER_FULLPATH}\"";
+  fi;
+  echo "";
 fi;
-echo "";
 
 
 echo "------------------------------------------------------------";

@@ -21,7 +21,8 @@ vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check 
 
 
 # Create the new coredump file
-NEW_COREDUMP_DATASTORE_NAME="NEW_COREDUMP_DATASTORE_NAME";
+# NEW_COREDUMP_DATASTORE_NAME="datastore_nvme";
+NEW_COREDUMP_DATASTORE_NAME="datastore_sata";
 NEW_COREDUMP_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_COREDUMP_DATASTORE_NAME}" | awk '{print $3}';)";
 mkdir -p "/vmfs/volumes/${NEW_COREDUMP_DATASTORE_UUID}/vmkdump";  # Create the coredump directory on target datastore
 esxcli system coredump file add --datastore=${NEW_COREDUMP_DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
@@ -29,8 +30,7 @@ esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel d
 
 
 # Create the new scratch/swap file
-# NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
-NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
+NEW_SCRATCH_DATASTORE_NAME="${NEW_COREDUMP_DATASTORE_NAME}";
 NEW_SCRATCH_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_SCRATCH_DATASTORE_NAME}" | awk '{print $3}';)";
 NEW_SCRATCH_LOCKER_FULLPATH="/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}/.locker";
 mkdir -p "${NEW_SCRATCH_LOCKER_FULLPATH}";  # Create the scratch/swap directory on target datastore

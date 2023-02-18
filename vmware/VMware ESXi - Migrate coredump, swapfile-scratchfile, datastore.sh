@@ -36,37 +36,49 @@ fi;
 if [[ 1 -eq 1 ]]; then
   # Check if we need to update the scratch/swap file
   echo "------------------------------------------------------------";
+  # ---
   NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
   # NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
   # ---
   # Show scratch file status & associated value(s)
-  esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
-  vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+  CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+  CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+  echo "";
+  echo "Advanced setting \"ScratchConfig.CurrentScratchLocation\"    = \"${CURRENT_SCRATCH_LOCATION}\"";
+  echo "Advanced setting \"ScratchConfig.ConfiguredScratchLocation\" = \"${CONFIGURED_SCRATCH_LOCATION}\"";
+  echo "";
   # ---
   NEW_SCRATCH_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_SCRATCH_DATASTORE_NAME}" | awk '{print $3}';)";
-  NEW_SCRATCH_LOCKER_FULLPATH="/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}/.locker";
-  CURRENT_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
-  CONFIGURED_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
-  mkdir -p "${NEW_SCRATCH_LOCKER_FULLPATH}";  # Create the scratch/swap directory on target datastore
-  if [[ -n "${NEW_SCRATCH_LOCKER_FULLPATH}" ]]; then
-    if [[ "${NEW_SCRATCH_LOCKER_FULLPATH}" != "${CONFIGURED_SCRATCH_LOCKER_FULLPATH}" ]]; then
+  NEW_SCRATCH_LOCATION="/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}/.locker";
+  mkdir -p "${NEW_SCRATCH_LOCATION}";  # Create the scratch/swap directory on target datastore
+  if [[ -n "${NEW_SCRATCH_LOCATION}" ]]; then
+    if [[ "${NEW_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
       # Perform the update to the scratch file
-      echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled false; ]...";
-      esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
+      DATASTORE_ENABLED="$(esxcli sched swap system get | sed -rne "s/^\s*Datastore Enabled: ([^\s]+)$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+      if [[ "${DATASTORE_ENABLED}" == "true" ]]; then
+        echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled false; ]...";
+        esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
+      fi;
       sleep 2;
       echo -e "\nCalling [ esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME}; ]...";
       esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
       sleep 2;
-      echo -e "\nCalling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCKER_FULLPATH}\"; ]...";
-      vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCKER_FULLPATH}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+      echo -e "\nCalling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCATION}\"; ]...";
+      vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCATION}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
       sleep 2;
+      # ---
       # Show scratch file status & associated value(s)
-      esxcli sched swap system get;  # "Get current state of the options of the system-wide shared swap space."
-      vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation";  # Check the value of: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
+      CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+      CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+      echo "";
+      echo "Advanced setting \"ScratchConfig.CurrentScratchLocation\"    = \"${CURRENT_SCRATCH_LOCATION}\"";
+      echo "Advanced setting \"ScratchConfig.ConfiguredScratchLocation\" = \"${CONFIGURED_SCRATCH_LOCATION}\"";
+      echo "";
     else
-      echo -e "\nInfo:  Scratch location already set as-intended to: \"${NEW_SCRATCH_LOCKER_FULLPATH}\"  (on datastore \"${NEW_SCRATCH_DATASTORE_NAME}\")";
+      echo -e "\nInfo:  Scratch location already set as-intended to: \"${NEW_SCRATCH_LOCATION}\"  (on datastore \"${NEW_SCRATCH_DATASTORE_NAME}\")";
     fi;
   fi;
+  echo "";
 fi;
 
 
@@ -77,13 +89,13 @@ if [[ 1 -eq 1 ]]; then
   echo " - Reboot the ESXi host to apply change(s)";
   # ---
   # Check if scratch directory is awating a reboot
-  CURRENT_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
-  CONFIGURED_SCRATCH_LOCKER_FULLPATH="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
-  if [[ -n "${CURRENT_SCRATCH_LOCKER_FULLPATH}" ]]; then
+  CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+  CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
+  if [[ -n "${CURRENT_SCRATCH_LOCATION}" ]]; then
     echo "    |";
-    if [[ "${CURRENT_SCRATCH_LOCKER_FULLPATH}" != "${CONFIGURED_SCRATCH_LOCKER_FULLPATH}" ]]; then
+    if [[ "${CURRENT_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
       # Alert user to delete the old scratch/swap directory after reboot
-      echo "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCKER_FULLPATH}\"";
+      echo "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCATION}\"";
     else
       echo "    |--> Scratch directory does NOT require a reboot (already set as-intended)";
     fi;

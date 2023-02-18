@@ -57,14 +57,14 @@ if [[ 1 -eq 1 ]]; then
       if [[ "${DATASTORE_ENABLED}" == "true" ]]; then
         echo -e "\n""INFO:  Calling [ esxcli sched swap system set --datastore-enabled false; ]...";
         esxcli sched swap system set --datastore-enabled false;  # "Disable the datastore option ... for the system-wide shared swap space."
+        sleep 10;
       fi;
-      sleep 2;
       echo -e "\n""INFO:  Calling [ esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME}; ]...";
       esxcli sched swap system set --datastore-enabled true --datastore-name=${NEW_SCRATCH_DATASTORE_NAME};  # "Enable the datastore option ... for the system-wide shared swap space."
-      sleep 2;
+      sleep 5;
       echo -e "\n""INFO:  Calling [ vim-cmd hostsvc/advopt/update \"ScratchConfig.ConfiguredScratchLocation\" string \"${NEW_SCRATCH_LOCATION}\"; ]...";
       vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${NEW_SCRATCH_LOCATION}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
-      sleep 2;
+      sleep 5;
       # ---
       # Show scratch file status & associated value(s)
       CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
@@ -77,8 +77,8 @@ if [[ 1 -eq 1 ]]; then
   fi;
   if [[ "${CURRENT_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
     echo -e "\n""NOTICE:  Reboot of ESXi host is required to update \"ScratchConfig.CurrentScratchLocation\" to equal \"ScratchConfig.ConfiguredScratchLocation\"";
-    echo -e   "    |";
-    echo -e   "    |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCATION}\"";
+    echo -e     "  |";
+    echo -e     "  |--> After reboot, remove old scratch directory:  \"${CURRENT_SCRATCH_LOCATION}\"";
   fi;
   echo "";
 fi;

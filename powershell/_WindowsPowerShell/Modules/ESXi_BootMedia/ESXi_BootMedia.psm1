@@ -12,13 +12,15 @@
 #		       ESXi_BootMedia -Create -AllDrivers;
 #		       ESXi_BootMedia -Create -ESXiVersion '6.5';
 #		       ESXi_BootMedia -Create -ESXiVersion '6.7';
+#		       ESXi_BootMedia -Create -ESXiVersion '7.0';
+#		       ESXi_BootMedia -Create -ESXiVersion '8.0';
 #
 # ------------------------------------------------------------
 Function ESXi_BootMedia() {
 	Param(
 		[Switch]$AllDrivers,
 		[Switch]$Create,
-		[String]$ESXiVersion="6.5",
+		[String]$ESXiVersion="8.0",
 		[Switch]$FallbackIso,
 		[Switch]$Pull,
 		[Switch]$Quiet
@@ -30,9 +32,11 @@ Function ESXi_BootMedia() {
 		ESXi_BootMedia -Create -AllDrivers;
 		ESXi_BootMedia -Create -ESXiVersion '6.5';
 		ESXi_BootMedia -Create -ESXiVersion '6.7';
+		ESXi_BootMedia -Create -ESXiVersion '7.0';
+		ESXi_BootMedia -Create -ESXiVersion '8.0';
 	}
 	# ------------------------------------------------------------
-	$SupportedVersions = $("6.7","6.5","6.0","5.5","5.1","5.0");
+	$SupportedVersions = $("5.0","5.1","5.5","6.0","6.5","6.7","7.0","8.0");
 	If (($SupportedVersions.Contains($ESXiVersion)) -Eq $False) {
 		Write-Host "Error:  ESXi Version `"${ESXiVersion}`" not supported - Please choose a version from array: of @( ${SupportedVersions} )";
 		Exit 1;
@@ -301,16 +305,20 @@ Function ESXi_BootMedia() {
 				} ElseIf ($ESXiVersion -Eq "6.7") {
 					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v67";
+				} ElseIf ($ESXiVersion -Eq "7.0") {
+					$VersionArg = "-v70";
+				} ElseIf ($ESXiVersion -Eq "8.0") {
+					$VersionArg = "-v80";
 				}
 					
 				If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
 					If ($null -eq ${FallbackVibNames_Valid}) {
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Error:  No defined Fallback Vib-Names for ESXi v${VersionArg} - Unable to create Fallback ISO";
+						Write-Host "PS $(Get-Location)>  Error:  No defined Fallback Vib-Names for ESXi v${ESXiVersion} - Unable to create Fallback ISO";
 
 					} Else {
 						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]$FallbackVibNames_Valid).Replace(' ',',')) -outDir (`"${FallbackDir}`"); ]  ...";
+						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]${FallbackVibNames_Valid}).Replace(' ',',')) -outDir (`"${FallbackDir}`"); ]  ...";
 						If ($ESXiVersion -Eq "5.0") {
 							.\ESXi-Customizer-PS.ps1 -v50 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "5.1") {
@@ -323,6 +331,10 @@ Function ESXi_BootMedia() {
 							.\ESXi-Customizer-PS.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "6.7") {
 							.\ESXi-Customizer-PS.ps1 -v67 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+						} ElseIf ($ESXiVersion -Eq "7.0") {
+							.\ESXi-Customizer-PS.ps1 -v70 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+						} ElseIf ($ESXiVersion -Eq "8.0") {
+							.\ESXi-Customizer-PS.ps1 -v80 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						}
 					}
 				}
@@ -360,6 +372,10 @@ Function ESXi_BootMedia() {
 							.\ESXi-Customizer-PS.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "6.7") {
 							.\ESXi-Customizer-PS.ps1 -v67 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+						} ElseIf ($ESXiVersion -Eq "7.0") {
+							.\ESXi-Customizer-PS.ps1 -v70 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+						} ElseIf ($ESXiVersion -Eq "8.0") {
+							.\ESXi-Customizer-PS.ps1 -v80 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						}
 					} Else {
 						Write-Host "";
@@ -376,6 +392,10 @@ Function ESXi_BootMedia() {
 							.\ESXi-Customizer-PS.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "6.7") {
 							.\ESXi-Customizer-PS.ps1 -v67 -vft -load $VibNames_Valid -outDir (".");
+						} ElseIf ($ESXiVersion -Eq "7.0") {
+							.\ESXi-Customizer-PS.ps1 -v70 -vft -load $VibNames_Valid -outDir (".");
+						} ElseIf ($ESXiVersion -Eq "8.0") {
+							.\ESXi-Customizer-PS.ps1 -v80 -vft -load $VibNames_Valid -outDir (".");
 						}
 					}
 				}

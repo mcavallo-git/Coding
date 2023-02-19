@@ -315,6 +315,7 @@ Function ESXi_BootMedia() {
 				} ElseIf ($ESXiVersion -Eq "7.0") {
 					$VersionArg = "-v70";
 				} ElseIf ($ESXiVersion -Eq "8.0") {
+          <# TBD - Need to vet that all of these packages will succeed in building an image (none fail and bomb the whole build) #>
 					$FallbackVibNames_Valid = @("ata-libata-92","ata-pata-amd","ata-pata-atiixp","ata-pata-cmd64x","ata-pata-hpt3x2n","ata-pata-pdc2027x","ata-pata-serverworks","ata-pata-sil680","ata-pata-via","block-cciss","char-random","ehci-ehci-hcd","emulex-esx-elxnetcli","hid-hid","i40en","i40enu","i40iwn","ima-qla4xxx","ipmi-ipmi-devintf","ipmi-ipmi-msghandler","ipmi-ipmi-si-drv","lsuv2-oem-hp-plugin","misc-cnic-register","misc-drivers","net-be2net","net-bnx2","net-bnx2x","net-cdc-ether","net-cnic","net-e1000","net-e1000e","net-enic","net-fcoe","net-forcedeth","net-igb","net-ixgbe","net-libfcoe-92","net-mlx4-core","net-mlx4-en","net-nx-nic","net-r8168","net-r8169","net-s2io","net-sky2","net-tg3","net-usbnet","net-vmxnet3","nvme","ohci-usb-ohci","sata-ahci","uhci-usb-uhci","usb-storage-usb-storage","usbcore-usb","vmkfcoe","xhci-xhci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v80";
 				}

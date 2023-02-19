@@ -167,11 +167,11 @@ Function ESXi_BootMedia() {
           New-Item -ItemType ("Directory") -Path ("${ExtraVibFilesDir}") | Out-Null;
 
           Write-Host "";
-          Write-Host "Fetching available ESXi .vib drivers from repository: `"${VibsRepo_VMWare}`"";
+          Write-Host "Fetching available ESXi .vib drivers from repository (a.k.a. `"package depot`"): `"${VibsRepo_VMWare}`"";
           Add-EsxSoftwareDepot ("${VibsRepo_VMWare}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 
           Write-Host "";
-          Write-Host "Fetching available ESXi .vib drivers from repository: `"${VibsRepo_VFront}`"";
+          Write-Host "Fetching available ESXi .vib drivers from repository (a.k.a. `"package depot`"): `"${VibsRepo_VFront}`"";
           Add-EsxSoftwareDepot ("${VibsRepo_VFront}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 
           Write-Host "";

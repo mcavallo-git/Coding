@@ -279,7 +279,7 @@ Function ESXi_BootMedia() {
               If ($ValidVib -Eq $True) {
                 $ValidExtraVibs += $EachVib;
               } Else {
-                $$ += $EachVib;
+                $IgnoredExtraVibs += $EachVib;
               }
             }
             $VibNames_Valid = ($ValidExtraVibs | Sort-Object -Property Name -Unique).Name;

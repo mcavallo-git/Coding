@@ -157,10 +157,10 @@ Function ESXi_BootMedia() {
 
         $VibsRepo_VFront += ("https://vibsdepot.v-front.de/index.xml");  <# V-Front #>
 
-				$VibsRepo_VMWare += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware #>
+        $VibsRepo_VMWare += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware #>
 
-				# ------------------------------------------------------------
-				If ($PSBoundParameters.ContainsKey('AllDrivers')) {
+        # ------------------------------------------------------------
+        If ($PSBoundParameters.ContainsKey('AllDrivers')) {
 
           # Search for available ESXi hardware drivers (.vib packages)
           Write-Host "`n`n";
@@ -179,6 +179,8 @@ Function ESXi_BootMedia() {
           Write-Host "";
           Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
           $Vibs = (Get-EsxSoftwarePackage);  <# Returns a list of SoftwarePackage (VIB) objects from all the connected depots #>
+
+          # ------------------------------
 
           If ($True) {
             $ValidExtraVibs = @();
@@ -279,18 +281,20 @@ Function ESXi_BootMedia() {
               If ($ValidVib -Eq $True) {
                 $ValidExtraVibs += $EachVib;
               } Else {
-                $IgnoredExtraVibs += $EachVib;
+                $$ += $EachVib;
               }
             }
+            $VibNames_Valid = ($ValidExtraVibs | Sort-Object -Property Name -Unique).Name;
+            $VibNames_Valid > "${Home}\Desktop\VibNames_Valid.log";
+            $ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${Home}\Desktop\Verbose-ValidExtraVibs.log";
+
+            $VibNames_Ignored = ($IgnoredExtraVibs | Sort-Object -Property Name -Unique).Name;
+            $VibNames_Ignored > "${Home}\Desktop\VibNames_Ignored.log";
+            $IgnoredExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${Home}\Desktop\Verbose-IgnoredExtraVibs.log";
+
           }
 
-          $VibNames_Valid = ($ValidExtraVibs | Sort-Object -Property Name -Unique).Name;
-          $VibNames_Valid > "${Home}\Desktop\VibNames_Valid.log";
-          $ValidExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${Home}\Desktop\Verbose-ValidExtraVibs.log";
-
-          $VibNames_Ignored = ($IgnoredExtraVibs | Sort-Object -Property Name -Unique).Name;
-          $VibNames_Ignored > "${Home}\Desktop\VibNames_Ignored.log";
-          $IgnoredExtraVibs | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | Format-List > "${Home}\Desktop\Verbose-IgnoredExtraVibs.log";
+          # ------------------------------
 
         }
 

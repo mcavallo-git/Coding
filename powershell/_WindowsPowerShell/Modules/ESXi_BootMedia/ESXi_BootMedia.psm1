@@ -315,7 +315,7 @@ Function ESXi_BootMedia() {
 				} ElseIf ($ESXiVersion -Eq "7.0") {
 					$VersionArg = "-v70";
 				} ElseIf ($ESXiVersion -Eq "8.0") {
-					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci","scsi-megaraid2","scsi-megaraid-mbox","scsi-megaraid-sas","sata-ahci","sata-ata-piix","sata-sata-nv","sata-sata-promise","sata-sata-sil","sata-sata-sil24","sata-sata-svw","scsi-aacraid","lsu-lsi-megaraid-sas-plugin","ohci-usb-ohci","xhci-xhci","uhci-usb-uhci","ehci-ehci-hcd");
+					$FallbackVibNames_Valid = @("net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v80";
 				}
 					

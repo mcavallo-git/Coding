@@ -151,9 +151,13 @@ Function ESXi_BootMedia() {
 				.\ESXi-Customizer-PS.ps1 -help 1>"${LogFilesDir}\ESXi-Customizer-PS.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
 
 				# ------------------------------------------------------------
+        #
+        # Vib Source "Depots" (Package Repositories)
+        #
 
-				$Array_VibDepos = @();
-				$Array_VibDepos += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware Depot #>
+        $VibsRepo_VFront += ("https://vibsdepot.v-front.de/index.xml");  <# V-Front #>
+
+				$VibsRepo_VMWare += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware #>
 
 				# ------------------------------------------------------------
 				If ($PSBoundParameters.ContainsKey('AllDrivers')) {
@@ -164,13 +168,12 @@ Function ESXi_BootMedia() {
 					New-Item -ItemType ("Directory") -Path ("${ExtraVibFilesDir}") | Out-Null;
 
 					Write-Host "";
-					Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"$($Array_VibDepos[0])`"";
-					Add-EsxSoftwareDepot ($Array_VibDepos[0]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+					Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"${VibsRepo_VMWare}`"";
+					Add-EsxSoftwareDepot ("${VibsRepo_VMWare}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 
-					$Array_VibDepos += ("https://vibsdepot.v-front.de/index.xml");  <# V-Front Depot #>
 					Write-Host "";
-					Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"$($Array_VibDepos[1])`"";
-					Add-EsxSoftwareDepot ($Array_VibDepos[1]);  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+					Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"${VibsRepo_VFront}`"";
+					Add-EsxSoftwareDepot ("${VibsRepo_VFront}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 
 					Write-Host "";
 					Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";

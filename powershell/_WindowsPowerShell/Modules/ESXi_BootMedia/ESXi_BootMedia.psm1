@@ -161,7 +161,7 @@ Function ESXi_BootMedia() {
         If ($PSBoundParameters.ContainsKey('AllDrivers')) {
 
           # Search for available ESXi hardware drivers (.vib packages)
-          Write-Host "`n`n";
+          Write-Host "";
           Write-Host "------------------------------------------------------------";
 
           New-Item -ItemType ("Directory") -Path ("${ExtraVibFilesDir}") | Out-Null;

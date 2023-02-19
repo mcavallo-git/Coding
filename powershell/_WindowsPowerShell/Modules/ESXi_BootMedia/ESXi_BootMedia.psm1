@@ -315,6 +315,7 @@ Function ESXi_BootMedia() {
 				} ElseIf ($ESXiVersion -Eq "7.0") {
 					$VersionArg = "-v70";
 				} ElseIf ($ESXiVersion -Eq "8.0") {
+					# $FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v80";
 				}
 					
@@ -355,7 +356,7 @@ Function ESXi_BootMedia() {
 								$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
 								$SourceUrl_LocalPath = "${ExtraVibFilesDir}\${SourceUrl_Basename}";
 								Write-Host "";
-								Write-Host "Setting download-path for .vib package @ url `"${SourceUrl}`"";
+								Write-Host "Including driver in ISO: `"${SourceUrl_Basename}`"...";
 								New-Item -Path "${SourceUrl_LocalPath}" -Value ("${SourceUrl}") -Force | Out-Null;
 								# New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
 							}

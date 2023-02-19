@@ -76,7 +76,7 @@ Function ESXi_BootMedia() {
 				$StartTimestamp = (Get-Date -UFormat "%Y%m%d_%H%M%S");
 
 				# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
-				$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_${StartTimestamp}";
+				$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_v${ESXiVersion}_${StartTimestamp}";
 				$ExtraVibFilesDir = "${WorkingDir}\pkgDir";
 				$LogFilesDir = "${WorkingDir}\logs";
 				$FallbackDir = "${WorkingDir}\iso.fallback";

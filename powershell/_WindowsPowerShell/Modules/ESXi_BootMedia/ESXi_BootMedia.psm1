@@ -315,8 +315,7 @@ Function ESXi_BootMedia() {
 				} ElseIf ($ESXiVersion -Eq "7.0") {
 					$VersionArg = "-v70";
 				} ElseIf ($ESXiVersion -Eq "8.0") {
-          <# TBD - Need to vet that all of these packages will succeed in building an image (none fail and bomb the whole build) #>
-					$FallbackVibNames_Valid = @("ata-libata-92","ata-pata-amd","ata-pata-atiixp","ata-pata-cmd64x","ata-pata-hpt3x2n","ata-pata-pdc2027x","ata-pata-serverworks","ata-pata-sil680","ata-pata-via","block-cciss","brcmnvmefc","char-random","ehci-ehci-hcd","hid-hid","i40enu","i40iwn","ima-qla4xxx","ipmi-ipmi-devintf","ipmi-ipmi-msghandler","ipmi-ipmi-si-drv","lsuv2-oem-hp-plugin","misc-cnic-register","misc-drivers","net-bnx2","net-bnx2x","net-cdc-ether","net-cnic","net-e1000","net-e1000e","net-enic","net-fcoe","net-forcedeth","net-ixgbe","net-libfcoe-92","net-mlx4-core","net-mlx4-en","net-nx-nic","net-tg3","net-usbnet","net-vmxnet3","nvme","ohci-usb-ohci","uhci-usb-uhci","usb-storage-usb-storage","usbcore-usb","vmkfcoe","xhci-xhci"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
+					$FallbackVibNames_Valid = @("misc-drivers"); <# Set default, or 'common'. configuration by-through which drivers are applied #>
 					$VersionArg = "-v80";
 				}
 					
@@ -343,7 +342,8 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v80 -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							# .\ESXi-Customizer-PS.ps1 -v80 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						}
 					}
 				}
@@ -384,7 +384,8 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v80 -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							# .\ESXi-Customizer-PS.ps1 -v80 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						}
 					} Else {
 						Write-Host "";
@@ -404,7 +405,8 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -vft -load $VibNames_Valid -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v80 -load $VibNames_Valid -outDir (".");
+							# .\ESXi-Customizer-PS.ps1 -v80 -vft -load $VibNames_Valid -outDir (".");
 						}
 					}
 				}

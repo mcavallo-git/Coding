@@ -91,7 +91,7 @@ Function ESXi_BootMedia() {
 					Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #>
 				}
 
-				Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False);
+				Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False) -Confirm:$False;
 
 				New-Item -ItemType ("Directory") -Path ("${WorkingDir}") | Out-Null;
 				New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;

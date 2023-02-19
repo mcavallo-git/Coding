@@ -9,11 +9,11 @@
 #		|      Create boot media for VMWare ESXI using "ESXi-Customizer-PS" PowerShell script to add .vib files to ESXi.iso (adds drivers to ESXi boot image)
 #		|
 #		|--> Example Call(s):
-#		       ESXi_BootMedia -Create -AllDrivers;
-#		       ESXi_BootMedia -Create -ESXiVersion '6.5';
-#		       ESXi_BootMedia -Create -ESXiVersion '6.7';
-#		       ESXi_BootMedia -Create -ESXiVersion '7.0';
 #		       ESXi_BootMedia -Create -ESXiVersion '8.0';
+#		       ESXi_BootMedia -Create -ESXiVersion '7.0';
+#		       ESXi_BootMedia -Create -ESXiVersion '6.7';
+#		       ESXi_BootMedia -Create -ESXiVersion '6.5';
+#		       ESXi_BootMedia -Create -AllDrivers;
 #
 # ------------------------------------------------------------
 Function ESXi_BootMedia() {
@@ -29,11 +29,11 @@ Function ESXi_BootMedia() {
 	If ($False) { # RUN THIS SCRIPT:
 
 		$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/ESXi_BootMedia/ESXi_BootMedia.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'ESXi_BootMedia' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\ESXi_BootMedia\ESXi_BootMedia.psm1', ((Get-Variable -Name 'HOME').Value))); };
-		ESXi_BootMedia -Create -AllDrivers;
-		ESXi_BootMedia -Create -ESXiVersion '6.5';
-		ESXi_BootMedia -Create -ESXiVersion '6.7';
-		ESXi_BootMedia -Create -ESXiVersion '7.0';
 		ESXi_BootMedia -Create -ESXiVersion '8.0';
+		ESXi_BootMedia -Create -ESXiVersion '7.0';
+		ESXi_BootMedia -Create -ESXiVersion '6.7';
+		ESXi_BootMedia -Create -ESXiVersion '6.5';
+		ESXi_BootMedia -Create -AllDrivers;
 	}
 	# ------------------------------------------------------------
 	$SupportedVersions = $("5.0","5.1","5.5","6.0","6.5","6.7","7.0","8.0");

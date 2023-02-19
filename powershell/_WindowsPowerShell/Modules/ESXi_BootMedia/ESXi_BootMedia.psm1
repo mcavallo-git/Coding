@@ -161,23 +161,24 @@ Function ESXi_BootMedia() {
 
 				# ------------------------------------------------------------
 				If ($PSBoundParameters.ContainsKey('AllDrivers')) {
-					# Search the .vib package depot(s) for available ESXi hardware drivers
-					Write-Host "`n`n";
-					Write-Host "------------------------------------------------------------";
 
-					New-Item -ItemType ("Directory") -Path ("${ExtraVibFilesDir}") | Out-Null;
+          # Search for available ESXi hardware drivers (.vib packages)
+          Write-Host "`n`n";
+          Write-Host "------------------------------------------------------------";
 
-					Write-Host "";
-					Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"${VibsRepo_VMWare}`"";
-					Add-EsxSoftwareDepot ("${VibsRepo_VMWare}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+          New-Item -ItemType ("Directory") -Path ("${ExtraVibFilesDir}") | Out-Null;
 
-					Write-Host "";
-					Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"${VibsRepo_VFront}`"";
-					Add-EsxSoftwareDepot ("${VibsRepo_VFront}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+          Write-Host "";
+          Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"${VibsRepo_VMWare}`"";
+          Add-EsxSoftwareDepot ("${VibsRepo_VMWare}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
 
-					Write-Host "";
-					Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
-					$Vibs = (Get-EsxSoftwarePackage);  <# Returns a list of SoftwarePackage (VIB) objects from all the connected depots #>
+          Write-Host "";
+          Write-Host "Fetching available ESXi .vib drivers from DepotUrl: `"${VibsRepo_VFront}`"";
+          Add-EsxSoftwareDepot ("${VibsRepo_VFront}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+
+          Write-Host "";
+          Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
+          $Vibs = (Get-EsxSoftwarePackage);  <# Returns a list of SoftwarePackage (VIB) objects from all the connected depots #>
 
           If ($True) {
             $ValidExtraVibs = @();

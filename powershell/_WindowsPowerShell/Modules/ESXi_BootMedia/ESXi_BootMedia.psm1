@@ -337,7 +337,7 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v80 -sip -outDir ("${FallbackDir}");
 						}
 					} Else {
 						Write-Host "";
@@ -357,7 +357,7 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+							.\ESXi-Customizer-PS.ps1 -v80 -sip -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						}
 					}
 				}
@@ -398,8 +398,8 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -pkgDir "${ExtraVibFilesDir}" -outDir (".");
-							# .\ESXi-Customizer-PS.ps1 -v80 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v80 -sip -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+							# .\ESXi-Customizer-PS.ps1 -v80 -sip -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						}
 					} Else {
 						Write-Host "";
@@ -419,8 +419,8 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -load $VibNames_Valid -outDir (".");
-							# .\ESXi-Customizer-PS.ps1 -v80 -vft -load $VibNames_Valid -outDir (".");
+							.\ESXi-Customizer-PS.ps1 -v80 -sip -load $VibNames_Valid -outDir (".");
+							# .\ESXi-Customizer-PS.ps1 -v80 -sip -vft -load $VibNames_Valid -outDir (".");
 						}
 					}
 				}

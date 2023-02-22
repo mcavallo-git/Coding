@@ -1,5 +1,5 @@
 
-# Windows - Quick Access (backup pinned items)
+# Windows - quick access (recent items, pinned items)
 
 ***
 

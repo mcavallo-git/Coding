@@ -3,6 +3,12 @@
 # ------------------------------------------------------------
 
 #
+#   Show hostsfile
+#
+Get-Content "${env:windir}\System32\drivers\etc\hosts";
+
+
+#
 #   Edit hostsfile in:  [  Notepad ]  (AS ADMIN)
 #
 PowerShell -NoProfile "Start-Process -FilePath 'C:\Windows\System32\notepad.exe' -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Verb 'RunAs';"

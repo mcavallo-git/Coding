@@ -323,8 +323,8 @@ Function ESXi_BootMedia() {
         } ElseIf ($ESXiVersion -Eq "7.0") {
           $VersionArg = "-v70";
         } ElseIf ($ESXiVersion -Eq "8.0") {
-          $FallbackVibNames_Valid = @("ata-libata-92","ata-pata-amd","ata-pata-atiixp","ata-pata-cmd64x","ata-pata-hpt3x2n","ata-pata-serverworks","brcmnvmefc","char-random","i40iwn","lpfc","net-cdc-ether","net-enic","net-fcoe","net-libfcoe-92","net-usbnet","nmlx4-core","sata-sata-nv","sata-sata-promise","scsi-bnx2i","scsi-ips","scsi-iscsi-linux-92","scsi-mptspi","shim-iscsi-linux-9-2-2-0","shim-libfcoe-9-2-1-0","shim-vmklinux-9-2-1-0","usb-storage-usb-storage","vmkfcoe","lsu-hp-hpsa-plugin","lsu-intel-vmd-plugin","lsu-lsi-drivers-plugin","lsu-lsi-lsi-mr3-plugin","lsu-lsi-lsi-msgpt3-plugin","lsu-lsi-mpt2sas-plugin","lsu-smartpqi-plugin","lsuv2-oem-hp-plugin");
-          $FallbackVibNames_Valid += @("dwi2c-esxio","irdman","nmlx5-core-esxio","nmlx5-rdma-esxio");
+          # $FallbackVibNames_Valid = @("ata-libata-92","ata-pata-amd","ata-pata-atiixp","ata-pata-cmd64x","ata-pata-hpt3x2n","ata-pata-serverworks","brcmnvmefc","char-random","i40iwn","lpfc","net-cdc-ether","net-enic","net-fcoe","net-libfcoe-92","net-usbnet","nmlx4-core","sata-sata-nv","sata-sata-promise","scsi-bnx2i","scsi-ips","scsi-iscsi-linux-92","scsi-mptspi","shim-iscsi-linux-9-2-2-0","shim-libfcoe-9-2-1-0","shim-vmklinux-9-2-1-0","usb-storage-usb-storage","vmkfcoe","lsu-hp-hpsa-plugin","lsu-intel-vmd-plugin","lsu-lsi-drivers-plugin","lsu-lsi-lsi-mr3-plugin","lsu-lsi-lsi-msgpt3-plugin","lsu-lsi-mpt2sas-plugin","lsu-smartpqi-plugin","lsuv2-oem-hp-plugin");
+          $FallbackVibNames_Valid = @("dwi2c-esxio","irdman","nmlx5-core-esxio","nmlx5-rdma-esxio");
           $VersionArg = "-v80";
         }
 

@@ -155,9 +155,7 @@ Function ESXi_BootMedia() {
         # Vib Source "Depots" (Package Repositories)
         #
 
-        $VibsRepo_VFront += ("https://vibsdepot.v-front.de/index.xml");  <# V-Front #>
 
-        $VibsRepo_VMWare += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware #>
 
         # ------------------------------------------------------------
         If ($PSBoundParameters.ContainsKey('AllDrivers')) {
@@ -168,13 +166,19 @@ Function ESXi_BootMedia() {
 
           New-Item -ItemType ("Directory") -Path ("${ExtraVibFilesDir}") | Out-Null;
 
+          # Add-EsxSoftwareDepot --> Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session
+
+          $VibsRepo_VMWare += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware #>
           Write-Host "";
           Write-Host "Fetching available ESXi .vib drivers from repository (a.k.a. `"package depot`"): `"${VibsRepo_VMWare}`"";
-          Add-EsxSoftwareDepot ("${VibsRepo_VMWare}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+          Add-EsxSoftwareDepot ("${VibsRepo_VMWare}");
 
-          Write-Host "";
-          Write-Host "Fetching available ESXi .vib drivers from repository (a.k.a. `"package depot`"): `"${VibsRepo_VFront}`"";
-          Add-EsxSoftwareDepot ("${VibsRepo_VFront}");  <# Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session #>
+          If ($ESXiVersion -NE "8.0") {
+            $VibsRepo_VFront += ("https://vibsdepot.v-front.de/index.xml");  <# V-Front #>
+            Write-Host "";
+            Write-Host "Fetching available ESXi .vib drivers from repository (a.k.a. `"package depot`"): `"${VibsRepo_VFront}`"";
+            Add-EsxSoftwareDepot ("${VibsRepo_VFront}");
+          }
 
           Write-Host "";
           Write-Host "Searching available ESXi software packages (as .vib extensioned drivers)";
@@ -343,7 +347,7 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -vft -outDir ("${FallbackDir}") -sip;
+							.\ESXi-Customizer-PS.ps1 -v80 -outDir ("${FallbackDir}") -sip;
 						}
 					} Else {
 						Write-Host "";
@@ -363,7 +367,7 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}") -sip;
+							.\ESXi-Customizer-PS.ps1 -v80 -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}") -sip;
 						}
 					}
 				}
@@ -404,7 +408,7 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".") -sip;
+							.\ESXi-Customizer-PS.ps1 -v80 -pkgDir "${ExtraVibFilesDir}" -outDir (".") -sip;
 						}
 					} Else {
 						Write-Host "";
@@ -424,7 +428,7 @@ Function ESXi_BootMedia() {
 						} ElseIf ($ESXiVersion -Eq "7.0") {
 							.\ESXi-Customizer-PS.ps1 -v70 -vft -load $VibNames_Valid -outDir (".");
 						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -vft -load $VibNames_Valid -outDir (".") -sip;
+							.\ESXi-Customizer-PS.ps1 -v80 -load $VibNames_Valid -outDir (".") -sip;
 						}
 					}
 				}

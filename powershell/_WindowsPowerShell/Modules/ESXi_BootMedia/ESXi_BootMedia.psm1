@@ -72,7 +72,7 @@ Function ESXi_BootMedia() {
 				Write-Host "Please call with  [ -Create ]  argument to create bootable .iso media";
 
 			} Else {
-					
+
 				$StartTimestamp = (Get-Date -UFormat "%Y%m%d_%H%M%S");
 
 				# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
@@ -327,7 +327,7 @@ Function ESXi_BootMedia() {
           $FallbackVibNames_Valid += @("dwi2c-esxio","irdman","nmlx5-core-esxio","nmlx5-rdma-esxio");
           $VersionArg = "-v80";
         }
-					
+
 				If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
 					If ($null -eq ${FallbackVibNames_Valid}) {
 						Write-Host "";

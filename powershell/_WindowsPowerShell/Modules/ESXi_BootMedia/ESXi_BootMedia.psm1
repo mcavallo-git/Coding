@@ -298,29 +298,29 @@ Function ESXi_BootMedia() {
 
         $FallbackVibNames_Valid = $null; <# Set default, or 'common'. configuration by-through which drivers are applied #>
 
-				### Create the latest ESXi ISO
-				If ($ESXiVersion -Eq "5.0") { 
-					$VersionArg = "-v50";
-				} ElseIf ($ESXiVersion -Eq "5.1") {
-					$VersionArg = "-v51";
-				} ElseIf ($ESXiVersion -Eq "5.5") {
-					$VersionArg = "-v55";
-				} ElseIf ($ESXiVersion -Eq "6.0") {
-					$VersionArg = "-v60";
-				} ElseIf ($ESXiVersion -Eq "6.5") {
-					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci");
-					$VibNames_Networking_Raid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci","scsi-megaraid2","scsi-megaraid-mbox","scsi-megaraid-sas","sata-ahci","sata-ata-piix","sata-sata-nv","sata-sata-promise","sata-sata-sil","sata-sata-sil24","sata-sata-svw","scsi-aacraid","lsu-lsi-megaraid-sas-plugin","ohci-usb-ohci","xhci-xhci","uhci-usb-uhci","ehci-ehci-hcd");
-					$VersionArg = "-v65";
-				} ElseIf ($ESXiVersion -Eq "6.7") {
-					$FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci");
-					$VersionArg = "-v67";
-				} ElseIf ($ESXiVersion -Eq "7.0") {
-					$VersionArg = "-v70";
-				} ElseIf ($ESXiVersion -Eq "8.0") {
+        ### Create the latest ESXi ISO
+        If ($ESXiVersion -Eq "5.0") { 
+          $VersionArg = "-v50";
+        } ElseIf ($ESXiVersion -Eq "5.1") {
+          $VersionArg = "-v51";
+        } ElseIf ($ESXiVersion -Eq "5.5") {
+          $VersionArg = "-v55";
+        } ElseIf ($ESXiVersion -Eq "6.0") {
+          $VersionArg = "-v60";
+        } ElseIf ($ESXiVersion -Eq "6.5") {
+          $FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci");
+          $VibNames_Networking_Raid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci","scsi-megaraid2","scsi-megaraid-mbox","scsi-megaraid-sas","sata-ahci","sata-ata-piix","sata-sata-nv","sata-sata-promise","sata-sata-sil","sata-sata-sil24","sata-sata-svw","scsi-aacraid","lsu-lsi-megaraid-sas-plugin","ohci-usb-ohci","xhci-xhci","uhci-usb-uhci","ehci-ehci-hcd");
+          $VersionArg = "-v65";
+        } ElseIf ($ESXiVersion -Eq "6.7") {
+          $FallbackVibNames_Valid = @("esxcli-shell","esx-ui","net51-r8169","net51-sky2","net55-r8168","net-e1000e","sata-xahci");
+          $VersionArg = "-v67";
+        } ElseIf ($ESXiVersion -Eq "7.0") {
+          $VersionArg = "-v70";
+        } ElseIf ($ESXiVersion -Eq "8.0") {
           $FallbackVibNames_Valid = @("ata-libata-92","ata-pata-amd","ata-pata-atiixp","ata-pata-cmd64x","ata-pata-hpt3x2n","ata-pata-serverworks","brcmnvmefc","char-random","i40iwn","lpfc","net-cdc-ether","net-enic","net-fcoe","net-libfcoe-92","net-usbnet","nmlx4-core","sata-sata-nv","sata-sata-promise","scsi-bnx2i","scsi-ips","scsi-iscsi-linux-92","scsi-mptspi","shim-iscsi-linux-9-2-2-0","shim-libfcoe-9-2-1-0","shim-vmklinux-9-2-1-0","usb-storage-usb-storage","vmkfcoe","lsu-hp-hpsa-plugin","lsu-intel-vmd-plugin","lsu-lsi-drivers-plugin","lsu-lsi-lsi-mr3-plugin","lsu-lsi-lsi-msgpt3-plugin","lsu-lsi-mpt2sas-plugin","lsu-smartpqi-plugin","lsuv2-oem-hp-plugin");
           $FallbackVibNames_Valid += @("dwi2c-esxio","irdman","nmlx5-core-esxio","nmlx5-rdma-esxio");
-					$VersionArg = "-v80";
-				}
+          $VersionArg = "-v80";
+        }
 					
 				If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
 					If ($null -eq ${FallbackVibNames_Valid}) {

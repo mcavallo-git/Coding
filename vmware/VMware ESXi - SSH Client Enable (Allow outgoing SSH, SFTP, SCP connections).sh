@@ -7,7 +7,7 @@
 esxcli network firewall ruleset list --ruleset-id sshClient;  # Check if SSH client service is enabled
 
 
-esxcli network firewall ruleset set --ruleset-id sshClient --enabled=true;  # Enable SSH client
+esxcli network firewall ruleset set --ruleset-id sshClient --enabled=true;  # Enable SSH client (e.g. enable outgoing SSH connections)
 
 
 # Setup public key on local device for incoming SSH authentication

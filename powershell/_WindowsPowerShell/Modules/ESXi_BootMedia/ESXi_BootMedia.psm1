@@ -34,6 +34,7 @@ Function ESXi_BootMedia() {
     ESXi_BootMedia -Create -ESXiVersion '6.5';
 
     Import-Module "${env:REPOS_DIR}\Coding\powershell\_WindowsPowerShell\Modules\ESXi_BootMedia\ESXi_BootMedia.psm1"; ESXi_BootMedia -Create -ESXiVersion '8.0';
+
   }
   # ------------------------------------------------------------
   $SupportedVersions = $("5.0","5.1","5.5","6.0","6.5","6.7","7.0","8.0");

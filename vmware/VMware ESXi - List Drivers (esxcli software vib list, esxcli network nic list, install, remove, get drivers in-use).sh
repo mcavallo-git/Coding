@@ -37,7 +37,7 @@ esxcli software vib list | grep -i hp
 
 # ------------------------------------------------------------
 #
-### Get drivers currently in-use by the ESXi host
+### Get drivers currently in-use by the ESXi host  (Note: replace "_" with "-" in driver names)
 #
 
 esxcli network nic list;  # Get [ network ] drivers currently in-use via the "Driver" column

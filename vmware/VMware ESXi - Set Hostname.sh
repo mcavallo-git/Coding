@@ -1,14 +1,14 @@
 #!/bin/sh
 
-### Check ESXi's stored hostname-value
+# Check ESXi's current hostname configuration
 esxcfg-advcfg -g "/Misc/hostname";
 
 
-### Set ESXi Host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
+# Set ESXi Host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
 esxcfg-advcfg -s "HOSTNAME.DOMAIN.TLD" "/Misc/hostname"; /etc/init.d/hostd restart;
 
 
-### Manual Network Config
+# Manual Network Config
 if [ 1 -eq 1 ]; then
 LAN_IPv4="";
 if [ -z "${LAN_IPv4}" ]; then
@@ -26,7 +26,6 @@ fi;
 /etc/init.d/hostd restart; # Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
 fi;
 fi;
-
 
 
 # ------------------------------------------------------------

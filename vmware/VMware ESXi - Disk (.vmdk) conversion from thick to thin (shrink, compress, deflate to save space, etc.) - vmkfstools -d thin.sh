@@ -4,9 +4,10 @@
 
 # ------------------------------------------------------------
 #
-# In the ESXi Web GUI, you can open the "Datastore Browser", right click the ".vmdk" file, and select "Inflate"
-#  ^ 
-#  ^-- This will convert a thin-partitioned disk into a thick-partitioned disk, however, if this fails, you will be requierd to use the "vmkfstools" cli approach to convert thin to thick (see below)
+# Stop any VMs whose disks will be converted from thin to thick
+#  > In ESXi's "Datastore Browser" (in the Web GUI under "Storage" on the left), locate the ".vmdk" file to convert from thin to thick provisioning
+#   > Right-click the ".vmdk" file to convert and select the "Inflate" option - This will begin converting the disk from thin to thick
+#    > If any errors are thrown, the below approach using "vmkfstools" should still work to convert disks from thin to thick provisioning
 #
 # ------------------------------------------------------------
 

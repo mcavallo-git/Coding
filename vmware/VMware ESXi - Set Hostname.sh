@@ -4,7 +4,7 @@
 esxcfg-advcfg -g "/Misc/hostname";
 
 
-# Set ESXi Host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
+# Set ESXi Host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
 esxcfg-advcfg -s "HOSTNAME.DOMAIN.TLD" "/Misc/hostname"; /etc/init.d/hostd restart;
 
 
@@ -23,7 +23,7 @@ echo "${LAN_IPv4}     $(hostname -f) $(hostname -s)" >> "/etc/hosts";
 else
 echo "${LAN_IPv4}     $(hostname)" >> "/etc/hosts";
 fi;
-/etc/init.d/hostd restart; # Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
+/etc/init.d/hostd restart; # Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
 fi;
 fi;
 

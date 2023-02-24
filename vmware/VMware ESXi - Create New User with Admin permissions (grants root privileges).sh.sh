@@ -4,6 +4,8 @@
 
 if [[ 1 -eq 1 ]]; then
 
+esxcli system account list; esxcli system permission list;
+
 USER_NAME="DAT_USER";
 
 esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -p -c;
@@ -12,9 +14,7 @@ esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -p -c;
 
 esxcli system permission set --id "${USER_NAME}" --role "Admin";
 
-esxcli system account list;
-
-esxcli system permission list;
+esxcli system account list; esxcli system permission list;
 
 fi;
 

@@ -18,6 +18,7 @@
 # ------------------------------------------------------------
 #
 ### List/Show installed ESXi drivers (.vib extensioned files)
+#
 
 esxcli software vib list;
 
@@ -33,6 +34,13 @@ esxcli software vib list | grep -i dell
 
 esxcli software vib list | grep -i hp
 
+
+# ------------------------------------------------------------
+#
+### Get network drivers in-use
+#
+
+esxcli network nic list;  # Note the "Driver" column
 
 
 # ------------------------------------------------------------

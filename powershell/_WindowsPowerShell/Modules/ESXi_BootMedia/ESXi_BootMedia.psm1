@@ -18,10 +18,12 @@
 Function ESXi_BootMedia() {
   Param(
     [Switch]$AllDrivers,
+    [Switch]$NoDrivers,
+
     [Switch]$Create,
+
     [String]$ESXiVersion="8.0",
-    [Switch]$FallbackIso,
-    [Switch]$Pull,
+
     [Switch]$Quiet
   )
   # ------------------------------------------------------------
@@ -330,7 +332,7 @@ Function ESXi_BootMedia() {
           $VersionArg = "-v80";
         }
 
-        If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
+        If ( ($False -Eq ($PSBoundParameters.ContainsKey('AllDrivers'))) -Or ($True -Eq ($PSBoundParameters.ContainsKey('NoDrivers'))) ) {
           If ($null -eq ${FallbackVibNames_Valid}) {
             Write-Host "";
             Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -outDir (`"${FallbackDir}`"); ]  ...";

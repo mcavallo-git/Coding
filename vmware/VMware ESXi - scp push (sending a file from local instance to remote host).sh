@@ -1,5 +1,7 @@
 #!/bin/sh
 # ------------------------------------------------------------
+# VMware ESXi - scp push (send file(s) from local ESXi host to remote ESXi host)
+# ------------------------------------------------------------
 
 # Enable ESXi's SSH client (e.g. enable outgoing SSH connections)
 esxcli network firewall ruleset set --ruleset-id sshClient --enabled=true;

@@ -335,21 +335,21 @@ Function ESXi_BootMedia() {
         If ($False -Eq ($PSBoundParameters.ContainsKey('AllDrivers'))) {
           If (($Null -eq ${FallbackVibNames_Valid}) -Or ($True -Eq ($PSBoundParameters.ContainsKey('NoExtraDrivers')))) {
             Write-Host "";
-            Write-Host "Info:  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -outDir (`"${FallbackDir}`"); ]  ..." -ForegroundColor "Yellow" -BackgroundColor "Black";
+            Write-Host "Info:  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -outDir (`"${FallbackDir}`"); ]  ..." -ForegroundColor "Yellow" -BackgroundColor "Black";
             If ($ESXiVersion -Eq "5.0") {
-              .\ESXi-Customizer-PS.ps1 -v50 -vft -outDir ("${FallbackDir}");
+              .\ESXi-Customizer-PS.ps1 -v50 -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "5.1") {
-              .\ESXi-Customizer-PS.ps1 -v51 -vft -outDir ("${FallbackDir}");
+              .\ESXi-Customizer-PS.ps1 -v51 -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "5.5") {
-              .\ESXi-Customizer-PS.ps1 -v55 -vft -outDir ("${FallbackDir}");
+              .\ESXi-Customizer-PS.ps1 -v55 -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "6.0") {
-              .\ESXi-Customizer-PS.ps1 -v60 -vft -outDir ("${FallbackDir}");
+              .\ESXi-Customizer-PS.ps1 -v60 -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "6.5") {
-              .\ESXi-Customizer-PS.ps1 -v65 -vft -outDir ("${FallbackDir}");
+              .\ESXi-Customizer-PS.ps1 -v65 -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "6.7") {
-              .\ESXi-Customizer-PS.ps1 -v67 -vft -outDir ("${FallbackDir}");
+              .\ESXi-Customizer-PS.ps1 -v67 -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "7.0") {
-              .\ESXi-Customizer-PS.ps1 -v70 -vft -outDir ("${FallbackDir}");
+              .\ESXi-Customizer-PS.ps1 -v70 -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "8.0") {
               .\ESXi-Customizer-PS.ps1 -v80 -outDir ("${FallbackDir}") -sip;
             }

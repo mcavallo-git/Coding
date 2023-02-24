@@ -336,7 +336,6 @@ Function ESXi_BootMedia() {
           If (($Null -eq ${FallbackVibNames_Valid}) -Or ($True -Eq ($PSBoundParameters.ContainsKey('NoExtraDrivers')))) {
             Write-Host "";
             Write-Host "Info:  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -outDir (`"${FallbackDir}`"); ]  ..." -ForegroundColor "Yellow" -BackgroundColor "Black";
-            Write-Host "";
             If ($ESXiVersion -Eq "5.0") {
               .\ESXi-Customizer-PS.ps1 -v50 -vft -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "5.1") {
@@ -357,7 +356,6 @@ Function ESXi_BootMedia() {
           } Else {
             Write-Host "";
             Write-Host "Info:  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]${FallbackVibNames_Valid}).Replace(' ',',')) -outDir (`"${FallbackDir}`"); ]  ..." -ForegroundColor "Yellow" -BackgroundColor "Black";
-            Write-Host "";
             If ($ESXiVersion -Eq "5.0") {
               .\ESXi-Customizer-PS.ps1 -v50 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
             } ElseIf ($ESXiVersion -Eq "5.1") {
@@ -399,7 +397,6 @@ Function ESXi_BootMedia() {
 
             Write-Host "";
             Write-Host "Info:  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ..." -ForegroundColor "Yellow" -BackgroundColor "Black";
-            Write-Host "";
             If ($ESXiVersion -Eq "5.0") {
               .\ESXi-Customizer-PS.ps1 -v50 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
             } ElseIf ($ESXiVersion -Eq "5.1") {
@@ -420,7 +417,6 @@ Function ESXi_BootMedia() {
           } Else {
             Write-Host "";
             Write-Host "Info:  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ..." -ForegroundColor "Yellow" -BackgroundColor "Black";
-            Write-Host "";
             If ($ESXiVersion -Eq "5.0") {
               .\ESXi-Customizer-PS.ps1 -v50 -vft -load $VibNames_Valid -outDir (".");
             } ElseIf ($ESXiVersion -Eq "5.1") {

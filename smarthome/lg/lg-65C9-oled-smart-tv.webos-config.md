@@ -172,6 +172,7 @@
 - <a href="https://manuals.plus/_lg/magic-remote-manual">manuals.plus  |  "LG Magic Remote Owner's Manual - Manuals+"</a>
 - <a href="https://www.lg.com/us/support/product/lg-AN-MR19BA.AUS">www.lg.com  |  "LG AN-MR19BA.AUS: Support, Manuals, Warranty & More | LG USA Support"</a>
 - <a href="https://www.lg.com/us/tvs/lg-OLED65C9PUA-oled-4k-tv">www.lg.com  |  "LG C9 65-inch OLED 4K Smart TV w/AI ThinQ® | LG USA"</a>
+- <a href="https://www.lg.com/us/support/product/lg-OLED65C9PUA.AUS">www.lg.com  |  "LG OLED65C9PUA.AUS: Support, Manuals, Warranty & More | LG USA Support"</a>
 
 <br /><hr />
 

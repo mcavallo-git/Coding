@@ -167,12 +167,12 @@
 
 ## Citation(s)
 - <a href="https://github.com/mcavallo-git/Coding/blob/main/smarthome/lg/lg-65C9-oled-smart-tv.webos-config.md">github.com  |  "Coding/lg-65C9-oled-smart-tv.webos-config.md at main · mcavallo-git/Coding · GitHub"</a>
-- <a href="https://gscs-b2c.lge.com/downloadFile?fileId=yXFnEz2ZB9ypMx0DGQ25jg">gscs-b2c.lge.com  |  "Owner's Manual - LG Magic Remote"</a>
 - <a href="https://gscs-b2c.lge.com/downloadFile?fileId=qReQV6oTTnLYU1AYxsVBkg">gscs-b2c.lge.com  |  "Owner's Manual - LG OLED TV"</a>
+- <a href="https://gscs-b2c.lge.com/downloadFile?fileId=yXFnEz2ZB9ypMx0DGQ25jg">gscs-b2c.lge.com  |  "Owner's Manual - LG Magic Remote"</a>
 - <a href="https://manuals.plus/_lg/magic-remote-manual">manuals.plus  |  "LG Magic Remote Owner's Manual - Manuals+"</a>
 - <a href="https://www.lg.com/us/support/product/lg-AN-MR19BA.AUS">www.lg.com  |  "LG AN-MR19BA.AUS: Support, Manuals, Warranty & More | LG USA Support"</a>
-- <a href="https://www.lg.com/us/tvs/lg-OLED65C9PUA-oled-4k-tv">www.lg.com  |  "LG C9 65-inch OLED 4K Smart TV w/AI ThinQ® | LG USA"</a>
 - <a href="https://www.lg.com/us/support/product/lg-OLED65C9PUA.AUS">www.lg.com  |  "LG OLED65C9PUA.AUS: Support, Manuals, Warranty & More | LG USA Support"</a>
+- <a href="https://www.lg.com/us/tvs/lg-OLED65C9PUA-oled-4k-tv">www.lg.com  |  "LG C9 65-inch OLED 4K Smart TV w/AI ThinQ® | LG USA"</a>
 
 <br /><hr />
 

@@ -32,7 +32,7 @@ Function ESXi_BootMedia() {
     $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/ESXi_BootMedia/ESXi_BootMedia.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'ESXi_BootMedia' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\ESXi_BootMedia\ESXi_BootMedia.psm1', ((Get-Variable -Name 'HOME').Value))); };
     ESXi_BootMedia -Create -ESXiVersion '8.0' -AllDrivers;
     ESXi_BootMedia -Create -ESXiVersion '7.0' -AllDrivers;
-    ESXi_BootMedia -Create -ESXiVersion '6.7';
+    ESXi_BootMedia -Create -ESXiVersion '6.7' -NoDrivers;
     ESXi_BootMedia -Create -ESXiVersion '6.5';
 
     Import-Module "${env:REPOS_DIR}\Coding\powershell\_WindowsPowerShell\Modules\ESXi_BootMedia\ESXi_BootMedia.psm1"; ESXi_BootMedia -Create -ESXiVersion '8.0';

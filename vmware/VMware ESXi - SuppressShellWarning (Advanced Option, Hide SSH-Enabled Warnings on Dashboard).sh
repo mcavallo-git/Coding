@@ -13,7 +13,7 @@ esxcfg-advcfg -s 0 "/UserVars/SuppressShellWarning";  # Display the "SSH is enab
 esxcfg-advcfg -s 1 "/UserVars/SuppressShellWarning";  # Suppress the "SSH is enabled on this host..." warning
 
 
-/etc/init.d/hostd restart;  # Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect any VMs
+/etc/init.d/hostd restart;  # Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
 
 
 # ------------------------------------------------------------

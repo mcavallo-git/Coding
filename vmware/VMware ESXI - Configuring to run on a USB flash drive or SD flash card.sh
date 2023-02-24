@@ -8,12 +8,10 @@ exit 1;
 #
 
 
+if [ 1 -eq 1 ]; then
 # Backup the current config before making changes to it
 cp -v "/bootbank/boot.cfg" /"bootbank/boot.$(date +'%Y%m%dT%H%M%S';).bak.cfg";
-
-
-# Apply USB flash drive optimizations at bootup
-if [ 1 -eq 1 ]; then
+# Apply USB flash drive optimizations starting at next restart of ESXi host
 FIND_REGEX="^kernelopt=.*$";
 REPLACE_WITH="kernelopt=autoPartition=TRUE skipPartitioningSsds=TRUE autoPartitionCreateUSBCoreDumpPartition=TRUE allowCoreDumpOnUsb=TRUE";
 sed -re "s/${FIND_REGEX}/${REPLACE_WITH}/i" -i "/bootbank/boot.cfg";

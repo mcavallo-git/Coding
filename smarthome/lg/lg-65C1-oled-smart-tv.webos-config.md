@@ -17,6 +17,9 @@
     - Location
       - LG Services: `Others`  <sup>⚠️ Disables popup ads/notifications at startup ⚠️</sup>
 
+## TO-DO
+- Add exhaustive list of TV settings
+
 <br /><hr />
 
 ## Citation(s)

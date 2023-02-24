@@ -18,6 +18,10 @@ done;
 
 
 # ------------------------------------------------------------
+
+# Look into ipmitool for hardware sensor monitoring through ESXi - https://vswitchzero.com/ipmitool-vib/
+
+# ------------------------------------------------------------
 #
 # Citation(s)
 #

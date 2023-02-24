@@ -1,31 +1,31 @@
 # ------------------------------------------------------------
 #
-#	PowerShell Module
-#		|
-#		|--> Name:
-#		|      ESXi_BootMedia
-#		|
-#		|--> Description:
-#		|      Create boot media for VMWare ESXI using "ESXi-Customizer-PS" PowerShell script to add .vib files to ESXi.iso (adds drivers to ESXi boot image)
-#		|
-#		|--> Example Call(s):
-#		       ESXi_BootMedia -Create -ESXiVersion '8.0' -AllDrivers;;
-#		       ESXi_BootMedia -Create -ESXiVersion '7.0' -AllDrivers;;
-#		       ESXi_BootMedia -Create -ESXiVersion '6.7';
-#		       ESXi_BootMedia -Create -ESXiVersion '6.5';
+# PowerShell Module
+#   |
+#   |--> Name:
+#   |      ESXi_BootMedia
+#   |
+#   |--> Description:
+#   |      Create boot media for VMWare ESXI using "ESXi-Customizer-PS" PowerShell script to add .vib files to ESXi.iso (adds drivers to ESXi boot image)
+#   |
+#   |--> Example Call(s):
+#          ESXi_BootMedia -Create -ESXiVersion '8.0' -AllDrivers;;
+#          ESXi_BootMedia -Create -ESXiVersion '7.0' -AllDrivers;;
+#          ESXi_BootMedia -Create -ESXiVersion '6.7';
+#          ESXi_BootMedia -Create -ESXiVersion '6.5';
 #
 # ------------------------------------------------------------
 Function ESXi_BootMedia() {
-	Param(
-		[Switch]$AllDrivers,
-		[Switch]$Create,
-		[String]$ESXiVersion="8.0",
-		[Switch]$FallbackIso,
-		[Switch]$Pull,
-		[Switch]$Quiet
-	)
-	# ------------------------------------------------------------
-	If ($False) { # RUN THIS SCRIPT:
+  Param(
+    [Switch]$AllDrivers,
+    [Switch]$Create,
+    [String]$ESXiVersion="8.0",
+    [Switch]$FallbackIso,
+    [Switch]$Pull,
+    [Switch]$Quiet
+  )
+  # ------------------------------------------------------------
+  If ($False) { # RUN THIS SCRIPT:
 
     $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol; [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy "RemoteSigned" -Scope "CurrentUser" -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/ESXi_BootMedia/ESXi_BootMedia.psm1') ).Content) } Catch {}; [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak; If (-Not (Get-Command -Name 'ESXi_BootMedia' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\ESXi_BootMedia\ESXi_BootMedia.psm1', ((Get-Variable -Name 'HOME').Value))); };
     ESXi_BootMedia -Create -ESXiVersion '8.0' -AllDrivers;
@@ -34,83 +34,83 @@ Function ESXi_BootMedia() {
     ESXi_BootMedia -Create -ESXiVersion '6.5';
 
     Import-Module "${env:REPOS_DIR}\Coding\powershell\_WindowsPowerShell\Modules\ESXi_BootMedia\ESXi_BootMedia.psm1"; ESXi_BootMedia -Create -ESXiVersion '8.0';
-	}
-	# ------------------------------------------------------------
-	$SupportedVersions = $("5.0","5.1","5.5","6.0","6.5","6.7","7.0","8.0");
-	If (($SupportedVersions.Contains($ESXiVersion)) -Eq $False) {
-		Write-Host "Error:  ESXi Version `"${ESXiVersion}`" not supported - Please choose a version from array: of @( ${SupportedVersions} )";
-		Exit 1;
+  }
+  # ------------------------------------------------------------
+  $SupportedVersions = $("5.0","5.1","5.5","6.0","6.5","6.7","7.0","8.0");
+  If (($SupportedVersions.Contains($ESXiVersion)) -Eq $False) {
+    Write-Host "Error:  ESXi Version `"${ESXiVersion}`" not supported - Please choose a version from array: of @( ${SupportedVersions} )";
+    Exit 1;
 
-	} Else {
+  } Else {
 
-		# ------------------------------------------------------------
-		#
-		# Script must run as admin
-		#
-		<# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
-		$RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
-		If ($RunningAsAdmin -Eq $False) {
-			<# Script is >> NOT << running as admin  -->  Check whether-or-not the current user is able to escalate their own PowerShell terminal to run with elevated privileges (as Administrator) #>
-			$LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')});
-			$CurrentUser = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).Identities.Name);
-			$CurrentUserWinNT = ("WinNT://$($CurrentUser.Replace("\","/"))");
-			If (($LocalAdmins.Contains($CurrentUser)) -Or ($LocalAdmins.Contains($CurrentUserWinNT))) {
-				$CommandString = $MyInvocation.MyCommand.Name;
-				$PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };
-				Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
-			} Else {
-				Write-Host "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n" -BackgroundColor Black -ForegroundColor Yellow;
-			}
-		} Else {
-			<# Script >> IS << running as Admin - Continue #>
-			$CreateMedia = $False;
-			If ($PSBoundParameters.ContainsKey('Create')) {
-				$CreateMedia = $True;
-			}
+    # ------------------------------------------------------------
+    #
+    # Script must run as admin
+    #
+    <# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
+    $RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
+    If ($RunningAsAdmin -Eq $False) {
+      <# Script is >> NOT << running as admin  -->  Check whether-or-not the current user is able to escalate their own PowerShell terminal to run with elevated privileges (as Administrator) #>
+      $LocalAdmins = (([ADSI]"WinNT://./Administrators").psbase.Invoke('Members') | % {([ADSI]$_).InvokeGet('AdsPath')});
+      $CurrentUser = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).Identities.Name);
+      $CurrentUserWinNT = ("WinNT://$($CurrentUser.Replace("\","/"))");
+      If (($LocalAdmins.Contains($CurrentUser)) -Or ($LocalAdmins.Contains($CurrentUserWinNT))) {
+        $CommandString = $MyInvocation.MyCommand.Name;
+        $PSBoundParameters.Keys | ForEach-Object { $CommandString += " -$_"; If (@('String','Integer','Double').Contains($($PSBoundParameters[$_]).GetType().Name)) { $CommandString += " `"$($PSBoundParameters[$_])`""; } };
+        Start-Process powershell.exe "-NoProfile -ExecutionPolicy Bypass -Command `"$($CommandString)`"" -Verb RunAs;
+      } Else {
+        Write-Host "`n`nError:  Insufficient privileges, unable to escalate (e.g. unable to run as admin)`n`n" -BackgroundColor Black -ForegroundColor Yellow;
+      }
+    } Else {
+      <# Script >> IS << running as Admin - Continue #>
+      $CreateMedia = $False;
+      If ($PSBoundParameters.ContainsKey('Create')) {
+        $CreateMedia = $True;
+      }
 
-			If ($CreateMedia -Eq $False) {
-				Write-Host "Please call with  [ -Create ]  argument to create bootable .iso media";
+      If ($CreateMedia -Eq $False) {
+        Write-Host "Please call with  [ -Create ]  argument to create bootable .iso media";
 
-			} Else {
+      } Else {
 
-				$StartTimestamp = (Get-Date -UFormat "%Y%m%d_%H%M%S");
+        $StartTimestamp = (Get-Date -UFormat "%Y%m%d_%H%M%S");
 
-				# Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
-				$WorkingDir = "${Home}\Desktop\ESXi_BootMedia_v${ESXiVersion}_${StartTimestamp}";
-				$ExtraVibFilesDir = "${WorkingDir}\pkgDir";
-				$LogFilesDir = "${WorkingDir}\logs";
-				$FallbackDir = "${WorkingDir}\iso.fallback";
+        # Setup the working directory as a timestamped directory on the current user's Desktop & change directory to it
+        $WorkingDir = "${Home}\Desktop\ESXi_BootMedia_v${ESXiVersion}_${StartTimestamp}";
+        $ExtraVibFilesDir = "${WorkingDir}\pkgDir";
+        $LogFilesDir = "${WorkingDir}\logs";
+        $FallbackDir = "${WorkingDir}\iso.fallback";
 
-				# PowerShell - Install VMware PowerCLI module
-				If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
-					$PackageProvider = "NuGet";
-					If ($null -eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
-						$ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
-						[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
-							Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
-						[System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
-					}
-					Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #>
-				}
+        # PowerShell - Install VMware PowerCLI module
+        If (!(Get-Module -ListAvailable -Name ("VMware.PowerCLI"))) {
+          $PackageProvider = "NuGet";
+          If ($null -eq (Get-PackageProvider -Name "${PackageProvider}" -ErrorAction "SilentlyContinue")) {
+            $ProtoBak=[System.Net.ServicePointManager]::SecurityProtocol;
+            [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12;
+              Install-PackageProvider -Name ("${PackageProvider}") -Force -Confirm:$False; $InstallPackageProvider_ReturnCode = If($?){0}Else{1};  # Install-PackageProvider fails on default windows installs without at least TLS 1.1 as of 20200501T041624
+            [System.Net.ServicePointManager]::SecurityProtocol=$ProtoBak;
+          }
+          Install-Module -Name ("VMware.PowerCLI") -Scope ("CurrentUser") -Force;  <# Call  [ Get-DeployCommand ]  to inspect service(s) #>
+        }
 
-				Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False) -Confirm:$False;
+        Set-PowerCLIConfiguration -Scope ("User") -ParticipateInCEIP ($False) -Confirm:$False;
 
-				New-Item -ItemType ("Directory") -Path ("${WorkingDir}") | Out-Null;
-				New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
+        New-Item -ItemType ("Directory") -Path ("${WorkingDir}") | Out-Null;
+        New-Item -ItemType ("Directory") -Path ("${FallbackDir}") | Out-Null;
 
-				Write-Host "------------------------------------------------------------";
-				Write-Host "";
-				Write-Host "Setting working-directory to `"${WorkingDir}`"...";
-				Set-Location -Path ("${WorkingDir}");
+        Write-Host "------------------------------------------------------------";
+        Write-Host "";
+        Write-Host "Setting working-directory to `"${WorkingDir}`"...";
+        Set-Location -Path ("${WorkingDir}");
 
-				# Download the latest ESXi-Customizer-PS PowerShell script-file
-				Write-Host "";
-				Write-Host "Downloading the latest version of `"ESXi-Customizer-PS`"...";
-				New-Item -Path .\ESXi-Customizer-PS.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/VFrontDe-Org/ESXi-Customizer-PS/master/ESXi-Customizer-PS.ps1")) -Force | Out-Null;
-				New-Item -ItemType ("Directory") -Path ("${LogFilesDir}") | Out-Null;
+        # Download the latest ESXi-Customizer-PS PowerShell script-file
+        Write-Host "";
+        Write-Host "Downloading the latest version of `"ESXi-Customizer-PS`"...";
+        New-Item -Path .\ESXi-Customizer-PS.ps1 -Value ($(New-Object Net.WebClient).DownloadString("https://raw.githubusercontent.com/VFrontDe-Org/ESXi-Customizer-PS/master/ESXi-Customizer-PS.ps1")) -Force | Out-Null;
+        New-Item -ItemType ("Directory") -Path ("${LogFilesDir}") | Out-Null;
 
-				# ------------------------------------------------------------
-				### OUTPUT FROM  [ ESXi-Customizer-PS.ps1 -help
+        # ------------------------------------------------------------
+        ### OUTPUT FROM  [ ESXi-Customizer-PS.ps1 -help
         #
         # This is ESXi-Customizer-PS Version 2.9.0 (visit https://ESXi-Customizer-PS.v-front.de for more information!)
         #
@@ -148,9 +148,9 @@ Function ESXi_BootMedia() {
         #    -test              : skip package download and image build (for testing)
         #
 
-				.\ESXi-Customizer-PS.ps1 -help 1>"${LogFilesDir}\ESXi-Customizer-PS.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
+        .\ESXi-Customizer-PS.ps1 -help 1>"${LogFilesDir}\ESXi-Customizer-PS.ps1 -help.log" 2>&1 3>&1 4>&1 5>&1 6>&1;
 
-				# ------------------------------------------------------------
+        # ------------------------------------------------------------
         #
         # Vib Source "Depots" (Package Repositories)
         #
@@ -168,7 +168,7 @@ Function ESXi_BootMedia() {
 
           # Add-EsxSoftwareDepot --> Adds an ESX software depot or offline depot ZIP file to the current PowerCLI session
 
-          $VibsRepo_VMWare += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml"); 	<# VMware #>
+          $VibsRepo_VMWare += ("https://hostupdate.vmware.com/software/VUM/PRODUCTION/main/vmw-depot-index.xml");  <# VMware #>
           Write-Host "";
           Write-Host "Fetching available ESXi .vib drivers from repository (a.k.a. `"package depot`"): `"${VibsRepo_VMWare}`"";
           Add-EsxSoftwareDepot ("${VibsRepo_VMWare}");
@@ -329,133 +329,133 @@ Function ESXi_BootMedia() {
           $VersionArg = "-v80";
         }
 
-				If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
-					If ($null -eq ${FallbackVibNames_Valid}) {
-						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -outDir (`"${FallbackDir}`"); ]  ...";
-						If ($ESXiVersion -Eq "5.0") {
-							.\ESXi-Customizer-PS.ps1 -v50 -vft -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "5.1") {
-							.\ESXi-Customizer-PS.ps1 -v51 -vft -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "5.5") {
-							.\ESXi-Customizer-PS.ps1 -v55 -vft -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "6.0") {
-							.\ESXi-Customizer-PS.ps1 -v60 -vft -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "6.5") {
-							.\ESXi-Customizer-PS.ps1 -v65 -vft -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "6.7") {
-							.\ESXi-Customizer-PS.ps1 -v67 -vft -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "7.0") {
-							.\ESXi-Customizer-PS.ps1 -v70 -vft -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -outDir ("${FallbackDir}") -sip;
-						}
-					} Else {
-						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]${FallbackVibNames_Valid}).Replace(' ',',')) -outDir (`"${FallbackDir}`"); ]  ...";
-						If ($ESXiVersion -Eq "5.0") {
-							.\ESXi-Customizer-PS.ps1 -v50 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "5.1") {
-							.\ESXi-Customizer-PS.ps1 -v51 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "5.5") {
-							.\ESXi-Customizer-PS.ps1 -v55 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "6.0") {
-							.\ESXi-Customizer-PS.ps1 -v60 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "6.5") {
-							.\ESXi-Customizer-PS.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "6.7") {
-							.\ESXi-Customizer-PS.ps1 -v67 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "7.0") {
-							.\ESXi-Customizer-PS.ps1 -v70 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
-						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}") -sip;
-						}
-					}
-				}
+        If ((($PSBoundParameters.ContainsKey('AllDrivers')) -Eq $False) -Or ($PSBoundParameters.ContainsKey('FallbackIso'))) {
+          If ($null -eq ${FallbackVibNames_Valid}) {
+            Write-Host "";
+            Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -outDir (`"${FallbackDir}`"); ]  ...";
+            If ($ESXiVersion -Eq "5.0") {
+              .\ESXi-Customizer-PS.ps1 -v50 -vft -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "5.1") {
+              .\ESXi-Customizer-PS.ps1 -v51 -vft -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "5.5") {
+              .\ESXi-Customizer-PS.ps1 -v55 -vft -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "6.0") {
+              .\ESXi-Customizer-PS.ps1 -v60 -vft -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "6.5") {
+              .\ESXi-Customizer-PS.ps1 -v65 -vft -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "6.7") {
+              .\ESXi-Customizer-PS.ps1 -v67 -vft -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "7.0") {
+              .\ESXi-Customizer-PS.ps1 -v70 -vft -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "8.0") {
+              .\ESXi-Customizer-PS.ps1 -v80 -outDir ("${FallbackDir}") -sip;
+            }
+          } Else {
+            Write-Host "";
+            Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]${FallbackVibNames_Valid}).Replace(' ',',')) -outDir (`"${FallbackDir}`"); ]  ...";
+            If ($ESXiVersion -Eq "5.0") {
+              .\ESXi-Customizer-PS.ps1 -v50 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "5.1") {
+              .\ESXi-Customizer-PS.ps1 -v51 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "5.5") {
+              .\ESXi-Customizer-PS.ps1 -v55 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "6.0") {
+              .\ESXi-Customizer-PS.ps1 -v60 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "6.5") {
+              .\ESXi-Customizer-PS.ps1 -v65 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "6.7") {
+              .\ESXi-Customizer-PS.ps1 -v67 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "7.0") {
+              .\ESXi-Customizer-PS.ps1 -v70 -vft -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}");
+            } ElseIf ($ESXiVersion -Eq "8.0") {
+              .\ESXi-Customizer-PS.ps1 -v80 -load ${FallbackVibNames_Valid} -outDir ("${FallbackDir}") -sip;
+            }
+          }
+        }
 
-				If ($VibNames_Valid -NE $Null) {
-					If ((Test-Path -Path "${ExtraVibFilesDir}") -Eq $True) {
-						<# Download any .vib files found to be valid #>
-						$ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
-							$SourceUrl = [String](($_.SourceUrls)[0]);
-							If ($SourceUrl -NE $Null) {
-								$SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
-								$SourceUrl_LocalPath = "${ExtraVibFilesDir}\${SourceUrl_Basename}";
-								Write-Host "";
-								Write-Host "Including driver in ISO: `"${SourceUrl_Basename}`"...";
-								New-Item -Path "${SourceUrl_LocalPath}" -Value ("${SourceUrl}") -Force | Out-Null;
-								# New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
-							}
-						}
-						<# Fix .vib attachments in customizer #>
-						$regex = 'Get-EsxSoftwarePackage -PackageUrl \$vibFile -ErrorAction SilentlyContinue';
-						$replacement = "Get-EsxSoftwarePackage -PackageUrl `$(Get-Content `$vibFile) -ErrorAction SilentlyContinue";
-						(Get-Content "${WorkingDir}\ESXi-Customizer-PS.ps1") -Replace $regex, $replacement | Set-Content "${WorkingDir}\ESXi-Customizer-PS.ps1";
+        If ($VibNames_Valid -NE $Null) {
+          If ((Test-Path -Path "${ExtraVibFilesDir}") -Eq $True) {
+            <# Download any .vib files found to be valid #>
+            $ValidExtraVibs | Sort-Object -Property Name -Unique | Sort-Object -Property Name,@{Expression={$_.Version}; Ascending=$False} | ForEach-Object {
+              $SourceUrl = [String](($_.SourceUrls)[0]);
+              If ($SourceUrl -NE $Null) {
+                $SourceUrl_Basename = (Split-Path ${SourceUrl} -Leaf);
+                $SourceUrl_LocalPath = "${ExtraVibFilesDir}\${SourceUrl_Basename}";
+                Write-Host "";
+                Write-Host "Including driver in ISO: `"${SourceUrl_Basename}`"...";
+                New-Item -Path "${SourceUrl_LocalPath}" -Value ("${SourceUrl}") -Force | Out-Null;
+                # New-Item -Path "${SourceUrl_LocalPath}" -Value ($(New-Object Net.WebClient).DownloadString($SourceUrl)) -Force | Out-Null;
+              }
+            }
+            <# Fix .vib attachments in customizer #>
+            $regex = 'Get-EsxSoftwarePackage -PackageUrl \$vibFile -ErrorAction SilentlyContinue';
+            $replacement = "Get-EsxSoftwarePackage -PackageUrl `$(Get-Content `$vibFile) -ErrorAction SilentlyContinue";
+            (Get-Content "${WorkingDir}\ESXi-Customizer-PS.ps1") -Replace $regex, $replacement | Set-Content "${WorkingDir}\ESXi-Customizer-PS.ps1";
 
-						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
-						If ($ESXiVersion -Eq "5.0") {
-							.\ESXi-Customizer-PS.ps1 -v50 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "5.1") {
-							.\ESXi-Customizer-PS.ps1 -v51 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "5.5") {
-							.\ESXi-Customizer-PS.ps1 -v55 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "6.0") {
-							.\ESXi-Customizer-PS.ps1 -v60 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "6.5") {
-							.\ESXi-Customizer-PS.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "6.7") {
-							.\ESXi-Customizer-PS.ps1 -v67 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "7.0") {
-							.\ESXi-Customizer-PS.ps1 -v70 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -pkgDir "${ExtraVibFilesDir}" -outDir (".") -sip;
-						}
-					} Else {
-						Write-Host "";
-						Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
-						If ($ESXiVersion -Eq "5.0") {
-							.\ESXi-Customizer-PS.ps1 -v50 -vft -load $VibNames_Valid -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "5.1") {
-							.\ESXi-Customizer-PS.ps1 -v51 -vft -load $VibNames_Valid -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "5.5") {
-							.\ESXi-Customizer-PS.ps1 -v55 -vft -load $VibNames_Valid -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "6.0") {
-							.\ESXi-Customizer-PS.ps1 -v60 -vft -load $VibNames_Valid -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "6.5") {
-							.\ESXi-Customizer-PS.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "6.7") {
-							.\ESXi-Customizer-PS.ps1 -v67 -vft -load $VibNames_Valid -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "7.0") {
-							.\ESXi-Customizer-PS.ps1 -v70 -vft -load $VibNames_Valid -outDir (".");
-						} ElseIf ($ESXiVersion -Eq "8.0") {
-							.\ESXi-Customizer-PS.ps1 -v80 -load $VibNames_Valid -outDir (".") -sip;
-						}
-					}
-				}
+            Write-Host "";
+            Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -pkgDir `"${ExtraVibFilesDir}`" -outDir (`".`"); ]  ...";
+            If ($ESXiVersion -Eq "5.0") {
+              .\ESXi-Customizer-PS.ps1 -v50 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "5.1") {
+              .\ESXi-Customizer-PS.ps1 -v51 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "5.5") {
+              .\ESXi-Customizer-PS.ps1 -v55 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "6.0") {
+              .\ESXi-Customizer-PS.ps1 -v60 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "6.5") {
+              .\ESXi-Customizer-PS.ps1 -v65 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "6.7") {
+              .\ESXi-Customizer-PS.ps1 -v67 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "7.0") {
+              .\ESXi-Customizer-PS.ps1 -v70 -vft -pkgDir "${ExtraVibFilesDir}" -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "8.0") {
+              .\ESXi-Customizer-PS.ps1 -v80 -pkgDir "${ExtraVibFilesDir}" -outDir (".") -sip;
+            }
+          } Else {
+            Write-Host "";
+            Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -load $(([String]$VibNames_Valid).Replace(' ',',')) -outDir (`".`"); ]  ...";
+            If ($ESXiVersion -Eq "5.0") {
+              .\ESXi-Customizer-PS.ps1 -v50 -vft -load $VibNames_Valid -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "5.1") {
+              .\ESXi-Customizer-PS.ps1 -v51 -vft -load $VibNames_Valid -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "5.5") {
+              .\ESXi-Customizer-PS.ps1 -v55 -vft -load $VibNames_Valid -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "6.0") {
+              .\ESXi-Customizer-PS.ps1 -v60 -vft -load $VibNames_Valid -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "6.5") {
+              .\ESXi-Customizer-PS.ps1 -v65 -vft -load $VibNames_Valid -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "6.7") {
+              .\ESXi-Customizer-PS.ps1 -v67 -vft -load $VibNames_Valid -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "7.0") {
+              .\ESXi-Customizer-PS.ps1 -v70 -vft -load $VibNames_Valid -outDir (".");
+            } ElseIf ($ESXiVersion -Eq "8.0") {
+              .\ESXi-Customizer-PS.ps1 -v80 -load $VibNames_Valid -outDir (".") -sip;
+            }
+          }
+        }
 
-				# Open the destination which the output .iso was saved-at
-				Explorer .;
+        # Open the destination which the output .iso was saved-at
+        Explorer .;
 
 
-				# ------------------------------------------------------------
-				#	### "Press any key to continue..."
-				Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
-				$KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
+        # ------------------------------------------------------------
+        # ### "Press any key to continue..."
+        Write-Host -NoNewLine "`n`n$($MyInvocation.MyCommand.Name) - Press any key to continue...  `n`n" -ForegroundColor "Yellow" -BackgroundColor "Black";
+        $KeyPress = $Host.UI.RawUI.ReadKey('NoEcho,IncludeKeyDown');
 
-				Return;
+        Return;
 
-			}
+      }
 
-		}
+    }
 
-	}
+  }
 
 }
 
 <# Only export the module if the caller is attempting to import it #>
 If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo")) {
-	Export-ModuleMember -Function "ESXi_BootMedia";
+  Export-ModuleMember -Function "ESXi_BootMedia";
 }
 
 

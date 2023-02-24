@@ -37,10 +37,12 @@ esxcli software vib list | grep -i hp
 
 # ------------------------------------------------------------
 #
-### Get network drivers in-use
+### Get drivers currently in-use by the ESXi host
 #
 
-esxcli network nic list;  # Note the "Driver" column
+esxcli network nic list;  # Get [ network ] drivers currently in-use via the "Driver" column
+
+esxcli storage core adapter list;  # Get [ disk ] drivers currently in-use via the "Driver" column
 
 
 # ------------------------------------------------------------
@@ -156,5 +158,9 @@ esxcli software vib remove --vibname="net51-sky2:1.20-2vft.510.0.0.799733"; esxc
 # Citation(s)
 #
 #   flings.vmware.com  |  "ESXi Embedded Host Client"  |  https://flings.vmware.com/esxi-embedded-host-client#instructions
+#
+#   kb.vmware.com  |  "Determining Network/Storage firmware and driver version in ESXi (1027206)"  |  https://kb.vmware.com/s/article/1027206
+#
+#   www.v-front.de  |  "VMware Front Experience: vSphere 6 is GA: The ultimate guide to upgrade your white box to ESXi 6.0"  |  https://www.v-front.de/2015/03/vsphere-6-is-ga-ultimate-guide-to.html
 #
 # ------------------------------------------------------------

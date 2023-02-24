@@ -4,10 +4,12 @@
 # Linux - ESXi SSH Client Enable (Allow outgoing SSH, SFTP, SCP connections)
 
 
-esxcli network firewall ruleset list --ruleset-id sshClient;  # Check if SSH client service is enabled
+# Get the enabled/disabled status of ESXi's SSH client
+esxcli network firewall ruleset list --ruleset-id sshClient;
 
 
-esxcli network firewall ruleset set --ruleset-id sshClient --enabled=true;  # Enable SSH client (e.g. enable outgoing SSH connections)
+# Enable ESXi's SSH client (e.g. enable outgoing SSH connections)
+esxcli network firewall ruleset set --ruleset-id sshClient --enabled=true;
 
 
 # Setup public key on local device for incoming SSH authentication

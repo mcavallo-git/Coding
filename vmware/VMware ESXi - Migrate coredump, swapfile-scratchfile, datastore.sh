@@ -23,7 +23,7 @@ sleep 2;
 if [[ 1 -eq 1 ]]; then
   # Create the new coredump file
   echo "------------------------------------------------------------";
-  NEW_COREDUMP_DATASTORE_NAME="datastore_nvme";
+  NEW_COREDUMP_DATASTORE_NAME="datastore-m2-sata";
   # NEW_COREDUMP_DATASTORE_NAME="datastore_sata";
   NEW_COREDUMP_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_COREDUMP_DATASTORE_NAME}" | awk '{print $3}';)";
   mkdir -p "/vmfs/volumes/${NEW_COREDUMP_DATASTORE_UUID}/vmkdump";  # Create the coredump directory on target datastore
@@ -34,10 +34,10 @@ fi;
 
 
 if [[ 1 -eq 1 ]]; then
-  # Check if we need to update the scratch/swap file
+  # Check if we need to update the scratch/swapfile
   echo "------------------------------------------------------------";
   # ---
-  NEW_SCRATCH_DATASTORE_NAME="datastore_nvme";
+  NEW_SCRATCH_DATASTORE_NAME="datastore-m2-sata";
   # NEW_SCRATCH_DATASTORE_NAME="datastore_sata";
   # ---
   # Show scratch file status & associated value(s)
@@ -46,7 +46,7 @@ if [[ 1 -eq 1 ]]; then
   sleep 2;
   echo -e "\n""\"ScratchConfig.CurrentScratchLocation\"  -  Advanced option defining [ scratch location currently in use ]:\n  ${CURRENT_SCRATCH_LOCATION}";
   echo -e "\n""\"ScratchConfig.ConfiguredScratchLocation\"  -  Advanced option defining [ scratch location to use after next reboot]:\n  ${CONFIGURED_SCRATCH_LOCATION}";
-  # ---
+  # Configure ESXi's scratch/swapfile options
   NEW_SCRATCH_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_SCRATCH_DATASTORE_NAME}" | awk '{print $3}';)";
   NEW_SCRATCH_LOCATION="/vmfs/volumes/${NEW_SCRATCH_DATASTORE_UUID}/.locker";
   mkdir -p "${NEW_SCRATCH_LOCATION}";  # Create the scratch/swap directory on target datastore

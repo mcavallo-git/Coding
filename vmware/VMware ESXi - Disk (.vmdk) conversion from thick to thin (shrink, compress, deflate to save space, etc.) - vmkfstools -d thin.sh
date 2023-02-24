@@ -2,6 +2,14 @@
 
 ### NOTE: You must shut down any virrtual machine(s) attached to disks which you intend to copy/resize to OR from
 
+# ------------------------------------------------------------
+#
+# In the ESXi Web GUI, you can open the "Datastore Browser", right click the ".vmdk" file, and select "Inflate"
+#  ^ 
+#  ^-- This will convert a thin-partitioned disk into a thick-partitioned disk, however, if this fails, you will be requierd to use the "vmkfstools" cli approach to convert thin to thick (see below)
+#
+# ------------------------------------------------------------
+
 ### Thin to Thick
 vmkfstools -i /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME.vmdk -d zeroedthick /vmfs/volumes/datastore1/SERVER_NAME/SERVER_NAME-thick.vmdk
 

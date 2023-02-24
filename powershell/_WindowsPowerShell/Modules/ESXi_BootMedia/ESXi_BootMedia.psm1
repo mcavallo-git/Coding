@@ -332,8 +332,8 @@ Function ESXi_BootMedia() {
           $VersionArg = "-v80";
         }
 
-        If ( ($False -Eq ($PSBoundParameters.ContainsKey('AllDrivers'))) -Or ($True -Eq ($PSBoundParameters.ContainsKey('NoExtraDrivers'))) ) {
-          If ($null -eq ${FallbackVibNames_Valid}) {
+        If ($False -Eq ($PSBoundParameters.ContainsKey('AllDrivers'))) {
+          If (($Null -eq ${FallbackVibNames_Valid}) -Or ($True -Eq ($PSBoundParameters.ContainsKey('NoExtraDrivers')))) {
             Write-Host "";
             Write-Host "PS $(Get-Location)>  Calling  [ .\ESXi-Customizer-PS.ps1 ${VersionArg} -vft -outDir (`"${FallbackDir}`"); ]  ...";
             If ($ESXiVersion -Eq "5.0") {

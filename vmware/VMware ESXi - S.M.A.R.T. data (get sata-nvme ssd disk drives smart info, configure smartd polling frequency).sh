@@ -7,6 +7,40 @@
 watch -n 15 esxcli storage core device smart get --device-name="$(esxcli storage core device list | sed -rne "s/^\s+Other UIDs:\s+(.{1,80})$/\1/p" | head -n 1;)";
 
 
+# Watch a specific drive's min/max temperature
+if [[ 1 -eq 1 ]]; then
+  STORAGE_DEVICE_NAME="$(esxcli storage core device list | sed -rne "s/^\s+Other UIDs:\s+(.{1,80})$/\1/p" | head -n 1;)";
+  # ---
+  LOGDIR="/var/log/drive-temps";
+  MAX_TEMP_FULLPATH="${LOGDIR}/max_temp";
+  MIN_TEMP_FULLPATH="${LOGDIR}/min_temp";
+  mkdir -p "${LOGDIR}";
+  if [[ ! -f "${MAX_TEMP_FULLPATH}" ]]; then echo -n "0" > "${MAX_TEMP_FULLPATH}"; fi;
+  if [[ ! -f "${MIN_TEMP_FULLPATH}" ]]; then echo -n "100" > "${MIN_TEMP_FULLPATH}"; fi;
+  # ---
+  while [[ 1 -eq 1 ]]; do
+    clear; date; echo "";
+    LATEST_DRIVE_TEMP_ROW="$(esxcli storage core device smart get --device-name="${STORAGE_DEVICE_NAME}" | grep '^Drive Temperature';)";
+    LATEST_TEMP_BASE_VALUE="$(echo "${LATEST_DRIVE_TEMP_ROW}" | sed -rne "s/^Drive Temperature\s+([a-zA-Z0-9\/]+)\s+([a-zA-Z0-9\/]+)\s+([a-zA-Z0-9\/]+)\s+([a-zA-Z0-9\/]+)\s*$/\1/p";)";
+    LATEST_TEMP_RAW_VALUE="$(echo "${LATEST_DRIVE_TEMP_ROW}" | sed -rne "s/^Drive Temperature\s+([a-zA-Z0-9\/]+)\s+([a-zA-Z0-9\/]+)\s+([a-zA-Z0-9\/]+)\s+([a-zA-Z0-9\/]+)\s*$/\4/p";)";
+    # echo "LATEST_TEMP_BASE_VALUE = [ ${LATEST_TEMP_BASE_VALUE} ]";
+    # echo "LATEST_TEMP_RAW_VALUE = [ ${LATEST_TEMP_RAW_VALUE} ]";
+    if [[ -z "${LATEST_TEMP_RAW_VALUE}" ]] || [[ "${LATEST_TEMP_RAW_VALUE}" == "N/A" ]]; then
+      LATEST_TEMP_VALUE="${LATEST_TEMP_BASE_VALUE}";
+    else
+      LATEST_TEMP_VALUE="${LATEST_TEMP_RAW_VALUE}";
+    fi;
+    # echo "LATEST_TEMP_VALUE = [ ${LATEST_TEMP_VALUE} ]";
+    if [[ "${LATEST_TEMP_VALUE}" -gt "$(cat "${MAX_TEMP_FULLPATH}";)" ]]; then echo -n "${LATEST_TEMP_VALUE}" > "${MAX_TEMP_FULLPATH}"; fi;
+    if [[ "${LATEST_TEMP_VALUE}" -lt "$(cat "${MIN_TEMP_FULLPATH}";)" ]]; then echo -n "${LATEST_TEMP_VALUE}" > "${MIN_TEMP_FULLPATH}"; fi;
+    echo "LATEST_DRIVE_TEMP_ROW = [ ${LATEST_DRIVE_TEMP_ROW} ]";
+    echo "MAX_TEMP = [ $(cat "${MAX_TEMP_FULLPATH}";) ]";
+    echo "MIN_TEMP = [ $(cat "${MIN_TEMP_FULLPATH}";) ]";
+    sleep 5;
+  done;
+fi;
+
+
 # ------------------------------
 #
 # Get S.M.A.R.T. disk values for all disks (if they exist)

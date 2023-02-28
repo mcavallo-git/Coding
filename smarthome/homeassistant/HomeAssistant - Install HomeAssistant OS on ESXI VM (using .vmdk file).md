@@ -1,6 +1,6 @@
 <!-- ------------------------------------------------------------ -->
 
-# Installing HomeAssistant as an ESXi VM (using .vmdk file)
+# Installing HomeAssistant as an ESXi VM
 
 
 <!-- ------------------------------------------------------------ -->
@@ -25,6 +25,7 @@
       - Scroll down to `Assets`, search for text `.vmdk` (via `CTRL+F`), and click the file to download the latest Home Assistant OS `.vmdk` image
         - Example filename to download:  [`haos_ova-9.5.vmdk.zip`](https://github.com/home-assistant/operating-system/releases/download/9.5/haos_ova-9.5.vmdk.zip)   *(replace `9.5` with whatever the latest version is)*
 
+
 <!-- ------------------------------------------------------------ -->
 
 ***
@@ -37,7 +38,7 @@
 <!-- ------------------------------------------------------------ -->
 
 ***
-### Create a new VM on ESXi host
+### Create the `HomeAssistant-OS` VM
   - [View YouTube Tutorial (Install Home Assistant OS in VMware ESXi)](https://www.youtube.com/watch?v=IxrF87VBTCg)
   - Name:  ANYTHING OTHER THAN "homeassistant" (e.g. name it something like "HomeAssistant-OS")
   - Guest OS family: `Linux`
@@ -53,11 +54,11 @@
 <!-- ------------------------------------------------------------ -->
 
 ***
-### Download & Add HomeAssistant .VMDK disk (file) to HomeAssistant VM
+### Add `.vmdk` file to HomeAssistant VM
   - [View Docs (Install Home Assistant Operating System)](https://www.home-assistant.io/installation/linux)
-  - On the HomeAssistant VM (to attach VMDK disk to):
+  - On the HomeAssistant VM (to attach `.vmdk` disk to):
     - Edit settings
-      - Add hard disk > Existing hard disk > (locate .vmdk file in new VM's datastore directory) > Set "Virtual Device Node"/"Controller location" to "IDE 0:0"/"IDE controller 0:Master"
+      - Add hard disk > Existing hard disk > (locate `.vmdk` file in new VM's datastore directory) > Set "Virtual Device Node"/"Controller location" to "IDE 0:0"/"IDE controller 0:Master"
       - VM Options > Boot Options > Firmware > Set to "EFI"
 
 

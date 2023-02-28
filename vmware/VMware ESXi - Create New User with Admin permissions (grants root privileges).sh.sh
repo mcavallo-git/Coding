@@ -3,13 +3,15 @@
 # ------------------------------------------------------------
 
 if [[ 1 -eq 1 ]]; then
-  # Add a new local admin user to ESXi
+  # Add user (local admin) to ESXi
   echo -e "\n""INFO:  Calling [ esxcli system account list; esxcli system permission list; ]...";
   esxcli system account list; esxcli system permission list;
   sleep 2;
   echo -e "\n";
-  read -p "Enter username (to create & add as a local admin):  " -t ${READ_TIMEOUT:-60} <'/dev/tty'; EXIT_CODE=${?};
-  if [[ -n "${REPLY}" ]]; then
+  read -p "Enter username (to create & add as a local admin):  " -t ${READ_TIMEOUT:-60} <'/dev/tty';
+  if [[ -z "${REPLY}" ]]; then
+    echo -e "\n""ERROR:  Empty response received";
+  else
     echo -e "\n""INFO:  Calling [ esxcli system account add -d=\"${REPLY}\" -i=\"${REPLY}\" -p -c; ]...";
     # Create a new System Account
     esxcli system account add -d="${REPLY}" -i="${REPLY}" -p -c;
@@ -21,8 +23,6 @@ if [[ 1 -eq 1 ]]; then
     echo -e "\n""INFO:  Calling [ esxcli system account list; esxcli system permission list; ]...";
     esxcli system account list; esxcli system permission list;
     sleep 2;
-  else
-    echo "Error:  Empty response received";
   fi;
   echo "";
 fi;

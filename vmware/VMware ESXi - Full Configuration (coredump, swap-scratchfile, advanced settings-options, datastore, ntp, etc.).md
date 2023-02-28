@@ -357,7 +357,30 @@ fi;
 <!-- ------------------------------------------------------------ -->
 
 ***
+# ESXi > Configure CIM Server & SFCBD
+- Run the following via SSH on the ESXi host:
+```bash
+esxcli system wbem get | sed -rne "s/^\s*Enabled: (false)\s*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//" | while read CIM_ENABLED_SETTING; do
+# Get service status:  CIM Server
+echo -e "\n""INFO:  Calling [ /etc/init.d/sfcbd-watchdog status; /bin/sleep 2; ]..."; /etc/init.d/sfcbd-watchdog status; /bin/sleep 2;
+# "Allow the 'sfcb-HTTPS-Daem' process to start - This process is the TCP Listener that takes CIM requests from probes and returns the health of the hardware." - http://www.squidworks.net/2017/02/vmware-esxi-6-5-cim-data-disabled-by-default/ 
+echo -e "\n""INFO:  Calling [ esxcli system wbem set –-enable=\"true\"; /bin/sleep 5; ]..."; esxcli system wbem set –-enable="true"; /bin/sleep 5;
+# Start service:  CIM Server
+echo -e "\n""INFO:  Calling [ /etc/init.d/sfcbd-watchdog start; /bin/sleep 5; ]..."; /etc/init.d/sfcbd-watchdog start; /bin/sleep 5;
+# Get service status:  CIM Server
+echo -e "\n""INFO:  Calling [ /etc/init.d/sfcbd-watchdog status; /bin/sleep 2; ]..."; /etc/init.d/sfcbd-watchdog status; /bin/sleep 2;
+# Test service:  CIM Server
+echo -e "\n""INFO:  Calling [ /etc/init.d/sfcbd-watchdog test; /bin/sleep 2; ]..."; /etc/init.d/sfcbd-watchdog test; /bin/sleep 2;
+done;
+```
+
+
+<!-- ------------------------------------------------------------ -->
+
+
+***
 # ESXi > Configure S.M.A.R.T. daemon poll-rate
+- ❌️ ⚠️ Doesn't work on ESXi v7.0+ hosts due to file privacy lockdowns on `/etc/init.d/smartd` (cannot be overwritten via `sed` or any other action(s))
 - ### Update the ESXi startup script:
   - Open the shellscript in the `vim` editor:
     ```bash
@@ -394,27 +417,6 @@ fi;
     ```bash
     cat /etc/init.d/smartd; ps -c | grep smartd | grep -v grep;  # Show whole file, manually look for "MAX_RETRIES" line - DO NOT grep (for backup reference)
     ```
-
-
-<!-- ------------------------------------------------------------ -->
-
-***
-# ESXi > Configure CIM Server & SFCBD
-- Run the following via SSH on the ESXi host:
-```bash
-esxcli system wbem get | sed -rne "s/^\s*Enabled: (false)\s*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//" | while read CIM_ENABLED_SETTING; do
-# Get service status:  CIM Server
-echo -e "\n""INFO:  Calling [ /etc/init.d/sfcbd-watchdog status; /bin/sleep 2; ]..."; /etc/init.d/sfcbd-watchdog status; /bin/sleep 2;
-# "Allow the 'sfcb-HTTPS-Daem' process to start - This process is the TCP Listener that takes CIM requests from probes and returns the health of the hardware." - http://www.squidworks.net/2017/02/vmware-esxi-6-5-cim-data-disabled-by-default/ 
-echo -e "\n""INFO:  Calling [ esxcli system wbem set –-enable=\"true\"; /bin/sleep 5; ]..."; esxcli system wbem set –-enable="true"; /bin/sleep 5;
-# Start service:  CIM Server
-echo -e "\n""INFO:  Calling [ /etc/init.d/sfcbd-watchdog start; /bin/sleep 5; ]..."; /etc/init.d/sfcbd-watchdog start; /bin/sleep 5;
-# Get service status:  CIM Server
-echo -e "\n""INFO:  Calling [ /etc/init.d/sfcbd-watchdog status; /bin/sleep 2; ]..."; /etc/init.d/sfcbd-watchdog status; /bin/sleep 2;
-# Test service:  CIM Server
-echo -e "\n""INFO:  Calling [ /etc/init.d/sfcbd-watchdog test; /bin/sleep 2; ]..."; /etc/init.d/sfcbd-watchdog test; /bin/sleep 2;
-done;
-```
 
 
 <!-- ------------------------------------------------------------ -->

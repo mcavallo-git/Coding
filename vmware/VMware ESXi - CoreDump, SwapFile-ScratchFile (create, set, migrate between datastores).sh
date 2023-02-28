@@ -22,7 +22,7 @@ sleep 2;
 
 if [[ 1 -eq 1 ]]; then
   # VMware ESXi - Configure coredump storage option(s)
-  DATASTORE_LIST="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)' | awk '{print $2}';)";
+  DATASTORE_LIST="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)';)";
   DATASTORE_COUNT="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)' | wc -l;)";
   if [[ "${DATASTORE_COUNT}" -le 0 ]]; then
     echo -e "\n""ERROR:  No datastore(s) found";
@@ -35,9 +35,10 @@ if [[ 1 -eq 1 ]]; then
     if [[ -z "${REPLY}" ]]; then
       echo -e "\n""ERROR:  Empty response received";
     else
-      DATASTORE_UUID="$(echo "${DATASTORE_LIST}" | grep -i "${REPLY}" | awk '{print $3}';)";
+      DATASTORE_NAME="${REPLY}";
+      DATASTORE_UUID="$(echo "${DATASTORE_LIST}" | grep -i "${DATASTORE_NAME}" | awk '{print $3}';)";
       if [[ -z "${DATASTORE_UUID}" ]]; then
-        echo -e "\n""ERROR:  Unable to resolve datastore UUID from name \"${REPLY}\"";
+        echo -e "\n""ERROR:  Unable to resolve datastore UUID from name \"${DATASTORE_NAME}\"";
       else
         sleep 2;
         echo -e "\n""INFO:  Calling [ mkdir -p \"/vmfs/volumes/${DATASTORE_UUID}/vmkdump\"; ]...";

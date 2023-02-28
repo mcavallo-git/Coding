@@ -83,31 +83,32 @@ rm -fv /var/run/vmware/smartd.PID;
 
 /etc/init.d/smartd start;
 
-# ------------------------------
+# ------------------------------------------------------------
+#
+# ESXi > Configure S.M.A.R.T. daemon poll-rate
+#
 
+# Open the shellscript in the `vim` editor:
 vi "/etc/rc.local.d/local.sh";
 
-# Add the following into "local.sh":
-
+# Append the following onto the end of `/etc/rc.local.d/local.sh`:
+# ---
 # Poll the SMART daemon every 15 minutes (instead of the default of every 30)
 SMARTD_POLL_INTERVAL=15
 /etc/init.d/smartd stop;
 sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(\"\\\$\{SMARTD\}\".+$)/\1-i ${SMARTD_POLL_INTERVAL:-15} \2/g" -i "/etc/init.d/smartd";
 /etc/init.d/smartd start;
+# ---
+# Save and quit via `:wq` + `Enter`
 
+# Pre-Check - Get the config & service status:
+cat /etc/init.d/smartd; ps -c | grep smartd | grep -v grep;  # Show whole file, manually look for "MAX_RETRIES" line - DO NOT grep (for backup reference)
 
-# ------------------------------
-
-# Pre-Check - Get the config & service status before running the update
-cat /etc/init.d/smartd;
-ps -c | grep smartd | grep -v grep;
-
-# Run the update
+# Run the update for the S.M.A.R.T. daemon:
 /etc/rc.local.d/local.sh
 
-# Post-Check - Verify the configuration was applied as-intended
-cat /etc/init.d/smartd;
-ps -c | grep smartd | grep -v grep;
+# Post-Check - Verify the config was updated as-intended:
+cat /etc/init.d/smartd; ps -c | grep smartd | grep -v grep;  # Show whole file, manually look for "MAX_RETRIES" line - DO NOT grep (for backup reference)
 
 
 # ------------------------------------------------------------

@@ -375,6 +375,7 @@ fi;
     /bin/sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(\"\\\$\{SMARTD\}\".+$)/\1-i ${SMARTD_POLL_INTERVAL:-15} \2/g" -i "/etc/init.d/smartd"; EXIT_CODE="${?}";
     if [[ "${EXIT_CODE}" -ne 0 ]]; then
       /bin/nohup /bin/smartd -i ${SMARTD_POLL_INTERVAL:-15} > "/tmp/nohup_smartd_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
+      # while [ 1 ]; do clear; date; echo -e "\n\n"; cat /tmp/nohup_smartd_$(date +'%Y%m%d')*.log; sleep 1; done;
     else
       /etc/init.d/smartd start;
     fi;

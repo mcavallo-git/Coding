@@ -363,7 +363,7 @@ fi;
     ```bash
     vi "/etc/rc.local.d/local.sh";
     ```
-  - Append the following onto the end of `/etc/rc.local.d/local.sh`:
+  - Append the following onto the end of `/etc/rc.local.d/local.sh` *just before* any `exit ...` line(s):
     ```bash
     # Poll the SMART daemon every 15 minutes (instead of the default of every 30)
     SMARTD_POLL_INTERVAL=15
@@ -379,7 +379,7 @@ fi;
     ```
   - Run the update for the S.M.A.R.T. daemon:
     ```bash
-    /etc/rc.local.d/local.sh
+    /etc/rc.local.d/local.sh;
     ```
   - Post-Check - Verify the config was updated as-intended:
     ```bash

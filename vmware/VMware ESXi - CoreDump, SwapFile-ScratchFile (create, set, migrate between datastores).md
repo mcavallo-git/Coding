@@ -3,7 +3,7 @@
 <!-- ------------------------------------------------------------ -->
 
 ***
-# ESXi > Configure CoreDump to use target Datastore
+# ESXi > Configure coredump to use target Datastore
 - Run the following via SSH on the ESXi host:
 ```bash
 if [[ 1 -eq 1 ]]; then
@@ -48,10 +48,10 @@ if [[ 1 -eq 1 ]]; then
         DATASTORE_COREDUMP_DIRNAME="${DATASTORE_MOUNTPOINT}/vmkdump";
         sleep 1;
         if [[ "${DATASTORE_COREDUMP_DIRNAME}" == "${CONFIGURED_COREDUMP_DIRNAME}" ]]; then
-          echo -e "\n""INFO:  (Skipped) CoreDump already configured to use datastore \"${DATASTORE_NAME}\" with path \"${DATASTORE_COREDUMP_DIRNAME}\"";
+          echo -e "\n""INFO:  (Skipped) Coredump already configured to use datastore \"${DATASTORE_NAME}\" with path \"${DATASTORE_COREDUMP_DIRNAME}\"";
         else
           sleep 2;
-          # Remove old CoreDump file
+          # Remove old coredump file
           if [[ -n "${CONFIGURED_COREDUMP_FULLPATH}" ]] && [[ -f "${CONFIGURED_COREDUMP_FULLPATH}" ]]; then
             esxcli system coredump file set --unconfigure;  # "Unconfigure the current VMFS Dump file."
             esxcli system coredump file remove --file=${CONFIGURED_COREDUMP_FULLPATH};  # "Specify the file name of the Dump File to be removed. If not given, the configured dump file will be removed."

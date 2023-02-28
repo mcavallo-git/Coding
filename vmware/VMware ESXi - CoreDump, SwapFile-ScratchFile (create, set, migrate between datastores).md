@@ -86,7 +86,7 @@ if [[ 1 -eq 1 ]]; then
       fi;
     fi;
   fi;
-  echo -e "";
+  echo "";
 fi;
 ```
 

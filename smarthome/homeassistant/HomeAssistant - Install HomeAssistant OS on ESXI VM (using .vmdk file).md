@@ -72,6 +72,7 @@
   - In ESXi, browse to `Storage` > `Datastores` > `Datastore browser`
     - Copy the previously uploaded `.vmdk` file from its directory (`iso`) into the new VM's directory
     - Rename the `.vmdk` file to match your VM's name (such as `HomeAssistant-OS.vmdk`)
+      - This can either be done during the `copy` command, or afterward using the `move` command and specifying the name in the `move` output field (bottom of `move` GUI)
 
 <!-- ------------------------------------------------------------ -->
 

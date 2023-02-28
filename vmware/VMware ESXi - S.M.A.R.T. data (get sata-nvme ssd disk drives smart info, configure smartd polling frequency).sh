@@ -39,50 +39,6 @@ if [[ 1 -eq 1 ]]; then
 fi;
 
 
-# ------------------------------
-
-/sbin/smartd;
-cat /var/log/syslog.log | tail -n 20;
-# smartd: [error] Unable to lock PID file: smartd is already running
-
-/etc/init.d/smartd stop;
-
-/etc/init.d/smartd status;
-
-/sbin/smartd --help;
-# smartd <options>
-#    -i   Polling interval (in minutes) for smartd
-#         (default Polling interval is 30 minutes)
-
-
-# /sbin/smartd -i 5; # THIS IS WHAT IS DESIRED TO RUN AS THE SERVICE
-
-cat /etc/init.d/smartd;
-
-cat /etc/vmware/smart_plugin.conf;
-
-find / -iname *smart*;
-
-cat /var/run/vmware/smartd.PID
-# /etc/init.d/smartd
-# /var/run/vmware/smartd.PID
-# /bin/smartd
-# ...
-
-
-# Find the process which is holding up smartd from working as intended
-cat /var/run/vmware/smartd.PID
-
-
-ps | grep $(cat /var/run/vmware/smartd.PID;);
-# No processes found --> PID file is a dangling pointer --> remove it
-
-rm -fv /var/run/vmware/smartd.PID;
-
-/etc/init.d/smartd status;
-
-/etc/init.d/smartd start;
-
 # ------------------------------------------------------------
 #
 # ESXi > Configure S.M.A.R.T. daemon poll-rate
@@ -109,6 +65,22 @@ cat /etc/init.d/smartd; ps -c | grep smartd | grep -v grep;  # Show whole file, 
 
 # Post-Check - Verify the config was updated as-intended:
 cat /etc/init.d/smartd; ps -c | grep smartd | grep -v grep;  # Show whole file, manually look for "MAX_RETRIES" line - DO NOT grep (for backup reference)
+
+
+# ------------------------------------------------------------
+
+
+if [[ 0 -eq 1 ]]; then
+  #
+  # Hotfix for if smartd's PID is an invalud value or points to a non-existent process (dangling pointer)
+  #
+  /etc/init.d/smartd stop;  # Stop the service
+  cat /var/run/vmware/smartd.PID; # Find the process which is holding up smartd from working as intended
+  ps | grep $(cat /var/run/vmware/smartd.PID;);  # No processes found
+  rm -fv /var/run/vmware/smartd.PID;  # PID file is a dangling pointer --> remove it
+  /etc/init.d/smartd start;  # Start the service
+  /etc/init.d/smartd status;  # Check service status
+fi;
 
 
 # ------------------------------------------------------------

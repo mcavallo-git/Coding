@@ -1,0 +1,96 @@
+<!-- ------------------------------------------------------------ -->
+
+# HomeAssistant - Installing HassIO as an ESXi VM (using .vmdk file)
+
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Format a side PC with ESXi (v6.5 or higher) as the OS
+  - To download a .ISO image for ESXi 6.5, refer to PowerShell module "ESXI_BootMedia.psm1"
+        |--> [ESXI_BootMedia.psm1 module](https://github.com/mcavallo-git/Coding/blob/main/powershell/_WindowsPowerShell/Modules/ESXi_BootMedia/ESXi_BootMedia.psm1)
+        |--> Call using command [ ESXi_BootMedia -Create -ESXiVersion '6.5'; ] to create a ESXi v6.5 .ISO file
+        |--> Format ESXi .ISO file onto a USB flash drive using Rufus.exe (download Rufus from URL [ https://rufus.ie/downloads/ ])
+        |--> Plug USB flash drive into PC to format ESXi onto, boot to it, format PC, then connect via web-browser to ESXi box's IP address (using https://...) once it boots up
+
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Download the latest Hass.IO `.vmdk` image
+  - [View GitHub Releases Page - home-assistant/operating-system](https://github.com/home-assistant/operating-system/releases/)
+    - Locate the [latest release](https://github.com/home-assistant/operating-system/releases/latest) of the Home Assistant OS
+      - Scroll down to `Assets`, search for text `.vmdk` (via `CTRL+F`), and click the file to download the latest Home Assistant OS `.vmdk` image
+        - Example filename to download:  [`haos_ova-9.5.vmdk.zip`](https://github.com/home-assistant/operating-system/releases/download/9.5/haos_ova-9.5.vmdk.zip)   *(replace `9.5` with whatever the latest version is)*
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Create a new VM on ESXi box
+  - [View YouTube Tutorial (Install Home Assistant OS in VMware ESXi)](https://www.youtube.com/watch?v=IxrF87VBTCg)
+  - Name:  ANYTHING OTHER THAN "homeassistant" (e.g. name it something like "HomeAssistant-OS")
+  - Guest OS family: `Linux`
+  - Guest OS version: `Other 2.6.x Linux (64-bit)`
+  - CPU: `2` (using "2 Cores per Socket" on 1 socket)
+  - Memory: `4 GB`
+  - Hard Disk:  `DELETE`  (hit `X` on right side)
+  - CD/DVD Drive 1:    `DELETE`  (hit `X` on right side)
+  - SCSI Controller 0: `DELETE`  (hit `X` on right side)
+  - SATA Controller 0: `DELETE`  (hit `X` on right side)
+
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Download & Add HomeAssistant .VMDK disk (file) to HomeAssistant VM
+  - [View Docs (Install Home Assistant Operating System)](https://www.home-assistant.io/installation/linux)
+  - Upload .VMDK file to the new VM's datastore directory either via SFTP or via the ESXi GUI browser tool
+  - On the HomeAssistant VM (to attach VMDK disk to):
+    - Edit settings
+      - Add hard disk > Existing hard disk > (locate .vmdk file in new VM's datastore directory) > Set "Virtual Device Node"/"Controller location" to "IDE 0:0"/"IDE controller 0:Master"
+      - VM Options > Boot Options > Firmware > Set to "EFI"
+
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Perform initial HomeAssistant setup
+  - In ESXi, start the HomeAssistant VM
+  - Wait for console to show the URL of the HomeAssistant portal, or (alternatively)...
+  - In your web browser, browse to the HomeAssistant portal @ the IPv4 address of the HomeAssistant VM, using port 8123 (http://VM_IPV4:8123)
+  - The HomeAssistant portal should walk you through creation of initial admin user, then you should end up at the HomeAssistant home page / GUI
+
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Quick Guide: Attaching a USB device(s) to ESXi VM from ESXi Host (pass-through USB)
+  - [View YouTube Tutorial (How to Add Z-Wave to Home Assistant 2020)](https://www.youtube.com/watch?v=W0HD5mTqocA)
+  - Physically plug-in USB device into ESXi host box
+  - In ESXi, on the HomeAssistant VM (to attach USB device to):
+    - Shut down VM
+    - Edit settings > Add other device > USB device > (Select USB device to attach to VM)
+    - Start VM
+
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Quick Guide: Using the shell terminal in HomeAssistant (direct or physical access to machine or VM running HA)
+  - At the HomeAssistant terminal which shows a large ascii art "Home Assistant" logo, type the following command to login as the root user:
+    `ha >   login`
+
+
+<!-- ---------------------------------------------------------
+#
+# Citation(s)
+#
+#   docs.vmware.com  |  "Add USB Devices from an ESXi Host to a Virtual Machine"  |  https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.vm_admin.doc/GUID-68A08879-1744-4FF9-A856-D66C4AAB68AB.html
+#
+#   www.awesome-ha.com  |  "Awesome Home Assistant"  |  https://www.awesome-ha.com/
+#
+#   www.home-assistant.io  |  "Linux - Home Assistant"  |  https://www.home-assistant.io/installation/linux
+#
+#   www.youtube.com  |  "Install Home Assistant OS in VMware ESXi | Don't Miss These CRITICAL STEPS! - YouTube"  |  https://www.youtube.com/watch?v=IxrF87VBTCg
+#
+---------------------------------------------------------- -->

@@ -11,10 +11,10 @@ if [[ 1 -eq 1 ]]; then
   # Remove old coredump file(s)
   echo "------------------------------------------------------------";
   esxcli system coredump file get;  # "Get the dump file path. This command will print the path to the active and/or configured VMFS Dump File."
-  OLD_COREDUMP_FULLPATH="$(esxcli system coredump file list | grep '^/vmfs' | awk '{print $1}';)";
+  CURRENT_COREDUMP_FULLPATH="$(esxcli system coredump file list | grep '^/vmfs' | awk '{print $1}';)";
   esxcli system coredump file set --unconfigure;  # "Unconfigure the current VMFS Dump file."
-  if [[ -n "${OLD_COREDUMP_FULLPATH}" ]] && [[ -f "${OLD_COREDUMP_FULLPATH}" ]]; then
-    esxcli system coredump file remove --file=${OLD_COREDUMP_FULLPATH};  # "Specify the file name of the Dump File to be removed.  If not given, the configured dump file will be removed."
+  if [[ -n "${CURRENT_COREDUMP_FULLPATH}" ]] && [[ -f "${CURRENT_COREDUMP_FULLPATH}" ]]; then
+    esxcli system coredump file remove --file=${CURRENT_COREDUMP_FULLPATH};  # "Specify the file name of the Dump File to be removed.  If not given, the configured dump file will be removed."
   fi;
   sleep 2;
   echo "------------------------------------------------------------";
@@ -100,7 +100,9 @@ if [[ 1 -eq 1 ]]; then
         echo -e "\n""ERROR:  Unable to resolve datastore UUID from name \"${DATASTORE_NAME}\"";
       else
         NEW_SCRATCH_LOCATION="${DATASTORE_MOUNTPOINT}/.locker";
-        if [[ "${NEW_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
+        if [[ "${NEW_SCRATCH_LOCATION}" == "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
+          echo -e "\n""INFO:  Scratch location already configured to use datastore \"${DATASTORE_NAME}\" with UUID path: \"${DATASTORE_MOUNTPOINT}\"";
+        else
           sleep 2;
           # Show scratch/swapfile status & associated value(s)
           echo -e "\n""(Before Configuration Update(s))";
@@ -135,8 +137,6 @@ if [[ 1 -eq 1 ]]; then
           CONFIGURED_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.ConfiguredScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
           echo -e "\"ScratchConfig.ConfiguredScratchLocation\":  \"${CONFIGURED_SCRATCH_LOCATION}\"  (used after next reboot)";
           sleep 1;
-        else
-          echo -e "\n""INFO:  Scratch location already configured to use datastore \"${DATASTORE_NAME}\" with UUID path: \"${DATASTORE_MOUNTPOINT}\"";
         fi;
       fi;
     fi;

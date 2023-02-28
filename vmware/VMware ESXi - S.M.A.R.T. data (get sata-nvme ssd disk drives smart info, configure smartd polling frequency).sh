@@ -61,7 +61,7 @@ sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(\"\\\$\{SMARTD\}\".+$)/\1-i ${SMARTD
 cat /etc/init.d/smartd; ps -c | grep smartd | grep -v grep;  # Show whole file, manually look for "MAX_RETRIES" line - DO NOT grep (for backup reference)
 
 # Run the update for the S.M.A.R.T. daemon:
-/etc/rc.local.d/local.sh
+/etc/rc.local.d/local.sh;
 
 # Post-Check - Verify the config was updated as-intended:
 cat /etc/init.d/smartd; ps -c | grep smartd | grep -v grep;  # Show whole file, manually look for "MAX_RETRIES" line - DO NOT grep (for backup reference)

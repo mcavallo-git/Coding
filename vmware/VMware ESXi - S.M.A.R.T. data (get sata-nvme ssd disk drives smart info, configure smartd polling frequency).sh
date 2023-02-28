@@ -47,7 +47,7 @@ fi;
 # Open the shellscript in the `vim` editor:
 vi "/etc/rc.local.d/local.sh";
 
-# Append the following onto the end of `/etc/rc.local.d/local.sh`:
+# Append the following onto the end of `/etc/rc.local.d/local.sh` just before any `exit ...` line(s):
 # ---
 # Poll the SMART daemon every 15 minutes (instead of the default of every 30)
 SMARTD_POLL_INTERVAL=15

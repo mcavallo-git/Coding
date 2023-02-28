@@ -7,6 +7,8 @@
 watch -n 15 esxcli storage core device smart get --device-name="$(esxcli storage core device list | sed -rne "s/^\s+Other UIDs:\s+(.{1,80})$/\1/p" | head -n 1;)";
 
 
+# ------------------------------
+
 # Watch a specific drive's min/max temperature
 if [[ 1 -eq 1 ]]; then
   STORAGE_DEVICE_NAME="$(esxcli storage core device list | sed -rne "s/^\s+Other UIDs:\s+(.{1,80})$/\1/p" | head -n 1;)";

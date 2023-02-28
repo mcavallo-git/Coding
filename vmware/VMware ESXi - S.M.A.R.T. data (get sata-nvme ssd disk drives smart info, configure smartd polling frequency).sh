@@ -36,11 +36,11 @@ if [[ 1 -eq 1 ]]; then
     # echo "CURRENT_TEMP = [ ${CURRENT_TEMP} ]";
     if [[ "${CURRENT_TEMP}" -gt "$(cat "${MAX_TEMP_FULLPATH}";)" ]]; then echo -n "${CURRENT_TEMP}" > "${MAX_TEMP_FULLPATH}"; fi;
     if [[ "${CURRENT_TEMP}" -lt "$(cat "${MIN_TEMP_FULLPATH}";)" ]]; then echo -n "${CURRENT_TEMP}" > "${MIN_TEMP_FULLPATH}"; fi;
-    echo "CURRENT_TEMP  =  ${CURRENT_TEMP} ${DEGREES_CELSIUS}";
+    echo "  CURRENT_TEMP  =  ${CURRENT_TEMP} ${DEGREES_CELSIUS}";
     echo "";
-    echo "    MAX_TEMP  =  $(cat "${MAX_TEMP_FULLPATH}";) ${DEGREES_CELSIUS}";
+    echo "      MAX_TEMP  =  $(cat "${MAX_TEMP_FULLPATH}";) ${DEGREES_CELSIUS}";
     echo "";
-    echo "    MIN_TEMP  =  $(cat "${MIN_TEMP_FULLPATH}";) ${DEGREES_CELSIUS}";
+    echo "      MIN_TEMP  =  $(cat "${MIN_TEMP_FULLPATH}";) ${DEGREES_CELSIUS}";
     echo "";
     sleep 5;
   done;

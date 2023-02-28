@@ -28,14 +28,14 @@ if [[ 1 -eq 1 ]]; then
     # echo "LATEST_TEMP_BASE_VALUE = [ ${LATEST_TEMP_BASE_VALUE} ]";
     # echo "LATEST_TEMP_RAW_VALUE = [ ${LATEST_TEMP_RAW_VALUE} ]";
     if [[ -z "${LATEST_TEMP_RAW_VALUE}" ]] || [[ "${LATEST_TEMP_RAW_VALUE}" == "N/A" ]]; then
-      LATEST_TEMP_VALUE="${LATEST_TEMP_BASE_VALUE}";
+      CURRENT_TEMP="${LATEST_TEMP_BASE_VALUE}";
     else
-      LATEST_TEMP_VALUE="${LATEST_TEMP_RAW_VALUE}";
+      CURRENT_TEMP="${LATEST_TEMP_RAW_VALUE}";
     fi;
-    # echo "LATEST_TEMP_VALUE = [ ${LATEST_TEMP_VALUE} ]";
-    if [[ "${LATEST_TEMP_VALUE}" -gt "$(cat "${MAX_TEMP_FULLPATH}";)" ]]; then echo -n "${LATEST_TEMP_VALUE}" > "${MAX_TEMP_FULLPATH}"; fi;
-    if [[ "${LATEST_TEMP_VALUE}" -lt "$(cat "${MIN_TEMP_FULLPATH}";)" ]]; then echo -n "${LATEST_TEMP_VALUE}" > "${MIN_TEMP_FULLPATH}"; fi;
-    echo "LATEST_DRIVE_TEMP_ROW = [ ${LATEST_DRIVE_TEMP_ROW} ]";
+    # echo "CURRENT_TEMP = [ ${CURRENT_TEMP} ]";
+    if [[ "${CURRENT_TEMP}" -gt "$(cat "${MAX_TEMP_FULLPATH}";)" ]]; then echo -n "${CURRENT_TEMP}" > "${MAX_TEMP_FULLPATH}"; fi;
+    if [[ "${CURRENT_TEMP}" -lt "$(cat "${MIN_TEMP_FULLPATH}";)" ]]; then echo -n "${CURRENT_TEMP}" > "${MIN_TEMP_FULLPATH}"; fi;
+    echo "CURRENT_TEMP = [ ${CURRENT_TEMP} ]";
     echo "MAX_TEMP = [ $(cat "${MAX_TEMP_FULLPATH}";) ]";
     echo "MIN_TEMP = [ $(cat "${MIN_TEMP_FULLPATH}";) ]";
     sleep 5;

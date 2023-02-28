@@ -1,23 +1,25 @@
 <!-- ------------------------------------------------------------ -->
 
-# HomeAssistant - Installing HassIO as an ESXi VM (using .vmdk file)
+# Installing HomeAssistant as an ESXi VM (using .vmdk file)
 
 
 <!-- ------------------------------------------------------------ -->
 
 ***
-### Format a side PC with ESXi (v6.5 or higher) as the OS
-  - To download a .ISO image for ESXi 6.5, refer to PowerShell module "ESXI_BootMedia.psm1"
-        |--> [ESXI_BootMedia.psm1 module](https://github.com/mcavallo-git/Coding/blob/main/powershell/_WindowsPowerShell/Modules/ESXi_BootMedia/ESXi_BootMedia.psm1)
-        |--> Call using command [ ESXi_BootMedia -Create -ESXiVersion '6.5'; ] to create a ESXi v6.5 .ISO file
-        |--> Format ESXi .ISO file onto a USB flash drive using Rufus.exe (download Rufus from URL [ https://rufus.ie/downloads/ ])
-        |--> Plug USB flash drive into PC to format ESXi onto, boot to it, format PC, then connect via web-browser to ESXi box's IP address (using https://...) once it boots up
+### Setup an ESXi 6.5+ host
+  - Acquire an ESXi license (free)
+    - Apply for a VMware license for your given version of ESXi (`6.x`, `7.x`, `8.x`, etc.) via the [My VMware portal](https://my.vmware.com/group/vmware/my-licenses)
+  - Download an ESXi `.iso` bootable image
+    - Reference: Powershell module [ESXI_BootMedia.psm1](https://github.com/mcavallo-git/Coding/blob/main/powershell/_WindowsPowerShell/Modules/ESXi_BootMedia/ESXi_BootMedia.psm1)
+      - Call using command `ESXi_BootMedia -Create -ESXiVersion '6.5';` to create an ESXi v6.5 `.iso` file
+    - Format ESXi .ISO file onto a USB flash drive using [Rufus.exe](https://rufus.ie/downloads/)
+    - Plug USB flash drive into PC to format ESXi onto, boot to it, format PC, then connect via web-browser to ESXi host's IP address (using https://...) once it boots up
 
 
 <!-- ------------------------------------------------------------ -->
 
 ***
-### Download the latest Hass.IO `.vmdk` image
+### Download the latest HomeAssistant `.vmdk` image
   - [View GitHub Releases Page - home-assistant/operating-system](https://github.com/home-assistant/operating-system/releases/)
     - Locate the [latest release](https://github.com/home-assistant/operating-system/releases/latest) of the Home Assistant OS
       - Scroll down to `Assets`, search for text `.vmdk` (via `CTRL+F`), and click the file to download the latest Home Assistant OS `.vmdk` image
@@ -26,7 +28,16 @@
 <!-- ------------------------------------------------------------ -->
 
 ***
-### Create a new VM on ESXi box
+### Upload the HomeAssistant `.vmdk` image to ESXi datastore
+  - In ESXi, browse to `Storage` > `Datastores` > `Datastore browser`
+    - Create a directory named `iso`
+      - Upload the `.vmdk` file downloaded from GitHub to this directory
+
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Create a new VM on ESXi host
   - [View YouTube Tutorial (Install Home Assistant OS in VMware ESXi)](https://www.youtube.com/watch?v=IxrF87VBTCg)
   - Name:  ANYTHING OTHER THAN "homeassistant" (e.g. name it something like "HomeAssistant-OS")
   - Guest OS family: `Linux`
@@ -44,7 +55,6 @@
 ***
 ### Download & Add HomeAssistant .VMDK disk (file) to HomeAssistant VM
   - [View Docs (Install Home Assistant Operating System)](https://www.home-assistant.io/installation/linux)
-  - Upload .VMDK file to the new VM's datastore directory either via SFTP or via the ESXi GUI browser tool
   - On the HomeAssistant VM (to attach VMDK disk to):
     - Edit settings
       - Add hard disk > Existing hard disk > (locate .vmdk file in new VM's datastore directory) > Set "Virtual Device Node"/"Controller location" to "IDE 0:0"/"IDE controller 0:Master"
@@ -66,7 +76,7 @@
 ***
 ### Quick Guide: Attaching a USB device(s) to ESXi VM from ESXi Host (pass-through USB)
   - [View YouTube Tutorial (How to Add Z-Wave to Home Assistant 2020)](https://www.youtube.com/watch?v=W0HD5mTqocA)
-  - Physically plug-in USB device into ESXi host box
+  - Physically plug-in USB device into ESXi host
   - In ESXi, on the HomeAssistant VM (to attach USB device to):
     - Shut down VM
     - Edit settings > Add other device > USB device > (Select USB device to attach to VM)

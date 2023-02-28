@@ -21,15 +21,38 @@ sleep 2;
 
 
 if [[ 1 -eq 1 ]]; then
-  # Create the new coredump file
-  echo "------------------------------------------------------------";
-  NEW_COREDUMP_DATASTORE_NAME="datastore-m2-sata";
-  # NEW_COREDUMP_DATASTORE_NAME="datastore_sata";
-  NEW_COREDUMP_DATASTORE_UUID="$(esxcli storage filesystem list | grep -i "${NEW_COREDUMP_DATASTORE_NAME}" | awk '{print $3}';)";
-  mkdir -p "/vmfs/volumes/${NEW_COREDUMP_DATASTORE_UUID}/vmkdump";  # Create the coredump directory on target datastore
-  esxcli system coredump file add --datastore=${NEW_COREDUMP_DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
-  esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel dump file ... to be selected using the smart selection algorithm."
-  sleep 2;
+  # VMware ESXi - Configure coredump storage option(s)
+  DATASTORE_LIST="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)' | awk '{print $2}';)";
+  DATASTORE_COUNT="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)' | wc -l;)";
+  if [[ "${DATASTORE_COUNT}" -le 0 ]]; then
+    echo -e "\n""ERROR:  No datastore(s) found";
+  else
+    sleep 2;
+    echo -e "\n""INFO:  Listing datastore names...";
+    echo "${DATASTORE_LIST}" | awk '{print $2}';
+    echo -e "\n";
+    read -p "Enter datastore name (to use for coredump):  " -t ${READ_TIMEOUT:-60} <'/dev/tty'; EXIT_CODE=${?};
+    if [[ -z "${REPLY}" ]]; then
+      echo -e "\n""ERROR:  Empty response received";
+    else
+      DATASTORE_UUID="$(echo "${DATASTORE_LIST}" | grep -i "${REPLY}" | awk '{print $3}';)";
+      if [[ -z "${DATASTORE_UUID}" ]]; then
+        echo -e "\n""ERROR:  Unable to resolve datastore UUID from name \"${REPLY}\"";
+      else
+        sleep 2;
+        echo -e "\n""INFO:  Calling [ mkdir -p \"/vmfs/volumes/${DATASTORE_UUID}/vmkdump\"; ]...";
+        mkdir -p "/vmfs/volumes/${DATASTORE_UUID}/vmkdump";  # Create the coredump directory on target datastore
+        sleep 2;
+        echo -e "\n""INFO:  Calling [ esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump; ]...";
+        esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
+        sleep 2;
+        echo -e "\n""INFO:  Calling [ esxcli system coredump file set --enable true --smart; ]...";
+        esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel dump file ... to be selected using the smart selection algorithm."
+        sleep 2;
+      fi;
+    fi;
+  fi;
+  echo -e "";
 fi;
 
 
@@ -174,6 +197,8 @@ fi;
 #   kb.vmware.com  |  "Configuring ESXi coredump to file instead of partition (2077516)"  |  https://kb.vmware.com/s/article/2077516?lang=en_US
 #
 #   kb.vmware.com  |  "How to detach a LUN device from ESXi hosts (2004605)"  |  https://kb.vmware.com/s/article/2004605
+#
+#   kb.vmware.com  |  "Removing the ESXi coredump file (2090057)"  |  https://kb.vmware.com/s/article/2090057
 #
 #   sites.google.com  |  "Fix My ScratchConfig Location - MyTechNotesProject"  |  https://sites.google.com/site/mytechnotesproject/vmware/fix-my-scratchconfig-location
 #

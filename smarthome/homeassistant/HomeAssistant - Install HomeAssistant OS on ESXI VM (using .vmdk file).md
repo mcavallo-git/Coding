@@ -39,17 +39,38 @@
 
 ***
 ### Create the `HomeAssistant-OS` VM
-  - [View YouTube Tutorial (Install Home Assistant OS in VMware ESXi)](https://www.youtube.com/watch?v=IxrF87VBTCg)
-  - Name:  ANYTHING OTHER THAN "homeassistant" (e.g. name it something like "HomeAssistant-OS")
-  - Guest OS family: `Linux`
-  - Guest OS version: `Other 2.6.x Linux (64-bit)`
-  - CPU: `2` (using "2 Cores per Socket" on 1 socket)
-  - Memory: `4 GB`
-  - Hard Disk:  `DELETE`  (hit `X` on right side)
-  - CD/DVD Drive 1:    `DELETE`  (hit `X` on right side)
-  - SCSI Controller 0: `DELETE`  (hit `X` on right side)
-  - SATA Controller 0: `DELETE`  (hit `X` on right side)
+  - [View YouTube Tutorial (Install Home Assistant OS in VMware ESXi)](https://www.youtube.com/watch?v=IxrF87VBTCg&t=110)
+  - In ESXi, browse to `Virtual Machines` > `Create / Register VM`
+    - `Create a new virtual machine`
+      - &rarr; `Next`
+    - `Name`:  `HomeAssistant-OS` (or anything other than `homeassistant`)
+    - `Guest OS family`: `Linux`
+    - `Guest OS version`: `Other 2.6.x Linux (64-bit)`
+      - &rarr; `Next`
+    - `Storage`: `(select datastore to run VM from)`
+      - &rarr; `Next`
+    - `CPU`: `2`
+      - `Cores per Socket`: `1`
+      - `Reservation`: `2061` `MHz`
+      - `Limit`: `6184` `MHz`
+    - `Memory`: `6144` `MB`
+      - ✅ `Reserve all guest memory (all locked)`
+      - `Limit`: `6144` `MB`
+    - `Network Adapter 1`: `VM Network`
+      - `Adapter Type`: `E1000e`
+    - `Hard Disk`:  `DELETE`  (hit `X` on right side)
+    - `SCSI Controller 0`: `DELETE`  (hit `X` on right side)
+    - `CD/DVD Drive 1`:    `DELETE`  (hit `X` on right side)
+    - `SATA Controller 0`: `DELETE`  (hit `X` on right side)
+      - &rarr; `Next`
 
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Copy `.vmdk` file to HomeAssistant VM's directory
+  - In ESXi, browse to `Storage` > `Datastores` > `Datastore browser`
+    - Copy the previously uploaded `.vmdk` file from its directory (`iso`) into the new VM's directory
 
 <!-- ------------------------------------------------------------ -->
 

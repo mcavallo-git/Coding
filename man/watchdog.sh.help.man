@@ -1,0 +1,12 @@
+# /sbin/watchdog.sh --help
+Usage: /sbin/watchdog.sh [-n] -a|-s|-k|-r <tag> [(options)] <command>
+   Start the watchdog: /sbin/watchdog.sh -s <tag> [-u <min_uptime>] [-q <max_quick_failures>] [-a ] [-t <max_total_failures>] [-i <respawn_delay>] [-z ] <command>
+   Start the watchdog in background: /sbin/watchdog.sh -d -s <tag> [-u <min_uptime>] [-q <max_quick_failures>] [-a ] [-t <max_total_failures>] [-i <respawn_delay>] [-z ] <command>
+   Kill a running watchdog: /sbin/watchdog.sh [-g ] -k <tag>
+   Query whether a watchdog is running: /sbin/watchdog.sh -r <tag>
+   Suppress logging: -n
+   Immortal mode: -i <respawn_delay>
+   In immortal mode instead of exiting after max_quick_failures watchdog sleeps for respawn_delay seconds and retries.
+   Reboot system when quick failures exceed max quick failures: -a
+   Start command in current session: -z
+   Kill entire process group: -g

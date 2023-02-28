@@ -370,10 +370,14 @@ fi;
     /etc/init.d/smartd stop;
     /bin/sleep 2;
     if [[ -f /var/run/vmware/smartd.PID ]] && [[ -z "$(/bin/ps | /bin/grep $(/bin/cat /var/run/vmware/smartd.PID;);)" ]]; then
-    /bin/rm -fv /var/run/vmware/smartd.PID; # Remove the PID file (dangling pointer)
+      /bin/rm -fv /var/run/vmware/smartd.PID; # Remove the PID file (dangling pointer)
     fi;
-    /bin/sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(\"\\\$\{SMARTD\}\".+$)/\1-i ${SMARTD_POLL_INTERVAL:-15} \2/g" -i "/etc/init.d/smartd";
-    /etc/init.d/smartd start;
+    /bin/sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(\"\\\$\{SMARTD\}\".+$)/\1-i ${SMARTD_POLL_INTERVAL:-15} \2/g" -i "/etc/init.d/smartd"; EXIT_CODE="${?}";
+    if [[ "${EXIT_CODE}" -ne 0 ]]; then
+      /bin/nohup /bin/smartd -i ${SMARTD_POLL_INTERVAL:-15} > "/tmp/nohup_smartd_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
+    else
+      /etc/init.d/smartd start;
+    fi;
     ```
   - Save and quit via `:wq` + `Enter`
 - ### Update the S.M.A.R.T. daemon config

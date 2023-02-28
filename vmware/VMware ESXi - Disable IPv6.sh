@@ -1,16 +1,16 @@
 #!/bin/sh
 # ------------------------------------------------------------
 
-# VMware ESXi - Get IPv6 Status (Networking)
+# VMware ESXi - Get Status of IPv6 Networking
 esxcli network ip get;
 
-# VMware ESXi - Disable IPv6 (Networking)
+# VMware ESXi - Disable IPv6 Networking
 esxcli network ip set --ipv6-enabled=false;
 
 
 # ------------------------------------------------------------
 
-# VMware ESXi - Disable IPv6 (System Module)
+# VMware ESXi - Disable IPv6 System Module
 esxcli system module parameters set -m tcpip4 -p ipv6=0;
 
 

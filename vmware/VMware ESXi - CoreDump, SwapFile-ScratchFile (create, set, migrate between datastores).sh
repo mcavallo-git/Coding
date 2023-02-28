@@ -3,7 +3,7 @@
 # VMware ESXi - Migrate coredump, swapfile-scratchfile, datastore
 # ------------------------------------------------------------
 #
-# COREDUMP FILE
+#   CoreDump (Configure)
 #
 
 
@@ -11,25 +11,35 @@ if [[ 1 -eq 1 ]]; then
   # VMware ESXi - Configure coredump storage option(s)
   DATASTORE_LIST="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)';)";
   DATASTORE_COUNT="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)' | wc -l;)";
+  sleep 1;
   if [[ "${DATASTORE_COUNT}" -le 0 ]]; then
     echo -e "\n""ERROR:  No datastore(s) found";
   else
-    sleep 2;
-    echo -e "\n""INFO:  Listing datastore names...";
-    echo "${DATASTORE_LIST}" | awk '{print $2}';
-    echo -e "\n";
-    read -p "Enter datastore name (to use for coredump):  " -t ${READ_TIMEOUT:-60} <'/dev/tty';
-    DATASTORE_NAME="${REPLY}";
+    sleep 1;
+    if [[ "${DATASTORE_COUNT}" -eq 1 ]]; then
+      # If only one datastore exists, use it by default
+      DATASTORE_NAME="$(echo "${DATASTORE_LIST}" | awk '{print $2}';)";
+      echo -e "\n""INFO:  Auto-selecting the only available datastore: \"${DATASTORE_NAME}\"";
+      sleep 1;
+    else
+      # Let the user select the desired datastore to be used
+      echo -e "\n""INFO:  Listing datastore names...";
+      echo "${DATASTORE_LIST}" | awk '{print $2}';
+      echo -e "\n";
+      read -p "Enter datastore name (to use for coredump):  " -t ${READ_TIMEOUT:-60} <'/dev/tty';
+      DATASTORE_NAME="${REPLY}";
+      sleep 1;
+    fi;
     if [[ -z "${DATASTORE_NAME}" ]]; then
-      echo -e "\n""ERROR:  Empty response received";
+      echo -e "\n""ERROR:  Empty datastore name received";
     else
       DATASTORE_MOUNTPOINT="$(echo "${DATASTORE_LIST}" | grep -i "\s${DATASTORE_NAME}\s" | awk '{print $1}';)";
       DATASTORE_UUID="$(echo "${DATASTORE_LIST}" | grep -i "\s${DATASTORE_NAME}\s" | awk '{print $3}';)";
-      sleep 2;
+      sleep 1;
       if [[ -z "${DATASTORE_UUID}" ]] || [[ -z "${DATASTORE_MOUNTPOINT}" ]]; then
         echo -e "\n""ERROR:  Unable to resolve datastore UUID from name \"${DATASTORE_NAME}\"";
       else
-        sleep 2;
+        sleep 1;
         # Check if coredump is already set as-intended
         CONFIGURED_COREDUMP_FULLPATH="$(esxcli system coredump file list | grep '^/vmfs' | awk '{print $1}';)";
         FORCE_RECONFIGURE_COREDUMP="0";
@@ -83,31 +93,42 @@ fi;
 
 # ------------------------------------------------------------
 #
-# SCRATCH/SWAPFILE
+#   Scratch/SwapFile (Configure)
 #
 
 if [[ 1 -eq 1 ]]; then
   # VMware ESXi - Configure scratch/swapfile storage option(s)
   DATASTORE_LIST="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)';)";
   DATASTORE_COUNT="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)' | wc -l;)";
-  sleep 2;
+  sleep 1;
   if [[ "${DATASTORE_COUNT}" -le 0 ]]; then
     echo -e "\n""ERROR:  No datastore(s) found";
   else
-    echo -e "\n""INFO:  Listing datastore names...";
-    echo "${DATASTORE_LIST}" | awk '{print $2}';
-    echo -e "\n";
-    read -p "Enter datastore name (to use for scratch/swapfile):  " -t ${READ_TIMEOUT:-60} <'/dev/tty';
-    DATASTORE_NAME="${REPLY}";
-    if [[ -z "${DATASTORE_NAME}" ]]; then
-      echo -e "\n""ERROR:  Empty response received";
+    sleep 1;
+    if [[ "${DATASTORE_COUNT}" -eq 1 ]]; then
+      # If only one datastore exists, use it by default
+      DATASTORE_NAME="$(echo "${DATASTORE_LIST}" | awk '{print $2}';)";
+      echo -e "\n""INFO:  Auto-selecting the only available datastore: \"${DATASTORE_NAME}\"";
+      sleep 1;
     else
-      DATASTORE_UUID="$(echo "${DATASTORE_LIST}" | grep -i "\s${DATASTORE_NAME}\s" | awk '{print $3}';)";
+      # Let the user select the desired datastore to be used
+      echo -e "\n""INFO:  Listing datastore names...";
+      echo "${DATASTORE_LIST}" | awk '{print $2}';
+      echo -e "\n";
+      read -p "Enter datastore name (to use for coredump):  " -t ${READ_TIMEOUT:-60} <'/dev/tty';
+      DATASTORE_NAME="${REPLY}";
+      sleep 1;
+    fi;
+    if [[ -z "${DATASTORE_NAME}" ]]; then
+      echo -e "\n""ERROR:  Empty datastore name received";
+    else
       DATASTORE_MOUNTPOINT="$(echo "${DATASTORE_LIST}" | grep -i "\s${DATASTORE_NAME}\s" | awk '{print $1}';)";
-      sleep 2;
+      DATASTORE_UUID="$(echo "${DATASTORE_LIST}" | grep -i "\s${DATASTORE_NAME}\s" | awk '{print $3}';)";
+      sleep 1;
       if [[ -z "${DATASTORE_UUID}" ]] || [[ -z "${DATASTORE_MOUNTPOINT}" ]]; then
         echo -e "\n""ERROR:  Unable to resolve datastore UUID from name \"${DATASTORE_NAME}\"";
       else
+        sleep 1;
         NEW_SCRATCH_LOCATION="${DATASTORE_MOUNTPOINT}/.locker";
         if [[ "${NEW_SCRATCH_LOCATION}" == "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
           echo -e "\n""INFO:  (Skipped) Scratch location already configured to use datastore \"${DATASTORE_NAME}\" with mount point: \"${DATASTORE_MOUNTPOINT}\"";

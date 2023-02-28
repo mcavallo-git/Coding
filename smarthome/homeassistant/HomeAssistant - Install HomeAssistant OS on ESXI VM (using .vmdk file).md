@@ -71,6 +71,7 @@
 ### Copy `.vmdk` file to HomeAssistant VM's directory
   - In ESXi, browse to `Storage` > `Datastores` > `Datastore browser`
     - Copy the previously uploaded `.vmdk` file from its directory (`iso`) into the new VM's directory
+    - Rename the `.vmdk` file to match your VM's name (such as `HomeAssistant-OS.vmdk`)
 
 <!-- ------------------------------------------------------------ -->
 

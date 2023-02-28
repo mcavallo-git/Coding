@@ -79,10 +79,16 @@
 ***
 ### Add `.vmdk` file to HomeAssistant VM
   - [View Docs (Install Home Assistant Operating System)](https://www.home-assistant.io/installation/linux)
-  - On the HomeAssistant VM (to attach `.vmdk` disk to):
-    - Edit settings
-      - Add hard disk > Existing hard disk > (locate `.vmdk` file in new VM's datastore directory) > Set "Virtual Device Node"/"Controller location" to "IDE 0:0"/"IDE controller 0:Master"
-      - VM Options > Boot Options > Firmware > Set to "EFI"
+  - In ESXi, browse to `Virtual Machines`
+    - `HomeAssistant-OS` > `Edit`
+      - `Add hard disk` > `Existing hard disk`
+        - Locate `.vmdk` file in VM's datastore directory
+          - &rarr; `Select`
+        - Set `Controller location` to `IDE controller 0` + `Master`
+          - *This may be shown as `Virtual Device Node` - If so, set it to `IDE 0:0`*
+      - `VM Options` (top) > `Boot Options`
+        - Set `Firmware` to `EFI`
+          - &rarr; `Save`
 
 
 <!-- ------------------------------------------------------------ -->

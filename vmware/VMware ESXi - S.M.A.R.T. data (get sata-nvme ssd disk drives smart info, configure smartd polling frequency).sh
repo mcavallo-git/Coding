@@ -51,6 +51,7 @@ fi;
 #
 # ESXi > Configure S.M.A.R.T. daemon poll-rate
 #
+#   ❌️ ⚠️ Doesn't work on ESXi v7.0+ hosts due to file privacy lockdowns on `/etc/init.d/smartd` (cannot be overwritten via `sed` or other action(s))
 
 # Open the shellscript in the `vim` editor:
 vi "/etc/rc.local.d/local.sh";
@@ -62,14 +63,14 @@ SMARTD_POLL_INTERVAL=15
 /etc/init.d/smartd stop;
 /bin/sleep 2;
 if [[ -f /var/run/vmware/smartd.PID ]] && [[ -z "$(/bin/ps | /bin/grep $(/bin/cat /var/run/vmware/smartd.PID;);)" ]]; then
-  /bin/rm -fv /var/run/vmware/smartd.PID; # Remove the PID file (dangling pointer)
+/bin/rm -fv /var/run/vmware/smartd.PID; # Remove the PID file (dangling pointer)
 fi;
 /bin/sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(\"\\\$\{SMARTD\}\".+$)/\1-i ${SMARTD_POLL_INTERVAL:-15} \2/g" -i "/etc/init.d/smartd"; EXIT_CODE="${?}";
 if [[ "${EXIT_CODE}" -ne 0 ]]; then
-  /bin/nohup /usr/sbin/smartd -i ${SMARTD_POLL_INTERVAL:-15} > "/tmp/nohup_smartd_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
-  # while [ 1 ]; do clear; date; echo -e "\n\n"; cat /tmp/nohup_smartd_$(date +'%Y%m%d')*.log; sleep 1; done;
+/bin/nohup /usr/sbin/smartd -i ${SMARTD_POLL_INTERVAL:-15} > "/tmp/nohup_smartd_$(date +'%Y%m%d%H%M%S').log" 2>&1 &
+# while [ 1 ]; do clear; date; echo -e "\n\n"; cat /tmp/nohup_smartd_$(date +'%Y%m%d')*.log; sleep 1; done;
 else
-  /etc/init.d/smartd start;
+/etc/init.d/smartd start;
 fi;
 # ---
 # Save and quit via `:wq` + `Enter`

@@ -58,7 +58,7 @@ if [[ 1 -eq 1 ]]; then
             FORCE_RECONFIGURE_COREDUMP="1";
           fi;
           # Show coredump status & associated value(s)
-          echo -e "\n""(Before Configuration Update(s))";
+          echo -e "\n""(Current Configuration)";
           esxcli system coredump file get;
           sleep 2;
           # Update the config
@@ -79,7 +79,7 @@ if [[ 1 -eq 1 ]]; then
         fi;
         if [[ "${COREDUMP_WAS_UPDATED}" -eq "1" ]]; then
           # Show coredump status & associated value(s)
-          echo -e "\n""(After Configuration Update(s))";
+          echo -e "\n""(New Configuration)";
           esxcli system coredump file get;
           sleep 2;
         fi;
@@ -131,7 +131,7 @@ if [[ 1 -eq 1 ]]; then
       else
         sleep 1;
         # Show scratch/swapfile status & associated value(s)
-        echo -e "\n""(After Configuration Update(s))";
+        echo -e "\n""(Current Configuration)";
         CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
         echo -e "\"ScratchConfig.CurrentScratchLocation\":     \"${CURRENT_SCRATCH_LOCATION}\"  (currently in use)";
         sleep 1;
@@ -162,7 +162,7 @@ if [[ 1 -eq 1 ]]; then
           vim-cmd hostsvc/advopt/update "ScratchConfig.ConfiguredScratchLocation" string "${DATASTORE_SCRATCH_DIRNAME}"; # Update: "The directory configured to be used for scratch space. Changes will take effect on next reboot."
           sleep 5;
           # Show scratch/swapfile status & associated value(s)
-          echo -e "\n""(After Configuration Update(s))";
+          echo -e "\n""(New Configuration)";
           CURRENT_SCRATCH_LOCATION="$(vim-cmd hostsvc/advopt/view "ScratchConfig.CurrentScratchLocation" | sed -rne "s/^\s*value = \"([^\"]+)\".*$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
           echo -e "\"ScratchConfig.CurrentScratchLocation\":     \"${CURRENT_SCRATCH_LOCATION}\"  (currently in use)";
           sleep 1;

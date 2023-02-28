@@ -19,6 +19,7 @@ if [[ 1 -eq 1 ]]; then
   mkdir -p "${LOGDIR}";
   if [[ ! -f "${MAX_TEMP_FULLPATH}" ]]; then echo -n "0" > "${MAX_TEMP_FULLPATH}"; fi;
   if [[ ! -f "${MIN_TEMP_FULLPATH}" ]]; then echo -n "100" > "${MIN_TEMP_FULLPATH}"; fi;
+  DEGREES_CELSIUS="$(echo -e "\\xC2\\xB0";)C";
   # ---
   while [[ 1 -eq 1 ]]; do
     clear; date; echo "";
@@ -35,9 +36,12 @@ if [[ 1 -eq 1 ]]; then
     # echo "CURRENT_TEMP = [ ${CURRENT_TEMP} ]";
     if [[ "${CURRENT_TEMP}" -gt "$(cat "${MAX_TEMP_FULLPATH}";)" ]]; then echo -n "${CURRENT_TEMP}" > "${MAX_TEMP_FULLPATH}"; fi;
     if [[ "${CURRENT_TEMP}" -lt "$(cat "${MIN_TEMP_FULLPATH}";)" ]]; then echo -n "${CURRENT_TEMP}" > "${MIN_TEMP_FULLPATH}"; fi;
-    echo "CURRENT_TEMP = [ ${CURRENT_TEMP} ]";
-    echo "MAX_TEMP = [ $(cat "${MAX_TEMP_FULLPATH}";) ]";
-    echo "MIN_TEMP = [ $(cat "${MIN_TEMP_FULLPATH}";) ]";
+    echo "CURRENT_TEMP  =  ${CURRENT_TEMP} ${DEGREES_CELSIUS}";
+    echo "";
+    echo "    MAX_TEMP  =  $(cat "${MAX_TEMP_FULLPATH}";) ${DEGREES_CELSIUS}";
+    echo "";
+    echo "    MIN_TEMP  =  $(cat "${MIN_TEMP_FULLPATH}";) ${DEGREES_CELSIUS}";
+    echo "";
     sleep 5;
   done;
 fi;

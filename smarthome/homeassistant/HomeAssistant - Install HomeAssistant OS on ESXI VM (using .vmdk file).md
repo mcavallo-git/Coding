@@ -19,17 +19,17 @@
 <!-- ------------------------------------------------------------ -->
 
 ***
-### Download the latest HomeAssistant `.vmdk` image
+### Download the latest HomeAssistant `.vmdk` file
   - [View GitHub Releases Page - home-assistant/operating-system](https://github.com/home-assistant/operating-system/releases/)
     - Locate the [latest release](https://github.com/home-assistant/operating-system/releases/latest) of the Home Assistant OS
-      - Scroll down to `Assets`, search for text `.vmdk` (via `CTRL+F`), and click the file to download the latest Home Assistant OS `.vmdk` image
+      - Scroll down to `Assets`, search for text `.vmdk` (via `CTRL+F`), and click the file to download the latest Home Assistant OS `.vmdk` file
         - Example filename to download:  [`haos_ova-9.5.vmdk.zip`](https://github.com/home-assistant/operating-system/releases/download/9.5/haos_ova-9.5.vmdk.zip)   *(replace `9.5` with whatever the latest version is)*
 
 
 <!-- ------------------------------------------------------------ -->
 
 ***
-### Upload the HomeAssistant `.vmdk` image to ESXi datastore
+### Upload the HomeAssistant `.vmdk` file to ESXi datastore
   - In ESXi, browse to `Storage` > `Datastores` > `Datastore browser`
     - Create a directory named `iso`
       - Upload the `.vmdk` file downloaded from GitHub to this directory

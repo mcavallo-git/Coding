@@ -29,13 +29,12 @@ fi;
 
 if [[ 1 -eq 1 ]]; then
   ACTION_DESCRIPTION="Sleep for 2 seconds";
-  READ_TIMEOUT=60;
   USER_RESPONSE="";
-  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now?  (press 'y' to confirm)  " -a USER_RESPONSE -n 1 -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=${?};
+  read -p "Perform action [ ${ACTION_DESCRIPTION} ], now?  (press 'y' to confirm)  " -a USER_RESPONSE -n 1 -t ${READ_TIMEOUT:-60} <'/dev/tty'; EXIT_CODE=${?};
   echo "";
   if [[ "${EXIT_CODE}" -gt 128 ]]; then
     # FAILED - USER INPUT TIMED OUT
-    echo "Error:  Response timed out after ${READ_TIMEOUT}s";
+    echo "Error:  Response timed out after ${READ_TIMEOUT:-60}s";
   elif [[ -z "${USER_RESPONSE}" ]]; then
     # DENIED - USER INPUT IS EMPTY
     echo "Warning:  DENIED  (empty response received)";
@@ -58,12 +57,11 @@ fi;
 
 
 if [[ 1 -eq 1 ]]; then
-  READ_TIMEOUT=60;
   USER_RESPONSE="";
-  read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT} <'/dev/tty'; EXIT_CODE=${?};
+  read -p "Enter a string:  " -a USER_RESPONSE -t ${READ_TIMEOUT:-60} <'/dev/tty'; EXIT_CODE=${?};
   if [[ "${EXIT_CODE}" -gt 128 ]]; then
     # ERROR - USER INPUT TIMED OUT
-    echo "Error:  Response timed out after ${READ_TIMEOUT}s";
+    echo "Error:  Response timed out after ${READ_TIMEOUT:-60}s";
   elif [[ -z "${USER_RESPONSE}" ]]; then
     # WARNING - USER INPUT IS EMPTY
     echo "Warning:  Empty response received";

@@ -8,23 +8,6 @@
 
 
 if [[ 1 -eq 1 ]]; then
-  # Remove old coredump file(s)
-  echo "------------------------------------------------------------";
-  esxcli system coredump file get;  # "Get the dump file path. This command will print the path to the active and/or configured VMFS Dump File."
-  CURRENT_COREDUMP_FULLPATH="$(esxcli system coredump file list | grep '^/vmfs' | awk '{print $1}';)";
-  esxcli system coredump file set --unconfigure;  # "Unconfigure the current VMFS Dump file."
-  if [[ -n "${CURRENT_COREDUMP_FULLPATH}" ]] && [[ -f "${CURRENT_COREDUMP_FULLPATH}" ]]; then
-    esxcli system coredump file remove --file=${CURRENT_COREDUMP_FULLPATH};  # "Specify the file name of the Dump File to be removed.  If not given, the configured dump file will be removed."
-  fi;
-  sleep 2;
-  echo "------------------------------------------------------------";
-  esxcli system coredump file get;  # "Get the dump file path. This command will print the path to the active and/or configured VMFS Dump File."
-  sleep 2;
-  echo "------------------------------------------------------------";
-fi;
-
-
-if [[ 1 -eq 1 ]]; then
   # VMware ESXi - Configure coredump storage option(s)
   DATASTORE_LIST="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)';)";
   DATASTORE_COUNT="$(esxcli storage filesystem list | grep -v '^\(-----\|Mount\)' | grep -v '\s\s\(BOOTBANK\|LOCKER\)' | wc -l;)";
@@ -47,24 +30,50 @@ if [[ 1 -eq 1 ]]; then
         echo -e "\n""ERROR:  Unable to resolve datastore UUID from name \"${DATASTORE_NAME}\"";
       else
         sleep 2;
-        # Show coredump status & associated value(s)
-        echo -e "\n""(Before Configuration Update(s))";
-        esxcli system coredump file get;
-        sleep 2;
-        # Update the config
-        echo -e "\n""INFO:  Calling [ mkdir -p \"${DATASTORE_MOUNTPOINT}/vmkdump\"; ]...";
-        mkdir -p "${DATASTORE_MOUNTPOINT}/vmkdump";  # Create the coredump directory on target datastore
-        sleep 2;
-        echo -e "\n""INFO:  Calling [ esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump; ]...";
-        esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
-        sleep 2;
-        echo -e "\n""INFO:  Calling [ esxcli system coredump file set --enable true --smart; ]...";
-        esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel dump file ... to be selected using the smart selection algorithm."
-        sleep 2;
-        # Show coredump status & associated value(s)
-        echo -e "\n""(After Configuration Update(s))";
-        esxcli system coredump file get;
-        sleep 2;
+        # Check if coredump is already set as-intended
+        CONFIGURED_COREDUMP_FULLPATH="$(esxcli system coredump file list | grep '^/vmfs' | awk '{print $1}';)";
+        FORCE_RECONFIGURE_COREDUMP="0";
+        COREDUMP_WAS_UPDATED="0";
+        sleep 1;
+        CONFIGURED_COREDUMP_DIRNAME="$(dirname "${CONFIGURED_COREDUMP_FULLPATH}";)";
+        DATASTORE_COREDUMP_DIRNAME="${DATASTORE_MOUNTPOINT}/vmkdump";
+        sleep 1;
+        if [[ "${DATASTORE_COREDUMP_DIRNAME}" == "${CONFIGURED_COREDUMP_DIRNAME}" ]]; then
+          echo -e "\n""INFO:  (Skipped) CoreDump already configured to use datastore \"${DATASTORE_NAME}\" with mount point: \"${DATASTORE_MOUNTPOINT}\"";
+        else
+          sleep 2;
+          # Remove old CoreDump file
+          if [[ -n "${CONFIGURED_COREDUMP_FULLPATH}" ]] && [[ -f "${CONFIGURED_COREDUMP_FULLPATH}" ]]; then
+            esxcli system coredump file set --unconfigure;  # "Unconfigure the current VMFS Dump file."
+            esxcli system coredump file remove --file=${CONFIGURED_COREDUMP_FULLPATH};  # "Specify the file name of the Dump File to be removed. If not given, the configured dump file will be removed."
+            FORCE_RECONFIGURE_COREDUMP="1";
+          fi;
+          # Show coredump status & associated value(s)
+          echo -e "\n""(Before Configuration Update(s))";
+          esxcli system coredump file get;
+          sleep 2;
+          # Update the config
+          echo -e "\n""INFO:  Calling [ mkdir -p \"${DATASTORE_COREDUMP_DIRNAME}\"; ]...";
+          mkdir -p "${DATASTORE_COREDUMP_DIRNAME}";  # Create the coredump directory on target datastore
+          sleep 2;
+          echo -e "\n""INFO:  Calling [ esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump; ]...";
+          esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
+          sleep 2;
+          COREDUMP_WAS_UPDATED="1";
+        fi;
+        # Check if we need to enable the coredump file
+        if [[ "${FORCE_RECONFIGURE_COREDUMP}" -eq "1" ]] || [[ "$(esxcli system coredump file list | grep '^/vmfs' | awk '{print $2}';)" != "true" ]]; then
+          sleep 1;
+          echo -e "\n""INFO:  Calling [ esxcli system coredump file set --enable true --smart; ]...";
+          esxcli system coredump file set --enable true --smart;  # "Enable the VMkernel dump file ... to be selected using the smart selection algorithm."
+          sleep 1;
+        fi;
+        if [[ "${COREDUMP_WAS_UPDATED}" -eq "1" ]]; then
+          # Show coredump status & associated value(s)
+          echo -e "\n""(After Configuration Update(s))";
+          esxcli system coredump file get;
+          sleep 2;
+        fi;
       fi;
     fi;
   fi;
@@ -101,7 +110,7 @@ if [[ 1 -eq 1 ]]; then
       else
         NEW_SCRATCH_LOCATION="${DATASTORE_MOUNTPOINT}/.locker";
         if [[ "${NEW_SCRATCH_LOCATION}" == "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
-          echo -e "\n""INFO:  Scratch location already configured to use datastore \"${DATASTORE_NAME}\" with UUID path: \"${DATASTORE_MOUNTPOINT}\"";
+          echo -e "\n""INFO:  (Skipped) Scratch location already configured to use datastore \"${DATASTORE_NAME}\" with mount point: \"${DATASTORE_MOUNTPOINT}\"";
         else
           sleep 2;
           # Show scratch/swapfile status & associated value(s)

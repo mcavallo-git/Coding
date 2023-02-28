@@ -2,6 +2,9 @@
 # ------------------------------------------------------------
 # VMware ESXi - Migrate coredump, swapfile-scratchfile, datastore
 # ------------------------------------------------------------
+#
+# COREDUMP FILE
+#
 
 
 if [[ 1 -eq 1 ]]; then
@@ -49,8 +52,8 @@ if [[ 1 -eq 1 ]]; then
         esxcli system coredump file get;
         sleep 2;
         # Update the config
-        echo -e "\n""INFO:  Calling [ mkdir -p \"/vmfs/volumes/${DATASTORE_UUID}/vmkdump\"; ]...";
-        mkdir -p "/vmfs/volumes/${DATASTORE_UUID}/vmkdump";  # Create the coredump directory on target datastore
+        echo -e "\n""INFO:  Calling [ mkdir -p \"${DATASTORE_MOUNTPOINT}/vmkdump\"; ]...";
+        mkdir -p "${DATASTORE_MOUNTPOINT}/vmkdump";  # Create the coredump directory on target datastore
         sleep 2;
         echo -e "\n""INFO:  Calling [ esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump; ]...";
         esxcli system coredump file add --datastore=${DATASTORE_UUID} --file=coredump;  # "Create a VMkernel Dump VMFS file for this system. Manually specify the datastore & file name of the created Dump File"
@@ -68,6 +71,11 @@ if [[ 1 -eq 1 ]]; then
   echo -e "";
 fi;
 
+
+# ------------------------------------------------------------
+#
+# SCRATCH/SWAPFILE
+#
 
 if [[ 1 -eq 1 ]]; then
   # VMware ESXi - Configure scratch/swapfile storage option(s)
@@ -91,7 +99,7 @@ if [[ 1 -eq 1 ]]; then
       if [[ -z "${DATASTORE_UUID}" ]] || [[ -z "${DATASTORE_MOUNTPOINT}" ]]; then
         echo -e "\n""ERROR:  Unable to resolve datastore UUID from name \"${DATASTORE_NAME}\"";
       else
-        NEW_SCRATCH_LOCATION="/vmfs/volumes/${DATASTORE_UUID}/.locker";
+        NEW_SCRATCH_LOCATION="${DATASTORE_MOUNTPOINT}/.locker";
         if [[ "${NEW_SCRATCH_LOCATION}" != "${CONFIGURED_SCRATCH_LOCATION}" ]]; then
           sleep 2;
           # Show scratch/swapfile status & associated value(s)
@@ -106,7 +114,7 @@ if [[ 1 -eq 1 ]]; then
           echo -e "\n""INFO:  Calling [ mkdir -p \"${NEW_SCRATCH_LOCATION}\"; ]...";
           mkdir -p "${NEW_SCRATCH_LOCATION}";
           # Perform the update to the scratch/swapfile
-          echo -e "\n""INFO:  Configuring scratch location to use datastore \"${DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${DATASTORE_UUID}\"";
+          echo -e "\n""INFO:  Configuring scratch location to use datastore \"${DATASTORE_NAME}\" with mount point: \"${DATASTORE_MOUNTPOINT}\"...";
           DATASTORE_ENABLED="$(esxcli sched swap system get | sed -rne "s/^\s*Datastore Enabled: ([^\s]+)$/\1/p" | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//";)";
           if [[ "${DATASTORE_ENABLED}" == "true" ]]; then
             echo -e "\n""INFO:  Calling [ esxcli sched swap system set --datastore-enabled false; ]...";
@@ -128,7 +136,7 @@ if [[ 1 -eq 1 ]]; then
           echo -e "\"ScratchConfig.ConfiguredScratchLocation\":  \"${CONFIGURED_SCRATCH_LOCATION}\"  (used after next reboot)";
           sleep 1;
         else
-          echo -e "\n""INFO:  Scratch location already configured to use datastore \"${DATASTORE_NAME}\" with UUID path: \"/vmfs/volumes/${DATASTORE_UUID}\"";
+          echo -e "\n""INFO:  Scratch location already configured to use datastore \"${DATASTORE_NAME}\" with UUID path: \"${DATASTORE_MOUNTPOINT}\"";
         fi;
       fi;
     fi;
@@ -140,7 +148,6 @@ if [[ 1 -eq 1 ]]; then
   fi;
   echo "";
 fi;
-
 
 
 # ------------------------------------------------------------

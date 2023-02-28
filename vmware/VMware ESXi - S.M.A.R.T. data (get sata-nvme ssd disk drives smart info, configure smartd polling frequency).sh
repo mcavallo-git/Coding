@@ -2,11 +2,9 @@
 # ------------------------------
 # VMware ESXi - S.M.A.R.T. data (get sata-nvme ssd disk drives smart info, configure smartd polling frequency)
 # ------------------------------
-#
-# Watch S.M.A.R.T. disk values
-#
 
-watch -n 15 esxcli storage core device smart get --device-name="$(esxcli storage core device list | sed -rne "s/^\s+Other UIDs:\s+(.{1,80})$/\1/p";)";
+# Watch S.M.A.R.T. disk values
+watch -n 15 esxcli storage core device smart get --device-name="$(esxcli storage core device list | sed -rne "s/^\s+Other UIDs:\s+(.{1,80})$/\1/p" | head -n 1;)";
 
 
 # ------------------------------

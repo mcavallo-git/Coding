@@ -4,19 +4,16 @@
 # Replace a Default HTTPS Certificate with a CA-Signed Certificate (onto target [ ESXi ] instance)
 
 
-cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').crt"; # Backup the original certificate
+# Step 1/3 - FULLCHAIN (CERT+CHAIN) - Backup the original certificate, then (in vim) clear the file via ":1,$d" -> Enter insert-mode via "i" -> Paste updated, PEM-formatted Certificate + CA-Chain via "Shift+Ins" -> Save/Quit via ":wq!"
+cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').crt"; vi "/etc/vmware/ssl/rui.crt";
 
 
-cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').key"; # Backup the original private-key
+# Step 2/3 - PRIVKEY - Backup the original private-key, then (in vim) clear the file via ":1,$d" -> Enter insert-mode via "i" -> Paste updated, PEM-formatted Private-Key via "Shift+Ins" -> Save/Quit via ":wq!"
+cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').key"; vi "/etc/vmware/ssl/rui.key";
 
 
-vi "/etc/vmware/ssl/rui.crt";  # Clear file via ":1,$d" -> Enter insert-mode via "i" -> Paste updated, PEM-formatted Certificate + CA-Chain via "Shift+Ins" -> Save/Quit via ":wq!"
-
-
-vi "/etc/vmware/ssl/rui.key";  # Clear file via ":1,$d" -> Enter insert-mode via "i" -> Paste updated, PEM-formatted Private-Key via "Shift+Ins" -> Save/Quit via ":wq!"
-
-
-/etc/init.d/hostd restart; /etc/init.d/vpxa restart;  # Restart the [ ESXi host daemon ] followed by the [ vCenter Agent ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
+# Step 3/3 - Restart the [ ESXi host daemon ] followed by the [ vCenter Agent ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
+/etc/init.d/hostd restart; /etc/init.d/vpxa restart;
 
 
 # ------------------------------------------------------------

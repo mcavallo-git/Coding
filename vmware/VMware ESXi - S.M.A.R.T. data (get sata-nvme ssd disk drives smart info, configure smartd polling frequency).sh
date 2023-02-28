@@ -52,7 +52,11 @@ vi "/etc/rc.local.d/local.sh";
 # Poll the SMART daemon every 15 minutes (instead of the default of every 30)
 SMARTD_POLL_INTERVAL=15
 /etc/init.d/smartd stop;
-sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(\"\\\$\{SMARTD\}\".+$)/\1-i ${SMARTD_POLL_INTERVAL:-15} \2/g" -i "/etc/init.d/smartd";
+/bin/sleep 2;
+if [[ -f /var/run/vmware/smartd.PID ]] && [[ -z "$(/bin/ps | /bin/grep $(/bin/cat /var/run/vmware/smartd.PID;);)" ]]; then
+/bin/rm -fv /var/run/vmware/smartd.PID; # Remove the PID file (dangling pointer)
+fi;
+/bin/sed -r "s/^(.+ -t \"\\\$\{MAX_RETRIES\}\" )(\"\\\$\{SMARTD\}\".+$)/\1-i ${SMARTD_POLL_INTERVAL:-15} \2/g" -i "/etc/init.d/smartd";
 /etc/init.d/smartd start;
 # ---
 # Save and quit via `:wq` + `Enter`

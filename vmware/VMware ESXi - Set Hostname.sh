@@ -4,8 +4,17 @@
 esxcfg-advcfg -g "/Misc/hostname";
 
 
-# Set ESXi Host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
-esxcfg-advcfg -s "HOSTNAME.DOMAIN.TLD" "/Misc/hostname"; /etc/init.d/hostd restart;
+# Set ESXi host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) - Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
+if [[ 1 -eq 1 ]]; then
+  read -p "Enter hostname for this ESXi host (domain optionally included):  " -t ${READ_TIMEOUT:-60} <'/dev/tty'; EXIT_CODE=${?};
+  if [[ -n "${REPLY}" ]]; then
+    echo -e "\n""INFO:  Calling [ esxcfg-advcfg -s \"${REPLY}\" \"/Misc/hostname\"; /etc/init.d/hostd restart; ]...";
+    esxcfg-advcfg -s "${REPLY}" "/Misc/hostname"; /etc/init.d/hostd restart;
+  else
+    echo "Error:  Empty response received";
+  fi;
+  echo "";
+fi;
 
 
 # Manual Network Config

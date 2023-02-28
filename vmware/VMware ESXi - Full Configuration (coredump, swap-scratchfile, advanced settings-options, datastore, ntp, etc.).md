@@ -380,7 +380,7 @@ done;
 
 ***
 # ESXi > Configure S.M.A.R.T. daemon poll-rate
-- ❌️ ⚠️ Doesn't work on ESXi v7.0+ hosts due to file privacy lockdowns on `/etc/init.d/smartd` (cannot be overwritten via `sed` or any other action(s))
+- ❌️ ⚠️ Doesn't work on ESXi v7.0+ hosts due to file privacy lockdowns on `/etc/init.d/smartd` (cannot be overwritten via `sed` or other action(s))
 - ### Update the ESXi startup script:
   - Open the shellscript in the `vim` editor:
     ```bash

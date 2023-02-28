@@ -12,7 +12,7 @@ cp "/etc/vmware/ssl/rui.crt" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').c
 cp "/etc/vmware/ssl/rui.key" "/etc/vmware/ssl/rui.bak.$(date +'%Y%m%d_%H%M%S').key"; vi "/etc/vmware/ssl/rui.key";
 
 
-# Step 3/3 - Restart the [ ESXi host daemon ] followed by the [ vCenter Agent ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
+# Step 3/3 - Restart the [ ESXi host daemon ] followed by the [ vCenter Agent ] service (should be accessible again within ~15-30 seconds)
 /etc/init.d/hostd restart; /etc/init.d/vpxa restart;
 
 

@@ -3,33 +3,38 @@
 # ------------------------------------------------------------
 
 if [[ 1 -eq 1 ]]; then
-
-esxcli system account list; esxcli system permission list;
-
-USER_NAME="DAT_USER";
-
-esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -p -c;
-
-# USER_PASS="DAT_PASS"; esxcli system account add -d="${USER_NAME}" -i="${USER_NAME}" -p="${USER_PASS}" -c="${USER_PASS}";
-
-esxcli system permission set --id "${USER_NAME}" --role "Admin";
-
-esxcli system account list; esxcli system permission list;
-
+  # Add a new local admin user to ESXi
+  echo -e "\n""INFO:  Calling [ esxcli system account list; esxcli system permission list; ]...";
+  esxcli system account list; esxcli system permission list;
+  sleep 2;
+  echo -e "\n";
+  read -p "Enter username (to create & add as a local admin):  " -t ${READ_TIMEOUT:-60} <'/dev/tty'; EXIT_CODE=${?};
+  if [[ -n "${REPLY}" ]]; then
+    echo -e "\n""INFO:  Calling [ esxcli system account add -d=\"${REPLY}\" -i=\"${REPLY}\" -p -c; ]...";
+    # Create a new System Account
+    esxcli system account add -d="${REPLY}" -i="${REPLY}" -p -c;
+    sleep 2;
+    echo -e "\n""INFO:  Calling [ esxcli system permission set --id \"${REPLY}\" --role \"Admin\"; ]...";
+    # Assign to the role of "Admin" to target account
+    esxcli system permission set --id "${REPLY}" --role "Admin";
+    sleep 2;
+    echo -e "\n""INFO:  Calling [ esxcli system account list; esxcli system permission list; ]...";
+    esxcli system account list; esxcli system permission list;
+    sleep 2;
+  else
+    echo "Error:  Empty response received";
+  fi;
+  echo "";
 fi;
 
 
 # ------------------------------------------------------------
 
 if [[ 0 -eq 1 ]]; then
-
-USERNAME_TO_DELETE="DAT_USER";
-
-# Delete a system user account from ESXi:
-esxcli system account remove -i "${USERNAME_TO_DELETE}";
-
-esxcli system account list;
-
+  # Delete a system user account from ESXi:
+  USERNAME_TO_DELETE="DAT_USER";
+  esxcli system account remove -i "${USERNAME_TO_DELETE}";
+  esxcli system account list;
 fi;
 
 # ------------------------------------------------------------

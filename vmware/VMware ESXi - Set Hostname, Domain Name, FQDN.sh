@@ -1,11 +1,13 @@
 #!/bin/sh
+# ------------------------------
 
 # Check ESXi's current hostname configuration
 esxcfg-advcfg -g "/Misc/hostname";
 
 
-# Set ESXi host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) - Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
+# Set ESXi's hostname
 if [[ 1 -eq 1 ]]; then
+  # Set ESXi host's FQDN (Host/Domain Names) & Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds)
   read -p "Enter hostname for this ESXi host (domain optionally included):  " -t ${READ_TIMEOUT:-60} <'/dev/tty'; EXIT_CODE=${?};
   if [[ -n "${REPLY}" ]]; then
     echo -e "\n""INFO:  Calling [ esxcfg-advcfg -s \"${REPLY}\" \"/Misc/hostname\"; /etc/init.d/hostd restart; ]...";
@@ -16,6 +18,8 @@ if [[ 1 -eq 1 ]]; then
   echo "";
 fi;
 
+
+# ------------------------------
 
 # Manual Network Config
 if [ 1 -eq 1 ]; then
@@ -32,7 +36,7 @@ echo "${LAN_IPv4}     $(hostname -f) $(hostname -s)" >> "/etc/hosts";
 else
 echo "${LAN_IPv4}     $(hostname)" >> "/etc/hosts";
 fi;
-/etc/init.d/hostd restart; # Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds) Note: Doesn't affect ESXi's hosting of any VMs or their associated network connection(s)
+/etc/init.d/hostd restart; # Restart the [ ESXi host daemon ] service (should be accessible again within ~15-30 seconds)
 fi;
 fi;
 

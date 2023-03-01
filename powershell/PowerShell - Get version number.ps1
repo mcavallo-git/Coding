@@ -13,8 +13,6 @@ pwsh --version;
 # Native PowerShell (v5.1 and lower) has no simple way to get its version (especially not from external sources, sadly)
 PowerShell -Command 'Write-Output ((Write-Output PowerShell)+([String][Char]32)+(((GV PSVersionTable).Value).PSVersion.Major)+(Write-Output .)+(((GV PSVersionTable).Value).PSVersion.Minor))';
 
-PowerShell -Command '(gv PSVersionTable).Value';
-
 
 # ------------------------------------------------------------
 #

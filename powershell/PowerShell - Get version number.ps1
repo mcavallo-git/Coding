@@ -6,7 +6,7 @@
 # ------------------------------------------------------------
 
 
-# pwsh (PowerShell Core) has a build-in method for checking versioning (thankfully)
+# pwsh (PowerShell Core) has a built-in method for checking versioning (thankfully)
 pwsh --version;
 
 

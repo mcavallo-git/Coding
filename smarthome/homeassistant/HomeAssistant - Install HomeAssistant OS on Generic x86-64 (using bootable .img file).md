@@ -8,6 +8,7 @@
 ***
 ### Guide
   - [View Docs (Install Home Assistant Operating System - Generic x86-64)](https://www.home-assistant.io/installation/generic-x86-64/)
+  - [View Docs (Steps to success for Hass.io on Intel NUC - Home Assistant Community)](https://community.home-assistant.io/t/my-steps-to-success-for-hass-io-on-intel-nuc/43915/378)
 
 
 <!-- ---------------------------------------------------------

@@ -22,13 +22,13 @@ PowerShell -Command 'Write-Output ((Write-Output PowerShell)+([String][Char]32)+
 #
 #  Format:   Major.Minor.Build (PowerShell)  /  Major.Minor.Patch  (pwsh)
 #
-$PSV="";If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Major)){$PSV+=(${PSVersionTable}.PSVersion.Major);If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Minor)){$PSV+="."; $PSV+=(${PSVersionTable}.PSVersion.Minor);If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Patch)){$PSV+="."; $PSV+=(${PSVersionTable}.PSVersion.Patch);}ElseIf(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Build)){$PSV+="."; $PSV+=(${PSVersionTable}.PSVersion.Build);};};};Write-Output "PowerShell ${PSV}"; <# Get the version of PowerShell in the format [ ajor.Minor.Build (PowerShell) / Major.Minor.Patch  (pwsh) ] #>
+$Version="";If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Major)){$Version+=(${PSVersionTable}.PSVersion.Major);If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Minor)){$Version+="."; $Version+=(${PSVersionTable}.PSVersion.Minor);If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Patch)){$Version+="."; $Version+=(${PSVersionTable}.PSVersion.Patch);}ElseIf(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Build)){$Version+="."; $Version+=(${PSVersionTable}.PSVersion.Build);};};};Write-Output "PowerShell ${Version}"; <# Get the version of PowerShell in the format [ ajor.Minor.Build (PowerShell) / Major.Minor.Patch  (pwsh) ] #>
 
 
 #
 #  Format:   Major.Minor
 #
-$PSV="";If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Major)){$PSV+=(${PSVersionTable}.PSVersion.Major);If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Minor)){$PSV+="."; $PSV+=(${PSVersionTable}.PSVersion.Minor);};};Write-Output "PowerShell ${PSV}"; <# Get the version of PowerShell with the format [ Major.Minor ] #>
+$Version="";If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Major)){$Version+=(${PSVersionTable}.PSVersion.Major);If(-Not [String]::IsNullOrEmpty(${PSVersionTable}.PSVersion.Minor)){$Version+="."; $Version+=(${PSVersionTable}.PSVersion.Minor);};};Write-Output "PowerShell ${Version}"; <# Get the version of PowerShell with the format [ Major.Minor ] #>
 
 
 # ------------------------------------------------------------

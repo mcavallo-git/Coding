@@ -3,42 +3,138 @@
 ##  Desc:  Install Google Chrome
 ################################################################################
 
+function Install-Binary
+{
+  <#
+  .SYNOPSIS
+    A helper function to install executables.
+  .DESCRIPTION
+    Download and install .exe or .msi binaries from specified URL.
+  .PARAMETER Url
+    The URL from which the binary will be downloaded. Required parameter.
+  .PARAMETER Name
+    The Name with which binary will be downloaded. Required parameter.
+  .PARAMETER ArgumentList
+    The list of arguments that will be passed to the installer. Required for .exe binaries.
+  .EXAMPLE
+    Install-Binary -Url "https://go.microsoft.com/fwlink/p/?linkid=2083338" -Name "winsdksetup.exe" -ArgumentList ("/features", "+", "/quiet")
+  #>
+
+  Param
+  (
+    [Parameter(Mandatory, ParameterSetName="Url")]
+    [String] $Url,
+    [Parameter(Mandatory, ParameterSetName="Url")]
+    [String] $Name,
+    [Parameter(Mandatory, ParameterSetName="LocalPath")]
+    [String] $FilePath,
+    [String[]] $ArgumentList
+  )
+
+  if ($PSCmdlet.ParameterSetName -eq "LocalPath")
+  {
+    $name = Split-Path -Path $FilePath -Leaf
+  }
+  else
+  {
+    Write-Host "Downloading $Name..."
+    $filePath = Start-DownloadWithRetry -Url $Url -Name $Name
+  }
+
+  # MSI binaries should be installed via msiexec.exe
+  $fileExtension = ([System.IO.Path]::GetExtension($Name)).Replace(".", "")
+  if ($fileExtension -eq "msi")
+  {
+    if (-not $ArgumentList)
+    {
+      $ArgumentList = ('/i', $filePath, '/QN', '/norestart')
+    }
+    $filePath = "msiexec.exe"
+  }
+
+  try
+  {
+    $installStartTime = Get-Date
+    Write-Host "Starting Install $Name..."
+    $process = Start-Process -FilePath $filePath -ArgumentList $ArgumentList -Wait -PassThru
+    $exitCode = $process.ExitCode
+    $installCompleteTime = [math]::Round(($(Get-Date) - $installStartTime).TotalSeconds, 2)
+    if ($exitCode -eq 0 -or $exitCode -eq 3010)
+    {
+      Write-Host "Installation successful in $installCompleteTime seconds"
+    }
+    else
+    {
+      Write-Host "Non zero exit code returned by the installation process: $exitCode"
+      Write-Host "Total time elapsed: $installCompleteTime seconds"
+      exit $exitCode
+    }
+  }
+  catch
+  {
+    $installCompleteTime = [math]::Round(($(Get-Date) - $installStartTime).TotalSeconds, 2)
+    Write-Host "Failed to install the $fileExtension ${Name}: $($_.Exception.Message)"
+    Write-Host "Installation failed after $installCompleteTime seconds"
+    exit 1
+  }
+}
+
+function Start-DownloadWithRetry
+{
+  Param
+  (
+    [Parameter(Mandatory)]
+    [string] $Url,
+    [string] $Name,
+    [string] $DownloadPath = "${env:Temp}",
+    [int] $Retries = 20
+  )
+
+  if ([String]::IsNullOrEmpty($Name)) {
+    $Name = [IO.Path]::GetFileName($Url)
+  }
+
+  $filePath = Join-Path -Path $DownloadPath -ChildPath $Name
+  $downloadStartTime = Get-Date
+
+  # Default retry logic for the package.
+  while ($Retries -gt 0)
+  {
+    try
+    {
+      $downloadAttemptStartTime = Get-Date
+      Write-Host "Downloading package from: $Url to path $filePath ."
+      (New-Object System.Net.WebClient).DownloadFile($Url, $filePath)
+      break
+    }
+    catch
+    {
+      $failTime = [math]::Round(($(Get-Date) - $downloadStartTime).TotalSeconds, 2)
+      $attemptTime = [math]::Round(($(Get-Date) - $downloadAttemptStartTime).TotalSeconds, 2)
+      Write-Host "There is an error encounterd after $attemptTime seconds during package downloading:`n $_"
+      $Retries--
+
+      if ($Retries -eq 0)
+      {
+        Write-Host "File can't be downloaded. Please try later or check that file exists by url: $Url"
+        Write-Host "Total time elapsed $failTime"
+        exit 1
+      }
+
+      Write-Host "Waiting 30 seconds before retrying. Retries left: $Retries"
+      Start-Sleep -Seconds 30
+    }
+  }
+
+  $downloadCompleteTime = [math]::Round(($(Get-Date) - $downloadStartTime).TotalSeconds, 2)
+  Write-Host "Package downloaded successfully in $downloadCompleteTime seconds"
+  return $filePath
+}
+
 # Download and install latest Chrome browser
 $ChromeInstallerFile = "googlechromestandaloneenterprise64.msi"
 $ChromeInstallerUrl = "https://dl.google.com/tag/s/dl/chrome/install/${ChromeInstallerFile}"
 Install-Binary -Url $ChromeInstallerUrl -Name $ChromeInstallerFile -ArgumentList @()
-
-# Prepare firewall rules
-Write-Host "Adding the firewall rule for Google update blocking..."
-New-NetFirewallRule -DisplayName "BlockGoogleUpdate" -Direction Outbound -Action Block -Program "C:\Program Files (x86)\Google\Update\GoogleUpdate.exe"
-
-$GoogleSvcs = ('gupdate','gupdatem')
-$GoogleSvcs | Stop-SvcWithErrHandling -StopOnError
-$GoogleSvcs | Set-SvcWithErrHandling -Arguments @{StartupType = "Disabled"}
-
-$regGoogleUpdatePath = "HKLM:\SOFTWARE\Policies\Google\Update"
-$regGoogleUpdateChrome = "HKLM:\SOFTWARE\Policies\Google\Chrome"
-($regGoogleUpdatePath, $regGoogleUpdateChrome) | ForEach-Object {
-  New-Item -Path $_ -Force
-}
-
-$regGoogleParameters = @(
-  @{ Name = "AutoUpdateCheckPeriodMinutes"; Value = 00000000},
-  @{ Name = "UpdateDefault"; Value = 00000000 },
-  @{ Name = "DisableAutoUpdateChecksCheckboxValue"; Value = 00000001 },
-  @{ Name = "Update{8A69D345-D564-463C-AFF1-A69D9E530F96}"; Value = 00000000 },
-  @{ Path = $regGoogleUpdateChrome; Name = "DefaultBrowserSettingEnabled"; Value = 00000000 }
-)
-
-$regGoogleParameters | ForEach-Object {
-  $Arguments = $_
-  if (-not ($Arguments.Path))
-  {
-    $Arguments.Add("Path", $regGoogleUpdatePath)
-  }
-  $Arguments.Add("Force", $true)
-  New-ItemProperty @Arguments
-}
 
 # Install Chrome WebDriver
 Write-Host "Install Chrome WebDriver..."
@@ -64,40 +160,17 @@ $ChromeDriverZipDownloadUrl = "https://chromedriver.storage.googleapis.com/${Chr
 $ChromeDriverArchPath = Start-DownloadWithRetry -Url $ChromeDriverZipDownloadUrl -Name $ChromeDriverArchName
 
 Write-Host "Expand Chrome WebDriver archive..."
-Extract-7Zip -Path $ChromeDriverArchPath -DestinationPath $ChromeDriverPath
+Expand-Archive -Path $ChromeDriverArchPath -DestinationPath $ChromeDriverPath
 
 Write-Host "Setting the environment variables..."
 setx ChromeWebDriver "$ChromeDriverPath" /M
+Write-Host "##vso[task.setvariable variable=ChromeWebDriver;]$ChromeDriverPath"
 
 $regEnvKey = 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\'
 $PathValue = Get-ItemPropertyValue -Path $regEnvKey -Name 'Path'
 $PathValue += ";$ChromeDriverPath\"
 Set-ItemProperty -Path $regEnvKey -Name 'Path' -Value $PathValue
-
-Invoke-PesterTests -TestFile "Browsers" -TestName "Chrome"
-
-$ChromeExePath=((Get-ItemProperty "${RegistryPath}\chrome.exe")."(default)");
-$ChromeDirname=((Get-ItemProperty "${RegistryPath}\chrome.exe")."Path");
-
-
-If ((($False -Eq [String]::IsNullOrEmpty("${SYSTEM_TASKINSTANCENAME}")) -And ($False -Eq [String]::IsNullOrEmpty("${SYSTEM_COLLECTIONURI}")) -And ("${SYSTEM_COLLECTIONURI}" -like "https://dev.azure.com*")) -Or (($False -Eq [String]::IsNullOrEmpty("${SYSTEM_TASKINSTANCENAME}")) -And ($False -Eq [String]::IsNullOrEmpty("${SYSTEM_TASKDEFINITIONSURI}")) -And ("${SYSTEM_TASKDEFINITIONSURI}" -like "https://dev.azure.com*"))) {
-  #
-  # Detect Azure Pipeline Environments
-  #
-
-  Write-Host "##[debug]RegistryPath =[ ${RegistryPath} ]";
-  Write-Host "##[debug]ChromeExePath=[ ${ChromeExePath} ]";
-
-  Write-Host "##[debug]Info:  Setting variable ChromeWebDriver=[ ${ChromeDriverPath} ]";
-  Write-Host "##vso[task.setvariable variable=ChromeWebDriver;]${ChromeDriverPath}";
-
-  Write-Host "##[debug]Info:  Prepending to PATH (env var):  [ ${ChromeDirname} ]";
-  Write-Host "##vso[task.prependpath]${ChromeDirname}";
-
-  Write-Host "Info:  Prepending to PATH (env var):  [ ${ChromeDriverPath} ]";
-  Write-Host "##vso[task.prependpath]${ChromeDriverPath}";
-
-}
+Write-Host "##vso[task.prependpath]$ChromeDriverPath"
 
 
 # ------------------------------------------------------------
@@ -105,5 +178,7 @@ If ((($False -Eq [String]::IsNullOrEmpty("${SYSTEM_TASKINSTANCENAME}")) -And ($F
 # Citation(s)
 #
 #   github.com  |  "runner-images/Install-Chrome.ps1 at main · actions/runner-images · GitHub"  |  https://github.com/actions/runner-images/blob/main/images/win/scripts/Installers/Install-Chrome.ps1
+#
+#   github.com  |  "runner-images/InstallHelpers.ps1 at main · actions/runner-images · GitHub"  |  https://github.com/actions/runner-images/blob/main/images/win/scripts/ImageHelpers/InstallHelpers.ps1
 #
 # ------------------------------------------------------------

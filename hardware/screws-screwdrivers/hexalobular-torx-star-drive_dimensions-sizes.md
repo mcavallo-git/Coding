@@ -1,8 +1,8 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/torx-star-drive_dimensions-sizes.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/hexalobular-torx-star-drive_dimensions-sizes.md -->
 
 # Screw/Screwdriver Dimensions, Sizes
 
-- ## `Torx` (aka `Star Drive`) Screws
+- ## `Hexalobular` (aka `Torx`/`Star Drive`) Screws
   - ### Size Chart
     - | Torx Size | Width (Metric) | Width (SAE) |
       | --------: | -------------: | ----------: |

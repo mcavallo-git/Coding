@@ -1,6 +1,6 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/torx-star-drive_screw-dimensions-sizes.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/torx-star-drive_dimensions-sizes.md -->
 
-# Torx (aka "Star Drive") Screw/Screwdriver Sizes
+# Torx (aka "Star Drive") Screw/Screwdriver Dimensions/Sizes
 
 ***
 

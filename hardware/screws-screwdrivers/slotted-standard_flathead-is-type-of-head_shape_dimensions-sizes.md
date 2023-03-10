@@ -11,11 +11,17 @@
         - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into (and does not therefore specify anything about the drive type required for said screw)
       - Therefore, when attempting to reference a `slotted` or `standard` screw or driver (but *especially* when discussing screws), it is best to avoid usage of the term `flat-head` as a descriptor of the drive type, and to opt for using `slotted` or `standard`, instead
 
-  - ### Measuring a slotted screwdriver
+  - ### Measuring a Slotted Screwdriver
     - <a href="https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram/"><img src="images/parts-of-screwdriver.jpg" /></a>
-    - <blockquote cite="https://www.garagetooladvisor.com/hand-tools/screwdriver-sizes/">The width of the tip and the length of the shank are presented in the measurements provided... as width by length (for example, 1/8" x 4")</blockquote>
-      - <blockquote cite="https://www.garagetooladvisor.com/hand-tools/screwdriver-sizes/">Unfortunately, the way slotted screwdrivers are measured can be frustrating, as the thickness of the tip is rarely given.</blockquote>
-    - <blockquote cite="https://www.garagetooladvisor.com/hand-tools/screwdriver-sizes/">The length of the handle is proportionate to the length of the shank, so short-shanked drives also have short handles.</blockquote>
+      <br />
+      > The width of the tip and the length of the shank are presented in the measurements provided... as width by length (for example, 1/8" x 4").
+      > &nbsp;
+      > Unfortunately, the way slotted screwdrivers are measured can be frustrating, as the thickness of the tip is rarely given.
+      > &nbsp;
+      > The length of the handle is proportionate to the length of the shank, so short-shanked drives also have short handles.
+      > &nbsp;
+      > *(Citation: [www.garagetooladvisor.com | Screwdriver Sizes Guide (with Charts)](https://www.garagetooladvisor.com/hand-tools/screwdriver-sizes/))*
+      
 
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Blade Width<br />(Metric) | Blade Width<br />(SAE) | Blade Width<br />(Shorthand) |

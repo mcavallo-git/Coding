@@ -45,6 +45,7 @@
   - [www.boltdepot.com | Wood Screw Diameter and Number Table](https://www.boltdepot.com/fastener-information/wood-screws/Wood-Screw-Diameter.aspx)
   - [www.garagesanctum.com | Phillips Screwdriver Sizes Chart](https://www.garagesanctum.com/size-chart/screwdriver-sizes-chart/#ftoc-heading-4)
   - [www.instructables.com | Types of Screw Heads/Screw Drives](https://www.instructables.com/Types-of-Screw-Heads/)
+  - [www.monsterbolts.com | Common Fastener Abbreviations](https://monsterbolts.com/pages/abbreviations)
   - [www.toolcobber.com | Screwdriver Bits - The Ultimate Guide](https://www.toolcobber.com.au/power-tools/drilling/accessories/screwdriver-bits/)
 
 ***

@@ -42,6 +42,7 @@
   - [www.engineersedge.com | ANSI Flat Head Screw Size and Dimension Data](https://www.engineersedge.com/flat_head_screw.htm)
   - [www.garagesanctum.com | Flat Head Screwdriver Sizes Chart](https://www.garagesanctum.com/size-chart/screwdriver-sizes-chart/#ftoc-heading-1)
   - [www.instructables.com | Types of Screw Heads/Screw Drives](https://www.instructables.com/Types-of-Screw-Heads/)
+  - [www.monsterbolts.com | Common Fastener Abbreviations](https://monsterbolts.com/pages/abbreviations)
   - [www.toolcobber.com | Screwdriver Bits - The Ultimate Guide](https://www.toolcobber.com.au/power-tools/drilling/accessories/screwdriver-bits/)
 
 ***

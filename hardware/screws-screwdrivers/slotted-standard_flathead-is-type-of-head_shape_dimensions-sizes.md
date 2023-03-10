@@ -4,24 +4,27 @@
 
 - ## `Slotted` (aka `Standard`) Screws & Drive Tools
 
-  - ### Word of Warning
+  - ### Warning
     - ⚠️ The term `flat-head` has nothing to do with the drive type of a screw
       - `Slotted` (or `standard`) is the correct term to use when describing screws whose drive type is a simple line across the diameter of the screw head
-      - `Flat-head screws` actually refer to a specific screw-head geometry
-        - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into (and does not therefore specify anything about the drive type required for said screw)
+      - `Flat-head screws` do **NOT** define a screw head's required drive type (e.g. it does not describe what screwdriver or bit to use)
+      - `Flat-head screws` **DO** define a specific screw head/shank geometry
+        - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into,
       - Therefore, when attempting to reference a `slotted` or `standard` screw or driver (but *especially* when discussing screws), it is best to avoid usage of the term `flat-head` as a descriptor of the drive type, and to opt for using `slotted` or `standard`, instead
+      <a href="https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim"><img height="300" src="images/screw-head-types.jpg" /></a>
 
   - ### Measuring a Slotted Screwdriver
-    - <a href="https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram/"><img src="images/parts-of-screwdriver.jpg" /></a>
+    - <a href="https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram"><img height="300" src="images/parts-of-a-screwdriver.jpg" /></a>
+      - #### Syntax for describing a slotted screwdriver
+        - `Tip-Width (in.)` x `Shank-Length (in.)`
+        - Example:
+          - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
       <br />
-      > The width of the tip and the length of the shank are presented in the measurements provided... as width by length (for example, 1/8" x 4").
-      > &nbsp;
-      > Unfortunately, the way slotted screwdrivers are measured can be frustrating, as the thickness of the tip is rarely given.
-      > &nbsp;
-      > The length of the handle is proportionate to the length of the shank, so short-shanked drives also have short handles.
-      > &nbsp;
-      > *(Citation: [www.garagetooladvisor.com | Screwdriver Sizes Guide (with Charts)](https://www.garagetooladvisor.com/hand-tools/screwdriver-sizes/))*
-      
+      - > The width of the tip and the length of the shank are presented in the measurements provided... as width by length (for example, 1/8" x 4").
+        > &nbsp;
+        > Unfortunately, the way slotted screwdrivers are measured can be frustrating, as the thickness of the tip is rarely given.
+        > &nbsp;
+        > The length of the handle is proportionate to the length of the shank, so short-shanked drives also have short handles.
 
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Blade Width<br />(Metric) | Blade Width<br />(SAE) | Blade Width<br />(Shorthand) |
@@ -65,7 +68,9 @@
   - [www.garagetooladvisor.com | Parts of a Screwdriver (with Diagram) | Garage Tool Advisor](https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram/)
   - [www.garagetooladvisor.com | Screwdriver Sizes Guide (with Charts)](https://www.garagetooladvisor.com/hand-tools/screwdriver-sizes/)
   - [www.instructables.com | Types of Screw Heads/Screw Drives](https://www.instructables.com/Types-of-Screw-Heads/)
+  - [www.linkedin.com | Types of Screw Heads and Their Uses](https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim)
   - [www.monsterbolts.com | Common Fastener Abbreviations](https://monsterbolts.com/pages/abbreviations)
   - [www.toolcobber.com | Screwdriver Bits - The Ultimate Guide](https://www.toolcobber.com.au/power-tools/drilling/accessories/screwdriver-bits/)
+  - [www.wonkeedonkeetools.co.uk | What are the parts of a screw?](https://www.wonkeedonkeetools.co.uk/screws/what-are-the-parts-of-a-screw)
 
 ***

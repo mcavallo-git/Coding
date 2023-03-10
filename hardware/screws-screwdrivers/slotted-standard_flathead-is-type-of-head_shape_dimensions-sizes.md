@@ -1,17 +1,6 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/slotted-standard_flathead-is-type-of-head_shape_dimensions-sizes.md -->
+  <!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/slotted-standard_flathead-is-type-of-head_shape_dimensions-sizes.md -->
 
 # Screw/Screwdriver Dimensions, Sizes
-
-***
-
-- ## ⚠️ Word of Warning
-  - The term `flat-head` has nothing to do with the drive type of a screw
-    - `Slotted` (or `standard`) is the correct term to use when describing screws whose drive type is a simple line across the diameter of the screw head
-    - `Flat-head screws` do **NOT** define a screw head's required drive type (e.g. it does not describe what screwdriver or bit to use)
-    - `Flat-head screws` **DO** define a specific screw head/shank geometry
-      - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into
-      - See <a href="images/screw-head-types.jpg">screw-head-types.jpg</a> for some common screw head types
-    - Therefore, when attempting to reference a `slotted` or `standard` screw or driver (but *especially* when discussing screws), it is best to avoid usage of the term `flat-head` as a descriptor of the drive type, and to opt for using `slotted` or `standard`, instead
 
 ***
 
@@ -19,42 +8,69 @@
 
   - ### Measuring a Slotted Screwdriver
     - <a href="https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram"><img height="300" src="images/parts-of-a-screwdriver.jpg" /></a>
-      - #### Syntax for describing a slotted screwdriver
-        - `Tip-Width (in.)` x `Shank-Length (in.)`
+      - #### Slotted Screwdriver Dimension Notation
+        - ##### 3-Value Dimension Notation
+          - Syntax:
+            - <kbd><kbd style="font-size:150%">Tip-Thickness</kbd> x <kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
+          - Example:
+            - [`0.8 x 4.0 x 100mm Slotted Screwdriver`](https://www.amazon.com/s?k=0.8+x+4.0+x+100mm+Slotted+Screwdriver)
+        - ##### 2-Value Dimension Notation
+          - Syntax:
+            - <kbd><kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
           - Example:
             - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
+          - Note:
+            - If only two dimension values are given, then `Tip-Thickness` has been excluded from the stated dimensions
+              - This is commonly done for ISO 2380-1 compliant screwdrivers
+        - ###### Given `Tip-Width`, determine the value for `Tip-Thickness` (of an ISO 2380-1 compliant screwdriver):
+            - Using the table(s) in ISO-2380 (below), perform a reverse lookup of the `Tip-Thickness` on the same row as the known `Tip-Width`
+    - #### ISO 2380-1 - Standardized Tip Dimensions for Slotted Screwdriver
+      - [<img src="images/slotted-screwdriver-tips_iso-2380-1.png" />](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
+        - Citation: [`ISO 2380-1:2004 (Assembly tools for screws and nuts - Screwdrivers for slotted-head screws - Part 1: Tips for hand- and machine-operated screwdrivers)`](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
+          - Refer to `Table 1 — Hand-operated screwdriver tips, forms A and B`
       <br />
 
-  - ### Size Chart - `Standard Slot Screwdriver Sizes (ISO 2380)`
-    - | Blade Thickness<br />(Metric) | Blade Width<br />(Metric) | Blade Width<br />(Shorthand) | Min Required Torque<br />(Metric) |
-      | ----------------------------: | ------------------------: | ---------------------------: | --------------------------------: |
-      |                      `0.4 mm` |                  `2.0 mm` |                        `SL2` |                         `0.3 N·m` |
-      |                      `0.4 mm` |                  `2.5 mm` |                              |                         `0.4 N·m` |
-      |                      `0.5 mm` |                  `3.0 mm` |                        `SL3` |                         `0.7 N·m` |
-      |                      `0.6 mm` |                  `3.0 mm` |                        `SL3` |                         `1.1 N·m` |
-      |                      `0.6 mm` |                  `3.5 mm` |                              |                         `1.3 N·m` |
-      |                      `0.8 mm` |                  `4.0 mm` |                        `SL4` |                         `2.6 N·m` |
-      |                      `1.0 mm` |                  `4.5 mm` |                              |                         `4.5 N·m` |
-      |                      `1.0 mm` |                  `5.5 mm` |                              |                         `5.5 N·m` |
-      |                      `1.2 mm` |                  `6.5 mm` |                              |                         `9.5 N·m` |
-      |                      `1.2 mm` |                  `8.0 mm` |                              |                        `11.5 N·m` |
-      |                      `1.6 mm` |                  `8.0 mm` |                              |                        `20.5 N·m` |
-      |                      `1.6 mm` |                 `10.0 mm` |                              |                        `25.6 N·m` |
-      |                      `2.0 mm` |                 `12.0 mm` |                              |                        `48.0 N·m` |
-      |                      `2.5 mm` |                 `14.0 mm` |                              |                        `87.5 N·m` |
+  - ### <u>Standardized</u> Size Chart - `Standard Slot Screwdriver Sizes (ISO 2380)`
+    - | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width<br />Shorthand |
+      | --------------------: | ----------------: | :------------------- |
+      |              `0.4 mm` |          `2.0 mm` | `SL2`                |
+      |              `0.4 mm` |          `2.5 mm` |                      |
+      |              `0.5 mm` |          `3.0 mm` | `SL3`                |
+      |              `0.6 mm` |          `3.0 mm` | `SL3`                |
+      |              `0.6 mm` |          `3.5 mm` |                      |
+      |              `0.8 mm` |          `4.0 mm` | `SL4`                |
+      |              `1.0 mm` |          `4.5 mm` |                      |
+      |              `1.0 mm` |          `5.5 mm` |                      |
+      |              `1.2 mm` |          `6.5 mm` |                      |
+      |              `1.2 mm` |          `8.0 mm` |                      |
+      |              `1.6 mm` |          `8.0 mm` |                      |
+      |              `1.6 mm` |         `10.0 mm` |                      |
+      |              `2.0 mm` |         `12.0 mm` |                      |
+      |              `2.5 mm` |         `14.0 mm` |                      |
 
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
-    - | Slotted<br />Size # | Blade Width<br />(Metric) | Blade Width<br />(SAE) | Blade Width<br />(Shorthand) |
-      | ------------------: | ------------------------: | ---------------------: | ---------------------------: |
-      |               `0–1` |                  `2.4 mm` |                `3/32"` |                              |
-      |                 `2` |                  `3.2 mm` |                 `1/8"` |                              |
-      |                 `3` |                  `4.0 mm` |                `5/32"` |                        `SL4` |
-      |               `4–5` |                  `4.8 mm` |                `3/16"` |                              |
-      |               `6–7` |                  `6.4 mm` |                 `1/4"` |                              |
-      |              `8–10` |                  `7.9 mm` |                `5/16"` |                              |
-      |             `12–14` |                  `9.5 mm` |                 `3/8"` |                              |
-      |             `16–18` |                 `11.0 mm` |                `7/16"` |                       `SL11` |
-      |             `18–24` |                 `13.0 mm` |                 `1/2"` |                       `SL13` |
+    - | Slotted<br />Size # | Tip Width<br />(Metric) | Tip Width<br />(SAE) |
+      | ------------------: | ----------------------: | -------------------: |
+      |               `0–1` |                `2.4 mm` |              `3/32"` |
+      |                 `2` |                `3.2 mm` |               `1/8"` |
+      |                 `3` |                `4.0 mm` |              `5/32"` |
+      |               `4–5` |                `4.8 mm` |              `3/16"` |
+      |               `6–7` |                `6.4 mm` |               `1/4"` |
+      |              `8–10` |                `7.9 mm` |              `5/16"` |
+      |             `12–14` |                `9.5 mm` |               `3/8"` |
+      |             `16–18` |               `11.0 mm` |              `7/16"` |
+      |             `18–24` |               `13.0 mm` |               `1/2"` |
+
+***
+
+- ## Word of Warning
+  - ❗ The term `flat-head` has nothing to do with the *drive type* of a screw ❗
+    - `Slotted` (or `standard`) is the correct term to use when describing screws whose drive type is a simple line across the diameter of the screw head
+    - `Flat-head screws` do **NOT** define the driver required to drive the head of a screw (e.g. it does **not** describe the type of screwdriver or driver bit to use)
+    - `Flat-head screws` **DO** define a specific screw head/shank geometry
+      - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into
+      - See <a href="images/screw-head-types.jpg">screw-head-types.jpg</a> for some common screw head types
+    - Therefore, when attempting to reference a `slotted` or `standard` driver type (*especially* when discussing screws and not drivers), it is best to avoid usage of the term `flat-head` unless you're using the term to define the required mounting flushness of the head of the screw (and not the driver required)
 
 ***
 

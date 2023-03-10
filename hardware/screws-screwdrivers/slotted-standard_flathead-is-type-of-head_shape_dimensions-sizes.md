@@ -17,27 +17,9 @@
     - <a href="https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram"><img height="300" src="images/parts-of-a-screwdriver.jpg" /></a>
       - #### Syntax for describing a slotted screwdriver
         - `Tip-Width (in.)` x `Shank-Length (in.)`
-        - Example:
-          - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
+          - Example:
+            - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
       <br />
-      - > The width of the tip and the length of the shank are presented in the measurements provided... as width by length (for example, 1/8" x 4").
-        > &nbsp;
-        > Unfortunately, the way slotted screwdrivers are measured can be frustrating, as the thickness of the tip is rarely given.
-        > &nbsp;
-        > The length of the handle is proportionate to the length of the shank, so short-shanked drives also have short handles.
-
-  - ### Size Chart - `Slot Drive Tool & Screw Sizes`
-    - | Slotted<br />Size # | Blade Width<br />(Metric) | Blade Width<br />(SAE) | Blade Width<br />(Shorthand) |
-      | ------------------: | ------------------------: | ---------------------: | ---------------------------: |
-      |               `0–1` |                  `2.4 mm` |                `3/32"` |                              |
-      |                 `2` |                  `3.2 mm` |                 `1/8"` |                              |
-      |                 `3` |                  `4.0 mm` |                `5/32"` |                        `SL4` |
-      |               `4–5` |                  `4.8 mm` |                `3/16"` |                              |
-      |               `6–7` |                  `6.4 mm` |                 `1/4"` |                              |
-      |              `8–10` |                  `7.9 mm` |                `5/16"` |                              |
-      |             `12–14` |                  `9.5 mm` |                 `3/8"` |                              |
-      |             `16–18` |                 `11.0 mm` |                `7/16"` |                       `SL11` |
-      |             `18–24` |                 `13.0 mm` |                 `1/2"` |                       `SL13` |
 
   - ### Size Chart - `Standard Slot Screwdriver Sizes (ISO 2380)`
     - | Blade Thickness<br />(Metric) | Blade Width<br />(Metric) | Blade Width<br />(Shorthand) | Min Required Torque<br />(Metric) |
@@ -56,6 +38,19 @@
       |                      `1.6 mm` |                 `10.0 mm` |                              |                        `25.6 N·m` |
       |                      `2.0 mm` |                 `12.0 mm` |                              |                        `48.0 N·m` |
       |                      `2.5 mm` |                 `14.0 mm` |                              |                        `87.5 N·m` |
+
+  - ### Size Chart - `Slot Drive Tool & Screw Sizes`
+    - | Slotted<br />Size # | Blade Width<br />(Metric) | Blade Width<br />(SAE) | Blade Width<br />(Shorthand) |
+      | ------------------: | ------------------------: | ---------------------: | ---------------------------: |
+      |               `0–1` |                  `2.4 mm` |                `3/32"` |                              |
+      |                 `2` |                  `3.2 mm` |                 `1/8"` |                              |
+      |                 `3` |                  `4.0 mm` |                `5/32"` |                        `SL4` |
+      |               `4–5` |                  `4.8 mm` |                `3/16"` |                              |
+      |               `6–7` |                  `6.4 mm` |                 `1/4"` |                              |
+      |              `8–10` |                  `7.9 mm` |                `5/16"` |                              |
+      |             `12–14` |                  `9.5 mm` |                 `3/8"` |                              |
+      |             `16–18` |                 `11.0 mm` |                `7/16"` |                       `SL11` |
+      |             `18–24` |                 `13.0 mm` |                 `1/2"` |                       `SL13` |
 
 ***
 

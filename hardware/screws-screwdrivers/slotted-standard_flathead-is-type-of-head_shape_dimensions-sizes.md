@@ -8,22 +8,21 @@
 
   - ### Measuring a Slotted Screwdriver
     - <a href="https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram"><img height="300" src="images/parts-of-a-screwdriver.jpg" /></a>
-      - #### Slotted Screwdriver Dimension Notation
-        - ##### 3-Value Dimension Notation
-          - Syntax:
-            - <kbd><kbd style="font-size:150%">Tip-Thickness</kbd> x <kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
-          - Example:
-            - [`0.8 x 4.0 x 100mm Slotted Screwdriver`](https://www.amazon.com/s?k=0.8+x+4.0+x+100mm+Slotted+Screwdriver)
-        - ##### 2-Value Dimension Notation
-          - Syntax:
-            - <kbd><kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
-          - Example:
-            - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
-          - Note:
-            - If only two dimension values are given, then `Tip-Thickness` has been excluded from the stated dimensions
-              - This is commonly done for ISO 2380-1 compliant screwdrivers
-        - ###### Given `Tip-Width`, determine the value for `Tip-Thickness` (of an ISO 2380-1 compliant screwdriver):
-            - Using the table(s) in ISO-2380 (below), perform a reverse lookup of the `Tip-Thickness` on the same row as the known `Tip-Width`
+      - #### <u>3-Value</u> Slotted Screwdriver Dimension Notation
+        - Syntax:
+          - <kbd><kbd style="font-size:150%">Tip-Thickness</kbd> x <kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
+        - Example:
+          - [`0.8 x 4.0 x 100mm Slotted Screwdriver`](https://www.amazon.com/s?k=0.8+x+4.0+x+100mm+Slotted+Screwdriver)
+      - #### <u>2-Value</u> Slotted Screwdriver Dimension Notation
+        - Syntax:
+          - <kbd><kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
+        - Example:
+          - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
+        - Note:
+        - ##### Determining `Tip-Thickness` from 2-Value Notation Dimensions
+          - Note: If only two dimension values are given, then `Tip-Thickness` has been excluded from the stated dimensions. This is commonly done for ISO 2380-1 compliant screwdrivers.
+          - If the driver <u>is</u> ISO 2380-1 compliant:
+            - Using `Table 1` in `ISO 2380-1` (below), perform a reverse lookup of the `Tip-Thickness` by first locating the known `Tip-Width`, then getting the value for the corresponding `Tip-Thickness` in the same row
     - #### ISO 2380-1 - Standardized Tip Dimensions for Slotted Screwdriver
       - [<img src="images/slotted-screwdriver-tips_iso-2380-1.png" />](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
         - Citation: [`ISO 2380-1:2004 (Assembly tools for screws and nuts - Screwdrivers for slotted-head screws - Part 1: Tips for hand- and machine-operated screwdrivers)`](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
@@ -31,22 +30,22 @@
       <br />
 
   - ### <u>Standardized</u> Size Chart - `Standard Slot Screwdriver Sizes (ISO 2380)`
-    - | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width<br />Shorthand |
-      | --------------------: | ----------------: | :------------------- |
-      |              `0.4 mm` |          `2.0 mm` | `SL2`                |
-      |              `0.4 mm` |          `2.5 mm` |                      |
-      |              `0.5 mm` |          `3.0 mm` | `SL3`                |
-      |              `0.6 mm` |          `3.0 mm` | `SL3`                |
-      |              `0.6 mm` |          `3.5 mm` |                      |
-      |              `0.8 mm` |          `4.0 mm` | `SL4`                |
-      |              `1.0 mm` |          `4.5 mm` |                      |
-      |              `1.0 mm` |          `5.5 mm` |                      |
-      |              `1.2 mm` |          `6.5 mm` |                      |
-      |              `1.2 mm` |          `8.0 mm` |                      |
-      |              `1.6 mm` |          `8.0 mm` |                      |
-      |              `1.6 mm` |         `10.0 mm` |                      |
-      |              `2.0 mm` |         `12.0 mm` |                      |
-      |              `2.5 mm` |         `14.0 mm` |                      |
+    - | Tip Thickness (*`a`*) | Distance from Edge of Tip (*`t1a`*) | Tip Width (*`b`*) | Width Shorthand |
+      | --------------------: | ----------------------------------: | ----------------: | --------------: |
+      |              `0.4 mm` |                            `0.2 mm` |          `2.0 mm` |           `SL2` |
+      |              `0.4 mm` |                            `0.2 mm` |          `2.5 mm` |                 |
+      |              `0.5 mm` |                            `0.3 mm` |          `3.0 mm` |           `SL3` |
+      |              `0.6 mm` |                            `0.4 mm` |          `3.0 mm` |           `SL3` |
+      |              `0.6 mm` |                            `0.4 mm` |          `3.5 mm` |                 |
+      |              `0.8 mm` |                            `0.5 mm` |          `4.0 mm` |           `SL4` |
+      |              `1.0 mm` |                            `0.6 mm` |          `4.5 mm` |                 |
+      |              `1.0 mm` |                            `0.6 mm` |          `5.5 mm` |                 |
+      |              `1.2 mm` |                            `0.7 mm` |          `6.5 mm` |                 |
+      |              `1.2 mm` |                            `0.7 mm` |          `8.0 mm` |                 |
+      |              `1.6 mm` |                            `1.0 mm` |          `8.0 mm` |                 |
+      |              `1.6 mm` |                            `1.0 mm` |         `10.0 mm` |                 |
+      |              `2.0 mm` |                            `1.2 mm` |         `12.0 mm` |                 |
+      |              `2.5 mm` |                            `1.5 mm` |         `14.0 mm` |                 |
 
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Tip Width<br />(Metric) | Tip Width<br />(SAE) |

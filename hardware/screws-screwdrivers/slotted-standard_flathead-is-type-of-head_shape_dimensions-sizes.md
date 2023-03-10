@@ -6,6 +6,7 @@
   - ⚠️ Note: The term `Flat Head` is *NOT* a correct nickname for a slotted/standard screw or screwdriver.
     - While a `flat-head screwdriver` is a well-known colloquialism, the correct usage of the term `flat-head` refers to a specific screw-head geometry (one which mates flushly with the surface once screwed in)
     - Therefore, while attempting to reference a `slotted` or `standard` screw or driver (but *especially* screws), it is best to avoid usage of the term `flat-head`, opting for `slotted` or `standard` instead
+  
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Blade Width<br />(Metric) | Blade Width<br />(SAE) | Blade Width<br />(Shorthand) |
       | ------------------: | ------------------------: | ---------------------: | ---------------------------: |
@@ -44,6 +45,7 @@
   - [en.wikipedia.org | List of screw drives](https://en.wikipedia.org/wiki/List_of_screw_drives)
   - [makezine.com | Quick Tip: Know Your Screwdrivers (Hint: It's Not a "Flathead!")](https://makezine.com/article/workshop/quick-tip-know-your-screwdrivers-hint-its-not-called-a-flathead/)
   - [www.garagesanctum.com | Flat Head Screwdriver Sizes Chart](https://www.garagesanctum.com/size-chart/screwdriver-sizes-chart/#ftoc-heading-1)
+  - [www.garagetooladvisor.com | Parts of a Screwdriver (with Diagram) | Garage Tool Advisor](https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram/)
   - [www.garagetooladvisor.com | Screwdriver Sizes Guide (with Charts)](https://www.garagetooladvisor.com/hand-tools/screwdriver-sizes/)
   - [www.instructables.com | Types of Screw Heads/Screw Drives](https://www.instructables.com/Types-of-Screw-Heads/)
   - [www.monsterbolts.com | Common Fastener Abbreviations](https://monsterbolts.com/pages/abbreviations)

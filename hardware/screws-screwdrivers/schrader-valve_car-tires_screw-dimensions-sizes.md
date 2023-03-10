@@ -1,3 +1,4 @@
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/schrader-valve_car-tires_screw-dimensions-sizes.md -->
 
 <hr />
 
@@ -24,14 +25,5 @@
               - `30.48TPI` (threads per inch) is acceptably close to `32TPI` for the roughness of the measurements taken for the measured screw length (`10mm`)
   - ## Nut size
       - > Thread designation is `.305-32` or `7.7-32` [for a TR 418 valve stem]<sup><a href="https://www.homeownershub.com/maintenance/what-size-nut-goes-onto-a-typical-us-passenger-tire-schrader-1116784-.htm">Citation</a></sup>
-
-
-<br /><hr />
-
-# Presta (bike tire) valves
-  - ## Description
-    - > **Presta valves were specifically designed to be used on bicycles, so you won’t see them on cars or motorcycles**. <sup><a href="https://bikespalmbeach.com/resources/presta-vs-schrader-valves">Citation</a></sup>
-    - > The Presta valve (also French valve (FV) or Sclaverand valve) is a valve commonly found in high pressure road style and some mountain bicycle inner tubes. <sup><a href="https://en.wikipedia.org/wiki/Presta_valve">Citation</a></sup>
-
 
 <br /><hr />

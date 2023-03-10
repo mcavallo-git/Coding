@@ -1,9 +1,10 @@
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/phillips-head_screw-dimensions-sizes.md -->
 
-# Phillips Screwdriver Sizes
+# Phillips Head Screw/Screwdriver Sizes
 
 ***
 
-- ## Phillips Screwdriver Size Chart
+- ## Phillips Size Chart
   - | Phillips Size # | Tip Width (Metric) | Fits Screw Sizes                    |
     | --------------: | -----------------: | ----------------------------------: |
     |         `#0000` |           `1.0 mm` |                                     |

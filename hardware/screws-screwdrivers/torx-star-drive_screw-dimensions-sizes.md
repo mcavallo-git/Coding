@@ -1,10 +1,10 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/screwdriver-dimensions-sizes_torx-star-drive.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/torx-star-drive_screw-dimensions-sizes.md -->
 
-# Torx (aka "Star Drive") Screwdriver Sizes
+# Torx (aka "Star Drive") Screw/Screwdriver Sizes
 
 ***
 
-- ## Torx Screwdriver Size Chart
+- ## Torx Size Chart
   - | Torx Size | Width (Metric) | Width (SAE) |
     | --------: | -------------: | ----------: |
     |      `T1` |      `0.81 mm` |    `0.031"` |

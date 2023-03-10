@@ -1,9 +1,10 @@
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/slotted-flat-head_screw-dimensions-sizes.md -->
 
-# Slotted (aka "Flat Head") Screwdriver Sizes
+# Slotted (aka "Flat Head") Screw/Screwdriver Sizes
 
 ***
 
-- ## Slotted Screwdriver Size Chart
+- ## Slotted Size Chart
   - | Tip Width (Metric) | Tip Width (SAE) |
     | -----------------: | --------------: |
     |           `0.8 mm` |                 |

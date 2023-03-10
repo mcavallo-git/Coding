@@ -3,10 +3,14 @@
 # Screw/Screwdriver Dimensions, Sizes
 
 - ## `Slotted` (aka `Standard`) Screws & Drive Tools
-  - ⚠️ Note: The term `Flat Head` is *NOT* a correct nickname for a slotted/standard screw or screwdriver.
-    - While a `flat-head screwdriver` is a well-known colloquialism, the correct usage of the term `flat-head` refers to a specific screw-head geometry (one which mates flushly with the surface once screwed in)
-    - Therefore, while attempting to reference a `slotted` or `standard` screw or driver (but *especially* screws), it is best to avoid usage of the term `flat-head`, opting for `slotted` or `standard` instead
-  
+
+  - ### Word of Warning
+    - ⚠️ The term `flat-head` has nothing to do with the drive type of a screw
+      - `Slotted` (or `standard`) is the correct term to use when describing screws whose drive type is a simple line across the diameter of the screw head
+      - `Flat-head screws` actually refer to a specific screw-head geometry
+        - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into (and does not therefore specify anything about the drive type required for said screw)
+      - Therefore, when attempting to reference a `slotted` or `standard` screw or driver (but *especially* when discussing screws), it is best to avoid usage of the term `flat-head` as a descriptor of the drive type, and to opt for using `slotted` or `standard`, instead
+
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Blade Width<br />(Metric) | Blade Width<br />(SAE) | Blade Width<br />(Shorthand) |
       | ------------------: | ------------------------: | ---------------------: | ---------------------------: |
@@ -19,6 +23,7 @@
       |             `12–14` |                  `9.5 mm` |                 `3/8"` |                              |
       |             `16–18` |                 `11.0 mm` |                `7/16"` |                       `SL11` |
       |             `18–24` |                 `13.0 mm` |                 `1/2"` |                       `SL13` |
+
   - ### Size Chart - `Standard Slot Screwdriver Sizes (ISO 2380)`
     - | Blade Thickness<br />(Metric) | Blade Width<br />(Metric) | Blade Width<br />(Shorthand) | Min Required Torque<br />(Metric) |
       | ----------------------------: | ------------------------: | ---------------------------: | --------------------------------: |

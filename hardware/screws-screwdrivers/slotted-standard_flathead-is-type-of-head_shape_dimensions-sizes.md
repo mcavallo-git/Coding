@@ -1,8 +1,9 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/slotted-flat-head_dimensions-sizes.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/slotted-standard_flathead-is-type-of-head_shape_dimensions-sizes.md -->
 
 # Screw/Screwdriver Dimensions, Sizes
 
-- ## `Slotted` (aka `Flat [Head]`) Screws & Drive Tools
+- ## `Slotted` (aka `Standard`) Screws & Drive Tools
+  - ⚠️ Note: This is frequently (but incorrectly) referred to as a `Flat Head` screw - This is incorrect due to the term `Flat Head` actually referring to a countersunk screw which mates flushly with the surface once screwed in (and has nothing to do with the screw's drive type)
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Blade Width<br />(Metric) | Blade Width<br />(SAE) | Blade Width<br />(Shorthand) |
       | ------------------: | ------------------------: | ---------------------: | ---------------------------: |
@@ -39,7 +40,6 @@
   - [books.google.com | Popular Mechanics](https://books.google.com/books?id=R2YEAAAAMBAJ&pg=PA82#v=onepage&q&f=false)
   - [cdn.standards.iteh.ai | ISO-2380-1-2004.pdf](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
   - [en.wikipedia.org | List of screw drives](https://en.wikipedia.org/wiki/List_of_screw_drives)
-  - [www.engineersedge.com | ANSI Flat Head Screw Size and Dimension Data](https://www.engineersedge.com/flat_head_screw.htm)
   - [www.garagesanctum.com | Flat Head Screwdriver Sizes Chart](https://www.garagesanctum.com/size-chart/screwdriver-sizes-chart/#ftoc-heading-1)
   - [www.instructables.com | Types of Screw Heads/Screw Drives](https://www.instructables.com/Types-of-Screw-Heads/)
   - [www.monsterbolts.com | Common Fastener Abbreviations](https://monsterbolts.com/pages/abbreviations)

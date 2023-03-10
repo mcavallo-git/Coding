@@ -4,17 +4,17 @@
 
 - ## `Phillips [Head]` Screws
   - ### Size Chart
-    - | Phillips<br />Size # | Tip Width<br />(Metric) |               Screw Size<br/>(Wood) |                        Screw Size<br/>(Machine) |
-      | -------------------: | ----------------------: | ----------------------------------: | ----------------------------------------------: |
-      |              `#0000` |                `1.0 mm` |                                     |                                                 |
-      |               `#000` |                `1.5 mm` |                                     |                                                 |
-      |                `#00` |                `2.0 mm` |                                     |                                                 |
-      |                 `#0` |                `2.5 mm` |                              `#0-1` |                                    `M1.6`, `M2` |
-      |                 `#1` |                `3.0 mm` |                              `#2–4` |                                    `M2.5`, `M3` |
-      |                 `#2` |                `3.5 mm` |                              `#5–9` |                              `M3.5`, `M4`, `M5` |
-      |                 `#3` |                `5.0 mm` |                          	`#10–16` |          `M6 (#12, 1/4")`, `5/16" (head=round)` |
-      |                 `#4` |                `6.0 mm` |                            `#18-24` | `M8 (3/8")`, `M10 (9/16")`, `5/16" (head=flat)` |
-      |                 `#5` |                `8.0 mm` |                                     |                                  `5/8"`, `3/4"` |
+    - | Phillips<br />Size # | Acronym(s) | Tip Width<br />(Metric) |               Screw Size<br/>(Wood) |                        Screw Size<br/>(Machine) |
+      | -------------------: | ---------: | ----------------------: | ----------------------------------: | ----------------------------------------------: |
+      |              `#0000` |   `PH0000` |                `1.0 mm` |                                     |                                                 |
+      |               `#000` |    `PH000` |                `1.5 mm` |                                     |                                                 |
+      |                `#00` |     `PH00` |                `2.0 mm` |                                     |                                                 |
+      |                 `#0` |      `PH0` |                `2.5 mm` |                              `#0-1` |                                    `M1.6`, `M2` |
+      |                 `#1` |      `PH1` |                `3.0 mm` |                              `#2–4` |                                    `M2.5`, `M3` |
+      |                 `#2` |      `PH2` |                `3.5 mm` |                              `#5–9` |                              `M3.5`, `M4`, `M5` |
+      |                 `#3` |      `PH3` |                `5.0 mm` |                          	`#10–16` |          `M6 (#12, 1/4")`, `5/16" (head=round)` |
+      |                 `#4` |      `PH4` |                `6.0 mm` |                            `#18-24` | `M8 (3/8")`, `M10 (9/16")`, `5/16" (head=flat)` |
+      |                 `#5` |      `PH5` |                `8.0 mm` |                                     |                                  `5/8"`, `3/4"` |
 
 - ## `Wood` Screws
   - ### Size Chart
@@ -44,5 +44,7 @@
   - [en.wikipedia.org | List of screw drives](https://en.wikipedia.org/wiki/List_of_screw_drives)
   - [www.boltdepot.com | Wood Screw Diameter and Number Table](https://www.boltdepot.com/fastener-information/wood-screws/Wood-Screw-Diameter.aspx)
   - [www.garagesanctum.com | Phillips Screwdriver Sizes Chart](https://www.garagesanctum.com/size-chart/screwdriver-sizes-chart/#ftoc-heading-4)
+  - [www.instructables.com | Types of Screw Heads/Screw Drives](https://www.instructables.com/Types-of-Screw-Heads/)
+  - [www.toolcobber.com | Screwdriver Bits - The Ultimate Guide](https://www.toolcobber.com.au/power-tools/drilling/accessories/screwdriver-bits/)
 
 ***

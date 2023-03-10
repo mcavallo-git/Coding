@@ -1,8 +1,8 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/schrader-valve_car-tires_dimensions-sizes.md -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/valves/schrader-valve_car-tires_dimensions-sizes.md -->
 
 <hr />
 
-# Schrader (car tire) valves
+# `Schrader` (car tire) valves
   - ## Description
     - > **The Schrader valve is used on virtually all automobile tires and motorcycle tires and most wider rimmed bicycle tires.** <sup><a href="https://en.wikipedia.org/wiki/Schrader_valve">Citation</a></sup>
     - > Schrader valves are usually found on budget-friendly mountain, hybrid, and city bikes. <sup><a href="https://bikespalmbeach.com/resources/presta-vs-schrader-valves">Citation</a></sup>

@@ -7,7 +7,7 @@
 - ## `Slotted` (aka `Standard`) Screws & Drive Tools
 
   - ### Measuring a Slotted Screwdriver
-    - <a href="https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram"><img height="300" src="images/parts-of-a-screwdriver.jpg" /></a>
+    - <a href="https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram"><img src="images/parts-of-a-screwdriver.jpg" /></a>
       - #### <u>3-Value</u> Slotted Screwdriver Dimension Notation
         - Syntax:
           - <kbd><kbd style="font-size:150%">Tip-Thickness</kbd> x <kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>

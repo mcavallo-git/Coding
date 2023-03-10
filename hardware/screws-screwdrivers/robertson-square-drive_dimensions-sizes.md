@@ -4,7 +4,7 @@
 
 - ## `Robertson` (aka `Square Drive`) Screws
   - ### Size Chart
-    - | Robertson<br />Size # |    Color | Tip Width<br />(Metric) | Tip Width<br />(SAE) |           Fits Screw Sizes |
+    - | Robertson<br />Size # |    Color | Tip Width<br />(Metric) | Tip Width<br />(SAE) |            Fits Screw Size |
       | --------------------: | -------: | ----------------------: | -------------------: | -------------------------: |
       |                 `#00` | `Orange` |                         |                      |        `#1`, `#2`, `44928` |
       |                  `#0` | `Yellow` |           ~ `1.59 mm +` |            `1/16" +` |        `#3`, `#4`, `44989` |

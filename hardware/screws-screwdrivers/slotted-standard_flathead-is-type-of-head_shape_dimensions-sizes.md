@@ -4,20 +4,22 @@
 
 ***
 
-- ## `Slotted` (aka `Standard`) Screws & Drive Tools
-  ***
-  - ### ❗ Word of Warning
-    - The term `flat-head` has nothing to do with the *drive type* of a screw
-      - `Slotted` (or `Standard`) is the correct term to use when describing screws whose drive type is a simple line across the diameter of the screw head
-        <details><summary>💬 (Click to show/hide additional info)</summary><p>
 
-        - ✅ `Flat-head screws` **DO** define a specific screw head/shank geometry
-          - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into
-          - <details><summary>💬 (Click to show/hide common screw head types)</summary><p><a href="https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim"><img src="images/screw-head-types.jpg" /></a></p></details>
-        - ❌ `Flat-head screws` do **NOT** define the driver required to drive the head of a screw
-          - E.g. The `flat-head` adjective attached to the noun `screw` says **nothing** about the type of driver (screwdriver, driver bit, etc.) required to screw in said screw
-        - Therefore, when attempting to reference a `slotted` or `standard` driver type (*especially* when discussing screws and not drivers), it is best to avoid usage of the term `flat-head` unless you're using the term to define the required mounting flushness of the head of the screw (and not the driver required)
-    </p></details><hr />
+- ## `Slotted` (aka `Standard`) Screws & Drive Tools
+  <div style="align:right;"><table><tr><td>Icon:</td><td><img src="images/screw-head-slotted-icon.svg" style="background:white;padding:2px;" height="20%" /></td></tr></table></div>
+
+  ***
+  - ### Word of Warning
+    - ✅ The adjective `slotted` (or `standard`) describes screws whose drive type is a simple line across the diameter of the screw head.
+    - ⚠️ A common colloquialism exists which <u>***incorrectly***</u> uses the adjective `flat-head` to describe a `slotted` screw
+      - <details><summary><i>💬 Show/Hide Details</i></summary><p>
+
+        - The prevalence of this misnomer drives the importance of understanding what a `flat-head` screw *actually* defines
+        - ✅ The adjective `flat-head` defines a specific screw head/shank geometry which, once driven in, results in the screw head being fully flush ("flat") with the surface it was driven into (e.g. The screw doesn't stick out at all once it is screwed in).
+          [![screw-head-types.jpg](images/screw-head-types.jpg)](https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim)
+        - Therefore, *especially* when discussing screws (and not drivers), it is best to avoid usage of the term `flat-head` unless you're explicitly describing how flush a screw should mate with whatever it is being driven into
+        </p></details>
+  ***
   - ### Measuring a Slotted Screwdriver
       [![parts-of-a-screwdriver.jpg](images/parts-of-a-screwdriver.jpg)](https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram)
       ***
@@ -39,11 +41,11 @@
             - Use `Table 1` in `ISO 2380-1` (below) to perform a reverse lookup of the `Tip-Thickness` by first locating the known `Tip-Width`, then getting the value for the corresponding `Tip-Thickness` (in the same row)
       ***
     - #### ISO 2380-1 - Standardized Tip Dimensions for Slotted Screwdriver
-      - [![slotted-screwdriver-tips_iso-2380-1.png](images/slotted-screwdriver-tips_iso-2380-1.png)](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
+      - [![slotted-screwdriver-tips_iso-2380-1.png](images/slotted-screwdriver-tips_iso-2380-1.png)](images/slotted-screwdriver-tips_iso-2380-1.png)
         - Citation: [`ISO 2380-1:2004 (Assembly tools for screws and nuts - Screwdrivers for slotted-head screws - Part 1: Tips for hand- and machine-operated screwdrivers)`](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
           - Refer to `Table 1 — Hand-operated screwdriver tips, forms A and B`
-    ***
-  - ### <u>Standardized</u> Size Chart - `Standard Slot Screwdriver Sizes (ISO 2380-1)`
+  ***
+  - ### Size Chart (<u>Standardized</u>) - `Standard Slot Screwdriver Sizes (ISO 2380-1)`
     - | Measurement Offset from Edge of Tip (*`t1a`*) | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width Shorthand |
       | --------------------------------------------: | --------------------: | ----------------: | --------------: |
       |                                      `0.2 mm` |              `0.4 mm` |          `2.0 mm` |           `SL2` |

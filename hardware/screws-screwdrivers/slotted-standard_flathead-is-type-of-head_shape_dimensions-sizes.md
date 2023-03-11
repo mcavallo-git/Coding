@@ -43,7 +43,7 @@
             - `Table 1 - Hand-operated screwdriver tips, forms A and B`
             - `Table 2 - Machine-operated screwdriver tips, Form C`
   ***
-  - ### Size Chart (<u>Standardized, ISO 2380-1</u>) - `Standard Slot Screwdriver Sizes`
+  - ### Size Chart (from [ISO 2380-1](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)) - `Standard Slotted Screwdriver Sizes`
     - | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width Shorthand |
       | --------------------: | ----------------: | :-------------- |
       |              `0.4 mm` |          `2.0 mm` | `SL2`           |

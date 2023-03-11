@@ -4,9 +4,9 @@
 
 ***
 
+<div style="float:right;"><table><tr><td>Screw Head:</td><td><img src="images/screw-head-slotted-icon.white.svg" /></td></tr></table></div>
 
 - ## `Slotted` (aka `Standard`) Screws & Drive Tools
-  <div style="align:right;"><table><tr><td>Icon:</td><td><img src="images/screw-head-slotted-icon.svg" style="background:white;padding:2px;" height="20%" /></td></tr></table></div>
 
   ***
   - ### Word of Warning

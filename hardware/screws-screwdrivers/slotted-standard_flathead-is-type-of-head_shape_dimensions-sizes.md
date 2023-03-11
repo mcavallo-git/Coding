@@ -14,7 +14,7 @@
         <details><summary>💬 (Click to show/hide additional info)</summary><p>
 
         - ❌ `Flat-head screws` do **NOT** define the driver required to drive the head of a screw
-          - E.g. The `flat-head` adjective (attached to the noun `screw`) says **nothing** about the type of driver (screwdriver, driver bit, etc.) required to screw in said screw
+          - E.g. The `flat-head` adjective attached to the noun `screw` says **nothing** about the type of driver (screwdriver, driver bit, etc.) required to screw in said screw
         - ✅ `Flat-head screws` **DO** define a specific screw head/shank geometry
           - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into
           - <details><summary>💬 (Click to show/hide common screw head types)</summary><p><a href="https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim"><img src="images/screw-head-types.jpg" /></a></p></details>

@@ -10,7 +10,7 @@
 
   - ### ❗ Word of Warning
     - The term `flat-head` has nothing to do with the *drive type* of a screw
-      - `Slotted` (or `standard`) is the correct term to use when describing screws whose drive type is a simple line across the diameter of the screw head
+      - `Slotted` (or `Standard`) is the correct term to use when describing screws whose drive type is a simple line across the diameter of the screw head
         <details><summary>💬 (Click to show/hide additional info)</summary><p>
 
         - ✅ `Flat-head screws` **DO** define a specific screw head/shank geometry

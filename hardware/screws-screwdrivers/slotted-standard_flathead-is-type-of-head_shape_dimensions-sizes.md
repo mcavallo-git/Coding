@@ -23,7 +23,7 @@
       ***
       - #### <u>3-Value</u> Slotted Screwdriver Dimension Notation
         - Syntax:
-          - `Tip-Thickness` x `Tip-Width` x `Shank-Length`
+          - `Tip-Thickness` x `Shank-Width` x `Shank-Length`
         - Example:
           - [`0.8 x 4.0 x 100mm`](https://www.amazon.com/s?k=0.8+x+4.0+x+100mm+Slotted+Screwdriver)
       ***

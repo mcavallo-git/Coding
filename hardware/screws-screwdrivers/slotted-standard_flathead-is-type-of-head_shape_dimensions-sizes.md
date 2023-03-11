@@ -37,6 +37,10 @@
           - ***IF*** the driver is determined to be ISO 2380-1 compliant:
             - Use `Table 1` from `ISO 2380-1` (below) to perform a reverse lookup of the `Tip-Thickness` by first locating the known `Tip-Width`, then getting the value for the corresponding `Tip-Thickness` (in the same row)
   ***
+  - Example Reference: [(AN3,5x250)-Protwist Slotted Screwdriver-3.5x250mm](https://www.ultimategarage.com/shop/part.php?products_id=7696)
+    <br />
+    - ![facom-protwist-anseries-sizes.jpg](images/facom-protwist-anseries-sizes.jpg)
+  ***
   - ### Size Chart - `Screwdrivers for Slotted-Head Screws`
     - In [ISO 2380-1](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf), refer to:
       - `Table 1 - Hand-operated screwdriver tips, forms A and B`

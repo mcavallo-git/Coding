@@ -224,7 +224,7 @@ Mostly Linux compatible:
 💾				Floppy Disk  |  https://www.compart.com/en/unicode/U+1F4BE
 📁				File Folder  |  https://www.compart.com/en/unicode/U+1F4C1
 📂				Open File Folder  |  https://www.compart.com/en/unicode/U+1F4C2
-💬 				Speech Balloon  |  https://www.compart.com/en/unicode/U+1F4AC
+💬 				Speech Balloon (Chat Bubble, Text Box)  (&#x1F4AC;)  |  https://www.compart.com/en/unicode/U+1F4AC
 📧				E-Mail Symbol  |  https://www.compart.com/en/unicode/U+1F4E7
 ✉					Envelope  |  https://www.compart.com/en/unicode/U+2709
 ✉️				Envelope (Colored)  |  https://www.compart.com/en/unicode/U+2709

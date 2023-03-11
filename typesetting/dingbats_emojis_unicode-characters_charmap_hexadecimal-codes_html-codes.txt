@@ -485,7 +485,7 @@ Unusual/Annoying Characters
 //
 //   compart.com  |  "Character Set “x-Adobe-Zapf-Dingbats-Encoding”"  |  https://www.compart.com/en/unicode/charsets/x-Adobe-Zapf-Dingbats-Encoding
 //
-//   emojipedia.org  |  "Emojipedia 5.0 Emoji List"  |  https://emojipedia.org/emojipedia/5.0/
+//   emojipedia.org  |  "Every Emoji by Codepoint"  |  https://emojipedia.org/emoji
 //
 //   en.wikipedia.org  |  "Dingbat - Wikipedia"  |  https://en.wikipedia.org/wiki/Dingbat
 //

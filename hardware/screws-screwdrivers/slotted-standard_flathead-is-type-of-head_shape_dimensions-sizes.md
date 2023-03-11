@@ -91,7 +91,7 @@
     - [www.instructables.com | Types of Screw Heads/Screw Drives](https://www.instructables.com/Types-of-Screw-Heads/)
     - [www.linkedin.com | Types of Screw Heads and Their Uses](https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim)
     - [www.monsterbolts.com | Common Fastener Abbreviations](https://monsterbolts.com/pages/abbreviations)
-    - [www.reddit.com | Insulated screwdrivers : electricians](https://www.reddit.com/r/electricians/comments/1m664c/insulated_screwdrivers/)
+    - [www.reddit.com | Insulated screwdrivers : electricians](https://www.reddit.com/r/electricians/comments/1m664c/comment/cc6nlxq)
     - [www.toolcobber.com | Screwdriver Bits - The Ultimate Guide](https://www.toolcobber.com.au/power-tools/drilling/accessories/screwdriver-bits/)
     - [www.urreaprofessionaltools.com | Driver Tools - URREA](https://www.urreaprofessionaltools.com/catalog/07drivers.pdf)
     - [www.wonkeedonkeetools.co.uk | What are the parts of a screw?](https://www.wonkeedonkeetools.co.uk/screws/what-are-the-parts-of-a-screw)

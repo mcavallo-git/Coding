@@ -2,7 +2,11 @@
 
 # Screw/Screwdriver Dimensions, Sizes
 
-- ## `Hexalobular` (aka `Torx`/`Star Drive`) Screws
+***
+
+- | ![screw-head-hexalobular-icon.white.svg](images/screw-head-hexalobular-icon.white.svg) | <h2>`Hexalobular` (aka `Torx`/`Star Drive`) Screws & Drive Tools</h2> |
+  | ---------------------------------------------------------------------------------: | -------------------------------------------------------------: |
+  ***
   - ### Size Chart
     - | Torx<br />Size # | E Torx<br />Size # | Point-to-Point Distance<br />(Metric) | Point-to-Point Distance<br />(SAE) | Max Torque Range<br />(Metric) | Max Torque Range<br />(SAE) |
       | ---------------: | -----------------: | ------------------------------------: | ---------------------------------: | -----------------------------: | --------------------------: |

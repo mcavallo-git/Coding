@@ -6,7 +6,6 @@
 
 - | ![screw-head-slotted-icon.white.svg](images/screw-head-slotted-icon.white.svg) | <h2>`Slotted` (aka `Standard`) Screws & Drive Tools</h2> |
   | -----------------------------------------------------------------------------: | -------------------------------------------------------: |
-
   ***
   - ### Word of Warning
     - ✅ The adjective `slotted` (or `standard`) describes screws whose drive type is a simple line across the diameter of the screw head.

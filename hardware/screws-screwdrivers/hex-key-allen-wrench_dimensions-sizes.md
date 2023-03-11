@@ -2,7 +2,11 @@
 
 # Screw/Screwdriver Dimensions, Sizes
 
-- ## `Hex Key` (aka `Allen Wrench`) Screws
+***
+
+- | ![screw-head-hex-key-icon.white.svg](images/screw-head-hex-key-icon.white.svg) | <h2>`Hex Key` (aka `Allen Wrench`) Screws & Drive Tools</h2> |
+  | ---------------------------------------------------------------------------------: | -------------------------------------------------------------: |
+  ***
   - ### Size Chart
     - | Tip Width<br />(Metric) | Tip Width<br />(SAE) |
       | ----------------------: | -------------------: |

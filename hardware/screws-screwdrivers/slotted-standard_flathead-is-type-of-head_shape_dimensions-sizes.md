@@ -44,20 +44,20 @@
   ***
   - ### Size Chart (<u>Standardized, ISO 2380-1</u>) - `Standard Slot Screwdriver Sizes`
     - | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width Shorthand |
-      | --------------------: | ----------------: | --------------: |
-      |              `0.4 mm` |          `2.0 mm` |           `SL2` |
-      |              `0.4 mm` |          `2.5 mm` |         `SL2.5` |
-      |              `0.5 mm` |          `3.0 mm` |           `SL3` |
-      |              `0.6 mm` |          `3.0 mm` |           `SL3` |
-      |              `0.6 mm` |          `3.5 mm` |         `SL3.5` |
-      |              `0.8 mm` |          `4.0 mm` |           `SL4` |
-      |              `1.0 mm` |          `4.5 mm` |         `SL4.5` |
-      |              `1.0 mm` |          `5.5 mm` |         `SL5.5` |
-      |              `1.2 mm` |          `6.5 mm` |         `SL6.5` |
-      |              `1.2 mm` |          `8.0 mm` |           `SL8` |
-      |              `1.6 mm` |         `10.0 mm` |          `SL10` |
-      |              `2.0 mm` |         `12.0 mm` |          `SL12` |
-      |              `2.5 mm` |         `14.0 mm` |          `SL14` |
+      | --------------------: | ----------------: | :-------------- |
+      |              `0.4 mm` |          `2.0 mm` | `SL2`           |
+      |              `0.4 mm` |          `2.5 mm` | `SL2.5`         |
+      |              `0.5 mm` |          `3.0 mm` | `SL3`           |
+      |              `0.6 mm` |          `3.0 mm` | `SL3`           |
+      |              `0.6 mm` |          `3.5 mm` | `SL3.5`         |
+      |              `0.8 mm` |          `4.0 mm` | `SL4`           |
+      |              `1.0 mm` |          `4.5 mm` | `SL4.5`         |
+      |              `1.0 mm` |          `5.5 mm` | `SL5.5`         |
+      |              `1.2 mm` |          `6.5 mm` | `SL6.5`         |
+      |              `1.2 mm` |          `8.0 mm` | `SL8`           |
+      |              `1.6 mm` |         `10.0 mm` | `SL10`          |
+      |              `2.0 mm` |         `12.0 mm` | `SL12`          |
+      |              `2.5 mm` |         `14.0 mm` | `SL14`          |
     ***
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Tip Width<br />(Metric) | Tip Width<br />(SAE) |

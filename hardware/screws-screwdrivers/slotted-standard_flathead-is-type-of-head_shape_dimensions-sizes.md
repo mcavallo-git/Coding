@@ -36,14 +36,11 @@
           - Note: If only two dimension values are given, then `Tip-Thickness` has been excluded from the stated dimensions. This is commonly done for ISO 2380-1 compliant screwdrivers
           - ***IF*** the driver is determined to be ISO 2380-1 compliant:
             - Use `Table 1` from `ISO 2380-1` (below) to perform a reverse lookup of the `Tip-Thickness` by first locating the known `Tip-Width`, then getting the value for the corresponding `Tip-Thickness` (in the same row)
-      ***
-    - #### ISO 2380-1 - Standardization Document Detailing Slotted Screwdriver Dimensions
-        - [`View Docs (ISO 2380-1:2004 - Assembly tools for screws and nuts - Screwdrivers for slotted-head screws - Part 1: Tips for hand- and machine-operated screwdrivers)`](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
-          - Refer to:
-            - `Table 1 - Hand-operated screwdriver tips, forms A and B`
-            - `Table 2 - Machine-operated screwdriver tips, Form C`
   ***
-  - ### Size Chart (from [ISO 2380-1](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)) - `Standard Slotted Screwdriver Sizes`
+  - ### Size Chart - `Screwdrivers for Slotted-Head Screws`
+    - In [ISO 2380-1](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf), refer to:
+      - `Table 1 - Hand-operated screwdriver tips, forms A and B`
+      - `Table 2 - Machine-operated screwdriver tips, Form C`
     - | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width Shorthand |
       | --------------------: | ----------------: | :-------------- |
       |              `0.4 mm` |          `2.0 mm` | `SL2`           |

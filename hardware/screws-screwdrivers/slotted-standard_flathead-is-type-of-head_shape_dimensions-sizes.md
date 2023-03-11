@@ -23,13 +23,13 @@
       ***
       - #### <u>3-Value</u> Slotted Screwdriver Dimension Notation
         - Syntax:
-          - <kbd><kbd style="font-size:150%">Tip-Thickness</kbd> x <kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
+          - `Tip-Thickness` x `Tip-Width` x `Shank-Length`
         - Example:
           - [`0.8 x 4.0 x 100mm Slotted Screwdriver`](https://www.amazon.com/s?k=0.8+x+4.0+x+100mm+Slotted+Screwdriver)
       ***
       - #### <u>2-Value</u> Slotted Screwdriver Dimension Notation
         - Syntax:
-          - <kbd><kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
+          - `Tip-Width` x `Shank-Length`
         - Example:
           - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
         - ##### Troubleshooting: Determining `Tip-Thickness` from 2-Value Notation Dimensions
@@ -46,19 +46,18 @@
     - | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width Shorthand |
       | --------------------: | ----------------: | --------------: |
       |              `0.4 mm` |          `2.0 mm` |           `SL2` |
-      |              `0.4 mm` |          `2.5 mm` |                 |
+      |              `0.4 mm` |          `2.5 mm` |         `SL2.5` |
       |              `0.5 mm` |          `3.0 mm` |           `SL3` |
       |              `0.6 mm` |          `3.0 mm` |           `SL3` |
-      |              `0.6 mm` |          `3.5 mm` |                 |
+      |              `0.6 mm` |          `3.5 mm` |         `SL3.5` |
       |              `0.8 mm` |          `4.0 mm` |           `SL4` |
-      |              `1.0 mm` |          `4.5 mm` |                 |
-      |              `1.0 mm` |          `5.5 mm` |                 |
-      |              `1.2 mm` |          `6.5 mm` |                 |
-      |              `1.2 mm` |          `8.0 mm` |                 |
-      |              `1.6 mm` |          `8.0 mm` |                 |
-      |              `1.6 mm` |         `10.0 mm` |                 |
-      |              `2.0 mm` |         `12.0 mm` |                 |
-      |              `2.5 mm` |         `14.0 mm` |                 |
+      |              `1.0 mm` |          `4.5 mm` |         `SL4.5` |
+      |              `1.0 mm` |          `5.5 mm` |         `SL5.5` |
+      |              `1.2 mm` |          `6.5 mm` |         `SL6.5` |
+      |              `1.2 mm` |          `8.0 mm` |           `SL8` |
+      |              `1.6 mm` |         `10.0 mm` |          `SL10` |
+      |              `2.0 mm` |         `12.0 mm` |          `SL12` |
+      |              `2.5 mm` |         `14.0 mm` |          `SL14` |
     ***
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Tip Width<br />(Metric) | Tip Width<br />(SAE) |
@@ -76,6 +75,7 @@
   - ## Citation(s)
     - [books.google.com | Popular Mechanics](https://books.google.com/books?id=R2YEAAAAMBAJ&pg=PA82#v=onepage&q&f=false)
     - [cdn.standards.iteh.ai | ISO-2380-1-2004.pdf](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
+    - [docs.rs-online.com | The Catalogue - Wera](https://docs.rs-online.com/736a/A700000008591758.pdf)
     - [en.wikipedia.org | List of screw drives](https://en.wikipedia.org/wiki/List_of_screw_drives)
     - [makezine.com | Quick Tip: Know Your Screwdrivers (Hint: It's Not a "Flathead!")](https://makezine.com/article/workshop/quick-tip-know-your-screwdrivers-hint-its-not-called-a-flathead/)
     - [www.garagesanctum.com | Flat Head Screwdriver Sizes Chart](https://www.garagesanctum.com/size-chart/screwdriver-sizes-chart/#ftoc-heading-1)
@@ -85,5 +85,7 @@
     - [www.linkedin.com | Types of Screw Heads and Their Uses](https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim)
     - [www.monsterbolts.com | Common Fastener Abbreviations](https://monsterbolts.com/pages/abbreviations)
     - [www.toolcobber.com | Screwdriver Bits - The Ultimate Guide](https://www.toolcobber.com.au/power-tools/drilling/accessories/screwdriver-bits/)
+    - [www.urreaprofessionaltools.com | Driver Tools - URREA](https://www.urreaprofessionaltools.com/catalog/07drivers.pdf)
     - [www.wonkeedonkeetools.co.uk | What are the parts of a screw?](https://www.wonkeedonkeetools.co.uk/screws/what-are-the-parts-of-a-screw)
+    
 ***

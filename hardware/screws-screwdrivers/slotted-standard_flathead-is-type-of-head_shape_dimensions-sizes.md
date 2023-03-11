@@ -15,7 +15,7 @@
         - The prevalence of this misnomer drives the importance of understanding what a `flat-head` screw *actually* defines
         - ✅ The adjective `flat-head` defines a specific screw head/shank geometry which, once driven in, results in the screw head being fully flush ("flat") with the surface it was driven into (e.g. The screw doesn't stick out at all once it is screwed in).
           ![screw-head-types.jpg](images/screw-head-types.jpg)
-        - Therefore, *especially* when discussing screws (and not drivers), it is best to avoid usage of the term `flat-head` unless you're explicitly describing how flush a screw should mate with whatever it is being driven into
+        - Therefore it is best to avoid usage of the term `flat-head` unless you're explicitly describing how flush a screw should mate with whatever it is being driven into
         </p></details>
   ***
   - ### Measuring a Slotted Screwdriver

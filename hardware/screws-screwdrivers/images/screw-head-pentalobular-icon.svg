@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg width="104" height="104" xmlns="http://www.w3.org/2000/svg" stroke="#000">
-<path fill="#FFF" stroke-width="5" d="m51,3a49,49 0 1,0 2,0z"/>
-<path stroke-width="33" stroke-dasharray="0,27.65" stroke-linecap="round" d="m52,30a22,22 0 1,0 .1,0"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="104" height="104" stroke="#000">
+  <path fill="#FFF" stroke-width="5" d="M51 3a49 49 0 1 0 2 0z"/>
+  <path stroke-dasharray="0,27.65" stroke-linecap="round" stroke-width="33" d="M52 30a22 22 0 1 0 .1 0"/>
 </svg>

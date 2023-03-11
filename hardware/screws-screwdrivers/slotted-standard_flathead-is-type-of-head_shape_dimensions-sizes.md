@@ -19,7 +19,7 @@
         </p></details>
   ***
   - ### Measuring a Slotted Screwdriver
-      ![parts-of-a-screwdriver.jpg](images/parts-of-a-screwdriver.jpg)
+      ![facom-protwist-screw-driver-dimensions.jpg](images/facom-protwist-screw-driver-dimensions.jpg)
       ***
       - #### <u>3-Value</u> Slotted Screwdriver Dimension Notation
         - Syntax:

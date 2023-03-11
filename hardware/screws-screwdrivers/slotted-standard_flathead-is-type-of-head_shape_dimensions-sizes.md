@@ -32,7 +32,7 @@
           - <kbd><kbd style="font-size:150%">Tip-Width</kbd> x <kbd style="font-size:150%">Shank-Length</kbd></kbd>
         - Example:
           - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
-        - ##### Determining `Tip-Thickness` from 2-Value Notation Dimensions
+        - ##### Troubleshooting: Determining `Tip-Thickness` from 2-Value Notation Dimensions
           - Note: If only two dimension values are given, then `Tip-Thickness` has been excluded from the stated dimensions. This is commonly done for ISO 2380-1 compliant screwdrivers.
           - If the driver <u>is</u> determined to be ISO 2380-1 compliant:
             - Use `Table 1` in `ISO 2380-1` (below) to perform a reverse lookup of the `Tip-Thickness` by first locating the known `Tip-Width`, then getting the value for the corresponding `Tip-Thickness` (in the same row)

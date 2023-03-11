@@ -1,4 +1,4 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" version="1.0">
-  <path d="M40 20a20 20 0 1 1-40 0 20 20 0 1 1 40 0z" style="opacity:1;fill:none;fill-opacity:1;stroke:#000;stroke-width:2.10526299;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="matrix(.95 0 0 .95 1 1)"/>
-  <path d="m20 5 12.990381 7.5v15L20 35 7.0096187 27.5l4e-7-15L20 5z" style="opacity:1;fill:#000;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="rotate(90 20 20)"/>
+  <path stroke="#000" d="M40 20a20 20 0 1 1-40 0 20 20 0 1 1 40 0z" style="opacity:1;fill:none;fill-opacity:1;stroke-width:2.10526299;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="matrix(.95 0 0 .95 1 1)"/>
+  <path fill="#000" d="m20 5 12.990381 7.5v15L20 35 7.0096187 27.5l4e-7-15L20 5z" style="opacity:1;fill-opacity:1;stroke:none;stroke-width:2;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1" transform="rotate(90 20 20)"/>
 </svg>

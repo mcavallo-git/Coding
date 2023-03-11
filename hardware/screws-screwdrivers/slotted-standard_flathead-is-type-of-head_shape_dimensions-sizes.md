@@ -7,12 +7,12 @@
 - ## Word of Warning
   - ❗ The term `flat-head` has nothing to do with the *drive type* of a screw ❗
     - `Slotted` (or `standard`) is the correct term to use when describing screws whose drive type is a simple line across the diameter of the screw head
-      <details><summary>(Click to show/hide additional info)</summary><p>
+      <details><summary>💬 (Click to show/hide additional info)</summary><p>
 
       - ❌ `Flat-head screws` do **NOT** define the driver required to drive the head of a screw (e.g. it does **not** describe the type of screwdriver or driver bit to use)
       - ✅ `Flat-head screws` **DO** define a specific screw head/shank geometry
         - Specifically, `flat-head screws` are ones which mate flushly with the surface they're being screwed into
-        - See <a href="images/screw-head-types.jpg">screw-head-types.jpg</a> for some common screw head types
+        - <details><summary>💬 (Click to show/hide common screw head types)</summary><p><a href="https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim"><img src="images/screw-head-types.jpg" /></a></p></details>
       - Therefore, when attempting to reference a `slotted` or `standard` driver type (*especially* when discussing screws and not drivers), it is best to avoid usage of the term `flat-head` unless you're using the term to define the required mounting flushness of the head of the screw (and not the driver required)
   
   </p></details>

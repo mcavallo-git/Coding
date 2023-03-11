@@ -25,22 +25,23 @@
         - Syntax:
           - `Tip-Thickness` x `Tip-Width` x `Shank-Length`
         - Example:
-          - [`0.8 x 4.0 x 100mm Slotted Screwdriver`](https://www.amazon.com/s?k=0.8+x+4.0+x+100mm+Slotted+Screwdriver)
+          - [`0.8 x 4.0 x 100mm`](https://www.amazon.com/s?k=0.8+x+4.0+x+100mm+Slotted+Screwdriver)
       ***
       - #### <u>2-Value</u> Slotted Screwdriver Dimension Notation
         - Syntax:
           - `Tip-Width` x `Shank-Length`
         - Example:
-          - [`1/8" x 4" Slotted Screwdriver`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
+          - [`1/8" x 4"`](https://www.amazon.com/s?k=1%2F8%22+x+4%22+Slotted+Screwdriver)
         - ##### Troubleshooting: Determining `Tip-Thickness` from 2-Value Notation Dimensions
           - Note: If only two dimension values are given, then `Tip-Thickness` has been excluded from the stated dimensions. This is commonly done for ISO 2380-1 compliant screwdrivers
           - ***IF*** the driver is determined to be ISO 2380-1 compliant:
             - Use `Table 1` from `ISO 2380-1` (below) to perform a reverse lookup of the `Tip-Thickness` by first locating the known `Tip-Width`, then getting the value for the corresponding `Tip-Thickness` (in the same row)
       ***
     - #### ISO 2380-1 - Standardized Tip Dimensions for Slotted Screwdriver
-      - [![slotted-screwdriver-tips_iso-2380-1.png](images/slotted-screwdriver-tips_iso-2380-1.png)](https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/screws-screwdrivers/images/slotted-screwdriver-tips_iso-2380-1.png)
-        - Citation: [`ISO 2380-1:2004 (Assembly tools for screws and nuts - Screwdrivers for slotted-head screws - Part 1: Tips for hand- and machine-operated screwdrivers)`](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
-          - Refer to `Table 1 — Hand-operated screwdriver tips, forms A and B`
+        - [`View Docs (ISO 2380-1:2004 - Assembly tools for screws and nuts - Screwdrivers for slotted-head screws - Part 1: Tips for hand- and machine-operated screwdrivers)`](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
+          - Refer to:
+            - `Table 1 - Hand-operated screwdriver tips, forms A and B`
+            - `Table 2 - Machine-operated screwdriver tips, Form C`
   ***
   - ### Size Chart (<u>Standardized, ISO 2380-1</u>) - `Standard Slot Screwdriver Sizes`
     - | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width Shorthand |

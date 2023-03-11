@@ -42,23 +42,23 @@
         - Citation: [`ISO 2380-1:2004 (Assembly tools for screws and nuts - Screwdrivers for slotted-head screws - Part 1: Tips for hand- and machine-operated screwdrivers)`](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
           - Refer to `Table 1 — Hand-operated screwdriver tips, forms A and B`
   ***
-  - ### Size Chart (<u>Standardized</u>) - `Standard Slot Screwdriver Sizes (ISO 2380-1)`
-    - | Measurement Offset from Edge of Tip (*`t1a`*) | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width Shorthand |
-      | --------------------------------------------: | --------------------: | ----------------: | --------------: |
-      |                                      `0.2 mm` |              `0.4 mm` |          `2.0 mm` |           `SL2` |
-      |                                      `0.2 mm` |              `0.4 mm` |          `2.5 mm` |                 |
-      |                                      `0.3 mm` |              `0.5 mm` |          `3.0 mm` |           `SL3` |
-      |                                      `0.4 mm` |              `0.6 mm` |          `3.0 mm` |           `SL3` |
-      |                                      `0.4 mm` |              `0.6 mm` |          `3.5 mm` |                 |
-      |                                      `0.5 mm` |              `0.8 mm` |          `4.0 mm` |           `SL4` |
-      |                                      `0.6 mm` |              `1.0 mm` |          `4.5 mm` |                 |
-      |                                      `0.6 mm` |              `1.0 mm` |          `5.5 mm` |                 |
-      |                                      `0.7 mm` |              `1.2 mm` |          `6.5 mm` |                 |
-      |                                      `0.7 mm` |              `1.2 mm` |          `8.0 mm` |                 |
-      |                                      `1.0 mm` |              `1.6 mm` |          `8.0 mm` |                 |
-      |                                      `1.0 mm` |              `1.6 mm` |         `10.0 mm` |                 |
-      |                                      `1.2 mm` |              `2.0 mm` |         `12.0 mm` |                 |
-      |                                      `1.5 mm` |              `2.5 mm` |         `14.0 mm` |                 |
+  - ### Size Chart (<u>Standardized, ISO 2380-1</u>) - `Standard Slot Screwdriver Sizes`
+    - | Tip Thickness (*`a`*) | Tip Width (*`b`*) | Width Shorthand |
+      | --------------------: | ----------------: | --------------: |
+      |              `0.4 mm` |          `2.0 mm` |           `SL2` |
+      |              `0.4 mm` |          `2.5 mm` |                 |
+      |              `0.5 mm` |          `3.0 mm` |           `SL3` |
+      |              `0.6 mm` |          `3.0 mm` |           `SL3` |
+      |              `0.6 mm` |          `3.5 mm` |                 |
+      |              `0.8 mm` |          `4.0 mm` |           `SL4` |
+      |              `1.0 mm` |          `4.5 mm` |                 |
+      |              `1.0 mm` |          `5.5 mm` |                 |
+      |              `1.2 mm` |          `6.5 mm` |                 |
+      |              `1.2 mm` |          `8.0 mm` |                 |
+      |              `1.6 mm` |          `8.0 mm` |                 |
+      |              `1.6 mm` |         `10.0 mm` |                 |
+      |              `2.0 mm` |         `12.0 mm` |                 |
+      |              `2.5 mm` |         `14.0 mm` |                 |
     ***
   - ### Size Chart - `Slot Drive Tool & Screw Sizes`
     - | Slotted<br />Size # | Tip Width<br />(Metric) | Tip Width<br />(SAE) |

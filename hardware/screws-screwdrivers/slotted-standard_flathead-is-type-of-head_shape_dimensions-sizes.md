@@ -14,12 +14,12 @@
 
         - The prevalence of this misnomer drives the importance of understanding what a `flat-head` screw *actually* defines
         - ✅ The adjective `flat-head` defines a specific screw head/shank geometry which, once driven in, results in the screw head being fully flush ("flat") with the surface it was driven into (e.g. The screw doesn't stick out at all once it is screwed in).
-          [![screw-head-types.jpg](images/screw-head-types.jpg)](https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim)
+          ![screw-head-types.jpg](images/screw-head-types.jpg)
         - Therefore, *especially* when discussing screws (and not drivers), it is best to avoid usage of the term `flat-head` unless you're explicitly describing how flush a screw should mate with whatever it is being driven into
         </p></details>
   ***
   - ### Measuring a Slotted Screwdriver
-      [![parts-of-a-screwdriver.jpg](images/parts-of-a-screwdriver.jpg)](https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram)
+      ![parts-of-a-screwdriver.jpg](images/parts-of-a-screwdriver.jpg)
       ***
       - #### <u>3-Value</u> Slotted Screwdriver Dimension Notation
         - Syntax:
@@ -38,7 +38,7 @@
             - Use `Table 1` in `ISO 2380-1` (below) to perform a reverse lookup of the `Tip-Thickness` by first locating the known `Tip-Width`, then getting the value for the corresponding `Tip-Thickness` (in the same row)
       ***
     - #### ISO 2380-1 - Standardized Tip Dimensions for Slotted Screwdriver
-      - [![slotted-screwdriver-tips_iso-2380-1.png](https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/screws-screwdrivers/images/slotted-screwdriver-tips_iso-2380-1.png)
+      - [![slotted-screwdriver-tips_iso-2380-1.png](images/slotted-screwdriver-tips_iso-2380-1.png)](https://raw.githubusercontent.com/mcavallo-git/Coding/main/hardware/screws-screwdrivers/images/slotted-screwdriver-tips_iso-2380-1.png)
         - Citation: [`ISO 2380-1:2004 (Assembly tools for screws and nuts - Screwdrivers for slotted-head screws - Part 1: Tips for hand- and machine-operated screwdrivers)`](https://cdn.standards.iteh.ai/samples/35869/8172b254f966470ab774a4c0a99231a2/ISO-2380-1-2004.pdf)
           - Refer to `Table 1 — Hand-operated screwdriver tips, forms A and B`
   ***

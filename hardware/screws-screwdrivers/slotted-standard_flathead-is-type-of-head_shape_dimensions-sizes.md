@@ -87,5 +87,4 @@
     - [www.monsterbolts.com | Common Fastener Abbreviations](https://monsterbolts.com/pages/abbreviations)
     - [www.toolcobber.com | Screwdriver Bits - The Ultimate Guide](https://www.toolcobber.com.au/power-tools/drilling/accessories/screwdriver-bits/)
     - [www.wonkeedonkeetools.co.uk | What are the parts of a screw?](https://www.wonkeedonkeetools.co.uk/screws/what-are-the-parts-of-a-screw)
-
 ***

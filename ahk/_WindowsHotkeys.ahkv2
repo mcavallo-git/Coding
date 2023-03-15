@@ -1145,45 +1145,47 @@ AppsKey & WheelUp::
 AppsKey & WheelDown::
 {
   VolDelta := 2
-  If (A_ThisHotkey=="#F10") {
-    SoundSetMute -1  ; Volume Mute (Toggle)
-  } Else If (A_ThisHotkey=="#MButton") {
-    SoundSetMute -1  ; Volume Mute (Toggle)
-  } Else If (A_ThisHotkey=="^#MButton") {
-    SoundSetMute -1  ; Volume Mute (Toggle)
-  } Else {
-    If (A_ThisHotkey=="#F12") {
-      vDelta := "+" ( VolDelta )  ; Volume Up
-    } Else If (A_ThisHotkey=="+#Up") {
-      vDelta := "+" ( VolDelta )  ; Volume Up
-    } Else If (A_ThisHotkey=="!#Up") {
-      vDelta := "+" ( VolDelta )  ; Volume Up
-    } Else If (A_ThisHotkey=="^#Up") {
-      vDelta := "+" ( VolDelta )  ; Volume Up
-    } Else If (A_ThisHotkey=="AppsKey & WheelUp") {
-      vDelta := "+" ( VolDelta )  ; Volume Up
-    } Else If (A_ThisHotkey=="#WheelUp") {
-      vDelta := "+" ( VolDelta )  ; Volume Up
-    } Else If (A_ThisHotkey=="^#WheelUp") {
-      vDelta := "+" ( VolDelta * 2 )  ; Volume Up x2
-    } Else If (A_ThisHotkey=="+#Down") {
-      vDelta := "-" ( VolDelta )  ; Volume Down
-    } Else If (A_ThisHotkey=="#F11") {
-      vDelta := "-" ( VolDelta )  ; Volume Down
-    } Else If (A_ThisHotkey=="!#Down") {
-      vDelta := "-" ( VolDelta )  ; Volume Down
-    } Else If (A_ThisHotkey=="^#Down") {
-      vDelta := "-" ( VolDelta )  ; Volume Down
-    } Else If (A_ThisHotkey=="AppsKey & WheelDown") {
-      vDelta := "-" ( VolDelta )  ; Volume Down
-    } Else If (A_ThisHotkey=="#WheelDown") {
-      vDelta := "-" ( VolDelta )  ; Volume Down
-    } Else If (A_ThisHotkey=="^#WheelDown") {
-      vDelta := "-" ( VolDelta * 2 )  ; Volume Down x2
+  Try {
+    If (A_ThisHotkey=="#F10") {
+      SoundSetMute -1  ; Volume Mute (Toggle)
+    } Else If (A_ThisHotkey=="#MButton") {
+      SoundSetMute -1  ; Volume Mute (Toggle)
+    } Else If (A_ThisHotkey=="^#MButton") {
+      SoundSetMute -1  ; Volume Mute (Toggle)
+    } Else {
+      If (A_ThisHotkey=="#F12") {
+        vDelta := "+" ( VolDelta )  ; Volume Up
+      } Else If (A_ThisHotkey=="+#Up") {
+        vDelta := "+" ( VolDelta )  ; Volume Up
+      } Else If (A_ThisHotkey=="!#Up") {
+        vDelta := "+" ( VolDelta )  ; Volume Up
+      } Else If (A_ThisHotkey=="^#Up") {
+        vDelta := "+" ( VolDelta )  ; Volume Up
+      } Else If (A_ThisHotkey=="AppsKey & WheelUp") {
+        vDelta := "+" ( VolDelta )  ; Volume Up
+      } Else If (A_ThisHotkey=="#WheelUp") {
+        vDelta := "+" ( VolDelta )  ; Volume Up
+      } Else If (A_ThisHotkey=="^#WheelUp") {
+        vDelta := "+" ( VolDelta * 2 )  ; Volume Up x2
+      } Else If (A_ThisHotkey=="+#Down") {
+        vDelta := "-" ( VolDelta )  ; Volume Down
+      } Else If (A_ThisHotkey=="#F11") {
+        vDelta := "-" ( VolDelta )  ; Volume Down
+      } Else If (A_ThisHotkey=="!#Down") {
+        vDelta := "-" ( VolDelta )  ; Volume Down
+      } Else If (A_ThisHotkey=="^#Down") {
+        vDelta := "-" ( VolDelta )  ; Volume Down
+      } Else If (A_ThisHotkey=="AppsKey & WheelDown") {
+        vDelta := "-" ( VolDelta )  ; Volume Down
+      } Else If (A_ThisHotkey=="#WheelDown") {
+        vDelta := "-" ( VolDelta )  ; Volume Down
+      } Else If (A_ThisHotkey=="^#WheelDown") {
+        vDelta := "-" ( VolDelta * 2 )  ; Volume Down x2
+      }
+      SoundSetVolume(vDelta)
     }
-    SoundSetVolume(vDelta)
+    ShowVolumeLevel()
   }
-  ShowVolumeLevel()
   Return
 }
 

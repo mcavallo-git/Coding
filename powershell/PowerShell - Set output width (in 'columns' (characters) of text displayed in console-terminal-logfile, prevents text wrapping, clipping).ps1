@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Set console-terminal output width (prevents text wrapping, clipping)
+# PowerShell - Set output width (in 'columns' (characters) of text displayed in console-terminal-logfile, prevents text wrapping, clipping)
 #  |-->  Turns off word-wrap (you may not see some of the text as it goes off the console, but you can still highlight copy it)
 #  |-->  Prevents clipping of the powershell console's output
 #

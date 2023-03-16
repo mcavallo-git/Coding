@@ -8,16 +8,26 @@
 #
 # ------------------------------------------------------------
 
+#
+# Substring Replacement
+#
+
 "Hello World!".Replace("World","City");  <# Returns "Hello World!" #>
 
-"Hello World!".Replace("world","City");  <# Returns "Hello World!" - CASE SENsitive #>
+"Hello World!".Replace("world","City");  <# Returns "Hello World!"  -  CASE SENsitive #>
 
-"Hello World!" -replace "world","City";  <# Returns "Hello City!" - CASE INsensitive #>
+"Hello World!" -replace "world","City";  <# Returns "Hello City!"  -  CASE INsensitive #>
 
-"..*[$#(In!#<$>#va!#lid + @!# Char# !>>< act ers)<<].." -replace "[^a-zA-Z0-9-_%\[\]\(\)\+\.]","";  <# Returns "..[(Invalid+Characters)].."  #>
+"Hello World!".Replace(" World","");     <# Returns "Hello!"  -  Slice substring #>
+
+"Hello World!" -replace " World","";     <# Returns "Hello!"  -  Slice substring #>
+
+"Hello World!" -replace " World";        <# Returns "Hello!"  -  Slice substring (second arg not required for -replace to slice) #>
 
 
-# Regex replacements using capture groups
+#
+# Substring Replacement - Regex Capture Groups
+#
 
 '00:00:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$","[`$1] [`$2] [`$3] [`$4]";  <# Returns "[] [00] [00] [00]" #>
 
@@ -26,6 +36,7 @@
 '+13:45:00' -replace "^([-+]?)(\d+):(\d+):(\d+)$","[`$1] [`$2] [`$3] [`$4]";  <# Returns "[+] [13] [45] [00]" #>
 
 $TZ_MinutesOffset=$(([String](Get-TimeZone).BaseUtcOffset) -replace "^([-+]?)(\d+):(\d+):(\d+)$",":`$3"); $TZ_MinutesOffset;  <# Returns ":00" (minutes offset for current system's timezone) #>
+
 
 
 # ------------------------------
@@ -37,6 +48,14 @@ $String="Hello World!";
 $SliceSubstring="World";
 ${String} -replace "${SliceSubstring}";
 
+
+
+# ------------------------------
+#
+# Example - Remove "invalid" characters (any characters NOT found in a given set of characters)
+#
+
+"..*[$#(In!#<$>#va!#lid + @!# Char# !>>< act ers)<<].." -replace "[^a-zA-Z0-9-_%\[\]\(\)\+\.]","";  <# Returns "..[(Invalid+Characters)].."  #>
 
 
 # ------------------------------

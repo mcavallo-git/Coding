@@ -11,7 +11,7 @@
 #  |--> https://docs.microsoft.com/en-us/dotnet/api/system.string.substring#System_String_Substring_System_Int32_
 #
 
-$StartIndex=3;  "12345678".Substring(${StartIndex});  # Returns "45678"
+$StartIndex=3; "12345678".Substring(${StartIndex});  # Returns "45678"
 
 
 # ------------------------------
@@ -21,7 +21,7 @@ $StartIndex=3;  "12345678".Substring(${StartIndex});  # Returns "45678"
 #  |--> https://docs.microsoft.com/en-us/dotnet/api/system.string.substring#System_String_Substring_System_Int32_System_Int32_
 #
 
-$StartIndex=3;  $Length=3;  "12345678".Substring(${StartIndex}, ${Length});  # Returns "456"
+$StartIndex=3; $Length=3; "12345678".Substring(${StartIndex}, ${Length});  # Returns "456"
 
 
 # ------------------------------------------------------------

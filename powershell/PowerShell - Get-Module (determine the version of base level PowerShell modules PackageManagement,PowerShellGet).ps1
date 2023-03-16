@@ -4,15 +4,15 @@
 
 
 # Get all currently-loaded PowerShell modules
-Get-Module | Select-Object -Property Name, Version, Path, RootModule | Format-List;
+Get-Module | Sort-Object -Property Name | Select-Object -Property Name, Version, Path, RootModule | Format-List;
 
 
 # Get specific PowerShell modules  ( which exist in ${env:PSModulePath} )
-Get-Module -ListAvailable @("PackageManagement","PowerShellGet") | Select-Object -Property Name, Version, Path, RootModule | Format-List;
+Get-Module -ListAvailable @("PackageManagement","PowerShellGet") | Sort-Object -Property Name | Select-Object -Property Name, Version, Path, RootModule | Format-List;
 
 
 # Get all PowerShell modules  ( which exist in ${env:PSModulePath} )
-(Get-Module -ListAvailable | ForEach-Object {
+(Get-Module -ListAvailable | Sort-Object -Property Name | ForEach-Object {
   "-- "*20;
   $_ | Select-Object -Property Name, Version, Path | Format-List | Out-String;
   If (($_.Path) -NE ($_.RootModule)) {
@@ -38,7 +38,7 @@ Get-Module -ListAvailable @("PackageManagement","PowerShellGet") | Select-Object
 #
 
 # Basic - Get base level PowerShell module version info
-Get-Module -ListAvailable @("PackageManagement","PowerShellGet");
+Get-Module -ListAvailable @("PackageManagement","PowerShellGet") | Sort-Object -Property Name | Select-Object -Property Name, Version, Path, RootModule | Format-Table | Out-String -Width 500;
 
 
 # Advanced - Get base level PowerShell module version info
@@ -48,7 +48,7 @@ If ($True) {
   Write-Host ((Write-Output PowerShell)+([String][Char]32)+(((GV PSVersionTable).Value).PSVersion.Major)+(Write-Output .)+(((GV PSVersionTable).Value).PSVersion.Minor))
   Write-Host "------------------------------------------------------------";
   Write-Host "Calling [ Get-Module -ListAvailable @(`"PackageManagement`",`"PowerShellGet`") | ... ; ]...";
-  (Get-Module -ListAvailable @("PackageManagement","PowerShellGet") | ForEach-Object {
+  (Get-Module -ListAvailable @("PackageManagement","PowerShellGet") | Sort-Object -Property Name | ForEach-Object {
     "-- "*20;
     $_ | Select-Object -Property Name, Version, Path | Format-List | Out-String;
     If (($_.Path) -NE ($_.RootModule)) {

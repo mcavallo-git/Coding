@@ -1,14 +1,24 @@
 # ------------------------------------------------------------
 #
-# PowerShel - Update the Powershell console's max characters-per-line by increasing the output buffer size
+# PowerShell - Set console-terminal output width (prevents text wrapping, clipping)
 #  |-->  Turns off word-wrap (you may not see some of the text as it goes off the console, but you can still highlight copy it)
-#  |-->  Prevents clipping of the powershell console's outpu
+#  |-->  Prevents clipping of the powershell console's output
 #
-# ------------------------------------------------------------ 
+# ------------------------------------------------------------
+#
+# Set output width - Current command
+#
+
+Get-Module | Out-String -Width 16382;
+
+
+# ------------------------------------------------------------
+#
+# Set output width - Current session
+#
 
 
 If (($Host) -And ($Host.UI) -And ($Host.UI.RawUI)) { $Host.UI.RawUI.BufferSize = (New-Object ((($Host.UI.RawUI).BufferSize).GetType().FullName) (16384, $Host.UI.RawUI.BufferSize.Height)); }; <# Update PowerShell console width to 16384 characters #>
-
 
 
 <#   ^^^   OneLiner   /   Drawn-out method   vvv   #>
@@ -43,9 +53,13 @@ Notepad "${Logfile}";
 #
 # Citation(s)
 #
-#   docs.microsoft.com  |  "Out-File - Sends output to a file"  |  https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/out-file
+#   learn.microsoft.com  |  "Out-File (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/out-file
 #
-#   stackoverflow.com  |  "console - Powershell output column width - Stack Overflow"  |  https://stackoverflow.com/a/1165347
+#   learn.microsoft.com  |  "Out-String (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/out-string
+#
+#   stackoverflow.com  |  "console - Powershell output column width - Stack Overflow (rawUI.BufferSize)"  |  https://stackoverflow.com/a/1165347
+#
+#   stackoverflow.com  |  "console - Powershell output column width - Stack Overflow (Out-String)"  |  https://stackoverflow.com/a/978794
 #
 #   stackoverflow.com  |  "powershell - How do I use Format-Table without truncation of values? - Stack Overflow"  |  https://stackoverflow.com/a/49123225
 #

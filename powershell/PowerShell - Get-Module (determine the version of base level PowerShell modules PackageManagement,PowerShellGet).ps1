@@ -33,11 +33,16 @@ Get-Module -ListAvailable @("PackageManagement","PowerShellGet") | Select-Object
 
 
 # ------------------------------------------------------------
+#
+# Get version info for base level PowerShell module(s)
+#
 
+# Basic - Get base level PowerShell module version info
+Get-Module -ListAvailable @("PackageManagement","PowerShellGet");
+
+
+# Advanced - Get base level PowerShell module version info
 If ($True) {
-  #
-  # Determine the version of base level PowerShell module(s)
-  #
   Write-Host "------------------------------------------------------------";
   Write-Host "Getting PowerShell Version...";
   Write-Host ((Write-Output PowerShell)+([String][Char]32)+(((GV PSVersionTable).Value).PSVersion.Major)+(Write-Output .)+(((GV PSVersionTable).Value).PSVersion.Minor))

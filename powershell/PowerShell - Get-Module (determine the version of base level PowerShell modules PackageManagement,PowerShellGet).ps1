@@ -77,9 +77,11 @@ If ($True) {
 #
 # Citation(s)
 #
-#   learn.microsoft.com  |  "Get-Module (Microsoft.PowerShell.Core) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/get-module
+#   learn.microsoft.com  |  "Format-List (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/format-list
 #
 #   learn.microsoft.com  |  "Format-Table (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/format-table
+#
+#   learn.microsoft.com  |  "Get-Module (Microsoft.PowerShell.Core) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/get-module
 #
 #   learn.microsoft.com  |  "Out-String (Microsoft.PowerShell.Utility) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/out-string
 #

@@ -18,11 +18,11 @@
 
 "Hello World!" -replace "world","City";  <# Returns "Hello City!"  -  CASE INsensitive #>
 
-"Hello World!".Replace(" World","");     <# Returns "Hello!"  -  Slice substring #>
+"Hello World!".Replace(" World","");     <# Returns "Hello!"  -  Remove substring #>
 
-"Hello World!" -replace " World","";     <# Returns "Hello!"  -  Slice substring #>
+"Hello World!" -replace " World","";     <# Returns "Hello!"  -  Remove substring #>
 
-"Hello World!" -replace " World";        <# Returns "Hello!"  -  Slice substring (second arg not required for -replace to slice) #>
+"Hello World!" -replace " World";        <# Returns "Hello!"  -  Remove substring (second arg not required for -replace to slice) #>
 
 
 #

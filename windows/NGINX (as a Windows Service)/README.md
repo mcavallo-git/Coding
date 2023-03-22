@@ -14,7 +14,7 @@
 <br />
 
 3. Place your wildcard SSL (HTTPS) certificate in PEM format into directory `certs/wildcard.domain.tld_expires-yyyy-MM-ddTHH-mm-ssZ/pem-format` 
-  - Rename `wildcard.domain.tld_expires-yyyy-MM-ddTHH-mm-ssZ` to match your current wildcard certificate's expiration date, then update `certs/nginx-update-certs.bat` to contain the same updated (timestamped) directory name
+  - Rename `wildcard.domain.tld_expires-yyyy-MM-ddTHH-mm-ssZ` (in the `certs` directory) to match your current wildcard certificate's expiration date, then update `certs/nginx-update-certs.bat` to contain the same updated (timestamped) directory name
   - Run `certs/nginx-update-certs.bat` to create symbolic links to the latest wildcard certificates (for zero-downtime updates down the road)
 
 <br />

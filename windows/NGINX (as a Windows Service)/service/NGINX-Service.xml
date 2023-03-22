@@ -1,0 +1,16 @@
+<service>
+  <id>NGINX Proxy</id>
+  <name>NGINX Proxy</name>
+  <description>NGINX Proxy</description>
+  <executable>c:\nginx\nginx.exe</executable>
+  <logpath>c:\nginx\</logpath>
+  <logmode>roll</logmode>
+  <depend></depend>
+  <startargument>-p</startargument>
+  <startargument>c:\nginx</startargument>
+  <stopexecutable>c:\nginx\nginx.exe</stopexecutable>
+  <stopargument>-p</stopargument>
+  <stopargument>c:\nginx</stopargument>
+  <stopargument>-s</stopargument>
+  <stopargument>stop</stopargument>
+</service>

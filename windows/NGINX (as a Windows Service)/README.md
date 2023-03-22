@@ -13,14 +13,12 @@
 
 <br />
 
-3. Place wildcard certificate into `certs/wildcard.domain.tld_expires-yyyy-MM-ddTHH-mm-ssZ/pem-format/.` and rename `wildcard.domain.tld_expires-yyyy-MM-ddTHH-mm-ssZ` to match your current wildcard certificate's expiration date
+3. Place your wildcard SSL (HTTPS) certificate in PEM format into directory `certs/wildcard.domain.tld_expires-yyyy-MM-ddTHH-mm-ssZ/pem-format` 
+  - Rename `wildcard.domain.tld_expires-yyyy-MM-ddTHH-mm-ssZ` to match your current wildcard certificate's expiration date, then update `certs/nginx-update-certs.bat` to contain the same updated (timestamped) directory name
+  - Run `certs/nginx-update-certs.bat` to create symbolic links to the latest wildcard certificates (for zero-downtime updates down the road)
 
 <br />
 
-4. Update `certs/nginx-update-certs.bat` to contain the latest certificate date (from `step 3`) then run it to create symbolic certificate links (for zero-downtime updates down the road)
-
-<br />
-
-5. Run (as admin) `service/Install_NGINX-Service.bat` to add NGINX as a Windows Service
+4. Run (as admin) `service/Install_NGINX-Service.bat` to add NGINX as a Windows Service
 
 ***

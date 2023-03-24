@@ -257,9 +257,9 @@ Mostly Linux compatible:
 🗡				Dagger Knife  |  https://www.compart.com/en/unicode/U+1F5E1  |  echo -e "\\xF0\\x9F\\x97\\xA1";  |  "$([char]0xD83D+[char]0xDDE1)"
 
 
-💲					Heavy Dollar Sign
-💰					Money Bag
-💵				 Dollar Banknote
+💲				Heavy Dollar Sign (&#x1F4B2;)  |  https://www.compart.com/en/unicode/U+1F4B2  |  echo -e "\\xF0\\x9F\\x92\\xB2";  |  "$([char]0xD83D+[char]0xDCB2)"
+💰				Money Bag (&#x1F4B0;)  |  https://www.compart.com/en/unicode/U+1F4B0  |  echo -e "\\xF0\\x9F\\x92\\xB0";  |  "$([char]0xD83D+[char]0xDCB0)"
+💵				Banknote with Dollar Sign (&#x1F4B5;)  |  https://www.compart.com/en/unicode/U+1F4B5  |  echo -e "\\xF0\\x9F\\x92\\xB5";  |  "$([char]0xD83D+[char]0xDCB5)"
 
 
 ⛠					RESTRICTED LEFT ENTRY-1

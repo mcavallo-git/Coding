@@ -1238,6 +1238,7 @@ AppsKey & WheelDown::
   Return
 }
 
+
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + 1
@@ -1249,6 +1250,21 @@ AppsKey & WheelDown::
 {
   SetKeyDelay 0, -1
   Send "⚠️"  ; Warning Sign (Colored)
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + 4
+;            Ctrl + WinKey + 4
+;   ACTION:  Send a green "Heavy Dollar Sign" emoji
+;
+#4::
+^#4::
+{
+  SetKeyDelay 0, -1
+  Send "💲"  ; Heavy Dollar Sign (Colored)
   Return
 }
 

@@ -1,9 +1,11 @@
 
-# Keyboard Switches
+***
+
+## Keyboard Switches
 
 ***
 
-## [Akko Switches](https://en.akkogear.com/store/switch/)
+### [Akko Switches](https://en.akkogear.com/store/switch/)
 
 - Akko CS Lavender Purple (Tactile Swtich, 36g Actuation Force, 18mm Extension Spring)
 
@@ -13,7 +15,7 @@
 
 ***
 
-## [Cherry Switches](https://www.cherrymx.de/en/mx-original/mx-brown.html)
+### [Cherry Switches](https://www.cherrymx.de/en/mx-original/mx-brown.html)
 
 - Cherry MX Brown (Tactile Swtich, 55g Actuation Force)
 
@@ -23,43 +25,43 @@
 
 ***
 
-## [Gateron Switches](https://novelkeys.xyz/products/gateron-switches)
+### [Gateron Switches](https://novelkeys.xyz/products/gateron-switches)
 
 - Gateron Brown (Tactile Swtich, 45g Actuation Force)
 
 ***
 
-## [Gazzew Switches (manufactured by Outemu)](https://www.rgbkb.net/products/rgb-silent-tactile-switch)
+### [Gazzew Switches (manufactured by Outemu)](https://www.rgbkb.net/products/rgb-silent-tactile-switch)
 
 - Gazzew Boba U4 (Silent Tactile Swtich, 62g/67g Actuation Force)
 
 ***
 
-## [Greetech Switches](https://novelkeys.xyz/products/greetech-switches)
+### [Greetech Switches](https://novelkeys.xyz/products/greetech-switches)
 
 - Greetech Brown (Tactile Swtich, 45g Actuation Force)
 
 ***
 
-## [JWK Durock Switches](https://divinikey.com/collections/jwk-durock-switches)
+### [JWK Durock Switches](https://divinikey.com/collections/jwk-durock-switches)
 
 - JWK Durock T1 (Tactile Swtich, ??g Actuation Force, 67g Bottom Out Force)
 
 ***
 
-## [Kailh Switches](https://novelkeys.xyz/products/kailh-switches)
+### [Kailh Switches](https://novelkeys.xyz/products/kailh-switches)
 
 - Kailh Brown (Tactile Swtich, 50g Actuation Force)
 
 ***
 
-## [Kailh BOX Switches](https://novelkeys.xyz/products/kailh-box-switches)
+### [Kailh BOX Switches](https://novelkeys.xyz/products/kailh-box-switches)
 
 - Kailh BOX Brown (Tactile Swtich, 45g Actuation Force)
 
 ***
 
-## [Logitech Switches](https://www.logitechg.com/en-us/innovation/mechanical-switches.html)
+### [Logitech Switches](https://www.logitechg.com/en-us/innovation/mechanical-switches.html)
 
 - Logitech Romer-G (Tactile Swtich, 55g Actuation Force)
 
@@ -67,19 +69,19 @@
 
 ***
 
-## [Razer Switches (manufactured by Greetech)](https://www.razer.com/razer-mechanical-switches)
+### [Razer Switches (manufactured by Greetech)](https://www.razer.com/razer-mechanical-switches)
 
 - Razer Orange (Tactile Swtich, 45g Actuation Force)
 
 ***
 
-## [SteelSeries QX2 Switches](https://www.tomshardware.com/news/steelseries-apex-m750-mechanical-keyboard-qx2-switches,35233.html)
+### [SteelSeries QX2 Switches](https://www.tomshardware.com/news/steelseries-apex-m750-mechanical-keyboard-qx2-switches,35233.html)
 
 - SteelSeries QX2 Brown (Tactile Swtich, 45g Actuation Force)
 
 ***
 
-## [ZealPC Switches (manufactured by Gateron)](https://zealpc.net/products/zilent)
+### [ZealPC Switches (manufactured by Gateron)](https://zealpc.net/products/zilent)
 
 - Healio v2 (Silent Linear Swtich, 63.5g/67g Actuation Force)
 

@@ -40,6 +40,7 @@ Mostly Linux compatible:
 
 °					Degree Sign (Degrees, Temperature, °C, °F, Celsius, Fahrenheit) (&deg;) (&#176;)  |  https://www.compart.com/en/unicode/U+00B0  |  echo -e "\\xC2\\xB0";  |  $([char]0x00B0)
 ⌀					Diameter Sign (&#8960;)  |  https://www.compart.com/en/unicode/U+2300
+Ω					Greek Capital Letter Omega (Ohms, Resistance) (&omega;) (&#937;)  |  https://www.compart.com/en/unicode/U+03A9
 
 
 -					Hyphen-Minus (keyboard key)  |  https://www.compart.com/en/unicode/U+002D

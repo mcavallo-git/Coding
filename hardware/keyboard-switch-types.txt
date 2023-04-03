@@ -99,9 +99,11 @@ docs.google.com  |  "Keyboard Switches"  |  https://docs.google.com/spreadsheets
 
 thegamingsetup.com  |  "Mechanical Keyboard Switch Chart & Table"  |  https://thegamingsetup.com/gaming-keyboard/buying-guides/keyboard-switch-chart-table
 
+thegamingsetup.com  |  "The Reference Guide to Keyboard Sizes & Layouts [Infographic] - TheGamingSetup"  |  https://thegamingsetup.com/gaming-keyboard/buying-guides/keyboard-sizes
+
 www.convertunits.com  |  "Convert cN to gram-force"  |  https://www.convertunits.com/from/cN/to/gram-force
 
-www.convertunits.com  |  "Convert gram-force to cN"  |  https://www.convertunits.com/from/gram-force/to/cN
+www.reddit.com  |  "switch_guides - mechanicalkeyboards"  |  https://www.reddit.com/r/mechanicalkeyboards/wiki/switch_guides/#wiki_keyboard_switch_guides
 
 ------------------------------
 ------------------------------------------------------------

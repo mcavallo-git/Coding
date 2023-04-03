@@ -8,7 +8,7 @@
 
 - [`Knotted Tap Joint`/`Loop Tap Joint`](https://electriciantraining.tpub.com/14176/css/Knotted-Tap-Joint-48.htm)
 
-- `Linesman Splice/Tap`
+- [`Linesman Splice`/`Linesman Tap`](https://www.onallcylinders.com/2022/01/09/the-linemans-splice-how-to-make-reliable-electrical-connections-in-your-vehicles-wiring-harness-in-6-steps)
 
 - `Multiple Wrapped Cable Splice`
 

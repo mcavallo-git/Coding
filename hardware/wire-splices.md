@@ -6,7 +6,7 @@
 
 - `Britannia Splice`
 
-- [`Knotted Tap Joint` or `Loop Tap Joint`](https://electriciantraining.tpub.com/14176/css/Knotted-Tap-Joint-48.htm)
+- [`Knotted Tap Joint`/`Loop Tap Joint`](https://electriciantraining.tpub.com/14176/css/Knotted-Tap-Joint-48.htm)
 
 - `Linesman Splice/Tap`
 

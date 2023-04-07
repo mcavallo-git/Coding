@@ -33,7 +33,22 @@
         type.event_type,
         data.shared_data
       ```
-    - `states`                  <!--  77266  ⚠️   -->
+    - `states` *(by entity)*                  <!--  77266  ⚠️   -->
+      ```sql
+      SELECT
+        COUNT(*),
+        meta.entity_id
+      FROM
+        states sta
+      LEFT JOIN
+        states_meta meta ON sta.metadata_id = meta.metadata_id
+      GROUP BY
+        meta.entity_id
+      ORDER BY
+        COUNT(*) DESC,
+        meta.entity_id
+      ```
+    - `states` *(by entity + state)*                  <!--  77266  ⚠️   -->
       ```sql
       SELECT
         COUNT(*),

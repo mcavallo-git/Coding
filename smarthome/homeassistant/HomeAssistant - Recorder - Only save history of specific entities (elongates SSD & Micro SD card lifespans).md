@@ -2,6 +2,44 @@
 
 ***
 
+- ### Configure recorder to store specific entity history, only
+  - In HomeAssistant's `configuration.yaml`, under `recorder:`, specify an `include:` clause as detailed in the [`Recorder docs`](https://www.home-assistant.io/integrations/recorder/)
+    - Example:
+      ```yaml
+
+      recorder:
+
+        auto_purge: true  # (default: true) Automatically purge the database every night at 04:12 local time. Purging keeps the database from growing indefinitely, which takes up disk space and can make Home Assistant slow. If you disable auto_purge it is recommended that you create an automation to call the recorder.purge periodically.
+
+        auto_repack: true  # (default: true) Automatically repack the database every second sunday after the auto purge. Without a repack, the database may not decrease in size even after purging, which takes up disk space and can make Home Assistant slow. If you disable auto_repack it is recommended that you create an automation to call the recorder.purge periodically. This flag has no effect if auto_purge is disabled.
+
+        commit_interval: 10  # (default: 1) How often (in seconds) the events and state changes are committed to the database - use 30 for Raspberry Pi w/ SD card
+
+        purge_keep_days: 1  # (default: 10) Specify the number of history days to keep in recorder database after a purge.
+
+        include:
+          domains:
+            - binary_sensor
+            - button
+            - sensor
+            - switch
+            - update
+
+        exclude:
+          domains:
+            - automation
+            - weather
+          entities:
+            - sensor.hacs
+          entity_globs:
+            - sensor.*_electric_consum*
+            - sensor.*_storage
+
+      ```
+
+
+***
+
 - ### View all entities 
   - Note: Recorder saves history for *all* entities, by default
   - On your Home Assistant instance, go to `Developer Tools` > `TEMPLATE` > Paste the following into the `Template editor`:
@@ -90,45 +128,6 @@
       COUNT(*) DESC,
       meta.statistic_id
     ```
-***
-
-
-- ### Configure recorder to store specific entity history, only
-  - In HomeAssistant's configuration.yaml, under `recorder:`, specify an `include:` clause as detailed in the [`Recorder docs`](https://www.home-assistant.io/integrations/recorder/)
-    - Example `recorder.yaml`:
-    ```yaml
-
-    recorder:
-
-      auto_purge: true  # (default: true) Automatically purge the database every night at 04:12 local time. Purging keeps the database from growing indefinitely, which takes up disk space and can make Home Assistant slow. If you disable auto_purge it is recommended that you create an automation to call the recorder.purge periodically.
-
-      auto_repack: true  # (default: true) Automatically repack the database every second sunday after the auto purge. Without a repack, the database may not decrease in size even after purging, which takes up disk space and can make Home Assistant slow. If you disable auto_repack it is recommended that you create an automation to call the recorder.purge periodically. This flag has no effect if auto_purge is disabled.
-
-      commit_interval: 10  # (default: 1) How often (in seconds) the events and state changes are committed to the database - use 30 for Raspberry Pi w/ SD card
-
-      purge_keep_days: 1  # (default: 10) Specify the number of history days to keep in recorder database after a purge.
-
-      include:
-        domains:
-          - binary_sensor
-          - button
-          - sensor
-          - switch
-          - update
-
-      exclude:
-        domains:
-          - automation
-          - weather
-        entities:
-          - sensor.hacs
-        entity_globs:
-          - sensor.*_electric_consum*
-          - sensor.*_storage
-
-    ```
-
-
 ***
 
 

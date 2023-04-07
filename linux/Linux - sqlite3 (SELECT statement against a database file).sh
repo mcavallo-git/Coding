@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# NOTE: The following commands are for managing a FreeNAS MySQL database which exists at path "/data/freenas-v1.db"
+# NOTE: The following commands are for managing a FreeNAS MySQL database which exists at path "/data/freenas-v1.db" (Active Directory management)
 #       To target a different db, change the "/data/freenas-v1.db" string to match the path to your respective database
 
 # FreeNAS - Show all table names

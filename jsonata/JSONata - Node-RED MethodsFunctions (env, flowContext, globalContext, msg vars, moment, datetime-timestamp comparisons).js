@@ -5,7 +5,16 @@
 // ⚠️ Note that this is really just a big scratch pad used while practicing JSONata in Node-RED
 //
 // ------------------------------------------------------------
-
+//
+// var var_name=context.get('var_name') || 0; // Function-Scoped Variable (Get)
+// var var_name=flow.get('var_name') || 0;    // Flow-Scoped Variable (Get)
+// var var_name=global.get('var_name') || 0;  // Global-Scoped Variable (Get)
+//
+// context.set('var_name',var_name); // Function-Scoped Variable (Set)
+// flow.set('var_name',var_name);    // Flow-Scoped Variable (Set)
+// global.set('var_name',var_name);  // Global-Scoped Variable (Set)
+//
+// ------------------------------------------------------------
 
 // JSONata Expression - Message Variables
 (payload)

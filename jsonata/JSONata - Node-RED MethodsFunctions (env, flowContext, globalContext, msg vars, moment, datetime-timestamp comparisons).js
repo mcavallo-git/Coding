@@ -133,4 +133,11 @@ $moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').format('DD.MM.YYYY HH:mm:ss')
 //   $difference := { "days": $days, "hours":$hours, "minutes": $minutes, "seconds": $seconds };
 // )
 
+
+// ------------------------------------------------------------
+//
+// Citation(s)
+//
+//   momentjs.com  |  "Moment.js | Docs"  |  https://momentjs.com/docs/#/displaying/format/
+//
 // ------------------------------------------------------------

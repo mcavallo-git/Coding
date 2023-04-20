@@ -1,79 +1,82 @@
 // ------------------------------------------------------------
 // JSONata - Node-Red Methods/Functions (env, flowContext, globalContext, msg vars, moment, datetime-timestamp_last_active comparisons).js
 // ------------------------------------------------------------
-
-Note that this is really just a big scratch pad while practicing JSONata in Node-RED
-
+//
+// ⚠️ Note that this is really just a big scratch pad used while practicing JSONata in Node-RED
+//
 // ------------------------------------------------------------
 
-(payload)  // msg._____ variable syntax
 
-// $$.payload
+// JSONata Expression - Message Variables
+(payload)
 
-($env('timeout_minutes'))
 
-($flowContext('timeout_minutes'))
+// JSONata Expression - Message Payload
+$$.payload
 
-($globalContext('inactivity_lights_off_after_minutes'))
+
+// JSONata Expression - Environment Variables
+($env('timeout_minutes');)
+
+
+// JSONata Expression - Flow Variables
+($flowContext('timeout_minutes');)
+
+
+// JSONata Expression - Global Variables
+($globalContext('inactivity_lights_off_after_minutes');)
+
 
 // ------------------------------
 
-// moment_now
+
+// moment.now - Get current Datetime (equivalent to "new Date();" or "Date.now();")
 ($moment();)
 
-// timestamp_last_active
-($flowContext("timestamp_last_active");)
 
-// moment_test
-($moment().diff(($flowContext("timestamp_last_active")),'seconds');)
-
-// timeout_after
-($timeout_after:=$moment($flowContext("timestamp_last_active")).add(($flowContext("timeout_minutes")),'minutes');)
-
-
-// datetime_inactive_after
-($datetime_inactive_after:=$moment($flowContext("timestamp_last_active")).add(($flowContext("timeout_minutes")),'minutes');)
-
-
-// message variable(s)
-(
-  $datetime_now := $moment();
-  $datetime_inactive_after := $moment(payload).add(timeout_minutes,'minutes');
-  $datetime_inactive_after.diff($datetime_now,'seconds');
-)
-
-// environment variable(s)
-(
-  $datetime_now := $moment();
-  $datetime_inactive_after := $moment(payload).add(($env('timeout_minutes')),'minutes');
-  $datetime_inactive_after.diff($datetime_now,'seconds');
-)
-
-
-// flow variable(s)
-(
-  $datetime_now := $moment();
-  $datetime_inactive_after := $moment($flowContext("timestamp_last_active")).add(($flowContext('timeout_minutes')),'minutes');
-  $datetime_inactive_after.diff($datetime_now,'seconds');
-)
-
-
-// global variable(s)
-(
-  $datetime_now := $moment();
-  $datetime_inactive_after := $moment(payload).add(($globalContext('timeout_minutes')),'minutes');
-  $datetime_inactive_after.diff($datetime_now,'seconds');
-)
+// moment.diff($val) - Subtract $val from the moment's datetime (e.g. "Get the difference between the two dates")
+($moment().diff(($flowContext('timestamp_last_active')),'seconds');)
 
 
 // ------------------------------------------------------------
 
 
-// global variable(s) whose variable name is defined by an environment variable(s)
+// Ex)  message variable(s)
+(
+  $datetime_now := $moment();
+  $datetime_inactive_after := $moment(payload).add(timeout_minutes,'minutes');
+  $difference := $datetime_inactive_after.diff($datetime_now,'seconds');
+)
+
+// Ex)  environment variable(s)
+(
+  $datetime_now := $moment();
+  $datetime_inactive_after := $moment(payload).add(($env('timeout_minutes')),'minutes');
+  $difference := $datetime_inactive_after.diff($datetime_now,'seconds');
+)
+
+
+// Ex)  flow variable(s)
+(
+  $datetime_now := $moment();
+  $datetime_inactive_after := $moment($flowContext('timestamp_last_active')).add(($flowContext('timeout_minutes')),'minutes');
+  $difference := $datetime_inactive_after.diff($datetime_now,'seconds');
+)
+
+
+// Ex)  global variable(s)
+(
+  $datetime_now := $moment();
+  $datetime_inactive_after := $moment(payload).add(($globalContext('timeout_minutes')),'minutes');
+  $difference := $datetime_inactive_after.diff($datetime_now,'seconds');
+)
+
+
+// Ex)  global variable(s) whose variable name is defined by an environment variable(s)
 (
   $datetime_now := $moment();
   $datetime_inactive_after := $moment(payload).add(($globalContext($env('global_var'))),'minutes');
-  $datetime_inactive_after.diff($datetime_now,'seconds');
+  $difference := $datetime_inactive_after.diff($datetime_now,'seconds');
 )
 
 
@@ -93,7 +96,7 @@ $moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').format('DD.MM.YYYY HH:mm:ss')
 
 // Set [ msg.payload ] to the value:
 // J: expression  (jsonata expression)
-(	    $b := $moment(timeB,['DD.MM.YYYY HH:mm:ss','x'],'de');	    $a := $moment(timeA,['DD.MM.YYYY HH:mm:ss','x'],'de');	    	    /* $b.diff($a) */	    /* $moment.duration($b.diff($a)); */	    	        /* Kein Zugriff auf duration  - also manuell berechnen*/	        	    $days := $b.diff($a, 'days');	    $hours := $b.diff($a, 'hours') - 24 * $b.diff($a, 'days');	    $minutes := $b.diff($a, 'minutes') - 60 * $b.diff($a, 'hours');	    $seconds := $b.diff($a, 'seconds') - 60 * $b.diff($a, 'minutes');	    	    $sec := $b.diff($a)/1000;	    		    	    $difference := {	        "days": $days,	        "hours":$hours,	        "minutes": $minutes,	        "seconds": $seconds	    }; 	    		)
+(	    $b := $moment(timeB,['DD.MM.YYYY HH:mm:ss','x'],'de');	    $a := $moment(timeA,['DD.MM.YYYY HH:mm:ss','x'],'de');	    	    /* $b.diff($a) */	    /* $moment.duration($b.diff($a)); */	    	        /* Kein Zugriff auf duration  - also manuell berechnen*/	        	    $days := $b.diff($a, 'days');	    $hours := $b.diff($a, 'hours') - 24 * $b.diff($a, 'days');	    $minutes := $b.diff($a, 'minutes') - 60 * $b.diff($a, 'hours');	    $seconds := $b.diff($a, 'seconds') - 60 * $b.diff($a, 'minutes');	    	    $sec := $b.diff($a)/1000;	    		    	    $difference := {	        'days': $days,	        'hours':$hours,	        'minutes': $minutes,	        'seconds': $seconds	    }; 	    		)
 
 
 
@@ -107,12 +110,12 @@ $moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').format('DD.MM.YYYY HH:mm:ss')
 //   $minutes := $b.diff($a, 'minutes') - 60 * $b.diff($a, 'hours');
 //   $seconds := $b.diff($a, 'seconds') - 60 * $b.diff($a, 'minutes');
 //   $sec := $b.diff($a)/1000;
-//   $difference := { "days": $days, "hours":$hours, "minutes": $minutes, "seconds": $seconds };
+//   $difference := { 'days': $days, 'hours':$hours, 'minutes': $minutes, 'seconds': $seconds };
 // )
 
 
 
-// $moment(msg.payload).subtract(1,"w").format("x")
+// $moment(msg.payload).subtract(1,'w').format('x')
 
 // $days := $moment().diff((flow.get('timestamp_last_active')),'seconds');
 
@@ -127,7 +130,7 @@ $moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').format('DD.MM.YYYY HH:mm:ss')
 //   $minutes := $b.diff($a, 'minutes') - 60 * $b.diff($a, 'hours');
 //   $seconds := $b.diff($a, 'seconds') - 60 * $b.diff($a, 'minutes');
 //   $sec := $b.diff($a)/1000;
-//   $difference := { "days": $days, "hours":$hours, "minutes": $minutes, "seconds": $seconds };
+//   $difference := { 'days': $days, 'hours':$hours, 'minutes': $minutes, 'seconds': $seconds };
 // )
 
 

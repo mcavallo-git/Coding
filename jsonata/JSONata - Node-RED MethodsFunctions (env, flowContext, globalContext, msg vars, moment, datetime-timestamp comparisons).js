@@ -28,56 +28,53 @@ Note that this is really just a big scratch pad while practicing JSONata in Node
 ($moment().diff(($flowContext("timestamp_last_active")),'seconds');)
 
 // timeout_after
-($timeout_after :=$moment($flowContext("timestamp_last_active")).add(($flowContext("timeout_minutes")),'minutes');)
+($timeout_after:=$moment($flowContext("timestamp_last_active")).add(($flowContext("timeout_minutes")),'minutes');)
 
 
 // datetime_inactive_after
-($datetime_inactive_after := $moment($flowContext("timestamp_last_active")).add(($flowContext("timeout_minutes")),'minutes');)
+($datetime_inactive_after:=$moment($flowContext("timestamp_last_active")).add(($flowContext("timeout_minutes")),'minutes');)
 
-// Set msg.seconds_until_inactive
+
+// message variable(s)
 (
   $datetime_now := $moment();
-  $datetime_inactive_after := $moment($flowContext("timestamp_last_active")).add(($flowContext("timeout_minutes")),'minutes');
+  $datetime_inactive_after := $moment(payload).add(timeout_minutes,'minutes');
   $datetime_inactive_after.diff($datetime_now,'seconds');
 )
 
-// Set msg.seconds_until_inactive
-($datetime_now:=$moment(); $datetime_inactive_after:=$moment($flowContext("timestamp_last_active")).add(($flowContext("timeout_minutes")),'minutes'); $datetime_inactive_after.diff($datetime_now,'seconds');)
-
-// ------------------------------
-
-// Set msg.seconds_until_inactive
-($datetime_now:=$moment(); $datetime_inactive_after:=$moment($globalContext('timestamp_last_active')).add(($globalContext("timeout_minutes")),'minutes'); $datetime_inactive_after.diff($datetime_now,'seconds');)
-
-
-// Set msg.seconds_until_inactive
-($datetime_now:=$moment(); $datetime_inactive_after:=$moment($globalContext('timestamp_last_active')).add(($globalContext("timeout_minutes")),'minutes'); $datetime_inactive_after.diff($datetime_now,'seconds');)
-
-// ------------------------------
-
+// environment variable(s)
 (
   $datetime_now := $moment();
-  $datetime_inactive_after := $moment($globalContext($env('global_var'))).add(($globalContext("timeout_minutes")),'minutes');
+  $datetime_inactive_after := $moment(payload).add(($env('timeout_minutes')),'minutes');
   $datetime_inactive_after.diff($datetime_now,'seconds');
 )
 
-// ------------------------------
 
-// Set msg.seconds_until_inactive
+// flow variable(s)
 (
-  $datetime_now:=$moment();
-  $datetime_inactive_after:=$moment(payload).add(($env('timeout_minutes')),'minutes');
+  $datetime_now := $moment();
+  $datetime_inactive_after := $moment($flowContext("timestamp_last_active")).add(($flowContext('timeout_minutes')),'minutes');
   $datetime_inactive_after.diff($datetime_now,'seconds');
 )
 
 
-// Set msg.seconds_until_inactive
-($datetime_now:=$moment();$datetime_inactive_after:=$moment(payload).add(($env('timeout_minutes')),'minutes');$datetime_inactive_after.diff($datetime_now,'seconds');)
+// global variable(s)
+(
+  $datetime_now := $moment();
+  $datetime_inactive_after := $moment(payload).add(($globalContext('timeout_minutes')),'minutes');
+  $datetime_inactive_after.diff($datetime_now,'seconds');
+)
 
-// ------------------------------
 
-// Set msg.seconds_until_inactive
-($datetime_now:=$moment();$datetime_inactive_after:=$moment(payload).add(($env('timeout_minutes')),'minutes');$datetime_inactive_after.diff($datetime_now,'seconds');)
+// ------------------------------------------------------------
+
+
+// global variable(s) whose variable name is defined by an environment variable(s)
+(
+  $datetime_now := $moment();
+  $datetime_inactive_after := $moment(payload).add(($globalContext($env('global_var'))),'minutes');
+  $datetime_inactive_after.diff($datetime_now,'seconds');
+)
 
 
 // ------------------------------------------------------------

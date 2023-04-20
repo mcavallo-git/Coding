@@ -52,29 +52,8 @@
 - ### Troubleshoot SQLite3 Database Directly
   - Inspection queries by-table (to run directly against the `home-assistant_v2.db` database in an attempt to determine which entities/events are stored in the database, taking up space, etc.)
 ***
-  - Show `events`
-    ```sql
-    SELECT
-      COUNT(*),
-      type.event_type,
-      data.shared_data
-    FROM
-      events ev
-    LEFT JOIN
-      event_types type ON ev.event_type_id = type.event_type_id
-    LEFT JOIN
-      event_data data ON ev.data_id = data.data_id
-    GROUP BY
-      type.event_type,
-      data.shared_data
-    ORDER BY
-      COUNT(*) DESC,
-      type.event_type,
-      data.shared_data
-    ```
-***
-  - Show `states` by entity
-    ```sql
+  - ```sql
+    -- Show `states` (grouped by entity)
     SELECT
       COUNT(*),
       meta.entity_id
@@ -89,8 +68,8 @@
       meta.entity_id
     ```
 ***
-  - Show `states` by entity + state
-    ```sql
+  - ```sql
+    -- Show `states` (grouped by entity & state)
     SELECT
       COUNT(*),
       meta.entity_id,
@@ -111,8 +90,29 @@
       sta.state
     ```
 ***
-  - Show `statistics`
-    ```sql
+  - ```sql
+    -- Show `events` (grouped by type)
+    SELECT
+      COUNT(*),
+      type.event_type,
+      data.shared_data
+    FROM
+      events ev
+    LEFT JOIN
+      event_types type ON ev.event_type_id = type.event_type_id
+    LEFT JOIN
+      event_data data ON ev.data_id = data.data_id
+    GROUP BY
+      type.event_type,
+      data.shared_data
+    ORDER BY
+      COUNT(*) DESC,
+      type.event_type,
+      data.shared_data
+    ```
+***
+  - ```sql
+    -- Show `statistics`
     SELECT
       COUNT(*),
       meta.statistic_id,

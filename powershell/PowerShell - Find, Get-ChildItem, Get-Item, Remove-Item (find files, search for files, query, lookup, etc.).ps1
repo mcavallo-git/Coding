@@ -24,7 +24,7 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { $_.Name
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "*.exe") } | ForEach-Object { $_.FullName; };
 
 
-# Filename equals (matches regex) "___"
+# Filename equals (matches regex) "PATTERN"
 Get-ChildItem -Path ("${HOME}") -File -Recurse -Force -EA:0 | Where-Object { ([Regex]::Match($_.FullName,"^C:\\Users\\${env:USERNAME}\\[^\\]*$")).Success; } | ForEach-Object { $_.FullName; };  <# Gets all files 0 levels deep in current userprofile dir #>
 
 

@@ -264,6 +264,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2" style="text-align:center;"><h2 id="password-managers"><br />Password Managers<br /><br /></h2></th></tr>
+<tr><td><strong>1Password</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://1password.com/downloads">Download (source)</a></td></tr>
+<tr><td><strong>Bitwarden</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://bitwarden.com/download">Download (source)</a></td></tr>
+<tr><td><strong>Dashlane</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://support.dashlane.com/hc/en-us/articles/115005432325#step1">Download (source)</a></td></tr>
+<tr><td><strong>KeePassXC</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://keepassxc.org/download">Download (source)</a></td></tr>
+<tr><td><strong>Keeper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://www.keepersecurity.com/download.html">Download (source)</a></td></tr>
 <tr><td><strong>LastPass</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://lastpass.com/download">Download (source)</a></td></tr>
 <tr><td><strong>RoboForm</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multi-platform secure password manager</i></sub></td><td><a href="https://www.roboform.com/download">Download (source)</a></td></tr>
 <!-- -->

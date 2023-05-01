@@ -270,7 +270,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>KeePassXC</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://keepassxc.org/download">Download (source)</a></td></tr>
 <tr><td><strong>Keeper</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://www.keepersecurity.com/download.html">Download (source)</a></td></tr>
 <tr><td><strong>LastPass</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://lastpass.com/download">Download (source)</a></td></tr>
-<tr><td><strong>RoboForm</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Multi-platform secure password manager</i></sub></td><td><a href="https://www.roboform.com/download">Download (source)</a></td></tr>
+<tr><td><strong>RoboForm</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://www.roboform.com/download">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

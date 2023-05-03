@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# Linux - rsyslog, rsyslog.d (redirecting logs away from syslog to specific logfiles, cron logs)
+# Linux - rsyslog.d, logrotate.d (redirecting logs away from syslog to specific logfiles, cron logs)
 # ------------------------------------------------------------
 #
 # rsyslog - Base config file location

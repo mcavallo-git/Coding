@@ -52,6 +52,8 @@ if [[ 1 -eq 1 ]]; then
   LOGFILE_SERVICE="/var/log/${SERVICE}.log";
   if [[ -n "${FILTER_SYSLOGS_BY_PROGRAM_NAME}" ]]; then
     echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME}\"    stop" > "${RSYSLOG_CONF}";
+    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME^}\"    stop" >> "${RSYSLOG_CONF}";
+    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME^^}\"    stop" >> "${RSYSLOG_CONF}";
 
   elif [[ -n "${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}" ]]; then
     echo -e ":msg, contains, \"${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}:\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";

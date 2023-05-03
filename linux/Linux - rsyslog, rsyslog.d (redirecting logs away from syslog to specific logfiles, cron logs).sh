@@ -90,7 +90,7 @@ if [[ 1 -eq 1 ]]; then
   #
   # Restart the syslog service
   #
-  echo -e "\n""Calling [ systemctl restart rsyslog; ]...";
+  echo -e "\n""$(date --utc +'%Y-%m-%dT%H:%M:%SZ';)  INFO: Calling [ systemctl restart rsyslog; ]...";
   systemctl restart rsyslog;
   # ------------------------------------------------------------
 fi;

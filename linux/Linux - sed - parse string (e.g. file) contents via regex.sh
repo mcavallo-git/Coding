@@ -111,7 +111,7 @@ echo -e "This is\na test\nPlease do not\nbe alarmed" | sed -z 's/a test\nPlease 
 if [[ 1 -eq 1 ]]; then
   REMOTE_HOST="github.com";
   SSH_CONFIG_APPEND="# git_init - Disable StrictHostKeyChecking for \"${REMOTE_HOST}\" (git repo provider)\nHost ${REMOTE_HOST}\n  StrictHostKeyChecking no";  # \n  UserKnownHostsFile /dev/null
-  TEST_STRING="$(printf -- "-%.0s" {1..60};)\n${SSH_CONFIG_APPEND}\n$(printf -- "=%.0s" {1..60};)";
+  TEST_STRING="$(printf -- "-%.0s" {1..60};)\nline 2\nline 3\n${SSH_CONFIG_APPEND}\nline n-2\nline n-1\n$(printf -- "=%.0s" {1..60};)";
   echo -e "\n\n\nShow the string BEFORE slicing multiple lines out of it\n";
   echo -n -e "${TEST_STRING}";
   echo -e "\n\n\nShow the string AFTER slicing multiple lines out of it\n";

@@ -45,6 +45,7 @@ if [[ 1 -eq 1 ]]; then
   #
   SERVICE="cron";
   SYSLOG_FILTER="cron";
+  PROGRAM_NAME="cron";
   #
   # ------------------------------------------------------------
   #
@@ -52,20 +53,21 @@ if [[ 1 -eq 1 ]]; then
   #
   RSYSLOG_CONF="/etc/rsyslog.d/10-${SERVICE}.conf";  # Note that the filename within "/etc/rsyslog.d/" must begin with a number below 50
   LOGFILE_SERVICE="/var/log/${SERVICE}.log";
+  echo -n "" > "${RSYSLOG_CONF}";
+  # ------------------------------
   if [[ -n "${SYSLOG_FILTER}" ]]; then
-    # ------------------------------
-    echo -e "if \$msg contains '${SYSLOG_FILTER}' or \$msg contains '${SYSLOG_FILTER^}' or \$msg contains '${SYSLOG_FILTER^^}' then ${LOGFILE_SERVICE}" > "${RSYSLOG_CONF}";
+    echo "" >> "${RSYSLOG_CONF}";
+    echo -e "if \$msg contains '${SYSLOG_FILTER}' or \$msg contains '${SYSLOG_FILTER^}' or \$msg contains '${SYSLOG_FILTER^^}' then ${LOGFILE_SERVICE}" >> "${RSYSLOG_CONF}";
     echo -e "if \$msg contains '${SYSLOG_FILTER}' or \$msg contains '${SYSLOG_FILTER^}' or \$msg contains '${SYSLOG_FILTER^^}' then ~" >> "${RSYSLOG_CONF}";
-    # ------------------------------
-    # echo -e ":msg, contains, \"${SYSLOG_FILTER}\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";
-    # [line 1]   :msg,contains,"netfilter:" /var/log/iptables.log
-    # [line 2]   &stop
-    #  ^ The first line directs messages containing the string “netfilter:” into the given file, /var/log/iptables.log.
-    #  ^ The “&stop” line stops processing at that point, so that the messages are not duplicated to the above files (where rsyslog sends them due to its main config file).
-    #
   fi;
-  #
-  # ------------------------------------------------------------
+  # ------------------------------
+  if [[ -n "${SYSLOG_FILTER}" ]]; then
+    echo "" >> "${RSYSLOG_CONF}";
+    echo -e "if \$programname == '${SYSLOG_FILTER}' or \$programname == '${SYSLOG_FILTER^}' or \$programname == '${SYSLOG_FILTER^^}' then ${LOGFILE_SERVICE}" >> "${RSYSLOG_CONF}";
+    echo -e "if \$programname == '${SYSLOG_FILTER}' or \$programname == '${SYSLOG_FILTER^}' or \$programname == '${SYSLOG_FILTER^^}' then ~" >> "${RSYSLOG_CONF}";
+  fi;
+  echo "" >> "${RSYSLOG_CONF}";
+  # ------------------------------
   #
   # logrotate - ⚠️ Update logrotate's rsyslog configuration to include the new logfile when rotating logs ⚠️
   #
@@ -99,6 +101,8 @@ fi;
 #   serverfault.com  |  "Configuring Rsyslog To Stop The Logging Of Certain Messages - Server Fault"  |  https://serverfault.com/a/662608
 #
 #   stackoverflow.com  |  "linux - Details of last ran cron job in Unix-like systems? - Stack Overflow"  |  https://stackoverflow.com/a/11131533
+#
+#   unix.stackexchange.com  |  "configuration - if statement apparently not working in rsyslog - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/98857
 #
 #   unix.stackexchange.com  |  "docker - How to prevent rsyslog from logging cron tasks to /var/log/syslog using additional config - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/a/663694
 #

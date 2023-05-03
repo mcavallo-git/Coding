@@ -33,10 +33,14 @@ sed -i -e "${SED_ENABLE_CRON_LOGS}" "${RSYSLOG_DEFAULTS_CONF}";
 
 # ------------------------------------------------------------
 #
-# Example) Redirect service-specific syslogs to their own logfile at /var/log/
+# logrotate - Property-based filters
+#
+#   Syntax:
+#     :property, [!]compare-operation, "value"
 #
 
 if [[ 1 -eq 1 ]]; then
+  # Redirect service-specific syslogs to their own logfile at /var/log/
   # ------------------------------------------------------------
   #
   SERVICE="cron";
@@ -51,9 +55,9 @@ if [[ 1 -eq 1 ]]; then
   RSYSLOG_CONF="/etc/rsyslog.d/10-${SERVICE}.conf";  # Note that the filename within "/etc/rsyslog.d/" must begin with a number below 50
   LOGFILE_SERVICE="/var/log/${SERVICE}.log";
   if [[ -n "${FILTER_SYSLOGS_BY_PROGRAM_NAME}" ]]; then
-    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME}\"    stop" > "${RSYSLOG_CONF}";
-    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME^}\"    stop" >> "${RSYSLOG_CONF}";
-    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME^^}\"    stop" >> "${RSYSLOG_CONF}";
+    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME}\" ${LOGFILE_SERVICE} stop" > "/etc/rsyslog.d/10-${FILTER_SYSLOGS_BY_PROGRAM_NAME}.conf";
+    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME^}\" ${LOGFILE_SERVICE} stop" > "/etc/rsyslog.d/10-${FILTER_SYSLOGS_BY_PROGRAM_NAME^}.conf";
+    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME^^}\" ${LOGFILE_SERVICE} stop" > "/etc/rsyslog.d/10-${FILTER_SYSLOGS_BY_PROGRAM_NAME^^}.conf";
 
   elif [[ -n "${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}" ]]; then
     echo -e ":msg, contains, \"${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}:\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";

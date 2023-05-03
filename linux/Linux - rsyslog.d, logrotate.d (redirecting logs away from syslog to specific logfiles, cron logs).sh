@@ -58,13 +58,13 @@ if [[ 1 -eq 1 ]]; then
   if [[ -n "${SYSLOG_FILTER}" ]]; then
     echo "" >> "${RSYSLOG_CONF}";
     echo -e "if \$msg contains '${SYSLOG_FILTER}' or \$msg contains '${SYSLOG_FILTER^}' or \$msg contains '${SYSLOG_FILTER^^}' then ${LOGFILE_SERVICE}" >> "${RSYSLOG_CONF}";
-    echo -e "if \$msg contains '${SYSLOG_FILTER}' or \$msg contains '${SYSLOG_FILTER^}' or \$msg contains '${SYSLOG_FILTER^^}' then ~" >> "${RSYSLOG_CONF}";
+    echo -e "if \$msg contains '${SYSLOG_FILTER}' or \$msg contains '${SYSLOG_FILTER^}' or \$msg contains '${SYSLOG_FILTER^^}' then stop" >> "${RSYSLOG_CONF}";
   fi;
   # ------------------------------
   if [[ -n "${SYSLOG_FILTER}" ]]; then
     echo "" >> "${RSYSLOG_CONF}";
     echo -e "if \$programname == '${SYSLOG_FILTER}' or \$programname == '${SYSLOG_FILTER^}' or \$programname == '${SYSLOG_FILTER^^}' then ${LOGFILE_SERVICE}" >> "${RSYSLOG_CONF}";
-    echo -e "if \$programname == '${SYSLOG_FILTER}' or \$programname == '${SYSLOG_FILTER^}' or \$programname == '${SYSLOG_FILTER^^}' then ~" >> "${RSYSLOG_CONF}";
+    echo -e "if \$programname == '${SYSLOG_FILTER}' or \$programname == '${SYSLOG_FILTER^}' or \$programname == '${SYSLOG_FILTER^^}' then stop" >> "${RSYSLOG_CONF}";
   fi;
   echo "" >> "${RSYSLOG_CONF}";
   # ------------------------------

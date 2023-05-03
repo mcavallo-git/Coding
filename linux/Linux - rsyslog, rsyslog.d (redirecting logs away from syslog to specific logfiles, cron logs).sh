@@ -44,8 +44,7 @@ if [[ 1 -eq 1 ]]; then
   # ------------------------------------------------------------
   #
   SERVICE="cron";
-  FILTER_SYSLOGS_BY_PROGRAM_NAME="cron";
-  FILTER_SYSLOGS_BY_MESSAGES_CONTAINING="";
+  FILTER_SYSLOGS_BY_MESSAGES_CONTAINING="cron";
   FILTER_SYSLOGS_BY_MESSAGES_STARTING_WITH="";  # run-docker-runtime
   #
   # ------------------------------------------------------------
@@ -54,12 +53,7 @@ if [[ 1 -eq 1 ]]; then
   #
   RSYSLOG_CONF="/etc/rsyslog.d/10-${SERVICE}.conf";  # Note that the filename within "/etc/rsyslog.d/" must begin with a number below 50
   LOGFILE_SERVICE="/var/log/${SERVICE}.log";
-  if [[ -n "${FILTER_SYSLOGS_BY_PROGRAM_NAME}" ]]; then
-    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME}\" ${LOGFILE_SERVICE} stop" > "/etc/rsyslog.d/10-${FILTER_SYSLOGS_BY_PROGRAM_NAME}.conf";
-    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME^}\" ${LOGFILE_SERVICE} stop" > "/etc/rsyslog.d/10-${FILTER_SYSLOGS_BY_PROGRAM_NAME^}.conf";
-    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME^^}\" ${LOGFILE_SERVICE} stop" > "/etc/rsyslog.d/10-${FILTER_SYSLOGS_BY_PROGRAM_NAME^^}.conf";
-
-  elif [[ -n "${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}" ]]; then
+  if [[ -n "${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}" ]]; then
     echo -e ":msg, contains, \"${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}:\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";
     # [line 1]   :msg,contains,"netfilter:" /var/log/iptables.log
     # [line 2]   &stop

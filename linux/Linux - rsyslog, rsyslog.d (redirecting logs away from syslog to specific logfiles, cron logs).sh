@@ -39,20 +39,35 @@ sed -i -e "${SED_ENABLE_CRON_LOGS}" "${RSYSLOG_DEFAULTS_CONF}";
 if [[ 1 -eq 1 ]]; then
   # ------------------------------------------------------------
   #
-  SERVICE="iptables";
-  FILTER_SYSLOGS_CONTAINING="netfilter";
+  SERVICE="cron";
+  FILTER_SYSLOGS_BY_PROGRAM_NAME="cron";
+  FILTER_SYSLOGS_BY_MESSAGES_CONTAINING="";
+  FILTER_SYSLOGS_BY_MESSAGES_STARTING_WITH="";  # run-docker-runtime
   #
   # ------------------------------------------------------------
   #
   # Reconfigure rsyslogd to send syslog messages containing the string "netfilter" to logfile "/var/log/iptables.log" and then stop processing rules (don't also log them to "/var/log/syslog")
   #
-  RSYSLOG_CONF="/etc/rsyslog.d/01-${SERVICE}.conf";
+  RSYSLOG_CONF="/etc/rsyslog.d/10-${SERVICE}.conf";  # Note that the filename within "/etc/rsyslog.d/" must begin with a number below 50
   LOGFILE_SERVICE="/var/log/${SERVICE}.log";
-  echo -n -e ":msg,contains,\"${FILTER_SYSLOGS_CONTAINING}:\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";
-  # [line 1]   :msg,contains,"netfilter:" /var/log/iptables.log
-  # [line 2]   &stop
-  #  ^ The first line directs messages containing the string “netfilter:” into the given file, /var/log/iptables.log.
-  #  ^ The “&stop” line stops processing at that point, so that the messages are not duplicated to the above files (where rsyslog sends them due to its main config file).
+  if [[ -n "${FILTER_SYSLOGS_BY_PROGRAM_NAME}" ]]; then
+    echo -e ":programname, isequal, \"${FILTER_SYSLOGS_BY_PROGRAM_NAME}\"    stop" > "${RSYSLOG_CONF}";
+
+  elif [[ -n "${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}" ]]; then
+    echo -e ":msg, contains, \"${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}:\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";
+    # [line 1]   :msg,contains,"netfilter:" /var/log/iptables.log
+    # [line 2]   &stop
+    #  ^ The first line directs messages containing the string “netfilter:” into the given file, /var/log/iptables.log.
+    #  ^ The “&stop” line stops processing at that point, so that the messages are not duplicated to the above files (where rsyslog sends them due to its main config file).
+    #
+  elif [[ -n "${FILTER_SYSLOGS_BY_MESSAGES_STARTING_WITH}" ]]; then
+    echo -e ":msg, startswith, \"${FILTER_SYSLOGS_BY_MESSAGES_STARTING_WITH}:\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";
+    # [line 1]   :msg,contains,"netfilter:" /var/log/iptables.log
+    # [line 2]   &stop
+    #  ^ The first line directs messages containing the string “netfilter:” into the given file, /var/log/iptables.log.
+    #  ^ The “&stop” line stops processing at that point, so that the messages are not duplicated to the above files (where rsyslog sends them due to its main config file).
+    #
+  fi;
   #
   # ------------------------------------------------------------
   #
@@ -69,8 +84,14 @@ if [[ 1 -eq 1 ]]; then
   #   In order to verify rotation of the new file, check back after a few days.
   #   As well as the ${SERVICE}.log file, you should see the preserved file ${SERVICE}.log.1“.
   #   If not, force a rotation by typing:
-  #     logrotate --force /etc/logrotate.d/rsyslog;
+  #     logrotate --force ${LOGROTATE_CONF:-/etc/logrotate.d/rsyslog};
   #
+  # ------------------------------------------------------------
+  #
+  # Restart the syslog service
+  #
+  echo -e "\n""Calling [ systemctl restart rsyslog; ]...";
+  systemctl restart rsyslog;
   # ------------------------------------------------------------
 fi;
 
@@ -87,7 +108,11 @@ fi;
 #
 #   unixetc.co.uk  |  "Redirecting Firewall Messages in Linux | Unix etc"  |  http://unixetc.co.uk/2019/04/26/redirecting-firewall-messages-in-linux
 #
-#   www.rsyslog.com  |  "RSyslog Documentation - rsyslog"  |  https://www.rsyslog.com/doc/v8-stable/configuration/index.html
+#   www.claudiokuenzler.com  |  "How to ignore (discard) certain syslog messages in rsyslogd using filters"  |  https://www.claudiokuenzler.com/blog/1162/how-to-ignore-discard-certain-syslog-messages-rsyslogd-filters
+#
+#   www.rsyslog.com  |  "RSyslog Documentation - Filter Conditions - rsyslog"  |  https://www.rsyslog.com/doc/master/configuration/filters.html
+#
+#   www.rsyslog.com  |  "RSyslog Documentation - rsyslog Properties - rsyslog"  |  https://www.rsyslog.com/doc/master/configuration/properties.html
 #
 #   www.tenable.com  |  "4.3 Ensure logrotate is configured | Tenable®"  |  https://www.tenable.com/audits/items/CIS_Ubuntu_18.04_LXD_Host_v1.0.0_L1_Workstation.audit:d69cc853f4894c260643f06b2c48bd7e
 #

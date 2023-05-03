@@ -59,7 +59,7 @@ $$.payload
 //
 // moment.format
 //
-($moment().format('YYYY-MM-DDTHH:mm:ss');)
+($moment().format('YYYY-MM-DD HH:mm:ss');)
 
 
 // ------------------------------------------------------------

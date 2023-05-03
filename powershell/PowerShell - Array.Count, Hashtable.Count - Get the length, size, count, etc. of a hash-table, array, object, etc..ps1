@@ -19,13 +19,13 @@
 
 @(1..500).Count;  # Returns 500
 
+"String".Count;  # Returns 1  ⚠️ Avoid using the [ .Count ] method on strings ⚠️
+
 
 # ------------------------------------------------------------
 #
-# Strings  -  Use String.Count if you only want to return the number of elements in a variable & avoid counting the length of characters in a string variable
+# Strings  -  Use String.Length to return the number of characters in a string variable
 #
-
-"String".Count;  # Returns 1
 
 "String".Length; # Returns 6
 

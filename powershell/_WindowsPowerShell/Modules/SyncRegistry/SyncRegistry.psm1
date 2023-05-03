@@ -1827,7 +1827,7 @@ function SyncRegistry {
             Description="Set this value to the specific release/version of Windows which you want to get updates for";
             Name="TargetReleaseVersionInfo";
             Type="String";
-            Value="21H2";
+            Value="22H2";
             Delete=$False;
           }
         )

@@ -38,9 +38,14 @@ sed -i -e "${SED_ENABLE_CRON_LOGS}" "${RSYSLOG_DEFAULTS_CONF}";
 #   Syntax:
 #     :property, [!]compare-operation, "value"
 #
+#  Verify Logfile Rotation
+#     In order to verify rotation of the new file, check back after a few days.
+#     As well as the ${SERVICE}.log file, you should see the preserved file ${SERVICE}.log.1“.
+#     If not, force a rotation by running  [ logrotate --force ${LOGROTATE_CONF:-/etc/logrotate.d/rsyslog}; ]
+#
 
 if [[ 1 -eq 1 ]]; then
-  # Redirect service-specific syslogs to their own logfile at /var/log/
+  # Redirect service-specific syslogs to their own logfile at /var/log/10-SERVICE_NAME.log
   # ------------------------------------------------------------
   #
   SERVICE="cron";
@@ -78,11 +83,7 @@ if [[ 1 -eq 1 ]]; then
     #  ^ Prepends the line "/var/log/${SERVICE}.log" before the line "/var/log/debug" in the logrotate rsyslog configuration file
   fi;
   #
-  # logrotate - Verify Log File Rotation
-  #   In order to verify rotation of the new file, check back after a few days.
-  #   As well as the ${SERVICE}.log file, you should see the preserved file ${SERVICE}.log.1“.
-  #   If not, force a rotation by typing:
-  #     logrotate --force ${LOGROTATE_CONF:-/etc/logrotate.d/rsyslog};
+  # logrotate - Verify Log File Rotation --> In order to verify rotation of the new file, check back after a few days. As well as the ${SERVICE}.log file, you should see the preserved file ${SERVICE}.log.1“. If not, force a rotation by typing  [ logrotate --force ${LOGROTATE_CONF:-/etc/logrotate.d/rsyslog}; ]
   #
   # ------------------------------------------------------------
   #

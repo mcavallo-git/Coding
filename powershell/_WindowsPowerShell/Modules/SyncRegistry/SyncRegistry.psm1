@@ -1806,6 +1806,10 @@ function SyncRegistry {
       };
 
       # Windows Update - Block update to Windows 11
+      $Windows_CurrentVersion = (Get-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion") -Name ("DisplayVersion") -EA:0 | Select-Object -ExpandProperty "DisplayVersion" -EA:0);
+      If ("${Windows_CurrentVersion}".Length -Eq 0) {
+        $Windows_CurrentVersion = "22H2";
+      }
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
         Props=@(
@@ -1827,7 +1831,7 @@ function SyncRegistry {
             Description="Set this value to the specific release/version of Windows which you want to get updates for";
             Name="TargetReleaseVersionInfo";
             Type="String";
-            Value="22H2";
+            Value="${Windows_CurrentVersion}";
             Delete=$False;
           }
         )
@@ -2420,6 +2424,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "keyboard shortcuts - How to disable Windows Gamebar mapping? - Super User"  |  https://superuser.com/a/1097169
 #
 #   superuser.com  |  "My 'Edit' context action when right-clicking a Powershell file has disappeared - Super User"  |  https://superuser.com/a/656681
+#
+#   superuser.com  |  "powershell - How to get the windows version with command line? - Super User"  |  https://superuser.com/a/1640261
 #
 #   superuser.com  |  "windows 7 - How to disable sleep mode via CMD? - Super User"  |  https://superuser.com/a/1330613
 #

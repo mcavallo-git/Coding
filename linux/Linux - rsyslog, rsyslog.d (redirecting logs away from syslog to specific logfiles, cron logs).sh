@@ -59,9 +59,10 @@ if [[ 1 -eq 1 ]]; then
   # logrotate - ⚠️ Update logrotate's rsyslog configuration to include the new logfile when rotating logs ⚠️
   #
   LOGROTATE_CONF="/etc/logrotate.d/rsyslog";
-  if [ -n "$(cat "${LOGROTATE_CONF}" | grep -n "${LOGFILE_SERVICE}" | wc -l;)" -eq 0 ]; then
+  if [ "$(cat "${LOGROTATE_CONF}" | grep -n "${LOGFILE_SERVICE}" | wc -l;)" -eq 0 ]; then
     PATTERN_FILE_LINE="^/var/log/debug\s*$";
-    sed -i -r -e "/${PATTERN_FILE_LINE//\//\\\/}/{" -e "i\\${LOGFILE_SERVICE//\//\\\/}" -e "}" "${LOGROTATE_CONF}";
+    # sed -i -r -e "/${PATTERN_FILE_LINE//\//\\\/}/{" -e "i\\${LOGFILE_SERVICE//\//\\\/}" -e "}" "${LOGROTATE_CONF}";
+    sed -r -e "/${PATTERN_FILE_LINE//\//\\\/}/{" -e "i\\${LOGFILE_SERVICE//\//\\\/}" -e "}" "${LOGROTATE_CONF}";
     #  ^ Prepends the line "/var/log/${SERVICE}.log" before the line "/var/log/debug" in the logrotate rsyslog configuration file
   fi;
   #

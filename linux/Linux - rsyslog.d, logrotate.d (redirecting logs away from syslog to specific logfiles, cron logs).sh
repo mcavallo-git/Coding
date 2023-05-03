@@ -41,7 +41,8 @@ sed -i -e "${SED_ENABLE_CRON_LOGS}" "${RSYSLOG_DEFAULTS_CONF}";
 #  Verify Logfile Rotation
 #     In order to verify rotation of the new file, check back after a few days.
 #     As well as the ${SERVICE}.log file, you should see the preserved file ${SERVICE}.log.1“.
-#     If not, force a rotation by running  [ logrotate --force ${LOGROTATE_CONF:-/etc/logrotate.d/rsyslog}; ]
+#     If not, force a rotation by running:
+#         logrotate --force ${LOGROTATE_CONF:-/etc/logrotate.d/rsyslog};
 #
 
 if [[ 1 -eq 1 ]]; then

@@ -38,13 +38,28 @@ $$.payload
 
 // ------------------------------
 
-
-// moment.now - Get current Datetime (equivalent to "new Date();" or "Date.now();")
+//
+// moment (or moment.now)  -  Get current Datetime (equivalent to "new Date();" or "Date.now();")
+//
 ($moment();)
 
 
-// moment.diff($val) - Subtract $val from the moment's datetime (e.g. "Get the difference between the two dates")
-($moment().diff(($flowContext('timestamp_last_active')),'seconds');)
+//
+// moment.add
+//
+($moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').add($x).format('DD.MM.YYYY HH:mm:ss');)
+
+
+//
+// moment.diff  -  Subtract from initial moment's datetime (e.g. "Get the difference between the two dates")
+//
+(($moment().add(30,'minutes')).diff($moment(),'seconds');)
+
+
+//
+// moment.format
+//
+($moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').format('DD.MM.YYYY HH:mm:ss');)
 
 
 // ------------------------------------------------------------
@@ -90,27 +105,9 @@ $$.payload
 
 
 // ------------------------------------------------------------
-
-
+//
 // J: expression  (jsonata expression)
-
 //
-// moment.format
-//
-$moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').format('DD.MM.YYYY HH:mm:ss')
-
-
-//
-// moment.add
-//
-$moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').add($x).format('DD.MM.YYYY HH:mm:ss');
-
-
-//
-// moment.diff
-//
-($moment().add(30,'minutes')).diff($moment(),'seconds');
-
 
 //
 // more in-depth moment usage

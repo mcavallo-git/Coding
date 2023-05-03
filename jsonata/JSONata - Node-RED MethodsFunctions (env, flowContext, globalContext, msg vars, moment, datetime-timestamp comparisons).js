@@ -47,7 +47,7 @@ $$.payload
 //
 // moment.add
 //
-($moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').add($x).format('DD.MM.YYYY HH:mm:ss');)
+($moment().add(30,'minutes');)
 
 
 //
@@ -59,7 +59,7 @@ $$.payload
 //
 // moment.format
 //
-($moment(payload,['DD.MM.YYYY HH:mm:ss','x'],'de').format('DD.MM.YYYY HH:mm:ss');)
+($moment().format('YYYY-MM-DDTHH:mm:ss');)
 
 
 // ------------------------------------------------------------

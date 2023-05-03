@@ -44,8 +44,7 @@ if [[ 1 -eq 1 ]]; then
   # ------------------------------------------------------------
   #
   SERVICE="cron";
-  FILTER_SYSLOGS_BY_MESSAGES_CONTAINING="cron";
-  FILTER_SYSLOGS_BY_MESSAGES_STARTING_WITH="";  # run-docker-runtime
+  SYSLOG_FILTER="cron";
   #
   # ------------------------------------------------------------
   #
@@ -53,15 +52,12 @@ if [[ 1 -eq 1 ]]; then
   #
   RSYSLOG_CONF="/etc/rsyslog.d/10-${SERVICE}.conf";  # Note that the filename within "/etc/rsyslog.d/" must begin with a number below 50
   LOGFILE_SERVICE="/var/log/${SERVICE}.log";
-  if [[ -n "${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}" ]]; then
-    echo -e ":msg, contains, \"${FILTER_SYSLOGS_BY_MESSAGES_CONTAINING}:\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";
-    # [line 1]   :msg,contains,"netfilter:" /var/log/iptables.log
-    # [line 2]   &stop
-    #  ^ The first line directs messages containing the string “netfilter:” into the given file, /var/log/iptables.log.
-    #  ^ The “&stop” line stops processing at that point, so that the messages are not duplicated to the above files (where rsyslog sends them due to its main config file).
-    #
-  elif [[ -n "${FILTER_SYSLOGS_BY_MESSAGES_STARTING_WITH}" ]]; then
-    echo -e ":msg, startswith, \"${FILTER_SYSLOGS_BY_MESSAGES_STARTING_WITH}:\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";
+  if [[ -n "${SYSLOG_FILTER}" ]]; then
+    # ------------------------------
+    echo -e "if \$msg contains '${SYSLOG_FILTER}' or \$msg contains '${SYSLOG_FILTER^}' or \$msg contains '${SYSLOG_FILTER^^}' then ${LOGFILE_SERVICE}" > "${RSYSLOG_CONF}";
+    echo -e "if \$msg contains '${SYSLOG_FILTER}' or \$msg contains '${SYSLOG_FILTER^}' or \$msg contains '${SYSLOG_FILTER^^}' then ~" >> "${RSYSLOG_CONF}";
+    # ------------------------------
+    # echo -e ":msg, contains, \"${SYSLOG_FILTER}\" ${LOGFILE_SERVICE}""\n""&stop" > "${RSYSLOG_CONF}";
     # [line 1]   :msg,contains,"netfilter:" /var/log/iptables.log
     # [line 2]   &stop
     #  ^ The first line directs messages containing the string “netfilter:” into the given file, /var/log/iptables.log.
@@ -90,7 +86,7 @@ if [[ 1 -eq 1 ]]; then
   #
   # Restart the syslog service
   #
-  echo -e "\n""$(date --utc +'%Y-%m-%dT%H:%M:%SZ';)  INFO: Calling [ systemctl restart rsyslog; ]...";
+  echo -e "\n""$(date +'%b %e %H:%M:%S';)  INFO: Calling [ systemctl restart rsyslog; ]...";
   systemctl restart rsyslog;
   # ------------------------------------------------------------
 fi;

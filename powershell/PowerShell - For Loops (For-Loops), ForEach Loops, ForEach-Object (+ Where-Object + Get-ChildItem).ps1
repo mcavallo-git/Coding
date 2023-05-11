@@ -55,14 +55,16 @@ For (;;) {
 <#   Strings ""  -  Split into Array  @()   #>
 
 If ($True) {
-  $String = "4.6.0,4.6.1,4.6.2,4.7.0,4.7.1,4.7.2,4.8.0,4.8.1";
+  $String = "4.6.0 , 4.6.1 , 4.6.2 , 4.7.0 , 4.7.1 , 4.7.2 , 4.8.0 , 4.8.1";
   Write-Host "------------------------------";
   Write-Host "String=${String}";
   $Array = (${String}.Split(",") | Where-Object { "" -NE "${_}" });
   For ($Each_Key=0; $Each_Key -LT ${Array}.Count; $Each_Key++) {
+    $Each_Val="$(${Array}[${Each_Key}])".Trim();
     Write-Host "------------------------------";
-    Write-Host "Each_Key=$($Each_Key)  ///  Each_Val=$(${Array}[${Each_Key}])";
+    Write-Host "Each_Key=[${Each_Key}]  ///  Each_Val=[${Each_Val}]";
   }
+  Write-Host "------------------------------";
 }
 
 

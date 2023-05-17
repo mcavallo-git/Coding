@@ -188,6 +188,10 @@ Mostly Linux compatible:
 👎				Thumbs Down Sign  |  https://www.compart.com/en/unicode/U+1F44E
 
 
+😂				Face with Tears of Joy  |  https://emojipedia.org/face-with-tears-of-joy/
+🤣				Rolling on the Floor Laughing  |  https://emojipedia.org/rolling-on-the-floor-laughing/
+
+
 👁				Eye  |  https://www.compart.com/en/unicode/U+1F441
 ❤					Heavy Black Heart  |  https://www.compart.com/en/unicode/U+2764
 ❤️				Red Heart Emoji  |  https://emojipedia.org/red-heart/

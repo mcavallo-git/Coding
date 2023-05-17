@@ -9,7 +9,7 @@ fi;
 
 # ------------------------------------------------------------
 #
-# Example - bc (mathematical operations via CLI)
+# Example - bc (CLI mathematical calculations/operations)
 #
 
 if [[ 1 -eq 1 ]]; then

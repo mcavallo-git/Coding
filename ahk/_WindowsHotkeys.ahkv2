@@ -109,7 +109,25 @@ If (FileExist(TrayIcon_Default)) {
 #F1::
 {
   ; Edit
-  Run("notepad.exe " A_ScriptFullPath)  ; Avoids the error [ Another instance of Code is already running as administrator. Please close the other instance and try again. ]
+  Run("notepad.exe " A_ScriptFullPath)  ; Using the "Run" directive instead of the "Edit" directive avoids the error [ Another instance of Code is already running as administrator. Please close the other instance and try again. ]
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  Alt + WinKey + F1
+;            Ctrl + WinKey + F1
+;   ACTION:  Edit this repo's README.md file
+;
+!#F1::
+^#F1::
+{
+  
+  SplitPath A_ScriptDir, &OutFileName, &OutDir, &OutExtension, &OutNameNoExt, &OutDrive
+  Fullpath_RepoReadmeFile := OutDir "\README.md"
+  ; Edit
+  Run("notepad.exe " Fullpath_RepoReadmeFile)  ; Using the "Run" directive instead of the "Edit" directive avoids the error [ Another instance of Code is already running as administrator. Please close the other instance and try again. ]
   Return
 }
 
@@ -3397,7 +3415,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   FullPath_RunNonAdmin_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
 
   ; Build the output filename
-  SplitPath FullPath_RunExe, &OutFileName, &OutDirname, &OutExtension, &OutNameNoExt, &OutDrive
+  SplitPath FullPath_RunExe, &OutFileName, &OutDir, &OutExtension, &OutNameNoExt, &OutDrive
   FullPath_RunNonAdmin_VbsScript := (FullPath_RunNonAdmin_Dirname "\"  OutFileName ".vbs")
 
   ; Create the VBS script file (if it doesn't already exist)

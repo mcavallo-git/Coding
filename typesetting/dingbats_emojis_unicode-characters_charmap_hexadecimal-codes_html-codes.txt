@@ -452,25 +452,25 @@ Mostly Linux compatible:
 Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 
 [﻿]					ZERO WIDTH NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+FEFF
-[​]					Zero Width Space (&NegativeVeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200B
+[​]					Zero Width Space  (&NegativeVeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200B
 [᠎]					MONGOLIAN VOWEL SEPARATOR  |  https://www.compart.com/en/unicode/U+180E
-[ ]					HAIR SPACE  |  https://www.compart.com/en/unicode/U+200A
+[ ]					HAIR SPACE  (&VeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200A
 [ ]					SIX-PER-EM SPACE  |  https://www.compart.com/en/unicode/U+2006
-[ ]					THIN SPACE  |  https://www.compart.com/en/unicode/U+2009
-[ ]					MEDIUM MATHEMATICAL SPACE  |  https://www.compart.com/en/unicode/U+205F
-[ ]					FOUR-PER-EM SPACE (mid space)  |  https://www.compart.com/en/unicode/U+2005
+[ ]					THIN SPACE  (&ThinSpace;)  |  https://www.compart.com/en/unicode/U+2009
+[ ]					MEDIUM MATHEMATICAL SPACE  (&MediumSpace;)  |  https://www.compart.com/en/unicode/U+205F
+[ ]					FOUR-PER-EM SPACE (mid space)  (&emsp14;)  |  https://www.compart.com/en/unicode/U+2005
 [ ]					NARROW NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+202F
-[ ]					THREE-PER-EM SPACE (thick space)  |  https://www.compart.com/en/unicode/U+2004
+[ ]					THREE-PER-EM SPACE (thick space)  (&emsp13;)  |  https://www.compart.com/en/unicode/U+2004
 [ ]					OGHAM SPACE MARK  |  https://www.compart.com/en/unicode/U+1680
-[ ]					EN SPACE (nut)  |  https://www.compart.com/en/unicode/U+2002
+[ ]					EN SPACE (nut)  (&ensp;)  |  https://www.compart.com/en/unicode/U+2002
 [ ]					EN QUAD  |  https://www.compart.com/en/unicode/U+2000
 [ ]					Space (SP)  |  https://www.compart.com/en/unicode/U+0020
-[ ]					PUNCTUATION SPACE  |  https://www.compart.com/en/unicode/U+2008
-[ ]					FIGURE SPACE  |  https://www.compart.com/en/unicode/U+2007
-[ ]					SPACE  |  https://www.compart.com/en/unicode/U+0020
-[ ]					NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+00A0
+[ ]					PUNCTUATION SPACE  (&puncsp;)  |  https://www.compart.com/en/unicode/U+2008
+[ ]					FIGURE SPACE  (&numsp;)  |  https://www.compart.com/en/unicode/U+2007
+[ ]					SPACE  (&nbsp;)  |  https://www.compart.com/en/unicode/U+0020
+[ ]					NO-BREAK SPACE  (&NonBreakingSpace;)  |  https://www.compart.com/en/unicode/U+00A0
 [ ]					EM QUAD  |  https://www.compart.com/en/unicode/U+2001
-[ ]					EM SPACE (mutton)  |  https://www.compart.com/en/unicode/U+2003
+[ ]					EM SPACE (mutton)  (&emsp;)  |  https://www.compart.com/en/unicode/U+2003
 [　]					IDEOGRAPHIC SPACE  |  https://www.compart.com/en/unicode/U+3000
 
 

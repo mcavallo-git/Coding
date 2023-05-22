@@ -1512,7 +1512,7 @@ function SyncRegistry {
 
       # Office 365 App (~2019+) Settings
       $Office_365_App_Key="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Classes\ms-officeapp";
-      If ((Test-Path -Path ("${Office_365_App_Key}")) -Eq $True) {
+      # If ((Test-Path -Path ("${Office_365_App_Key}")) -Eq $True) {
         $RegEdits += @{
           Path="${Office_365_App_Key}\Shell\Open\Command";
           Props=@(
@@ -1525,7 +1525,7 @@ function SyncRegistry {
             }
           )
         };
-      };
+      # };
 
       # Windows To Go
       $RegEdits += @{

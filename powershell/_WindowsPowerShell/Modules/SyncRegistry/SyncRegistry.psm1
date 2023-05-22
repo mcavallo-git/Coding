@@ -1510,22 +1510,20 @@ function SyncRegistry {
         };
       };
 
-      # Office 365 App (~2019+) Settings
+      # Office 365 App (~2019+) Settings - Note: Hotkey still applies regardless if app is installed or not
       $Office_365_App_Key="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Classes\ms-officeapp";
-      # If ((Test-Path -Path ("${Office_365_App_Key}")) -Eq $True) {
-        $RegEdits += @{
-          Path="${Office_365_App_Key}\Shell\Open\Command";
-          Props=@(
-            @{
-              Description="Office 365 Hotkey - Disable the hotkey which automatically binds to [ Shift + Ctrl + Alt + Windows-Key ] upon installing office on a given device";
-              Name="(Default)";
-              Type="String";
-              Value="rundll32";
-              Delete=$False;
-            }
-          )
-        };
-      # };
+      $RegEdits += @{
+        Path="${Office_365_App_Key}\Shell\Open\Command";
+        Props=@(
+          @{
+            Description="Office 365 Hotkey - Disable the hotkey which automatically binds to [ Shift + Ctrl + Alt + Windows-Key ] upon installing office on a given device";
+            Name="(Default)";
+            Type="String";
+            Value="rundll32";
+            Delete=$False;
+          }
+        )
+      };
 
       # Windows To Go
       $RegEdits += @{

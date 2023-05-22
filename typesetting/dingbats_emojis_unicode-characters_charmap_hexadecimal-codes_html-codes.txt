@@ -464,10 +464,9 @@ Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 [ ]					OGHAM SPACE MARK  |  https://www.compart.com/en/unicode/U+1680
 [ ]					EN SPACE (nut)  (&ensp;)  |  https://www.compart.com/en/unicode/U+2002
 [ ]					EN QUAD  |  https://www.compart.com/en/unicode/U+2000
-[ ]					Space (SP)  |  https://www.compart.com/en/unicode/U+0020
+[ ]					Space (SP)  (&nbsp;)  |  https://www.compart.com/en/unicode/U+0020
 [ ]					PUNCTUATION SPACE  (&puncsp;)  |  https://www.compart.com/en/unicode/U+2008
 [ ]					FIGURE SPACE  (&numsp;)  |  https://www.compart.com/en/unicode/U+2007
-[ ]					SPACE  (&nbsp;)  |  https://www.compart.com/en/unicode/U+0020
 [ ]					NO-BREAK SPACE  (&NonBreakingSpace;)  |  https://www.compart.com/en/unicode/U+00A0
 [ ]					EM QUAD  |  https://www.compart.com/en/unicode/U+2001
 [ ]					EM SPACE (mutton)  (&emsp;)  |  https://www.compart.com/en/unicode/U+2003

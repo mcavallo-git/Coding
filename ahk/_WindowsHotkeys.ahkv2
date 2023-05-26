@@ -462,13 +462,13 @@ Pause::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + [ G or W ]
-;            Alt + WinKey + [ G or W ]
-;            Ctrl + WinKey + [ G or W ]
-;            Shift + WinKey + [ G or W ]
-;            Ctrl + Alt + WinKey + [ G or W ]
-;            Shift + Alt + WinKey + [ G or W ]
-;            Shift + Ctrl + Alt + WinKey + [ G or W ]
+;   HOTKEY:  WinKey + G
+;            Alt + WinKey + G
+;            Ctrl + WinKey + G
+;            Shift + WinKey + G
+;            Ctrl + Alt + WinKey + G
+;            Shift + Alt + WinKey + G
+;            Shift + Ctrl + Alt + WinKey + G
 ;   ACTION:  Types the contents of target file - If [ target file + ".exe" ] file exists, only type contents into that exe's window (if it exists)
 ;
 #g::
@@ -479,14 +479,6 @@ Pause::
 +!#g::
 +^#g::
 +!^#g::
-#w::
-!#w::
-^#w::
-+#w::
-!^#w::
-+!#w::
-+^#w::
-+!^#w::
 {
   global DebugMode
   FileToPaste_Legend := EnvGet("USERPROFILE") "\.ahk\" A_ThisHotkey
@@ -1457,6 +1449,21 @@ RShift & LShift::
 
 ; ------------------------------
 ;
+;   HOTKEY:  WinKey + W
+;   ACTION:  Snap the currently-active window to left half of monitor #1, or snap to the right of its current position on repeat calls
+;
+#w::
+{
+  WinTitle := WinGetTitle("A")
+  If (WinExist(WinTitle)) {
+    WinSnap(WinTitle,,,,"Left","Half",1)
+  }
+  Return
+}
+
+
+; ------------------------------
+;
 ;   HOTKEY:  WinKey + T
 ;   ACTION:  Open Windows Terminal
 ;
@@ -1623,10 +1630,10 @@ RShift & LShift::
 ;     ; Wait until the script(s)/program(s) start before moving them around
 ;     ; WinWait WinTitle_Postman,,5
 ;     ; WinWait WinTitle_NodeJS,,3
-;     ; Move the window to occupy the right-half of the Right-Most monitor
+;     ; Move the window to occupy the right half of the Right-Most monitor
 ;     ; WinMove(BoundsCenterHoriz,BoundsTop,BoundsWidthHalf,BoundsHeightFull,WinTitle_Postman)
 ;     ; WinMove(953,0,974,1047,WinTitle_Postman)  ; (1st Monitor, Right, Actual)
-;     ; Move the window to occupy the left-half of the Right-Most monitor
+;     ; Move the window to occupy the left half of the Right-Most monitor
 ;     ; WinMove(BoundsLeft,BoundsTop,BoundsWidthHalf,BoundsHeightFull,WinTitle_NodeJS)
 ;     ; WinMove(-7,0,974,1047,WinTitle_NodeJS)  ; (1st Monitor, Left, Actual)
 ;     ;
@@ -2887,9 +2894,9 @@ Open_Chrome() {
     }
     If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {   
       If (MonitorGetCount()==1) {
-        WinSnap(WinTitle,,,,"Right","Half",1) ; Resize window to right-half of monitor #1
+        WinSnap(WinTitle,,,,"Right","Half",1) ; Resize window to right half of monitor #1
       } Else {
-        WinSnap(WinTitle,,,,"Left","Half",2) ; Resize window to left-half of monitor #2
+        WinSnap(WinTitle,,,,"Left","Half",2) ; Resize window to left half of monitor #2
       }
       If (WinExist(WinTitle,WinText)) {
         WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
@@ -3039,7 +3046,7 @@ Open_VisualStudioCode(FilePath_Open:="") {
     RunExe_NON_Admin(FullPath_RunExe, FilePath_Open)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  WinSnap(WinTitle,,,,"Left","Half",1) ; Resize window to left-half of monitor #1
+  WinSnap(WinTitle,,,,"Left","Half",1) ; Resize window to left half of monitor #1
   If (WinExist(WinTitle)) {
     WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
   }
@@ -3074,7 +3081,7 @@ Open_WindowsTerminal() {
     RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
-  WinSnap(WinTitle,WinText,,,"Right","Half",1) ; Resize window to right-half of monitor #1
+  WinSnap(WinTitle,WinText,,,"Right","Half",1) ; Resize window to right half of monitor #1
   If (WinExist(WinTitle,WinText)) {
     WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
   } Else If (WinExist(WinTitle)) {
@@ -4220,7 +4227,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
     TooltipOutput := TooltipOutput "`n"
     TooltipOutput := TooltipOutput "Error - No window found matching:" "`n"
     TooltipOutput := TooltipOutput "`n"
-      TooltipOutput := TooltipOutput "  Win_hwnd: [ " Win_hwnd " ]" "`n"
+    TooltipOutput := TooltipOutput "  Win_hwnd: [ " Win_hwnd " ]" "`n"
     If (WinTitle != "") {
       TooltipOutput := TooltipOutput "  WinTitle: [ " WinTitle " ]" "`n"
     }
@@ -4339,13 +4346,13 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
             ;
           } Else {
             Destination_Combined := ( Destination_Direction "-" Destination_Size )
-            If (Destination_Combined=="Left-Half") {
+            If (Destination_Combined=="left half") {
               ; Left Half
               WinMove_XPos := EachMonitor_LeftCoord
               WinMove_YPos := EachMonitor_TopCoord
               WinMove_Width := EachMonitor_HalfWidth
               WinMove_Height := EachMonitor_Height
-            } Else If (Destination_Combined=="Right-Half") {
+            } Else If (Destination_Combined=="right half") {
               ; Right Half
               WinMove_XPos := EachMonitor_Center_XPos
               WinMove_YPos := EachMonitor_TopCoord
@@ -4426,9 +4433,21 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
         TooltipOutput := TooltipOutput "    |--> Call:  " A_ThisFunc " ( `"" Destination_Direction "`" , `"" Destination_Size "`" , `"" Destination_MonitorNumber "`" , `"" WinTitle "`" , `"" WinText "`" )" "   " "`n"
         TooltipOutput := TooltipOutput "    |" "`n"
         TooltipOutput := TooltipOutput "    |--> Script:  " A_ScriptFullPath "   " "`n"
-        TooltipOutput := TooltipOutput "                 " "`n"
-        TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Left`" , `"Half`" , `"UseCurrentMonitor`" , `"A`", `"`" )" "   " "`n"
-        TooltipOutput := TooltipOutput "  Example call:  " A_ThisFunc " ( `"Maximized`" , `"`" , 2 , `"A`", `"`" )" "   " "`n"
+        TooltipOutput := TooltipOutput "    |" "`n"
+        TooltipOutput := TooltipOutput "    |--> Destination_MonitorNumber = [" Destination_MonitorNumber "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> Destination_Direction = [" Destination_Direction "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> Destination_Combined = [" Destination_Combined "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |" "`n"
+        TooltipOutput := TooltipOutput "    |--> Win_Center_XPos = [" Win_Center_XPos "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> Win_Center_YPos = [" Win_Center_YPos "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> Win_Center_MonitorNumber = [" Win_Center_MonitorNumber "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |" "`n"
+        TooltipOutput := TooltipOutput "    |--> EachMonitor_Width = [" EachMonitor_Width "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> EachMonitor_Height = [" EachMonitor_Height "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> EachMonitor_HalfWidth = [" EachMonitor_HalfWidth "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> EachMonitor_HalfHeight = [" EachMonitor_HalfHeight "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> EachMonitor_Center_XPos = [" EachMonitor_Center_XPos "]" "   " "`n"
+        TooltipOutput := TooltipOutput "    |--> EachMonitor_Center_YPos = [" EachMonitor_Center_YPos "]" "   " "`n"
         TooltipOutput := TooltipOutput "                 "
         ShowToolTip(TooltipOutput,,,,60000)
       } Else {

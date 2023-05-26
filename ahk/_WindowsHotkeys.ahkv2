@@ -4346,13 +4346,13 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
             ;
           } Else {
             Destination_Combined := ( Destination_Direction "-" Destination_Size )
-            If (Destination_Combined=="left half") {
+            If (Destination_Combined=="Left-Half") {
               ; Left Half
               WinMove_XPos := EachMonitor_LeftCoord
               WinMove_YPos := EachMonitor_TopCoord
               WinMove_Width := EachMonitor_HalfWidth
               WinMove_Height := EachMonitor_Height
-            } Else If (Destination_Combined=="right half") {
+            } Else If (Destination_Combined=="Right-Half") {
               ; Right Half
               WinMove_XPos := EachMonitor_Center_XPos
               WinMove_YPos := EachMonitor_TopCoord

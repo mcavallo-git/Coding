@@ -320,9 +320,9 @@ Mostly Linux compatible:
 ✦				 Black Four Pointed Star  |  https://www.compart.com/en/unicode/U+2726
 
 
-==--  Emojis - Audio-Related  --==
+==--  Emojis - Media & Entertainment   --==
 
-
+🎮				Video Game (Controller)  (&#x1F3AE;)  |  https://www.compart.com/en/unicode/U+1F3AE
 🎧 				Headphone  |  https://www.compart.com/en/unicode/U+1F3A7
 🎤
 🎚

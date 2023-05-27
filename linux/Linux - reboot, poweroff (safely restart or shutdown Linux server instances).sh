@@ -1,7 +1,7 @@
 #!/bin/bash
 exit 1;
 # ------------------------------------------------------------
-# Linux - reboot, poweroff (safely restart & shutdown Linux server instances)
+# Linux - reboot, poweroff (safely restart or shutdown Linux server instances)
 # ------------------------------------------------------------
 
 # Reboot  (safely)

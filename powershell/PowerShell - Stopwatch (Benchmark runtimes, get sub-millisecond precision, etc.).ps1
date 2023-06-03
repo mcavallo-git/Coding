@@ -11,9 +11,10 @@ Write-Output "`$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
 
 # ------------------------------------------------------------
 
-<# Benchmark two different but similar methods #>
-
 If ($True) {
+  #
+  # Benchmark two different looking but similar functioning methods
+  #
   $LoopIterations = 10000;
   $Benchmark = New-Object System.Diagnostics.Stopwatch;
   $DecimalTimestampShort = $Null;
@@ -55,11 +56,14 @@ If ($True) {
   Write-Host "";
 }
 
+
 # ------------------------------------------------------------
 
-<# Benchmark two different but similar methods #>
 
 If ($True) {
+  #
+  # Benchmark two different looking but similar functioning methods
+  #
   $LoopIterations = 10000;
   $Benchmark = New-Object System.Diagnostics.Stopwatch;
   $DecimalTimestampShort = $Null;

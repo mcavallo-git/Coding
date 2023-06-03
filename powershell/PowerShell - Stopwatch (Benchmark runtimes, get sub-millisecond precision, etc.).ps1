@@ -39,7 +39,6 @@ If ($True) {
   $BenchTicks_1 = (${Benchmark}.ElapsedTicks);
   Write-Host "";
   Write-Host "[ Method #1 ]  `$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
-  Write-Host "[ Method #1 ]  `$Benchmark.ElapsedTicks = ${BenchTicks_1}";
   $Benchmark.Stop();
   $DecimalTimestampShort = $Null;
   $Benchmark.Restart(); <# [Re-]Start the stopwatch #>
@@ -57,7 +56,6 @@ If ($True) {
   $BenchTicks_2 = (${Benchmark}.ElapsedTicks);
   Write-Host "";
   Write-Host "[ Method #2 ]  `$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
-  Write-Host "[ Method #2 ]  `$Benchmark.ElapsedTicks = ${BenchTicks_2}";
   $Benchmark.Stop();
   # Show comparable results
   Write-Host "";

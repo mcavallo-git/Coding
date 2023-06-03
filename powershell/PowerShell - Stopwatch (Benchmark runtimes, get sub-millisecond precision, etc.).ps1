@@ -11,7 +11,101 @@ Write-Output "`$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
 
 # ------------------------------------------------------------
 
-<# Example benchmark between two approaches of achieving a similar outcome to determine which method is faster #>
+<# Benchmark two different but similar methods #>
+
+If ($True) {
+  $LoopIterations = 10000;
+  $Benchmark = New-Object System.Diagnostics.Stopwatch;
+  $DecimalTimestampShort = $Null;
+  $Benchmark.Restart(); <# [Re-]Start the stopwatch #>
+  For ($i = 0; $i -LT ${LoopIterations}; $i++) {
+    # ------------------------------
+    # v v v START METHOD #1 CODE BLOCK
+
+    $ResolvedPath = (Resolve-Path -Path ("${env:USERPROFILE}") | Select-Object -ExpandProperty "Path");
+
+    # ^ ^ ^ END METHOD #1 CODE BLOCK
+    # ------------------------------
+  }
+  $BenchTicks_1 = (${Benchmark}.ElapsedTicks);
+  Write-Host "";
+  Write-Host "[ Method #1 ]  `$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
+  Write-Host "[ Method #1 ]  `$Benchmark.ElapsedTicks = ${BenchTicks_1}";
+  $Benchmark.Stop();
+  $DecimalTimestampShort = $Null;
+  $Benchmark.Restart(); <# [Re-]Start the stopwatch #>
+  For ($i = 0; $i -LT ${LoopIterations}; $i++) {
+    # ------------------------------
+    # v v v START METHOD #2 CODE BLOCK
+
+    $GetItemPath = (Get-Item -Path ("${env:USERPROFILE}") | Select-Object -ExpandProperty "FullName");
+
+    # ^ ^ ^ END METHOD #2 CODE BLOCK
+    # ------------------------------
+  }
+  $BenchTicks_2 = (${Benchmark}.ElapsedTicks);
+  Write-Host "";
+  Write-Host "[ Method #2 ]  `$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
+  Write-Host "[ Method #2 ]  `$Benchmark.ElapsedTicks = ${BenchTicks_2}";
+  $Benchmark.Stop();
+  # Show comparable results
+  Write-Host "";
+  Write-Host "`$BenchTicks_1 / `$BenchTicks_2 = $(${BenchTicks_1}/${BenchTicks_2})";
+  Write-Host "`$BenchTicks_2 / `$BenchTicks_1 = $(${BenchTicks_2}/${BenchTicks_1})";
+  Write-Host "";
+}
+
+# ------------------------------------------------------------
+
+<# Benchmark two different but similar methods #>
+
+If ($True) {
+  $LoopIterations = 10000;
+  $Benchmark = New-Object System.Diagnostics.Stopwatch;
+  $DecimalTimestampShort = $Null;
+  $Benchmark.Restart(); <# [Re-]Start the stopwatch #>
+  For ($i = 0; $i -LT ${LoopIterations}; $i++) {
+    # ------------------------------
+    # v v v START METHOD #1 CODE BLOCK
+
+    $DecimalTimestampShort = $(Get-Date -Format 'yyyyMMddTHHmmss.ffffffzz')
+
+    # ^ ^ ^ END METHOD #1 CODE BLOCK
+    # ------------------------------
+  }
+  $BenchTicks_1 = (${Benchmark}.ElapsedTicks);
+  Write-Host "";
+  Write-Host "[ Method #1 ]  `$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
+  Write-Host "[ Method #1 ]  `$Benchmark.ElapsedTicks = ${BenchTicks_1}";
+  $Benchmark.Stop();
+  $DecimalTimestampShort = $Null;
+  $Benchmark.Restart(); <# [Re-]Start the stopwatch #>
+  For ($i = 0; $i -LT ${LoopIterations}; $i++) {
+    # ------------------------------
+    # v v v START METHOD #2 CODE BLOCK
+
+    $EpochDate = ([Decimal](Get-Date -UFormat ("%s")));
+    $EpochToDateTime = (New-Object -Type DateTime -ArgumentList 1970,1,1,0,0,0,0).AddSeconds([Math]::Floor($EpochDate));
+    $DecimalTimestampShort = ( ([String](Get-Date -Date ("${EpochToDateTime}") -UFormat ("%Y%m%d-%H%M%S"))) + (([String]((${EpochDate}%1))).Substring(1).PadRight(6,"0")) );
+
+    # ^ ^ ^ END METHOD #2 CODE BLOCK
+    # ------------------------------
+  }
+  $BenchTicks_2 = (${Benchmark}.ElapsedTicks);
+  Write-Host "";
+  Write-Host "[ Method #2 ]  `$Benchmark.Elapsed = $(${Benchmark}.Elapsed)";
+  Write-Host "[ Method #2 ]  `$Benchmark.ElapsedTicks = ${BenchTicks_2}";
+  $Benchmark.Stop();
+  # Show comparable results
+  Write-Host "";
+  Write-Host "`$BenchTicks_1 / `$BenchTicks_2 = $(${BenchTicks_1}/${BenchTicks_2})";
+  Write-Host "`$BenchTicks_2 / `$BenchTicks_1 = $(${BenchTicks_2}/${BenchTicks_1})";
+  Write-Host "";
+}
+
+
+# ------------------------------------------------------------
+
 
 If ($True) {
 $LoopIterations = 100000;

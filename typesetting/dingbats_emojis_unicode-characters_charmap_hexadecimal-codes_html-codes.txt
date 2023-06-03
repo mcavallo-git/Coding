@@ -236,6 +236,10 @@ Mostly Linux compatible:
 📨				Incoming Envelope  |  https://www.compart.com/en/unicode/U+1F4E8
 📦				Package  |  https://www.compart.com/en/unicode/U+1F4E6
 📮				Postbox  |  https://www.compart.com/en/unicode/U+1F4EE
+📭				Open Mailbox with Lowered Flag  |  https://www.compart.com/en/unicode/U+1F4ED
+📬				Open Mailbox with Raised Flag  |  https://www.compart.com/en/unicode/U+1F4EC
+📫				Closed Mailbox with Raised Flag  |  https://www.compart.com/en/unicode/U+1F4EB
+📪				Closed Mailbox with Lowered Flag  |  https://www.compart.com/en/unicode/U+1F4EA
 🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1  |  echo -e "\\xF0\\x9F\\x97\\x91";  |  "$([char]0xD83D+[char]0xDDD1)"
 🗑️				 Wastebasket Emoji (Trash Can, Garbage Can)  |  https://emojipedia.org/wastebasket/  |  echo -e "\\xF0\\x9F\\x97\\x91\\xEF\\xB8\\x8F";  |  "$([char]0xD83D+[char]0xDDD1+[char]0xFE0F)"
 
@@ -243,6 +247,7 @@ Mostly Linux compatible:
 ⌨ 				Keyboard  |  https://www.compart.com/en/unicode/U+2328
 🖥 				 Desktop Computer  |  https://www.compart.com/en/unicode/U+1F5A5
 🖥️ 			 Desktop Computer (Colored)  |  https://emojipedia.org/desktop-computer/
+📺				Television  |  https://www.compart.com/en/unicode/U+1F4FA
 ☁				  Cloud  (black-filled in Chrome)  |  https://www.compart.com/en/unicode/U+2601
 ☁️				Cloud Emoji   (white-filled in Chrome)  |  https://emojipedia.org/cloud/
 

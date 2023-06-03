@@ -23,7 +23,7 @@ If ($True) {
 # Double Benchmark (Comparisons)
 #
 If ($True) {
-  $LoopIterations = 10000;
+  $LoopIterations = 1000;
   $Benchmark = New-Object System.Diagnostics.Stopwatch;
   $DecimalTimestampShort = $Null;
   $Benchmark.Restart(); <# [Re-]Start the stopwatch #>

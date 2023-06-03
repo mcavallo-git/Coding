@@ -59,8 +59,9 @@ If ($True) {
   $Benchmark.Stop();
   # Show comparable results
   Write-Host "";
-  Write-Host "[ Ratio ]  #1 / #2 = $([Math]::Round(${BenchTicks_1}/${BenchTicks_2},4))";
-  Write-Host "[ Ratio ]  #2 / #1 = $([Math]::Round(${BenchTicks_2}/${BenchTicks_1},4))";
+  Write-Host "[Results]  Method #1 runs at $([Math]::Round(((${BenchTicks_1}/${BenchTicks_2})*100),4))% the speed of Method #2";
+  Write-Host "";
+  Write-Host "[Results]  Method #2 runs at $([Math]::Round(((${BenchTicks_2}/${BenchTicks_1})*100),4))% the speed of Method #1";
   Write-Host "";
 }
 

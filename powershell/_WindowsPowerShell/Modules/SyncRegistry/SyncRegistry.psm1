@@ -2118,14 +2118,14 @@ function SyncRegistry {
       # Check if the "Set-PolicyFileEntry" function exists and was sourced from the "PolicyFileEditor" module - If not, Install/Import it
       If (($Null) -Eq (Get-Command -Name "Set-PolicyFileEntry" -Module "PolicyFileEditor" -EA:0)) {
         Write-Output ("`nInstalling/Importing the group policy update PowerShell module `"PolicyFileEditor`"...");
-        Write-Output ("`n  |-->  Reason: Current runtime requires use of function `"Set-PolicyFileEntry`" sourced from module `"PolicyFileEditor`"");
+        Write-Output ("  |-->  Reason: Current runtime requires use of function `"Set-PolicyFileEntry`" sourced from module `"PolicyFileEditor`"");
         Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force -AllowClobber;
         Import-Module -Name ("PolicyFileEditor") -Force;
       } Else {
         # Function/Module already exists
         If ($PSBoundParameters.ContainsKey('Verbose')) {
           Write-Output ("`nSkipping install/import of the group policy update PowerShell module `"PolicyFileEditor`"");
-          Write-Output ("`n  |-->  Reason: Local session already includes function `"Set-PolicyFileEntry`" sourced from module `"PolicyFileEditor`"");
+          Write-Output ("  |-->  Reason: Local session already includes function `"Set-PolicyFileEntry`" sourced from module `"PolicyFileEditor`"");
         };
       }
 

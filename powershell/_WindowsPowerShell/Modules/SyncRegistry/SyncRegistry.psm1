@@ -109,14 +109,14 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Disable, [ 2 ] to Enable ClearType (font smoothing)";
+            Description="ClearType - [ 0 ]=Disable, [ 2 ]=Enable ClearType (font smoothing)";
             Name="FontSmoothing";
             Type="String";
             Value=If ($PSBoundParameters.ContainsKey('DisableClearType')) { 0 <# Disabled #> } Else { 2 <# Enabled #> };
             Delete=$False;
           },
           @{
-            Description="Set to [ 0 ] to Disable, [ 2 ] to Enable ClearType (font smoothing)";
+            Description="Font Smoothing - Set smoothing type to [ 0 ]='Font smoothing type could not be determined (Disable)', [ 1 ]='Standard font smoothing', [ 2 ]='ClearType font smoothing'";
             Name="FontSmoothingType";
             Type="DWord";
             Value=If ($PSBoundParameters.ContainsKey('DisableClearType')) { 0 <# Disabled #> } Else { 2 <# Enabled #> };
@@ -130,7 +130,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Search";
         Props=@(
           @{
-            Description="Cortana/Search Settings - Set to [ 0 ] to Disable, [ 1 ] to Enable Cortana.";
+            Description="Cortana/Search Settings - [ 0 ]=Disable, [ 1 ]=Enable Cortana.";
             Name="AllowCortana";
             Type="DWord";
             Value=0;
@@ -144,7 +144,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Cortana/Search Settings - Set to [ 0 ] to Disable, [ 1 ] to Enable Cortana's ability to send search-resutls to Bing.com.";
+            Description="Cortana/Search Settings - [ 0 ]=Disable, [ 1 ]=Enable Cortana's ability to send search-resutls to Bing.com.";
             Hotfix="Enabling fixes a bug where Cortana eats 30-40% CPU resources (KB4512941).";
             Name="BingSearchEnabled";
             Type="DWord";
@@ -300,7 +300,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - Setting to [ 0 ] disables, [ 1 ] enables: `"Show accent color on the following surfaces: Title bars`"";
+            Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Show accent color on the following surfaces: Title bars'";
             Name="ColorPrevalence";
             Type="DWord";
             Val_Default="";
@@ -308,7 +308,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - Setting to [ 0 ] disables `"Aero Peek`", setting to [ 1 ] enables `"Aero Peek`"";
+            Description="Aero Peek - [ 0 ]='Disable/Uncheck', [ 1 ]='Enable/Check' the 'Enable Peek' checkbox under windows' Performance Options (SystemPropertiesPerformance.exe). Also enables/disables Aero Peek [ while hovering over taskbar thumbnail live previews ] as well as [ when left-/right-clicking the desktop button at the end of the taskbar ].";
             Name="EnableAeroPeek";
             Type="DWord";
             Value=0;
@@ -322,7 +322,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         Props=@(
           @{
-            Description="Explorer Settings - Setting to [ 0 ] disables, [ 1 ] enables: `"Show accent color on the following surfaces: Start, taskbar, and action center`"";
+            Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Show accent color on the following surfaces: Start, taskbar, and action center'";
             Name="ColorPrevalence";
             Type="DWord";
             Val_Default="";
@@ -358,7 +358,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Explorer";
         Props=@(
           @{
-            Description="Explorer Settings - Set to [ 0 ] to Enable, [ 1 ] to Disable `"Aero Shake`" in Windows 10 (Part 1/2)";
+            Description="Explorer Settings - [ 0 ]=Enable, [ 1 ]=Disable the 'Aero Shake' option in Windows 10 (Part 1/2)";
             Name="NoWindowMinimizingShortcuts";
             Type="DWord";
             Value=1;
@@ -372,49 +372,49 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
         Props=@(
           @{
-            Description="Explorer Settings - Set to [ 0 ] to Enable, [ 1 ] to Disable `"Aero Shake`" in Windows 10 (Part 2/2)";
+            Description="Explorer Settings - [ 1 ]=Disable, [ 0 ]=Enable the 'Aero Shake' option in Windows 10 (Part 2/2). If disabled, removes the option [ When I grab a window’s title bar and shake it, minimize all other windows ] from Windows Multitasking settings.";
             Name="DisallowShaking";
             Type="DWord";
             Value=1;
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - Setting to [ 0 ] enables `"Preview Desktop`", setting to [ 1 ] disables `"Preview Desktop`"";
+            Description="Aero Peek (while hovering over the bottom-right of screen) - [ 0 ]='Disable/Lock', [ 1 ]='Enable/Unlock' the Windows Taskbar setting 'Use Peek to preview the desktop when you move your mouse to the Show desktop button at the end of the taskbar'";
             Name="DisablePreviewDesktop";
             Type="DWord";
             Value=1;
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - Setting to [ 0 ] selects `"Show hidden files, folders, and drives`", setting to [ 1 ] selects `"Don't show hidden files, folders, or drives`"";
+            Description="Explorer option 'Hidden files and folders' - Set to [ 0 ]='Show hidden files, folders, and drives', [ 1 ]='Dont show hidden files, folders, or drives'";
             Name="Hidden";
             Type="DWord";
             Value=1;
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide empty drives`"";
+            Description="Explorer option 'Hide empty drives' - Set to [ 0 ]='Disable (always show empty drives)', [ 1 ]='Enable (hide empty drives)'.";
             Name="HideDrivesWithNoMedia";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide extensions for known file types`"";
+            Description="Explorer option 'Hide extensions for known file types' - Set to [ 0 ]='Disable (always show extensions)', [ 1 ]='Enable (hide extensions)'.";
             Name="HideFileExt";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - Check [ 1 ] or Uncheck [ 0 ] option `"Hide folder merge conflicts`"";
+            Description="Explorer option 'Hide folder merge conflicts' - Set to [ 0 ]='Disable (always show conflicts)', [ 1 ]='Enable (hide conflicts)'.";
             Name="HideMergeConflicts";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Show or hide seconds on the system tray clock. 0=[Hide], 1=[Show]";
+            Description="Taskbar Clock - [ 0 ]=Disable, [ 1 ]=Enable displaying of seconds on the system tray clock.";
             Name="ShowSecondsInSystemClock";
             Type="DWord";
             Value=1;
@@ -473,35 +473,35 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ Run as different user ] right-click option";
+            Description="Explorer Settings - [ 1 ]='Disable/Hide', [ 0 ]='Enable/Show' the right-click context menu option 'Run as different user'";
             Name="HideRunAsVerb";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable [ Microsoft Meet Now ] (taskbar camera icon - part of the Skype communication platform)";
+            Description="Microsoft Meet Now - [ 1 ]=Disable, [ 0 ]=Enable the 'Microsoft Meet Now' feature & taskbar icon. Meet Now is part of the Skype communication platform.";
             Name="HideSCAMeetNow";
             Type="DWord";
             Value=1;
             Delete=$False;
           },
           @{
-            Description="Set to [ 1 ] to [ set the Preview Pane as hidden in File Explorer (and lock/disable the user from enabling it) ]. Set to [ 0 ] or [ deleted ] to [ set the Preview Pane as hidden in File Explorer (but allow the user to enable it) ]";
+            Description="Reading Pane - Set to [ 1 ]='set the Preview Pane as hidden in File Explorer (and lock/disable the user from enabling it)', [ 0 (or deleted) ]='set the Preview Pane as hidden in File Explorer (but allow the user to enable it)'";
             Name="NoReadingPane";
             Type="DWord";
             Value=1;
             Delete=$False;
           },
           @{
-            Description="Set to [ DELETED ] to Enable, [ 1 ] to Disable the 'most recently used files list' feature";
+            Description="Windows Explorer - [ 0 (or deleted) ]=Disable, [ 1 ]=Enable setting 'Do not keep history of recently opened documents', e.g. 'Hide the most recently used files list'.";
             Name="NoRecentDocsHistory";
             Type="DWord";
             Value=1;
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
+            Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable setting 'Remove Recent Items menu from Start Menu'. When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes).";
             Name="NoRecentDocsMenu";
             Type="DWord";
             Value=1;
@@ -513,28 +513,28 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the 'Run as different user' right-click option";
+            Description="Explorer Settings - [ 1 ]='Disable/Hide', [ 0 ]='Enable/Show' the right-click context menu option 'Run as different user'";
             Name="HideRunAsVerb";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable [ Microsoft Meet Now ] (taskbar camera icon - part of the Skype communication platform)";
+            Description="Microsoft Meet Now - [ 1 ]=Disable, [ 0 ]=Enable the 'Microsoft Meet Now' feature & taskbar icon. Meet Now is part of the Skype communication platform.";
             Name="HideSCAMeetNow";
             Type="DWord";
             Value=1;
             Delete=$False;
           },
           @{
-            Description="Set to [ DELETED ] to Enable, [ 1 ] to Disable the 'most recently used files list' feature";
+            Description="Windows Explorer - [ 0 (or deleted) ]=Disable, [ 1 ]=Enable setting 'Do not keep history of recently opened documents', e.g. 'Hide the most recently used files list'.";
             Name="NoRecentDocsHistory";
             Type="DWord";
             Value=1;
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes)";
+            Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable setting 'Remove Recent Items menu from Start Menu'. When this policy is enabled, applications must not keep MRU lists (for example, in common dialog boxes).";
             Name="NoRecentDocsMenu";
             Type="DWord";
             Value=1;
@@ -1076,10 +1076,52 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Tcpip6\Parameters";
         Props=@(
           @{
-            Description="IPv6 Network Settings -->  [ 32 = 'Prefer IPv4 over IPv6' ], [ 255 = 'Disable IPv6' ], [ 16 = 'disable IPv6 on all nontunnel interfaces' ], [ 1 = 'disable IPv6 on all tunnel interfaces' ], [ 17 = 'disable IPv6 on all nontunnel interfaces (except the loopback) and on IPv6 tunnel interface' ]";
+            Description="IPv6 Network Settings - Set IP preference to: [ 32 ]='Prefer IPv4 over IPv6', [ 255 ]='Disable IPv6', [ 16 ]='Disable IPv6 on all nontunnel interfaces', [ 1 ]='Disable IPv6 on all tunnel interfaces', [ 17 ]='Disable IPv6 on all nontunnel interfaces (except the loopback) and on IPv6 tunnel interface'";
             Name="DisabledComponents";
             Type="DWord";
             Value=("255");
+            Delete=$False;
+          }
+        )
+      };
+
+      # Keyboard - Filter Keys (Enable/Disable)
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility\Keyboard Response";
+        Props=@(
+          @{
+            Description="Keyboard Settings - [ 126 ]=Enable, [ 122 ]=Disable option [ Allow the shortcut key to start Filter Keys - Press and hold the right Shift key for eight seconds to turn on Filter Keys ].";
+            Name="Flags";
+            Type="String";
+            Value="122";
+            Delete=$False;
+          }
+        )
+      };
+
+      # Keyboard - Sticky Keys (Enable/Disable)
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility\StickyKeys";
+        Props=@(
+          @{
+            Description="Keyboard Settings - [ 510 ]=Enable, [ 506 ]=Disable option [ Allow the shortcut key to start Sticky Keys - Press the Shift key five times to turn Sticky Keys on or off ].";
+            Name="Flags";
+            Type="String";
+            Value="506";
+            Delete=$False;
+          }
+        )
+      };
+
+      # Keyboard - Toggle Keys (Enable/Disable)
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility\ToggleKeys";
+        Props=@(
+          @{
+            Description="Keyboard Settings - [ 62 ]=Enable, [ 58 ]=Disable option [ Allow the shortcut key to start Toggle Keys Press and hold the Num Lock key for five seconds to turn on Toggle Keys ].";
+            Name="Flags";
+            Type="String";
+            Value="_____";
             Delete=$False;
           }
         )
@@ -1090,7 +1132,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System";
         Props=@(
           @{
-            Description="Set this value to [ 0 ] to Enable, [ 1 ] to Disable `"Lock Workstation`" in Windows (hotkey: WinKey + L )";
+            Description="Lock Workstation - [ 0 ]=Disable, [ 1 ]=Enable the setting 'Remove Lock Computer'. If you enable this policy setting, users cannot lock the computer from the keyboard using WinKey+L or Ctrl+Alt+Del. If you disable or do not configure this policy setting, users will be able to lock the computer from the keyboard using WinKey+L or Ctrl+Alt+Del.";
             Name="DisableLockWorkstation";
             Type="DWord";
             Value=0;
@@ -1191,7 +1233,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Disable, [ 1 ] to Enable the Multitasking feature [ Snap windows ]";
+            Description="Multitasking - [ 0 ]=Disable, [ 1 ]=Enable the 'Snap windows' Multitasking feature";
             Name="WindowArrangementActive";
             Type="String";
             Value=1;
@@ -1204,28 +1246,28 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
         Props=@(
           @{
-            Description="Set Snap option 'When I resize a snapped window, simultaneously resize any adjacent snapped window' to [ 0 = disabled ], [ 1 = enabled ]";
-            Name="JointResize";
-            Type="DWord";
-            Value=1;
-            Delete=$False;
-          },
-          @{
-            Description="Set Alt + Tab option 'Pressing Alt + Tab shows' to [ 0 = Open windows and all tabs in Edge ], [ 1 = Open windows and 5 most recent tabs in Edge ], [ 2 = Open windows and 3 most recent tabs in Edge ], [ 3 = Open windows only]";
+            Description="Alt + Tab - Set 'Pressing Alt + Tab shows' to: [ 0 ]='Open windows and all tabs in Edge', [ 1 ]='Open windows and 5 most recent tabs in Edge', [ 2 ]='Open windows and 3 most recent tabs in Edge' or [ 3 ]='Open windows only'.";
             Name="MultiTaskingAltTabFilter";
             Type="DWord";
             Value=3;
             Delete=$False;
           },
           @{
-            Description="Set Snap option 'When I snap a window, show what I can snap next to it' to [ 0 = disabled ], [ 1 = enabled ]";
+            Description="Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I resize a snapped window, simultaneously resize any adjacent snapped window'";
+            Name="JointResize";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, show what I can snap next to it'";
             Name="SnapAssist";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Set Snap option 'When I snap a window, automatically size it to fill available space' to [ 0 = disabled ], [ 1 = enabled ]";
+            Description="Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, automatically size it to fill available space'";
             Name="SnapFill";
             Type="DWord";
             Value=1;
@@ -1239,28 +1281,28 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AllUpView";
         Props=@(
           @{
-            Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+            Description="Background Wallpaper Transparency (during animation) - Set to [ 32 (or 0x20) ]='decent medium dimming effect', [ 48 (or 0x30) ]='heavier dimming effect'.";
             Name="BackgroundDimmingLayer_percent";
             Type="DWord";
             Value=32;
             Delete=$False;
           },
           @{
-            Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+            Description="Opaque Background between Grid and Wallpaper (during animation) - Set to [ 32 (or 0x20) ]='decent medium dimming effect', [ 48 (or 0x30) ]='heavier dimming effect'.";
             Name="Grid_backgroundPercent";
             Type="DWord";
             Value=32;
             Delete=$False;
           },
           @{
-            Description="Changes the hover color when you hover the mouse cursor over thumbnails. Set to [ HEX_COLOR_CODE ] to match your desired hover color, or [ 000000 ] for black";
+            Description="Mouse Hover Color (over Thumbnails) - Set to [ HEX_COLOR_CODE ]='set mouse hover color to your custom HEX_COLOR_CODE hex color', [ 000000 ]='set mouse hover color to black'.";
             Name="Thumbnail_focus_border_color";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ], [ 0 = background program windows and icons will be displayed ]";
+            Description="Displayed element(s) (during animation) - Set to [ 1 ]='no program windows will be displayed, only the default desktop wallpaper will be displayed', [ 0 ]='background program windows and icons will be displayed'.";
             Name="Wallpaper";
             Type="DWord";
             Value=1;
@@ -1274,28 +1316,28 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\AltTabViewHost";
         Props=@(
           @{
-            Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+            Description="Background Wallpaper Transparency (during animation) - Set to [ 32 (or 0x20) ]='decent medium dimming effect', [ 48 (or 0x30) ]='heavier dimming effect'.";
             Name="BackgroundDimmingLayer_percent";
             Type="DWord";
             Value=32;
             Delete=$False;
           },
           @{
-            Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+            Description="Opaque Background between Grid and Wallpaper (during animation) - Set to [ 32 (or 0x20) ]='decent medium dimming effect', [ 48 (or 0x30) ]='heavier dimming effect'.";
             Name="Grid_backgroundPercent";
             Type="DWord";
             Value=32;
             Delete=$False;
           },
           @{
-            Description="Changes the hover color when you hover the mouse cursor over thumbnails. Set to [ HEX_COLOR_CODE ] to match your desired hover color, or [ 000000 ] for black";
+            Description="Mouse Hover Color (over Thumbnails) - Set to [ HEX_COLOR_CODE ]='set mouse hover color to your custom HEX_COLOR_CODE hex color', [ 000000 ]='set mouse hover color to black'.";
             Name="Thumbnail_focus_border_color";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ], [ 0 = background program windows and icons will be displayed ]";
+            Description="Displayed element(s) (during animation) - Set to [ 1 ]='no program windows will be displayed, only the default desktop wallpaper will be displayed', [ 0 ]='background program windows and icons will be displayed'.";
             Name="Wallpaper";
             Type="DWord";
             Value=1;
@@ -1309,28 +1351,28 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\MultitaskingView\SnapAssistView";
         Props=@(
           @{
-            Description="Changes the transparency level of the background wallpaper behind current view. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+            Description="Background Wallpaper Transparency (during animation) - Set to [ 32 (or 0x20) ]='decent medium dimming effect', [ 48 (or 0x30) ]='heavier dimming effect'.";
             Name="BackgroundDimmingLayer_percent";
             Type="DWord";
             Value=32;
             Delete=$False;
           },
           @{
-            Description="Changes the transparency level of the main grid containing thumbnails. Set to [ 20 ] for a decent medium dimming effect, or [ 30 ] for a heavier dimming effect";
+            Description="Opaque Background between Grid and Wallpaper (during animation) - Set to [ 32 (or 0x20) ]='decent medium dimming effect', [ 48 (or 0x30) ]='heavier dimming effect'.";
             Name="Grid_backgroundPercent";
             Type="DWord";
             Value=32;
             Delete=$False;
           },
           @{
-            Description="Changes the hover color when you hover the mouse cursor over thumbnails. Set to [ HEX_COLOR_CODE ] to match your desired hover color, or [ 000000 ] for black";
+            Description="Mouse Hover Color (over Thumbnails) - Set to [ HEX_COLOR_CODE ]='set mouse hover color to your custom HEX_COLOR_CODE hex color', [ 000000 ]='set mouse hover color to black'.";
             Name="Thumbnail_focus_border_color";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Setting to [ 1 = no program windows will be displayed, only the default desktop wallpaper will be displayed ], [ 0 = background program windows and icons will be displayed ]";
+            Description="Displayed element(s) (during animation) - Set to [ 1 ]='no program windows will be displayed, only the default desktop wallpaper will be displayed', [ 0 ]='background program windows and icons will be displayed'.";
             Name="Wallpaper";
             Type="DWord";
             Value=1;
@@ -1344,7 +1386,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the Multitasking feature [ Timeline - Show suggestions in your timeline ]";
+            Description="Multitasking - [ 1 ]=Disable, [ 0 ]=Enable feature 'Show suggestions in your timeline'";
             Name="SubscribedContent-353698Enabled";
             Type="String";
             Value=0;
@@ -1358,7 +1400,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer";
         Props=@(
           @{
-            Description="System Tray - Set this value to [ 0 ] to show all icons, [ 1 ] to hide inactive icons (note: the default for this is set under HKLM)";
+            Description="Notification Area - [ 1 ]=Disable, [ 0 ]=Enable option 'Always show all icons in the notification area' (located under 'Windows Settings' -> 'Personalization' -> 'Taskbar' -> 'Select which icons appear on the taskbar'). Note that if this key/property is not set, the default value (defined under HKLM) will be used, instead.";
             Hotfix=$Null;
             Name="EnableAutoTray";
             Type="DWord";
@@ -1375,7 +1417,7 @@ function SyncRegistry {
           Path="${Office_2013_Key}\Common\General";
           Props=@(
             @{
-              Description="Office 2013 Clipboard - [2147483648]=Disables the Microsoft Office Clipboard entirely. Citation=[https://stackoverflow.com/a/53070256]";
+              Description="Office 2013 Clipboard - [ 2147483648 ]=Disable the Microsoft Office Clipboard entirely. Citation=[https://stackoverflow.com/a/53070256]";
               Hotfix=$Null;
               Name="AcbControl";
               Type="DWord";
@@ -1393,7 +1435,7 @@ function SyncRegistry {
           Path="${Office_2016_2019_Key}\Common";
           Props=@(
             @{
-              Description="Office 2016/2019 Telemetry - [0]=Disable, [1]=Enable the Customer Experience Improvement Program (CEIP). Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_EnableCustomerExperienceImprovementProgram]";
+              Description="Office 2016/2019 Telemetry - [ 0 ]=Disable, [ 1 ]=Enable the Customer Experience Improvement Program (CEIP). Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_EnableCustomerExperienceImprovementProgram]";
               Hotfix=$Null;
               Name="QMEnable";
               Type="DWord";
@@ -1401,7 +1443,7 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 LinkedIn - [0]=Disable, [1]=Enable LinkedIn features in Office applications. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_AllowLinkedInFeatures]";
+              Description="Office 2016/2019 LinkedIn - [ 0 ]=Disable, [ 1 ]=Enable LinkedIn features in Office applications. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_AllowLinkedInFeatures]";
               Hotfix=$Null;
               Name="LinkedIn";
               Type="DWord";
@@ -1409,7 +1451,7 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 Telemetry - [0]=Disable, [1]=Enable the sending of personal information to Office. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_Sendcustomerdata]";
+              Description="Office 2016/2019 Telemetry - [ 0 ]=Disable, [ 1 ]=Enable the sending of personal information to Office. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_Sendcustomerdata]";
               Hotfix=$Null;
               Name="SendCustomerData";
               Type="DWord";
@@ -1425,7 +1467,7 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 Telemetry - [0]=Disable, [1]=Enable Microsoft Office Diagnostics. Office Diagnostics enables Microsoft to diagnose system problems by periodically downloading a small file to the computer. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_UpdateReliabilityPolicy]";
+              Description="Office 2016/2019 Telemetry - [ 0 ]=Disable, [ 1 ]=Enable Microsoft Office Diagnostics. Office Diagnostics enables Microsoft to diagnose system problems by periodically downloading a small file to the computer. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_UpdateReliabilityPolicy]";
               Hotfix=$Null;
               Name="UpdateReliabilityData";
               Type="DWord";
@@ -1438,7 +1480,7 @@ function SyncRegistry {
           Path="${Office_2016_2019_Key}\Common\General";
           Props=@(
             @{
-              Description="Office 2016/2019 Clipboard - [2147483648]=Disables the Microsoft Office Clipboard entirely. [1]=Prevents the Office Clipboard from automatically appearing when multiple Copy commands are performed in any of the Office programs. [0]=Permits the Office Clipboard to appear automatically when multiple Copy commands are performed in Office programs. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableClipboardToolbartriggers , https://stackoverflow.com/a/53070256]";
+              Description="Office 2016/2019 Clipboard - [ 2147483648 ]='Disable the Microsoft Office Clipboard entirely'. [1]=Prevents the Office Clipboard from automatically appearing when multiple Copy commands are performed in any of the Office programs. [0]=Permits the Office Clipboard to appear automatically when multiple Copy commands are performed in Office programs. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableClipboardToolbartriggers , https://stackoverflow.com/a/53070256]";
               Hotfix=$Null;
               Name="AcbControl";
               Type="DWord";
@@ -1446,7 +1488,7 @@ function SyncRegistry {
               Delete=$False;
             }
             @{
-              Description="Office 2016/2019 Start Screen - [1]=Disable the Start Screen in all Office 2016/2019 applications. [0]=Enable the Start Screen in all Office 2016/2019 applications. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOfficeStartGlobal]";
+              Description="Office 2016/2019 Start Screen - [ 1 ]='Disable the Start Screen in all Office 2016/2019 applications', [ 0 ]='Enable the Start Screen in all Office 2016/2019 applications'. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOfficeStartGlobal]";
               Hotfix=$Null;
               Name="DisableBootToOfficeStart";
               Type="DWord";
@@ -1462,7 +1504,7 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 [File-]Save Options - [0]=Enable, [1]=Disable option [ Save to Computer by default (located under Options > Save (left tab)) ].";
+              Description="Office 2016/2019 [File-]Save Options - [ 1 ]=Disable, [ 0 ]=Enable option [ Save to Computer by default (located under Options > Save (left tab)) ].";
               Hotfix=$Null;
               Name="PreferCloudSaveLocations";
               Type="DWord";
@@ -1470,7 +1512,7 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 Opt-in Wizard - [0]=Disable, [1]=Enable, [2]=(Assume yes to) the Opt-in Wizard the first time a Microsoft Office 2016 application is ran. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOptinWizard]";
+              Description="Office 2016/2019 Opt-in Wizard - [ 0 ]=Disable, [ 1 ]=Enable, [2]=(Assume yes to) the Opt-in Wizard the first time a Microsoft Office 2016 application is ran. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_DisableOptinWizard]";
               Hotfix=$Null;
               Name="ShownFirstRunOptin";
               Type="DWord";
@@ -1478,7 +1520,7 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 [File-]Save Options - [0]=Disable, [1]=Enable option [ Don't show the Backstage when opening or saving files with keyboard shortcuts (located under Options > Save (left tab)) ].";
+              Description="Office 2016/2019 [File-]Save Options - [ 0 ]=Disable, [ 1 ]=Enable option [ Don't show the Backstage when opening or saving files with keyboard shortcuts (located under Options > Save (left tab)) ].";
               Hotfix=$Null;
               Name="SkipOpenAndSaveAsPlace";
               Type="DWord";
@@ -1486,7 +1528,7 @@ function SyncRegistry {
               Delete=$False;
             },
             @{
-              Description="Office 2016/2019 [File-]Save Options - [0]=Disable, [1]=Enable option [ Show additional places for saving, even if sign-in may be required (located under Options > Save (left tab)) ].";
+              Description="Office 2016/2019 [File-]Save Options - [ 0 ]=Disable, [ 1 ]=Enable option [ Show additional places for saving, even if sign-in may be required (located under Options > Save (left tab)) ].";
               Hotfix=$Null;
               Name="SkyDriveSignInOption";
               Type="DWord";
@@ -1544,7 +1586,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Power";
         Props=@(
           @{
-            Description="Power Settings - Set to [ 0 ] to Disable, [ 1 ] to Enable 'fast startup'.";
+            Description="Power Settings - [ 0 ]=Disable, [ 1 ]=Enable power option 'Turn on fast start-up'. If disabled, option will be grayed out (deactivated) on the Power Options Control Panel page.";
             Hotfix=$Null;
             Name="HiberbootEnabled";
             Type="DWord";
@@ -1557,7 +1599,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Power\PowerSettings\238C9FA8-0AAD-41ED-83F4-97BE242C8F20\7bc4a2f9-d8fc-4469-b07b-33eb785aaca0";
         Props=@(
           @{
-            Description="Power Settings - Set to [2] to Enable 'advanced power settings', [1] to Disable 'advanced power settings'.";
+            Description="Power Settings - [ 1 ]=Disable, [ 2 ]=Enable 'advanced power settings'.";
             Hotfix=$Null;
             Name="Attributes";
             Type="DWord";
@@ -1572,7 +1614,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Enable, [ 1 ] to Disable the [ This App is Preventing Shutdown or Restart ] screen, which appears while attempting Shut Down/Restart the machine while certain inspecific applications are running - Remove this key/val to show this screen, instead";
+            Description="Shut down/Restart Settings - [ 1 ]=Disable, [ 0 ]=Enable the blocker popup 'This App is Preventing Shutdown or Restart' screen when attempting to Shut down or Restart Windows. If the entire key & property are deleted, the option will be Enabled, and will hang while attempting to display apps preventing Windows Shut down/Restart.";
             Name="AutoEndTasks";
             Type="String";
             Value=1;
@@ -1586,7 +1628,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Memory Management\PrefetchParameters";
         Props=@(
           @{
-            Description="Windows Prefetch Settings:  0=[Off], 1=[Application launch prefetching enabled], 2=[Boot prefetching enabled], 3=[Applaunch and Boot enabled (Optimal and Default)]";
+            Description="Windows Prefetch Settings: [ 0 ]='Off', [ 1 ]='Application launch prefetching enabled', [ 2 ]='Boot prefetching enabled', [ 3 ]='Applaunch and Boot enabled (Optimal and Default)']";
             Name="EnablePrefetcher";
             Type="DWord";
             Value=("0");
@@ -1614,7 +1656,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\System";
         Props=@(
           @{
-            Description="Set this value to [ 0 ] to turn off SmartScreen, [ 1 ] to give user a warning before running downloaded unknown software, [ 2 ] to require approval from an administrator before running downloaded unknown software ( from https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen )";
+            Description="SmartScreen - Set to [ 0 ]='Turned off. Do not protect users from potential threats and prevent users from turning it on.', [ 1 ]='Turned on. Protect users from potential threats and prevent users from turning it off.', or [ 2 ]='Turned on. Require approval from an administrator before running downloaded unknown software.' ( from https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen )";
             Name="EnableSmartScreen";
             Type="DWord";
             Value=0;
@@ -1626,7 +1668,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\MicrosoftEdge\PhishingFilter";
         Props=@(
           @{
-            Description="Set this value to [ 0 ] to allow users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious files, [ 1 ] to prevent users from bypassing the warnings, blocking them from downloading of the unverified file(s) (from https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-files )";
+            Description="PhishingFilter - Set to [ 0 ]='allow users to bypass (ignore) the Windows Defender SmartScreen warnings about potentially malicious files', [ 1 ]='prevent users from bypassing the warnings, blocking them from downloading of the unverified file(s)' (from https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#prevent-bypassing-windows-defender-smartscreen-prompts-for-files )";
             Name="PreventOverrideAppRepUnknown";
             Type="DWord";
             Value=0;
@@ -1654,7 +1696,7 @@ function SyncRegistry {
           Path="${Splashtop32_Key}";
           Props=@(
             @{
-              Description="For virtual display to work, you must also run [ C:\Program Files (x86)\Splashtop\Splashtop Remote\Server\Driver\LciDisplay\install_driver.bat ]. Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
+              Description="For virtual display to work, you must also run [ C:\Program Files (x86)\Splashtop\Splashtop Remote\Server\Driver\LciDisplay\install_driver.bat ]. Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. [ 0 ]=Off, [ 1 ]=On.";
               Name="VirtualDisplay";
               Type="DWord";
               Value=1;
@@ -1670,7 +1712,7 @@ function SyncRegistry {
           Path="${Splashtop64_Key}";
           Props=@(
             @{
-              Description="For virtual display to work, you must also run [ C:\Program Files (x86)\Splashtop\Splashtop Remote\Server\Driver\LciDisplay\install_driver64.bat ]. Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. 0 = [ Off ], 1 = [ On ].";
+              Description="For virtual display to work, you must also run [ C:\Program Files (x86)\Splashtop\Splashtop Remote\Server\Driver\LciDisplay\install_driver64.bat ]. Virtual driver for headless machines/laptops with lid closed (64-bit). Adds a 3rd monitor upon connections from remote clients to ensure there's always a monitor to be used remotely instead of just a black screen. [ 0 ]=Off, [ 1 ]=On.";
               Name="VirtualDisplay";
               Type="DWord";
               Value=1;
@@ -1713,7 +1755,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender";
         Props=@(
           @{
-            Description="0=[ENABLED], 1=[DISABLED] - Configure local administrator merge behavior for lists. This policy setting controls whether or not complex list settings configured by a local administrator are merged with Group Policy settings. This setting applies to lists such as threats and Exclusions. If you ENABLE (0) or do not configure this setting, unique items defined in Group Policy and in preference settings configured by the local administrator will be merged into the resulting effective policy. In the case of conflicts, Group policy Settings will override preference settings. If you DISABLE (1) this setting, only items defined by Group Policy will be used in the resulting effective policy. Group Policy settings will override preference settings configured by the local administrator. Reference: https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::DisableLocalAdminMerge";
+            Description="Windows Defender - [ 1 ]=Disable, [ 0 ]=Enable the local administrator merge behavior for lists. This policy setting controls whether or not complex list settings configured by a local administrator are merged with Group Policy settings. This setting applies to lists such as threats and Exclusions. If you ENABLE (0) or do not configure this setting, unique items defined in Group Policy and in preference settings configured by the local administrator will be merged into the resulting effective policy. In the case of conflicts, Group policy Settings will override preference settings. If you DISABLE (1) this setting, only items defined by Group Policy will be used in the resulting effective policy. Group Policy settings will override preference settings configured by the local administrator. Reference: https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::DisableLocalAdminMerge";
             Name="DisableLocalAdminMerge";
             Type="DWord";
             Value=0;
@@ -1725,7 +1767,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection";
         Props=@(
           @{
-            Description="0=[DISABLED], 1=[ENABLED] - Configure local setting override for monitoring file and program activity on your computer. This policy setting configures a local override for the configuration of monitoring for file and program activity on your computer. This setting can only be set by Group Policy. If you ENABLE (1) this setting, the local preference setting will take priority over Group Policy. If you DISABLE (0) or do not configure this setting (DELETED), Group Policy will take priority over the local preference setting. Reference: https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection";
+            Description="[ 0 ]=Disable, [ 1 ]=Enable Configure local setting override for monitoring file and program activity on your computer. This policy setting configures a local override for the configuration of monitoring for file and program activity on your computer. This setting can only be set by Group Policy. If you ENABLE (1) this setting, the local preference setting will take priority over Group Policy. If you DISABLE (0) or do not configure this setting (DELETED), Group Policy will take priority over the local preference setting. Reference: https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::RealtimeProtection_LocalSettingOverrideDisableOnAccessProtection";
             Name="LocalSettingOverrideDisableOnAccessProtection";
             Type="DWord";
             Value=1;
@@ -1734,12 +1776,12 @@ function SyncRegistry {
         )
       };
 
-      # Microsoft Windows Defender - Disable 'Join Microsoft MAPS'
+      # Microsoft MAPS (Enabled/Disabled)
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet";
         Props=@(
           @{
-            Description="0=[Disabled], 1=[Basic MAPS], 2=[Advanced MAPS] - This policy setting allows you to join Microsoft MAPS. Microsoft MAPS is the online community that helps you choose how to respond to potential threats. The community also helps stop the spread of new malicious software infections. You can choose to send basic or additional information about detected software. Additional information helps Microsoft create new security intelligence and help it to protect your computer. This information can include things like location of detected items on your computer if harmful software was removed. The information will be automatically collected and sent. In some instances, personal information might unintentionally be sent to Microsoft. However, Microsoft will not use this information to identify you or contact you. - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::SpynetReporting";
+            Description="Microsoft MAPS - [ 0 ]='Disable MAPS', [ 1 ]='Basic MAPS', [ 2 ]='Advanced MAPS' - If you disable or do not configure this setting, you will not join Microsoft Active Protection Service (MAPS). - If you enable this setting, you will join Microsoft Active Protection Service (MAPS) with the membership specified. - Microsoft MAPS is the online community that helps you choose how to respond to potential threats. The community also helps stop the spread of new malicious software infections. You can choose to send basic or additional information about detected software. Additional information helps Microsoft create new security intelligence and help it to protect your computer. This information can include things like location of detected items on your computer if harmful software was removed. The information will be automatically collected and sent. In some instances, personal information might unintentionally be sent to Microsoft. However, Microsoft will not use this information to identify you or contact you. - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::SpynetReporting";
             Name="SpynetReporting";
             Type="DWord";
             Value=0;
@@ -1748,12 +1790,12 @@ function SyncRegistry {
         )
       };
 
-      # Microsoft Windows Defender - Disable 'Send file samples when further analysis is required'
+      # Microsoft MAPS - Sample Submission Settings
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows Defender\Spynet";
         Props=@(
           @{
-            Description="0=[Always prompt], 1=[Send safe samples], 2=[Never send], 3=[Send all samples] - This policy setting configures behaviour of samples submission when opt-in for MAPS telemetry is set. - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::SubmitSamplesConsent";
+            Description="Microsoft MAPS telemetry - Set sample submission behaviour (when opt-in for Set MAPS telemetry is set) to [ 0 ]='Automatic sample submission disabled. End-users will always be prompted for samples (default)', [ 1 ]='Most samples will be sent automatically. Files that are likely to contain personal information will still prompt and require additional confirmation', [ 2 ]='All sample submission disabled. Samples will never be sent and end-users will never be prompted', [ 3 ]='All samples will be sent automatically. All files determined to require further analysis will be sent automatically without prompting'. This setting also sets Defender option 'Send file samples when further analysis is required'. - https://admx.help/?Category=Windows_10_2016&Policy=Microsoft.Policies.WindowsDefender::SubmitSamplesConsent";
             Name="SubmitSamplesConsent ";
             Type="DWord";
             Value=2;
@@ -1772,28 +1814,28 @@ function SyncRegistry {
           Path="${_}";
           Props=@(
             @{
-              Description="Password protect the screen saver - [1]=Enabled, e.g. all screen savers are password protected - Enables option 'On resume, display logon screen' under Screen Saver Settings in the Control Panel. [0]=Disabled, e.g. password protection cannot be set on any screen saver. This setting also disables the 'On resume, display logon screen' checkbox on the Screen Saver dialog in the Personalization or Display Control Panel, preventing users from changing the password protection setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverIsSecure]";
+              Description="Password protect the screen saver - [ 0 ]=Disable, [ 1 ]=Enable screen saver password protection. Sets option 'On resume, display logon screen' under Screen Saver Settings in the Control Panel. If disabled, password protection cannot be set on any screen saver. If defined, prevents users from changing screen saver password protection setting (grays out aforementioned checkbox). Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverIsSecure]";
               Name="ScreenSaverIsSecure";
               Type="String";
               Value=1;
               Delete=$False;
             },
             @{
-              Description="Screen saver timeout (in seconds) - [Any-Positive-Integer]=The idle time to run the screen saver after - can be set from a minimum of 1 second to a maximum of 86400 seconds (or 24 hours). [0]=Disables the screen saver. This setting has no effect under any of the following circumstances: If [ the setting is disabled or not configured ], if [ The wait time is set to zero ], if [ the 'Enable Screen Saver' setting is disabled ] or if [ Neither the 'Screen saver executable name' setting nor the Screen Saver dialog of the client computer's Personalization or Display Control Panel specifies a valid existing screen saver program on the client ]. When not configured, whatever wait time is set on the client through the Screen Saver dialog in the Personalization or Display Control Panel is used. The default is 15 minutes. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut]";
+              Description="Screen saver timeout (in seconds) - [ 0 (or deleted) ]=Disable, [ 0-599940 ]=Enable & use value as the idle timeout seconds to run the screen saver after - can be set from a minimum of 1 second to a maximum of 86400 seconds (or 24 hours). [ 0 ]=Disable the screen saver. This setting has no effect under any of the following circumstances: If [ the setting is disabled or not configured ], if [ The wait time is set to zero ], if [ the 'Enable Screen Saver' setting is disabled ] or if [ Neither the 'Screen saver executable name' setting nor the Screen Saver dialog of the client computer's Personalization or Display Control Panel specifies a valid existing screen saver program on the client ]. When not configured, whatever wait time is set on the client through the Screen Saver dialog in the Personalization or Display Control Panel is used. The default is 15 minutes. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut]";
               Name="ScreenSaveTimeOut";
               Type="String";
               Value=1200;
               Delete=$False;
             },
             @{
-              Description="Enable screen saver - [1]=Enabled, e.g. a screen saver runs, provided the following two conditions hold: First, a valid screen saver on the client is specified through the 'Screen Saver executable name' setting or through Control Panel on the client computer. Second, the screen saver timeout is set to a nonzero value through the setting or Control Panel. [0]=Disabled, e.g. screen savers do not run. Also, this setting disables the Screen Saver section of the Screen Saver dialog in the Personalization or Display Control Panel. As a result, users cannot change the screen saver options. [Empty/Deleted]=Unconfigured, e.g. this setting has no effect on the system. Also, see the 'Prevent changing Screen Saver' setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_EnableScreenSaver]";
+              Description="Enable screen saver - [ 0 ]=Disable [ 1 ]=Enable the screen saver. If enabled, two conditions must also be met before a screen saver will run: First, a valid screen saver on the client is specified through the 'Screen Saver executable name' setting or through Control Panel on the client computer. Second, the screen saver timeout is set to a nonzero value through the setting or Control Panel. If disabled, this setting will also disable the Screen Saver section of the Screen Saver dialog in the Personalization or Display Control Panel. As a result, users cannot change the screen saver options. [Empty/Deleted]=Unconfigured, e.g. this setting has no effect on the system. Also, see the 'Prevent changing Screen Saver' setting. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_EnableScreenSaver]";
               Name="ScreenSaveActive";
               Type="String";
               Value=1;
               Delete=$False;
             },
             @{
-              Description="Screen Saver executable name - [FILEPATH]=A filepath to a '.scr' screen saver file to use as the screen saver at user desktops. Can either be the basename of an '.scr' typed file located directly within the '%Systemroot%\System32' directory, or a fully qualified path to a '.scr' file. [EMPTY/FILE-NOT-FOUND/UNSET]=Disabled, e.g. Users can select any screen saver - If the specified screen saver is not installed on a computer to which this setting applies, it is equivalent to this setting being disabled. [Notes]=This setting disables the drop-down list of screen savers in the Screen Saver dialog in the Personalization or Display Control Panel, which prevents users from changing the screen saver. The file 'scrnsave.scr' refers to the 'Blank' screen saver option. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_SetScreenSaver]";
+              Description="Screen Saver executable name - [  Empty, Deleted,  Invalid Filepath, or invalid/uninstalled .scr ]=Disable, [ Valid .scr File ]=Enable setting 'Force specific screen saver'. If Enabled, setting must be a filepath to a '.scr' screen saver file to use as the screen saver at user desktops. Can either be the basename of an '.scr' typed file located directly within the '%Systemroot%\System32' directory, or a fully qualified path to a '.scr' file. [EMPTY/FILE-NOT-FOUND/UNSET]=Disabled, e.g. Users can select any screen saver - If the specified screen saver is not installed on a computer to which this setting applies, it is equivalent to this setting being disabled. [Notes]=This setting disables the drop-down list of screen savers in the Screen Saver dialog in the Personalization or Display Control Panel, which prevents users from changing the screen saver. The file 'scrnsave.scr' refers to the 'Blank' screen saver option. Citation=[https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_SetScreenSaver]";
               Name="SCRNSAVE.EXE";
               Type="String";
               Value="scrnsave.scr";
@@ -1819,7 +1861,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="0=[Disabled], 1=[Enabled] to only pull updates for a specific type/version of Windows";
+            Description="[ 0 ]=Disable, [ 1 ]=Enable option 'only pull updates for a specific type/version of Windows'";
             Name="TargetReleaseVersion";
             Type="DWord";
             Value=1;
@@ -1840,7 +1882,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\WindowsUpdate\UX\Settings";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Disable, [ 1 ] to Enable Windows Update's 'Active Hours' functionality";
+            Description="Windows Update - [ 0 ]=Disable, [ 1 ]=Enable Windows Update's 'Active Hours' functionality";
             Name="IsActiveHoursEnabled";
             Type="DWord";
             Value=If ($PSBoundParameters.ContainsKey('EnableWindowsUpdateActiveHours')) { 1 <# Enabled #> } Else { 0 <# Disabled #> };
@@ -1854,7 +1896,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Disable, [ 1 ] to Enable option 'Enable Xbox Game Bar for things like recording game clips, chatting with friends, and receiving game invites. (Some games require Xbox Game Bar for receiving game invites.)' under Win10 Settings > Home > Gaming > Xbox Game Bar";
+            Description="Xbox Game Bar - [ 0 ]=Disable, [ 1 ]=Enable option 'Enable Xbox Game Bar for things like recording game clips, chatting with friends, and receiving game invites. (Some games require Xbox Game Bar for receiving game invites.)' under Win10 Settings > Home > Gaming > Xbox Game Bar";
             Name="AppCaptureEnabled";
             Type="DWord";
             Value=0;
@@ -1866,7 +1908,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\System\GameConfigStore";
         Props=@(
           @{
-            Description="Set to [ 0 ] to Disable, [ 1 ] to Enable option 'Record game clips and take screenshots using Game DVR' under Xbox App > Settings > Game DVR";
+            Description="Xbox Game DVR Recordings - [ 0 ]=Disable, [ 1 ]=Enable option 'Record game clips and take screenshots using Game DVR' under Xbox App > Settings > Game DVR";
             Name="GameDVR_Enabled";
             Type="DWord";
             Value=0;
@@ -1976,7 +2018,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate\AU";
         Props=@(
           @{
-            Description="Set this value to [ 1 ] to configure Automatic Updates to use a server that is running Software Update Services instead of Windows Update ( from https://learn.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
+            Description="Windows Update - [ 0 ]=Disable, [ 1 ]=Enable option 'use a [Automatic Updates] server that is running Software Update Services instead of Windows Update ( from https://learn.microsoft.com/en-us/windows/deployment/update/waas-wu-settings )";
             Name="UseWUServer";
             Type="DWord";
             Value=0;
@@ -1988,21 +2030,21 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Servicing";
         Props=@(
           @{
-            Description="Sets the value (string) for the option named [ Alternate source file path ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
+            Description="Sets the value (string) for the option named 'Alternate [component installation and repair] source file path' for Group Policy setting 'Specify settings for optional component installation and component repair setting.' located under [ 'gpedit.msc' -> 'Computer Configuration' -> 'Administrative Templates' -> 'System' ]";
             Name="LocalSourcePath";
             Type="ExpandString";
             Value="";
             Delete=$False;
           },
           @{
-            Description="Sets the value (checkbox, check=2, unchecked=delete-the-key) for the option named [ Download repair content and optional features directly from Windows Update isntead of Windows Server Update Services (WSUS) ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
+            Description="Windows Update - Sets option 'Download repair content and optional features directly from Windows Update isntead of Windows Server Update Services (WSUS)' to [ 2 ]=Enabled, [ deleted ]=Disabled for Group Policy setting 'Specify settings for optional component installation and component repair setting.' located under [ 'gpedit.msc' -> 'Computer Configuration' -> 'Administrative Templates' -> 'System' ] ";
             Name="RepairContentServerSource";
             Type="DWord";
             Value=2;
             Delete=$False;
           },
           @{
-            Description="Sets the value to [ 2 ] to 'never pull from Windows Update (checked in gpedit)', [ deleted ] to 'allow pulling from Windows Update (unchecked in gpedit)' for the option named [ Never attempt to download payload from Windows Update ] under Group-Policy [ 'Computer Configuration' -> 'Administrative Templates' -> 'System' -> 'Specify settings for optional component installation and component repair setting.'";
+            Description="Windows Update - Sets option 'Never attempt to download payload from Windows Update' to [ 2 ]='never pull from Windows Update (checked in gpedit)', [ deleted ]='allow pulling from Windows Update (unchecked in gpedit)' for Group Policy setting 'Specify settings for optional component installation and component repair setting.' located under [ 'gpedit.msc' -> 'Computer Configuration' -> 'Administrative Templates' -> 'System' ]";
             Name="UseWindowsUpdate";
             Type="DWord";
             Value=2;
@@ -2345,9 +2387,13 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   admx.help  |  "Font smoothing"  |  https://admx.help/?Category=ClassicShell&Policy=IvoSoft.Policies.ClassicStartMenu::CSM_FontSmoothing
 #
-#   admx.help  |  "Screen saver timeout"  |  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut
+#   admx.help  |  "Join Microsoft Active Protection Service (MAPS)."  |  https://admx.help/?Category=SystemCenterEndpointProtection&Policy=Microsoft.Policies.Antimalware::maps_mapsreporting
 #
 #   admx.help  |  "Password protect the screen saver"  |  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverIsSecure
+#
+#   admx.help  |  "Screen saver timeout"  |  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.ControlPanelDisplay::CPL_Personalization_ScreenSaverTimeOut
+#
+#   admx.help  |  "Send file samples when further analysis is required."  |  https://admx.help/?Category=SystemCenterEndpointProtection&Policy=Microsoft.Policies.Antimalware::maps_submitsamplesconsent
 #
 #   answers.microsoft.com  |  "Automatic files - Automatic file downloads"  |  https://answers.microsoft.com/en-us/windows/forum/all/automatic-files/91b91138-0096-4fbc-a3e2-5de5176a6ca5
 #
@@ -2363,8 +2409,6 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   jonathanmedd.net  |  "Testing for the Presence of a Registry Key and Value"  |  https://www.jonathanmedd.net/2014/02/testing-for-the-presence-of-a-registry-key-and-value.html
 #
-#   learn.microsoft.com  |  "Configure Automatic Updates in a Non–Active Directory Environment | Microsoft Learn"  |  https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499
-#
 #   learn.microsoft.com  |  "[MS-GPPREF]: GlobalFolderOptions element | Microsoft Docs"  |  https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/3c837e92-016e-4148-86e5-b4f0381a757f
 #
 #   learn.microsoft.com  |  "[MS-GPPREF]: GlobalFolderOptionsVista element | Microsoft Docs"  |  https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-gppref/a6ca3a17-1971-4b22-bf3b-e1a5d5c50fca
@@ -2375,7 +2419,11 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   learn.microsoft.com  |  "Adhering to System Policy Settings | Microsoft Docs"  |  https://learn.microsoft.com/en-us/previous-versions/windows/desktop/policy/adhering-to-system-policy-settings
 #
+#   learn.microsoft.com  |  "Configure Automatic Updates in a Non–Active Directory Environment | Microsoft Learn"  |  https://learn.microsoft.com/de-de/security-updates/windowsupdateservices/18127499
+#
 #   learn.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
+#
+#   learn.microsoft.com  |  "Disabling Stickey Dialog - Microsoft Q&A"  |  https://learn.microsoft.com/en-us/answers/questions/151522/disabling-stickey-dialog
 #
 #   learn.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
 #

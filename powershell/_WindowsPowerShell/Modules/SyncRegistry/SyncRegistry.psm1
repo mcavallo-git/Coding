@@ -1090,7 +1090,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility\Keyboard Response";
         Props=@(
           @{
-            Description="Keyboard Settings - [ 122 ]=Disable, [ 126 ]=Enable option [ Allow the shortcut key to start Filter Keys - Press and hold the right Shift key for eight seconds to turn on Filter Keys ].";
+            Description="Keyboard Settings - [ 122 ]=Disable, [ 126 ]=Enable option 'Allow the shortcut key to start Filter Keys (Press and hold the right Shift key for eight seconds to turn on Filter Keys)'.";
             Name="Flags";
             Type="String";
             Value="122";
@@ -1104,7 +1104,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility\StickyKeys";
         Props=@(
           @{
-            Description="Keyboard Settings - [ 506 ]=Disable, [ 510 ]=Enable option [ Allow the shortcut key to start Sticky Keys - Press the Shift key five times to turn Sticky Keys on or off ].";
+            Description="Keyboard Settings - [ 506 ]=Disable, [ 510 ]=Enable option 'Allow the shortcut key to start Sticky Keys (Press the Shift key five times to turn Sticky Keys on or off)'.";
             Name="Flags";
             Type="String";
             Value="506";
@@ -1118,7 +1118,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility\ToggleKeys";
         Props=@(
           @{
-            Description="Keyboard Settings - [ 58 ]=Disable, [ 62 ]=Enable option [ Allow the shortcut key to start Toggle Keys Press and hold the Num Lock key for five seconds to turn on Toggle Keys ].";
+            Description="Keyboard Settings - [ 58 ]=Disable, [ 62 ]=Enable option 'Allow the shortcut key to start Toggle Keys (Press and hold the Num Lock key for five seconds to turn on Toggle Keys)'.";
             Name="Flags";
             Type="String";
             Value="58";

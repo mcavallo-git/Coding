@@ -32,7 +32,7 @@
   ],
   "copyFormatting": "none",
   "copyOnSelect": true,
-  "defaultProfile": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+  "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
   "initialCols": 150,
   "initialRows": 55,
   "profiles": {
@@ -59,7 +59,7 @@
         "commandline": "%windir%\\System32\\wsl.exe -d Ubuntu",
         "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
         "hidden": false,
-        "name": "Ubuntu-20.04",
+        "name": "Ubuntu-22.04",
         "source": "Windows.Terminal.Wsl"
       },
       {
@@ -322,5 +322,6 @@
       "white": "#C0C0C0",
       "yellow": "#808000"
     }
-  ]
+  ],
+  "themes": []
 }

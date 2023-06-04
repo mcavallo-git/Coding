@@ -2115,7 +2115,7 @@ function SyncRegistry {
       #  |--> The source of these values is controlled not by setting the registry keys, but by using Group Policy specific commands to set the values which gpedit.msc pulls from, locally
       #
 
-      # Check if the Policy Editor PowerShell Module is not yet installed
+      # Check if the "Set-PolicyFileEntry" function exists and was sourced from the "PolicyFileEditor" module - If not, Install/Import it
       If (($Null) -Eq (Get-Command -Name "Set-PolicyFileEntry" -Module "PolicyFileEditor" -EA:0)) {
         Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force -AllowClobber;
         Import-Module -Name ("PolicyFileEditor") -Force;

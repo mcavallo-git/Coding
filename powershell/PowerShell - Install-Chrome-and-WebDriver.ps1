@@ -1,7 +1,8 @@
-################################################################################
-##  File:  Install-Chrome.ps1
-##  Desc:  Install Google Chrome
-################################################################################
+# ------------------------------
+#
+# PowerShell - Install Google Chrome + WebDriver
+#
+# ------------------------------
 
 function Install-Binary
 {
@@ -61,7 +62,7 @@ function Install-Binary
     $installCompleteTime = [math]::Round(($(Get-Date) - $installStartTime).TotalSeconds, 2)
     if ($exitCode -eq 0 -or $exitCode -eq 3010)
     {
-      Write-Host "Installation successful in $installCompleteTime seconds"
+      Write-Host "Installation successful after $installCompleteTime seconds"
     }
     else
     {
@@ -159,18 +160,18 @@ $ChromeDriverZipDownloadUrl = "https://chromedriver.storage.googleapis.com/${Chr
 
 $ChromeDriverArchPath = Start-DownloadWithRetry -Url $ChromeDriverZipDownloadUrl -Name $ChromeDriverArchName
 
-Write-Host "Expand Chrome WebDriver archive..."
-Expand-Archive -Path $ChromeDriverArchPath -DestinationPath $ChromeDriverPath
+Write-Host "Expanding Chrome WebDriver archive...";
+Expand-Archive -Path ("${ChromeDriverArchPath}") -DestinationPath ("${ChromeDriverPath}") -Force;
 
-Write-Host "Setting the environment variables..."
-setx ChromeWebDriver "$ChromeDriverPath" /M
-Write-Host "##vso[task.setvariable variable=ChromeWebDriver;]$ChromeDriverPath"
+Write-Host "Setting global (system-wide) environment variable `"ChromeWebDriver`" to value `"${ChromeDriverPath}`"...";
+setx ChromeWebDriver "${ChromeDriverPath}" /M
+Write-Host "##vso[task.setvariable variable=ChromeWebDriver;]${ChromeDriverPath}"
 
-$regEnvKey = 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\'
+$regEnvKey = 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\Environment\';
 $PathValue = Get-ItemPropertyValue -Path $regEnvKey -Name 'Path'
-$PathValue += ";$ChromeDriverPath\"
-Set-ItemProperty -Path $regEnvKey -Name 'Path' -Value $PathValue
-Write-Host "##vso[task.prependpath]$ChromeDriverPath"
+$PathValue += ";${ChromeDriverPath}\"
+Set-ItemProperty -Path $regEnvKey -Name 'Path' -Value ${PathValue}
+Write-Host "##vso[task.prependpath]${ChromeDriverPath}"
 
 
 # ------------------------------------------------------------

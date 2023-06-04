@@ -2117,8 +2117,16 @@ function SyncRegistry {
 
       # Check if the "Set-PolicyFileEntry" function exists and was sourced from the "PolicyFileEditor" module - If not, Install/Import it
       If (($Null) -Eq (Get-Command -Name "Set-PolicyFileEntry" -Module "PolicyFileEditor" -EA:0)) {
+        Write-Output ("`nInstalling/Importing the group policy update PowerShell module `"PolicyFileEditor`"");
+        Write-Output ("`n  |-->  Reason: Current runtime requires use of function `"Set-PolicyFileEntry`" sourced from module `"PolicyFileEditor`"");
         Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force -AllowClobber;
         Import-Module -Name ("PolicyFileEditor") -Force;
+      } Else {
+        # Function/Module already exists
+        If ($PSBoundParameters.ContainsKey('Verbose')) {
+          Write-Output ("`nSkipping install/import of the group policy update PowerShell module `"PolicyFileEditor`"");
+          Write-Output ("`n  |-->  Reason: Local session already includes function `"Set-PolicyFileEntry`" sourced from module `"PolicyFileEditor`"");
+        };
       }
 
       $HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services

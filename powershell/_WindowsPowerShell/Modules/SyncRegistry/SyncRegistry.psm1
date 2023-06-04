@@ -1099,6 +1099,20 @@ function SyncRegistry {
         )
       };
 
+      # Keyboard - Sounds (for Filter/Sticky/Toggle Keys)
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility";
+        Props=@(
+          @{
+            Description="Keyboard Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Make a sound when turning Sticky Keys, Toggle Keys, or Filter Keys on or off from the keyboard' / 'Make a sound when enabling Sticky Keys, Toggle Keys, or Filter Keys'.";
+            Name="Sound on Activation";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+
       # Keyboard - Sticky Keys (Enable/Disable)
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility\StickyKeys";

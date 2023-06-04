@@ -26,6 +26,7 @@
       "sqlservermanager13.msc": "Sql Server Configuration Manager - SQL Server 2016",
       "sqlservermanager14.msc": "Sql Server Configuration Manager - SQL Server 2017",
       "sqlservermanager15.msc": "Sql Server Configuration Manager - SQL Server 2019",
+      "SystemPropertiesPerformance.exe": "Performance Options",
       "wmimgmt.msc": "Windows Management"
     },
     "Applications": {

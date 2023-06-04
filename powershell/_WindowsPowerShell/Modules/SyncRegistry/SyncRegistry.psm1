@@ -2075,7 +2075,7 @@ function SyncRegistry {
       #
 
       If (-Not ($PSBoundParameters.ContainsKey('SkipPowercfgUpdates'))) {
-        If ( ($Null) -NE (Get-Command "powercfg.exe" -EA:0) ) {
+        If (($Null) -NE (Get-Command "powercfg.exe" -EA:0)) {
           Write-Output "`n  Power Options";
           # Set idle timeouts to 20 minutes on wall (AC) power
           Write-Output "    |`n    |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
@@ -2115,7 +2115,11 @@ function SyncRegistry {
       #  |--> The source of these values is controlled not by setting the registry keys, but by using Group Policy specific commands to set the values which gpedit.msc pulls from, locally
       #
 
-      Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force;
+      # Check if the Policy Editor PowerShell Module is not yet installed
+      If (($Null) -Eq (Get-Command -Name "Set-PolicyFileEntry" -Module "PolicyFileEditor" -EA:0)) {
+        Install-Module -Name ("PolicyFileEditor") -Scope ("CurrentUser") -Force -AllowClobber;
+        Import-Module -Name ("PolicyFileEditor") -Force;
+      }
 
       $HKLM_Path="SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services";  # <-- View exhaustive list of terminal services group policies (and their associated registry keys) https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
       $Name="MaxCompressionLevel";

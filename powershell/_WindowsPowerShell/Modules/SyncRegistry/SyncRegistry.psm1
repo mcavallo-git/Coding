@@ -2138,13 +2138,13 @@ function SyncRegistry {
 
           # Set idle timeouts to 5 minutes on battery (DC) power
           Write-Output "  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
-          powercfg.exe /CHANGE -monitor-timeout-dc 5;
+          powercfg.exe /CHANGE -monitor-timeout-dc 5;   # "Turn off display after" (DC)
           powercfg.exe /SETACTIVE SCHEME_CURRENT;
 
           # Disable Sleep Mode
           Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
           powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep After" (AC)
-          powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (AC)
+          powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (DC)
           powercfg.exe /SETACTIVE SCHEME_CURRENT;
 
           # Disable Hibernation

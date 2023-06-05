@@ -2127,33 +2127,32 @@ function SyncRegistry {
 
             Write-Output "`nPower Options";
 
-            # Set idle timeouts to 20 minutes on wall (AC) power
-            Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
-            powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # "Turn off display after"
-            powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # "Console lock display off timeout"
-            powercfg.exe /CHANGE -monitor-timeout-ac 20;  # "Turn off display after" (AC)
-            powercfg.exe /SETACTIVE SCHEME_CURRENT;
-
-            # Set idle timeouts to 5 minutes on battery (DC) power
-            Write-Output "  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
-            powercfg.exe /CHANGE -monitor-timeout-dc 5;
-            powercfg.exe /SETACTIVE SCHEME_CURRENT;
-
-            # Disable Sleep Mode
-            Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
-            powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep After" (AC)
-            powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (AC)
-            powercfg.exe /SETACTIVE SCHEME_CURRENT;
-
-            # Disable Hibernation
-            Write-Output "  |-->  Setting `"Hibernation`" to `"Disabled`"  (e.g. disable sleep state(s) S4)";
-            powercfg.exe /HIBERNATE off;
-            powercfg.exe /CHANGE -hibernate-timeout-ac 0;  # "Hibernate After" (AC)
-            powercfg.exe /CHANGE -hibernate-timeout-dc 0;  # "Hibernate After" (DC)
-            powercfg.exe /SETACTIVE SCHEME_CURRENT;
-
-
           }
+
+          # Set idle timeouts to 20 minutes on wall (AC) power
+          Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
+          powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # "Turn off display after"
+          powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # "Console lock display off timeout"
+          powercfg.exe /CHANGE -monitor-timeout-ac 20;  # "Turn off display after" (AC)
+          powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
+          # Set idle timeouts to 5 minutes on battery (DC) power
+          Write-Output "  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
+          powercfg.exe /CHANGE -monitor-timeout-dc 5;
+          powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
+          # Disable Sleep Mode
+          Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
+          powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep After" (AC)
+          powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (AC)
+          powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
+          # Disable Hibernation
+          Write-Output "  |-->  Setting `"Hibernation`" to `"Disabled`"  (e.g. disable sleep state(s) S4)";
+          powercfg.exe /HIBERNATE off;
+          powercfg.exe /CHANGE -hibernate-timeout-ac 0;  # "Hibernate After" (AC)
+          powercfg.exe /CHANGE -hibernate-timeout-dc 0;  # "Hibernate After" (DC)
+          powercfg.exe /SETACTIVE SCHEME_CURRENT;
 
         }
       }

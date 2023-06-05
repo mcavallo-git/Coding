@@ -2078,22 +2078,22 @@ function SyncRegistry {
         If (($Null) -NE (Get-Command "powercfg.exe" -EA:0)) {
           Write-Output "`nPower Options";
           # Set idle timeouts to 20 minutes on wall (AC) power
-          Write-Output "  |`n  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
+          Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
           powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
           powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
           powercfg.exe -x -monitor-timeout-ac 1200
           powercfg.exe -setactive SCHEME_CURRENT
           # Set idle timeouts to 5 minutes on battery (DC) power
-          Write-Output "  |`n  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
+          Write-Output "  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
           powercfg.exe -x -monitor-timeout-dc 300
           powercfg.exe -setactive SCHEME_CURRENT
           # Disable Sleep Mode
-          Write-Output "  |`n  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
+          Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
           powercfg.exe -x -standby-timeout-ac 0
           powercfg.exe -x -standby-timeout-dc 0
           powercfg.exe -setactive SCHEME_CURRENT
           # Disable Hibernation
-          Write-Output "  |`n  |-->  Setting `"Hibernation`" to `"Disabled`"  (e.g. disable sleep state(s) S4)";
+          Write-Output "  |-->  Setting `"Hibernation`" to `"Disabled`"  (e.g. disable sleep state(s) S4)";
           powercfg.exe -hibernate off
           powercfg.exe -x -hibernate-timeout-ac 0
           powercfg.exe -x -hibernate-timeout-dc 0

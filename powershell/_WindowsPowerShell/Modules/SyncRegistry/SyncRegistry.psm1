@@ -2098,7 +2098,6 @@ function SyncRegistry {
           powercfg.exe -x -hibernate-timeout-ac 0
           powercfg.exe -x -hibernate-timeout-dc 0
           powercfg.exe -setactive SCHEME_CURRENT
-          Write-Output "";
         }
       }
 

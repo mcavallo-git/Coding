@@ -481,8 +481,9 @@ fi;
 
 # ------------------------------------------------------------
 # 
-# Example)  Parse jq's latest version from its GitHub releases page ( https://github.com/stedolan/jq/releases )
-# Example)  Parse jq's latest version from its GitHub releases page ( https://github.com/jqlang/jq/releases )
+# Example)  Parse jq's latest version from its GitHub releases page:
+#                                          previously:       https://github.com/stedolan/jq/releases
+#                                                 now:       https://github.com/jqlang/jq/releases
 #
 
 #

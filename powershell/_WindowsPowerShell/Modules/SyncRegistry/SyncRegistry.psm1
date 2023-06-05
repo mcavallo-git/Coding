@@ -2133,7 +2133,6 @@ function SyncRegistry {
           Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
           powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # "Turn off display after"  (display timeout while logged in)
           powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # "Console lock display off timeout"  (display timeout while @ lock screen)
-          # powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_SLEEP UNATTENDSLEEP 20;  # "System unattended sleep timeout"
           powercfg.exe /CHANGE -monitor-timeout-ac 20;  # "Turn off display after" (AC)
           powercfg.exe /SETACTIVE SCHEME_CURRENT;
 
@@ -2144,6 +2143,7 @@ function SyncRegistry {
 
           # Disable Sleep Mode
           Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
+          # powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_SLEEP UNATTENDSLEEP 20;  # "System unattended sleep timeout"  (specifies the duration of inactivity before the system automatically enters sleep after waking from sleep in an unattended state)
           powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep After" (AC)
           powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (DC)
           powercfg.exe /SETACTIVE SCHEME_CURRENT;

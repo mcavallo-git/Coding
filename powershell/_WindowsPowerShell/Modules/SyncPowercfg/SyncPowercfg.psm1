@@ -227,6 +227,7 @@ Function SyncPowercfg() {
 	# Processor performance core parking max cores
 	SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting CPMAXCORES -Visibility ${Visibility};
 
+
   # Display/Monitor power settings
 
 	# Turn off display after

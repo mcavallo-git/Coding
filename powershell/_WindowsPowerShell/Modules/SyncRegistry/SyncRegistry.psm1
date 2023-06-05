@@ -2076,7 +2076,7 @@ function SyncRegistry {
 
       If (-Not ($PSBoundParameters.ContainsKey('SkipPowercfgUpdates'))) {
         If (($Null) -NE (Get-Command "powercfg.exe" -EA:0)) {
-          Write-Output "`n  Power Options";
+          Write-Output "`nPower Options";
           # Set idle timeouts to 20 minutes on wall (AC) power
           Write-Output "  |`n  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
           powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200

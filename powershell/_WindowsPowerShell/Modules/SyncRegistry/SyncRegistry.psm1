@@ -2129,8 +2129,8 @@ function SyncRegistry {
 
             # Set idle timeouts to 20 minutes on wall (AC) power
             Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
-            powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # The VIDEOIDLE timeout is used when the PC is unlocked
-            powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # The VIDEOCONLOCK timeout is used when the PC is locked
+            powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # "Turn off display after"
+            powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # "Console lock display off timeout"
             powercfg.exe /CHANGE -monitor-timeout-ac 20;  # "Turn off display after" (AC)
             powercfg.exe /SETACTIVE SCHEME_CURRENT;
 

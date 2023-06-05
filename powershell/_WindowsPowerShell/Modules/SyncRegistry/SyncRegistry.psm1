@@ -2082,16 +2082,16 @@ function SyncRegistry {
             If ($True) {
               # Citation: https://superuser.com/a/1156120
               $NL = "~~NEWLINE~~";
-              $Guid_ActivePowerPlan = (Get-CimInstance -ClassName "Win32_PowerPlan" -Namespace "root\cimv2\power" | Where-Object { $True -Eq (${_}.IsActive) } | Select-Object -ExpandProperty "InstanceID" -First 1 | Split-Path -Leaf | ForEach-Object { ${_}.Trim(@("{","}")) });
+              $Guid_ActivePowerPlan = (Get-CimInstance -ClassName "Win32_PowerPlan" -Namespace "root\cimv2\power" -EA:0 | Where-Object { $True -Eq (${_}.IsActive) } | Select-Object -ExpandProperty "InstanceID" -First 1 | Split-Path -Leaf | ForEach-Object { ${_}.Trim(@("{","}")) });
               $PowercfgQuery = (powercfg.exe /QUERY ${Guid_ActivePowerPlan});
-              $PowercfgQuery_NL = (${PowercfgQuery} -join "${NL}");
               # ------------------------------
               # $Regex_Original_Parser="^\s{4}Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)\n(?:\s{6}\S[^\n]+\n)*\s{4}Current AC Power Setting Index:\s+(\S+)\n\s{4}Current DC Power Setting Index:\s+(\S+)$";
               # $Regex_Parser=(${Regex_Original_Parser} -replace "\\n","\\n"); # Escape the newlines in the regex
               # $Regex_NL_Parser=(((${Regex_Original_Parser} -replace "\\n","${NL}") -replace "\^","${NL}") -replace "\$","${NL}"); # Escape the newlines in the regex
               # ------------------------------
-              $FinalProps = @();
-              (${PowercfgQuery_NL} -split "${NL}    Power Setting GUID: ") | ForEach-Object {
+              # Parse PowerCfg's output into an array of Power Settings
+              $PowerSettingsArr = @();
+              ((${PowercfgQuery} -join "${NL}") -split "${NL}    Power Setting GUID: ") | ForEach-Object {
                 $Each_Repaired = "    Power Setting GUID: ${_}";
                 $Each_Settings = ( ${Each_Repaired} -split "${NL}" );
                 $Each_Props = @{};
@@ -2113,44 +2113,47 @@ function SyncRegistry {
                   }
                 }
                 If (-Not ([String]::IsNullOrEmpty(${Each_Props}["Power Setting GUID"]))) {
-                  ${FinalProps} += ${Each_Props};
+                  ${PowerSettingsArr} += ${Each_Props};
                 }
                 Clear-Variable -Name ("Each_Props");
               }
-              ${FinalProps} | ForEach-Object {
+              ${PowerSettingsArr} | ForEach-Object {
                 Write-Host "------------------------------------------------------------";
                 ${_} | Format-Table;
               }; Write-Host "------------------------------------------------------------";
+              # ------------------------------------------------------------
+
             }
 
+            Write-Output "`nPower Options";
+
+            # Set idle timeouts to 20 minutes on wall (AC) power
+            Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
+            powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # The VIDEOIDLE timeout is used when the PC is unlocked
+            powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # The VIDEOCONLOCK timeout is used when the PC is locked
+            powercfg.exe /CHANGE -monitor-timeout-ac 20;  # "Turn off display after" (AC)
+            powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
+            # Set idle timeouts to 5 minutes on battery (DC) power
+            Write-Output "  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
+            powercfg.exe /CHANGE -monitor-timeout-dc 5;
+            powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
+            # Disable Sleep Mode
+            Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
+            powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep After" (AC)
+            powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (AC)
+            powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
+            # Disable Hibernation
+            Write-Output "  |-->  Setting `"Hibernation`" to `"Disabled`"  (e.g. disable sleep state(s) S4)";
+            powercfg.exe /HIBERNATE off;
+            powercfg.exe /CHANGE -hibernate-timeout-ac 0;  # "Hibernate After" (AC)
+            powercfg.exe /CHANGE -hibernate-timeout-dc 0;  # "Hibernate After" (DC)
+            powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
+
           }
-
-          Write-Output "`nPower Options";
-
-          # Set idle timeouts to 20 minutes on wall (AC) power
-          Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
-          powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # The VIDEOIDLE timeout is used when the PC is unlocked
-          powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # The VIDEOCONLOCK timeout is used when the PC is locked
-          powercfg.exe /CHANGE -monitor-timeout-ac 20;  # "Turn off display after" (AC)
-          powercfg.exe /SETACTIVE SCHEME_CURRENT;
-
-          # Set idle timeouts to 5 minutes on battery (DC) power
-          Write-Output "  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
-          powercfg.exe /CHANGE -monitor-timeout-dc 5;
-          powercfg.exe /SETACTIVE SCHEME_CURRENT;
-
-          # Disable Sleep Mode
-          Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
-          powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep After" (AC)
-          powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (AC)
-          powercfg.exe /SETACTIVE SCHEME_CURRENT;
-
-          # Disable Hibernation
-          Write-Output "  |-->  Setting `"Hibernation`" to `"Disabled`"  (e.g. disable sleep state(s) S4)";
-          powercfg.exe /HIBERNATE off;
-          powercfg.exe /CHANGE -hibernate-timeout-ac 0;  # "Hibernate After" (AC)
-          powercfg.exe /CHANGE -hibernate-timeout-dc 0;  # "Hibernate After" (DC)
-          powercfg.exe /SETACTIVE SCHEME_CURRENT;
 
         }
       }

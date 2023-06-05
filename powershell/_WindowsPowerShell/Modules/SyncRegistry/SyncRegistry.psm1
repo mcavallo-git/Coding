@@ -2090,7 +2090,7 @@ function SyncRegistry {
               # $Regex_Parser=(${Regex_Original_Parser} -replace "\\n","\\n"); # Escape the newlines in the regex
               # $Regex_NL_Parser=(((${Regex_Original_Parser} -replace "\\n","${NL}") -replace "\^","${NL}") -replace "\$","${NL}"); # Escape the newlines in the regex
               # ------------------------------
-              $FinalProps = @{};
+              $FinalProps = @();
               (${PowercfgQuery_NL} -split "${NL}    Power Setting GUID: ") | ForEach-Object {
                 $Each_Repaired = "    Power Setting GUID: ${_}";
                 $Each_Settings = ( ${Each_Repaired} -split "${NL}" );
@@ -2098,30 +2098,29 @@ function SyncRegistry {
                 ${Each_Settings}.Trim() | ForEach-Object {
                   If (${_} -Like "Power Setting GUID: *") {
                     $Matches = [Regex]::Match(${_},"Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)");
-                    ${Each_Props}["Power Setting GUID"] = "$(${Matches}.Groups[1].Value )";
-                    ${Each_Props}["Description"] = "$(${Matches}.Groups[2].Value)";
+                    ${Each_Props}["Power Setting GUID"] = ( ${Matches}.Groups[1].Value );
+                    ${Each_Props}["Description"] = ( ${Matches}.Groups[2].Value );
                   } ElseIf (${_} -Like "Current AC Power Setting Index: *") {
                     $Matches = [Regex]::Match(${_},"Current AC Power Setting Index:\s+(\S+)");
-                    ${Each_Props}["Current AC Power Setting Index"] = "$(${Matches}.Groups[1].Value)";
-                    # (${_} -Split " ")[-1];
+                    ${Each_Props}["Current AC Power Setting Index"] = [Int]( ${Matches}.Groups[1].Value );
                   } ElseIf (${_} -Like "Current DC Power Setting Index: *") {
                     $Matches = [Regex]::Match(${_},"Current DC Power Setting Index:\s+(\S+)\s*$");
-                    ${Each_Props}["Current DC Power Setting Index"] = "$(${Matches}.Groups[1].Value)";
+                    ${Each_Props}["Current DC Power Setting Index"] = [Int]( ${Matches}.Groups[1].Value );
+                  } ElseIf (${_} -Like "Possible Settings units: *") {
+                    $Matches = [Regex]::Match(${_},"Possible Settings units:\s+(\S+)\s*$");
+                    ${Each_Props}["Possible Settings units"] = ( ${Matches}.Groups[1].Value );
                     # (${_} -Split " ")[-1];
                   }
                 }
                 If (-Not ([String]::IsNullOrEmpty(${Each_Props}["Power Setting GUID"]))) {
-                  ${FinalProps}[${Each_Props}["Power Setting GUID"]] = @{
-                    "Current AC Power Setting Index" = ${Each_Props}["Current AC Power Setting Index"];
-                    "Current DC Power Setting Index" = ${Each_Props}["Current DC Power Setting Index"];
-                    "Description" = ${Each_Props}["Description"];
-                  };
+                  ${FinalProps} += ${Each_Props};
                 }
                 Clear-Variable -Name ("Each_Props");
               }
-              Write-Host "------------------------------------------------------------";
-              ${FinalProps} | Format-List;
-              Write-Host "------------------------------------------------------------";
+              ${FinalProps} | ForEach-Object {
+                Write-Host "------------------------------------------------------------";
+                ${_} | Format-Table;
+              }; Write-Host "------------------------------------------------------------";
             }
 
           }

@@ -2080,16 +2080,43 @@ function SyncRegistry {
           If ($False) {
 
             If ($True) {
-
               # Citation: https://superuser.com/a/1156120
-
+              $NL = "~~NEWLINE~~";
               $Guid_ActivePowerPlan = (Get-CimInstance -ClassName "Win32_PowerPlan" -Namespace "root\cimv2\power" | Where-Object { $True -Eq (${_}.IsActive) } | Select-Object -ExpandProperty "InstanceID" -First 1 | Split-Path -Leaf | ForEach-Object { ${_}.Trim(@("{","}")) });
               $PowercfgQuery = (powercfg.exe /QUERY ${Guid_ActivePowerPlan});
-              Set-Content -Path ("${env:USERPROFILE}\Desktop\powercfg-query.log") -Value (${PowercfgQuery});
-              notepad.exe "${env:USERPROFILE}\Desktop\powercfg-query.log";
-
-              $Regex_PowercfgQuery_Parser = "^\s{4}Power Setting GUID:\s+([0-9A-F]{8}[-]?[0-9A-F]{4}[-]?[0-9A-F]{4}[-]?[0-9A-F]{4}[-]?[0-9A-F]{12})\s+\(([^\)]+)\)\n(?:\s{6}\S[^\n]+\n)*\s{4}Current AC Power Setting Index:\s+(\S+)\n\s{4}Current DC Power Setting Index:\s+(\S+)$";
-
+              $PowercfgQuery_NL = (${PowercfgQuery} -join "${NL}");
+              # ------------------------------
+              # $Regex_Original_Parser="^\s{4}Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)\n(?:\s{6}\S[^\n]+\n)*\s{4}Current AC Power Setting Index:\s+(\S+)\n\s{4}Current DC Power Setting Index:\s+(\S+)$";
+              # $Regex_Parser=(${Regex_Original_Parser} -replace "\\n","\\n"); # Escape the newlines in the regex
+              # $Regex_NL_Parser=(((${Regex_Original_Parser} -replace "\\n","${NL}") -replace "\^","${NL}") -replace "\$","${NL}"); # Escape the newlines in the regex
+              # ------------------------------
+              # Set-Content -Path ("${env:USERPROFILE}\Desktop\powercfg-query.log") -Value (${PowercfgQuery});
+              # notepad.exe "${env:USERPROFILE}\Desktop\powercfg-query.log";
+              # ------------------------------
+              (${PowercfgQuery_NL} -split "${NL}    Power Setting GUID: ") | ForEach-Object {
+                $Each_Repaired = "    Power Setting GUID: ${_}";
+                $Each_Settings = ( ${Each_Repaired} -split "${NL}" );
+                Write-Host "------------------------------------------------------------";
+                $Each_Properties = @{};
+                ${Each_Settings}.Trim() | ForEach-Object {
+                  If (${_} -Like "Power Setting GUID: *") {
+                    $Matches = [Regex]::Match(${_},"Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)");
+                    ${Each_Properties}["Power Setting GUID"] = "$(${Matches}.Groups[1].Value )";
+                    ${Each_Properties}["Power Setting Description"] = "$(${Matches}.Groups[2].Value)";
+                  } ElseIf (${_} -Like "Current AC Power Setting Index: *") {
+                    $Matches = [Regex]::Match(${_},"Current AC Power Setting Index:\s+(\S+)");
+                    ${Each_Properties}["Current AC Power Setting Index"] = "$(${Matches}.Groups[1].Value)";
+                    # (${_} -Split " ")[-1];
+                  } ElseIf (${_} -Like "Current DC Power Setting Index: *") {
+                    $Matches = [Regex]::Match(${_},"Current DC Power Setting Index:\s+(\S+)\s*$");
+                    ${Each_Properties}["Current DC Power Setting Index"] = "$(${Matches}.Groups[1].Value)";
+                    # (${_} -Split " ")[-1];
+                  }
+                }
+                ${Each_Properties} | Format-Table;
+                Clear-Variable -Name "Each_Properties";
+              }
+              Write-Host "------------------------------------------------------------";
             }
 
           }

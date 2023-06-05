@@ -227,6 +227,15 @@ Function SyncPowercfg() {
 	# Processor performance core parking max cores
 	SetPowercfg -GUID_Group SUB_PROCESSOR -GUID_Setting CPMAXCORES -Visibility ${Visibility};
 
+  # Display/Monitor power settings
+
+	# Turn off display after
+	SetPowercfg -GUID_Group SUB_VIDEO -GUID_Setting VIDEOIDLE -Visibility ${Visibility};
+
+	# Console lock display off timeout
+	SetPowercfg -GUID_Group SUB_VIDEO -GUID_Setting VIDEOCONLOCK -Visibility ${Visibility};
+
+
 	If ($False) {
 		<# Show decent configuration for AMD CPU's power-plan #>
 		Write-Host "------------------------------------------------------------";

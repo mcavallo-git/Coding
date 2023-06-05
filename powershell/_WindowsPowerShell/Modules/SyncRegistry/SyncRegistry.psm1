@@ -2498,6 +2498,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   superuser.com  |  "powershell - How to get the windows version with command line? - Super User"  |  https://superuser.com/a/1640261
 #
+#   superuser.com  |  "Query current power config settings on Windows 7 - Super User"  |  https://superuser.com/a/1156120
+#
 #   superuser.com  |  "windows 7 - How to disable sleep mode via CMD? - Super User"  |  https://superuser.com/a/1330613
 #
 #   superuser.com  |  "windows 10 - Registry keys to change personalization settings? - Super User"  |  https://superuser.com/a/1395560

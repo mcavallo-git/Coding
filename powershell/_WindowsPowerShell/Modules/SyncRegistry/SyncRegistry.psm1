@@ -2090,9 +2090,6 @@ function SyncRegistry {
               # $Regex_Parser=(${Regex_Original_Parser} -replace "\\n","\\n"); # Escape the newlines in the regex
               # $Regex_NL_Parser=(((${Regex_Original_Parser} -replace "\\n","${NL}") -replace "\^","${NL}") -replace "\$","${NL}"); # Escape the newlines in the regex
               # ------------------------------
-              # Set-Content -Path ("${env:USERPROFILE}\Desktop\powercfg-query.log") -Value (${PowercfgQuery});
-              # notepad.exe "${env:USERPROFILE}\Desktop\powercfg-query.log";
-              # ------------------------------
               (${PowercfgQuery_NL} -split "${NL}    Power Setting GUID: ") | ForEach-Object {
                 $Each_Repaired = "    Power Setting GUID: ${_}";
                 $Each_Settings = ( ${Each_Repaired} -split "${NL}" );

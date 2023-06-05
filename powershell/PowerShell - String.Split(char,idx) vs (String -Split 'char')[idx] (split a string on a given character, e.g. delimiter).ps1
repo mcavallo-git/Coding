@@ -1,17 +1,25 @@
+# ------------------------------------------------------------
+#
+# PowerShell - String.Split(char,idx) vs (String -Split 'char')[idx] (split a string on a given character, e.g. delimiter)
+#
+# ------------------------------------------------------------
+
+# Split on a single character
+
+("1|2|3|4|5".Split("|"))[2];  # Get the 3rd element
+
+("1|2|3|4|5".Split("|"))[-1]; # Get the last element
 
 
-# PowerShell - Split a string on a given character (delimter)
+# ------------------------------------------------------------
 
-("1|2|3|4|5".Split("|"))[2]; # Get the 3rd element
+# Split on multiple characters
+
+"Test[String]Split" -split {@("[","]").Contains($_)};  # Parse string as characters & split on "[" as well as "]"
 
 
-("1|2|3|4|5".Split("|"))[-1];
+# Split on multiple characters, then recombine
 
-
-# Split on one of many characters
-"Test[String]Split" -split {@("[","]").Contains($_)};
-
-# Split on one of many characters - Recombine after removing desired character(s)
 "Test[String]Split" -split {($_ -Eq "[") -Or ($_ -Eq "]")} -join "";
 
 

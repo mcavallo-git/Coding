@@ -2076,28 +2076,51 @@ function SyncRegistry {
 
       If (-Not ($PSBoundParameters.ContainsKey('SkipPowercfgUpdates'))) {
         If (($Null) -NE (Get-Command "powercfg.exe" -EA:0)) {
+
+          If ($False) {
+
+            If ($True) {
+
+              # Citation: https://superuser.com/a/1156120
+
+              $Guid_ActivePowerPlan = (Get-CimInstance -ClassName "Win32_PowerPlan" -Namespace "root\cimv2\power" | Where-Object { $True -Eq (${_}.IsActive) } | Select-Object -ExpandProperty "InstanceID" -First 1 | Split-Path -Leaf | ForEach-Object { ${_}.Trim(@("{","}")) });
+              $PowercfgQuery = (powercfg.exe /QUERY ${Guid_ActivePowerPlan});
+              Set-Content -Path ("${env:USERPROFILE}\Desktop\powercfg-query.log") -Value (${PowercfgQuery});
+              notepad.exe "${env:USERPROFILE}\Desktop\powercfg-query.log";
+
+              $Regex_PowercfgQuery_Parser = "^\s{4}Power Setting GUID:\s+([0-9A-F]{8}[-]?[0-9A-F]{4}[-]?[0-9A-F]{4}[-]?[0-9A-F]{4}[-]?[0-9A-F]{12})\s+\(([^\)]+)\)\n(?:\s{6}\S[^\n]+\n)*\s{4}Current AC Power Setting Index:\s+(\S+)\n\s{4}Current DC Power Setting Index:\s+(\S+)$";
+
+            }
+
+          }
+
           Write-Output "`nPower Options";
+
           # Set idle timeouts to 20 minutes on wall (AC) power
           Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
-          powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 1200
-          powercfg.exe -setacvalueindex SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 1200
-          powercfg.exe -x -monitor-timeout-ac 1200
-          powercfg.exe -setactive SCHEME_CURRENT
+          powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # The VIDEOIDLE timeout is used when the PC is unlocked
+          powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # The VIDEOCONLOCK timeout is used when the PC is locked
+          powercfg.exe /CHANGE -monitor-timeout-ac 20;  # "Turn off display after" (AC)
+          powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
           # Set idle timeouts to 5 minutes on battery (DC) power
           Write-Output "  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
-          powercfg.exe -x -monitor-timeout-dc 300
-          powercfg.exe -setactive SCHEME_CURRENT
+          powercfg.exe /CHANGE -monitor-timeout-dc 5;
+          powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
           # Disable Sleep Mode
           Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
-          powercfg.exe -x -standby-timeout-ac 0
-          powercfg.exe -x -standby-timeout-dc 0
-          powercfg.exe -setactive SCHEME_CURRENT
+          powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep After" (AC)
+          powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (AC)
+          powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
           # Disable Hibernation
           Write-Output "  |-->  Setting `"Hibernation`" to `"Disabled`"  (e.g. disable sleep state(s) S4)";
-          powercfg.exe -hibernate off
-          powercfg.exe -x -hibernate-timeout-ac 0
-          powercfg.exe -x -hibernate-timeout-dc 0
-          powercfg.exe -setactive SCHEME_CURRENT
+          powercfg.exe /HIBERNATE off;
+          powercfg.exe /CHANGE -hibernate-timeout-ac 0;  # "Hibernate After" (AC)
+          powercfg.exe /CHANGE -hibernate-timeout-dc 0;  # "Hibernate After" (DC)
+          powercfg.exe /SETACTIVE SCHEME_CURRENT;
+
         }
       }
 
@@ -2424,6 +2447,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   answers.microsoft.com  |  "Microsoft Meet Now fouled up my microphone settings - Microsoft Community"  |  https://answers.microsoft.com/en-us/skype/forum/all/microsoft-meet-now-fouled-up-my-microphone/1b6e05a8-b651-4404-89a7-b24c83403c1e
 #
+#   appuals.com  |  "How to Increase Windows 10 Lock Screen Timeout Settings - Appuals.com"  |  https://appuals.com/increase-windows-10-lock-screen-timeout-settings/
+#
 #   autohotkey.com  |  "Windows key (#) + letter keeps locking the pc (even if it is not #L)"  |  https://www.autohotkey.com/boards/viewtopic.php?p=46949&sid=490d0a443a7f78557b54c2bfb079350f#p46949
 #
 #   getadmx.com  |  "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services"  |  https://getadmx.com/HKLM/SOFTWARE/Policies/Microsoft/Windows%20NT/Terminal%20Services
@@ -2477,6 +2502,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   social.technet.microsoft.com  |  "GPO : runas hide show"  |  https://social.technet.microsoft.com/Forums/en-US/f2889321-7531-4fde-bb28-f5f141c251b6/gpo-runas-hide-show?forum=winserverDS
 #
 #   ss64.com  |  "Windows 10 registry - How-To: Windows 10 registry - user interface settings - Windows CMD - SS64.com"  |  https://ss64.com/nt/syntax-reghacks.html
+#
+#   stackoverflow.com  |  "C# Regex for Guid - Stack Overflow"  |  https://stackoverflow.com/a/35648213
 #
 #   stackoverflow.com  |  "Hex to Decimal Conversion - PowerShell 5 - Stack Overflow"  |  https://stackoverflow.com/a/38567654
 #

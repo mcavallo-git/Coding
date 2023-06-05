@@ -83,7 +83,7 @@ function SyncRegistry {
       }
     }
 
-    If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output "`n  Verbose:  HKEY_USERS_SID_OR_CURRENT_USER = [ ${HKEY_USERS_SID_OR_CURRENT_USER} ]"; };
+    If ($PSBoundParameters.ContainsKey('Verbose')) { Write-Output "`nVerbose:  HKEY_USERS_SID_OR_CURRENT_USER = [ ${HKEY_USERS_SID_OR_CURRENT_USER} ]"; };
 
     If ($EXIT_CODE -Eq 0) {
 

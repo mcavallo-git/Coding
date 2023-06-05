@@ -101,7 +101,8 @@ sed -re "s/^(GRUB_CMDLINE_LINUX=\".+)\"\$/\1 crashkernel=auto\"/" -i".$(date +'%
 # sed -z  (Ex 1)  (match multiple lines, newline matching - requires GNU sed)
 #
 
-echo -e "This is\na test\nPlease do not\nbe alarmed" | sed -z 's/a test\nPlease do not\nbe/not a test\nBe/'
+echo -e "This is\na test\nPlease do not\nbe alarmed" | sed -z 's/a test\nPlease do not\nbe/not a test\nBe/';
+
 
 # ------------------------------------------------------------
 #
@@ -481,9 +482,27 @@ fi;
 # ------------------------------------------------------------
 # 
 # Example)  Parse jq's latest version from its GitHub releases page ( https://github.com/stedolan/jq/releases )
+# Example)  Parse jq's latest version from its GitHub releases page ( https://github.com/jqlang/jq/releases )
 #
-JQ_LATEST_VERSION=$(curl -sL https://github.com/stedolan/jq/releases | sed -rne "s/^.+\/stedolan\/jq\/releases\/download\/jq-([0-9\.]+)\/jq-linux64.+$/\1/p" | head -n 1;);
-echo "\${KOMPOSE_LATEST_VERSION}=[${JQ_LATEST_VERSION}]";
+
+#
+# Method #1
+#
+if [[ 1 -eq 1 ]]; then
+  JQ_LATEST_VERSION=$(curl -sL https://github.com/jqlang/jq/releases | sed -rne "s/^.+>jq ([0-9\.]+)<\/a>.+$/\1/p" | head -n 1;);
+  JQ_DOWNLOAD_URL="https://github.com/jqlang/jq/releases/download/jq-${JQ_LATEST_VERSION}/jq-linux64";
+  echo -e "\n""JQ_LATEST_VERSION:  ${JQ_LATEST_VERSION}""\n""\n""JQ_DOWNLOAD_URL:    ${JQ_DOWNLOAD_URL}""\n";
+fi;
+
+
+#
+# Method #2
+#
+if [[ 1 -eq 1 ]]; then
+  JQ_LATEST_VERSION="$(curl -sLI -o /dev/null -w %{url_effective} "https://github.com/jqlang/jq/releases/latest" | sed -rne "s/^.+\/jq-([0-9\.]+)\s*$/\1/p";)";
+  JQ_DOWNLOAD_URL="https://github.com/jqlang/jq/releases/download/jq-${JQ_LATEST_VERSION}/jq-linux64";
+  echo -e "\n""JQ_LATEST_VERSION:  ${JQ_LATEST_VERSION}""\n""\n""JQ_DOWNLOAD_URL:    ${JQ_DOWNLOAD_URL}""\n";
+fi;
 
 
 # ------------------------------------------------------------
@@ -542,6 +561,8 @@ echo $(cat "/etc/nginx/conf.d/nginx_ssl.conf" | grep 'ssl_ciphers ') | sed -e "s
 #   stackoverflow.com  |  "Grep Access Multiple lines, find all words between two patterns"  |  https://stackoverflow.com/questions/12918292
 #
 #   stackoverflow.com  |  "How can I reverse the order of lines in a file?"  |  https://stackoverflow.com/a/744093
+#
+#   stackoverflow.com  |  "linux - Get final URL after curl is redirected - Stack Overflow"  |  https://stackoverflow.com/a/3077316
 #
 #   stackoverflow.com  |  "regex - sed one-liner to convert all uppercase to lowercase? - Stack Overflow"  |  https://stackoverflow.com/a/4581564
 #

@@ -2197,9 +2197,11 @@ function SyncRegistry {
 
           # Ensure hibernation is disabled
           ${PowerSettingsArr} | Where-Object { ${_}["Power Setting Description"] -Eq "Hibernate after"; } | ForEach-Object {
-            Write-Output "`nPower Options:  Disabling Hibernation";
-            powercfg.exe /HIBERNATE off;
-            $PowerCfg_ValuesUpdated++;
+            If ((0 -NE ${_}["Current AC Power Setting Index"]) -Or (0 -NE ${_}["Current DC Power Setting Index"])) {
+              $PowerCfg_ValuesUpdated++;
+              Write-Output "`nPower Options:  Disabling Hibernation";
+              powercfg.exe /HIBERNATE off;
+            }
           };
 
           # powercfg requires a "/SETACTIVE" call to apply changes

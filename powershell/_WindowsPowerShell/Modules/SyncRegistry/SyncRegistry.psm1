@@ -2125,10 +2125,10 @@ function SyncRegistry {
 
             }
 
-            Write-Output "`nPower Options";
-
           }
 
+          Write-Output "`nPower Options";
+          
           # Set idle timeouts to 20 minutes on wall (AC) power
           Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
           powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # "Turn off display after"  (display timeout while logged in)

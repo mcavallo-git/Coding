@@ -2080,48 +2080,135 @@ function SyncRegistry {
           If ($False) {
 
             If ($True) {
-              # Citation: https://superuser.com/a/1156120
+
+              # ------------------------------
+              #
+              # Power Options - Define desired values
+              #
+
+              $DesiredSettingsArr = @();
+              
+              # Display Options
+              $DesiredSettingsArr += @{
+                "Power Setting Description" = "Console lock display off timeout";
+                "Power Setting GUID" = "8ec4b3a5-6868-48c2-be75-4f3044be88a7";
+                "Subgroup Description" = "Display";
+                "Subgroup GUID" = "7516b95f-f776-4464-8c53-06167f40cc99";
+                "Current AC Power Setting Index" = 1200;
+                "Current DC Power Setting Index" = 300;
+                "Possible Settings units" = "Seconds";
+              };
+              $DesiredSettingsArr += @{
+                "Power Setting Description" = "Turn off display after";
+                "Power Setting GUID" = "3c0bc021-c8a8-4e07-a973-6b14cbcb2b7e";
+                "Subgroup Description" = "Display";
+                "Subgroup GUID" = "7516b95f-f776-4464-8c53-06167f40cc99";
+                "Current AC Power Setting Index" = 1200;
+                "Current DC Power Setting Index" = 300;
+                "Possible Settings units" = "Seconds";
+              };
+
+              # Sleep Options
+              $DesiredSettingsArr += @{
+                "Power Setting Description" = "Hibernate after";
+                "Power Setting GUID" = "9d7815a6-7ee4-497e-8888-515a05f02364";
+                "Subgroup Description" = "Sleep";
+                "Subgroup GUID" = "238c9fa8-0aad-41ed-83f4-97be242c8f20";
+                "Current AC Power Setting Index" = 0;
+                "Current DC Power Setting Index" = 0;
+                "Possible Settings units" = "Seconds";
+              };
+              $DesiredSettingsArr += @{
+                "Power Setting Description" = "Sleep after";
+                "Power Setting GUID" = "29f6c1db-86da-48c5-9fdb-f2b67b1f44da";
+                "Subgroup Description" = "Sleep";
+                "Subgroup GUID" = "238c9fa8-0aad-41ed-83f4-97be242c8f20";
+                "Current AC Power Setting Index" = 0;
+                "Current DC Power Setting Index" = 0;
+                "Possible Settings units" = "Seconds";
+              };
+
+              # ------------------------------
+              #
+              # Power Options - Get current values
+              #
+
               $NL = "~~NEWLINE~~";
-              $Guid_ActivePowerPlan = (Get-CimInstance -ClassName "Win32_PowerPlan" -Namespace "root\cimv2\power" -EA:0 | Where-Object { $True -Eq (${_}.IsActive) } | Select-Object -ExpandProperty "InstanceID" -First 1 | Split-Path -Leaf | ForEach-Object { ${_}.Trim(@("{","}")) });
-              $PowercfgQuery = (powercfg.exe /QUERY ${Guid_ActivePowerPlan});
-              # ------------------------------
-              # $Regex_Original_Parser="^\s{4}Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)\n(?:\s{6}\S[^\n]+\n)*\s{4}Current AC Power Setting Index:\s+(\S+)\n\s{4}Current DC Power Setting Index:\s+(\S+)$";
-              # $Regex_Parser=(${Regex_Original_Parser} -replace "\\n","\\n"); # Escape the newlines in the regex
-              # $Regex_NL_Parser=(((${Regex_Original_Parser} -replace "\\n","${NL}") -replace "\^","${NL}") -replace "\$","${NL}"); # Escape the newlines in the regex
-              # ------------------------------
-              # Parse PowerCfg's output into an array of Power Settings
+              $Powercfg_SchemeGuid = ([Regex]::Match((powercfg.exe /GETACTIVESCHEME),"Power Scheme GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)") | ForEach-Object { ${_}.Groups[1].Value; });
+              $Powercfg_Query = (powercfg.exe /QUERY ${Powercfg_SchemeGuid});
               $PowerSettingsArr = @();
-              ((${PowercfgQuery} -join "${NL}") -split "${NL}    Power Setting GUID: ") | ForEach-Object {
+              ((${Powercfg_Query} -join "${NL}") -split "${NL}    Power Setting GUID: ") | ForEach-Object {
                 $Each_Repaired = "    Power Setting GUID: ${_}";
                 $Each_Settings = ( ${Each_Repaired} -split "${NL}" );
                 $Each_Props = @{};
                 ${Each_Settings}.Trim() | ForEach-Object {
-                  If (${_} -Like "Power Setting GUID: *") {
-                    $Matches = [Regex]::Match(${_},"Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)");
-                    ${Each_Props}["Power Setting GUID"] = ( ${Matches}.Groups[1].Value );
-                    ${Each_Props}["Description"] = ( ${Matches}.Groups[2].Value );
-                  } ElseIf (${_} -Like "Current AC Power Setting Index: *") {
+                  If (${_} -Like "Current AC Power Setting Index: *") {
                     $Matches = [Regex]::Match(${_},"Current AC Power Setting Index:\s+(\S+)");
                     ${Each_Props}["Current AC Power Setting Index"] = [Int]( ${Matches}.Groups[1].Value );
-                  } ElseIf (${_} -Like "Current DC Power Setting Index: *") {
-                    $Matches = [Regex]::Match(${_},"Current DC Power Setting Index:\s+(\S+)\s*$");
-                    ${Each_Props}["Current DC Power Setting Index"] = [Int]( ${Matches}.Groups[1].Value );
                   } ElseIf (${_} -Like "Possible Settings units: *") {
                     $Matches = [Regex]::Match(${_},"Possible Settings units:\s+(\S+)\s*$");
                     ${Each_Props}["Possible Settings units"] = ( ${Matches}.Groups[1].Value );
-                    # (${_} -Split " ")[-1];
+                  } ElseIf (${_} -Like "Current DC Power Setting Index: *") {
+                    $Matches = [Regex]::Match(${_},"Current DC Power Setting Index:\s+(\S+)\s*$");
+                    ${Each_Props}["Current DC Power Setting Index"] = [Int]( ${Matches}.Groups[1].Value );
+                  } ElseIf (${_} -Like "Power Setting GUID: *") {
+                    $Matches = [Regex]::Match(${_},"Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)");
+                    ${Each_Props}["Power Setting GUID"] = ( ${Matches}.Groups[1].Value );
+                    ${Each_Props}["Power Setting Description"] = ( ${Matches}.Groups[2].Value );
                   }
                 }
+                # Only append items with a valid Power Setting GUID to the final array
                 If (-Not ([String]::IsNullOrEmpty(${Each_Props}["Power Setting GUID"]))) {
                   ${PowerSettingsArr} += ${Each_Props};
                 }
                 Clear-Variable -Name ("Each_Props");
               }
-              ${PowerSettingsArr} | ForEach-Object {
-                Write-Host "------------------------------------------------------------";
-                ${_} | Format-Table;
-              }; Write-Host "------------------------------------------------------------";
-              # ------------------------------------------------------------
+
+              # ------------------------------
+              #
+              # Power Options - Update current values to the desired values (for any that are different)
+              #
+
+              $PowerCfg_ValuesUpdated = 0;
+
+              ${DesiredSettingsArr} | ForEach-Object {
+                $Each_DesiredSetting = ${_};
+                $Each_Description = ${Each_DesiredSetting}["Power Setting Description"];
+                $Each_Desired_AC = ${Each_DesiredSetting}["Current AC Power Setting Index"];
+                $Each_Desired_DC = ${Each_DesiredSetting}["Current DC Power Setting Index"];
+                $Each_Units = ${Each_DesiredSetting}["Possible Settings units"];
+                $Each_SubgroupGuid = ${Each_DesiredSetting}["Subgroup GUID"];
+                $Each_PowerGuid = ${Each_DesiredSetting}["Power Setting GUID"];
+                ${PowerSettingsArr} | Where-Object { (${_}["Power Setting GUID"]) -Eq (${Each_PowerGuid}) } | ForEach-Object {
+                  $Each_PowerSetting = ${_};
+                  # Set desired AC setting
+                  If ((${Each_PowerSetting}["Current AC Power Setting Index"]) -NE (${Each_Desired_AC})) {
+                    Write-Output "`nPower Options:  Setting [ ${Each_Description} ] to ${Each_Desired_AC} ${Each_Units}  (while on AC/wall power)";
+                    # powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_AC};
+                    $PowerCfg_ValuesUpdated++;
+                  }
+                  # Set desired DC setting
+                  If ((${Each_PowerSetting}["Current DC Power Setting Index"]) -NE (${Each_Desired_DC})) {
+                    Write-Output "`nPower Options:  Setting [ ${Each_Description} ] to ${Each_Desired_DC} ${Each_Units}  (while on DC/battery power)";
+                    # powercfg.exe /SETDCVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_DC};
+                    $PowerCfg_ValuesUpdated++;
+                  }
+                }
+              }
+
+              # Ensure hibernation is disabled
+              ${PowerSettingsArr} | Where-Object { ${_}["Power Setting Description"] -Eq "Hibernate after"; } | ForEach-Object {
+                Write-Output "`nPower Options:  Disabling Hibernation";
+                # powercfg.exe /HIBERNATE off;
+                $PowerCfg_ValuesUpdated++;
+              };
+
+              # powercfg requires a "/SETACTIVE" call to apply changes
+              If (${PowerCfg_ValuesUpdated} -GT 0) {
+                # powercfg.exe /SETACTIVE SCHEME_CURRENT;
+              }
+
+              # ------------------------------
 
             }
 
@@ -2130,22 +2217,23 @@ function SyncRegistry {
           Write-Output "`nPower Options";
           
           # Set idle timeouts to 20 minutes on wall (AC) power
-          Write-Output "  |-->  Setting `"Turn off the display after`" to `"20 minutes`"  (while plugged in)";
+          Write-Output "  |-->  Setting `"Turn off display after`" to `"20 minutes`"  (while plugged in)";
           powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOIDLE 20;  # "Turn off display after"  (display timeout while logged in)
+          Write-Output "  |-->  Setting `"Turn off display after`" to `"5 minutes`"  (while on battery)";
+          powercfg.exe /CHANGE -monitor-timeout-dc 5;   # "Turn off display after" (DC)
+          Write-Output "  |-->  Setting `"Console lock display off timeout`" to `"20 minutes`"  (while plugged in)";
           powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_VIDEO VIDEOCONLOCK 20;  # "Console lock display off timeout"  (display timeout while @ lock screen)
           powercfg.exe /CHANGE -monitor-timeout-ac 20;  # "Turn off display after" (AC)
           powercfg.exe /SETACTIVE SCHEME_CURRENT;
 
           # Set idle timeouts to 5 minutes on battery (DC) power
-          Write-Output "  |-->  Setting `"Turn off the display after`" to `"5 minutes`"  (while on battery)";
-          powercfg.exe /CHANGE -monitor-timeout-dc 5;   # "Turn off display after" (DC)
           powercfg.exe /SETACTIVE SCHEME_CURRENT;
 
           # Disable Sleep Mode
           Write-Output "  |-->  Setting `"Put the computer to sleep`" to `"Never`"  (e.g. disable sleep state(s) S1-S3)";
           # powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT SUB_SLEEP UNATTENDSLEEP 20;  # "System unattended sleep timeout"  (specifies the duration of inactivity before the system automatically enters sleep after waking from sleep in an unattended state)
-          powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep After" (AC)
-          powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep After" (DC)
+          powercfg.exe /CHANGE -standby-timeout-ac 0;  # "Sleep after" (AC)
+          powercfg.exe /CHANGE -standby-timeout-dc 0;  # "Sleep after" (DC)
           powercfg.exe /SETACTIVE SCHEME_CURRENT;
 
           # Disable Hibernation

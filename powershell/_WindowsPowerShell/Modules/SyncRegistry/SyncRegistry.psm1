@@ -2183,13 +2183,13 @@ function SyncRegistry {
               # Set desired AC setting(s)
               If (${Each_Current_AC} -NE ${Each_Desired_AC}) {
                 $PowerCfg_ValuesUpdated++;
-                Write-Output "`nPower Options:  Updating AC power option `"${Each_Description}`" to value `"${Each_Desired_AC} ${Each_Units}`"  (previous value was `"${Each_Current_AC} ${Each_Units}`")";
+                Write-Output "`nPower Options:  Updating `"${Each_Description}`" to value `"${Each_Desired_AC} ${Each_Units}`" while on AC/wall power  (previous value was `"${Each_Current_AC} ${Each_Units}`")";
                 powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_AC};
               }
               # Set desired DC setting(s)
               If (${Each_Current_DC} -NE ${Each_Desired_DC}) {
                 $PowerCfg_ValuesUpdated++;
-                Write-Output "`nPower Options:  Updating DC power option `"${Each_Description}`" to value `"${Each_Desired_DC} ${Each_Units}`"  (previous value was `"${Each_Current_DC} ${Each_Units}`")";
+                Write-Output "`nPower Options:  Updating `"${Each_Description}`" to value `"${Each_Desired_DC} ${Each_Units}`" while on DC/battery power  (previous value was `"${Each_Current_DC} ${Each_Units}`")";
                 powercfg.exe /SETDCVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_DC};
               }
             }

@@ -4,15 +4,15 @@
 
 If ($True) {
   $NL = "~~NEWLINE~~";
-  $Powercfg_SchemeGuid = ([Regex]::Match((powercfg.exe /GETACTIVESCHEME),"Power Scheme GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)") | ForEach-Object { ${_}.Groups[1].Value; });
   # $Powercfg_SchemeGuid = "SCHEME_CURRENT";
+  $Powercfg_SchemeGuid = ([Regex]::Match((powercfg.exe /GETACTIVESCHEME),"Power Scheme GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)") | ForEach-Object { ${_}.Groups[1].Value; });
   $Powercfg_Query = (powercfg.exe /QUERY ${Powercfg_SchemeGuid});
   # ------------------------------
   # $Regex_PowerCfg_Parser="^\s{4}Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)\n(?:\s{6}\S[^\n]+\n)*\s{4}Current AC Power Setting Index:\s+(\S+)\n\s{4}Current DC Power Setting Index:\s+(\S+)$";
   # ------------------------------
   # Parse PowerCfg's output into an array of Power Settings
   $PowerSettingsArr = @();
-  ((${PowercfgQuery} -join "${NL}") -split "${NL}    Power Setting GUID: ") | ForEach-Object {
+  ((${Powercfg_Query} -join "${NL}") -split "${NL}    Power Setting GUID: ") | ForEach-Object {
     $Each_Repaired = "    Power Setting GUID: ${_}";
     $Each_Settings = ( ${Each_Repaired} -split "${NL}" );
     $Each_Props = @{};

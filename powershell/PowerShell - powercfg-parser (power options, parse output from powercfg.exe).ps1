@@ -15,15 +15,7 @@ If ($True) {
   ((${Powercfg_Query} -join "${NL}") -split "${NL}    Power Setting GUID: ") | ForEach-Object {
     $Each_Repaired = "    Power Setting GUID: ${_}";
     $Each_Settings = ( ${Each_Repaired} -split "${NL}" );
-    $Each_Props = @{
-      "Current AC Power Setting Index"=$Null;
-      "Current DC Power Setting Index"=$Null;
-      "Possible Settings units"=$Null;
-      "Power Setting Description"=$Null;
-      "Power Setting GUID"=$Null;
-
-
-    };
+    $Each_Props = @{};
     ${Each_Settings}.Trim() | ForEach-Object {
       If (${_} -Like "Current AC Power Setting Index: *") {
         $Matches = [Regex]::Match(${_},"Current AC Power Setting Index:\s+(\S+)");

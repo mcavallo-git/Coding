@@ -2074,6 +2074,8 @@ function SyncRegistry {
       # Power Options
       #
 
+      $PowerCfg_ValuesUpdated = 0;
+
       If (-Not ($PSBoundParameters.ContainsKey('SkipPowercfgUpdates'))) {
         If (($Null) -NE (Get-Command "powercfg.exe" -EA:0)) {
 
@@ -2164,8 +2166,6 @@ function SyncRegistry {
           #
           # Power Options - Update current values
           #
-
-          $PowerCfg_ValuesUpdated = 0;
 
           # Update power options which differ between current & desired values
           ${DesiredSettingsArr} | ForEach-Object {
@@ -2304,7 +2304,7 @@ function SyncRegistry {
 
       }
 
-      $Count_ChangesMade=0;
+      $Registry_ValuesUpdated=0;
 
       <# Check whether-or-not the current PowerShell session is running with elevated privileges (as Administrator) #>
       $RunningAsAdmin = (([Security.Principal.WindowsPrincipal]([Security.Principal.WindowsIdentity]::GetCurrent())).IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator"));
@@ -2370,7 +2370,7 @@ function SyncRegistry {
                 # Key SHOULD be deleted
                 Remove-Item -Force -Recurse -LiteralPath ($EachRegEdit.Path) -Confirm:$False | Out-Null;
                 If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $False) {
-                  $Count_ChangesMade++;
+                  $Registry_ValuesUpdated++;
                   $EachRegEdit.ChangesMade = $True;
                   $EachRegEdit.LogOutput += "  |-->  !! Deleted this Registry Key";
                   Break; # Since we're removing the registry key, we can skip going over the rest of the current key's properties (since the key itself should no longer exist)
@@ -2391,7 +2391,7 @@ function SyncRegistry {
                 #
                 New-Item -Force -Path ($EachRegEdit.Path) | Out-Null;
                 If ((Test-Path -LiteralPath ($EachRegEdit.Path)) -Eq $True) {
-                  $Count_ChangesMade++;
+                  $Registry_ValuesUpdated++;
                   $EachRegEdit.ChangesMade = $True;
                   $EachRegEdit.LogOutput += "  |-->  !! Created this Registry Key";
                 } Else {
@@ -2414,7 +2414,7 @@ function SyncRegistry {
               If (($EachProp.Delete) -Eq $False) {
 
                 # Create the Property
-                $Count_ChangesMade++;
+                $Registry_ValuesUpdated++;
                 $EachRegEdit.ChangesMade = $True;
                 $EachRegEdit.LogOutput += "  |-->  !! Adding Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" and value `"$($EachProp.Value)`"";
                 New-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -PropertyType ($EachProp.Type) -Value ($EachProp.Value) | Out-Null;
@@ -2433,7 +2433,7 @@ function SyncRegistry {
                 # Property SHOULD be deleted
 
                 # Delete the Property
-                $Count_ChangesMade++;
+                $Registry_ValuesUpdated++;
                 $EachRegEdit.ChangesMade = $True;
                 $EachRegEdit.LogOutput += "  |-->  !! Deleting Property `"$($EachProp.Name)`"";
                 Remove-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Confirm:$False | Out-Null;
@@ -2451,7 +2451,7 @@ function SyncRegistry {
                 } Else {
 
                   # Update the Property
-                  $Count_ChangesMade++;
+                  $Registry_ValuesUpdated++;
                   $EachRegEdit.ChangesMade = $True;
                   $EachRegEdit.LogOutput += "  |-->  !! Updating Property `"$($EachProp.Name)`" w/ type `"$($EachProp.Type)`" to value `"$($EachProp.Value)`" (previous value was `"$($EachProp.LastValue)`")";
                   Set-ItemProperty -Force -LiteralPath ($EachRegEdit.Path) -Name ($EachProp.Name) -Value ($EachProp.Value) | Out-Null;
@@ -2481,8 +2481,8 @@ function SyncRegistry {
       }
 
       # If ZERO changes were made, report it
-      If (${Count_ChangesMade} -Eq 0) {
-        Write-Output "`n  No changes made  -->  Registry is already up-to-date$(If (($PSBoundParameters.ContainsKey('Verbose')) -Eq ($False)) { Write-Output "`n                   -->  For additional info, run using the '-Verbose' argument"; };)";
+      If ((${Registry_ValuesUpdated} -Eq 0) -And (${PowerCfg_ValuesUpdated} -Eq 0)) {
+        Write-Output "`n  No changes made  -->  Registry & Power Options are already up-to-date$(If (($PSBoundParameters.ContainsKey('Verbose')) -Eq ($False)) { Write-Output "`n                   -->  For additional info, run using the '-Verbose' argument"; };)";
       }
 
     }

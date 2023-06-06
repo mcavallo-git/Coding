@@ -2184,13 +2184,13 @@ function SyncRegistry {
                   $Each_Current_AC = ${Each_CurrentSetting}["Current AC Power Setting Index"];
                   $Each_Current_DC = ${Each_CurrentSetting}["Current DC Power Setting Index"];
                   # Set desired AC setting(s)
-                  If (${$Each_Current_AC} -NE ${Each_Desired_AC}) {
+                  If (${Each_Current_AC} -NE ${Each_Desired_AC}) {
                     $PowerCfg_ValuesUpdated++;
                     Write-Output "`nPower Options:  Updating AC power option `"${Each_Description}`" to value `"${Each_Desired_AC} ${Each_Units}`"  (previous value was `"${Each_Current_AC} ${Each_Units}`")";
                     # powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_AC};
                   }
                   # Set desired DC setting(s)
-                  If (${$Each_Current_DC} -NE ${Each_Desired_DC}) {
+                  If (${Each_Current_DC} -NE ${Each_Desired_DC}) {
                     $PowerCfg_ValuesUpdated++;
                     Write-Output "`nPower Options:  Updating DC power option `"${Each_Description}`" to value `"${Each_Desired_DC} ${Each_Units}`"  (previous value was `"${Each_Current_DC} ${Each_Units}`")";
                     # powercfg.exe /SETDCVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_DC};

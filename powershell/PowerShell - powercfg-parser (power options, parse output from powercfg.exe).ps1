@@ -4,8 +4,9 @@
 
 If ($True) {
   $NL = "~~NEWLINE~~";
-  $Guid_ActivePowerPlan = (Get-CimInstance -ClassName "Win32_PowerPlan" -Namespace "root\cimv2\power" -EA:0 | Where-Object { $True -Eq (${_}.IsActive) } | Select-Object -ExpandProperty "InstanceID" -First 1 | Split-Path -Leaf | ForEach-Object { ${_}.Trim(@("{","}")) });
-  $PowercfgQuery = (powercfg.exe /QUERY ${Guid_ActivePowerPlan});
+  # $Powercfg_SchemeGuid = ([Regex]::Match((powercfg.exe /GETACTIVESCHEME),"Power Scheme GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)") | ForEach-Object { ${_}.Groups[1].Value; });
+  $Powercfg_SchemeGuid = "SCHEME_CURRENT";
+  $Powercfg_Query = (powercfg.exe /QUERY ${Powercfg_SchemeGuid});
   # ------------------------------
   # $Regex_PowerCfg_Parser="^\s{4}Power Setting GUID:\s+([0-9A-Fa-f]{8}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{4}[-]?[0-9A-Fa-f]{12})\s+\(([^\)]+)\)\n(?:\s{6}\S[^\n]+\n)*\s{4}Current AC Power Setting Index:\s+(\S+)\n\s{4}Current DC Power Setting Index:\s+(\S+)$";
   # ------------------------------

@@ -2180,18 +2180,20 @@ function SyncRegistry {
                 $Each_SubgroupGuid = ${Each_DesiredSetting}["Subgroup GUID"];
                 $Each_PowerGuid = ${Each_DesiredSetting}["Power Setting GUID"];
                 ${PowerSettingsArr} | Where-Object { (${_}["Power Setting GUID"]) -Eq (${Each_PowerGuid}) } | ForEach-Object {
-                  $Each_PowerSetting = ${_};
-                  # Set desired AC setting
-                  If ((${Each_PowerSetting}["Current AC Power Setting Index"]) -NE (${Each_Desired_AC})) {
-                    Write-Output "`nPower Options:  Setting [ ${Each_Description} ] to ${Each_Desired_AC} ${Each_Units}  (while on AC/wall power)";
+                  $Each_CurrentSetting = ${_};
+                  $Each_Current_AC = ${Each_CurrentSetting}["Current AC Power Setting Index"];
+                  $Each_Current_DC = ${Each_CurrentSetting}["Current DC Power Setting Index"];
+                  # Set desired AC setting(s)
+                  If (${$Each_Current_AC} -NE ${Each_Desired_AC}) {
+                    $PowerCfg_ValuesUpdated++;
+                    Write-Output "`nPower Options:  Updating AC power option `"${Each_Description}`" to value `"${Each_Desired_AC} ${Each_Units}`"  (previous value was `"${Each_Current_AC} ${Each_Units}`")";
                     # powercfg.exe /SETACVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_AC};
-                    $PowerCfg_ValuesUpdated++;
                   }
-                  # Set desired DC setting
-                  If ((${Each_PowerSetting}["Current DC Power Setting Index"]) -NE (${Each_Desired_DC})) {
-                    Write-Output "`nPower Options:  Setting [ ${Each_Description} ] to ${Each_Desired_DC} ${Each_Units}  (while on DC/battery power)";
-                    # powercfg.exe /SETDCVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_DC};
+                  # Set desired DC setting(s)
+                  If (${$Each_Current_DC} -NE ${Each_Desired_DC}) {
                     $PowerCfg_ValuesUpdated++;
+                    Write-Output "`nPower Options:  Updating DC power option `"${Each_Description}`" to value `"${Each_Desired_DC} ${Each_Units}`"  (previous value was `"${Each_Current_DC} ${Each_Units}`")";
+                    # powercfg.exe /SETDCVALUEINDEX SCHEME_CURRENT ${Each_SubgroupGuid} ${Each_PowerGuid} ${Each_Desired_DC};
                   }
                 }
               }

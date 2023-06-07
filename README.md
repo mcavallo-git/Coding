@@ -271,9 +271,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- -->
 <tr><th colspan="2" style="text-align:center;"><h2 id="password-managers"><br />Password Managers<br /><br /></h2></th></tr>
 <tr><td><strong>1Password</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://1password.com/downloads">Download (source)</a></td></tr>
-<tr><td><strong>Bitwarden</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager<br />&nbsp;&nbsp;&nbsp;Search queries:<table><tr><th>Query Syntax</th><th>Description</th></tr>
-<tr><td><code>&gt;+match1 +match2</code></td><td>Search <code>all fields</code> using <code>AND</code> instead of <code>OR</code></td></tr>
-<tr><td><code>&gt;+name:match1 +name:match2</code></td><td>Search <code>item names</code> using <code>AND</code> instead of <code>OR</code></td></tr>
+<tr><td><strong>Bitwarden</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager<br />&nbsp;&nbsp;&nbsp;Search queries:
+<table>
+<tr><th>Query Syntax</th><th>Description</th></tr>
+<tr><td><code>&gt;+match1 +match2</code><br /></td><td>Search <code>all fields</code> using <code>AND</code> instead of <code>OR</code></td></tr>
+<tr><td><code>&gt;+name:match1 +name:match2</code><br /></td><td>Search <code>item names</code> using <code>AND</code> instead of <code>OR</code></td></tr>
 </table>&nbsp;&nbsp;&nbsp;<a href="https://community.bitwarden.com/t/bitwarden-roadmap">View Docs (Bitwarden Feature Roadmap)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://bitwarden.com/help/folders/#nested-folders">View Docs (Nested Folders)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://bitwarden.com/help/searching-vault">View Docs (Search your Vault)</a></i></sub></td><td><a href="https://bitwarden.com/download">Download (source)</a></td></tr>
 <tr><td><strong>Dashlane</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://support.dashlane.com/hc/en-us/articles/115005432325#step1">Download (source)</a></td></tr>
 <tr><td><strong>KeePassXC</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://keepassxc.org/download">Download (source)</a></td></tr>

@@ -6,7 +6,7 @@
 
 #Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Global Variables - User-Defined
 ;
@@ -14,7 +14,7 @@
 DebugMode := 0
 ; DebugMode := 1
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; AHK - #Commands (Runtime-Configs)  ; https://lexikos.github.io/v2/docs/commands/#hash
 ;
@@ -42,7 +42,7 @@ SetTitleMatchMode 2      ; Title must [ CONTAIN ] the given WinTitle  -  https:/
 SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Setup targeting for [ Windows Explorer ]-classed windows
 ;
@@ -52,7 +52,7 @@ GroupAdd("Explorer", "ahk_class ExploreWClass") ; Unused on Vista and later
 GroupAdd("Explorer", "ahk_class CabinetWClass")
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Show the Version of AHK currently being used to compile this code
 ;
@@ -61,7 +61,7 @@ If (DebugMode == 1) {
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Tray-Icon - Use a custom one instead of default AHK Icon (in Notification area next to clock, bottom-right)
 ;
@@ -852,7 +852,7 @@ AppsKey & ]::
         Win8DpiScaling:= RegRead(KeyName,PropertyName)
       PropertyName := "DpiScalingVer"
         LogPixels := RegRead(KeyName,PropertyName)
-    ; ------------------------------------------------------------
+    ; ------------------------------
     ;
     ; DpiScalingVer    ; originally 1000
     ; Win8DpiScaling   ; originally 0
@@ -867,7 +867,7 @@ AppsKey & ]::
     ;
     ; From:  https://www.tenforums.com/general-support/69742-resolution-mismatch-when-using-change-size-text.html#post869493
     ;
-    ; ------------------------------------------------------------
+    ; ------------------------------
     ; HKEY_CURRENT_CONFIG\System\CurrentControlSet\Control\Video
     ;
     ; DefaultSetting.XResolution
@@ -880,7 +880,7 @@ AppsKey & ]::
     ;
     ; From:  https://superuser.com/a/1050763
     ;
-    ; ------------------------------------------------------------
+    ; ------------------------------
     MsgBox(("`nxpos = " xpos "`nypos = " ypos "`n`nViewportWidthBefore =  " ViewportWidthBefore "`nViewportWidthAfter =   " ViewportWidthAfter "`nViewportHeightBefore = " ViewportHeightBefore "`nViewportHeightAfter =  " ViewportHeightAfter "`n`nDpiScalingVer =  " DpiScalingVer "`nWin8DpiScaling = " Win8DpiScaling "`nLogPixels =      " LogPixels "`n"), A_ScriptName " - " A_ThisFunc)
   }
   Return
@@ -1094,7 +1094,7 @@ AppsKey & XButton2::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; 3-Key Volume Hotkeys  (Using AppsKey, LWin or RWin)
 ;
@@ -1154,7 +1154,7 @@ AppsKey & XButton2::
 #HotIf
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   ACTION:  Volume Up/Down/Mute
 ;
@@ -1331,9 +1331,9 @@ AppsKey & WheelDown::
 #f::
 {
   If (1 == 0) {
-    ; ------------------------------------------------------------
+    ; ----------
     ; OLD RUNTIME - Open "Effective File Search" (software)
-    ; ------------------------------------------------------------
+    ; ----------
     ; ExeFilepath := "C:`\Program Files (x86)`\efs`\search.exe"
     efs := "\Effective File Search.efsp"
     ; iso=C:\ISO
@@ -1378,7 +1378,7 @@ RShift & LShift::
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; 3-Key Volume Hotkeys  (Using LCtrl or RCtrl)
 ;
@@ -1542,7 +1542,7 @@ RShift & LShift::
 ^#!Numpad9::WinSnap_ToGrid("A",,3,3,1,3)      ; Ctrl + Alt + WinKey + Numpad-9  ---  Snap to top-right 1/9 (sector) of screen
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ;   ACTION:  Decrease screen brightness
 ;
@@ -1563,7 +1563,7 @@ RShift & LShift::
 ; }
 ;
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;  WinKey+J - Start Node.JS (Git-Bash) && Postman
 ;
 ; #j::
@@ -3249,7 +3249,7 @@ PrintEnv() {
 
   MsgBoxOutput := ""
 
-  ; ------------------------------------------------------------
+  ; ------------------------------
   ;
   ; *** Windows Env-Vars ***
   ;
@@ -3275,7 +3275,7 @@ PrintEnv() {
   ; MsgBoxOutput := MsgBoxOutput "USERPROFILE:			" EnvGet("USERPROFILE") "`n"
   ; MsgBoxOutput := MsgBoxOutput "WINDIR:			" EnvGet("WINDIR") "`n"
   ;
-  ; ------------------------------------------------------------
+  ; ------------------------------
   ;
   ; https://lexikos.github.io/v2/docs/Variables.htm#CoordMode
 
@@ -4606,7 +4606,7 @@ Xbox_ExportCaptures() {
   SetKeyDelay 0, -1
   SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  ; ------------------------------------------------------------
+  ; ------------------------------
   ;
   ; Runtime Options
   ;
@@ -5164,7 +5164,7 @@ Youtube_EditDraft_Submit() {
 }
 
 
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; ClearSplashText
 ;   |--> If called with a positive [ Period ], wait [ Period ] milliseconds, executes [ Label ], then repeats (until explicitly cancelled)
@@ -5176,7 +5176,7 @@ Youtube_EditDraft_Submit() {
 ; }
 ;
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Laptop Brightness Class
 ; BS := new BrightnessSetter()
@@ -5379,13 +5379,11 @@ Youtube_EditDraft_Submit() {
 ;
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
-; ------------------------------------------------------------
 ; ---                     DOCUMENTATION                    ---
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 ;
-;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; *** To obtain the unique code(s) thrown by the keyboard per-keypress:
 ;
@@ -5407,7 +5405,7 @@ Youtube_EditDraft_Submit() {
 ;
 ;   //  NOTE:  If the above method fails, refer to: https://www.autohotkey.com/docs/commands/GetKey.htm
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; *** TO DETERMINE THE COMMAND BEING SENT:
 ;     SC029::
@@ -5418,7 +5416,7 @@ Youtube_EditDraft_Submit() {
 ;     SplashTextOff
 ;     -- Remainder of your script
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; MouseClick("[Button]",[X_Coord],[Y_Coord],[ClickCount],[Speed],"[U|D]","[Relative]")
 ;
@@ -5431,15 +5429,15 @@ Youtube_EditDraft_Submit() {
 ;           [U|D]  =  { Only do a Click-Down (D) or Click-Up (U) click-event --- DEFAULTS A *DOWN* FOLLOWED BY AN *UP* EVENT, IF OMITTED}
 ;      [Relative]  =  { If set to ("R"), the X & Y Coordinates will be treated as an offset to mouse's current position --- DEFAULTS TO NON-RELATIVE MOVEMENT, IF OMITTED }
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; MouseClickDrag WhichButton, X1, Y1, X2, Y2 [, Speed, Relative]
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; MouseMove X, Y [, Speed, Relative]
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; EXAMPLE_ControlClick() {
 ;   ;;;
@@ -5455,7 +5453,7 @@ Youtube_EditDraft_Submit() {
 ;   ControlClick ("x" xpos " y" ypos), WinTitle
 ; }
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; MsgBox has tons of options for confirmations on popups ( Manual @ https://www.autohotkey.com/docs/commands/MsgBox.htm )
 ; ...::
@@ -5471,7 +5469,7 @@ Youtube_EditDraft_Submit() {
     ; Return
   ; Return
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Menu, tray, add  ; Creates a separator line.
 ; Menu, tray, add, "Lineage-2", MenuHandler  ; Creates a new menu item.
@@ -5503,7 +5501,7 @@ Youtube_EditDraft_Submit() {
 ;
 ; y := ( ( y = 8 ) ? ( 2008 ) : ( ( y = 9 ) ? ( 2009 ) : ( ( y = 0 ) ? ( 2010 ) : ( 2011 ) ) ) )
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Example: Compare two Strings' Displayed Character-Widths (Strlen doesn't have a whole lot to do with actual/displayed character-widths)
 ;
@@ -5519,7 +5517,7 @@ Youtube_EditDraft_Submit() {
 ;   MsgBox(Echo_Tooltip, A_ScriptName " - " A_ThisFunc)
 ;   Return
 ; }
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; ;;; Example:  Custom Popups
 ;
@@ -5557,7 +5555,7 @@ Youtube_EditDraft_Submit() {
 ; }
 ;
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/commands/
 ;   |--> A_Clipboard:       https://www.autohotkey.com/docs/misc/Clipboard.htm
@@ -5574,7 +5572,7 @@ Youtube_EditDraft_Submit() {
 ;   |--> SysGet:          https://www.autohotkey.com/docs/commands/SysGet.htm
 ;   |--> SplitPath:       https://www.autohotkey.com/docs/commands/SplitPath.htm
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Variables and Expressions:  https://www.autohotkey.com/docs/Variables.htm#BuiltIn
 ;   |
@@ -5586,7 +5584,7 @@ Youtube_EditDraft_Submit() {
 ;   |
 ;   |--> Arrays/Objects - Pseudo-Arrays, e.g. "Variable Variables" (AVOID these to maintain syntax legibility & understandability):  https://www.autohotkey.com/docs/misc/Arrays.htm#pseudo
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; List of Keys:  https://www.autohotkey.com/docs/KeyList.htm
 ;   |
@@ -5594,11 +5592,11 @@ Youtube_EditDraft_Submit() {
 ;   |
 ;   |--> Multimedia Keys:  https://www.autohotkey.com/docs/KeyList.htm#multimedia
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Remapping Keys (Keyboard, Mouse and Joystick):  https://www.autohotkey.com/docs/misc/Remap.htm
 ;
-; ------------------------------------------------------------
+; ------------------------------
 ;
 ; Hotkeys (Mouse, Joystick and Keyboard Shortcuts):  https://www.autohotkey.com/docs/Hotkeys.htm#Symbols
 ;   |

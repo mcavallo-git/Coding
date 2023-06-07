@@ -432,11 +432,27 @@ Pause::
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + H
-;   ACTION:  Type the COMPUTERNAME
+;   ACTION:  Type the hostname (COMPUTERNAME)
 ;
 #h::
 {
   SendHostname()
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  Alt + WinKey + H
+;            Ctrl + WinKey + H
+;            Shift + WinKey + H
+;   ACTION:  Type the verbose hostname
+;
+^#h::
+!#h::
++#h::
+{
+  SendHostname(1)
   Return
 }
 
@@ -3528,11 +3544,10 @@ SendUnderscoreLine(LineLength:=60) {
 ; SendHostname
 ;   |--> Send (type) the current device's Hostname - intended to be used for quick form filling
 ;
-SendHostname() {
+SendHostname(HostName_VerbosityLevel:=0) {
   SetKeyDelay 0, -1
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
-  HostName_VerbosityLevel := 0
   Win_ahk_exe := WinGetProcessName("A")
   WinTitle := WinGetTitle("A")
   If (Win_ahk_exe == "chrome.exe") {

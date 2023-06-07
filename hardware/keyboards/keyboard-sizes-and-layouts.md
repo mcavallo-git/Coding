@@ -13,14 +13,14 @@
 - ## `40%`
   ![Keyboard-Size-Guide-The-Gaming-Setup-scaled.webp](https://thegamingsetup.com/wp-content/uploads/Keyboard-Size-Guide-The-Gaming-Setup-scaled.webp)
 
-- ## `Numpads`
-  ![Numpads.jpg](https://thegamingsetup.com/wp-content/uploads/numpad.jpg)
-
 - ## `Ortholinear`
   ![Ortholinear](https://thegamingsetup.com/wp-content/uploads/ortholinear-layout-scaled.jpg)
 
 - ## `Split/Ergonomic`
   ![Split/Ergonomic](https://thegamingsetup.com/wp-content/uploads/split-layout.png)
+
+- ## `Numpads`
+  ![Numpads.jpg](https://thegamingsetup.com/wp-content/uploads/numpad.jpg)
 
 ***
 

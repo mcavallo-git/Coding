@@ -1325,6 +1325,32 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
+;   HOTKEY:  Alt + WinKey + C
+;            Ctrl + WinKey + C
+;            Ctrl + Alt + WinKey + C
+;   ACTION:  Debug/quick-test hotkey
+;
+!#c::
+^#c::
+!^#c::
+{
+
+  ClickLoop()
+
+  ; Windows_RefreshTrayIcons()
+
+  ; ClickLoop(1247,1100,25)
+
+  ; Loop 20 {
+  ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)
+  ; }
+
+  Return
+}
+
+
+; ------------------------------
+;
 ;   HOTKEY:  WinKey + F
 ;   ACTION:  Do nothing (kills Windows "Feedback Hub", in the very least)
 ;
@@ -1814,28 +1840,18 @@ RShift & LShift::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Alt + WinKey + C
-;            Ctrl + WinKey + C
-;            Ctrl + Alt + WinKey + C
-;   ACTION:  Debug/quick-test hotkey
+;   HOTKEY:  WinKey + B  (while [ Bitwarden ] is active)
+;   ACTION:  Type templated Lunr search string  -  https://bitwarden.com/help/searching-vault/#searching-specific-fields
 ;
-!#c::
-^#c::
-!^#c::
-{
+#HotIf WinActive("ahk_exe Bitwarden.exe")
 
-  ClickLoop()
-
-  ; Windows_RefreshTrayIcons()
-
-  ; ClickLoop(1247,1100,25)
-
-  ; Loop 20 {
-  ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)
-  ; }
-
-  Return
-}
+  #B::
+  {
+    Send_String := ">+name:match1 +name:match2"
+    Youtube_EditDraft_Submit()
+    Return
+  }
+#HotIf
 
 
 ; ------------------------------------------------------------

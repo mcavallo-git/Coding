@@ -1843,15 +1843,14 @@ RShift & LShift::
 ;   HOTKEY:  WinKey + B  (while [ Bitwarden ] is active)
 ;   ACTION:  Type templated Lunr search string  -  https://bitwarden.com/help/searching-vault/#searching-specific-fields
 ;
-#HotIf WinActive("ahk_exe Bitwarden.exe")
-
-  #B::
+; #HotIf WinActive("ahk_exe Bitwarden.exe")
+  #b::
   {
-    Send_String := ">+name:match1 +name:match2"
-    Youtube_EditDraft_Submit()
+    AwaitModifierKeyup()
+    Send ">{+}name:_____ {+}name:_____"
     Return
   }
-#HotIf
+; #HotIf
 
 
 ; ------------------------------------------------------------

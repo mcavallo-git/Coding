@@ -1843,14 +1843,14 @@ RShift & LShift::
 ;   HOTKEY:  WinKey + B  (while [ Bitwarden ] is active)
 ;   ACTION:  Type templated Lunr search string  -  https://bitwarden.com/help/searching-vault/#searching-specific-fields
 ;
-; #HotIf WinActive("ahk_exe Bitwarden.exe")
+#HotIf WinActive("ahk_exe Bitwarden.exe")
   #b::
   {
     AwaitModifierKeyup()
     Send ">{+}name:_____ {+}name:_____"
     Return
   }
-; #HotIf
+#HotIf
 
 
 ; ------------------------------------------------------------

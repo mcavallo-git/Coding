@@ -1709,10 +1709,14 @@ RShift & LShift::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Alt + Z  (while [ VS Code ] is NOT active)
-;   ACTION:  Open NVidia GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])
+;   WINDOW:  [ VS Code ]
+;   STATUS:  [ NOT active ]
 ;
 #HotIf !WinActive("ahk_exe Code.exe")
+  ;
+  ;   HOTKEY:  Alt + Z  (while [ VS Code ] is NOT active)
+  ;   ACTION:  Open NVidia GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])
+  ;
   !z::
   {
     SetKeyDelay 0, -1
@@ -1726,10 +1730,14 @@ RShift & LShift::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
-;   ACTION:  Edit > Add Text
+;   WINDOW:  [ Foxit PhantomPDF ]
+;   STATUS:  [ ACTIVE ]
 ;
 #HotIf WinActive("ahk_exe FoxitPhantomPDF.exe")
+  ;
+  ;   HOTKEY:  WinKey + A  (while [ Foxit PhantomPDF ] is active)
+  ;   ACTION:  Edit > Add Text
+  ;
   #a::
   {
     global DebugMode
@@ -1812,10 +1820,14 @@ RShift & LShift::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + F5  (while [ Xbox Console Companion ] is active)
-;   ACTION:  Xbox - Download & delete game clips & screenshots
+;   WINDOW:  [ Xbox Console Companion ]
+;   STATUS:  [ ACTIVE ]
 ;
 #HotIf WinActive("Xbox Console Companion")
+  ;
+  ;   HOTKEY:  WinKey + F5  (while [ Xbox Console Companion ] is active)
+  ;   ACTION:  Xbox - Download & delete game clips & screenshots
+  ;
   #F5::
   {
     Xbox_ExportCaptures()
@@ -1826,10 +1838,14 @@ RShift & LShift::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + F5  (while [ Youtube Channel Content ] is active)
-;   ACTION:  Youtube - Walk uploads from "Draft" to live state
+;   WINDOW:  [ Youtube Channel Content (in Chrome) ]
+;   STATUS:  [ ACTIVE ]
 ;
 #HotIf WinActive("Channel content - YouTube Studio - Google Chrome")
+  ;
+  ;   HOTKEY:  WinKey + F5  (while [ Youtube Channel Content (in Chrome) ] is active)
+  ;   ACTION:  Youtube - Walk uploads from "Draft" to live state
+  ;
   #F5::
   {
     Youtube_EditDraft_Submit()
@@ -1840,10 +1856,14 @@ RShift & LShift::
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + B  (while [ Bitwarden ] is active)
-;   ACTION:  Type templated Lunr search string  -  https://bitwarden.com/help/searching-vault/#searching-specific-fields
+;   WINDOW:  [ Bitwarden ]
+;   STATUS:  [ ACTIVE ]
 ;
 #HotIf WinActive("ahk_exe Bitwarden.exe")
+  ;
+  ;   HOTKEY:  WinKey + B  (while [ Bitwarden ] is active)
+  ;   ACTION:  Type templated Lunr search string  -  https://bitwarden.com/help/searching-vault/#searching-specific-fields
+  ;
   #b::
   {
     AwaitModifierKeyup()

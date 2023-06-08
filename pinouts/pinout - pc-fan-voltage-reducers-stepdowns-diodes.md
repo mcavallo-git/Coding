@@ -74,7 +74,7 @@
   @( 28.75 , 32.67 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
   ```
-  - > Note: All diode resistance measurements are in `MΩ` (Megaohms)
+  - > Note: Individual diode resistance measurements (used for averages) have their values in `MΩ` (Megaohms)
 
 ***
 

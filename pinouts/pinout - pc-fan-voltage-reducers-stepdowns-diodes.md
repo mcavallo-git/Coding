@@ -18,7 +18,7 @@
 
 ***
 
-- ## Diodes act as resistors if the marking around the center of their body is receiving fki w
+- ## Diodes act as resistors if the marking around the center of their body is closer to the Cathode side
   ![pinout - diode_anode-cathode](pinout%20-%20diode_anode-cathode.svg)
 
 ***

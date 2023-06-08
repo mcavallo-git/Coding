@@ -5,17 +5,40 @@
 #
 # ------------------------------------------------------------
 
-# Get Average / Minimum / Maximum of a dataset
 
+# Get the [ Average, Minimum & Maximum ] values of a dataset
 @(1,2,3,4,5,6,7,8,9) | Measure-Object -Average -Maximum -Minimum;
+
+
+# Get the [ Average ] value of a dataset
+@(1,2,3,4,5,6,7,8,9) | Measure-Object -Average | Select-Object -ExpandProperty "Average";
+
+
+# Get the [ Minimum ] value of a dataset
+@(1,2,3,4,5,6,7,8,9) | Measure-Object -Minimum | Select-Object -ExpandProperty "Minimum";
+
+
+# Get the [ Maximum ] value of a dataset
+@(1,2,3,4,5,6,7,8,9) | Measure-Object -Maximum | Select-Object -ExpandProperty "Maximum";
 
 
 # ------------------------------------------------------------
 
-# Get Number of Newlines in a dataset
-("Line1
-Line2
-Line3" | Measure-Object -Line).Lines
+
+# Get number of [ Lines, Words & Characters ] in a string
+("Line1`nLine2`nLine3" | Measure-Object -Line -Word -Character);
+
+
+# Get number of [ Lines ] in a string
+("Line1`nLine2`nLine3" | Measure-Object -Line | Select-Object -ExpandProperty "Lines");
+
+
+# Get number of [ Words ] in a string
+("Line1 First`nLine2 Second`nLine3 Third" | Measure-Object -Word | Select-Object -ExpandProperty "Words");
+
+
+# Get number of [ Characters ] in a string
+("Line1`nLine2`nLine3" | Measure-Object -Character | Select-Object -ExpandProperty "Characters");
 
 
 # ------------------------------------------------------------

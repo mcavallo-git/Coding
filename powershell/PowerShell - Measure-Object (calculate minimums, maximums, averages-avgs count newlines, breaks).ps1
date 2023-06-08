@@ -26,19 +26,19 @@
 
 
 # Get number of [ Lines, Words & Characters ] in a string
-("Line1`nLine2`nLine3" | Measure-Object -Line -Word -Character);
+"Line1`nLine2`nLine3" | Measure-Object -Line -Word -Character;
 
 
 # Get number of [ Lines ] in a string
-("Line1`nLine2`nLine3" | Measure-Object -Line | Select-Object -ExpandProperty "Lines");
+"Line1`nLine2`nLine3" | Measure-Object -Line | Select-Object -ExpandProperty "Lines";
 
 
 # Get number of [ Words ] in a string
-("Line1 First`nLine2 Second`nLine3 Third" | Measure-Object -Word | Select-Object -ExpandProperty "Words");
+"Line1 First`nLine2 Second`nLine3 Third" | Measure-Object -Word | Select-Object -ExpandProperty "Words";
 
 
 # Get number of [ Characters ] in a string
-("Line1`nLine2`nLine3" | Measure-Object -Character | Select-Object -ExpandProperty "Characters");
+"Line1`nLine2`nLine3" | Measure-Object -Character | Select-Object -ExpandProperty "Characters";
 
 
 # ------------------------------------------------------------

@@ -10,9 +10,8 @@
   |     `001` | `5 * 1N4001 (Diode)` | `28.75 MΩ` |     `5.12 V` |      `4.11 V` |     `11.73 V` |      `10.63 V` |
   |     `002` | `5 * 1N4001 (Diode)` | `32.67 MΩ` |     `5.12 V` |      `3.85 V` |     `11.73 V` |      `10.17 V` |
   |     `003` | `5 * 1N4001 (Diode)` | `34.25 MΩ` |     `5.12 V` |      `3.79 V` |     `11.73 V` |      `10.15 V` |
-  <!-- |     `004` | `5 * 1N4001 (Diode)` | `_____ MΩ` |     `5.12 V` |      `____ V` |     `11.73 V` |      `_____ V` | -->
-  <!-- |     `005` | `5 * 1N4001 (Diode)` | `_____ MΩ` |     `5.12 V` |      `____ V` |     `11.73 V` |      `_____ V` | -->
-  <!-- |     `006` | `5 * 1N4001 (Diode)` | `_____ MΩ` |     `5.12 V` |      `____ V` |     `11.73 V` |      `_____ V` | -->
+  |     `004` | `5 * 1N4001 (Diode)` | `26.30 MΩ` |     `5.12 V` |      `3.81 V` |     `11.73 V` |      `10.18 V` |
+  |     `005` | `5 * 1N4001 (Diode)` | `25.89 MΩ` |     `5.12 V` |      `3.81 V` |     `11.73 V` |      `10.18 V` |
 
 ***
 
@@ -37,27 +36,27 @@
 ***
 
 - ## Data Set: Resistance across diodes in series
-```powershell
+  ```powershell
 
-# 1 * 1N4001
-@( 2.358 , 2.555 , 2.607 , 2.630, 2.481 , 2.676 , 2.329 , 2.634 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
+  # 1 * 1N4001
+  @( 2.358 , 2.555 , 2.607 , 2.630, 2.481 , 2.676 , 2.329 , 2.634 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
-# 1 * 1N4001 (Outliers)
-# @( 1.910 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
+  # 1 * 1N4001 (Outliers)
+  # @( 1.910 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
-# 2 * 1N4001
-@( 6.28 , 6.16 , 6.32 , 6.01 , 6.09 , 6.15 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
+  # 2 * 1N4001
+  @( 6.28 , 6.16 , 6.32 , 6.01 , 6.09 , 6.15 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
-# 3 * 1N4001
-@( 11.25 , 11.71 , 11.87 , 12.00 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
+  # 3 * 1N4001
+  @( 11.25 , 11.71 , 11.87 , 12.00 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
-# 4 * 1N4001
-@( 20.45 , 19.45 , 21.12 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
+  # 4 * 1N4001
+  @( 20.45 , 19.45 , 21.12 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
-# 5 * 1N4001
-@( 28.75 , 32.67 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
+  # 5 * 1N4001
+  @( 28.75 , 32.67 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
-```
+  ```
   - > Note: Values obtained using a breadboard & multimeter, placing diodes in different ordered series
   - > Note: A sample size of `9` diodes was used for measurements
   - > Note: All diode measurements taken are in `MΩ` (Megaohms)

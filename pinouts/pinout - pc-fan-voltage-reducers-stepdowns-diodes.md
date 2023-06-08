@@ -1,12 +1,12 @@
 ***
 
 - ## Resistance/Voltage values across component(s) <u>in series</u>
-  | Component         |  Count | Resistance |
+  | Component         |  Count | Resistance (Avg) |
   | :---------------- | -----: | ---------: |
   | `1N4001 (Diode)`  |    `1` |  `2.53 MΩ` |
-  | `1N4001 (Diode)`  |    `2` |  `6.21 MΩ` |
-  | `1N4001 (Diode)`  |    `3` | `11.52 MΩ` |
-  | `1N4001 (Diode)`  |    `4` | `19.19 MΩ` |
+  | `1N4001 (Diode)`  |    `2` |  `6.17 MΩ` |
+  | `1N4001 (Diode)`  |    `3` | `11.71 MΩ` |
+  | `1N4001 (Diode)`  |    `4` | `18.30 MΩ` |
   | `1N4001 (Diode)`  |    `5` | `28.75 MΩ` |
   |                   |        |            |
   | `Noctua NA-RC7`   |    `1` |  `49.40 Ω` |
@@ -18,7 +18,7 @@
 
 ***
 
-- ## Measuring resistance across component(s) <u>in series</u>
+- ## Calculating averages for resistance measurements across diodes <u>in series</u>
 ```powershell
 
 # 1 * 1N4001
@@ -34,12 +34,15 @@
 @( 11.25 , 11.71 , 11.87 , 12.00 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
 # 4 * 1N4001
-@( 19.19 , 17.40 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
+@( 20.45 , 19.45 , 21.12 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
 # 5 * 1N4001
-@( 28.75 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
+@( 28.75 , 32.67 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
 ```
+  - > Note: Values obtained using a breadboard & multimeter, placing diodes in different ordered series
+  - > Note: A sample size of `9` diodes was used for measurements
+  - > Note: All diode measurements taken are in `MΩ` (Megaohms)
 
 ***
 

@@ -21,6 +21,15 @@
   |     `010` | `1N4001`  |   `5` | `Breadboard`                  | `29.86 MΩ` |     `5.12 V` |         `3.79 V` |     `11.73 V` |          `10.15 V` |
   |   <br />  |           |       |                               |            |              |                  |               |                    |
 
+  >&nbsp;
+  >Notes:
+  >&nbsp;&nbsp;&nbsp;&bull;&nbsp;Values obtained using a multimeter to take readings
+  >&nbsp;&nbsp;&nbsp;&bull;&nbsp;Input (`5V`) was a `USB to PWM` cable connected to a `5V/2.1A` USB power supply
+  >&nbsp;&nbsp;&nbsp;&bull;&nbsp;Input (`12V`) was a `Wall Wart to PWM` power supply
+  >&nbsp;&nbsp;&nbsp;&bull;&nbsp;Rows which match on `Connection Type` & `Count` denote different diodes were used for each test case
+  >&nbsp;&nbsp;&nbsp;&bull;&nbsp;A sample size of `9` diodes was used for averaged measurements
+  >&nbsp;
+
 ***
 
 - ## Resistance across diodes in series
@@ -65,9 +74,9 @@
   @( 28.75 , 32.67 ) | Measure-Object -Average | Select-Object -ExpandProperty "Average" | ForEach-Object  { [Math]::Round(${_}, 2, 1) };
 
   ```
+  - > Note: All diode resistance measurements are in `MΩ` (Megaohms)
   - > Note: Values obtained using a breadboard & multimeter, placing diodes in different ordered series
-  - > Note: A sample size of `9` diodes was used for measurements
-  - > Note: All diode measurements taken are in `MΩ` (Megaohms)
+  - > Note: A sample size of `9` diodes was used for averaged measurements
 
 ***
 

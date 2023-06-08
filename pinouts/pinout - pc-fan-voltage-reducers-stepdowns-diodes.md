@@ -75,8 +75,6 @@
 
   ```
   - > Note: All diode resistance measurements are in `MΩ` (Megaohms)
-  - > Note: Values obtained using a breadboard & multimeter, placing diodes in different ordered series
-  - > Note: A sample size of `9` diodes was used for averaged measurements
 
 ***
 

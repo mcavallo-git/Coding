@@ -1,7 +1,7 @@
 # ------------------------------------------------------------
 #
 #
-#   PowerShell - Measure-Object (calculate minimums, maximums, averages-avgs count newlines, breaks).ps1
+#   PowerShell - Measure-Object (calculate minimums, maximums, averages-avgs count newlines, breaks, words, characters).ps1
 #
 # ------------------------------------------------------------
 

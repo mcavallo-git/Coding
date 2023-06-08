@@ -5,9 +5,10 @@
 ***
 
 - ## Voltage input/output across diodes in series
-  | Description          | Resistance | Input Voltage | Output Voltage |
-  | :------------------- | ---------: | ------------: | -------------: |
-  | `5 * 1N4001 (Diode)` | `28.75 MΩ` |      `5.12 V` |       `4.11 V` |
+  | Test Case | Description          | Resistance | Input Voltage | Output Voltage |
+  | --------: | -------------------- | ---------: | ------------: | -------------: |
+  |     `001` | `5 * 1N4001 (Diode)` | `28.75 MΩ` |      `5.12 V` |       `4.11 V` |
+  |     `002` | `5 * 1N4001 (Diode)` | `32.67 MΩ` |      `____ V` |       `____ V` |
 
 ***
 

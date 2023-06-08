@@ -3,11 +3,11 @@
 - ## Measuring resistance across component(s) <u>in series</u>
   | Component         |  Count | Resistance |
   | :---------------- | -----: | ---------: |
-  | `1N4001 (Diode)`  |    `1` |  `2.41 MΩ` |   <!-- 1.910 , 2.358 , 2.555 , 2.607 , 2.630 -->
-  | `1N4001 (Diode)`  |    `2` |  `6.16 MΩ` |   <!-- 5.86 , 6.34 , 6.28 , ______ , ______ -->
-  | `1N4001 (Diode)`  |    `3` | `11.52 MΩ` |   <!-- 10.58 , 12.46 , ______ , ______ , ______ -->
-  | `1N4001 (Diode)`  |    `4` | `19.19 MΩ` |   <!-- ______ , ______ , ______ , ______ , ______ -->
-  | `1N4001 (Diode)`  |    `5` | `28.75 MΩ` |   <!-- ______ , ______ , ______ , ______ , ______ -->
+  | `1N4001 (Diode)`  |    `1` |  `2.41 MΩ` |   <!--   @(1.910, 2.358, 2.555, 2.607, 2.630) | Measure-Object -Average | Select-Object -ExpandProperty "Average";   -->
+  | `1N4001 (Diode)`  |    `2` |  `6.16 MΩ` |   <!--   @(5.86,  6.34,  6.28) | Measure-Object -Average | Select-Object -ExpandProperty "Average";   -->
+  | `1N4001 (Diode)`  |    `3` | `11.52 MΩ` |   <!--   @(10.58, 12.46) | Measure-Object -Average | Select-Object -ExpandProperty "Average";   -->
+  | `1N4001 (Diode)`  |    `4` | `19.19 MΩ` |   <!--   @(19.19) | Measure-Object -Average | Select-Object -ExpandProperty "Average";   -->
+  | `1N4001 (Diode)`  |    `5` | `28.75 MΩ` |   <!--   @(28.75) | Measure-Object -Average | Select-Object -ExpandProperty "Average";   -->
   |                   |        |            |
   | `Noctua NA-RC7`   |    `1` |  `49.40 Ω` |
   | `Noctua NA-RC7`   |    `2` |  `99.20 Ω` |

@@ -1,24 +1,37 @@
 ***
 
-- ## Resistance/Voltage values across component(s) <u>in series</u>
-  | Component         |  Count | Resistance (Avg) |
-  | :---------------- | -----: | ---------: |
-  | `1N4001 (Diode)`  |    `1` |  `2.53 MΩ` |
-  | `1N4001 (Diode)`  |    `2` |  `6.17 MΩ` |
-  | `1N4001 (Diode)`  |    `3` | `11.71 MΩ` |
-  | `1N4001 (Diode)`  |    `4` | `20.34 MΩ` |
-  | `1N4001 (Diode)`  |    `5` | `30.71 MΩ` |
-  |                   |        |            |
-  | `Noctua NA-RC7`   |    `1` |  `49.40 Ω` |
-  | `Noctua NA-RC7`   |    `2` |  `99.20 Ω` |
-  | `Noctua NA-RC7`   |    `3` | `149.20 Ω` |
-  |                   |        |            |
-  | `Noctua NA-RC12`  |    `1` | `147.90 Ω` |
-  |                   |        |            |
+# 3-/4-Pin PC Fan Voltage Step-Downs
 
 ***
 
-- ## Calculating averages for resistance measurements across diodes <u>in series</u>
+- ## Voltage input/output across diodes in series
+  | Description          | Resistance | Input Voltage | Output Voltage |
+  | :------------------- | ---------: | ------------: | -------------: |
+  | `5 * 1N4001 (Diode)` | `28.75 MΩ` |      `5.12 V` |       `4.11 V` |
+
+***
+
+- ## Resistance across diodes in series
+  - | Component        | Count | Resistance (Avg) |
+    | :--------------- | ----: | ---------------: |
+    | `1N4001 (Diode)` |   `1` |        `2.53 MΩ` |
+    | `1N4001 (Diode)` |   `2` |        `6.17 MΩ` |
+    | `1N4001 (Diode)` |   `3` |       `11.71 MΩ` |
+    | `1N4001 (Diode)` |   `4` |       `20.34 MΩ` |
+    | `1N4001 (Diode)` |   `5` |       `30.71 MΩ` |
+<!--
+  - #### Resistance across similar step downs
+    | Component        | Count | Resistance (Avg) |
+    | :--------------- | ----: | ---------------: |
+    | `Noctua NA-RC7`  |   `1` |        `49.40 Ω` |
+    | `Noctua NA-RC7`  |   `2` |        `99.20 Ω` |
+    | `Noctua NA-RC7`  |   `3` |       `149.20 Ω` |
+    | `Noctua NA-RC12` |   `1` |       `147.90 Ω` |
+-->
+
+***
+
+- ## Data Set: Resistance across diodes in series
 ```powershell
 
 # 1 * 1N4001

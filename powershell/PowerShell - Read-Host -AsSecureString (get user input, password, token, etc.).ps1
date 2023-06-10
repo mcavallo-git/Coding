@@ -1,4 +1,6 @@
 # ------------------------------------------------------------
+# PowerShell - Read-Host -AsSecureString (get user input, password, token, etc.)
+# ------------------------------------------------------------
 #
 # Show a confirmation prompt to the user
 #  |--> Note: This only really cares about "y" confirmation responses, and lumps all the others as cancel actions

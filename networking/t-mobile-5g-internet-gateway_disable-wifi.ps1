@@ -34,7 +34,7 @@ If ($True) {
   }
   # Upload the modified config back to the modem
   Write-Host "";
-  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Please wait 60 secconds (uploading config to the modem)...";
+  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Please wait 60 seconds (uploading config to the modem)...";
   $JsonConfigObj | ConvertTo-Json -Depth 100 -Compress | curl.exe -s -d "@-" "http://192.168.12.1/TMI/v1/network/configuration?set=ap" -H "Authorization: Bearer ${ModemToken}";
   # Do not keep credentials laying around any longer than needed (Session Token)
   Remove-Variable -Name 'ModemToken';

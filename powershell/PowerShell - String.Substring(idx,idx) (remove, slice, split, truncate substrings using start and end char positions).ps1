@@ -2,16 +2,6 @@
 # PowerShell - String.Substring(idx,idx) (remove, slice, split, truncate substrings using start and end char positions)
 # ------------------------------------------------------------
 #
-# Remove a substring  (slice/trunctate)
-#
-
-"Hello World!" -replace " World","";     <# Returns "Hello!"  -  Remove substring #>
-
-"Hello World!" -replace " World";        <# Returns "Hello!"  -  Remove substring (second arg not required for -replace to slice) #>
-
-
-# ------------------------------------------------------------
-#
 # Split a string
 #
 
@@ -20,6 +10,16 @@
 
 # String.Substring(start,length);  <# The substring starts at a specified character position and has a specified length
 "12345678".Substring(3,3);  <# Returns "456" #>
+
+
+# ------------------------------------------------------------
+#
+# Remove a substring  (slice/trunctate)
+#
+
+"Hello World!" -replace " World","";     <# Returns "Hello!"  -  Remove substring #>
+
+"Hello World!" -replace " World";        <# Returns "Hello!"  -  Remove substring (second arg not required for -replace to slice) #>
 
 
 # ------------------------------------------------------------

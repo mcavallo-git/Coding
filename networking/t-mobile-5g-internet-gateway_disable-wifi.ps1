@@ -6,6 +6,8 @@ If ($True) {
 
   # Get a token from the modem
   $ModemPassword = (Read-Host -AsSecureString -Prompt "Enter Modem Administrator Password" | ConvertFrom-SecureString -AsPlainText);
+  Write-Host "";
+  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Acquiring authentication token from the modem...";
   $ModemToken = (curl.exe -X POST http://192.168.12.1/TMI/v1/auth/login -d "{`"username`":`"admin`",`"password`":`"${ModemPassword}`"}" | ConvertFrom-Json | Select-Object -ExpandProperty auth | Select-Object -ExpandProperty token);
 
   # Download the current Wi-Fi config from the modem
@@ -26,7 +28,7 @@ If ($True) {
 
   # Upload the modified config back to the modem
   Write-Host "";
-  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Please wait - Uploading config which disables Wi-Fi back to modem...";
+  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Please wait - Uploading config to the modem...";
   $JsonConfigObj | ConvertTo-Json -Compress | curl.exe -d "@-" "http://192.168.12.1/TMI/v1/network/configuration?set=ap" -H "Authorization: Bearer ${ModemToken}";
 
 }

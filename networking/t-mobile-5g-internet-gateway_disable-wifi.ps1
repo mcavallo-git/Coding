@@ -3,34 +3,41 @@
 # ----------------------------------------------------------
 
 If ($True) {
+  # Set whether Wi-Fi should be enabled or disabled
+  $EnableWifi = $False; # Disable Wi-Fi
+  # $EnableWifi = $True; # Enable Wi-Fi
   # Get the modem's administrator password from the user
   Write-Host "";
-  $ModemPassword = (Read-Host -AsSecureString -Prompt "Enter Modem Administrator Password" | ConvertFrom-SecureString -AsPlainText);
+  $ModemPassword = (Read-Host -AsSecureString -Prompt "Enter Modem Administrator Password");
   # Acquire a session token from the modem
   Write-Host "";
   Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Acquiring authentication token from the modem...";
-  $ModemToken = (curl.exe -X POST http://192.168.12.1/TMI/v1/auth/login -d "{`"username`":`"admin`",`"password`":`"${ModemPassword}`"}" | ConvertFrom-Json | Select-Object -ExpandProperty auth | Select-Object -ExpandProperty token);
+  $ModemToken = (curl.exe -s -X POST http://192.168.12.1/TMI/v1/auth/login -d "{`"username`":`"admin`",`"password`":`"$((${ModemPassword} | ConvertFrom-SecureString -AsPlainText))`"}" | ConvertFrom-Json | Select-Object -ExpandProperty auth | Select-Object -ExpandProperty token);
+  # Do not keep credentials laying around any longer than needed
+  Remove-Variable -Name 'ModemPassword';
   # Download the current Wi-Fi config from the modem
   Write-Host "";
   Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Downloading the current Wi-Fi config from the modem...";
-  $JsonConfig = (curl.exe "http://192.168.12.1/TMI/v1/network/configuration?get=ap" -H "Authorization: Bearer ${ModemToken}");
+  $JsonConfig = (curl.exe -s "http://192.168.12.1/TMI/v1/network/configuration?get=ap" -H "Authorization: Bearer ${ModemToken}");
   # Modify the downloaded config
   $JsonConfigObj = (${JsonConfig} | ConvertFrom-Json);
   @("2.4ghz","5.0ghz") | ForEach-Object {
     $Each_Bandwidth = (${_});
     # Disable Wi-Fi antennas
     @("isMUMIMOEnabled","isRadioEnabled","isWMMEnabled") | ForEach-Object {
-      ${JsonConfigObj}.("${Each_Bandwidth}").("${_}") = $False;
+      ${JsonConfigObj}.("${Each_Bandwidth}").("${_}") = ${EnableWifi};
     }
-    # Disable Wi-Fi signal broadcasting    
+    # Disable Wi-Fi signal broadcasting
     @("ssid","ssidGuest") | ForEach-Object {
-      ${JsonConfigObj}.("${Each_Bandwidth}").("${_}").("isBroadcastEnabled") = $False;
+      ${JsonConfigObj}.("${Each_Bandwidth}").("${_}").("isBroadcastEnabled") = ${EnableWifi};
     }
   }
   # Upload the modified config back to the modem
   Write-Host "";
-  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Please wait - Uploading config to the modem...";
-  $JsonConfigObj | ConvertTo-Json -Compress | curl.exe -d "@-" "http://192.168.12.1/TMI/v1/network/configuration?set=ap" -H "Authorization: Bearer ${ModemToken}";
+  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Please wait 60 secconds (uploading config to the modem)...";
+  $JsonConfigObj | ConvertTo-Json -Depth 100 -Compress | curl.exe -s -d "@-" "http://192.168.12.1/TMI/v1/network/configuration?set=ap" -H "Authorization: Bearer ${ModemToken}";
+  Write-Host "";
+  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Runtime complete";
 }
 
 

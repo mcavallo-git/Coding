@@ -1,4 +1,5 @@
-
+# ------------------------------------------------------------
+# PowerShell - Set-Variable, Get-Variable, Clear-Variable, Remove-Variable (unset variable, avoid using dollar signs in variable reference)
 # ------------------------------------------------------------
 #
 # Set-Variable

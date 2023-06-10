@@ -3,8 +3,10 @@
 # ----------------------------------------------------------
 
 If ($True) {
-  # Acquire a session token from the modem
+  # Get the modem's administrator password from the user
+  Write-Host "";
   $ModemPassword = (Read-Host -AsSecureString -Prompt "Enter Modem Administrator Password" | ConvertFrom-SecureString -AsPlainText);
+  # Acquire a session token from the modem
   Write-Host "";
   Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Acquiring authentication token from the modem...";
   $ModemToken = (curl.exe -X POST http://192.168.12.1/TMI/v1/auth/login -d "{`"username`":`"admin`",`"password`":`"${ModemPassword}`"}" | ConvertFrom-Json | Select-Object -ExpandProperty auth | Select-Object -ExpandProperty token);

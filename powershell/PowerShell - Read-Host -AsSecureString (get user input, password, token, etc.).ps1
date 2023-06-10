@@ -2,6 +2,13 @@
 # PowerShell - Read-Host -AsSecureString (get user input, password, token, etc.)
 # ------------------------------------------------------------
 #
+# Example (read user input as secure input (each star typed shows as an asterisk "*" on screen), then convert to back plaintext once entered
+#
+
+Read-Host -AsSecureString -Prompt 'Enter value to show as plaintext' | ConvertFrom-SecureString -AsPlainText
+
+# ------------------------------------------------------------
+#
 # Show a confirmation prompt to the user
 #  |--> Note: This only really cares about "y" confirmation responses, and lumps all the others as cancel actions
 #

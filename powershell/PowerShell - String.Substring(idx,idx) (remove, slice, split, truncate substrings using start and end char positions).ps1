@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# PowerShell - Get substring of string (remove-slice-split-truncate substrings, String.Substring() using start-end character integer positions)
+# PowerShell - String.Substring(idx,idx) (remove, slice, split, truncate substrings using start and end char positions)
 # ------------------------------------------------------------
 #
 # Remove a substring  (slice/trunctate)

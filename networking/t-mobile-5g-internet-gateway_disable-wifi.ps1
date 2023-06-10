@@ -9,8 +9,9 @@ If ($True) {
   $ModemToken = (curl.exe -X POST http://192.168.12.1/TMI/v1/auth/login -d "{`"username`":`"admin`",`"password`":`"${ModemPassword}`"}" | ConvertFrom-Json | Select-Object -ExpandProperty auth | Select-Object -ExpandProperty token);
 
   # Download the current Wi-Fi config from the modem
+  Write-Host "";
+  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Downloading the current Wi-Fi config from the modem...";
   $JsonConfig = (curl.exe "http://192.168.12.1/TMI/v1/network/configuration?get=ap" -H "Authorization: Bearer ${ModemToken}");
-
   # Modify the downloaded config file to disable Wi-Fi antennas & disable signal broadcasting
   $JsonConfigObj = (${JsonConfig} | ConvertFrom-Json);
   @("2.4ghz","5.0ghz") | ForEach-Object {
@@ -25,7 +26,7 @@ If ($True) {
 
   # Upload the modified config back to the modem
   Write-Host "";
-  Write-Host "Please wait - Uploading config which disables Wi-Fi back to modem...";
+  Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Please wait - Uploading config which disables Wi-Fi back to modem...";
   $JsonConfigObj | ConvertTo-Json -Compress | curl.exe -d "@-" "http://192.168.12.1/TMI/v1/network/configuration?set=ap" -H "Authorization: Bearer ${ModemToken}";
 
 }

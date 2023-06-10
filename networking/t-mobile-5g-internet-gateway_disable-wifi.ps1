@@ -13,7 +13,7 @@ If ($True) {
   Write-Host "";
   Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Acquiring authentication token from the modem...";
   $ModemToken = (curl.exe -s -X POST http://192.168.12.1/TMI/v1/auth/login -d "{`"username`":`"admin`",`"password`":`"$((${ModemPassword} | ConvertFrom-SecureString -AsPlainText))`"}" | ConvertFrom-Json | Select-Object -ExpandProperty auth | Select-Object -ExpandProperty token);
-  # Do not keep credentials laying around any longer than needed
+  # Do not keep credentials laying around any longer than needed (Admin Password)
   Remove-Variable -Name 'ModemPassword';
   # Download the current Wi-Fi config from the modem
   Write-Host "";
@@ -36,6 +36,9 @@ If ($True) {
   Write-Host "";
   Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Please wait 60 secconds (uploading config to the modem)...";
   $JsonConfigObj | ConvertTo-Json -Depth 100 -Compress | curl.exe -s -d "@-" "http://192.168.12.1/TMI/v1/network/configuration?set=ap" -H "Authorization: Bearer ${ModemToken}";
+  # Do not keep credentials laying around any longer than needed (Session Token)
+  Remove-Variable -Name 'ModemToken';
+  # Report runtime completion
   Write-Host "";
   Write-Host "[$(Get-Date -Format 'yyyy-MM-dd HH:mm:ss.ffffff')]  Info:  Runtime complete";
 }

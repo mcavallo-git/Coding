@@ -22,15 +22,13 @@ If ($True) {
   # Modify the downloaded config
   $JsonConfigObj = (${JsonConfig} | ConvertFrom-Json);
   @("2.4ghz","5.0ghz") | ForEach-Object {
-    $Each_Bandwidth = (${_});
     # Disable Wi-Fi antennas
-    @("isMUMIMOEnabled","isRadioEnabled","isWMMEnabled") | ForEach-Object {
-      ${JsonConfigObj}.("${Each_Bandwidth}").("${_}") = ${EnableWifi};
-    }
+    ${JsonConfigObj}.("${_}").("isMUMIMOEnabled") = ${EnableWifi};
+    ${JsonConfigObj}.("${_}").("isRadioEnabled") = ${EnableWifi};
+    ${JsonConfigObj}.("${_}").("isWMMEnabled") = ${EnableWifi};
     # Disable Wi-Fi signal broadcasting
-    @("ssid","ssidGuest") | ForEach-Object {
-      ${JsonConfigObj}.("${Each_Bandwidth}").("${_}").("isBroadcastEnabled") = ${EnableWifi};
-    }
+    ${JsonConfigObj}.("${_}").("ssid").("isBroadcastEnabled") = ${EnableWifi};
+    ${JsonConfigObj}.("${_}").("ssidGuest").("isBroadcastEnabled") = ${EnableWifi};
   }
   # Upload the modified config back to the modem
   Write-Host "";

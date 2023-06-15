@@ -1,55 +1,51 @@
-------------------------------------------------------------
-Philips Hue Bridge - Powering via PoE (to allow for remote restarts via PoE Power Cycling)
-------------------------------------------------------------
+<!-- ------------------------------------------------------------ -->
+# Philips Hue Bridge - Powering via PoE (to allow for remote restarts via PoE Power Cycling)
+<!-- ------------------------------------------------------------ -->
 
-Specifications (Philips Hue Hub v2 - Square model)
+***
+## Specifications (Philips Hue Hub v2 - Square model)
 
-- Power (input):  5V 1A DC
-  - Form Factor:  5.5mm x 2.5mm Barrel Connector/Plug (female power port on back Philips Hue Bridge v2)
+- Power (input):  `5V` 1A DC
+  - Form Factor:  `5.5mm` x `2.5mm` `Barrel Connector` (female power port on back Philips Hue Bridge v2)
 
+<!-- ------------------------------------------------------------ -->
 
-------------------------------------------------------------
+***
+## Generalized Solution
+  - Use a PoE Splitter with the following specs:
+    - Input:
+      - Connector Type: `RJ45` (`Ethernet`)
+      - Voltage: `48V` `IEEE 802.3af` PoE (`IEEE 802.3at` works as well, so long as your PoE injector supports it)
+    - Output 1 of 2:
+      - Connector Type: `RJ45` (`Ethernet`)
+      - Voltage: `Negligible` (Data Only)
+    - Output 2 of 2:
+      - Connector Type: `5.5mm` x `2.5mm` `Barrel Connector` (male)
+      - Voltage: `5V`
+      - Amperage: `>= 1A` (or Power: `>= 5W`)
+        - > Note: ⚠️Important ⚠️ The typical output for a `5.5mm` x `2.5mm` `Barrel Connector` is `12V`, not `5V`. Make sure to not plug a `12V` power adapter into your Philips Hue Hub
+        - > Note: As long as the PoE splitter outputs at least `1A` at `5V`, it can still be used via an adapter which converts its power output to a `5.5mm` x `2.5mm` `Barrel Connector`
+    - View Amazon listings which match: [`PoE Splitter 5V 5.5mm x 2.5mm`](https://www.amazon.com/s?k=PoE+Splitter+5V+5.5mm+x+2.5mm)
 
-Option 1 (to be tested) - 2 items
+<!-- ------------------------------------------------------------ -->
 
-  - PoE Splitter (to Micro USB) -  https://amazon.com/dp/B07PP13WHL
-    - Power (input):  IEEE 802.3af/at
-      - Form Factor:  RJ45 (Ethernet) (female)
-    - Power (output): 5V 2.4A DC
-      - Form Factor:  Micro USB (male)
-    - Data (output):  10/100Mbps
-      - Form Factor:  RJ45 (Ethernet) (male)
+***
+- ### Example Solution #1 (2 items):
+  1. PoE Splitter - View Amazon item: [`AuviPal 802.3af/at Compliant PoE Splitter (2 Pack), PoE to Micro USB 5V Power and 100Mbps Ethernet Adapter`](https://amazon.com/dp/B07TYBQB3B)
+  2. Cable Adapter - View Amazon item: [`MMNNE 8inch DC 5.5mm x 2.5mm Male to Micro USB 5pin Female DC Power Supply Extension Adapter Cable 22AWG 3A`](https://amazon.com/dp/B07YFTZ4Z2)
 
-  - Power Adapter  -  https://amazon.com/dp/B07YFTZ4Z2
-    - Form Factor (input): Micro USB (female)
-    - Form Factor (output): 5.5mm x 2.5mm male adapter (male)
+<!-- ------------------------------------------------------------ -->
 
+***
+- ### Example Solution #2 (2 items):
+  1. PoE Adapter - View Amazon item: [`UCTRONICS PoE Splitter USB-C 5V - Active PoE to USB-C Adapter, IEEE 802.3af Compliant`](https://amazon.com/dp/B087F4QCTR)
+  2. Cable Adapter - View Amazon item: [`CERRXIAN 100W PD USB Type C Female Input to DC 5.5mm x 2.5mm Power Charging Adapter(5525a-Black)`](https://amazon.com/dp/B08V11C6T8)
 
-------------------------------
+<!-- ------------------------------------------------------------ -->
 
-Option 2 (known to work, but has multiple daisy chained adapters) - 2 items
+***
+### Citation(s)
 
-  - PoE Splitter (to Barrel Connector) - https://amazon.com/dp/B01DOSOCEE
-    - Power (input):  IEEE 802.3af
-      - Form Factor:  RJ45 (Ethernet) (female)
-    - Power (output): 5V 2.4A DC
-      - Form Factor:  3.5mm x 1.35mm Barrel Connector/Plug (male)
-    - Data (output):  10/100Mbps
-      - Form Factor:  RJ45 (Ethernet) (male)
+- [`Powering the Phillips Hue Bridge with PoE (Power over Ethernet) | daltonflanagan.com`](https://daltonflanagan.com/hue-over-poe/)
 
-  - Adapter  -  Included in PoE Splitter (to Barrel Connector)
-    - Form Factor (input): 3.5mm x 1.35mm Barrel Connector/Plug (female)
-    - Form Factor (output): 5.5mm x 2.1mm Barrel Connector/Plug (male)
-
-  - Adapter  -  https://amazon.com/dp/B01N812NKL
-    - Form Factor (input): 5.5mm x 2.1mm Barrel Connector/Plug (female)
-    - Form Factor (output): 5.5mm x 2.5mm Barrel Connector/Plug (male)
-
-
-------------------------------------------------------------
-
- Citation(s)
-
-   daltonflanagan.com  |  "Powering the Phillips Hue Bridge with PoE (Power over Ethernet)"  |  https://daltonflanagan.com/hue-over-poe/
-
-------------------------------------------------------------
+<!-- ------------------------------------------------------------ -->

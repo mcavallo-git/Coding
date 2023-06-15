@@ -1,18 +1,23 @@
-https://emojipedia.org/emoji
+
 ------------------------------------------------------------
 
 utf8-chartest ∙●○◌☁Δ■💬╳✔✅❎❌⭐⚡⚠️⚠❕❗❓☢☣⛠⛔✕✖✗✘□☑☒▢✉🔍🔎🔎⛺⛳✆➧⇒➾↶↳✦≠▶▷►◆◇◈◊❖⌨…
 
 ------------------------------------------------------------
 
-Get Character Codes  -->  http://www.mauvecloud.net/charsets/CharCodeFinder.html
- |
- |--> Paste dingbat/emoji/character/etc. into top input field, then select radio button "Hexadecimal Character Codes"
+1. Get Character Codes  -->  http://www.mauvecloud.net/charsets/CharCodeFinder.html
+ - Paste dingbat/emoji/character/etc. into top input field, then select radio button "Hexadecimal Character Codes"
 
+2. Lookup description/etc. regarding unicode characters  -->  https://www.compart.com/en/unicode
+ - Paste into top field "Enter a search term..."
 
-Lookup description/etc. regarding unicode characters  -->  https://www.compart.com/en/unicode
- |
- |-->  Paste into top field "Enter a search term..."
+------------------------------------------------------------
+
+Emojis - https://emojipedia.org/emoji
+
+- Append the following to a unicode character to convert to an emoji (if any exists):
+
+◌️					Variation Selector-16 (VS16)  |  https://www.compart.com/en/unicode/U+FE0F  |  echo -e "\\xEF\\xB8\\x8F";  |  "$([char]0xFE0F)"
 
 
 ------------------------------------------------------------
@@ -241,7 +246,12 @@ Mostly Linux compatible:
 📫				Closed Mailbox with Raised Flag  |  https://www.compart.com/en/unicode/U+1F4EB
 📪				Closed Mailbox with Lowered Flag  |  https://www.compart.com/en/unicode/U+1F4EA
 🗑				 Wastebasket  |  https://www.compart.com/en/unicode/U+1F5D1  |  echo -e "\\xF0\\x9F\\x97\\x91";  |  "$([char]0xD83D+[char]0xDDD1)"
-🗑️				 Wastebasket Emoji (Trash Can, Garbage Can)  |  https://emojipedia.org/wastebasket/  |  echo -e "\\xF0\\x9F\\x97\\x91\\xEF\\xB8\\x8F";  |  "$([char]0xD83D+[char]0xDDD1+[char]0xFE0F)"
+
+
+✂				 Black Scissors  |  https://www.compart.com/en/unicode/U+2702  |  echo -e "\\xE2\\x9C\\x82";  |  "$([char]0x2702)"
+✀				 Black Safety Scissors  |  https://www.compart.com/en/unicode/U+2700  |  echo -e "\\xE2\\x9C\\x80";  |  "$([char]0x2700)"
+✄				 White Scissors  |  https://www.compart.com/en/unicode/U+2704  |  echo -e "\\xE2\\x9C\\x84";  |  "$([char]0x2704)"
+✂️				Black Scissors Emoji  |  https://emojipedia.org/scissors/  |  echo -e "\\xE2\\x9C\\x82\\xEF\\xB8\\x8F";  |  "$([char]0x2702+[char]0xFE0F)"
 
 
 ⌨ 				Keyboard  |  https://www.compart.com/en/unicode/U+2328

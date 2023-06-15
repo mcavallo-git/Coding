@@ -17,14 +17,20 @@
 - Power
   - Voltage: `24V`
   - Connector Type: `6.5mm` x `3.0mm` `Barrel Connector`
-    - Note: Hue Play power adapters have either 1 or 3 female barrel connector ports
-    - Note: Hue Play devices have a male barrel connector on the end of their cable (coming from the device)
+  - Notes:
+    - The Hue Play devices have a `male` barrel connector on the end of their cable (coming from the device)
+    - The Hue Play power adapters have either `1` or `3` `female` barrel connector ports
+      - The adapter with `1` female port outputs up to `0.83A` @ `24.0V` (`20.0W`)
+      - The adapter with `3` female port outputs up to `0.875A` @ `24.0V` (`21.0W`)
 
 <!-- ------------------------------------------------------------ -->
 
 ***
 ## Generalized Solution
-  - `TBD`
+  - Item #1: `24V` Power Supply outputting at least `2A` via a male `5.5mm` x `2.5mm` barrel connector
+  - Item #2: Barrel connector splitter, 1 * male `5.5mm` x `2.5mm` to 4 * female `5.5mm` x `2.5mm`
+  - Item #3: 4 * Barrel connector adapter, female `5.5mm` x `2.5mm` to female `6.5mm` x `3.0mm`
+    - > ⚠️ Likely very difficult to find, if not non-existent
 
 <!-- ------------------------------------------------------------ -->
 

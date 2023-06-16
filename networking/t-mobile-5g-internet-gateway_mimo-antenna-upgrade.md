@@ -10,13 +10,9 @@
 
 ***
 ## Step 0. Preface
->&nbsp;
-> `T-Mobile`'s `Home Internet` service currently uses the `Sagemcom Fast 5688W` for the client-side `5G Gateway` modem-router.
->&nbsp;
-> The `Sagemcom Fast 5688W` has `four` internal `U.FL` ports, which allow for `two` `2x2 MIMO antennas` or `one` `4x4 MIMO antenna` to be connected to the device. [- Waveform](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom)
->&nbsp;
-> ⭐ A `4x4 MIMO antenna` offers superior performance and would allow more of the internal cellular antenna ports to be used than a `2x2 MIMO antenna`. [- Waveform](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom)
->&nbsp;
+- > `T-Mobile`'s `Home Internet` service currently uses the `Sagemcom Fast 5688W` for the client-side `5G Gateway` modem-router.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`- T-Mobile`](https://www.t-mobile.com/support/home-internet/sagemcom-gateway)
+- > The `Sagemcom Fast 5688W` has `four` internal `U.FL` ports, which allow for `two` `2x2 MIMO antennas` or `one` `4x4 MIMO antenna` to be connected to the device.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`- Waveform`](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom)
+- > A `4x4 MIMO antenna` offers superior performance and would allow more of the internal cellular antenna ports to be used than a `2x2 MIMO antenna`.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[`- Waveform`](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom)
 
 <!-- ------------------------------ -->
 
@@ -107,7 +103,7 @@
 <!-- ------------------------------ -->
 
 ***
-## Citation(s)
+# Citation(s)
 
 - [`T-Mobile 5G Internet Gateway (Sagemcom Fast 5688W) External Antenna Guide - Waveform | www.waveform.com`](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom)
 

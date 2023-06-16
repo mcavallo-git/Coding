@@ -26,7 +26,7 @@
         - Note(s):
         > - ⚠️Important ⚠️ The typical output for a `5.5mm` x `2.5mm` `barrel connector` is `12V`, not `5V`. Make sure to not plug a `12V` power adapter into your Philips Hue Hub
         > - As long as the PoE splitter outputs at least `1A` at `5V`, it can still be used via an adapter which converts its power output to a `5.5mm` x `2.5mm` `barrel connector`
-    - View Amazon listings which match: [`PoE Splitter 5V 5.5mm x 2.5mm`](https://www.amazon.com/s?k=PoE+Splitter+5V+5.5mm+x+2.5mm)
+    - View Amazon listings for: [`PoE Splitter 5V 5.5mm x 2.5mm`](https://www.amazon.com/s?k=PoE+Splitter+5V+5.5mm+x+2.5mm)
 
 <!-- ------------------------------------------------------------ -->
 

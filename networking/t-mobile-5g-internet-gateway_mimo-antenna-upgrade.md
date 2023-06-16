@@ -4,7 +4,7 @@
 <!-- ------------------------------ -->
 
 ***
-# Upgrading the Antenna(s) on `T-Mobile`'s `Home Internet` `5G Gateway`
+# Upgrading the Antenna(s) on `T-Mobile`'s `5G Gateway`
 
 <!-- ------------------------------ -->
 

@@ -451,7 +451,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 
 <!--
 <ul>
-  <li><a href="hotkeys/browser-hotkeys.md#hotkeys">View Docs (Browser Hotkeys)</a></li>
+  <li><a href="hotkeys/browser-hotkeys.md">View Docs (Browser Hotkeys)</a></li>
   <li><a href="windows#workstation-setup">View Docs (Windows Workstation Setup)</a></li>
 </ul>
 <hr />

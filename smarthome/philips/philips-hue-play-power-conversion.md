@@ -33,13 +33,6 @@
 
 ***
 ## Specifications
-- [`Philips Hue Play Gradient Lightstrip 65 Inch`](https://www.philips-hue.com/en-us/p/hue-white-and-color-ambiance-play-gradient-lightstrip-65-inch/046677560416) 
-  - Length: `100 inch` (for 65 inch version)
-  - Input:
-    - Connector Type: `6.5mm` x `3.0mm` `barrel connector` (`male`)
-    - Voltage: `24V DC`
-    - Amperage (Max): `0.833A`
-    - Power (Max): `20.0W`
 - [`Philips Hue Play Light Bar`](https://www.philips-hue.com/en-us/p/hue-white-and-color-ambiance-play-light-bar-single-pack/7820131U7)
   - Input:
     - Connector Type: `6.5mm` x `3.0mm` `barrel connector` (`male`)
@@ -52,6 +45,16 @@
     - Voltage: `24V DC`
     - Amperage (Max): `0.292A`
     - Power (Max): `7.0W`
+- [`Philips Hue Play Gradient Lightstrip`](https://www.philips-hue.com/en-us/p/hue-white-and-color-ambiance-play-gradient-lightstrip-65-inch/046677560416) 
+  - Input:
+    - Connector Type: `6.5mm` x `3.0mm` `barrel connector` (`male`)
+    - Voltage: `24V DC`
+    - Amperage (Max): `0.833A`
+    - Power (Max): `20.0W`
+  - Dimensions:
+    - Height: `0.63 inch`
+    - Length: `85.2 inch` (55 inch version) / `100 inch` (65 inch version) / `119.7 inch` (75 inch version)
+    - Width: `0.67 inch`
 - Philips Hue Play Power Supply
   - Input:
     - Connector Type: `NEMA 1-15P` (two-pole, no ground pin) (`male`)
@@ -61,8 +64,8 @@
   - Output:
     - Connector Type: `6.5mm` x `3.0mm` `barrel connector` (`female`)
     - Voltage: `24V DC`
-    - Amperage (Max): `0.875A` (`3`-port), `0.83A` (`1`-port)
-    - Power (Max): `21.0W` (`3`-port), `20.0W` (`1`-port)
+    - Amperage (Max): `0.875A` (`3`-port) / `0.83A` (`1`-port)
+    - Power (Max): `21.0W` (`3`-port) / `20.0W` (`1`-port)
 
 - Note(s):
 > - The `6.5mm` x `3.0mm` `barrel connector` is a rare type of termination, and finding cables/adapters to match it may be difficult

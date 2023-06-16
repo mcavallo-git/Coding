@@ -10,24 +10,11 @@
   - [`Philips Hue Play Light Bar`](https://www.philips-hue.com/en-us/p/hue-white-and-color-ambiance-play-light-bar-single-pack/7820131U7)
   - [`Philips Hue Play HDMI Sync Box`](https://www.philips-hue.com/en-us/p/hue-play-hdmi-sync-box-/046677555221)
 
-<!-- ------------------------------------------------------------ -->
-
-***
-## Generalized Solution #1 (no cutting cables)
-  - Item #1: `24V DC` Power Supply outputting at least `2A` via a `male` `5.5mm` x `2.5mm` barrel connector
-  - Item #2: Barrel connector splitter, 1 * `male` `5.5mm` x `2.5mm` to 4 * `female` `5.5mm` x `2.5mm`
-  - Item #3: 4 * Barrel connector adapter, `female` `5.5mm` x `2.5mm` to `female` `6.5mm` x `3.0mm`
-  - Note(s):
-  > - The `6.5mm` x `3.0mm` `barrel connector` is a rare type of termination, and finding cables/adapters to match it may be difficult
-
-<!-- ------------------------------------------------------------ -->
-
-***
-## Generalized Solution #2 (w/ cutting cables)
-  - Item #1: `24V DC` Power Supply outputting at least `2A` via a `male` `5.5mm` x `2.5mm` barrel connector
-  - Item #2: Barrel connector splitter, 1 * `male` `5.5mm` x `2.5mm` to 4 * `female` `5.5mm` x `2.5mm`
-  - Item #3: Barrel connectors, `female` `5.5mm` x `2.5mm`
-    - View Amazon listings which match: [`5.5 x 2.5mm barrel connectors female`](https://www.amazon.com/s?k=5.5+x+2.5mm+barrel+connectors+female)
+- Note(s):
+> - The `6.5mm` x `3.0mm` `barrel connector` is a rare type of termination, and finding cables/adapters to match it may be difficult
+> - The Hue Play devices have a `male` barrel connector on the end of their cable (coming from the device)
+>   - This is in opposition to traditional devices, which have a `male` barrel connector coming from the power supply, which plugs into a `female` port on the device
+> - The Hue Play power supplies have either `1` or `3` `female` barrel connector ports
 
 <!-- ------------------------------------------------------------ -->
 
@@ -67,11 +54,24 @@
     - Amperage (Max): `0.875A` (`3`-port) / `0.83A` (`1`-port)
     - Power (Max): `21.0W` (`3`-port) / `20.0W` (`1`-port)
 
-- Note(s):
-> - The `6.5mm` x `3.0mm` `barrel connector` is a rare type of termination, and finding cables/adapters to match it may be difficult
-> - The Hue Play devices have a `male` barrel connector on the end of their cable (coming from the device)
->   - This is in opposition to traditional devices, which have a `male` barrel connector coming from the power supply, which plugs into a `female` port on the device
-> - The Hue Play power supplies have either `1` or `3` `female` barrel connector ports
+<!-- ------------------------------------------------------------ -->
+
+***
+## Generalized Solution #1 (no cutting cables 🚫✂️)
+  - Item #1: `24V DC` Power Supply outputting at least `2A` via a `male` `5.5mm` x `2.5mm` barrel connector
+  - Item #2: Barrel connector splitter, 1 * `male` `5.5mm` x `2.5mm` to 4 * `female` `5.5mm` x `2.5mm`
+  - Item #3: 4 * Barrel connector adapter, `female` `5.5mm` x `2.5mm` to `female` `6.5mm` x `3.0mm`
+  - Note(s):
+    > - Finding aforementioned adapters may be difficult due to the `6.5mm` x `3.0mm` `barrel connector` being a rare type of termination
+
+<!-- ------------------------------------------------------------ -->
+
+***
+## Generalized Solution #2 (w/ cutting cables ✂️)
+  - Item #1: `24V DC` Power Supply outputting at least `2A` via a `male` `5.5mm` x `2.5mm` barrel connector
+  - Item #2: Barrel connector splitter, 1 * `male` `5.5mm` x `2.5mm` to 4 * `female` `5.5mm` x `2.5mm`
+  - Item #3: Barrel connectors, `female` `5.5mm` x `2.5mm`
+    - View Amazon listings which match: [`5.5 x 2.5mm barrel connectors female`](https://www.amazon.com/s?k=5.5+x+2.5mm+barrel+connectors+female)
 
 <!-- ------------------------------------------------------------ -->
 

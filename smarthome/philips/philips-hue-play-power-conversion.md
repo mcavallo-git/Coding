@@ -75,17 +75,18 @@
 ## Generalized Solution(s)
 
   - ### Soln. #1 (no cutting cables 🚫✂️)
-    - Item #1: `24V DC` Power Supply outputting at least `2A` via a `male` `5.5mm` x `2.5mm` barrel connector
-    - Item #2: Barrel connector splitter, 1 * `male` `5.5mm` x `2.5mm` to 4 * `female` `5.5mm` x `2.5mm`
-    - Item #3: 4 * Barrel connector adapter, `female` `5.5mm` x `2.5mm` to `female` `6.5mm` x `3.0mm`
+    - Item #1: `24V DC` Power Supply outputting at least `2A` via a `male` `5.5mm` x `2.1mm` barrel connector
+    - Item #2: Barrel connector splitter, 1 * `male` `5.5mm` x `2.1mm` to 4 * `female` `5.5mm` x `2.1mm`
+    - Item #3: 4 * Barrel connector adapter, `female` `5.5mm` x `2.1mm` to `female` `6.5mm` x `3.0mm`
     - Note(s):
       > - Finding aforementioned adapters may be difficult due to the `6.5mm` x `3.0mm` `barrel connector` being a rare type of termination
 
   - ### Soln. #2 (w/ cutting cables ✂️)
-    - Item #1: `24V DC` Power Supply outputting at least `2A` via a `male` `5.5mm` x `2.5mm` barrel connector
-    - Item #2: Barrel connector splitter, 1 * `male` `5.5mm` x `2.5mm` to 4 * `female` `5.5mm` x `2.5mm`
-    - Item #3: Barrel connectors, `female` `5.5mm` x `2.5mm`
-      - View Amazon listings for: [`5.5 x 2.5mm barrel connectors female`](https://www.amazon.com/s?k=5.5+x+2.5mm+barrel+connectors+female)
+    - Item #1: `24V DC` Power Supply outputting at least `2A` via a `male` `5.5mm` x `2.1mm` barrel connector
+    - Item #2: Barrel connector splitter, 1 * `male` `5.5mm` x `2.1mm` to 4 * `female` `5.5mm` x `2.1mm`
+    - Item #3: Barrel connectors, `female` `5.5mm` x `2.1mm`
+      - Search Amazon for: [`5.5 x 2.1mm barrel connectors female`](https://www.amazon.com/s?k=5.5+x+2.1mm+barrel+connectors+female)
+      - Search AliExpress for: [`2.1mm jack screw`](https://www.aliexpress.com/w/wholesale-2.1mm-jack-screw.html)
     - Note(s):
       > - Cut the cables coming from each device & re-terminate with new adapter(s)
 

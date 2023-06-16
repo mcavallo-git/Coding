@@ -11,10 +11,10 @@
   - [`Philips Hue Play HDMI Sync Box`](https://www.philips-hue.com/en-us/p/hue-play-hdmi-sync-box-/046677555221)
 
 - Note(s):
-  > - The `6.5mm` x `3.0mm` `barrel connector` is a rare type of termination, and finding cables/adapters to match it may be difficult
-  > - The Hue Play devices have a `male` barrel connector on the end of their cable (coming from the device)
-  >   - This is in opposition to traditional devices, which have a `male` barrel connector coming from the power supply, which plugs into a `female` port on the device
-  > - The Hue Play power supplies have either `1` or `3` `female` barrel connector ports
+  > - Hue Play devices & PSUs (power supplies) use a `6.5mm` x `3.0mm` `barrel connector`, which is a rare type of termination
+  >   - Due to its rarity, finding `6.5mm` x `3.0mm` `barrel connector` cables/adapters can prove difficult/tedious
+  > - Hue Play devices have a `male` `barrel connector` cable coming from the device which plug into a `female` `barrel connector` port on a Hue Play PSU (power supply)
+  >   - This is in opposition to the "traditional" approach for powering devices via a `barrel connector`, wherein the `female` `barrel connector` port on the device gets powered (gets plugged into) by the `male` `barrel connector` cable coming from the PSU (power supply)
 
 <!-- ------------------------------------------------------------ -->
 
@@ -45,7 +45,7 @@
         - Length: `85.2 inch` (55 inch version) / `100 inch` (65 inch version) / `119.7 inch` (75 inch version)
         - Width: `0.67 inch`
 
-  - ### Specs - Philips Hue Play PSUs
+  - ### Specs - Philips Hue Play PSUs (power supply/supplies)
     - `Philips Hue Play Power Supply`
       - Input:
         - Connector Type: `NEMA 1-15P` (two-pole, no ground pin) (`male`)

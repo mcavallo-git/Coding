@@ -5,8 +5,8 @@
 ***
 ## Specifications (Philips Hue Hub v2 - Square model)
 
-- Power (input):  `5V` 1A DC
-  - Form Factor:  `5.5mm` x `2.5mm` `barrel connector` (female power port on back Philips Hue Bridge v2)
+- Power (input): `5V DC` 1A DC
+  - Form Factor: `5.5mm` x `2.5mm` `barrel connector` (female power port on back Philips Hue Bridge v2)
 
 <!-- ------------------------------------------------------------ -->
 
@@ -15,13 +15,13 @@
   - Use a PoE Splitter with the following specs:
     - Input:
       - Connector Type: `RJ45` (`Ethernet`)
-      - Voltage: `48V` `IEEE 802.3af` PoE (`IEEE 802.3at` works as well, so long as your PoE injector supports it)
+      - Voltage: `48V DC` `IEEE 802.3af` PoE (`IEEE 802.3at` works as well, so long as your PoE injector supports it)
     - Output 1 of 2:
       - Connector Type: `RJ45` (`Ethernet`)
       - Voltage: `Negligible` (Data Only)
     - Output 2 of 2:
       - Connector Type: `5.5mm` x `2.5mm` `barrel connector` (male)
-      - Voltage: `5V`
+      - Voltage: `5V DC`
       - Amperage: >= `1A` (or Power: >= `5W`)
         - Note(s):
         > - ⚠️Important ⚠️ The typical output for a `5.5mm` x `2.5mm` `barrel connector` is `12V`, not `5V`. Make sure to not plug a `12V` power adapter into your Philips Hue Hub

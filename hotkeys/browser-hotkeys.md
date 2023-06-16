@@ -19,12 +19,14 @@
 ### Action: `Open target in a new tab`
 > Note: Keeps current tab unchanged
 - Hotkey(s):
+  - `Ctrl` + `Left-Click` (web browser only)
   - `Middle-Click` (web browser only - while hovering over a hyperlink)
   - `Alt` + `Enter` (web browser only - while address bar is selected)
 
 ***
 ### Action: `Open target in a new window`
 - Hotkey(s):
+  - `Ctrl` + `Double Left-Click` (Windows Explorer only)
   - `Ctrl` + `Enter` (Windows Explorer only - while folder is highlighted)
 
 <!-- ------------------------------------------------------------ -->

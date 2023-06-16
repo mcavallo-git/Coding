@@ -1,33 +1,39 @@
-<h2 id="hotkeys">Browser Hotkeys</h2>
+## Browser Hotkeys
+- > General hotkeys for web browsers (`Google Chrome`, `Mozilla Firefox`, `Microsoft Edge`, etc.) & `Windows Explorer`
 
-<div>&nbsp;&nbsp;&nbsp;<sub>Usable in: <kbd>Google Chrome</kbd>, <kbd>Microsoft Edge</kbd>, <kbd>Mozilla Firefox</kbd>, <kbd>Windows Explorer</kbd></sub></div>
+<!-- ------------------------------------------------------------ -->
 
 ***
-  - Action:
-    - Select the Address (URL) bar
-  - Hotkey(s):
-    - Alt + D  (also works in Windows Explorer)
-    - F6
-    - Ctrl + L
-***
-  - Action:
-    - Launch a search query
-  - Hotkey(s):
-    - Ctrl + E
-***
-  - Action:
-    - Open target URL in a new tab (keeping current tab unchanged)
-  - Hotkey(s):
-    - Middle-click (click the mouse-wheel on a given link)
-    - Alt + Enter (while in the address bar)
-***
+### Action: `Select the Address (URL) bar`
+- Hotkey(s):
+  - `F6`  (web browser only)
+  - `Ctrl` + `L`
+  - `Alt` + `D`
 
-<!--
-# ------------------------------------------------------------
-#
-# Citation(s)
-#
-#   www.system-overload.org  |  "Windows Shortcuts"  |  https://www.system-overload.org/windows-shortcuts.html
-#
-# ------------------------------------------------------------
--->
+***
+### Action: `Launch a search query`
+- Hotkey(s):
+  - `Ctrl` + `E`
+
+***
+### Action: `Open target in a new tab`
+> Note: Keeps current tab unchanged
+- Hotkey(s):
+  - `Middle-Click` (web browser only - while hovering over a hyperlink)
+  - `Alt` + `Enter` (web browser only - while address bar is selected)
+
+***
+### Action: `Open target in a new window`
+- Hotkey(s):
+  - `Ctrl` + `Enter` (Windows Explorer only - while folder is highlighted)
+
+<!-- ------------------------------------------------------------ -->
+
+***
+### Citation(s)
+
+- [`Windows Shortcuts | www.system-overload.org`](https://www.system-overload.org/windows-shortcuts.html)
+
+<!-- ------------------------------------------------------------ -->
+
+***

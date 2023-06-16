@@ -79,7 +79,7 @@
 ### Citation(s)
 
 - [`GitHub - Hypfer/huesful-power-adaptor: Use proper PSUs with Hue Signes, Playbars and more | github.com`](https://github.com/Hypfer/huesful-power-adaptor)
-)
+
 - [`Power adapter for my Hue Sync box / play lights went out (overheats to the point it’s too hot to touch for more than 2 seconds) Contacted Philips to see about purchasing a replacement and was told to screw off basically. Any advice on where to purchase a decent replacement? : r/Hue | www.reddit.com`](https://www.reddit.com/r/Hue/comments/vaedcl/power_adapter_for_my_hue_sync_box_play_lights)
 
 <!-- ------------------------------------------------------------ -->

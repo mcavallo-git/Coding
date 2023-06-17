@@ -1867,7 +1867,7 @@ RShift & LShift::
   #b::
   {
     AwaitModifierKeyup()
-    Send ">{+}name:_____ {+}name:_____"
+    Send ">{+}name:_____ {+}name:*"
     Return
   }
 #HotIf

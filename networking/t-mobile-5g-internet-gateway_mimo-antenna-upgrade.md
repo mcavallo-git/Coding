@@ -118,7 +118,7 @@
 <!-- ------------------------------ -->
 
 ***
-# Citation(s)
+## Citation(s)
 
 - [`T-Mobile 5G Internet Gateway (Sagemcom Fast 5688W) External Antenna Guide - Waveform | www.waveform.com`](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom)
 

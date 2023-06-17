@@ -25,7 +25,7 @@
     - > More effective than using `One` `2x2 MIMO Antenna`
     - > More effective than using `Two` `2x2 MIMO Antennas`
   - Cons 👎
-    - > Most expensive configuration, totalling ~ `💲286.00` (before tax)
+    - > Most expensive configuration, totalling `~ 💲286.00` (before tax)
   - Required hardware
     - Antenna(s): `One (1)` * [`4x4 MIMO Panel Antenna by Waveform @ ~ 💲200.00 ea.`](https://amazon.com/dp/B09VVV2TQQ)
     - Cable(s): `Four (4)` * [`SMA-Male to SMA-Male Cable @ ~ 💲15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
@@ -37,7 +37,7 @@
     - > More effective than using `One` `2x2 MIMO Antenna`
   - Cons 👎
     - > Less effective than using `One` `4x4 MIMO Antenna`
-    - > Most expensive configuration, totalling ~ `💲286.00` (before tax)
+    - > Most expensive configuration, totalling `~ 💲286.00` (before tax)
   - Required hardware
     - Antenna(s): `Two (2)` * [`2x2 MIMO Panel Antenna by Waveform @ ~ 💲100.00 ea.`](https://amazon.com/dp/B09CLV3BHJ)
     - Cable(s): `Four (4)` * [`SMA-Male to SMA-Male Cable @ ~ 💲15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
@@ -46,7 +46,7 @@
   ***
   ### Configuration #3 - `One` `2x2 MIMO Antenna`
   - Pros 👍
-    - > Least expensive configuration, totalling ~ `💲143.00` (before tax)
+    - > Least expensive configuration, totalling `~ 💲143.00` (before tax)
   - Cons 👎
     - > Less effective than using `One` `4x4 MIMO Antenna`
     - > Less effective than using `Two` `2x2 MIMO Antennas`

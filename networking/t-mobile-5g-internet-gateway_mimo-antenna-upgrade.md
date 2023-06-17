@@ -18,46 +18,43 @@
 
 ***
 ## Step 1. Hardware Selection
-- Select the configuration (below) which is best suited to the needs of your deployment scenario (based on the performance/reliability needs, budget constraints, etc.)
+  > Select the configuration (below) which is best suited to the needs of your deployment scenario (based on the performance/reliability needs, budget constraints, etc.)
   ***
   ### Configuration #1 - `One` `4x4 MIMO Antenna`
   - Pros 👍
-    - > More effective than a `One` `2x2 MIMO Antenna` configuration
-    - > More effective than a `Two` `2x2 MIMO Antennas` configuration
+    - > More effective than using `One` `2x2 MIMO Antenna`
+    - > More effective than using `Two` `2x2 MIMO Antennas`
   - Cons 👎
-    - > Most expensive (but most effective)
+    - > Most expensive cost totalling ~ `💲286.00` (before tax)
   - Required hardware
-    - Antenna(s): `One (1)` * [`4x4 MIMO Panel Antenna by Waveform @ ~$200.00 ea.`](https://amazon.com/dp/B09VVV2TQQ)
-    - Cable(s): `Four (4)` * [`SMA-Male to SMA-Male Cable @ ~$15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
-    - Adapter(s): `Four (4)` * [`SMA-Female to N-Male Connector @ ~$5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
-    - Adapter(s): `Four (4)` * [`U.FL to SMA-Female Pigtail Connector @ ~$1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
-      - Total Cost: ~ `~$286.00 (before tax)`
+    - Antenna(s): `One (1)` * [`4x4 MIMO Panel Antenna by Waveform @ ~ 💲200.00 ea.`](https://amazon.com/dp/B09VVV2TQQ)
+    - Cable(s): `Four (4)` * [`SMA-Male to SMA-Male Cable @ ~ 💲15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+    - Adapter(s): `Four (4)` * [`SMA-Female to N-Male Connector @ ~ 💲5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
+    - Adapter(s): `Four (4)` * [`U.FL to SMA-Female Pigtail Connector @ ~ 💲1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
   ***
   ### Configuration #2 - `Two` `2x2 MIMO Antennas`
   - Pros 👍
-    - > More effective than a `One` `2x2 MIMO Antenna` configuration
+    - > More effective than using `One` `2x2 MIMO Antenna`
   - Cons 👎
-    - > Most expensive (but <u>NOT</u> most effective)
-    - > Less effective than a `One` `4x4 MIMO Antenna` configuration
+    - > Less effective than using `One` `4x4 MIMO Antenna`
+    - > Most expensive cost totalling ~ `💲286.00` (before tax)
   - Required hardware
-    - Antenna(s): `Two (2)` * [`2x2 MIMO Panel Antenna by Waveform @ ~$100.00 ea.`](https://amazon.com/dp/B09CLV3BHJ)
-    - Cable(s): `Four (4)` * [`SMA-Male to SMA-Male Cable @ ~$15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
-    - Adapter(s): `Four (4)` * [`SMA-Female to N-Male Connector @ ~$5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
-    - Adapter(s): `Four (4)` * [`U.FL to SMA-Female Pigtail Connector @ ~$1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
-      - Total Cost: ~ `~$286.00 (before tax)`
+    - Antenna(s): `Two (2)` * [`2x2 MIMO Panel Antenna by Waveform @ ~ 💲100.00 ea.`](https://amazon.com/dp/B09CLV3BHJ)
+    - Cable(s): `Four (4)` * [`SMA-Male to SMA-Male Cable @ ~ 💲15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+    - Adapter(s): `Four (4)` * [`SMA-Female to N-Male Connector @ ~ 💲5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
+    - Adapter(s): `Four (4)` * [`U.FL to SMA-Female Pigtail Connector @ ~ 💲1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
   ***
   ### Configuration #3 - `One` `2x2 MIMO Antenna`
   - Pros 👍
-    - > Least expensive (but least effective)
+    - > Least expensive cost totalling ~ `💲143.00` (before tax)
   - Cons 👎
-    - > Less effective than a `One` `4x4 MIMO Antenna` configuration
-    - > Less effective than a `Two` `2x2 MIMO Antennas` configuration
+    - > Less effective than using `One` `4x4 MIMO Antenna`
+    - > Less effective than using `Two` `2x2 MIMO Antennas`
   - Required hardware
-    - Antenna(s): `One (1)` * [`2x2 MIMO Panel Antenna by Waveform @ ~$100.00 ea.`](https://amazon.com/dp/B09CLV3BHJ)
-    - Cable(s): `Two (2)` * [`SMA-Male to SMA-Male Cable @ ~$15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
-    - Adapter(s): `Two (2)` * [`SMA-Female to N-Male Connector @ ~$5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
-    - Adapter(s): `Two (2)` * [`U.FL to SMA-Female Pigtail Connector @ ~$1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
-      - Total Cost: ~ `~$143.00 (before tax)`
+    - Antenna(s): `One (1)` * [`2x2 MIMO Panel Antenna by Waveform @ ~ 💲100.00 ea.`](https://amazon.com/dp/B09CLV3BHJ)
+    - Cable(s): `Two (2)` * [`SMA-Male to SMA-Male Cable @ ~ 💲15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+    - Adapter(s): `Two (2)` * [`SMA-Female to N-Male Connector @ ~ 💲5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
+    - Adapter(s): `Two (2)` * [`U.FL to SMA-Female Pigtail Connector @ ~ 💲1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
   ***
 
 <!-- ------------------------------ -->
@@ -96,29 +93,25 @@
     - Upon closing the `5G Gateway` back up, it should look the same as before you opened it, albeit for the handful of well-labelled `SMA` female ports which are now coming out of it
 
 ***
-## Step 4. Connect the `5G Gateway` to the `MIMO antenna`
-  - Once all desired `SMA` adapters are ran to the outside of the `5G Gateway` enclosure and the enclosure is reassembled and closed up:
-    - Connect your `MIMO Antenna(s)` to the now-external `SMA` ports on the `5G Gateway`
-      - For <u>each</u> `SMA` port on the `5G Gateway`, you will need the following:
-        - `Two` to `Four` * [`SMA-Male to SMA-Male Cables`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
-        - `Two` to `Four` * [`SMA-Female to N-Male Connectors`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
-    - Attach the `SMA` to `N` adapters to each of the `N` pigtails/ports on the antenna
-    - Run/Attach the `SMA-Male` to `SMA-Male` cables from the `5G Gateway` to the `MIMO Antenna`
-    - **`Gateway`-to-`Antenna` `SMA` ordering/pairing**
-      - Determining which `SMA` ports on the `5G Gateway` should be connected to which `SMA` ports on the `MIMO Antenna` may require some trial and error for your exact use case scenario:
-        - For `Nader Tater`'s ordering suggestions, refer to the [YouTube video `External Waveform Antenna Test`](https://www.youtube.com/watch?v=lA0W1XRU4J8&t=1210s)
-        - For `Waveform`'s ordering suggestions, refer to [their `External Antenna` guide](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom)
-          - Search for "`in the order`" to skip to the `Gateway`-to-`Antenna` ordering section of the guide
+## Step 4. Connect the `5G Gateway` to the `MIMO antenna(s)`
+  > Once all desired `SMA` adapters are ran to the outside of the `5G Gateway` enclosure and the enclosure is reassembled and closed up, the next step is to connect your `MIMO antenna(s)` to the now-external `SMA` ports on the `5G Gateway`
+  - Attach the `SMA-Female` to `N-Male` adapters to each of the `N` pigtails/ports on the antenna
+    - `Two` to `Four` * [`SMA-Female to N-Male Connectors`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector) *(one for each `N` pigtail coming from the `MIMO antenna(s)`)*
+  - Run/Attach the `SMA-Male` to `SMA-Male` cables from the `5G Gateway` to the `MIMO Antenna`
+    - `Two` to `Four` * [`SMA-Male to SMA-Male Cables`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable) *(one for each `SMA` pigtail coming from `5G Gateway`)*
+  - **`Gateway`-to-`Antenna` `SMA` ordering/pairing**
+    - Determining which `SMA` ports on the `5G Gateway` should be connected to which `SMA` ports on the `MIMO Antenna` may require some trial and error for your exact use case scenario:
+      - For `Nader Tater`'s ordering suggestions, refer to the [YouTube video `External Waveform Antenna Test`](https://www.youtube.com/watch?v=lA0W1XRU4J8&t=1210s)
+      - For `Waveform`'s ordering suggestions, refer to [their `External Antenna` guide](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom)
+        - Search for "`in the order`" to skip to the `Gateway`-to-`Antenna` ordering section of the guide
 
 ***
 ## Step 5. Position, Aim & Mount the `MIMO antenna(s)`
-- For general positioning & aiming tips, refer to section [`"Positioning and Aiming MIMO Antennas" of the Waveform guide`](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom#positioning-and-aiming-mimo-antennas):
-  - > &nbsp;
-    > The goal is to find the best location and direction for the antenna(s), to maximize data rates to the T-Mobile Gateway.
-    > &nbsp;
-    > Once you've found the position which gets you the highest data rates to the T-Mobile Gateway, that's where you'll want to install the MIMO antenna.
-    > &nbsp;
-  - Hardware-specific positioning/aiming/mounting guides:
+  > The goal is to find the best location and direction for the antenna(s), to maximize data rates to the T-Mobile Gateway.
+  >
+  > Once you've found the position which gets you the highest data rates to the T-Mobile Gateway, that's where you'll want to install the MIMO antenna.
+  - For general positioning & aiming tips, refer to section [`"Positioning and Aiming MIMO Antennas" of the Waveform guide`](https://www.waveform.com/a/b/guides/hotspots/t-mobile-5g-gateway-sagemcom#positioning-and-aiming-mimo-antennas):
+  - For hardware-specific positioning/aiming/mounting guides:
     - [`Waveform` `4x4 MIMO Antenna(s)`](https://cdn.shopify.com/s/files/1/0358/5537/files/4x4_MIMO_External_Antennas_Instruction_Manual_WF_v2.3.pdf?v=1643918988)
     - [`Waveform` `2x2 MIMO Antenna(s)`](https://cdn.shopify.com/s/files/1/0358/5537/files/MIMO_External_Antennas_Instruction_Manual_WF_v6.1.1.pdf?v=1642198404)
 

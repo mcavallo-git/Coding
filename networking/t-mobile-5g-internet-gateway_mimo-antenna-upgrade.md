@@ -21,25 +21,43 @@
 - Select the configuration (below) which is best suited to the needs of your deployment scenario (based on the performance/reliability needs, budget constraints, etc.)
   ***
   ### Configuration #1 - `One` `4x4 MIMO Antenna`
-  > 👍 Most effective
-  - Required hardware:
-    - Antenna(s): `One (1)` * [`4x4 MIMO Panel Antenna by Waveform @ $199.99 ea.`](https://amazon.com/dp/B09VVV2TQQ)
-    - Adapter(s): `Four (4)` * [`U.FL to SMA-Female Adapter @ ~$1.49 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
-    - Cable(s): `Four (4)` * [`SMA Male to SMA Male Cable @ ~$14.99 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+  - Pros 👍
+    - > More effective than a `One` `2x2 MIMO Antenna` configuration
+    - > More effective than a `Two` `2x2 MIMO Antennas` configuration
+  - Cons 👎
+    - > Most expensive (but most effective)
+  - Required hardware
+    - Antenna(s): `One (1)` * [`4x4 MIMO Panel Antenna by Waveform @ ~$200.00 ea.`](https://amazon.com/dp/B09VVV2TQQ)
+    - Cable(s): `Four (4)` * [`SMA-Male to SMA-Male Cable @ ~$15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+    - Adapter(s): `Four (4)` * [`SMA-Female to N-Male Connector @ ~$5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
+    - Adapter(s): `Four (4)` * [`U.FL to SMA-Female Pigtail Connector @ ~$1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
+      - Total Cost: ~ `~$286.00 (before tax)`
   ***
   ### Configuration #2 - `Two` `2x2 MIMO Antennas`
-  > 👎 Less effective
-  - Required hardware:
-    - Antenna(s): `Two (2)` * [`2x2 MIMO Panel Antenna by Waveform @ $99.99 ea.`](https://amazon.com/dp/B09CLV3BHJ)
-    - Adapter(s): `Four (4)` * [`U.FL to SMA-Female adapter @ ~$1.49 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
-    - Cable(s): `Four (4)` * [`SMA Male to SMA Male Cable @ ~$14.99 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+  - Pros 👍
+    - > More effective than a `One` `2x2 MIMO Antenna` configuration
+  - Cons 👎
+    - > Most expensive (but <u>NOT</u> most effective)
+    - > Less effective than a `One` `4x4 MIMO Antenna` configuration
+  - Required hardware
+    - Antenna(s): `Two (2)` * [`2x2 MIMO Panel Antenna by Waveform @ ~$100.00 ea.`](https://amazon.com/dp/B09CLV3BHJ)
+    - Cable(s): `Four (4)` * [`SMA-Male to SMA-Male Cable @ ~$15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+    - Adapter(s): `Four (4)` * [`SMA-Female to N-Male Connector @ ~$5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
+    - Adapter(s): `Four (4)` * [`U.FL to SMA-Female Pigtail Connector @ ~$1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
+      - Total Cost: ~ `~$286.00 (before tax)`
   ***
   ### Configuration #3 - `One` `2x2 MIMO Antenna`
-  > ❌️ Least effective
-  - Required hardware:
-    - Antenna(s): `One (1)` * [`2x2 MIMO Panel Antenna by Waveform @ $99.99 ea.`](https://amazon.com/dp/B09CLV3BHJ)
-    - Adapter(s): `Two (2)` * [`U.FL to SMA-Female adapter @ ~$1.49 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
-    - Cable(s): `Two (2)` * [`SMA Male to SMA Male Cable @ ~$14.99 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+  - Pros 👍
+    - > Least expensive (but least effective)
+  - Cons 👎
+    - > Less effective than a `One` `4x4 MIMO Antenna` configuration
+    - > Less effective than a `Two` `2x2 MIMO Antennas` configuration
+  - Required hardware
+    - Antenna(s): `One (1)` * [`2x2 MIMO Panel Antenna by Waveform @ ~$100.00 ea.`](https://amazon.com/dp/B09CLV3BHJ)
+    - Cable(s): `Two (2)` * [`SMA-Male to SMA-Male Cable @ ~$15.00 ea.`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+    - Adapter(s): `Two (2)` * [`SMA-Female to N-Male Connector @ ~$5.00 ea.`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
+    - Adapter(s): `Two (2)` * [`U.FL to SMA-Female Pigtail Connector @ ~$1.50 ea.`](https://amazon.com/s?k=SMA-Female+to+U.FL+pigtail+connectors)
+      - Total Cost: ~ `~$143.00 (before tax)`
   ***
 
 <!-- ------------------------------ -->
@@ -65,7 +83,7 @@
         - If you have a `4x4 MIMO antenna`:
           - Disconnect the `Red`, `Green`, `Orange` & `Blue` cables.
         - If you have a `2x2 MIMO antenna`:
-          - If `5G cell service` IS available ✔️ at your location:
+          - If `5G cell service` IS available at your location:
             - Disconnect the `Red` & `Orange` cables.
           - If `5G cell service` is NOT available ❌️ at your location:
             - Disconnect the `Green` & `Blue` cables.
@@ -80,8 +98,12 @@
 ***
 ## Step 4. Connect the `5G Gateway` to the `MIMO antenna`
   - Once all desired `SMA` adapters are ran to the outside of the `5G Gateway` enclosure and the enclosure is reassembled and closed up:
-    - Connect your antenna(s) to the now-external `SMA` ports on the `5G Gateway`
-      - Requires (mentioned above) 1 * [SMA Male to SMA Male Cable](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable) to connect each `MIMO Antenna` `SMA` port to each `5G Gateway` `SMA` port
+    - Connect your `MIMO Antenna(s)` to the now-external `SMA` ports on the `5G Gateway`
+      - For <u>each</u> `SMA` port on the `5G Gateway`, you will need the following:
+        - `Two` to `Four` * [`SMA-Male to SMA-Male Cables`](https://amazon.com/s?k=SMA+Male+to+SMA+Male+Cable)
+        - `Two` to `Four` * [`SMA-Female to N-Male Connectors`](https://www.amazon.com/s?k=SMA-Female+to+N-Male+Connector)
+    - Attach the `SMA` to `N` adapters to each of the `N` pigtails/ports on the antenna
+    - Run/Attach the `SMA-Male` to `SMA-Male` cables from the `5G Gateway` to the `MIMO Antenna`
     - **`Gateway`-to-`Antenna` `SMA` ordering/pairing**
       - Determining which `SMA` ports on the `5G Gateway` should be connected to which `SMA` ports on the `MIMO Antenna` may require some trial and error for your exact use case scenario:
         - For `Nader Tater`'s ordering suggestions, refer to the [YouTube video `External Waveform Antenna Test`](https://www.youtube.com/watch?v=lA0W1XRU4J8&t=1210s)

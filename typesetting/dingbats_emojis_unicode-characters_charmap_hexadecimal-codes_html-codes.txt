@@ -267,19 +267,20 @@ Mostly Linux compatible:
 ⛭					Gear Without Hub  |  https://www.compart.com/en/unicode/U+26ED
 
 
-⏻				Power Symbol  |  https://www.compart.com/en/unicode/U+23FB
+⏻				  Power Symbol  |  https://www.compart.com/en/unicode/U+23FB
 ⚡				High Voltage Sign  |  https://www.compart.com/en/unicode/U+26A1
 💧				Droplet  |  https://www.compart.com/en/unicode/U+1F4A7
-☢️			Radioactive Sign Emoji  |  https://emojipedia.org/radioactive/
-☢				Radioactive Sign  |  https://www.compart.com/en/unicode/U+2622
-☣️			Biohazard Sign Emoji  |  https://emojipedia.org/biohazard/
-☣				Biohazard Sign  |  https://www.compart.com/en/unicode/U+2623
+☢️			  Radioactive Sign Emoji  |  https://emojipedia.org/radioactive/
+☢				  Radioactive Sign  |  https://www.compart.com/en/unicode/U+2622
+☣️			  Biohazard Sign Emoji  |  https://emojipedia.org/biohazard/
+☣				  Biohazard Sign  |  https://www.compart.com/en/unicode/U+2623
 🗡				Dagger Knife  |  https://www.compart.com/en/unicode/U+1F5E1  |  echo -e "\\xF0\\x9F\\x97\\xA1";  |  "$([char]0xD83D+[char]0xDDE1)"
 
 
 💲				Heavy Dollar Sign (&#x1F4B2;)  |  https://www.compart.com/en/unicode/U+1F4B2  |  echo -e "\\xF0\\x9F\\x92\\xB2";  |  "$([char]0xD83D+[char]0xDCB2)"
 💰				Money Bag (&#x1F4B0;)  |  https://www.compart.com/en/unicode/U+1F4B0  |  echo -e "\\xF0\\x9F\\x92\\xB0";  |  "$([char]0xD83D+[char]0xDCB0)"
-💵				Banknote with Dollar Sign (&#x1F4B5;)  |  https://www.compart.com/en/unicode/U+1F4B5  |  echo -e "\\xF0\\x9F\\x92\\xB5";  |  "$([char]0xD83D+[char]0xDCB5)"
+💵			  Banknote with Dollar Sign (&#x1F4B5;)  |  https://www.compart.com/en/unicode/U+1F4B5  |  echo -e "\\xF0\\x9F\\x92\\xB5";  |  "$([char]0xD83D+[char]0xDCB5)"
+💸				Money with Wings (&#x1F4B8;)  |  https://www.compart.com/en/unicode/U+1F4B8  |  echo -e "\\xF0\\x9F\\x92\\xB8";  |  "$([char]0xD83D+[char]0xDCB8)"
 
 
 ⛠					RESTRICTED LEFT ENTRY-1

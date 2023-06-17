@@ -6,7 +6,7 @@
 
 ***
 ## Keycap Profiles
-- [Compare Keycap Profiles @ keycaps.info](https://www.keycaps.info/)
+- Compare different profiles of keycaps via the comparator tool at [`keycaps.info`](https://www.keycaps.info/)
 
 <!-- ------------------------------ -->
 

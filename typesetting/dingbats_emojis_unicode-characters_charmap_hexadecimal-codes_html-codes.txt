@@ -380,67 +380,9 @@ Mostly Linux compatible:
 
 
 ==--  Numbers  --==
-①	Circled digit one
-②	Circled digit two
-③	Circled digit three
-④	Circled digit four
-⑤	Circled digit five
-⑥	Circled digit six
-⑦	Circled digit seven
-⑧	Circled digit eight
-⑨	Circled digit nine
-⑩	Circled number ten
-⑪	Circled number eleven
-⑫	Circled number twelve
-⑬	Circled number thirteen
-⑭	Circled number fourteen
-⑮	Circled number fifteen
-⑯	Circled number sixteen
-⑰	Circled number seventeen
-⑱	Circled number eighteen
-⑲	Circled number nineteen
-⑳	Circled number twenty
-⑴	Parenthesized digit one
-⑵	Parenthesized digit two
-⑶	Parenthesized digit three
-⑷	Parenthesized digit four
-⑸	Parenthesized digit five
-⑹	Parenthesized digit six
-⑺	Parenthesized digit seven
-⑻	Parenthesized digit eight
-⑼	Parenthesized digit nine
-⑽	Parenthesized number ten
-⑾	Parenthesized number eleven
-⑿	Parenthesized number twelve
-⒀	Parenthesized number thirteen
-⒁	Parenthesized number fourteen
-⒂	Parenthesized number fifteen
-⒃	Parenthesized number sixteen
-⒄	Parenthesized number seventeen
-⒅	Parenthesized number eighteen
-⒆	Parenthesized number nineteen
-⒇	Parenthesized number twenty
-⒈	Digit one full stop
-⒉	Digit two full stop
-⒊	Digit three full stop
-⒋	Digit four full stop
-⒌	Digit five full stop
-⒍	Digit six full stop
-⒎	Digit seven full stop
-⒏	Digit eight full stop
-⒐	Digit nine full stop
-⒑	Number ten full stop
-⒒	Number eleven full stop
-⒓	Number twelve full stop
-⒔	Number thirteen full stop
-⒕	Number fourteen full stop
-⒖	Number fifteen full stop
-⒗	Number sixteen full stop
-⒘	Number seventeen full stop
-⒙	Number eighteen full stop
-⒚	Number nineteen full stop
-⒛	Number twenty full stop
-⓪	Circled digit zero
+
+
+⓿	Negative Circled Digit Zero  |  https://www.compart.com/en/unicode/U+24FF
 ❶	Dingbat negative circled digit one
 ❷	Dingbat negative circled digit two
 ❸	Dingbat negative circled digit three
@@ -461,6 +403,73 @@ Mostly Linux compatible:
 ⓲	Dingbat negative circled number eighteen
 ⓳	Dingbat negative circled number nineteen
 ⓴	Dingbat negative circled number twenty
+
+
+⓪	Circled digit zero  |  https://www.compart.com/en/unicode/U+24EA
+①	Circled digit one
+②	Circled digit two
+③	Circled digit three
+④	Circled digit four
+⑤	Circled digit five
+⑥	Circled digit six
+⑦	Circled digit seven
+⑧	Circled digit eight
+⑨	Circled digit nine
+⑩	Circled number ten
+⑪	Circled number eleven
+⑫	Circled number twelve
+⑬	Circled number thirteen
+⑭	Circled number fourteen
+⑮	Circled number fifteen
+⑯	Circled number sixteen
+⑰	Circled number seventeen
+⑱	Circled number eighteen
+⑲	Circled number nineteen
+⑳	Circled number twenty
+
+
+⑴	Parenthesized digit one  |  https://www.compart.com/en/unicode/U+2474
+⑵	Parenthesized digit two
+⑶	Parenthesized digit three
+⑷	Parenthesized digit four
+⑸	Parenthesized digit five
+⑹	Parenthesized digit six
+⑺	Parenthesized digit seven
+⑻	Parenthesized digit eight
+⑼	Parenthesized digit nine
+⑽	Parenthesized number ten
+⑾	Parenthesized number eleven
+⑿	Parenthesized number twelve
+⒀	Parenthesized number thirteen
+⒁	Parenthesized number fourteen
+⒂	Parenthesized number fifteen
+⒃	Parenthesized number sixteen
+⒄	Parenthesized number seventeen
+⒅	Parenthesized number eighteen
+⒆	Parenthesized number nineteen
+⒇	Parenthesized number twenty
+
+
+⒈	Digit one full stop  |  https://www.compart.com/en/unicode/U+2488
+⒉	Digit two full stop
+⒊	Digit three full stop
+⒋	Digit four full stop
+⒌	Digit five full stop
+⒍	Digit six full stop
+⒎	Digit seven full stop
+⒏	Digit eight full stop
+⒐	Digit nine full stop
+⒑	Number ten full stop
+⒒	Number eleven full stop
+⒓	Number twelve full stop
+⒔	Number thirteen full stop
+⒕	Number fourteen full stop
+⒖	Number fifteen full stop
+⒗	Number sixteen full stop
+⒘	Number seventeen full stop
+⒙	Number eighteen full stop
+⒚	Number nineteen full stop
+⒛	Number twenty full stop
 
 
 ------------------------------------------------------------

@@ -65,7 +65,7 @@
     <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
   </tr>
   <tr>
-    <td><blockquote>Seek to video position: <code>[10 × Number] %</code></blockquote></td>
+    <td><blockquote>Seek to position: <code>[10 × Number] %</code></blockquote></td>
     <td>
       <kbd>0</kbd><sub>&nbsp;<code>(seek to 0%, e.g. restarts video)</code></sub>,
       <br /><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,

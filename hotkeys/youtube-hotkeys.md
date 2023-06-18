@@ -96,7 +96,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="6"><h3>Closed Captions</h3>&<h3>Subtitles</h3></th>
+    <th rowspan="6"><h3>Captions</h3>&<h3>Subtitles</h3></th>
   </tr>
   <tr>
     <td><blockquote>Closed captions (toggle)</blockquote></td>

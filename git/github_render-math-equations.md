@@ -44,6 +44,8 @@
 
   - [`Writing mathematical expressions - GitHub Docs | docs.github.com`](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
 
+  - [`A hack for showing LaTeX formulas in GitHub markdown.md · GitHub | gist.github.com`](https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b)
+
 <!-- ------------------------------ -->
 
 ***

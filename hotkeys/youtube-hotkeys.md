@@ -36,7 +36,7 @@
   <table>
     <tr>
       <th><u>Action</u></th>
-      <th><u>Hotkey(s)</u></th>
+      <th><u>Keyboard Shortcut</u></th>
     </tr>
     <tr>
       <td><kbd>Rewind 10 Seconds</kbd></td>
@@ -62,7 +62,7 @@
   <table>
     <tr>
       <th><u>Action</u></th>
-      <th><u>Hotkey(s)</u></th>
+      <th><u>Keyboard Shortcut</u></th>
     </tr>
     <tr>
       <td><kbd>Toggle Mute</kbd></td>
@@ -84,7 +84,7 @@
   <table>
     <tr>
       <th><u>Action</u></th>
-      <th><u>Hotkey(s)</u></th>
+      <th><u>Keyboard Shortcut</u></th>
     </tr>
     <tr>
       <td><kbd>Toggle Closed Captions</kbd></td>

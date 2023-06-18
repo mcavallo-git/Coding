@@ -9,10 +9,12 @@
 - ## `Video Size/Format`
   <table>
     <tr>
+      <th><u>Category</u></th>
       <th><u>Action</u></th>
       <th><u>Keyboard Shortcut</u></th>
     </tr>
     <tr>
+      <td rowspan="4"><kbd>Video Size</kbd></td>
       <td><kbd>Toggle Fullscreen mode</kbd></td>
       <td><kbd>F</kbd></td>
     </tr>

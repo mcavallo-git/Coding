@@ -6,7 +6,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Video Size/Format
+- ## `Video Size/Format`
   <table>
     <tr>
       <th><u>Action</u></th>
@@ -32,7 +32,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Playback
+- ## `Playback`
   <table>
     <tr>
       <th><u>Action</u></th>
@@ -58,7 +58,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Volume
+- ## `Volume`
   <table>
     <tr>
       <th><u>Action</u></th>
@@ -80,7 +80,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Subtitles/Closed Captionss
+- ## `Subtitles/Closed Captionss`
   <table>
     <tr>
       <th><u>Action</u></th>
@@ -110,7 +110,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Navigation
+- ## `Navigation`
   <table>
     <tr>
       <th><u>Action</u></th>

@@ -103,7 +103,7 @@
     <th rowspan="6"><h3>Captions</h3>&<h3>Subtitles</h3></th>
   </tr>
   <tr>
-    <td><blockquote>Closed captions (toggle)</blockquote></td>
+    <td><blockquote>Closed captions & Subtitles (toggle)</blockquote></td>
     <td><kbd>C</kbd></td>
   </tr>
   <tr>

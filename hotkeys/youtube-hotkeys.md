@@ -42,7 +42,7 @@
     </tr>
     <!-- ------------------------------------------------------------ -->
     <tr>
-      <td rowspan="6"><kbd>Playback</kbd></td>
+      <td rowspan="8"><kbd>Playback</kbd></td>
     </tr>
     <tr>
       <td><blockquote>Rewind 10 seconds</blockquote></td>
@@ -69,6 +69,14 @@
         <br /><kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>,
         <br /><kbd>9</kbd><sub>&nbsp;<code>(seek to 90%, e.g. just before the end)</code></sub>
       </td>
+    </tr>
+    <tr>
+      <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
+      <td><kbd>Shift</kbd> + <kbd>P</kbd></td>
+    </tr>
+    <tr>
+      <td><blockquote>Play the next suggested video&nbsp;<sub>(non-playlist mode only)</sub></blockquote><blockquote>Play the next playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
+      <td><kbd>Shift</kbd> + <kbd>N</kbd></td>
     </tr>
     <!-- ------------------------------------------------------------ -->
     <tr>

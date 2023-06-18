@@ -14,7 +14,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <throwspan="4"><h3>Video Size</h3></th>
+    <th rowspan="4"><h3>Video Size</h3></th>
   </tr>
   <tr>
     <td><blockquote>Fullscreen mode (toggle)</blockquote></td>
@@ -30,7 +30,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <throwspan="3"><h3>Navigation</h3></th>
+    <th rowspan="3"><h3>Navigation</h3></th>
   </tr>
   <tr>
     <td><blockquote>Close dialog box</blockquote></td>
@@ -42,7 +42,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <throwspan="8"><h3>Playback</h3></th>
+    <th rowspan="8"><h3>Playback</h3></th>
   </tr>
   <tr>
     <td><blockquote>Rewind 10 seconds</blockquote></td>
@@ -80,7 +80,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <throwspan="4"><h3>Volume</h3></th>
+    <th rowspan="4"><h3>Volume</h3></th>
   </tr>
   <tr>
     <td><blockquote>Mute (toggle)</blockquote></td>
@@ -96,7 +96,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <throwspan="6"><h3>Subtitles /<br />Closed Captionss</h3></th>
+    <th rowspan="6"><h3>Subtitles /<br />Closed Captionss</h3></th>
   </tr>
   <tr>
     <td><blockquote>Closed captions (toggle)</blockquote></td>

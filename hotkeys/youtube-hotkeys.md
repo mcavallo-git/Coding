@@ -96,7 +96,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="6"><h3>Subtitles /<br />Closed Captionss</h3></th>
+    <th rowspan="6"><h3><kbd>Subtitles</kbd> /<br /><kbd>Closed Captions</kbd></h3></th>
   </tr>
   <tr>
     <td><blockquote>Closed captions (toggle)</blockquote></td>
@@ -123,7 +123,8 @@
 <!-- ------------------------------ -->
 
 ***
-- ## Citation(s)
+
+### Citation(s)
 
   - [`Keyboard shortcuts for YouTube - YouTube Help | support.google.com`](https://support.google.com/youtube/answer/7631406?hl=en)
 

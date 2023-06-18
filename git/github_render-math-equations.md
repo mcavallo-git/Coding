@@ -7,7 +7,7 @@
 
 <!-- ------------------------------ -->
 
-
+<!-- 
 - <img style="height:50px;margin:10px;background:white;padding:20px;"  src="https://render.githubusercontent.com/render/math?math=x%2by">
 - <img style="height:50px;margin:10px;background:black;padding:20px;"  src="https://render.githubusercontent.com/render/math?math={\color{white}x-y}">
 - <img style="height:50px;margin:10px;background:black;padding:20px;"  src="https://render.githubusercontent.com/render/math?math={\color{white}x+y}">
@@ -19,7 +19,7 @@
 <img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg%20A)\P(\neg%20A)}}#gh-dark-mode-only">
 
 <img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg%20A)\P(\neg%20A)}}#gh-dark-mode-only">
-
+ -->
 
 <!--
 math={

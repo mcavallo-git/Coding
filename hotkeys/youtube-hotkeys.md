@@ -14,7 +14,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="4"><h3>Video Size</h3></th>
+    <th rowspan="4" style="text-align:center;"><h3>Video Size</h3></th>
   </tr>
   <tr>
     <td><blockquote>Fullscreen mode (toggle)</blockquote></td>
@@ -30,7 +30,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="4"><h3>Volume</h3></th>
+    <th rowspan="4" style="text-align:center;"><h3>Volume</h3></th>
   </tr>
   <tr>
     <td><blockquote>Mute (toggle)</blockquote></td>
@@ -46,7 +46,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="6"><h3>Playback</h3></th>
+    <th rowspan="8" style="text-align:center;"><h3>Playback</h3></th>
   </tr>
   <tr>
     <td><blockquote>Rewind 10 seconds</blockquote></td>
@@ -65,18 +65,20 @@
     <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
   </tr>
   <tr>
+    <td><blockquote>Seek to the start of the video</blockquote></td>
+    <td><kbd>Home</kbd>, <kbd>0</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Seek to the end of the video</blockquote></td>
+    <td><kbd>End</kbd></td>
+  </tr>
+  <tr>
     <td><blockquote>Seek to position: <code>[10 × Number] %</code></blockquote></td>
-    <td>
-      <kbd>0</kbd><sub>&nbsp;<code>(seek to 0%, e.g. restarts video)</code></sub>,
-      <br /><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,
-      <br /><kbd>5</kbd><sub>&nbsp;<code>(seek to 50%, e.g. halfway point)</code></sub>,
-      <br /><kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>,
-      <br /><kbd>9</kbd><sub>&nbsp;<code>(seek to 90%, e.g. just before the end)</code></sub>
-    </td>
+    <td><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>, <kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd></td>
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="6"><h3>Navigation</h3></th>
+    <th rowspan="6" style="text-align:center;"><h3>Navigation</h3></th>
   </tr>
   <tr>
     <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
@@ -100,7 +102,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="6"><h3>Captions</h3>&<h3>subtitles</h3></th>
+    <th rowspan="6" style="text-align:center;"><h3>Captions</h3>&<h3>subtitles</h3></th>
   </tr>
   <tr>
     <td><blockquote>Closed captions & Subtitles (toggle)</blockquote></td>

@@ -127,9 +127,9 @@
 ***
 - ## Citation(s)
 
-- [`Keyboard shortcuts for YouTube - YouTube Help | support.google.com`](https://support.google.com/youtube/answer/7631406?hl=en)
+  - [`Keyboard shortcuts for YouTube - YouTube Help | support.google.com`](https://support.google.com/youtube/answer/7631406?hl=en)
 
-- [`30 YouTube Keyboard Shortcuts to Save Yourself Some Time | vidiq.com`](https://vidiq.com/blog/post/30-youtube-keyboard-shortcuts/)
+  - [`30 YouTube Keyboard Shortcuts to Save Yourself Some Time | vidiq.com`](https://vidiq.com/blog/post/30-youtube-keyboard-shortcuts/)
 
 <!-- ------------------------------ -->
 

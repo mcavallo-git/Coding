@@ -39,20 +39,20 @@
       <th><u>Hotkey(s)</u></th>
     </tr>
     <tr>
-      <td><kbd>Rewind 10 Seconds`<br /><sub>&nbsp;&nbsp;&nbsp;*(duration can be changed)*</sub> </td>
+      <td><kbd>Rewind 10 Seconds</kbd><br /><sub>&nbsp;&nbsp;&nbsp;*(duration can be changed)*</sub> </td>
       <td><kbd>← (Left Arrow)</kbd></td>
     </tr>
     <tr>
       <td><kbd>Rewind One Chapter</kbd></td>
-      <td><kbd>Ctrl` + `← (Left Arrow)</kbd></td>
+      <td><kbd>Ctrl</kbd> + <kbd>← (Left Arrow)</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Fast Forward 10 Seconds`<br /><sub>&nbsp;&nbsp;&nbsp;*(duration can be changed)*</sub> </td>
+      <td><kbd>Fast Forward 10 Seconds</kbd><br /><sub>&nbsp;&nbsp;&nbsp;*(duration can be changed)*</sub> </td>
       <td><kbd>→ (Right Arrow)</kbd></td>
     </tr>
     <tr>
       <td><kbd>Fast Forward One Chapter</kbd></td>
-      <td><kbd>Ctrl` + `→ (Right Arrow)</kbd></td>
+      <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
     </tr>
   </table>
 

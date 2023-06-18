@@ -45,10 +45,6 @@
       <td rowspan="6"><kbd>Playback</kbd></td>
     </tr>
     <tr>
-      <td><blockquote>Seek to video position: <code style="font-size:110%;">[ 10 * Number ] %</code><br />&nbsp;&nbsp;&nbsp;&bull;&nbsp;<kbd>0</kbd> seeks to the start of the video (<code>0%</code>)<br />&nbsp;&nbsp;&nbsp;&bull;&nbsp;<kbd>5</kbd> seeks to the halfway position (<code>50%</code>)</blockquote></td>
-      <td><kbd>0</kbd>, <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,<br /><kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd> </td>
-    </tr>
-    <tr>
       <td><blockquote>Rewind 10 seconds</blockquote></td>
       <td><kbd>← (Left Arrow)</kbd></td>
     </tr>
@@ -63,6 +59,10 @@
     <tr>
       <td><blockquote>Fast forward one chapter</blockquote></td>
       <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
+    </tr>
+    <tr>
+      <td><blockquote>Seek to video position: <code style="font-size:110%;">[ 10 * Number ] %</code><br />&nbsp;&nbsp;&nbsp;&bull;&nbsp;<kbd>0</kbd> seeks to the start of the video (<code>0%</code>)<br />&nbsp;&nbsp;&nbsp;&bull;&nbsp;<kbd>5</kbd> seeks to the halfway position (<code>50%</code>)</blockquote></td>
+      <td><kbd>0</kbd>, <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,<br /><kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd> </td>
     </tr>
     <!-- ------------------------------------------------------------ -->
     <tr>

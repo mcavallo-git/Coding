@@ -80,7 +80,7 @@
 
 <!-- ------------------------------ -->
 
-- ## `Subtitles/Closed Captionss`
+- ## `Subtitles` / `Closed Captionss`
   <table>
     <tr>
       <th><u>Action</u></th>

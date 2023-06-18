@@ -61,13 +61,14 @@
       <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
     </tr>
     <tr>
-      <td><blockquote>
-        Seek to video position: <code>[10 × Number] %</code>
-        <br />&nbsp;&nbsp;&nbsp;&bull;&nbsp;<kbd>0</kbd> seeks to the start of the video: <code>0%</code>
-        <br />&nbsp;&nbsp;&nbsp;&bull;&nbsp;<kbd>5</kbd> seeks to the halfway position: <code>50%</code>
-        <br />&nbsp;&nbsp;&nbsp;&bull;&nbsp;<kbd>9</kbd> seeks to just before the end: <code>90%</code>
-      </blockquote></td>
-      <td><kbd>0</kbd>, <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,<br /><kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd> </td>
+      <td><blockquote>Seek to video position: <code>[10 × Number] %</code></blockquote></td>
+      <td>
+        <kbd>0</kbd><sub>&nbsp;<code>(seek to 0%, e.g. restarts video)</code></sub>,
+        <br /><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,
+        <br /><kbd>5</kbd><sub>&nbsp;<code>(seek to 50%, e.g. halfway point)</code></sub>,
+        <br /><kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>,
+        <br /><kbd>9</kbd><sub>&nbsp;<code>(seek to 90%, e.g. just before the end)</code></sub>
+      </td>
     </tr>
     <!-- ------------------------------------------------------------ -->
     <tr>

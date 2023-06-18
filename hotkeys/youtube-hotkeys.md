@@ -10,7 +10,7 @@
   <tr>
     <th><u>Category</u></th>
     <th><u>Action</u></th>
-    <th><u>Keyboard Shortcut</u></th>
+    <th style="width:33%;"><u>Keyboard Shortcut</u></th>
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
@@ -97,7 +97,7 @@
     <td><kbd>Escape</kbd></td>
   </tr>
   <tr>
-    <td><blockquote>Show advanced video specs/stats, such as the:<br /><code>Viewport</code>, <code>Framerate</code>, <code>Resolution</code>, <code>Volume</code>,<br /><code>Codecs</code>, <code>Connection Speed</code>, <code>Network Activity</code>,<br /><code>Buffer Health</code> & more</blockquote></td>
+    <td><blockquote>Show advanced video specs/stats, such as the: <code>Viewport</code>, <code>Framerate</code>, <code>Resolution</code>, <code>Volume</code>, <code>Codecs</code>, <code>Connection Speed</code>, <code>Network Activity</code>, <code>Buffer Health</code> & more</blockquote></td>
     <td><kbd>Right-click</kbd> the video player<br />&nbsp;&nbsp;&#8627;&nbsp;<kbd>Left-click</kbd> the <code>🛈 Stats for Nerds</code> option</td>
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->

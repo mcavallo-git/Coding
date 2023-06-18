@@ -6,7 +6,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Video Player Controls
+- ## Video Size/Format
   <table>
     <tr>
       <th><u>Action</u></th>
@@ -32,7 +32,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Playback Controls
+- ## Playback
   <table>
     <tr>
       <th><u>Action</u></th>

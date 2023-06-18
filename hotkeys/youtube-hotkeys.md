@@ -12,8 +12,9 @@
       <th><u>Action</u></th>
       <th><u>Keyboard Shortcut</u></th>
     </tr>
+    <!-- ------------------------------------------------------------ -->
     <tr>
-      <td rowspan="4"><kbd>Video Size</kbd> /<br /><kbd>Video Format</kbd></td>
+      <td rowspan="4"><kbd>Video Size</kbd></td>
     </tr>
     <tr>
       <td><kbd>Fullscreen mode (toggle)</kbd></td>
@@ -27,6 +28,7 @@
       <td><kbd>Miniplayer mode (toggle)</kbd></td>
       <td><kbd>T</kbd></td>
     </tr>
+    <!-- ------------------------------------------------------------ -->
     <tr>
       <td rowspan="3"><kbd>Navigation</kbd></td>
     </tr>
@@ -38,8 +40,13 @@
       <td><kbd>Close miniplayer</kbd></td>
       <td><kbd>Escape</kbd></td>
     </tr>
+    <!-- ------------------------------------------------------------ -->
     <tr>
-      <td rowspan="5"><kbd>Playback</kbd></td>
+      <td rowspan="6"><kbd>Playback</kbd></td>
+    </tr>
+    <tr>
+      <td>Seek to the <kbd>10%</kbd> to <kbd>90%</kbd></td>
+      <td><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, ..., <kbd>8</kbd>, <kbd>9</kbd></td>
     </tr>
     <tr>
       <td><kbd>Rewind 10 seconds</kbd></td>
@@ -57,6 +64,7 @@
       <td><kbd>Fast forward one chapter</kbd></td>
       <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
     </tr>
+    <!-- ------------------------------------------------------------ -->
     <tr>
       <td rowspan="4"><kbd>Volume</kbd></td>
     </tr>
@@ -72,6 +80,7 @@
       <td><kbd>Volume down (5%)</kbd></td>
       <td><kbd>↓ (Down Arrow)</kbd></td>
     </tr>
+    <!-- ------------------------------------------------------------ -->
     <tr>
       <td rowspan="6"><kbd>Subtitles</kbd> /<br /><kbd>Closed Captionss</kbd></td>
     </tr>
@@ -95,6 +104,7 @@
       <td><kbd>Caption font size decrease</kbd></td>
       <td><kbd>- (Minus)</kbd></td>
     </tr>
+    <!-- ------------------------------------------------------------ -->
   </table>
 
 <!-- ------------------------------ -->

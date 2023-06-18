@@ -45,7 +45,7 @@
       <td rowspan="6"><kbd>Playback</kbd></td>
     </tr>
     <tr>
-      <td><blockquote>Seek to <code style="font-size:110%;">[ NumberKey * 10 ]</code> %<br />(of the total playback time)</blockquote></td>
+      <td><blockquote>Seek to video position: <code style="font-size:110%;">[ NumberKey * 10 ] %</code></blockquote></td>
       <td><kbd>0</kbd>, <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,<br /><kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd> </td>
     </tr>
     <tr>

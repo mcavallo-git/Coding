@@ -76,7 +76,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="5"><h3>Navigation</h3></th>
+    <th rowspan="6"><h3>Navigation</h3></th>
   </tr>
   <tr>
     <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
@@ -93,6 +93,10 @@
   <tr>
     <td><blockquote>Close miniplayer</blockquote></td>
     <td><kbd>Escape</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Show advanced video specs/stats, such as the:<br /><code>Viewport</code>, <code>Framerate</code>, <code>Resolution</code>, <code>Volume</code>,<br /><code>Codecs</code>, <code>Connection Speed</code>, <code>Network Activity</code>,<br /><code>Buffer Health</code> & more</blockquote></td>
+    <td><kbd>Right-click</kbd> the video player<br />&nbsp;&nbsp;&#8627;&nbsp;<kbd>Left-click</kbd> the <code>🛈 Stats for Nerds</code> option</td>
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>

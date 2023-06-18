@@ -45,15 +45,15 @@
       <td rowspan="6"><kbd>Playback</kbd></td>
     </tr>
     <tr>
-      <td>Seek to the <kbd>10%</kbd> to <kbd>90%</kbd></td>
-      <td><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, ..., <kbd>8</kbd>, <kbd>9</kbd></td>
+      <td><blockquote>Seeks to <code style="font-size:110%;">[ NumberKey * 10 ]</code> % of the way through the video</blockquote></td>
+      <td><kbd>0</kbd>, <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,<br /><kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd> </td>
     </tr>
     <tr>
-      <td><kbd>Rewind 10 seconds</kbd></td>
+      <td><blockquote>Rewind 10 seconds</blockquote></td>
       <td><kbd>← (Left Arrow)</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Rewind one chapter</kbd></td>
+      <td><blockquote>Rewind one chapter</blockquote></td>
       <td><kbd>Ctrl</kbd> + <kbd>← (Left Arrow)</kbd></td>
     </tr>
     <tr>

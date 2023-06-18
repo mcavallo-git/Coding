@@ -47,7 +47,7 @@ Mostly Linux compatible:
 ⌀					Diameter Sign (&#x2300;)  |  https://www.compart.com/en/unicode/U+2300
 Ω					Greek Capital Letter Omega (Ohms, Resistance) (&omega;) (&#x3A9;)  |  https://www.compart.com/en/unicode/U+03A9
 
-
+➕				Heavy Plus Sign (&#x2795;)  |  https://www.compart.com/en/unicode/U+2795
 -					Hyphen-Minus (keyboard key)  |  https://www.compart.com/en/unicode/U+002D
 –					En Dash (Longer than hyphen)  |  https://www.compart.com/en/unicode/U+2013
 —					Em Dash (Longer than hyphen & En Dash)  |  https://www.compart.com/en/unicode/U+2014

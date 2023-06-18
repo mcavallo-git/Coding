@@ -14,7 +14,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="4"><h3>Video Size</h3></th>
+    <th rowspan="4"><kbd style="font-size:125%">Video Size</kbd></th>
   </tr>
   <tr>
     <td><blockquote>Fullscreen mode (toggle)</blockquote></td>
@@ -30,7 +30,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="6"><h3>Playback</h3></th>
+    <th rowspan="6"><kbd style="font-size:125%">Playback</kbd></th>
   </tr>
   <tr>
     <td><blockquote>Rewind 10 seconds</blockquote></td>
@@ -60,7 +60,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="4"><h3>Volume</h3></th>
+    <th rowspan="4"><kbd style="font-size:125%">Volume</kbd></th>
   </tr>
   <tr>
     <td><blockquote>Mute (toggle)</blockquote></td>
@@ -76,7 +76,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="5"><h3>Navigation</h3></th>
+    <th rowspan="5"><kbd style="font-size:125%">Navigation</kbd></th>
   </tr>
   <tr>
     <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
@@ -96,7 +96,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="6"><h3><kbd>Subtitles</kbd> /<br /><kbd>Closed Captions</kbd></h3></th>
+    <th rowspan="6"><kbd style="font-size:125%">Subtitles /<br />Closed Captionss</kbd></th>
   </tr>
   <tr>
     <td><blockquote>Closed captions (toggle)</blockquote></td>

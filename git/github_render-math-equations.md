@@ -2,7 +2,8 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/main/git/github_render-math-equations.md -->
 <!-- ------------------------------------------------------------ -->
 
-# Rendering Math Equations in GitHub Markdown
+# GitHub Renderer - Math Equations
+  > Renders/Displays mathematical equations as an SVG image
 
 <!-- ------------------------------ -->
 <!-- 
@@ -52,11 +53,11 @@
 ***
 - ## Example 4 - Match to `Light`/`Dark` mode <sup><a href="https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b?permalink_comment_id=4117952#gistcomment-4117952">Citation</a></sup>
   - Light Mode 
-    - HTML:<br />```<img src="https://render.githubusercontent.com/render/math?math={P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg A)\P(\neg A)}}##gh-light-mode-only">```
-    - Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg A)\P(\neg A)}}##gh-light-mode-only">
+    - HTML:<br />```<img src="https://render.githubusercontent.com/render/math?math={P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg%20A)\P(\neg%20A)}}##gh-light-mode-only">```
+    - Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg%20A)\P(\neg%20A)}}##gh-light-mode-only">
   - Dark Mode 
-    - HTML:<br />```<img src="https://render.githubusercontent.com/render/math?math={\color{white}\P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg A)\P(\neg A)}}#gh-dark-mode-only">```
-    - Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg A)\P(\neg A)}}#gh-dark-mode-only">
+    - HTML:<br />```<img src="https://render.githubusercontent.com/render/math?math={\color{white}\P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg%20A)\P(\neg%20A)}}#gh-dark-mode-only">```
+    - Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\P(A|B)=\frac{\P(B|A)\P(A)}{\P(B|A)\P(A)\%2BP(B|\neg%20A)\P(\neg%20A)}}#gh-dark-mode-only">
 
 <!-- ------------------------------ -->
 

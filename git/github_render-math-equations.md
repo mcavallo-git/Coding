@@ -2,7 +2,7 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/main/git/github_render-math-equations.md -->
 <!-- ------------------------------------------------------------ -->
 
-# GitHub Math Equation Rendering
+# Rendering Math Equations in GitHub Markdown
 
 <!-- ------------------------------ -->
 

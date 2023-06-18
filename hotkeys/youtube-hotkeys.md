@@ -30,31 +30,19 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="3"><h3>Navigation</h3></th>
-  </tr>
-  <tr>
-    <td><blockquote>Close dialog box</blockquote></td>
-    <td><kbd>Escape</kbd></td>
-  </tr>
-  <tr>
-    <td><blockquote>Close miniplayer</blockquote></td>
-    <td><kbd>Escape</kbd></td>
-  </tr>
-  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
-  <tr>
-    <th rowspan="8"><h3>Playback</h3></th>
+    <th rowspan="6"><h3>Playback</h3></th>
   </tr>
   <tr>
     <td><blockquote>Rewind 10 seconds</blockquote></td>
     <td><kbd>← (Left Arrow)</kbd></td>
   </tr>
   <tr>
-    <td><blockquote>Rewind one chapter</blockquote></td>
-    <td><kbd>Ctrl</kbd> + <kbd>← (Left Arrow)</kbd></td>
-  </tr>
-  <tr>
     <td><blockquote>Fast forward 10 seconds</blockquote></td>
     <td><kbd>→ (Right Arrow)</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Rewind one chapter</blockquote></td>
+    <td><kbd>Ctrl</kbd> + <kbd>← (Left Arrow)</kbd></td>
   </tr>
   <tr>
     <td><blockquote>Fast forward one chapter</blockquote></td>
@@ -69,14 +57,6 @@
       <br /><kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>,
       <br /><kbd>9</kbd><sub>&nbsp;<code>(seek to 90%, e.g. just before the end)</code></sub>
     </td>
-  </tr>
-  <tr>
-    <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
-    <td><kbd>Shift</kbd> + <kbd>P</kbd></td>
-  </tr>
-  <tr>
-    <td><blockquote>Play the next suggested video&nbsp;<sub>(non-playlist mode only)</sub></blockquote><blockquote>Play the next playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
-    <td><kbd>Shift</kbd> + <kbd>N</kbd></td>
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
@@ -93,6 +73,26 @@
   <tr>
     <td><blockquote>Volume down (5%)</blockquote></td>
     <td><kbd>↓ (Down Arrow)</kbd></td>
+  </tr>
+  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
+  <tr>
+    <th rowspan="5"><h3>Navigation</h3></th>
+  </tr>
+  <tr>
+    <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
+    <td><kbd>Shift</kbd> + <kbd>P</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Play the next playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote><blockquote>Play the next suggested video&nbsp;<sub>(non-playlist mode only)</sub></blockquote></td>
+    <td><kbd>Shift</kbd> + <kbd>N</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Close dialog box</blockquote></td>
+    <td><kbd>Escape</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Close miniplayer</blockquote></td>
+    <td><kbd>Escape</kbd></td>
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>

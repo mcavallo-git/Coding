@@ -58,7 +58,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Volume Controls
+- ## Volume
   <table>
     <tr>
       <th><u>Action</u></th>
@@ -80,7 +80,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Subtitle/Closed Caption Controls
+- ## Subtitles/Closed Captionss
   <table>
     <tr>
       <th><u>Action</u></th>
@@ -110,7 +110,7 @@
 
 <!-- ------------------------------ -->
 
-- ## Navigation Controls
+- ## Navigation
   <table>
     <tr>
       <th><u>Action</u></th>

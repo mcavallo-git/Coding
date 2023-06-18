@@ -17,15 +17,15 @@
       <td rowspan="4"><kbd>Video Size</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Fullscreen mode (toggle)</kbd></td>
+      <td><blockquote>Fullscreen mode (toggle)</blockquote></td>
       <td><kbd>F</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Theater mode (toggle)</kbd></td>
+      <td><blockquote>Theater mode (toggle)</blockquote></td>
       <td><kbd>T</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Miniplayer mode (toggle)</kbd></td>
+      <td><blockquote>Miniplayer mode (toggle)</blockquote></td>
       <td><kbd>T</kbd></td>
     </tr>
     <!-- ------------------------------------------------------------ -->
@@ -33,11 +33,11 @@
       <td rowspan="3"><kbd>Navigation</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Close dialog box</kbd></td>
+      <td><blockquote>Close dialog box</blockquote></td>
       <td><kbd>Escape</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Close miniplayer</kbd></td>
+      <td><blockquote>Close miniplayer</blockquote></td>
       <td><kbd>Escape</kbd></td>
     </tr>
     <!-- ------------------------------------------------------------ -->
@@ -45,7 +45,7 @@
       <td rowspan="6"><kbd>Playback</kbd></td>
     </tr>
     <tr>
-      <td><blockquote>Seeks to <code style="font-size:110%;">[ NumberKey * 10 ]</code> % of the way through the video</blockquote></td>
+      <td><blockquote>Seek to <code style="font-size:110%;">[ NumberKey * 10 ]</code> %<br />(of the total playback time)</blockquote></td>
       <td><kbd>0</kbd>, <kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,<br /><kbd>5</kbd>, <kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>, <kbd>9</kbd> </td>
     </tr>
     <tr>
@@ -57,11 +57,11 @@
       <td><kbd>Ctrl</kbd> + <kbd>← (Left Arrow)</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Fast forward 10 seconds</kbd></td>
+      <td><blockquote>Fast forward 10 seconds</blockquote></td>
       <td><kbd>→ (Right Arrow)</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Fast forward one chapter</kbd></td>
+      <td><blockquote>Fast forward one chapter</blockquote></td>
       <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
     </tr>
     <!-- ------------------------------------------------------------ -->
@@ -69,15 +69,15 @@
       <td rowspan="4"><kbd>Volume</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Mute (toggle)</kbd></td>
+      <td><blockquote>Mute (toggle)</blockquote></td>
       <td><kbd>M</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Volume up (5%)</kbd></td>
+      <td><blockquote>Volume up (5%)</blockquote></td>
       <td><kbd>↑ (Up Arrow)</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Volume down (5%)</kbd></td>
+      <td><blockquote>Volume down (5%)</blockquote></td>
       <td><kbd>↓ (Down Arrow)</kbd></td>
     </tr>
     <!-- ------------------------------------------------------------ -->
@@ -85,23 +85,23 @@
       <td rowspan="6"><kbd>Subtitles</kbd> /<br /><kbd>Closed Captionss</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Closed captions (toggle)</kbd></td>
+      <td><blockquote>Closed captions (toggle)</blockquote></td>
       <td><kbd>C</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Caption brightness (toggle)</kbd></td>
+      <td><blockquote>Caption brightness (toggle)</blockquote></td>
       <td><kbd>O</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Caption background transparency (toggle)</kbd></td>
+      <td><blockquote>Caption background transparency (toggle)</blockquote></td>
       <td><kbd>W</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Caption Font Size Increase</kbd></td>
+      <td><blockquote>Caption Font Size Increase</blockquote></td>
       <td><kbd>+ (Plus)</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Caption font size decrease</kbd></td>
+      <td><blockquote>Caption font size decrease</blockquote></td>
       <td><kbd>- (Minus)</kbd></td>
     </tr>
     <!-- ------------------------------------------------------------ -->

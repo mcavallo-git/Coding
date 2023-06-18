@@ -26,7 +26,7 @@
   </tr>
   <tr>
     <td><blockquote>Miniplayer mode (toggle)</blockquote></td>
-    <td><kbd>T</kbd></td>
+    <td><kbd>I</kbd></td>
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>

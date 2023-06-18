@@ -13,7 +13,7 @@
       <th><u>Keyboard Shortcut</u></th>
     </tr>
     <tr>
-      <td rowspan="4"><kbd>Video Size / Format</kbd></td>
+      <td rowspan="4"><kbd>Video Size</kbd> /<br /><kbd>Video Format</kbd></td>
     </tr>
     <tr>
       <td><kbd>Fullscreen mode (toggle)</kbd></td>

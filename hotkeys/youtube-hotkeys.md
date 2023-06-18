@@ -30,6 +30,22 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
+    <th rowspan="4"><h3>Volume</h3></th>
+  </tr>
+  <tr>
+    <td><blockquote>Mute (toggle)</blockquote></td>
+    <td><kbd>M</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Volume up (5%)</blockquote></td>
+    <td><kbd>↑ (Up Arrow)</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Volume down (5%)</blockquote></td>
+    <td><kbd>↓ (Down Arrow)</kbd></td>
+  </tr>
+  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
+  <tr>
     <th rowspan="6"><h3>Playback</h3></th>
   </tr>
   <tr>
@@ -60,22 +76,6 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="4"><h3>Volume</h3></th>
-  </tr>
-  <tr>
-    <td><blockquote>Mute (toggle)</blockquote></td>
-    <td><kbd>M</kbd></td>
-  </tr>
-  <tr>
-    <td><blockquote>Volume up (5%)</blockquote></td>
-    <td><kbd>↑ (Up Arrow)</kbd></td>
-  </tr>
-  <tr>
-    <td><blockquote>Volume down (5%)</blockquote></td>
-    <td><kbd>↓ (Down Arrow)</kbd></td>
-  </tr>
-  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
-  <tr>
     <th rowspan="5"><h3>Navigation</h3></th>
   </tr>
   <tr>
@@ -96,7 +96,7 @@
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>
-    <th rowspan="6"><h3>Subtitles</h3> &<h3>Closed Captions</h3></th>
+    <th rowspan="6"><h3>Closed Captions & Subtitles</h3></th>
   </tr>
   <tr>
     <td><blockquote>Closed captions (toggle)</blockquote></td>
@@ -111,7 +111,7 @@
     <td><kbd>W</kbd></td>
   </tr>
   <tr>
-    <td><blockquote>Caption Font Size Increase</blockquote></td>
+    <td><blockquote>Caption font size increase</blockquote></td>
     <td><kbd>+ (Plus)</kbd></td>
   </tr>
   <tr>

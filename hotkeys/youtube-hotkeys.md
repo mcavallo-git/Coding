@@ -39,7 +39,7 @@
       <th><u>Hotkey(s)</u></th>
     </tr>
     <tr>
-      <td><kbd>Rewind 10 Seconds</kbd><br /><sub>&nbsp;&nbsp;&nbsp;*(duration can be changed)*</sub> </td>
+      <td><kbd>Rewind 10 Seconds</kbd></td>
       <td><kbd>← (Left Arrow)</kbd></td>
     </tr>
     <tr>
@@ -47,7 +47,7 @@
       <td><kbd>Ctrl</kbd> + <kbd>← (Left Arrow)</kbd></td>
     </tr>
     <tr>
-      <td><kbd>Fast Forward 10 Seconds</kbd><br /><sub>&nbsp;&nbsp;&nbsp;*(duration can be changed)*</sub> </td>
+      <td><kbd>Fast Forward 10 Seconds</kbd></td>
       <td><kbd>→ (Right Arrow)</kbd></td>
     </tr>
     <tr>

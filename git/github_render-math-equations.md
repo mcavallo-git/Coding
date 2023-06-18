@@ -5,12 +5,13 @@
 # Rendering Math Equations in GitHub Markdown
 
 <!-- ------------------------------ -->
-
+<!-- 
 - <img style="height:50px;margin:10px;"  src="https://render.githubusercontent.com/render/math?math={\color{white}}x%2by}">
 - <img style="height:50px;margin:10px;"  src="https://render.githubusercontent.com/render/math?math={\color{white}x %2b y}">
 - <img style="height:50px;margin:10px;"  src="https://render.githubusercontent.com/render/math?math={\color{white}x-y}">
 - <img src="https://render.githubusercontent.com/render/math?math={\color{white}\sum{x}{y}}#gh-dark-mode-only">
 - <img src="https://render.githubusercontent.com/render/math?math={\color{white}x - y}#gh-dark-mode-only">
+-->
 
 <!-- ------------------------------ -->
 

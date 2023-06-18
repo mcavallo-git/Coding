@@ -10,7 +10,7 @@
   <tr>
     <th><u>Category</u></th>
     <th><u>Action</u></th>
-    <th style="width:33%;"><u>Keyboard Shortcut</u></th>
+    <th style="width:50%;"><u>Keyboard Shortcut</u></th>
   </tr>
   <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
   <tr>

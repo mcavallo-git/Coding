@@ -81,11 +81,11 @@
     <th rowspan="6" style="text-align:center;"><h3>Navigation</h3></th>
   </tr>
   <tr>
-    <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
+    <td><blockquote>Play the next video<br />&nbsp;&nbsp;&#8627;&nbsp;<sub>(playlist mode, only)</sub></blockquote></td>
     <td><kbd>Shift</kbd> + <kbd>P</kbd></td>
   </tr>
   <tr>
-    <td><blockquote>Play the next playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote><blockquote>Play the next suggested video&nbsp;<sub>(non-playlist mode only)</sub></blockquote></td>
+    <td><blockquote>Play the next playlist video</td>
     <td><kbd>Shift</kbd> + <kbd>N</kbd></td>
   </tr>
   <tr>

@@ -6,120 +6,119 @@
 
 <!-- ------------------------------ -->
 
-  <table>
-    <tr>
-      <th><u>Category</u></th>
-      <th><u>Action</u></th>
-      <th><u>Keyboard Shortcut</u></th>
-    </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
-    <tr>
-      <td rowspan="4"><kbd>Video Size</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Fullscreen mode (toggle)</blockquote></td>
-      <td><kbd>F</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Theater mode (toggle)</blockquote></td>
-      <td><kbd>T</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Miniplayer mode (toggle)</blockquote></td>
-      <td><kbd>T</kbd></td>
-    </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
-    <tr>
-      <td rowspan="3"><kbd>Navigation</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Close dialog box</blockquote></td>
-      <td><kbd>Escape</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Close miniplayer</blockquote></td>
-      <td><kbd>Escape</kbd></td>
-    </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
-    <tr>
-      <td rowspan="8"><kbd>Playback</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Rewind 10 seconds</blockquote></td>
-      <td><kbd>← (Left Arrow)</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Rewind one chapter</blockquote></td>
-      <td><kbd>Ctrl</kbd> + <kbd>← (Left Arrow)</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Fast forward 10 seconds</blockquote></td>
-      <td><kbd>→ (Right Arrow)</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Fast forward one chapter</blockquote></td>
-      <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Seek to video position: <code>[10 × Number] %</code></blockquote></td>
-      <td>
-        <kbd>0</kbd><sub>&nbsp;<code>(seek to 0%, e.g. restarts video)</code></sub>,
-        <br /><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,
-        <br /><kbd>5</kbd><sub>&nbsp;<code>(seek to 50%, e.g. halfway point)</code></sub>,
-        <br /><kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>,
-        <br /><kbd>9</kbd><sub>&nbsp;<code>(seek to 90%, e.g. just before the end)</code></sub>
-      </td>
-    </tr>
-    <tr>
-      <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
-      <td><kbd>Shift</kbd> + <kbd>P</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Play the next suggested video&nbsp;<sub>(non-playlist mode only)</sub></blockquote><blockquote>Play the next playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
-      <td><kbd>Shift</kbd> + <kbd>N</kbd></td>
-    </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
-    <tr>
-      <td rowspan="4"><kbd>Volume</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Mute (toggle)</blockquote></td>
-      <td><kbd>M</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Volume up (5%)</blockquote></td>
-      <td><kbd>↑ (Up Arrow)</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Volume down (5%)</blockquote></td>
-      <td><kbd>↓ (Down Arrow)</kbd></td>
-    </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
-    <tr>
-      <td rowspan="6"><kbd>Subtitles</kbd> /<br /><kbd>Closed Captionss</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Closed captions (toggle)</blockquote></td>
-      <td><kbd>C</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Caption brightness (toggle)</blockquote></td>
-      <td><kbd>O</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Caption background transparency (toggle)</blockquote></td>
-      <td><kbd>W</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Caption Font Size Increase</blockquote></td>
-      <td><kbd>+ (Plus)</kbd></td>
-    </tr>
-    <tr>
-      <td><blockquote>Caption font size decrease</blockquote></td>
-      <td><kbd>- (Minus)</kbd></td>
-    </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
-  </table>
+<table>
+  <tr>
+    <th><u>Category</u></th>
+    <th><u>Action</u></th>
+    <th><u>Keyboard Shortcut</u></th>
+  </tr>
+  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
+  <tr>
+    <td rowspan="4"><h3>Video Size</h3></td>
+  </tr>
+  <tr>
+    <td><blockquote>Fullscreen mode (toggle)</blockquote></td>
+    <td><kbd>F</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Theater mode (toggle)</blockquote></td>
+    <td><kbd>T</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Miniplayer mode (toggle)</blockquote></td>
+    <td><kbd>T</kbd></td>
+  </tr>
+  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
+  <tr>
+    <td rowspan="3"><h3>Navigation</h3></td>
+  </tr>
+  <tr>
+    <td><blockquote>Close dialog box</blockquote></td>
+    <td><kbd>Escape</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Close miniplayer</blockquote></td>
+    <td><kbd>Escape</kbd></td>
+  </tr>
+  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
+  <tr>
+    <td rowspan="8"><h3>Playback</h3></td>
+  </tr>
+  <tr>
+    <td><blockquote>Rewind 10 seconds</blockquote></td>
+    <td><kbd>← (Left Arrow)</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Rewind one chapter</blockquote></td>
+    <td><kbd>Ctrl</kbd> + <kbd>← (Left Arrow)</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Fast forward 10 seconds</blockquote></td>
+    <td><kbd>→ (Right Arrow)</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Fast forward one chapter</blockquote></td>
+    <td><kbd>Ctrl</kbd> + <kbd>→ (Right Arrow)</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Seek to video position: <code>[10 × Number] %</code></blockquote></td>
+    <td>
+      <kbd>0</kbd><sub>&nbsp;<code>(seek to 0%, e.g. restarts video)</code></sub>,
+      <br /><kbd>1</kbd>, <kbd>2</kbd>, <kbd>3</kbd>, <kbd>4</kbd>,
+      <br /><kbd>5</kbd><sub>&nbsp;<code>(seek to 50%, e.g. halfway point)</code></sub>,
+      <br /><kbd>6</kbd>, <kbd>7</kbd>, <kbd>8</kbd>,
+      <br /><kbd>9</kbd><sub>&nbsp;<code>(seek to 90%, e.g. just before the end)</code></sub>
+    </td>
+  </tr>
+  <tr>
+    <td><blockquote>Play the previous playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
+    <td><kbd>Shift</kbd> + <kbd>P</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Play the next suggested video&nbsp;<sub>(non-playlist mode only)</sub></blockquote><blockquote>Play the next playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
+    <td><kbd>Shift</kbd> + <kbd>N</kbd></td>
+  </tr>
+  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
+  <tr>
+    <td rowspan="4"><h3>Volume</h3></td>
+  </tr>
+  <tr>
+    <td><blockquote>Mute (toggle)</blockquote></td>
+    <td><kbd>M</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Volume up (5%)</blockquote></td>
+    <td><kbd>↑ (Up Arrow)</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Volume down (5%)</blockquote></td>
+    <td><kbd>↓ (Down Arrow)</kbd></td>
+  </tr>
+  <!-- ------------------------------ --> <tr><td colspan="3"><br /></td></tr> <!-- ------------------------------ -->
+  <tr>
+    <td rowspan="6"><h3>Subtitles /<br />Closed Captionss</h3></td>
+  </tr>
+  <tr>
+    <td><blockquote>Closed captions (toggle)</blockquote></td>
+    <td><kbd>C</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Caption brightness (toggle)</blockquote></td>
+    <td><kbd>O</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Caption background transparency (toggle)</blockquote></td>
+    <td><kbd>W</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Caption Font Size Increase</blockquote></td>
+    <td><kbd>+ (Plus)</kbd></td>
+  </tr>
+  <tr>
+    <td><blockquote>Caption font size decrease</blockquote></td>
+    <td><kbd>- (Minus)</kbd></td>
+  </tr>
+</table>
 
 <!-- ------------------------------ -->
 

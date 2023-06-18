@@ -124,7 +124,8 @@
 
 <!-- ------------------------------ -->
 
-### Citation(s)
+***
+- ## Citation(s)
 
 - [`Keyboard shortcuts for YouTube - YouTube Help | support.google.com`](https://support.google.com/youtube/answer/7631406?hl=en)
 

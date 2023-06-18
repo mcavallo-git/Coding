@@ -2,42 +2,48 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/main/git/github_render-math-equations.md -->
 <!-- ------------------------------------------------------------ -->
 
-<hr />
-
 # GitHub Math Equation Rendering
 
+<!-- ------------------------------ -->
 
-<hr />
+***
+- ## General Syntax
+  - HTML:<br />```<img src="https://render.githubusercontent.com/render/math?math={_____}">```&nbsp;&nbsp;&nbsp;*(replacing the `_____` in the URL with the math equation to be rendered)*
 
-## General Syntax
-- HTML:<br />```<img src="https://render.githubusercontent.com/render/math?math={_____}">```&nbsp;&nbsp;&nbsp;*(replacing the `_____` in the URL with the math equation to be rendered)*
+<!-- ------------------------------ -->
 
+***
+- ## Example 1
 
-<hr />
+  - HTML:<br />```<img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">``` <sup><a href="https://github.com/mcavallo-git/Coding/search?q=schrader">Citation</a></sup>
 
-## Example 1
+  - Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">
 
-- HTML:<br />```<img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">``` <sup><a href="https://github.com/mcavallo-git/Coding/search?q=schrader">Citation</a></sup>
+<!-- ------------------------------ -->
 
-- Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\frac{12}{0.3937}%20\frac{threads}{inch}=30.48%20\frac{threads}{inch}}">
+***
+- ## Example 2
 
+  - HTML:<br />```<img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math=\color{white}\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}">``` <sup><a href="https://tex.stackexchange.com/q/566327">Citation</a></sup>
 
-<hr />
+  - Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math=\color{white}\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}">
 
-## Example 2
+<!-- ------------------------------ -->
 
-- HTML:<br />```<img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math=\color{white}\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}">``` <sup><a href="https://tex.stackexchange.com/q/566327">Citation</a></sup>
+***
+- ## Example 3
 
-- Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math=\color{white}\begin{equation}\sum_{n=0}^\infty\frac{1}{2^n}\end{equation}">
+  - HTML:<br />```<img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}">``` <sup><a href="https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b?permalink_comment_id=4051474#gistcomment-4051474">Citation</a></sup>
 
+  - Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}">
 
-<hr />
+<!-- ------------------------------ -->
 
-## Example 3
+***
+- ## Citation(s)
 
-- HTML:<br />```<img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}">``` <sup><a href="https://gist.github.com/a-rodin/fef3f543412d6e1ec5b6cf55bf197d7b?permalink_comment_id=4051474#gistcomment-4051474">Citation</a></sup>
+  - [`Writing mathematical expressions - GitHub Docs | docs.github.com`](https://docs.github.com/en/get-started/writing-on-github/working-with-advanced-formatting/writing-mathematical-expressions)
 
-- Output:<br /><img style="height:50px;margin:10px" src="https://render.githubusercontent.com/render/math?math={\color{white}\L = -\sum_{j}[T_{j}ln(O_{j})] + \frac{\lambda W_{ij}^{2}}{2} \rightarrow \text{one-hot} \rightarrow -ln(O_{c}) + \frac{\lambda W_{ij}^{2}}{2}}">
+<!-- ------------------------------ -->
 
-
-<hr />
+***

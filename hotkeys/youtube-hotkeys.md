@@ -12,7 +12,7 @@
       <th><u>Action</u></th>
       <th><u>Keyboard Shortcut</u></th>
     </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3" style="background:#FFFFFF88;"><br /></td></tr> <!-- ------------------------------ -->
+    <!-- ------------------------------ --> <tr><td colspan="3" style="background:none;"><br /></td></tr> <!-- ------------------------------ -->
     <tr>
       <td rowspan="4"><kbd>Video Size</kbd></td>
     </tr>
@@ -28,7 +28,7 @@
       <td><blockquote>Miniplayer mode (toggle)</blockquote></td>
       <td><kbd>T</kbd></td>
     </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3" style="background:#FFFFFF88;"><br /></td></tr> <!-- ------------------------------ -->
+    <!-- ------------------------------ --> <tr><td colspan="3" style="background:none;"><br /></td></tr> <!-- ------------------------------ -->
     <tr>
       <td rowspan="3"><kbd>Navigation</kbd></td>
     </tr>
@@ -40,7 +40,7 @@
       <td><blockquote>Close miniplayer</blockquote></td>
       <td><kbd>Escape</kbd></td>
     </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3" style="background:#FFFFFF88;"><br /></td></tr> <!-- ------------------------------ -->
+    <!-- ------------------------------ --> <tr><td colspan="3" style="background:none;"><br /></td></tr> <!-- ------------------------------ -->
     <tr>
       <td rowspan="8"><kbd>Playback</kbd></td>
     </tr>
@@ -78,7 +78,7 @@
       <td><blockquote>Play the next suggested video&nbsp;<sub>(non-playlist mode only)</sub></blockquote><blockquote>Play the next playlist video&nbsp;<sub>(playlist mode only)</sub></blockquote></td>
       <td><kbd>Shift</kbd> + <kbd>N</kbd></td>
     </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3" style="background:#FFFFFF88;"><br /></td></tr> <!-- ------------------------------ -->
+    <!-- ------------------------------ --> <tr><td colspan="3" style="background:none;"><br /></td></tr> <!-- ------------------------------ -->
     <tr>
       <td rowspan="4"><kbd>Volume</kbd></td>
     </tr>
@@ -94,7 +94,7 @@
       <td><blockquote>Volume down (5%)</blockquote></td>
       <td><kbd>↓ (Down Arrow)</kbd></td>
     </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3" style="background:#FFFFFF88;"><br /></td></tr> <!-- ------------------------------ -->
+    <!-- ------------------------------ --> <tr><td colspan="3" style="background:none;"><br /></td></tr> <!-- ------------------------------ -->
     <tr>
       <td rowspan="6"><kbd>Subtitles</kbd> /<br /><kbd>Closed Captionss</kbd></td>
     </tr>
@@ -118,7 +118,7 @@
       <td><blockquote>Caption font size decrease</blockquote></td>
       <td><kbd>- (Minus)</kbd></td>
     </tr>
-    <!-- ------------------------------ --> <tr><td colspan="3" style="background:#FFFFFF88;"><br /></td></tr> <!-- ------------------------------ -->
+    <!-- ------------------------------ --> <tr><td colspan="3" style="background:none;"><br /></td></tr> <!-- ------------------------------ -->
   </table>
 
 <!-- ------------------------------ -->

@@ -4,6 +4,20 @@
 #   |--> Get the installed version of PowerShell
 #
 # ------------------------------------------------------------
+#
+# Determine the edition of current PowerShell session (powershell vs pwsh)
+#
+
+If ("Desktop" -Eq "${PSEdition}") {
+  Write-Host "Current session is running in Windows PowerShell (powershell.exe)";
+} ElseIf ("Desktop" -Eq "${PSEdition}") {
+  Write-Host "Current session is running in PowerShell Core (pwsh.exe)";
+} Else {
+  Write-Host "Current session is running in unhandled edition of PowerShell: `"${PSEdition}`"";
+}
+
+
+# ------------------------------------------------------------
 
 
 # pwsh (PowerShell Core) has a built-in method for checking versioning (thankfully)

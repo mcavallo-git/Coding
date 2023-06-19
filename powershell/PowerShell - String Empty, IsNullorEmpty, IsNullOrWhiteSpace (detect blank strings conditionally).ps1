@@ -1,6 +1,18 @@
 # ------------------------------
 # PowerShell - String Empty, IsNullorEmpty, IsNullOrWhiteSpace (detect blank strings conditionally)
 # ------------------------------
+
+#
+# Test if string is empty/unset
+#
+If ([String]::IsNullOrEmpty("${___STRING_VAR___}") -Eq $True) {
+	Write-Host "String IS [ null or empty ]";
+} Else {
+	Write-Host "String is NOT [ null or empty ]";
+}
+
+
+# ------------------------------
 #
 # [String]::Empty
 #
@@ -35,7 +47,7 @@ If (([String]::Empty) -Eq ("${StringVar}")) {
 
 # Test if a string is null or empty
 $StringVar="";
-If ([String]::IsNullOrEmpty(${StringVar}) -Eq $True) {
+If ([String]::IsNullOrEmpty("${StringVar}") -Eq $True) {
 	Write-Host "String IS [ null or empty ]";
 } Else {
 	Write-Host "String is NOT [ null or empty ]";
@@ -56,7 +68,7 @@ If ([String]::IsNullOrEmpty(${StringVar}) -Eq $True) {
 
 # Test if a string is null, empty or blank (whitespace only)
 $StringVar="";
-If ([String]::IsNullOrWhiteSpace(${StringVar}) -Eq $True) {
+If ([String]::IsNullOrWhiteSpace("${StringVar}") -Eq $True) {
 	Write-Host "String IS [ null, empty or blank (whitespace only) ]";
 } Else {
 	Write-Host "String is NOT [ null, empty or blank (whitespace only) ]";

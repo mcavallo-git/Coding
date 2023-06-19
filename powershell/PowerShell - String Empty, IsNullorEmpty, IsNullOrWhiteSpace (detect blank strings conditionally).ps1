@@ -1,14 +1,14 @@
 # ------------------------------
 # PowerShell - String Empty, IsNullorEmpty, IsNullOrWhiteSpace (detect blank strings conditionally)
 # ------------------------------
-
 #
 # Test if string is empty/unset
 #
+
 If ([String]::IsNullOrEmpty("${___STRING_VAR___}") -Eq $True) {
-	Write-Host "String IS [ null or empty ]";
+	# String IS empty/unset
 } Else {
-	Write-Host "String is NOT [ null or empty ]";
+	# String is NOT empty/unset
 }
 
 

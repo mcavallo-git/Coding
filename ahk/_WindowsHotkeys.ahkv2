@@ -271,7 +271,6 @@ Pause::
 #z::
 {
   GetWindowSpecs()
-  ; GetWindowSpecs("ahk_exe chrome.exe")
   Return
 }
 

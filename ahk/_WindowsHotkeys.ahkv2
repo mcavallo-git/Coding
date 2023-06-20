@@ -2605,41 +2605,41 @@ GetWindowSpecs(WinTitle:="A") {
   }
 
   ; --- TABLE - TOTAL WIDTH ---
-  GUI_BASE_WIDTH := 200
-  GUI_MAX_WIDTH := Floor(0.4 * A_ScreenWidth)
-  GUI_LONGEST_FIELD := StrLen(Win_longest_field)
+  Gui_BaseWidth := 200
+  Gui_MaxWidth := Floor(0.4 * A_ScreenWidth)
+  Gui_LongestField := StrLen(Win_longest_field)
   If (Win_is_win10_app == 1) {
-    GUI_BASE_WIDTH := GUI_BASE_WIDTH + 64
+    Gui_BaseWidth := Gui_BaseWidth + 64
   }
-  GUI_WIDTH := GUI_BASE_WIDTH + Ceil( GUI_LONGEST_FIELD * 8 )  ; <-- 8 to 8.5 seems to be the perfect character-width multiplier for the GUI using font 'Tahoma'
-  If (GUI_WIDTH > GUI_MAX_WIDTH) {
-    GUI_WIDTH := GUI_MAX_WIDTH
+  Gui_Width := Gui_BaseWidth + Ceil( Gui_LongestField * 8 )  ; <-- Average character width for the 'Tahoma' Gui font is ~8-8.5 pixels
+  If (Gui_Width > Gui_MaxWidth) {
+    Gui_Width := Gui_MaxWidth
   }
 
   ; --- TABLE - TOTAL ROWS ---
-  GUI_ROWCOUNT := 2  ; Header Rows
-  GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win Rows
-  GUI_ROWCOUNT := GUI_ROWCOUNT + 7  ; Ctrl Rows
+  Gui_RowCount := 2  ; Header Rows
+  Gui_RowCount := Gui_RowCount + 12  ; Win Rows
+  Gui_RowCount := Gui_RowCount + 7  ; Ctrl Rows
   If (Win_is_win10_app == 1) {
-    GUI_ROWCOUNT := GUI_ROWCOUNT + 12  ; Win10 Rows
+    Gui_RowCount := Gui_RowCount + 12  ; Win10 Rows
   }
   If (DebugMode == 1) {
-    GUI_ROWCOUNT := GUI_ROWCOUNT + 3  ; Debug-Rows
+    Gui_RowCount := Gui_RowCount + 3  ; Debug-Rows
   }
 
   ; --- TABLE - COLORS ---
-  GUI_BACKGROUND_COLOR := "1E1E1E"
-  GUI_TEXT_COLOR := "FFFFFF"
+  Gui_BackgroundColor := "1E1E1E"
+  Gui_TextColor := "FFFFFF"
 
   ; --- TABLE - FINAL CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary )
-  GUI_OPT := "r" GUI_ROWCOUNT
-  GUI_OPT := GUI_OPT " w" GUI_WIDTH
-  ; GUI_OPT := GUI_OPT " gGetWindowSpecs_OnDoubleClick"
-  GUI_OPT := GUI_OPT " Background" GUI_BACKGROUND_COLOR
-  GUI_OPT := GUI_OPT " C" GUI_TEXT_COLOR
-  GUI_OPT := GUI_OPT " Grid"
-  GUI_OPT := GUI_OPT " NoSortHdr"
-  ; GUI_OPT = GUI_OPT " AltSubmit"
+  Gui_Options := "r" Gui_RowCount
+  Gui_Options := Gui_Options " w" Gui_Width
+  ; Gui_Options := Gui_Options " gGetWindowSpecs_OnDoubleClick"
+  Gui_Options := Gui_Options " Background" Gui_BackgroundColor
+  Gui_Options := Gui_Options " C" Gui_TextColor
+  Gui_Options := Gui_Options " Grid"
+  Gui_Options := Gui_Options " NoSortHdr"
+  ; Gui_Options = Gui_Options " AltSubmit"
 
   ; Draw the 'ListView' (grid/table) with two columns
   ;  |--> Note that [ Gui {configs...} ] declarations must be on the PREVIOUS LINE before [ Gui Add, ... ]
@@ -2649,7 +2649,7 @@ GetWindowSpecs(WinTitle:="A") {
   MyGui.SetFont("s10", "Open Sans")
   MyGui.SetFont("s10", "Fira Code")
   MyGui.BackColor := "1E1E1E"
-  LV := MyGui.Add("ListView",GUI_OPT,["Key","Value"])
+  LV := MyGui.Add("ListView",Gui_Options,["Key","Value"])
   LV.OnEvent("DoubleClick", GetWindowSpecs_OnDoubleClick)
   LV.OnEvent("ContextMenu", GetWindowSpecs_OnRightClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
 
@@ -2703,9 +2703,9 @@ GetWindowSpecs(WinTitle:="A") {
   }
   If (DebugMode == 1) {
     LV.Add("", "", "")
-    LV.Add("", "GUI_LONGEST_FIELD", GUI_LONGEST_FIELD)
-    LV.Add("", "GUI_WIDTH", GUI_WIDTH)
-    ; LV.Add("", "GUI_OPT", GUI_OPT)
+    LV.Add("", "Gui_LongestField", Gui_LongestField)
+    LV.Add("", "Gui_Width", Gui_Width)
+    ; LV.Add("", "Gui_Options", Gui_Options)
   }
   LV.Add("", "", "")
   LV.ModifyCol(1, "AutoHdr Text Left")

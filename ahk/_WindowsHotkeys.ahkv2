@@ -2584,8 +2584,6 @@ GetWindowSpecs(WinTitle:="A") {
   Win_longest_field := ""
   Win_longest_field := StrLen_Max(Win_longest_field,[WinTitle,Win_fullpath,Ctrl_names,Ctrl_ids,Win_ahk_class])
 
-  ; MsgBox("Win_ahk_id=[ " Win_ahk_id " ]" "`n" "Win_hwnd=[ " Win_hwnd " ]" "`n" "WinTitle=[ " WinTitle " ]" "`n")
-
   Win_is_win10_app := WinGet_IsWin10App(WinTitle)
   If (Win_is_win10_app == 1) {
     ; Get the Win10-App's stats

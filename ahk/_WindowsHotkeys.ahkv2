@@ -3090,10 +3090,7 @@ Open_VisualStudioCode(FilePath_Open:="") {
   ; ------------------------------
   FullPath_RunExe := "C:\Windows\System32\notepad.exe"  ; Run notepad.exe which is redirected to VS Code through NotepadReplacer (which opens default Workspace in VS Code)
   ; ------------------------------
-  ; Win_ahk_exe := "Code.exe"                     ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
-  ; WinTitle_ahk_exe := ("ahk_exe " Win_ahk_exe)  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
-  ; WinTitle := WinTitle_ahk_exe                  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
-  ; WinTitle := WinGetTitle(WinTitle_ahk_exe)     ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
+  ; WinTitle := WinGetTitle("ahk_exe Code.exe")  ; WinExist doesn't grab minimized windows by their 'ahk_exe' as-intended
   WinTitle := " - Visual Studio Code"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 20

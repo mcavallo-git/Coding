@@ -6,6 +6,7 @@
 
 #Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
 
+
 ; ------------------------------
 ;
 ; Global Variables - User-Defined
@@ -13,6 +14,7 @@
 
 DebugMode := 0
 ; DebugMode := 1
+
 
 ; ------------------------------
 ;
@@ -79,6 +81,7 @@ If (FileExist(TrayIcon_Default)) {
 ; ---                   HOTKEY LISTENERS                   ---
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
+
 
 ; ------------------------------
 ;
@@ -1707,6 +1710,7 @@ RShift & LShift::
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 
+
 ; ------------------------------
 ;
 ;   WINDOW:  [ VS Code ]
@@ -1878,6 +1882,7 @@ RShift & LShift::
 ; ---                      FUNCTION(S)                     ---
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
+
 
 ; ------------------------------
 ;
@@ -2265,7 +2270,7 @@ Get_ahk_id_from_pid(WinPid, ExcludeTitle:="") {
 ;   |--> Input: WinTitle to Target, WinTitle to Exclude from Targeting
 ;   |--> Returns ahk_id (process-handle) for AHK back-end control-based calls
 ;
-Get_ahk_id_from_title(WinTitle, ExcludeTitle:="") {
+Get_ahk_id_from_title(WinTitle:="A", ExcludeTitle:="") {
   SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   ; ControlGet OutputVar, Hwnd,,, WinTitle,, ExcludeTitle
   OutputVar := WinGetID(WinTitle,,ExcludeTitle)
@@ -2554,7 +2559,7 @@ GetWindowSpecs(WinTitle:="A") {
   Win_ahk_pid := WinGetPID(Win_hwnd)
   Win_ahk_exe := WinGetProcessName(Win_hwnd)
   Win_fullpath := WinGetProcessPath(Win_hwnd)
-  Win_size_state := WinGet_size_state(Win_hwnd)
+  Win_size_state := WinGet_SizeState(Win_hwnd)
   WinGetPos(&xpos, &ypos, &Win_width, &Win_height, Win_hwnd)
 
   Ctrl_names := ImplodeArray(WinGetControls(Win_hwnd),", ",True) ; Get all control names in this window
@@ -2579,7 +2584,9 @@ GetWindowSpecs(WinTitle:="A") {
   Win_longest_field := ""
   Win_longest_field := StrLen_Max(Win_longest_field,[WinTitle,Win_fullpath,Ctrl_names,Ctrl_ids,Win_ahk_class])
 
-  Win_is_win10_app := WinGet_is_win10_app(WinTitle)
+  ; MsgBox("Win_ahk_id=[ " Win_ahk_id " ]" "`n" "Win_hwnd=[ " Win_hwnd " ]" "`n" "WinTitle=[ " WinTitle " ]" "`n")
+
+  Win_is_win10_app := WinGet_IsWin10App(WinTitle)
   If (Win_is_win10_app == 1) {
     ; Get the Win10-App's stats
     Win10_ahk_id := WinGet_ahk_id(WinTitle)
@@ -2591,7 +2598,7 @@ GetWindowSpecs(WinTitle:="A") {
     Win10_fullpath := WinGetProcessPath("ahk_id " Win10_ahk_id)
     Win10_control_names := ImplodeArray(WinGetControls("ahk_id " Win10_ahk_id),", ",True) ; Get all control names in this window
     Win10_control_ids := ImplodeArray(WinGetControlsHwnd("ahk_id " Win10_ahk_id),", ",True) ; Get all control ids in this window
-    Win10_size_state := WinGet_size_state("ahk_id " Win10_ahk_id)
+    Win10_size_state := WinGet_SizeState("ahk_id " Win10_ahk_id)
     WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id " Win10_ahk_id))
 
     ; Get the value of the longest text field (to scale the width of the GUI off)
@@ -4140,14 +4147,14 @@ WinGet_ahk_id(WinTitle:="", WinText:="", ExcludeTitle:="", ExcludeText:="") {
 
 ; ------------------------------
 ;
-; WinGet_is_win10_app
+; WinGet_IsWin10App
 ;   |
 ;   |--> Description:
 ;   |      Determines if target-app is running in "ApplicationFrameHost.exe" (which runs Windows 10 'apps' (applications))
 ;   |
-;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
+;   |--> Ex)   Win_is_win10_app := WinGet_IsWin10App("A")
 ;
-WinGet_is_win10_app(WinTitle) {
+WinGet_IsWin10App(WinTitle:="A") {
   Win_ahk_exe := WinGetProcessName(WinTitle)
   Win_is_win10_app := 0
   If (Win_ahk_exe = "ApplicationFrameHost.exe") {
@@ -4159,14 +4166,14 @@ WinGet_is_win10_app(WinTitle) {
 
 ; ------------------------------
 ;
-; WinGet_size_state
+; WinGet_SizeState
 ;   |
 ;   |--> Description:
 ;   |      Returns "Minimized", "Restored" or "Maximized" depending on the value returned from WinGetMinMax
 ;   |
-;   |--> Ex)   Win_is_win10_app := WinGet_is_win10_app("A")
+;   |--> Ex)   Win_size_state := WinGet_SizeState("A")
 ;
-WinGet_size_state(WinTitle,WinText:="") {
+WinGet_SizeState(WinTitle:="A",WinText:="") {
   Win_MinMaxState := WinGetMinMax(WinTitle,WinText)
   Win_size_state := ""
   If (Win_MinMaxState == 0) {
@@ -4189,7 +4196,7 @@ WinGet_size_state(WinTitle,WinText:="") {
 ;   |
 ;   |--> Ex)   Win_MonitorIndex := WinGet_MonitorIndex(("ahk_id " WinGetID("A")))
 ;
-WinGet_MonitorIndex(WinTitle,WinText:="") {
+WinGet_MonitorIndex(WinTitle:="A",WinText:="") {
   ; Default to monitor #1
   Win_MonitorIndex := 1
   ; Determine the center position for target window
@@ -4682,7 +4689,7 @@ Xbox_ExportCaptures() {
     Win_ahk_class := WinGetClass(Win_hwnd)
     Win_ahk_exe := WinGetProcessName(Win_hwnd)
     Win_ahk_pid := WinGetPID(Win_hwnd)
-    Win_size_state := WinGet_size_state(Win_hwnd)
+    Win_size_state := WinGet_SizeState(Win_hwnd)
 
     Win10_ahk_id := WinGet_ahk_id(WinTitle)
     Win10_title := WinGetTitle("ahk_id " Win10_ahk_id)

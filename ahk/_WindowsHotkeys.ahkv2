@@ -3600,11 +3600,9 @@ SendHostname(VerbosityLevel:=0) {
   Win_ahk_exe := WinGetProcessName("A")
   WinTitle := WinGetTitle("A")
   If (Win_ahk_exe == "chrome.exe") {
-    If (WinTitle == "") {
-      ; Bitwarden
-      VerbosityLevel := 1
-    } Else If (WinActive("LastPass") && WinActive("Duo Security")) {
-      ; LastPass
+    WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "A")
+    If ((Win_width <= 450) && (Win_height <= 650)) {
+      ; Assume chrome plugin authentication step
       VerbosityLevel := 1
     }
   }

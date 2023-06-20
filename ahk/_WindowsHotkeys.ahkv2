@@ -3591,8 +3591,11 @@ SendHostname(HostName_VerbosityLevel:=0) {
   Win_ahk_exe := WinGetProcessName("A")
   WinTitle := WinGetTitle("A")
   If (Win_ahk_exe == "chrome.exe") {
-    If ( ( WinActive("LastPass") && WinActive("Duo Security") ) || ( WinTitle == "" ) ) {
-      ; IfWinActive   ///   https://www.autohotkey.com/docs/commands/WinActive.htm  (v1)   ///   https://lexikos.github.io/v2/docs/commands/WinActive.htm  (v2)
+    If (WinTitle == "") {
+      ; Bitwarden
+      HostName_VerbosityLevel := 1
+    } Else If (WinActive("LastPass") && WinActive("Duo Security")) {
+      ; LastPass
       HostName_VerbosityLevel := 1
     }
   }

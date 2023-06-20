@@ -3599,13 +3599,13 @@ SendHostname(VerbosityLevel:=0) {
   SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   Win_ahk_exe := WinGetProcessName("A")
   WinTitle := WinGetTitle("A")
-  If (Win_ahk_exe == "chrome.exe") {
-    WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "A")
-    If ((Win_width <= 450) && (Win_height <= 650)) {
-      ; Assume chrome plugin authentication step
-      VerbosityLevel := 1
-    }
-  }
+  ; If (Win_ahk_exe == "chrome.exe") {
+  ;   WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "A")
+  ;   If ((Win_width <= 450) && (Win_height <= 650)) {
+  ;     ; Chrome plugin
+  ;     VerbosityLevel := 1
+  ;   }
+  ; }
   If (VerbosityLevel >= 1) {
     NowTimestamp := FormatTime("","yyyy-MM-dd_HH-mm-ss")
     EchoStr := A_ComputerName " " NowTimestamp " " Win_ahk_exe

@@ -2934,8 +2934,7 @@ Open_Chrome() {
   } Else If (FileExist(FullPath_RunExe_x86)) {
     FullPath_RunExe := FullPath_RunExe_x86
   }
-  Win_ahk_exe := "chrome.exe"
-  WinTitle_ahk_exe := ("ahk_exe " Win_ahk_exe)
+  ; WinTitle := ("ahk_exe chrome.exe")
   WinTitle := " - Google Chrome"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 20

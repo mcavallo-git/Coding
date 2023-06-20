@@ -4689,7 +4689,8 @@ Xbox_ExportCaptures() {
     Win_ahk_pid := WinGetPID(Win_hwnd)
     Win_size_state := WinGet_SizeState(Win_hwnd)
 
-    Win10_ahk_id := WinGet_ahk_id(WinTitle)
+    ; Win10_ahk_id := WinGet_ahk_id(WinTitle)
+    Win10_ahk_id := WinGet_ahk_id(Win_hwnd)
     Win10_title := WinGetTitle("ahk_id " Win10_ahk_id)
     Win10_ahk_class := WinGetClass("ahk_id " Win10_ahk_id)
     Win10_ahk_pid := WinGetPID("ahk_id " Win10_ahk_id)

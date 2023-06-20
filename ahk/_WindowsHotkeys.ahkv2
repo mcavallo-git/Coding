@@ -271,6 +271,7 @@ Pause::
 #z::
 {
   GetWindowSpecs()
+  ; GetWindowSpecs("ahk_exe chrome.exe")
   Return
 }
 
@@ -2544,177 +2545,190 @@ GetTimezoneOffset_P(&Output_TZ_P) {
 GetWindowSpecs(WinTitle:="A") {
   global DebugMode
 
-  ; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui ... ] and [ LV.Add(...) ])
-  ; Gui WindowSpecs:Default
-  MyGui := Gui()
-  MyGui.Name := "WindowSpecs"
-  ; MyGui.Destroy()
-
-  Win_ahk_id := WinGetID(WinTitle)
-  Win_hwnd := ("ahk_id " Win_ahk_id)
-
-  WinTitle := WinGetTitle(Win_hwnd)
-  Win_text := WinGetText(Win_hwnd)
-  Win_ahk_class := WinGetClass(Win_hwnd)
-  Win_ahk_pid := WinGetPID(Win_hwnd)
-  Win_ahk_exe := WinGetProcessName(Win_hwnd)
-  Win_fullpath := WinGetProcessPath(Win_hwnd)
-  Win_size_state := WinGet_SizeState(Win_hwnd)
-  WinGetPos(&xpos, &ypos, &Win_width, &Win_height, Win_hwnd)
-
-  Ctrl_names := ImplodeArray(WinGetControls(Win_hwnd),", ",True) ; Get all control names in this window
-  Ctrl_ids := ImplodeArray(WinGetControlsHwnd(Win_hwnd),", ",True) ; Get all control ids in this window
-  Ctrl_focus_hwnd := ControlGetFocus(Win_hwnd)
-  If (Ctrl_focus_hwnd != 0) {
-    Ctrl_focus_classnn := ControlGetClassNN(Ctrl_focus_hwnd, Win_hwnd)
-    Ctrl_focus_isvisible := ControlGetVisible(Ctrl_focus_hwnd, Win_hwnd)
-    Try {
-      ControlGetPos(&Ctrl_xpos, &Ctrl_ypos, &Ctrl_width, &Ctrl_height, Ctrl_focus_hwnd, Win_hwnd)
-      Ctrl_focus_pos := ("x" Ctrl_xpos " y" Ctrl_ypos ", w" Ctrl_width ", h" Ctrl_height )
-    }
-    ; Ctrl_focus_text := ControlGetText(Ctrl_focus_hwnd, Win_hwnd)
+  If (WinTitle == "") {
+    ; Error - WinTitle passed as an empty string
+    TooltipOutput := ""
+    TooltipOutput := TooltipOutput "                 " "`n"
+    TooltipOutput := TooltipOutput "  Error - Invalid Argument(s) passed to function [ " A_ThisFunc " ]" "   " "`n"
+    TooltipOutput := TooltipOutput "    |" "`n"
+    TooltipOutput := TooltipOutput "    |--> Call:  " A_ThisFunc " (`"" WinTitle "`")" "   " "`n"
+    TooltipOutput := TooltipOutput "    |" "`n"
+    TooltipOutput := TooltipOutput "    |--> Script:  " A_ScriptFullPath "   " "`n"
+    TooltipOutput := TooltipOutput "                 "
+    ShowToolTip(TooltipOutput,,,,60000)
   } Else {
-    Ctrl_focus_classnn := ""
-    Ctrl_focus_isvisible := ""
-    Ctrl_focus_pos := ""
-    ; Ctrl_focus_text := ""
-  }
+    ; Set the Gui-identifier (e.g. which gui-popup is affected by gui-based commands, such as [ Gui ... ] and [ LV.Add(...) ])
+    ; Gui WindowSpecs:Default
+    MyGui := Gui()
+    MyGui.Name := "WindowSpecs"
+    ; MyGui.Destroy()
 
-  ; Get the value of the longest text field (to scale the width of the GUI off)
-  Win_longest_field := ""
-  Win_longest_field := StrLen_Max(Win_longest_field,[WinTitle,Win_fullpath,Ctrl_names,Ctrl_ids,Win_ahk_class])
+    Win_ahk_id := WinGetID(WinTitle)
+    Win_hwnd := ("ahk_id " Win_ahk_id)
 
-  Win_is_win10_app := WinGet_IsWin10App(Win_hwnd)
-  If (Win_is_win10_app == 1) {
-    ; Get the Win10-App's stats
-    Win10_ahk_id := WinGet_ahk_id(Win_hwnd)
-    Win10_title := WinGetTitle("ahk_id " Win10_ahk_id)
-    Win10_text := WinGetText("ahk_id " Win10_ahk_id)
-    Win10_ahk_class := WinGetClass("ahk_id " Win10_ahk_id)
-    Win10_ahk_pid := WinGetPID("ahk_id " Win10_ahk_id)
-    Win10_ahk_exe := WinGetProcessName("ahk_id " Win10_ahk_id)
-    Win10_fullpath := WinGetProcessPath("ahk_id " Win10_ahk_id)
-    Win10_control_names := ImplodeArray(WinGetControls("ahk_id " Win10_ahk_id),", ",True) ; Get all control names in this window
-    Win10_control_ids := ImplodeArray(WinGetControlsHwnd("ahk_id " Win10_ahk_id),", ",True) ; Get all control ids in this window
-    Win10_size_state := WinGet_SizeState("ahk_id " Win10_ahk_id)
-    WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id " Win10_ahk_id))
+    WinTitle := WinGetTitle(Win_hwnd)
+    Win_text := WinGetText(Win_hwnd)
+    Win_ahk_class := WinGetClass(Win_hwnd)
+    Win_ahk_pid := WinGetPID(Win_hwnd)
+    Win_ahk_exe := WinGetProcessName(Win_hwnd)
+    Win_fullpath := WinGetProcessPath(Win_hwnd)
+    Win_size_state := WinGet_SizeState(Win_hwnd)
+    WinGetPos(&xpos, &ypos, &Win_width, &Win_height, Win_hwnd)
+
+    Ctrl_names := ImplodeArray(WinGetControls(Win_hwnd),", ",True) ; Get all control names in this window
+    Ctrl_ids := ImplodeArray(WinGetControlsHwnd(Win_hwnd),", ",True) ; Get all control ids in this window
+    Ctrl_focus_hwnd := ControlGetFocus(Win_hwnd)
+    If (Ctrl_focus_hwnd != 0) {
+      Ctrl_focus_classnn := ControlGetClassNN(Ctrl_focus_hwnd, Win_hwnd)
+      Ctrl_focus_isvisible := ControlGetVisible(Ctrl_focus_hwnd, Win_hwnd)
+      Try {
+        ControlGetPos(&Ctrl_xpos, &Ctrl_ypos, &Ctrl_width, &Ctrl_height, Ctrl_focus_hwnd, Win_hwnd)
+        Ctrl_focus_pos := ("x" Ctrl_xpos " y" Ctrl_ypos ", w" Ctrl_width ", h" Ctrl_height )
+      }
+      ; Ctrl_focus_text := ControlGetText(Ctrl_focus_hwnd, Win_hwnd)
+    } Else {
+      Ctrl_focus_classnn := ""
+      Ctrl_focus_isvisible := ""
+      Ctrl_focus_pos := ""
+      ; Ctrl_focus_text := ""
+    }
 
     ; Get the value of the longest text field (to scale the width of the GUI off)
-    Win_longest_field := StrLen_Max(Win_longest_field,[Win10_title,Win10_fullpath,Win10_control_names,Win10_control_ids,Win10_ahk_class])
+    Win_longest_field := ""
+    Win_longest_field := StrLen_Max(Win_longest_field,[WinTitle,Win_fullpath,Ctrl_names,Ctrl_ids,Win_ahk_class])
 
-  }
+    Win_is_win10_app := WinGet_IsWin10App(Win_hwnd)
+    If (Win_is_win10_app == 1) {
+      ; Get the Win10-App's stats
+      Win10_ahk_id := WinGet_ahk_id(Win_hwnd)
+      Win10_title := WinGetTitle("ahk_id " Win10_ahk_id)
+      Win10_text := WinGetText("ahk_id " Win10_ahk_id)
+      Win10_ahk_class := WinGetClass("ahk_id " Win10_ahk_id)
+      Win10_ahk_pid := WinGetPID("ahk_id " Win10_ahk_id)
+      Win10_ahk_exe := WinGetProcessName("ahk_id " Win10_ahk_id)
+      Win10_fullpath := WinGetProcessPath("ahk_id " Win10_ahk_id)
+      Win10_control_names := ImplodeArray(WinGetControls("ahk_id " Win10_ahk_id),", ",True) ; Get all control names in this window
+      Win10_control_ids := ImplodeArray(WinGetControlsHwnd("ahk_id " Win10_ahk_id),", ",True) ; Get all control ids in this window
+      Win10_size_state := WinGet_SizeState("ahk_id " Win10_ahk_id)
+      WinGetPos(&Win10_xpos, &Win10_ypos, &Win10_Width, &Win10_Height, ("ahk_id " Win10_ahk_id))
 
-  ; --- TABLE - TOTAL WIDTH ---
-  Gui_BaseWidth := 200
-  Gui_MaxWidth := Floor(0.4 * A_ScreenWidth)
-  Gui_LongestField := StrLen(Win_longest_field)
-  If (Win_is_win10_app == 1) {
-    Gui_BaseWidth := Gui_BaseWidth + 64
-  }
-  Gui_Width := Gui_BaseWidth + Ceil( Gui_LongestField * 8 )  ; <-- Average character width for the 'Tahoma' Gui font is ~8-8.5 pixels
-  If (Gui_Width > Gui_MaxWidth) {
-    Gui_Width := Gui_MaxWidth
-  }
+      ; Get the value of the longest text field (to scale the width of the GUI off)
+      Win_longest_field := StrLen_Max(Win_longest_field,[Win10_title,Win10_fullpath,Win10_control_names,Win10_control_ids,Win10_ahk_class])
 
-  ; --- TABLE - TOTAL ROWS ---
-  Gui_RowCount := 2  ; Header Rows
-  Gui_RowCount := Gui_RowCount + 12  ; Win Rows
-  Gui_RowCount := Gui_RowCount + 7  ; Ctrl Rows
-  If (Win_is_win10_app == 1) {
-    Gui_RowCount := Gui_RowCount + 12  ; Win10 Rows
-  }
-  If (DebugMode == 1) {
-    Gui_RowCount := Gui_RowCount + 3  ; Debug-Rows
-  }
+    }
 
-  ; --- TABLE - COLORS ---
-  Gui_BackgroundColor := "1E1E1E"
-  Gui_TextColor := "FFFFFF"
+    ; --- TABLE - TOTAL WIDTH ---
+    Gui_BaseWidth := 200
+    Gui_MaxWidth := Floor(0.4 * A_ScreenWidth)
+    Gui_LongestField := StrLen(Win_longest_field)
+    If (Win_is_win10_app == 1) {
+      Gui_BaseWidth := Gui_BaseWidth + 64
+    }
+    Gui_Width := Gui_BaseWidth + Ceil( Gui_LongestField * 8 )  ; <-- Average character width for the 'Tahoma' Gui font is ~8-8.5 pixels
+    If (Gui_Width > Gui_MaxWidth) {
+      Gui_Width := Gui_MaxWidth
+    }
 
-  ; --- TABLE - FINAL CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary )
-  Gui_Options := "r" Gui_RowCount
-  Gui_Options := Gui_Options " w" Gui_Width
-  ; Gui_Options := Gui_Options " gGetWindowSpecs_OnDoubleClick"
-  Gui_Options := Gui_Options " Background" Gui_BackgroundColor
-  Gui_Options := Gui_Options " C" Gui_TextColor
-  Gui_Options := Gui_Options " Grid"
-  Gui_Options := Gui_Options " NoSortHdr"
-  ; Gui_Options = Gui_Options " AltSubmit"
+    ; --- TABLE - TOTAL ROWS ---
+    Gui_RowCount := 2  ; Header Rows
+    Gui_RowCount := Gui_RowCount + 12  ; Win Rows
+    Gui_RowCount := Gui_RowCount + 7  ; Ctrl Rows
+    If (Win_is_win10_app == 1) {
+      Gui_RowCount := Gui_RowCount + 12  ; Win10 Rows
+    }
+    If (DebugMode == 1) {
+      Gui_RowCount := Gui_RowCount + 3  ; Debug-Rows
+    }
 
-  ; Draw the 'ListView' (grid/table) with two columns
-  ;  |--> Note that [ Gui {configs...} ] declarations must be on the PREVIOUS LINE before [ Gui Add, ... ]
-  MyGui.SetFont("s10", "Tahoma")
-  MyGui.SetFont("s10", "Consolas")
-  MyGui.SetFont("s10", "Courier New")
-  MyGui.SetFont("s10", "Open Sans")
-  MyGui.SetFont("s10", "Fira Code")
-  MyGui.BackColor := "1E1E1E"
-  LV := MyGui.Add("ListView",Gui_Options,["Key","Value"])
-  LV.OnEvent("DoubleClick", GetWindowSpecs_OnDoubleClick)
-  LV.OnEvent("ContextMenu", GetWindowSpecs_OnRightClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
+    ; --- TABLE - COLORS ---
+    Gui_BackgroundColor := "1E1E1E"
+    Gui_TextColor := "FFFFFF"
 
-  LV.Add("", "", "")
-  LV.Add("", "WinTitle", WinTitle)
-  LV.Add("", "Win_text", Win_text)
-  LV.Add("", "Win_ahk_class", Win_ahk_class)
-  LV.Add("", "Win_ahk_exe", Win_ahk_exe)
-  LV.Add("", "Win_ahk_id", Win_ahk_id)
-  LV.Add("", "Win_ahk_pid", Win_ahk_pid)
-  LV.Add("", "Win_fullpath", Win_fullpath)
-  LV.Add("", "Win_size_state", Win_size_state)
-  ; LV.Add("", "xpos", xpos)
-  ; LV.Add("", "ypos", ypos)
-  ; LV.Add("", "Width", Win_width)
-  ; LV.Add("", "height", Win_height)
-  LV.Add("", "xpos, ypos", ( xpos ", " ypos ) )
-  LV.Add("", "width, height", ( Win_width ", " Win_height ) )
-  ; LV.Add("", "Mimic in AHK", "WinMove,,,xpos,ypos,Win_width,Win_height")
+    ; --- TABLE - FINAL CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary )
+    Gui_Options := "r" Gui_RowCount
+    Gui_Options := Gui_Options " w" Gui_Width
+    ; Gui_Options := Gui_Options " gGetWindowSpecs_OnDoubleClick"
+    Gui_Options := Gui_Options " Background" Gui_BackgroundColor
+    Gui_Options := Gui_Options " C" Gui_TextColor
+    Gui_Options := Gui_Options " Grid"
+    Gui_Options := Gui_Options " NoSortHdr"
+    ; Gui_Options = Gui_Options " AltSubmit"
 
-  LV.Add("", "", "")
-  LV.Add("", "Ctrl_ids", Ctrl_ids)
-  LV.Add("", "Ctrl_names", Ctrl_names)
-  LV.Add("", "Ctrl_focus_hwnd", Ctrl_focus_hwnd)
-  LV.Add("", "Ctrl_focus_classnn", Ctrl_focus_classnn)
-  LV.Add("", "Ctrl_focus_isvisible", Ctrl_focus_isvisible)
-  LV.Add("", "Ctrl_focus_pos", Ctrl_focus_pos)
-  ; LV.Add("", "Ctrl_focus_text", Ctrl_focus_text)
+    ; Draw the 'ListView' (grid/table) with two columns
+    ;  |--> Note that [ Gui {configs...} ] declarations must be on the PREVIOUS LINE before [ Gui Add, ... ]
+    MyGui.SetFont("s10", "Tahoma")
+    MyGui.SetFont("s10", "Consolas")
+    MyGui.SetFont("s10", "Courier New")
+    MyGui.SetFont("s10", "Open Sans")
+    MyGui.SetFont("s10", "Fira Code")
+    MyGui.BackColor := "1E1E1E"
+    LV := MyGui.Add("ListView",Gui_Options,["Key","Value"])
+    LV.OnEvent("DoubleClick", GetWindowSpecs_OnDoubleClick)
+    LV.OnEvent("ContextMenu", GetWindowSpecs_OnRightClick)  ; The user right-clicks the control or presses Menu or Shift+F10 while the control has the keyboard focus
 
-  ; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
-  LV.Add("", "", "")
-  LV.Add("", "Is Win10 App?", ((Win_is_win10_app==1) ? ("Yes"):("No")))
-  If (Win_is_win10_app == 1) {
-    ; Show the Win10-App's stats
-    LV.Add("", "Win10_title", Win10_title)
-    LV.Add("", "Win10_text", Win10_text)
-    LV.Add("", "Win10_ahk_class", Win10_ahk_class)
-    LV.Add("", "Win10_ahk_exe", Win10_ahk_exe)
-    LV.Add("", "Win10_ahk_id", Win10_ahk_id)
-    LV.Add("", "Win10_ahk_pid", Win10_ahk_pid)
-    LV.Add("", "Win10_fullpath", Win10_fullpath)
-    LV.Add("", "Win10_size_state", Win10_size_state)
-    ; LV.Add("", "Win10_xpos", Win10_xpos)
-    ; LV.Add("", "Win10_ypos", Win10_ypos)
-    ; LV.Add("", "Win10_Width", Win10_Width)
-    ; LV.Add("", "Win10_Height", Win10_Height)
-    LV.Add("", "Win10_xpos, Win10_ypos", ( Win10_xpos ", " Win10_ypos ) )
-    LV.Add("", "Win10_Width, Win10_Height", ( Win10_Width ", " Win10_Height ) )
-    LV.Add("", "Win10_control_names", Win10_control_names)
-    LV.Add("", "Win10_control_ids", Win10_control_ids)
-  }
-  If (DebugMode == 1) {
     LV.Add("", "", "")
-    LV.Add("", "Gui_LongestField", Gui_LongestField)
-    LV.Add("", "Gui_Width", Gui_Width)
-    ; LV.Add("", "Gui_Options", Gui_Options)
-  }
-  LV.Add("", "", "")
-  LV.ModifyCol(1, "AutoHdr Text Left")
-  LV.ModifyCol(2, "AutoHdr Text Left")
-  ; LV.ModifyCol()  ; Auto-size each column to fit its contents.
+    LV.Add("", "WinTitle", WinTitle)
+    LV.Add("", "Win_text", Win_text)
+    LV.Add("", "Win_ahk_class", Win_ahk_class)
+    LV.Add("", "Win_ahk_exe", Win_ahk_exe)
+    LV.Add("", "Win_ahk_id", Win_ahk_id)
+    LV.Add("", "Win_ahk_pid", Win_ahk_pid)
+    LV.Add("", "Win_fullpath", Win_fullpath)
+    LV.Add("", "Win_size_state", Win_size_state)
+    ; LV.Add("", "xpos", xpos)
+    ; LV.Add("", "ypos", ypos)
+    ; LV.Add("", "Width", Win_width)
+    ; LV.Add("", "height", Win_height)
+    LV.Add("", "xpos, ypos", ( xpos ", " ypos ) )
+    LV.Add("", "width, height", ( Win_width ", " Win_height ) )
+    ; LV.Add("", "Mimic in AHK", "WinMove,,,xpos,ypos,Win_width,Win_height")
 
-  ; Display the window and return. The script will be notified whenever the user double clicks a row.
-  ; Gui Show
-  MyGui.Show()
+    LV.Add("", "", "")
+    LV.Add("", "Ctrl_ids", Ctrl_ids)
+    LV.Add("", "Ctrl_names", Ctrl_names)
+    LV.Add("", "Ctrl_focus_hwnd", Ctrl_focus_hwnd)
+    LV.Add("", "Ctrl_focus_classnn", Ctrl_focus_classnn)
+    LV.Add("", "Ctrl_focus_isvisible", Ctrl_focus_isvisible)
+    LV.Add("", "Ctrl_focus_pos", Ctrl_focus_pos)
+    ; LV.Add("", "Ctrl_focus_text", Ctrl_focus_text)
+
+    ; Handle Windows 10 'apps' (applications) alongside 'normal' Windows executables/process-windows
+    LV.Add("", "", "")
+    LV.Add("", "Is Win10 App?", ((Win_is_win10_app==1) ? ("Yes"):("No")))
+    If (Win_is_win10_app == 1) {
+      ; Show the Win10-App's stats
+      LV.Add("", "Win10_title", Win10_title)
+      LV.Add("", "Win10_text", Win10_text)
+      LV.Add("", "Win10_ahk_class", Win10_ahk_class)
+      LV.Add("", "Win10_ahk_exe", Win10_ahk_exe)
+      LV.Add("", "Win10_ahk_id", Win10_ahk_id)
+      LV.Add("", "Win10_ahk_pid", Win10_ahk_pid)
+      LV.Add("", "Win10_fullpath", Win10_fullpath)
+      LV.Add("", "Win10_size_state", Win10_size_state)
+      ; LV.Add("", "Win10_xpos", Win10_xpos)
+      ; LV.Add("", "Win10_ypos", Win10_ypos)
+      ; LV.Add("", "Win10_Width", Win10_Width)
+      ; LV.Add("", "Win10_Height", Win10_Height)
+      LV.Add("", "Win10_xpos, Win10_ypos", ( Win10_xpos ", " Win10_ypos ) )
+      LV.Add("", "Win10_Width, Win10_Height", ( Win10_Width ", " Win10_Height ) )
+      LV.Add("", "Win10_control_names", Win10_control_names)
+      LV.Add("", "Win10_control_ids", Win10_control_ids)
+    }
+    If (DebugMode == 1) {
+      LV.Add("", "", "")
+      LV.Add("", "Gui_LongestField", Gui_LongestField)
+      LV.Add("", "Gui_Width", Gui_Width)
+      ; LV.Add("", "Gui_Options", Gui_Options)
+    }
+    LV.Add("", "", "")
+    LV.ModifyCol(1, "AutoHdr Text Left")
+    LV.ModifyCol(2, "AutoHdr Text Left")
+    ; LV.ModifyCol()  ; Auto-size each column to fit its contents.
+
+    ; Display the window and return. The script will be notified whenever the user double clicks a row.
+    ; Gui Show
+    MyGui.Show()
+  }
   Return
 }
 ;

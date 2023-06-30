@@ -10,7 +10,7 @@
 cat '/etc/timezone';
 
 # Get Time Zone for current device (as a variable)
-TZ="$(cat '/etc/timezone')";
+TZ="$(cat '/etc/timezone';)";
 
 
 # ------------------------------------------------------------

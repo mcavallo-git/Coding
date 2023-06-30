@@ -1,0 +1,88 @@
+------------------------------------------------------------
+
+> pihole-FTL --help
+
+The Pi-hole FTL engine - v5.23
+
+Typically, pihole-FTL runs as a system service and is controlled
+by sudo service pihole-FTL <action> where <action> is one out
+of start, stop, or restart.
+
+pihole-FTL exposes some features going beyond the standard
+service pihole-FTL command. These are:
+
+Version information:
+        -v, version         Return FTL version
+        -vv                 Return verbose version information
+        -t, tag             Return git tag
+        -b, branch          Return git branch
+        --hash              Return git commit hash
+
+Regular expression testing:
+        regex-test str      Test str against all regular
+                            expressions in the database
+        regex-test str rgx  Test str against regular expression
+                            given by regular expression rgx
+
+    Example: pihole-FTL regex-test somebad.domain bad
+    to test somebad.domain against bad
+
+    An optional -q prevents any output (exit code testing):
+    pihole-FTL -q regex-test somebad.domain bad
+
+Embedded Lua engine:
+        --lua, lua          FTL's lua interpreter
+        --luac, luac        FTL's lua compiler
+
+    Usage: pihole-FTL lua [OPTIONS] [SCRIPT [ARGS]]
+
+    Options:
+
+    - [OPTIONS] is an optional set of options. All available
+      options can be seen by running pihole-FTL lua --help
+    - [SCRIPT] is the optional name of a Lua script.
+      If this script does not exist, an interactive shell is
+      started instead.
+    - [SCRIPT [ARGS]] can be used to pass optional args to
+      the script.
+
+Embedded SQLite3 shell:
+        sql [-h], sqlite3 [-h]        FTL's SQLite3 shell
+        -h starts a special human-readable mode
+
+    Usage: pihole-FTL sqlite3 [-h] [OPTIONS] [FILENAME] [SQL]
+
+    Options:
+
+    - [OPTIONS] is an optional set of options. All available
+      options can be found in pihole-FTL sqlite3 --help
+    - [FILENAME] is the optional name of an SQLite database.
+      A new database is created if the file does not previously
+      exist. If this argument is omitted, SQLite3 will use a
+      transient in-memory database instead.
+    - [SQL] is an optional SQL statement to be executed. If
+      omitted, an interactive shell is started instead.
+
+Embedded dnsmasq options:
+        dnsmasq-test        Test syntax of dnsmasq's config
+        --list-dhcp4        List known DHCPv4 config options
+        --list-dhcp6        List known DHCPv6 config options
+
+Debugging and special use:
+        d, debug            Enter debugging mode
+        test                Don't start pihole-FTL but instead
+                            quit immediately
+        -f, no-daemon       Don't go into daemon mode
+
+Other:
+        dhcp-discover       Discover DHCP servers in the local
+                            network
+        arp-scan [-a/-x]    Use ARP to scan local network for
+                            possible IP conflicts
+                            Append -a to force scan on all
+                            interfaces
+                            Append -x to force scan on all
+                            interfaces and scan 10x more often
+        -h, help            Display this help and exit
+
+------------------------------------------------------------

@@ -1,3 +1,7 @@
+------------------------------------------------------------
+
+> pihole --help
+
 Usage: pihole [options]
 Example: 'pihole -w -h'
 Add '-h' after specific commands for more information on usage

@@ -687,12 +687,11 @@ Pause::
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F2
-;   ACTION:  Opens a window (GetKeyCodes.ahk) which displays verbose keypress info, live (allowing user to press combo keys and view how it is interpreted by AHK)
+;   ACTION:  Displays live data/information regarding any key & button presses being caught by AHK
 ;
 #F2::
 {
-  GetKeyCodes := A_ScriptDir "\GetKeyCodes.ahk"
-  Run(GetKeyCodes)
+  KeyHistory
   Return
 }
 

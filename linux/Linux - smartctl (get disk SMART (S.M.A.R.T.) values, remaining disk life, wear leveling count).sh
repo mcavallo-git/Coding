@@ -31,9 +31,11 @@ if [[ 1 -eq 1 ]]; then
   # If SMART support is available but is currently disabled...
   if [[ -n "$(echo "${SMART_SUPPORT}" | grep -i 'Disabled';)" ]] && [[ -n "$(echo "${SMART_SUPPORT}" | grep -i 'Available';)" ]]; then
     # Enable SMART support on target disk
+    echo "";
     echo "Info: Enabling SMART support for disk \"${TARGET_DISK}\"...";
     smartctl --smart=on "${TARGET_DISK}";
   else
+    echo "";
     echo "Info: (Skipped) SMART support is already enabled for disk \"${TARGET_DISK}\"";
   fi;
   # ------------------------------

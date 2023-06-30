@@ -1843,6 +1843,89 @@ RShift & LShift::
 
 ; ------------------------------
 ;
+;   WINDOW:  [ Windows Terminal ]
+;   STATUS:  [ ACTIVE ]
+;
+#HotIf WinActive("ahk_exe WindowsTerminal.exe")
+  ;
+  ;   HOTKEY:  Alt + WinKey + MINUS  (while [ Windows Terminal ] is active)
+  ;            Ctrl + Alt + MINUS  (while [ Windows Terminal ] is active)
+  ;            Ctrl + WinKey + MINUS  (while [ Windows Terminal ] is active)
+  ;            Shift + Alt + MINUS  (while [ Windows Terminal ] is active)
+  ;            Shift + Ctrl + MINUS  (while [ Windows Terminal ] is active)
+  ;            Shift + WinKey + MINUS  (while [ Windows Terminal ] is active)
+  ;            Ctrl + Alt + WinKey + MINUS  (while [ Windows Terminal ] is active)
+  ;            Shift + Ctrl + WinKey + MINUS  (while [ Windows Terminal ] is active)
+  ;            Shift + Alt + WinKey + MINUS  (while [ Windows Terminal ] is active)
+  ;   ACTION:  Send [ Alt + Shift + MINUS ]  (e.g. do Windows Terminal action "Split pane, split: down")
+  ;
+  !#-::
+  ^!-::
+  ^#-::
+  +!-::
+  +^-::
+  +#-::
+  ^!#-::
+  +^#-::
+  +!#-::
+  !#NumpadSub::
+  ^!NumpadSub::
+  ^#NumpadSub::
+  +!NumpadSub::
+  +^NumpadSub::
+  +#NumpadSub::
+  ^!#NumpadSub::
+  +^#NumpadSub::
+  +!#NumpadSub::
+  {
+    SetKeyDelay 0, -1
+    SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
+    AwaitModifierKeyup()  ; Wait until all modifier keys are released
+    Send "!+{-}"
+    Return
+  }
+  ;
+  ;   HOTKEY:  Alt + WinKey + PLUS  (while [ Windows Terminal ] is active)
+  ;            Ctrl + Alt + PLUS  (while [ Windows Terminal ] is active)
+  ;            Ctrl + WinKey + PLUS  (while [ Windows Terminal ] is active)
+  ;            Shift + Alt + PLUS  (while [ Windows Terminal ] is active)
+  ;            Shift + Ctrl + PLUS  (while [ Windows Terminal ] is active)
+  ;            Shift + WinKey + PLUS  (while [ Windows Terminal ] is active)
+  ;            Ctrl + Alt + WinKey + PLUS  (while [ Windows Terminal ] is active)
+  ;            Shift + Ctrl + WinKey + PLUS  (while [ Windows Terminal ] is active)
+  ;            Shift + Alt + WinKey + PLUS  (while [ Windows Terminal ] is active)
+  ;   ACTION:  Send [ Alt + Shift + PLUS ]  (e.g. do Windows Terminal action "Split pane, split: right")
+  ;
+  !#=::
+  ^!=::
+  ^#=::
+  +!=::
+  +^=::
+  +#=::
+  ^!#=::
+  +^#=::
+  +!#=::
+  !#NumpadAdd::
+  ^!NumpadAdd::
+  ^#NumpadAdd::
+  +!NumpadAdd::
+  +^NumpadAdd::
+  +#NumpadAdd::
+  ^!#NumpadAdd::
+  +^#NumpadAdd::
+  +!#NumpadAdd::
+  {
+    SetKeyDelay 0, -1
+    SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
+    AwaitModifierKeyup()  ; Wait until all modifier keys are released
+    Send "!+{=}"
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
 ;   WINDOW:  [ Xbox Console Companion ]
 ;   STATUS:  [ ACTIVE ]
 ;

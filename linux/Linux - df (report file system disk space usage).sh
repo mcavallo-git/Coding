@@ -3,9 +3,11 @@
 # Linux - df (report file system disk space usage)
 # ------------------------------------------------------------
 
-# Get a summary of local disks
+# Get local file systems
 df -h --output="pcent,size,source,target";  # Use% ... Size ... Filesystem ... Mounted on
 
+# Get attached disks
+fdisk -l | grep sectors | grep '^Disk';
 
 # ------------------------------------------------------------
 #
@@ -59,8 +61,11 @@ if [[ 0 -eq 1 ]]; then
   df -h --output="file";  # "File"
   df -h --output="target";  # "Mounted on"
 
-  # Get a summary of local disks
+  # Get local file systems
   df -h --output="pcent,size,source,target";  # Use% ... Size ... Filesystem ... Mounted on
+
+  # Get attached disks
+  fdisk -l | grep sectors | grep '^Disk';
 
 fi;
 

@@ -1863,7 +1863,8 @@ RShift & LShift::
 ;   WINDOW:  [ Bitwarden ]
 ;   STATUS:  [ ACTIVE ]
 ;
-#HotIf WinActive("ahk_exe Bitwarden.exe")
+; #HotIf WinActive("ahk_exe Bitwarden.exe") || (WinActive("ahk_exe chrome.exe") && WinActive("Bitwarden"))
+#HotIf WinActive("Bitwarden")
   ;
   ;   HOTKEY:  WinKey + B  (while [ Bitwarden ] is active)
   ;   ACTION:  Type templated Lunr search string  -  https://bitwarden.com/help/searching-vault/#searching-specific-fields

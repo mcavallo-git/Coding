@@ -7,13 +7,13 @@ if [[ 1 -eq 1 ]]; then
 
   # php --ini
 
-  FULLPATH_PHP_INI="$(php --ini | sed -rne "s/^Loaded Configuration File:\s*(.+)\s*$/\1/p";)";
-  FULLPATH_PHP_CONF_D="$(php --ini | sed -rne "s/^Scan for additional .ini files in:\s*(.+)\s*$/\1/p";)";
+  PHP_INI_STOCK="$(php --ini | sed -rne "s/^Loaded Configuration File:\s*(.+)\s*$/\1/p";)";
+  PHP_OVERRIDES="$(php --ini | sed -rne "s/^Scan for additional .ini files in:\s*(.+)\s*$/\1/p";)";
 
   echo "";
-  echo "FULLPATH_PHP_INI:     ${FULLPATH_PHP_INI}";
+  echo "PHP_INI_STOCK:  ${PHP_INI_STOCK}";
   echo "";
-  echo "FULLPATH_PHP_CONF_D:  ${FULLPATH_PHP_CONF_D}";
+  echo "PHP_OVERRIDES:  ${PHP_OVERRIDES}";
   echo "";
 
 fi;

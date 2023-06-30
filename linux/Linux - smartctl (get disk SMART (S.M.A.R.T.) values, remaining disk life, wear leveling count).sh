@@ -34,14 +34,21 @@ if [[ 1 -eq 1 ]]; then
     echo "";
     echo "Info: Enabling SMART support for disk \"${TARGET_DISK}\"...";
     smartctl --smart=on "${TARGET_DISK}";
-  else
+  elif [[ -n "$(echo "${SMART_SUPPORT}" | grep -i 'Enabled';)" ]] && [[ -n "$(echo "${SMART_SUPPORT}" | grep -i 'Available';)" ]]; then
     echo "";
     echo "Info: (Skipped) SMART support is already enabled for disk \"${TARGET_DISK}\"";
+  else
+    echo "";
+    echo "Error: Unable to determine SMART support level for disk \"${TARGET_DISK}\"";
   fi;
-  # ------------------------------
+  #
+  # Determine SMART support status (enabled/disabled)
+  #
+  SMART_ENABLED="$(smartctl --info "${TARGET_DISK}" | grep -i 'SMART support is:' | grep -i 'Enabled';)";
   #
   # Get SMART data from disk
   #
+  echo "";
   if [[ "${VERBOSE}" != "1" ]]; then
     smartctl --attributes --info "${TARGET_DISK}";
     #
@@ -60,8 +67,8 @@ if [[ 1 -eq 1 ]]; then
     #          Prints all SMART information about the disk, or TapeAlert information about the tape drive or changer.
     #
   fi;
+  echo "";
 fi;
-
 
 
 # ------------------------------------------------------------

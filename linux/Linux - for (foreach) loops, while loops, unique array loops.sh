@@ -106,18 +106,24 @@ if [ -d /etc/profile.d ]; then
 fi
 
 
-# For-loop + Split-String on Delimiter (using "sed" - delimiters can be multi-character strings or even regex patterns)
-EXAMPLE_COMMA_DELIMITATION="abc,def,ghij";
-for i in $(echo ${EXAMPLE_COMMA_DELIMITATION} | sed "s/,/ /g"); do
+# For-loop + Split-string on delimiter (using "sed" - delimiters can be multi-character strings or even regex patterns)
+STRING_COMMA_DELIMITED="abc,def,ghij";
+for i in $(echo ${STRING_COMMA_DELIMITED} | sed "s/,/ /g"); do
   echo "$i";
 done;
 
 
-# For-loop + Split-String on Delimiter (using "tr" - delimiters can be only be single-character strings)
+# For-loop + Split-string on delimiter (using "tr" - delimiters can be only be single-character strings)
 STRING_COMMA_DELIMITED="aaa,bbb,ccc,ddd,eee";
 for EACH_SUBSTRING in $(echo "${STRING_COMMA_DELIMITED}" | tr "," "\n"); do
   echo -e "------------------------------\nEACH_SUBSTRING=[${EACH_SUBSTRING}]";
-done; 
+done;
+
+
+# For-loop + Split-string on delimiter (using "tr" - delimiters can be only be single-character strings)
+for EACH_SUBSTRING in $(lsb_release --short --description | tr " " "\n"); do
+  echo -e "------------------------------\nEACH_SUBSTRING=[${EACH_SUBSTRING}]";
+done;
 
 
 # ------------------------------------------------------------

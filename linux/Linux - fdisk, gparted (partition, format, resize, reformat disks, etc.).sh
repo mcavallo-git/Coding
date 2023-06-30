@@ -1,6 +1,23 @@
 #!/bin/bash
 # ------------------------------------------------------------
 #
+#   INSTALLATION
+#
+
+sudo apt-get -y update; sudo apt-get -y install fdisk;
+
+
+# ------------------------------------------------------------
+#
+#   LISTING
+#
+
+# Get attached disk(s)
+fdisk -l | grep -i 'sectors$' | grep -i '^disk' | grep -v '/dev/loop';  # Ignore '/dev/loop*' (Ubuntu Snap) mounted images
+
+
+# ------------------------------------------------------------
+#
 #   PARTITIONING
 #
 
@@ -11,6 +28,7 @@ fdisk /dev/sdb
 # fdisk's built-in wizard will walk you creating a partition
 
 # Type 'w' > Enter to save changes at the end
+
 
 # ------------------------------------------------------------
 #
@@ -29,6 +47,8 @@ gparted /dev/sdb1;
 # ------------------------------------------------------------
 #
 # Citation(s)
+#
+#   askubuntu.com  |  "loop device - What is /dev/loopx? - Ask Ubuntu"  |  https://askubuntu.com/a/906685
 #
 #   devconnected.com  |  "How To Create Disk Partitions on Linux – devconnected"  |  https://devconnected.com/how-to-create-disk-partitions-on-linux/
 #

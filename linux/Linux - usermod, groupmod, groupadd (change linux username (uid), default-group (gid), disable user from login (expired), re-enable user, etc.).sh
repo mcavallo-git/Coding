@@ -120,8 +120,7 @@ groupmod -n ${GROUP_NAME_UPDATED} ${GROUP_NAME_OLD};
 
 # ------------------------------------------------------------ #
 
-# Add user to group - this grants the user the group-permissions read-write-execute 
-# permission on any relevant files whose group-permission(s) are set accordingly
+# Add user to group - this grants the user grouped access to any files which said group owns or can access
 
 GROUP_NAME="foobar";
 

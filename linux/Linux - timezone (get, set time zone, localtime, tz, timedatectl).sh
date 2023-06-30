@@ -35,16 +35,30 @@ echo "GET_TZ = \"${GET_TZ}\"";
 if [[ 1 -eq 1 ]]; then
   # Debian/RHEL Linux distros
   SET_TZ="America/New_York";
-  ln -snf "/usr/share/zoneinfo/${SET_TZ}" "/etc/localtime";
+  ln -snf "/usr/share/zoneinfo/${SET_TZ}" '/etc/localtime';
   echo -n "${SET_TZ}" > "/etc/timezone";
-  timedatectl set-timezone "${SET_TZ}";
+  if [[ -n "$(command -v timedatectl 2>'/dev/null';)" ]]; then
+    timedatectl set-timezone "${SET_TZ}";
+  fi;
+fi;
+
+
+if [[ 1 -eq 1 ]]; then
+  # Same as above but using sed (to avoid output redirection (">"))
+  SET_TZ="America/New_York";
+  SET_TZ_REGEX_ESCAPED="$(echo "${SET_TZ}" | sed 's/\//\\\//g';)";
+  ln -snf "/usr/share/zoneinfo/${SET_TZ}" '/etc/localtime';
+  sed -re "s/^.+$/${TZ_REGEX_ESCAPED}/g" -i '/etc/timezone';
+  if [[ -n "$(command -v timedatectl 2>'/dev/null';)" ]]; then
+    timedatectl set-timezone "${SET_TZ}";
+  fi;
 fi;
 
 
 if [[ 0 -eq 1 ]]; then
   # Alpine Linux distros
   SET_TZ="UTC+4";
-  ln -snf "/usr/share/zoneinfo/${SET_TZ}" "/etc/localtime";
+  ln -snf "/usr/share/zoneinfo/${SET_TZ}" '/etc/localtime';
   echo "${SET_TZ}" > "/etc/TZ";
 fi;
 

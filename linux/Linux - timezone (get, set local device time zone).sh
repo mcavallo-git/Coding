@@ -10,7 +10,8 @@
 cat '/etc/timezone';
 
 # Get Time Zone for current device (as a variable)
-TZ="$(cat '/etc/timezone';)";
+GET_TZ="$(cat '/etc/timezone';)";
+echo "GET_TZ = \"${GET_TZ}\"";
 
 
 # ------------------------------------------------------------
@@ -22,7 +23,8 @@ TZ="$(cat '/etc/timezone';)";
 realpath '/etc/localtime' | sed -e 's|/usr/share/zoneinfo/||g';
 
 # Get Time Zone for current device (as a variable)
-TZ="$(realpath '/etc/localtime' | sed -e 's|/usr/share/zoneinfo/||g';)";
+GET_TZ="$(realpath '/etc/localtime' | sed -e 's|/usr/share/zoneinfo/||g';)";
+echo "GET_TZ = \"${GET_TZ}\"";
 
 
 # ------------------------------------------------------------

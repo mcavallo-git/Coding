@@ -47,6 +47,10 @@ echo "123abc456def789ghi" | sed -re "s/[^0-9\.]//g";  # Remove non-numeric (and 
 seq 20 | sed -r "/^[2468]/d";  # Remove lines containing 2, 4, 6 or 8
 
 
+# sed -r (regex)  -  Just remove it all, that is, remove every line
+seq 100 | sed -r "/^.*$/d";
+
+
 # ------------------------------------------------------------
 #
 # Regex matching & capture groups

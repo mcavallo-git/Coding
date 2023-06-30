@@ -113,14 +113,14 @@ for i in $(echo ${STRING_COMMA_DELIMITED} | sed "s/,/ /g"); do
 done;
 
 
-# For-loop + Split-string on delimiter (using "tr" - delimiters can be only be single-character strings)
+# For-loop + Split-string on delimiter (using "tr" - delimiters can only be single-character strings)
 STRING_COMMA_DELIMITED="aaa,bbb,ccc,ddd,eee";
 for EACH_SUBSTRING in $(echo "${STRING_COMMA_DELIMITED}" | tr "," "\n"); do
   echo -e "------------------------------\nEACH_SUBSTRING=[${EACH_SUBSTRING}]";
 done;
 
 
-# For-loop + Split-string on delimiter (using "tr" - delimiters can be only be single-character strings)
+# For-loop + Split-string on delimiter (using "tr" - delimiters can only be single-character strings)
 for EACH_SUBSTRING in $(lsb_release --short --description | tr " " "\n"); do
   echo -e "------------------------------\nEACH_SUBSTRING=[${EACH_SUBSTRING}]";
 done;

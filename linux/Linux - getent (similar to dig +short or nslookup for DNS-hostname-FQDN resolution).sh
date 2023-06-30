@@ -1,8 +1,9 @@
 #!/bin/bash
 # ------------------------------------------------------------
 
+getent ahosts "www.google.com" | head -n 1 | cut -d' ' -f1;  # Gets DNS A Record
 
-getent ahosts www.google.com | head -n 1 | cut -d' ' -f1;  # Returned [ 20.62.85.184 ]  (dev.sky.softprohq.com DNS A Record)
+getent group "www-data";  # Gets the users in a group
 
 
 # ------------------------------------------------------------

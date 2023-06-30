@@ -3,7 +3,7 @@
 # Linux - df (report file system disk space usage)
 # ------------------------------------------------------------
 
-# Show a summary of local disks
+# Get a summary of local disks
 df -h --output="pcent,size,source,target";  # Use% ... Size ... Filesystem ... Mounted on
 
 
@@ -59,7 +59,7 @@ if [[ 0 -eq 1 ]]; then
   df -h --output="file";  # "File"
   df -h --output="target";  # "Mounted on"
 
-  # Show a summary of local disks
+  # Get a summary of local disks
   df -h --output="pcent,size,source,target";  # Use% ... Size ... Filesystem ... Mounted on
 
 fi;

@@ -1,156 +1,166 @@
 #!/bin/bash
+# ------------------------------------------------------------
+# Linux - df (report file system disk space usage)
+# ------------------------------------------------------------
+#
+# Show a summary of all local disks
+#
+
+df -h --output="pcent,size,source,target";  # Use% ... Size ... Filesystem ... Mounted on
+
+
+# ------------------------------------------------------------
+#
+# Get a verbose breakdown of all disks
+#
+
 if [[ 0 -eq 1 ]]; then
 
-# ------------------------------------------------------------
-THIS_DISK_FREE_BYTES=$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $4}');
-echo -e "\n\n""Free disk space (in bytes) on current disk:  [ ${THIS_DISK_FREE_BYTES} ]""\n\n";
+  THIS_DISK_FREE_BYTES=$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $4}');
+  echo -e "\n\n""Free disk space (in bytes) on current disk:  [ ${THIS_DISK_FREE_BYTES} ]""\n\n";
 
+  THIS_DISK_SIZE_BYTES="$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $2}') B";
+  THIS_DISK_SIZE_KB="$(df -B1024 . | grep -v 'Use% Mounted on' | awk '{print $2}') KB";
+  THIS_DISK_SIZE_MB="$(df -B1048576 . | grep -v 'Use% Mounted on' | awk '{print $2}') MB";
+  THIS_DISK_SIZE_GB="$(df -B1073741824 . | grep -v 'Use% Mounted on' | awk '{print $2}') GB";
 
-# ------------------------------------------------------------
+  THIS_DISK_USED_BYTES="$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $3}') B";
+  THIS_DISK_USED_KB="$(df -B1024 . | grep -v 'Use% Mounted on' | awk '{print $3}') KB";
+  THIS_DISK_USED_MB="$(df -B1048576 . | grep -v 'Use% Mounted on' | awk '{print $3}') MB";
+  THIS_DISK_USED_GB="$(df -B1073741824 . | grep -v 'Use% Mounted on' | awk '{print $3}') GB";
 
-THIS_DISK_SIZE_BYTES="$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $2}') B";
-THIS_DISK_SIZE_KB="$(df -B1024 . | grep -v 'Use% Mounted on' | awk '{print $2}') KB";
-THIS_DISK_SIZE_MB="$(df -B1048576 . | grep -v 'Use% Mounted on' | awk '{print $2}') MB";
-THIS_DISK_SIZE_GB="$(df -B1073741824 . | grep -v 'Use% Mounted on' | awk '{print $2}') GB";
+  THIS_DISK_FREE_BYTES="$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $4}') B";
+  THIS_DISK_FREE_KB="$(df -B1024 . | grep -v 'Use% Mounted on' | awk '{print $4}') KB";
+  THIS_DISK_FREE_MB="$(df -B1048576 . | grep -v 'Use% Mounted on' | awk '{print $4}') MB";
+  THIS_DISK_FREE_GB="$(df -B1073741824 . | grep -v 'Use% Mounted on' | awk '{print $4}') GB";
 
-THIS_DISK_USED_BYTES="$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $3}') B";
-THIS_DISK_USED_KB="$(df -B1024 . | grep -v 'Use% Mounted on' | awk '{print $3}') KB";
-THIS_DISK_USED_MB="$(df -B1048576 . | grep -v 'Use% Mounted on' | awk '{print $3}') MB";
-THIS_DISK_USED_GB="$(df -B1073741824 . | grep -v 'Use% Mounted on' | awk '{print $3}') GB";
+  THIS_DISK_PERCENT_USED="$(df -h . | grep -v 'Use% Mounted on' | awk '{print $5}')";
 
-THIS_DISK_FREE_BYTES="$(df -B1 . | grep -v 'Use% Mounted on' | awk '{print $4}') B";
-THIS_DISK_FREE_KB="$(df -B1024 . | grep -v 'Use% Mounted on' | awk '{print $4}') KB";
-THIS_DISK_FREE_MB="$(df -B1048576 . | grep -v 'Use% Mounted on' | awk '{print $4}') MB";
-THIS_DISK_FREE_GB="$(df -B1073741824 . | grep -v 'Use% Mounted on' | awk '{print $4}') GB";
+  THIS_DISK_SIZE_READABLE="$(df -h . | grep -v 'Use% Mounted on' | awk '{print $2}')";
 
-THIS_DISK_PERCENT_USED="$(df -h . | grep -v 'Use% Mounted on' | awk '{print $5}')";
+  df -h --output="source" | grep -v '^Filesystem';
 
-THIS_DISK_SIZE_READABLE="$(df -h . | grep -v 'Use% Mounted on' | awk '{print $2}')";
+  # Get the fullpath to all mount-points
+  df -h --output="source" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d';
 
-# ------------------------------------------------------------
+  # Get the % disk-usage for all disk
+  df -h --output="pcent" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d' | sort -n | tail -1 | tr -d ' ';
 
-df -h --output="source" | grep -v '^Filesystem';
+  # df --output="KEY";  # VAL  (associated column-header)
 
-# Get the fullpath to all mount-points
-df -h --output="source" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d';
+  df -h --output="source";  # "Filesystem"
+  df -h --output="fstype";  # "Type"
+  df -h --output="itotal";  # "Inodes"
+  df -h --output="iused";  # "IUsed"
+  df -h --output="iavail";  # "IFree"
+  df -h --output="ipcent";  # "IUse%"
+  df -h --output="size";  # "Size"
+  df -h --output="used";  # "Used"
+  df -h --output="avail";  # "Avail"
+  df -h --output="pcent";  # "Use%"
+  df -h --output="file";  # "File"
+  df -h --output="target";  # "Mounted on"
 
-# Get the % disk-usage for all disk
-df -h --output="pcent" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d' | sort -n | tail -1 | tr -d ' ';
+  df -h --output="pcent,size,source,target";  # Use% ... Size ... Filesystem ... Mounted on
 
-# df --output="KEY";  # VAL  (associated column-header)
-
-df -h --output="source";  # "Filesystem"
-df -h --output="fstype";  # "Type"
-df -h --output="itotal";  # "Inodes"
-df -h --output="iused";  # "IUsed"
-df -h --output="iavail";  # "IFree"
-df -h --output="ipcent";  # "IUse%"
-df -h --output="size";  # "Size"
-df -h --output="used";  # "Used"
-df -h --output="avail";  # "Avail"
-df -h --output="pcent";  # "Use%"
-df -h --output="file";  # "File"
-df -h --output="target";  # "Mounted on"
-
-# ------------------------------------------------------------
-
-# Das Essentials:
-df -h --output="target,pcent,size,source";  # "Mounted on Use%  Size Filesystem"
-
-# ------------------------------------------------------------
 fi;
-# ------------------------------------------------------------
 
-shopt -s lastpipe; # extends the current shell into sub-shells (within piped-commands), sharing variables down-into them, as well
 
 # ------------------------------------------------------------
+#
+# Report file system's disk-usage w/ a while-loop
+#
 
-# Das Essentials:
+if [[ 1 -eq 1 ]]; then
+  
+  shopt -s lastpipe; # Extends the current shell into sub-shells (within piped commands), sharing variables down into them, as well
 
-unset DISK_MOUNTPOINTS;  declare -A DISK_MOUNTPOINTS;  # [Re-]Instantiate bash array
-unset DISK_USEDPERCENTS; declare -A DISK_USEDPERCENTS; # [Re-]Instantiate bash array
-unset DISK_PARTITIONS;   declare -A DISK_PARTITIONS;  # [Re-]Instantiate bash array
-unset DISK_FILESYSTEMS;  declare -A DISK_FILESYSTEMS;  # [Re-]Instantiate bash array
+  unset DISK_MOUNTPOINTS;  declare -A DISK_MOUNTPOINTS;  # [Re-]Instantiate bash array
+  unset DISK_USEDPERCENTS; declare -A DISK_USEDPERCENTS; # [Re-]Instantiate bash array
+  unset DISK_PARTITIONS;   declare -A DISK_PARTITIONS;  # [Re-]Instantiate bash array
+  unset DISK_FILESYSTEMS;  declare -A DISK_FILESYSTEMS;  # [Re-]Instantiate bash array
 
-DOCKER_CONTAINER_IDS=$(docker ps --format "{{.ID}}");
+  DOCKER_CONTAINER_IDS=$(docker ps --format "{{.ID}}");
 
-i=0;
+  i=0;
 
-df -h --output="target,pcent,size,source" \
-| sed '1!G;h;$!d' \
-| head -n -1 \
-| sed '1!G;h;$!d' \
-| while read EACH_LINE; do
+  df -h --output="target,pcent,size,source" \
+  | sed '1!G;h;$!d' \
+  | head -n -1 \
+  | sed '1!G;h;$!d' \
+  | while read EACH_LINE; do
 
-	i=$((i+1));
+    i=$((i+1));
 
-	EACH_MOUNTPOINT=$(echo "${EACH_LINE}" | awk '{print $1}');
-	DISK_MOUNTPOINTS+=(["${i}"]="${EACH_MOUNTPOINT}");
+    EACH_MOUNTPOINT=$(echo "${EACH_LINE}" | awk '{print $1}');
+    DISK_MOUNTPOINTS+=(["${i}"]="${EACH_MOUNTPOINT}");
 
-	EACH_USED_PCT=$(echo "${EACH_LINE}" | awk '{print $2}');
-	DISK_USEDPERCENTS+=(["${i}"]="${EACH_USED_PCT}");
+    EACH_USED_PCT=$(echo "${EACH_LINE}" | awk '{print $2}');
+    DISK_USEDPERCENTS+=(["${i}"]="${EACH_USED_PCT}");
 
-	EACH_PARTITION=$(echo "${EACH_LINE}" | awk '{print $3}');
-	DISK_PARTITIONS+=(["${i}"]="${EACH_PARTITION}");
+    EACH_PARTITION=$(echo "${EACH_LINE}" | awk '{print $3}');
+    DISK_PARTITIONS+=(["${i}"]="${EACH_PARTITION}");
 
-	EACH_FILESYSTEM=$(echo "${EACH_LINE}" | awk '{print $4}');
-	DISK_FILESYSTEMS+=(["${i}"]="${EACH_FILESYSTEM}");
+    EACH_FILESYSTEM=$(echo "${EACH_LINE}" | awk '{print $4}');
+    DISK_FILESYSTEMS+=(["${i}"]="${EACH_FILESYSTEM}");
 
+  done;
 
-done;
+  echo "${DISK_FILESYSTEMS[@]}";
+  j=0;
+  while [[ ${j} -le ${#DISK_MOUNTPOINTS[@]} ]]; do
+    j=$((j+1));
+    echo "${DISK_MOUNTPOINTS[${j}]}";
+    echo "${DISK_USEDPERCENTS[${j}]}";
+    echo "${DISK_PARTITIONS[${j}]}";
+    echo "${DISK_FILESYSTEMS[${j}]}";
+  done;
 
-echo "${DISK_FILESYSTEMS[@]}";
-j=0;
-while [[ ${j} -le ${#DISK_MOUNTPOINTS[@]} ]]; do
-	j=$((j+1));
-	echo "${DISK_MOUNTPOINTS[${j}]}";
-	echo "${DISK_USEDPERCENTS[${j}]}";
-	echo "${DISK_PARTITIONS[${j}]}";
-	echo "${DISK_FILESYSTEMS[${j}]}";
-done;
+fi;
+
 
 # ------------------------------------------------------------
+#
 # Report file system's disk-usage w/ a case-statement
 #
 
-shopt -s lastpipe; # extends the current shell into sub-shells (within piped-commands), sharing variables down-into them, as well
+if [[ 1 -eq 1 ]]; then
 
-unset DISK_STATS; declare -A DISK_STATS; # [Re-]Instantiate bash array
+  shopt -s lastpipe; # Extends the current shell into sub-shells (within piped commands), sharing variables down into them, as well
 
-DISK_PCT_USED=`df -h --output="pcent" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d' | sort -n | tail -1 | tr -d ' ' | cut -d "%" -f1 -;`
+  unset DISK_STATS; declare -A DISK_STATS; # [Re-]Instantiate bash array
 
-case ${DISK_PCT_USED} in
-[1-6]*)
-  Message="Disk is ${DISK_PCT_USED}% Full - All is quiet."
-  ;;
-[7-8]*)
-  Message="Disk is ${DISK_PCT_USED}% Full - Start thinking about cleaning out some stuff.  There's a partition that is $space % full."
-  ;;
-9[1-8])
-  Message="Disk is ${DISK_PCT_USED}% Full - Better hurry with that new disk...  One partition is $space % full."
-  ;;
-99)
-  Message="Disk is ${DISK_PCT_USED}% Full - I'm drowning here!  There's a partition at $space %!"
-  ;;
-*)
-  Message="Disk is ${DISK_PCT_USED}% Full - I seem to be running with an nonexistent amount of disk space..."
-  ;;
-esac
+  DISK_PCT_USED=`df -h --output="pcent" | sed '1!G;h;$!d' | head -n -1 | sed '1!G;h;$!d' | sort -n | tail -1 | tr -d ' ' | cut -d "%" -f1 -;`
 
-echo $Message
+  case ${DISK_PCT_USED} in
+  [1-6]*)
+    Message="Disk is ${DISK_PCT_USED}% Full - All is quiet."
+    ;;
+  [7-8]*)
+    Message="Disk is ${DISK_PCT_USED}% Full - Start thinking about cleaning out some stuff.  There's a partition that is $space % full."
+    ;;
+  9[1-8])
+    Message="Disk is ${DISK_PCT_USED}% Full - Better hurry with that new disk...  One partition is $space % full."
+    ;;
+  99)
+    Message="Disk is ${DISK_PCT_USED}% Full - I'm drowning here!  There's a partition at $space %!"
+    ;;
+  *)
+    Message="Disk is ${DISK_PCT_USED}% Full - I seem to be running with an nonexistent amount of disk space..."
+    ;;
+  esac
 
-# ------------------------------------------------------------
-#
-# Citation(s)
-#
-#   tldp.org  |  "7.3. Using case statements"  |  https://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_03.html
-#
-# ------------------------------------------------------------
+  echo ${Message};
+
+fi;
+
 
 # ------------------------------------------------------------
 #
 # Citation(s)
 #
 #   community.hpe.com  |  "difference between filesystem and mountpoint"  |  https://community.hpe.com/t5/System-Administration/difference-between-filesystem-and-mountpoint/m-p/5260291#M52653
+#
+#   tldp.org  |  "7.3. Using case statements"  |  https://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_07_03.html
 #
 # ------------------------------------------------------------

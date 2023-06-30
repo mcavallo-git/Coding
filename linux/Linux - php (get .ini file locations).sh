@@ -14,10 +14,14 @@ if [[ 1 -eq 1 ]]; then
   echo "PHP_INI_STOCK:  ${PHP_INI_STOCK}";
   echo "";
   echo "PHP_OVERRIDES:  ${PHP_OVERRIDES}";
-  echo "";
 
   # Get a value from the ini
+  echo "";
+  echo -n "php.memory_limit:  ";
   php -r 'echo ini_get("memory_limit");';
+
+  echo "";
+  echo "";
 
 fi;
 

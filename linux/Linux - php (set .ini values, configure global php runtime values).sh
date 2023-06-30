@@ -17,14 +17,13 @@ if [[ 1 -eq 1 ]]; then
   echo "PHP_OVERRIDE_INI:  ${PHP_OVERRIDE_INI}";
   echo "";
   
-  # php --php-ini
-  php -r 'echo ini_get("PHP_MEMORY_LIMIT");';
+  php -r 'echo ini_get("memory_limit");'; echo "";  # Outputs the stock value from "${PHP_INI_STOCK}"
 
-  PHP_INI_STOCK="$(php -r "ini_get('PHP_MEMORY_LIMIT');";)";
-  
-  php -r "echo ini_get('PHP_MEMORY_LIMIT');";
+  # Setup override .ini file
+  echo "[PHP]" > "${PHP_OVERRIDE_INI}";
+  echo "memory_limit = 1024M" >> "${PHP_OVERRIDE_INI}";
 
-  php --php-ini "${PHP_OVERRIDES}"
+  php -r 'echo ini_get("memory_limit");'; echo "";  # Outputs the override value from "${PHP_OVERRIDE_INI}"
 
 fi;
 
@@ -35,6 +34,6 @@ fi;
 #
 #   stackoverflow.com  |  "linux - Where can I find php.ini? - Stack Overflow"  |  https://stackoverflow.com/a/8684638
 #
-#   www.php.net  |  "PHP: ini_set - Manual"  |  https://www.php.net/manual/en/function.ini-set
+#   www.php.net  |  "PHP: ini_get - Manual"  |  https://www.php.net/manual/en/function.ini-get
 #
 # ------------------------------------------------------------

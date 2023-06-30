@@ -32,4 +32,6 @@ fi;
 #
 #   stackoverflow.com  |  "linux - Where can I find php.ini? - Stack Overflow"  |  https://stackoverflow.com/a/8684638
 #
+#   www.php.net  |  "PHP: ini_get - Manual"  |  https://www.php.net/manual/en/function.ini-get
+#
 # ------------------------------------------------------------

@@ -16,6 +16,9 @@ if [[ 1 -eq 1 ]]; then
   echo "PHP_OVERRIDES:  ${PHP_OVERRIDES}";
   echo "";
 
+  # Get a value from the ini
+  php -r 'echo ini_get("memory_limit");';
+
 fi;
 
 

@@ -3,19 +3,6 @@
 # Linux - timezone (set localtime, set timezone)
 # ------------------------------------------------------------
 #
-# Get Time Zone via  "/etc/timezone"
-#
-
-# Get Time Zone for current device
-cat '/etc/timezone';
-
-# Get Time Zone for current device (as a variable)
-GET_TZ="$(cat '/etc/timezone';)";
-echo "GET_TZ = \"${GET_TZ}\"";
-
-
-# ------------------------------------------------------------
-#
 # Get Time Zone via "/etc/localtime" (symbolic link)
 #
 
@@ -24,6 +11,19 @@ realpath '/etc/localtime' | sed -e 's|/usr/share/zoneinfo/||g';
 
 # Get Time Zone for current device (as a variable)
 GET_TZ="$(realpath '/etc/localtime' | sed -e 's|/usr/share/zoneinfo/||g';)";
+echo "GET_TZ = \"${GET_TZ}\"";
+
+
+# ------------------------------------------------------------
+#
+# Get Time Zone via  "/etc/timezone"
+#
+
+# Get Time Zone for current device
+cat '/etc/timezone';
+
+# Get Time Zone for current device (as a variable) - Strip whitespace & blank lines
+GET_TZ="$(cat '/etc/timezone' | sed -e "s/^[[:space:]]*//" -e "s/[[:space:]]*$//" -e "/^\s*$/d";)";
 echo "GET_TZ = \"${GET_TZ}\"";
 
 

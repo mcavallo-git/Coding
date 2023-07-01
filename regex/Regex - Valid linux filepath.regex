@@ -1,0 +1,27 @@
+//!/bin/bash
+// ------------------------------------------------------------
+//
+// Regex - Valid linux filepath
+//
+
+// Find:
+^((\.\./|[a-zA-Z0-9_/\-\\])*\.[a-zA-Z0-9]+)$
+
+
+// ------------------------------------------------------------
+//
+// Example
+//
+
+echo -n '/root/tester.sh' | grep --extended-regexp '^((\.\./|[a-zA-Z0-9_/\-\\])*\.[a-zA-Z0-9]+)$';
+
+
+// ------------------------------------------------------------
+//
+// Citation(s)
+//
+//   stackoverflow.com | "regex - What is the most correct regular expression for a UNIX file path? - Stack Overflow" | https://stackoverflow.com/a/13762797
+//
+//   www.mtu.edu | "Characters to Avoid in Filenames and Directories | Michigan Tech" | https://www.mtu.edu/umc/services/websites/writing/characters-avoid/
+//
+// ------------------------------------------------------------

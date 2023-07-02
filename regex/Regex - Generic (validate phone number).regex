@@ -1,14 +1,10 @@
 // ------------------------------------------------------------
 //
-// Regex
-// Format a MySQL query with newlines
+// Regex - Valid Phone Number
 //
 
 // Find:
-\s+((?:SELECT)|(?:,)|(?:FROM)|(?:(?:LEFT|INNER|OUTER)\s+JOIN)|(?:GROUP\s+BY)|(?:WHERE)|(?:AND)|(?:OR))\s+
-
-// Replacement:
-\n$1\ 
+\b(\+\d{1,2}\s)?\(?\d{3}\)?[\s.-]\d{3}[\s.-]\d{4}\b
 
 
 // ------------------------------------------------------------

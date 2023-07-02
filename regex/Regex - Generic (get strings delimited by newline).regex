@@ -1,19 +1,22 @@
 // ------------------------------------------------------------
+// Regex - Iterate by newline
+// ------------------------------------------------------------
 //
-// ENTIRE URL REGEX
+// Match anything except a newline char
 //
 
 // Find:
-preg_match('/\A(https?:\/\/)?((www|(a|b|c)?dev)\.)?(example)\.(com|net)(.*)/', $_SERVER['REQUEST_URI'])
+[^\n]+
 
 
 // ------------------------------------------------------------
 //
-// SERVER_ADDR REGEX
+// Match anything except a newline char and grab the entire line (from ^ to $)
 //
 
 // Find:
-preg_match('/\A((www|(a|b|c)?dev)\.)?(example)\.(com|net)\Z/', $_SERVER['SERVER_ADDR'])
+^[^\n]*$
+
 
 
 // ------------------------------------------------------------
@@ -21,5 +24,7 @@ preg_match('/\A((www|(a|b|c)?dev)\.)?(example)\.(com|net)\Z/', $_SERVER['SERVER_
 // Citation(s)
 //
 //   regexr.com  |  "RegExr: Learn, Build, & Test RegEx"  |  https://regexr.com/
+//
+//   stackoverflow.com  |  "python - How to matches anything except space and new line? - Stack Overflow"  |  https://stackoverflow.com/a/23235232
 //
 // ------------------------------------------------------------

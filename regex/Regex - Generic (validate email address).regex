@@ -1,20 +1,9 @@
 // ------------------------------------------------------------
-//
-//   Match anything except a newline char
-//
-
-// Find:
-[^\n]+
-
-
+// Regex - Valid Email Address
 // ------------------------------------------------------------
-//
-//   Match anything except a newline char and grab the entire line (from ^ to $)
-//
 
 // Find:
-^[^\n]*$
-
+([\._a-zA-Z0-9-]+)(@[_a-zA-Z0-9-]+)(\.[_a-zA-Z0-9-]+\b)+
 
 
 // ------------------------------------------------------------
@@ -22,7 +11,5 @@
 // Citation(s)
 //
 //   regexr.com  |  "RegExr: Learn, Build, & Test RegEx"  |  https://regexr.com/
-//
-//   stackoverflow.com  |  "python - How to matches anything except space and new line? - Stack Overflow"  |  https://stackoverflow.com/a/23235232
 //
 // ------------------------------------------------------------

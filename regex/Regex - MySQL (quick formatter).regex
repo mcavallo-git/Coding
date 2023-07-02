@@ -1,13 +1,13 @@
 // ------------------------------------------------------------
-//
-// Convert PHP array to JSON using Regex
-//
+// Regex - MySQL (Quick Format)
+//   Format a MySQL query with newlines
+// ------------------------------------------------------------
 
 // Find:
-^\s*\'((?!\').+)\'\s*=>\s*\'((?!\').+)\'.*$
+\s+((?:SELECT)|(?:,)|(?:FROM)|(?:(?:LEFT|INNER|OUTER)\s+JOIN)|(?:GROUP\s+BY)|(?:WHERE)|(?:AND)|(?:OR))\s+
 
 // Replacement:
-  "$1": "$2",
+\n$1\ 
 
 
 // ------------------------------------------------------------

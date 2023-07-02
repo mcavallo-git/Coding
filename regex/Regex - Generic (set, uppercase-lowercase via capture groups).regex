@@ -1,6 +1,6 @@
 // ------------------------------------------------------------
-//
-// Regex - Lowercase-Uppercase Character Classes
+// Regex - Lowercase, Uppercase (Set, Character Classes)
+// ------------------------------------------------------------
 //
 //   \U  -  Uppercase all letters in the following capture group. Example: \U$1
 //
@@ -11,8 +11,8 @@
 //   \l  -  Lowercase only the first character of the following capture group. Example: \l$1
 //
 //   Notes:
-//    |--> Lowercase Character Classes can only be used in the OUTPUT of the regex command
-//    |--> Lowercase Character Classes must be placed directly BEFORE a matched capture group
+//    |--> Lowercase character classes can only be used in the OUTPUT of the regex command
+//    |--> Lowercase character classes must be placed directly BEFORE a matched capture group
 //
 // ------------------------------------------------------------
 //

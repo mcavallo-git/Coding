@@ -3019,7 +3019,7 @@ MouseGet_MonitorIndex() {
 ; Open_Chrome
 ;   |--> Opens the "Google Chrome" Application
 ;
-Open_Chrome() {
+Open_Chrome(Url_Open:="") {
   global DebugMode
   SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   FullPath_RunExe := ""
@@ -3040,7 +3040,7 @@ Open_Chrome() {
   } Else {
     If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
       ; Run a NON-admin version of target exe
-      RunExe_NON_Admin(FullPath_RunExe)
+      RunExe_NON_Admin(FullPath_RunExe, Url_Open)
       WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
     }
     If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {   
@@ -3213,12 +3213,12 @@ Open_WindowsTerminal() {
   ; ------------------------------
   FullPath_RunExe := "C:\Windows\explorer.exe"
   Win10_AppName := "Microsoft.WindowsTerminal_8wekyb3d8bbwe"  ; App name acquired via powershell call [ (Get-AppxPackage Microsoft.WindowsTerminal).PackageFamilyName; ]
-  Exe_Args := ( "shell:AppsFolder\" Win10_AppName "!App")
+  Win10_AppUnionPath := ( "shell:AppsFolder\" Win10_AppName "!App")
   ; "C:\Windows\explorer.exe" "shell:AppsFolder\Microsoft.WindowsTerminal_8wekyb3d8bbwe!App"
   ; ------------------------------
   ; ;;;  Deprecated approach (doesn't work if not acting as an admin while opening it..?)
   ; FullPath_RunExe := "C:\Program Files\WindowsApps\Microsoft.WindowsTerminal_1.11.2921.0_x64__8wekyb3d8bbwe\wt.exe"  ;  Acquired via powershell call [ Get-ChildItem ((Get-AppxPackage "*WindowsTerminal*").InstallLocation); ]
-  ; Exe_Args := ""
+  ; Win10_AppUnionPath := ""
   ; ------------------------------
   Win_ahk_exe := "WindowsTerminal.exe"
   WinTitle := ("ahk_exe " Win_ahk_exe)
@@ -3226,7 +3226,7 @@ Open_WindowsTerminal() {
   WinWait_TimeoutSeconds := 20
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
-    RunExe_NON_Admin(FullPath_RunExe, Exe_Args)
+    RunExe_NON_Admin(FullPath_RunExe, Win10_AppUnionPath)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
   }
   WinSnap(WinTitle,WinText,,,"Right","Half",1) ; Resize window to right half of monitor #1

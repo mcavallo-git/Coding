@@ -3050,7 +3050,7 @@ Open_Chrome(Url_Open:="", Force_RunExe:=0) {
       WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
     }
     If (WinExist(WinTitle)) {
-      ; Skip snapping the window if it was already open and we're forcing a rerun
+      ; Skip snapping the window if it was already open yet we forced rerunning its executable (use case for New Tab(s) in chrome)
       If ( ! ((PreExisting_Win_hwnd != 0) && (Force_RunExe != 0)) ) {
         If (MonitorGetCount()==1) {
           WinSnap(WinTitle,,,,"Right","Half",1) ; Resize window to right half of monitor #1

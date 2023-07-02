@@ -2641,7 +2641,7 @@ GetTimezoneOffset_P(&Output_TZ_P) {
 GetWindowSpecs(WinTitle:="A") {
   global DebugMode
 
-  If (WinTitle == "") {
+  If (WinTitle = "") {
     ; Error - WinTitle passed as an empty string
     TooltipOutput := ""
     TooltipOutput := TooltipOutput "                 " "`n"
@@ -3048,7 +3048,7 @@ Open_Chrome(Url_Open:="") {
   WinTitle := " - Google Chrome"
   WinText := "Chrome Legacy Window"
   WinWait_TimeoutSeconds := 20
-  If ((!WinExist(WinTitle)) && (FullPath_RunExe == "")) {
+  If ((!WinExist(WinTitle)) && (FullPath_RunExe = "")) {
     TooltipOutput := "Chrome executable not found (neither x64 or x86 version)"
     ShowToolTip(TooltipOutput,,,,4000)
   } Else {

@@ -12,8 +12,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 0
-DebugMode := 1
+DebugMode := 0
+; DebugMode := 1
 
 
 ; ------------------------------

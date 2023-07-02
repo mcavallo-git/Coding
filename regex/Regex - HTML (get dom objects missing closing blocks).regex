@@ -1,5 +1,5 @@
 // ------------------------------------------------------------
-// Regex - HTML non-matching DOM-object blocks (on single line)
+// Regex - HTML (get dom objects missing closing blocks)
 // ------------------------------------------------------------
 //
 // APPROACH 1

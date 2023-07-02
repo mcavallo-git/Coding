@@ -3023,7 +3023,7 @@ MouseGet_MonitorIndex() {
 ; Open_Chrome
 ;   |--> Opens the "Google Chrome" Application
 ;
-Open_Chrome(Url_Open:="") {
+Open_Chrome(Url_Open:="", Force_Run:=0) {
   global DebugMode
   SetTitleMatchMode 2  ; Title must [ CONTAIN ] the given WinTitle
   FullPath_RunExe := ""
@@ -3041,7 +3041,7 @@ Open_Chrome(Url_Open:="") {
   If ((!WinExist(WinTitle)) && (FullPath_RunExe = "")) {
     TooltipOutput := "Chrome executable not found (neither x64 or x86 version)"
     ShowToolTip(TooltipOutput,,,,4000)
-  } Else {
+  } Else If ((!WinExist(WinTitle)) || (WinExist(WinTitle) && (Force_Run == 0))) {
     If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
       ; Run a NON-admin version of target exe
       RunExe_NON_Admin(FullPath_RunExe, Url_Open)
@@ -3061,6 +3061,12 @@ Open_Chrome(Url_Open:="") {
     } Else {
       TooltipOutput := A_ScriptName " - " A_ThisFunc "`n`n" "Error - No window found matching [ " WinTitle " ] "
       ShowToolTip(TooltipOutput,,,,4000)
+    }
+  } Else {
+    ; Debug fallthrough message
+    If (DebugMode == 1) {
+      TooltipOutput := A_ThisFunc "`n`n" "(Skipped) Chrome executable is already running" "`n" "  - Force_Run = [ " Force_Run " ]"
+      ShowToolTip(TooltipOutput,,,,15000)
     }
   }
   Return

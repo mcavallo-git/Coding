@@ -8,7 +8,7 @@
 #
 If ($False) { # RUN THIS SCRIPT REMOTELY:
 
-<# HandBrakeCLI-Encoder using NVidia GPU Hardware Acceleration #> ${Env:HandBrake_Preset}="H.265 NVENC 2160p 4K"; SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);
+<# HandBrakeCLI-Encoder using NVIDIA GPU Hardware Acceleration #> ${Env:HandBrake_Preset}="H.265 NVENC 2160p 4K"; SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);
 
 <# HandBrakeCLI-Encoder #> ${Env:HandBrake_Preset}="Vimeo YouTube HQ 2160p60 4K"; SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-Expression ((New-Object System.Net.WebClient).DownloadString((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/main/windows/HandBrake/HandBrakeCLI-Encoder/HandBrakeCLI-Encoder.ps1))); [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value);
 
@@ -36,7 +36,7 @@ If ("${Env:HandBrake_Preset}" -NE "") {
   $HandBrake_Preset = "Vimeo YouTube HQ 2160p60 4K"; <# CPU Encoding #> 
   # $HandBrake_Preset = "H.265 VCN 2160p 4K";        <# AMD GPU Hardware Acceleration #>
   # $HandBrake_Preset = "H.265 QSV 2160p 4K";        <# Intel GPU Hardware Acceleration #>
-  # $HandBrake_Preset = "H.265 NVENC 2160p 4K";      <# NVidia GPU Hardware Acceleration #>
+  # $HandBrake_Preset = "H.265 NVENC 2160p 4K";      <# NVIDIA GPU Hardware Acceleration #>
 }
 
 # ------------------------------

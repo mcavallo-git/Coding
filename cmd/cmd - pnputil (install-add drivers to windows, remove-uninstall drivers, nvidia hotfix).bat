@@ -26,7 +26,7 @@ REM ------------------------------------------------------------
 REM
 REM REMOVE DRIVERS  (hotfix example)
 REM  |
-REM  |--> Removing corrupt DCH nvidia driver on 2019-06-13_08-15-29
+REM  |--> Removing corrupt DCH NVIDIA driver on 2019-06-13_08-15-29
 REM
 REM  Correct driver wouldn't install, and was throwing an error similar to:
 REM      "The standard NVIDIA graphics driver is not compatible with this version of Windows"

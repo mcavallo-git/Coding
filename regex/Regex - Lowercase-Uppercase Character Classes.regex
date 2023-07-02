@@ -16,7 +16,8 @@
 //
 // ------------------------------------------------------------
 //
-// Example
+// Set Lowercase (all)
+//
 //   \L  -  Lowercase all letters in the following capture group
 //
 
@@ -29,7 +30,8 @@
 
 // ------------------------------------------------------------
 //
-// Example
+// Set Lowercase (all except first char)
+//
 //   \l  -  Lowercase only the first character of the following capture group
 //
 

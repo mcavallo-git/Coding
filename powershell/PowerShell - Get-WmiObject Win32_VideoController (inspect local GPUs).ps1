@@ -19,7 +19,7 @@ If ($ExternalGpuNames.Count -Gt 0) {
 
 # ------------------------------------------------------------
 
-Get-WmiObject Win32_PnPSignedDriver | select devicename, driverversion | where {$_.devicename -like "*nvidia*"}
+Get-WmiObject Win32_PnPSignedDriver | select devicename, driverversion | where {$_.devicename -like "*NVIDIA*"}
 
 
 # ------------------------------------------------------------

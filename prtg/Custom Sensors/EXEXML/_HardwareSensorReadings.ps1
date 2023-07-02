@@ -1032,18 +1032,18 @@ If ($True) {
 #
 ## ------------------------------------------------------------
 ##
-## Get the latest sensor data from NVidia's standalone EXE: "nvidia-smi.exe"
+## Get the latest sensor data from NVIDIA's standalone EXE: "nvidia-smi.exe"
 ##
 #
 #  If ($False) {
 #
-#   $Exe_NVidiaSMI = "C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe";  # nvidia-smi.exe is NVIDIA's "System Management Interface (SMI)" tool which allows for command-line parameters to specify intended output
+#   $FullPath_Exe = "C:\Program Files\NVIDIA Corporation\NVSMI\nvidia-smi.exe";  # nvidia-smi.exe is NVIDIA's "System Management Interface (SMI)" tool which allows for command-line parameters to specify intended output
 #
 #   $Dirname_RevertTo = ((Get-Location).Path);
 #
-#   $Dirname_NVidiaSMI = (Split-Path -Path ("${Exe_NVidiaSMI}") -Parent);
+#   $Dirname_Exe = (Split-Path -Path ("${FullPath_Exe}") -Parent);
 #
-#   Set-Location -Path ("${Dirname_NVidiaSMI}");
+#   Set-Location -Path ("${Dirname_Exe}");
 #
 #   $Load_GPU_Core = (nvidia-smi.exe --query-gpu=utilization.gpu --format="csv,nounits,noheader" --id=0);
 #

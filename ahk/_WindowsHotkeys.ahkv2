@@ -145,6 +145,52 @@ AppsKey::RWin
 
 ; ------------------------------
 ;
+;   HOTKEY:  AppsKey + Left/Right/Up/Down
+;   ACTION:  Replace AppsKey with RWin and send command
+;
+AppsKey & Left::
+{
+  Send "{LWin up}{RWin up}{LWin down}{Left}{LWin up}"
+  Return
+}
+AppsKey & Right::
+{
+  Send "{LWin up}{RWin up}{LWin down}{Right}{LWin up}"
+  Return
+}
+AppsKey & Up::
+{
+  Send "{LWin up}{RWin up}{LWin down}{Up}{LWin up}"
+  Return
+}
+AppsKey & Down::
+{
+  Send "{LWin up}{RWin up}{LWin down}{Down}{LWin up}"
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
+;   ACTION:  Toggle between "Maximized" and "Restored" window-sizes for the currently-active window
+;
+; VKA0 & VKA1::     ;VKA1 = RShift
+; VKA1 & VKA0::     ;VKA0 = LShift
+; SC02A & SC136::   ;SC136 = RShift
+; SC136 & SC02a::   ;SC02A = LShift
+; >+LShift::        ;>+ = RShift (Modifier)
+; <+RShift::        ;<+ = LShift (Modifier)
+LShift & RShift::
+RShift & LShift::
+{
+  Win_ToggleRestoreMaximize()
+  Return
+}
+
+
+; ------------------------------
+;
 ;   HOTKEY:  Caps Lock
 ;   ACTION:  Permanently DISABLE Capslock (unless the user pressed combo keypress  [ Shift + CapsLock ]  which toggles CapsLock as-normal)
 ;
@@ -1045,27 +1091,17 @@ AppsKey & l::
 
 ; ------------------------------
 ;
-;   HOTKEY:  AppsKey + Left/Right/Up/Down
-;   ACTION:  Replace AppsKey with RWin and send command
+;   HOTKEY:  Alt + Mouse-Wheel Up/Down
+;   ACTION:  "SuperScroll" - scrolls 15 wheel-clicks at a time
 ;
-AppsKey & Left::
+!WheelUp::
 {
-  Send "{LWin up}{RWin up}{LWin down}{Left}{LWin up}"
+  MouseClick("WheelUp",,,15,0,"D","R")
   Return
 }
-AppsKey & Right::
+!WheelDown::
 {
-  Send "{LWin up}{RWin up}{LWin down}{Right}{LWin up}"
-  Return
-}
-AppsKey & Up::
-{
-  Send "{LWin up}{RWin up}{LWin down}{Up}{LWin up}"
-  Return
-}
-AppsKey & Down::
-{
-  Send "{LWin up}{RWin up}{LWin down}{Down}{LWin up}"
+  MouseClick("WheelDown",,,15,0,"D","R")
   Return
 }
 
@@ -1094,66 +1130,6 @@ AppsKey & XButton2::
   Send "{Media_Next}"
   Return
 }
-
-
-; ------------------------------
-;
-; 3-Key Volume Hotkeys  (Using AppsKey, LWin or RWin)
-;
-#HotIf GetKeyState("LWin", "P") || GetKeyState("RWin", "P") || GetKeyState("AppsKey", "P")
-  ;
-  ;   ACTION:  Volume Up
-  ;
-  Alt & Up::
-  Ctrl & Up::
-  Shift & Up::
-  {
-    VolDelta := 2
-    SoundSetVolume("+" VolDelta)
-    ShowVolumeLevel()
-    Return
-  }
-  ;
-  ;   ACTION:  Volume Down
-  ;
-  Alt & Down::
-  Ctrl & Down::
-  Shift & Down::
-  {
-    VolDelta := 2
-    SoundSetVolume("-" VolDelta)
-    ShowVolumeLevel()
-    Return
-  }
-  ;
-  ;   ACTION:  Goto previous track  (in active media player)
-  ;
-  Ctrl & Left::
-  Shift & Left::
-  {
-    Send "{Media_Prev}"
-    Return
-  }
-  ;
-  ;   ACTION:  Goto next track  (in active media player)
-  ;
-  Ctrl & Right::
-  Shift & Right::
-  {
-    Send "{Media_Next}"
-    Return
-  }
-  ;
-  ;   ACTION:  Pause current track  (in active media player)
-  ;
-  Alt & Space::
-  Ctrl & Space::
-  Shift & Space::
-  {
-    Send "{Media_Play_Pause}"
-    Return
-  }
-#HotIf
 
 
 ; ------------------------------
@@ -1220,49 +1196,13 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Alt + Mouse-Wheel Up/Down
-;   ACTION:  "SuperScroll" - scrolls 15 wheel-clicks at a time
+;   HOTKEY:  WinKey + 0
+;   ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
 ;
-!WheelUp::
+#0::
 {
-  MouseClick("WheelUp",,,15,0,"D","R")
-  Return
-}
-!WheelDown::
-{
-  MouseClick("WheelDown",,,15,0,"D","R")
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  Left-WinKey + K
-;            Right-WinKey  + K
-;   ACTION:  Send a green "Heavy Check Mark" emoji
-;
-<#k::
->#k::
-{
-  SetKeyDelay 0, -1
-  Send "✔️"  ; Heavy Check Mark (Colored)
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  Ctrl + WinKey + K
-;            Ctrl + Alt  + K
-;            Ctrl + Shift  + K
-;   ACTION:  Send a "Thumbs Up Sign" emoji
-;
-+^k::
-!^k::
-^#k::
-{
-  SetKeyDelay 0, -1
-  Send "👍"  ; Thumbs Up Sign
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  WinMove(0,0,,"A")
   Return
 }
 
@@ -1299,16 +1239,46 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Ctrl + WinKey + X
-;            Ctrl + Alt  + X
-;            Ctrl + Shift  + X
-;   ACTION:  Send a red "Cross Mark" emoji
+;   HOTKEY:  WinKey + 8
+;   ACTION:  Wait a random duration of time (example)
 ;
-!^x::
-^#x::
+#8::
 {
-  SetKeyDelay 0, -1
-  Send "❌️"   ; Cross Mark
+  RandomSleep_15s_to_20s := Random(15000,20000)
+  TrayTip "AHK", ("Sleeping for [" RandomSleep_15s_to_20s "] ms")  ; Toast Notification
+  Sleep RandomSleep_15s_to_20s
+  TrayTip "AHK", ("Sleep for [" RandomSleep_15s_to_20s "] ms has finished")  ; Toast Notification
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + 9
+;   ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
+;
+#9::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send "{PrintScreen}"
+  Return
+}
+!#9::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send "!{PrintScreen}"
+  Return
+}
+^#9::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send "^{PrintScreen}"
+  Return
+}
++#9::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send "+{PrintScreen}"
   Return
 }
 
@@ -1486,59 +1456,32 @@ AppsKey & WheelDown::
 ;
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + 8
-;   ACTION:  Wait a random duration of time (example)
+;   HOTKEY:  Left-WinKey + K
+;            Right-WinKey  + K
+;   ACTION:  Send a green "Heavy Check Mark" emoji
 ;
-#8::
+<#k::
+>#k::
 {
-  RandomSleep_15s_to_20s := Random(15000,20000)
-  TrayTip "AHK", ("Sleeping for [" RandomSleep_15s_to_20s "] ms")  ; Toast Notification
-  Sleep RandomSleep_15s_to_20s
-  TrayTip "AHK", ("Sleep for [" RandomSleep_15s_to_20s "] ms has finished")  ; Toast Notification
+  SetKeyDelay 0, -1
+  Send "✔️"  ; Heavy Check Mark (Colored)
   Return
 }
 
 
 ; ------------------------------
 ;
-;   HOTKEY:  WinKey + 9
-;   ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
+;   HOTKEY:  Ctrl + WinKey + K
+;            Ctrl + Alt  + K
+;            Ctrl + Shift  + K
+;   ACTION:  Send a "Thumbs Up Sign" emoji
 ;
-#9::
++^k::
+!^k::
+^#k::
 {
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "{PrintScreen}"
-  Return
-}
-!#9::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "!{PrintScreen}"
-  Return
-}
-^#9::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "^{PrintScreen}"
-  Return
-}
-+#9::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "+{PrintScreen}"
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  WinKey + 0
-;   ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
-;
-#0::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  WinMove(0,0,,"A")
+  SetKeyDelay 0, -1
+  Send "👍"  ; Thumbs Up Sign
   Return
 }
 
@@ -1580,6 +1523,21 @@ AppsKey & WheelDown::
   If (WinExist(WinTitle)) {
     WinSnap(WinTitle,,,,"Left","Half",1)
   }
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  Ctrl + Alt + X
+;            Ctrl + WinKey  + X
+;   ACTION:  Send a red "Cross Mark" emoji
+;
+^!x::
+^#x::
+{
+  SetKeyDelay 0, -1
+  Send "❌️"   ; Cross Mark
   Return
 }
 
@@ -1636,26 +1594,7 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
-;   ACTION:  Toggle between "Maximized" and "Restored" window-sizes for the currently-active window
-;
-; VKA0 & VKA1::     ;VKA1 = RShift
-; VKA1 & VKA0::     ;VKA0 = LShift
-; SC02A & SC136::   ;SC136 = RShift
-; SC136 & SC02a::   ;SC02A = LShift
-; >+LShift::        ;>+ = RShift (Modifier)
-; <+RShift::        ;<+ = LShift (Modifier)
-LShift & RShift::
-RShift & LShift::
-{
-  Win_ToggleRestoreMaximize()
-  Return
-}
-
-
-; ------------------------------
-;
-; 3-Key Volume Hotkeys  (Using LCtrl or RCtrl)
+; 3-Key Volume Hotkeys  (using LCtrl or RCtrl)
 ;
 #HotIf GetKeyState("LCtrl", "P") || GetKeyState("RCtrl", "P")
   ;
@@ -1674,6 +1613,66 @@ RShift & LShift::
       ; Window is already mega maximized - Restore it
       WinMove(Floor(0.01*A_ScreenWidth), Floor(0.025*A_ScreenHeight), Floor(0.48*A_ScreenWidth), Floor(0.90*A_ScreenHeight), "A")
     }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+; 3-Key Volume Hotkeys  (using AppsKey, LWin or RWin)
+;
+#HotIf GetKeyState("LWin", "P") || GetKeyState("RWin", "P") || GetKeyState("AppsKey", "P")
+  ;
+  ;   ACTION:  Volume Up
+  ;
+  Alt & Up::
+  Ctrl & Up::
+  Shift & Up::
+  {
+    VolDelta := 2
+    SoundSetVolume("+" VolDelta)
+    ShowVolumeLevel()
+    Return
+  }
+  ;
+  ;   ACTION:  Volume Down
+  ;
+  Alt & Down::
+  Ctrl & Down::
+  Shift & Down::
+  {
+    VolDelta := 2
+    SoundSetVolume("-" VolDelta)
+    ShowVolumeLevel()
+    Return
+  }
+  ;
+  ;   ACTION:  Goto previous track  (in active media player)
+  ;
+  Ctrl & Left::
+  Shift & Left::
+  {
+    Send "{Media_Prev}"
+    Return
+  }
+  ;
+  ;   ACTION:  Goto next track  (in active media player)
+  ;
+  Ctrl & Right::
+  Shift & Right::
+  {
+    Send "{Media_Next}"
+    Return
+  }
+  ;
+  ;   ACTION:  Pause current track  (in active media player)
+  ;
+  Alt & Space::
+  Ctrl & Space::
+  Shift & Space::
+  {
+    Send "{Media_Play_Pause}"
     Return
   }
 #HotIf

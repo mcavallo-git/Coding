@@ -127,7 +127,7 @@ If (FileExist(TrayIcon_Default)) {
 ^#F1::
 {
   
-  SplitPath A_ScriptDir, &OutFileName, &OutDir, &OutExtension, &OutNameNoExt, &OutDrive
+  SplitPath A_ScriptDir,, &OutDir
   Fullpath_RepoReadmeFile := OutDir "\README.md"
   ; Edit
   Run("notepad.exe " Fullpath_RepoReadmeFile)  ; Using the "Run" directive instead of the "Edit" directive avoids the error [ Another instance of Code is already running as administrator. Please close the other instance and try again. ]
@@ -595,28 +595,18 @@ Pause::
     If (ExeToRequire_Fullpath != "") {
       AwaitModifierKeyup()  ; Wait until all modifier keys are released
       Sleep 10
-      SplitPath ExeToRequire_Fullpath, &ExeToRequire_Basename, &ExeToRequire_Dirname, &ExeToRequire_Extension, &ExeToRequire_BasenameNoExt, &ExeToRequire_Drivename
-      WinActivate ("ahk_exe " ExeToRequire_Basename)
-      VarSetStrCapacity(&ExeToRequire_Basename,0)
-      VarSetStrCapacity(&ExeToRequire_Dirname,0)
-      VarSetStrCapacity(&ExeToRequire_Extension,0)
-      VarSetStrCapacity(&ExeToRequire_BasenameNoExt,0)
-      VarSetStrCapacity(&ExeToRequire_Drivename,0)
-      ; VarSetStrCapacity(&ExeToRequire_Basename,0)       ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
-      ; VarSetStrCapacity(&ExeToRequire_Dirname,0)        ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
-      ; VarSetStrCapacity(&ExeToRequire_Extension,0)      ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
-      ; VarSetStrCapacity(&ExeToRequire_BasenameNoExt,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
-      ; VarSetStrCapacity(&ExeToRequire_Drivename,0)      ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+      SplitPath ExeToRequire_Fullpath, &OutFileName
+      WinActivate ("ahk_exe " OutFileName)
+      ; Free variables from memory (to avoid caching of secrets, sensitive paths or large files)
+      VarSetStrCapacity(&OutFileName,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
     }
     ; Paste the contents of target file
     FileToPaste_Contents := FileRead(FileToPaste_Legend)
     SendInput FileToPaste_Contents
   }
-  ; Free variables from memory to avoid caching of secrets or large files  -  https://www.autohotkey.com/docs/commands/VarSetCapacity.htm
-  VarSetStrCapacity(&FileToPaste_Contents,0)
-  VarSetStrCapacity(&ExeToRequire_Fullpath,0)
-  ; VarSetStrCapacity(&FileToPaste_Contents,0)   ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
-  ; VarSetStrCapacity(&ExeToRequire_Fullpath,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+  ; Free variables from memory (to avoid caching of secrets, sensitive paths or large files)
+  VarSetStrCapacity(&FileToPaste_Contents,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+  VarSetStrCapacity(&ExeToRequire_Fullpath,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
   Return
 }
 
@@ -3157,25 +3147,25 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
 Open_Exe(ExeFullpath) {
   global DebugMode
   Timeout := 10
-  SplitPath ExeFullpath, &ExeBasename, &ExeDirname, &ExeExtension, &ExeBasenameNoExt, &ExeDrivename
-  If (ProcessExist(ExeBasename) == True) {
+  SplitPath ExeFullpath, &OutFileName
+  If (ProcessExist(OutFileName) == True) {
     ; Executable IS running
     If (DebugMode == 1) {
-      TooltipOutput := "Activating `"" ExeBasename "`""
+      TooltipOutput := "Activating `"" OutFileName "`""
       ShowToolTip(TooltipOutput,,,,2000)
     }
-    ExePID := GetPID(ExeBasename)
+    ExePID := GetPID(OutFileName)
     WinActivate ("ahk_pid " ExePID)
   } Else If (FileExist(ExeFullpath)) {
     ; Executable NOT running but IS found locally
     If (DebugMode == 1) {
-      TooltipOutput := "Opening `"" ExeBasename "`""
+      TooltipOutput := "Opening `"" OutFileName "`""
       ShowToolTip(TooltipOutput,,,,2000)
     }
     ; Run ExeFullpath
     ExitCode := RunWait(ExeFullpath,,, ExePID)
     ; WinWait "ahk_pid " ExePID
-    ; ExePID := GetPID(ExeBasename)
+    ; ExePID := GetPID(OutFileName)
     WinActivate ("ahk_pid " ExePID)
   } Else {
     ; Executable NOT running & NOT found locally
@@ -3584,7 +3574,14 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   FullPath_Temp_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
 
   ; Build the output filename
-  SplitPath FullPath_RunExe, &OutFileName, &OutDir, &OutExtension, &OutNameNoExt, &OutDrive
+  SplitPath FullPath_RunExe, &OutFileName
+  
+  If (Exe_Args = "") {
+    SplitPath FullPath_RunExe, &OutFileName
+    MsgBox("Generate Random String (overwrites clipboard contents)?", A_ScriptName " - " A_ThisFunc,4)
+    ; OutFileName := OutFileName "_"
+  }
+
   FullPath_Temp_VbsScript := (FullPath_Temp_Dirname "\"  OutFileName ".vbs")
 
   ; Create the VBS script file (if it doesn't already exist)

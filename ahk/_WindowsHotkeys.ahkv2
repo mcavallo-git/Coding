@@ -12,8 +12,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 0
-; DebugMode := 1
+; DebugMode := 0
+DebugMode := 1
 
 
 ; ------------------------------
@@ -3599,7 +3599,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   If (DebugMode == 1) {
     ; Debug - Show the command before running it
     ToolTipOutput := (A_ScriptName " - " A_ThisFunc "`n`n" StrReplace(StrReplace(PWSH_CLI,"{","{`n"),";",";`n"))
-    ShowToolTip(TooltipOutput,,,5,5000)
+    ShowToolTip(TooltipOutput,,,5,60000)
   }
 
   ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PWSH_CLI "`"")

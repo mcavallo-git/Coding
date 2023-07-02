@@ -3602,7 +3602,6 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 
   ; Build a basename whose uniqueness is matched to the uniqueness of [ the input exe's basename prepended onto the sum of the ordinal value of all characters in the input args ]
   SplitPath FullPath_RunExe, &OutFileName
-
   Temp_VbsScript_Basename := (OutFileName "_" StringToUniqueInt(Exe_Args) ".vbs")
 
   Temp_VbsScript_FullPath := (Temp_Dirname "\"  Temp_VbsScript_Basename)

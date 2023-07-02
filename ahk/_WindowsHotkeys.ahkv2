@@ -12,8 +12,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 0
-; DebugMode := 1
+; DebugMode := 0
+DebugMode := 1
 
 
 ; ------------------------------
@@ -1540,7 +1540,7 @@ AppsKey & WheelDown::
 ;
 #y::
 {
-  Open_Chrome("https://youtube.com")
+  Open_Chrome("https://youtube.com", 1)
   Return
 }
 
@@ -3040,34 +3040,49 @@ Open_Chrome(Url_Open:="", Force_Run:=0) {
   WinWait_TimeoutSeconds := 20
   If ((!WinExist(WinTitle)) && (FullPath_RunExe = "")) {
     TooltipOutput := "Chrome executable not found (neither x64 or x86 version)"
-    ShowToolTip(TooltipOutput,,,,4000)
-  } Else If ((!WinExist(WinTitle)) || (WinExist(WinTitle) && (Force_Run == 0))) {
-    If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
-      ; Run a NON-admin version of target exe
-      RunExe_NON_Admin(FullPath_RunExe, Url_Open)
-      WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
-    }
-    If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {   
+    ShowToolTip(TooltipOutput,,,3,4000)
+  } Else If ((Force_Run != 0) || (!WinExist(WinTitle))) {
+    ; Run a NON-admin version of target exe
+    RunExe_NON_Admin(FullPath_RunExe, Url_Open)
+    WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
+    If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {
+      ResizeAction := ""
       If (MonitorGetCount()==1) {
         WinSnap(WinTitle,,,,"Right","Half",1) ; Resize window to right half of monitor #1
+        ResizeAction := "Snap window going right"
       } Else {
         WinSnap(WinTitle,,,,"Left","Half",2) ; Resize window to left half of monitor #2
+        ResizeAction := "Snap window going left"
       }
+      ActivateAction := ""
       If (WinExist(WinTitle,WinText)) {
         WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
+        ActivateAction := "WinActivate using Title & Text"
       } Else If (WinExist(WinTitle)) {
         WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
+        ActivateAction := "WinActivate using Title, only"
+      } Else {
+        ActivateAction := "Fallthrough WinActivate block"
+      }
+      ; Debug fallthrough message
+      If (DebugMode == 1) {
+        TooltipOutput := A_ThisFunc "`n" "ResizeAction = [ " ResizeAction " ]" "`n" "ActivateAction = [ " ActivateAction " ]"
+        ShowToolTip(TooltipOutput,,,3,15000)
       }
     } Else {
       TooltipOutput := A_ScriptName " - " A_ThisFunc "`n`n" "Error - No window found matching [ " WinTitle " ] "
-      ShowToolTip(TooltipOutput,,,,4000)
+      ShowToolTip(TooltipOutput,,,3,4000)
     }
   } Else {
     ; Debug fallthrough message
     If (DebugMode == 1) {
-      TooltipOutput := A_ThisFunc "`n`n" "(Skipped) Chrome executable is already running" "`n" "  - Force_Run = [ " Force_Run " ]"
-      ShowToolTip(TooltipOutput,,,,15000)
+      TooltipOutput := "`n" "(Skipped) Chrome executable is already running"
+      ShowToolTip(TooltipOutput,,,3,15000)
     }
+  }
+  If (DebugMode == 1) {
+    TooltipOutput := A_ThisFunc "`n" "Force_Run = [ " Force_Run " ]"
+    ShowToolTip(TooltipOutput,,,5,15000)
   }
   Return
 }

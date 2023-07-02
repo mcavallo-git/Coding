@@ -12,8 +12,8 @@
 ; Global Variables - User-Defined
 ;
 
-; DebugMode := 0
-DebugMode := 1
+DebugMode := 0
+; DebugMode := 1
 
 
 ; ------------------------------
@@ -1314,7 +1314,8 @@ AppsKey & WheelDown::
   ; ClickLoop(1247,1100,25)
 
   ; Loop 20 {
-  ;   ShowToolTip("[" A_Index "] GetNanoseconds:  "  GetNanoseconds() ,,,A_Index,10000)
+  ;   TooltipOutput := "[" A_Index "] GetNanoseconds:  "  GetNanoseconds()
+  ;   ShowToolTip(TooltipOutput,,,A_Index,10000)
   ; }
 
   Return
@@ -3580,31 +3581,31 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   VbsScript_Contents := ("CreateObject( `"WScript.Shell`" ).Run `"PowerShell -Command `"`"" PWSH_CLI "`"`" `", 0, True")
 
   ; Build the output directory
-  FullPath_RunNonAdmin_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
+  FullPath_Temp_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
 
   ; Build the output filename
   SplitPath FullPath_RunExe, &OutFileName, &OutDir, &OutExtension, &OutNameNoExt, &OutDrive
-  FullPath_RunNonAdmin_VbsScript := (FullPath_RunNonAdmin_Dirname "\"  OutFileName ".vbs")
+  FullPath_Temp_VbsScript := (FullPath_Temp_Dirname "\"  OutFileName ".vbs")
 
   ; Create the VBS script file (if it doesn't already exist)
-  If (!FileExist(FullPath_RunNonAdmin_VbsScript)) {
+  If (!FileExist(FullPath_Temp_VbsScript)) {
     ; Create the VBS script's directory (if it doesn't already exist)
-    If (!FileExist(FullPath_RunNonAdmin_Dirname)) {
-      DirCreate FullPath_RunNonAdmin_Dirname
+    If (!FileExist(FullPath_Temp_Dirname)) {
+      DirCreate FullPath_Temp_Dirname
     }
-    FileAppend VbsScript_Contents, FullPath_RunNonAdmin_VbsScript
+    FileAppend VbsScript_Contents, FullPath_Temp_VbsScript
   }
 
   If (DebugMode == 1) {
     ; Debug - Show the command before running it
     ToolTipOutput := (A_ScriptName " - " A_ThisFunc "`n`n" StrReplace(StrReplace(PWSH_CLI,"{","{`n"),";",";`n"))
-    ShowToolTip(ToolTipOutput,,,5,5000)
+    ShowToolTip(TooltipOutput,,,5,5000)
   }
 
   ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PWSH_CLI "`"")
   ; Run Run_PowerShellScript_NonAdmin
 
-  Run_VbsScript_NonAdmin := ("C:\Windows\System32\wscript.exe `"" FullPath_RunNonAdmin_VbsScript "`"")
+  Run_VbsScript_NonAdmin := ("C:\Windows\System32\wscript.exe `"" FullPath_Temp_VbsScript "`"")
   Run Run_VbsScript_NonAdmin
 
   Return
@@ -4463,7 +4464,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
           TooltipOutput := TooltipOutput "WinSnap_Prior_Destination_Size:			" WinSnap_Prior_Destination_Size "`n"
           TooltipOutput := TooltipOutput "                 "
           ; ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorIndex+1),60000)
-          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorIndex*5),60000)
+          ShowToolTip(TooltipOutput,EachMonitor_LeftCoord,EachMonitor_TopCoord,(Each_MonitorIndex*2),60000)
         }
         ; Determine if the center of target window is currently located within the bounds of this monitor's work area
         If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord)) {

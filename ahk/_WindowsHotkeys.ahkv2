@@ -12,8 +12,8 @@
 ; Global Variables - User-Defined
 ;
 
-DebugMode := 0
-; DebugMode := 1
+; DebugMode := 0
+DebugMode := 1
 
 
 ; ------------------------------
@@ -1316,7 +1316,7 @@ AppsKey & WheelDown::
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + C
-;   ACTION:  Open Google Chrome
+;   ACTION:  Open Google Chrome (to the New Tab page)
 ;
 #c::
 {
@@ -1389,210 +1389,8 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
-;   ACTION:  Toggle between "Maximized" and "Restored" window-sizes for the currently-active window
-;
-; VKA0 & VKA1::     ;VKA1 = RShift
-; VKA1 & VKA0::     ;VKA0 = LShift
-; SC02A & SC136::   ;SC136 = RShift
-; SC136 & SC02a::   ;SC02A = LShift
-; >+LShift::        ;>+ = RShift (Modifier)
-; <+RShift::        ;<+ = LShift (Modifier)
-LShift & RShift::
-RShift & LShift::
-{
-  Win_ToggleRestoreMaximize()
-  Return
-}
-
-
-; ------------------------------
-;
-; 3-Key Volume Hotkeys  (Using LCtrl or RCtrl)
-;
-#HotIf GetKeyState("LCtrl", "P") || GetKeyState("RCtrl", "P")
-  ;
-  ;   ACTION:  Mega Maximize (cover entire viewport)
-  ;
-  LShift & RShift::
-  RShift & LShift::
-  {
-    Viewport_Width := SysGet(78)  ; SM_CXVIRTUALSCREEN
-    Viewport_Height := SysGet(79)  ; SM_CYVIRTUALSCREEN
-    WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "A")
-    If ((Win_width != Viewport_Width) || (Win_height != Viewport_Height)) {
-      ; Mega maximize the window
-      WinMove(0, 0, Viewport_Width, Viewport_Height, "A")
-    } Else {
-      ; Window is already mega maximized - Restore it
-      WinMove(Floor(0.01*A_ScreenWidth), Floor(0.025*A_ScreenHeight), Floor(0.48*A_ScreenWidth), Floor(0.90*A_ScreenHeight), "A")
-    }
-    Return
-  }
-#HotIf
-
-
-; ------------------------------
-;
-;   HOTKEY:  WinKey + 8
-;   ACTION:  Wait a random duration of time (example)
-;
-#8::
-{
-  RandomSleep_15s_to_20s := Random(15000,20000)
-  TrayTip "AHK", ("Sleeping for [" RandomSleep_15s_to_20s "] ms")  ; Toast Notification
-  Sleep RandomSleep_15s_to_20s
-  TrayTip "AHK", ("Sleep for [" RandomSleep_15s_to_20s "] ms has finished")  ; Toast Notification
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  WinKey + 9
-;   ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
-;
-#9::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "{PrintScreen}"
-  Return
-}
-!#9::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "!{PrintScreen}"
-  Return
-}
-^#9::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "^{PrintScreen}"
-  Return
-}
-+#9::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  Send "+{PrintScreen}"
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  WinKey + 0
-;   ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
-;
-#0::
-{
-  AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  WinMove(0,0,,"A")
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  WinKey + W
-;   ACTION:  Snap the currently-active window to left half of monitor #1, or snap to the right of its current position on repeat calls
-;
-#w::
-{
-  WinTitle := WinGetTitle("A")
-  If (WinExist(WinTitle)) {
-    WinSnap(WinTitle,,,,"Left","Half",1)
-  }
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  WinKey + T
-;   ACTION:  Open Windows Terminal
-;
-#t::
-{
-  Open_WindowsTerminal()
-  Return
-}
-
-
-; ------------------------------
-;
-;   HOTKEY:  Alt + WinKey + T
-;            Ctrl + WinKey + T
-;   ACTION:  Get Windows Environment Vars
-;
-!#t::
-^#t::
-{
-  PrintEnv()
-  Return
-}
-
-
-; ----------------------------------------------------
-;
-;   HOTKEY:  Directional Arrow Combos
-;   ACTION:  Window Snap to Grid  (see each hotkey's commend)
-;
-
-; #!Up::      WinSnap_ToGrid("A",,2,1,1,1)      ; Alt + WinKey + Up               ---  Snap to top 1/2 (row) of screen
-; #!Down::    WinSnap_ToGrid("A",,2,1,2,1)      ; Alt + WinKey + Down             ---  Snap to bottom 1/2 (row) of screen
-
-; ^#!Up::     WinSnap_ToGrid("A",,3,1,1,1)      ; Ctrl + Alt + WinKey + Up        ---  Snap to top 1/3 (row) of screen
-; ^#!Down::   WinSnap_ToGrid("A",,3,1,3,1)      ; Ctrl + Alt + WinKey + Down      ---  Snap to bottom 1/3 (row) of screen
-
-
-; ----------------------------------------------------
-;
-;   HOTKEY:  Numpad Combos
-;   ACTION:  Window Snap to Grid  (see each hotkey's commend)
-;
-
-#!Numpad4:: WinSnap_ToGrid("A",,1,4,1,1)      ; Alt + WinKey + Numpad-4         ---  Snap to left 1/4 (column) of screen
-#!Numpad5:: WinSnap_ToGrid("A",,1,4,1,2,1,2)  ; Alt + WinKey + Numpad-5         ---  Snap to center 1/2 (column) of screen
-#!Numpad6:: WinSnap_ToGrid("A",,1,4,1,4)      ; Alt + WinKey + Numpad-6         ---  Snap to right 1/4 (column) of screen
-
-^#Numpad2:: WinSnap_ToGrid("A",,3,1,3,1)      ; Ctrl + WinKey + Numpad-2        ---  Snap to bottom 1/3 (row) of screen
-^#Numpad5:: WinSnap_ToGrid("A",,3,1,2,1)      ; Ctrl + WinKey + Numpad-5        ---  Snap to center 1/3 (row) of screen
-^#Numpad8:: WinSnap_ToGrid("A",,3,1,1,1)      ; Ctrl + WinKey + Numpad-8        ---  Snap to top 1/3 (row) of screen
-
-^#!Numpad1::WinSnap_ToGrid("A",,3,3,3,1)      ; Ctrl + Alt + WinKey + Numpad-1  ---  Snap to bottom-left 1/9 (sector) of screen
-^#!Numpad2::WinSnap_ToGrid("A",,3,3,3,2)      ; Ctrl + Alt + WinKey + Numpad-2  ---  Snap to bottom-middle 1/9 (sector) of screen
-^#!Numpad3::WinSnap_ToGrid("A",,3,3,3,3)      ; Ctrl + Alt + WinKey + Numpad-3  ---  Snap to bottom-right 1/9 (sector) of screen
-^#!Numpad4::WinSnap_ToGrid("A",,3,3,2,1)      ; Ctrl + Alt + WinKey + Numpad-4  ---  Snap to middle-left 1/9 (sector) of screen
-^#!Numpad5::WinSnap_ToGrid("A",,3,3,2,2)      ; Ctrl + Alt + WinKey + Numpad-5  ---  Snap to centermost 1/9 (sector) of screen
-^#!Numpad6::WinSnap_ToGrid("A",,3,3,2,3)      ; Ctrl + Alt + WinKey + Numpad-6  ---  Snap to middle-right 1/9 (sector) of screen
-^#!Numpad7::WinSnap_ToGrid("A",,3,3,1,1)      ; Ctrl + Alt + WinKey + Numpad-7  ---  Snap to top-left 1/9 (sector) of screen
-^#!Numpad8::WinSnap_ToGrid("A",,3,3,1,2)      ; Ctrl + Alt + WinKey + Numpad-8  ---  Snap to top-middle 1/9 (sector) of screen
-^#!Numpad9::WinSnap_ToGrid("A",,3,3,1,3)      ; Ctrl + Alt + WinKey + Numpad-9  ---  Snap to top-right 1/9 (sector) of screen
-
-
-; ------------------------------
-;
-;   ACTION:  Decrease screen brightness
-;
-; Alt & Left::
-; {
-;   BS := new BrightnessSetter()
-;   BS.SetBrightness(-1)
-;   Return
-; }
-;
-;   ACTION:  Increase screen brightness
-;
-; Alt & Right::
-; {
-;   BS := new BrightnessSetter()
-;   BS.SetBrightness(+1)
-;   Return
-; }
-;
-;
-; ------------------------------
-;  WinKey+J - Start Node.JS (Git-Bash) && Postman
+;   HOTKEY:  WinKey + J
+;   ACTION:  Start Node.JS (Git-Bash) && Postman
 ;
 ; #j::
 ; {
@@ -1682,6 +1480,222 @@ RShift & LShift::
 ;     ; WinMove(-7,0,974,1047,WinTitle_NodeJS)  ; (1st Monitor, Left, Actual)
 ;     ;
 ;   }
+;   Return
+; }
+;
+;
+; ------------------------------
+;
+;   HOTKEY:  WinKey + 8
+;   ACTION:  Wait a random duration of time (example)
+;
+#8::
+{
+  RandomSleep_15s_to_20s := Random(15000,20000)
+  TrayTip "AHK", ("Sleeping for [" RandomSleep_15s_to_20s "] ms")  ; Toast Notification
+  Sleep RandomSleep_15s_to_20s
+  TrayTip "AHK", ("Sleep for [" RandomSleep_15s_to_20s "] ms has finished")  ; Toast Notification
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + 9
+;   ACTION:  Send a {PrintScreen} keypress (for keyboards without the printscreen key)
+;
+#9::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send "{PrintScreen}"
+  Return
+}
+!#9::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send "!{PrintScreen}"
+  Return
+}
+^#9::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send "^{PrintScreen}"
+  Return
+}
++#9::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  Send "+{PrintScreen}"
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + 0
+;   ACTION:  Move the currently-active window's top-left corner to the top-left of the screen
+;
+#0::
+{
+  AwaitModifierKeyup()  ; Wait until all modifier keys are released
+  WinMove(0,0,,"A")
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + T
+;   ACTION:  Open Windows Terminal
+;
+#t::
+{
+  Open_WindowsTerminal()
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  Alt + WinKey + T
+;            Ctrl + WinKey + T
+;   ACTION:  Get Windows Environment Vars
+;
+!#t::
+^#t::
+{
+  PrintEnv()
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + W
+;   ACTION:  Snap the currently-active window to left half of monitor #1, or snap to the right of its current position on repeat calls
+;
+#w::
+{
+  WinTitle := WinGetTitle("A")
+  If (WinExist(WinTitle)) {
+    WinSnap(WinTitle,,,,"Left","Half",1)
+  }
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + Y
+;   ACTION:  Open Google Chrome (to Youtube)
+;
+#y::
+{
+  Open_Chrome("https://youtube.com")
+  Return
+}
+
+
+; ----------------------------------------------------
+;
+;   HOTKEY:  Directional Arrow Combos
+;   ACTION:  Window Snap to Grid  (see each hotkey's commend)
+;
+
+; #!Up::      WinSnap_ToGrid("A",,2,1,1,1)      ; Alt + WinKey + Up               ---  Snap to top 1/2 (row) of screen
+; #!Down::    WinSnap_ToGrid("A",,2,1,2,1)      ; Alt + WinKey + Down             ---  Snap to bottom 1/2 (row) of screen
+
+; ^#!Up::     WinSnap_ToGrid("A",,3,1,1,1)      ; Ctrl + Alt + WinKey + Up        ---  Snap to top 1/3 (row) of screen
+; ^#!Down::   WinSnap_ToGrid("A",,3,1,3,1)      ; Ctrl + Alt + WinKey + Down      ---  Snap to bottom 1/3 (row) of screen
+
+
+; ----------------------------------------------------
+;
+;   HOTKEY:  Numpad Combos
+;   ACTION:  Window Snap to Grid  (see each hotkey's commend)
+;
+
+#!Numpad4:: WinSnap_ToGrid("A",,1,4,1,1)      ; Alt + WinKey + Numpad-4         ---  Snap to left 1/4 (column) of screen
+#!Numpad5:: WinSnap_ToGrid("A",,1,4,1,2,1,2)  ; Alt + WinKey + Numpad-5         ---  Snap to center 1/2 (column) of screen
+#!Numpad6:: WinSnap_ToGrid("A",,1,4,1,4)      ; Alt + WinKey + Numpad-6         ---  Snap to right 1/4 (column) of screen
+
+^#Numpad2:: WinSnap_ToGrid("A",,3,1,3,1)      ; Ctrl + WinKey + Numpad-2        ---  Snap to bottom 1/3 (row) of screen
+^#Numpad5:: WinSnap_ToGrid("A",,3,1,2,1)      ; Ctrl + WinKey + Numpad-5        ---  Snap to center 1/3 (row) of screen
+^#Numpad8:: WinSnap_ToGrid("A",,3,1,1,1)      ; Ctrl + WinKey + Numpad-8        ---  Snap to top 1/3 (row) of screen
+
+^#!Numpad1::WinSnap_ToGrid("A",,3,3,3,1)      ; Ctrl + Alt + WinKey + Numpad-1  ---  Snap to bottom-left 1/9 (sector) of screen
+^#!Numpad2::WinSnap_ToGrid("A",,3,3,3,2)      ; Ctrl + Alt + WinKey + Numpad-2  ---  Snap to bottom-middle 1/9 (sector) of screen
+^#!Numpad3::WinSnap_ToGrid("A",,3,3,3,3)      ; Ctrl + Alt + WinKey + Numpad-3  ---  Snap to bottom-right 1/9 (sector) of screen
+^#!Numpad4::WinSnap_ToGrid("A",,3,3,2,1)      ; Ctrl + Alt + WinKey + Numpad-4  ---  Snap to middle-left 1/9 (sector) of screen
+^#!Numpad5::WinSnap_ToGrid("A",,3,3,2,2)      ; Ctrl + Alt + WinKey + Numpad-5  ---  Snap to centermost 1/9 (sector) of screen
+^#!Numpad6::WinSnap_ToGrid("A",,3,3,2,3)      ; Ctrl + Alt + WinKey + Numpad-6  ---  Snap to middle-right 1/9 (sector) of screen
+^#!Numpad7::WinSnap_ToGrid("A",,3,3,1,1)      ; Ctrl + Alt + WinKey + Numpad-7  ---  Snap to top-left 1/9 (sector) of screen
+^#!Numpad8::WinSnap_ToGrid("A",,3,3,1,2)      ; Ctrl + Alt + WinKey + Numpad-8  ---  Snap to top-middle 1/9 (sector) of screen
+^#!Numpad9::WinSnap_ToGrid("A",,3,3,1,3)      ; Ctrl + Alt + WinKey + Numpad-9  ---  Snap to top-right 1/9 (sector) of screen
+
+
+; ------------------------------
+;
+;   HOTKEY:  Left-Shift + Right-Shift  (Shift + Shift --> Both Shift-Keys pressed simultaneously)
+;   ACTION:  Toggle between "Maximized" and "Restored" window-sizes for the currently-active window
+;
+; VKA0 & VKA1::     ;VKA1 = RShift
+; VKA1 & VKA0::     ;VKA0 = LShift
+; SC02A & SC136::   ;SC136 = RShift
+; SC136 & SC02a::   ;SC02A = LShift
+; >+LShift::        ;>+ = RShift (Modifier)
+; <+RShift::        ;<+ = LShift (Modifier)
+LShift & RShift::
+RShift & LShift::
+{
+  Win_ToggleRestoreMaximize()
+  Return
+}
+
+
+; ------------------------------
+;
+; 3-Key Volume Hotkeys  (Using LCtrl or RCtrl)
+;
+#HotIf GetKeyState("LCtrl", "P") || GetKeyState("RCtrl", "P")
+  ;
+  ;   ACTION:  Mega Maximize (cover entire viewport)
+  ;
+  LShift & RShift::
+  RShift & LShift::
+  {
+    Viewport_Width := SysGet(78)  ; SM_CXVIRTUALSCREEN
+    Viewport_Height := SysGet(79)  ; SM_CYVIRTUALSCREEN
+    WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "A")
+    If ((Win_width != Viewport_Width) || (Win_height != Viewport_Height)) {
+      ; Mega maximize the window
+      WinMove(0, 0, Viewport_Width, Viewport_Height, "A")
+    } Else {
+      ; Window is already mega maximized - Restore it
+      WinMove(Floor(0.01*A_ScreenWidth), Floor(0.025*A_ScreenHeight), Floor(0.48*A_ScreenWidth), Floor(0.90*A_ScreenHeight), "A")
+    }
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+;   ACTION:  Decrease screen brightness
+;
+; Alt & Left::
+; {
+;   BS := new BrightnessSetter()
+;   BS.SetBrightness(-1)
+;   Return
+; }
+;
+;   ACTION:  Increase screen brightness
+;
+; Alt & Right::
+; {
+;   BS := new BrightnessSetter()
+;   BS.SetBrightness(+1)
 ;   Return
 ; }
 ;

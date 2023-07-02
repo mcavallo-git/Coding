@@ -3,7 +3,7 @@
 // ------------------------------------------------------------
 
 
-// Example - search for strings matching the word "NVIDIA" but with at least one lowercase letter (NVIDIA's branding page states it shouod be all uppercase)
+// Example - search for strings matching the word "NVIDIA" but with at least one lowercase letter (NVIDIA's branding page states it should be all uppercase)
 
 
 // Find:

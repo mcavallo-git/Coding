@@ -2295,10 +2295,10 @@ EscapeSpecialCharacters(StringToEscape:="") {
   ReturnedString := ""
   StringConsolidated := RegexConsolidateNewlines(StringToEscape)
   If InStr(StringConsolidated, "`n") {
-    ; Iterate over each line in the string
+    ; Iterate over each line (in the input string)
     For EachKey, EachLine in StrSplit(StringConsolidated,"`n")
     {
-      ; Multi-line string - Iterate over each character in each line
+      ; Multi-line string - Iterate over each character (in each line)
       Loop Parse EachLine
       {
         If (A_LoopField == "{") {
@@ -3521,8 +3521,35 @@ ProcessExist(ProcName) {
 ; RegexConsolidateNewlines
 ;   |--> The characters '`n' & '`r' are interpreted the same (by Windows) when AHK 'types' them in (sends them).
 ;
-RegexConsolidateNewlines(StringToConsolidate:="") {
-  Return RegExReplace(StringToConsolidate,"\r\n?|\n\r?","`n")
+RegexConsolidateNewlines(InputString:="") {
+  Return RegExReplace(InputString,"\r\n?|\n\r?","`n")
+}
+
+
+; ------------------------------
+;
+; RegexRemoveNewlines
+;   |--> Remove newline characters '`n' & '`r' from a string
+;
+RegexRemoveNewlines(InputString:="") {
+  Return RegExReplace(InputString,"\r|\n","")
+}
+
+
+; ------------------------------
+;
+; StringToUniqueInt
+;   |--> Returns the sum of ordinal values for every character in the input string - Relies on the "Ord" command - https://www.autohotkey.com/docs/v2/lib/Ord.htm
+;
+StringToUniqueInt(InputString:="") {
+  ReturnedVal := 0
+  If (InputString != "") {
+    Loop Parse InputString
+    {
+      ReturnedVal += Ord(A_LoopField)
+    }
+  }
+  Return ReturnedVal
 }
 
 
@@ -3571,26 +3598,22 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   VbsScript_Contents := ("CreateObject( `"WScript.Shell`" ).Run `"PowerShell -Command `"`"" PWSH_CLI "`"`" `", 0, True")
 
   ; Build the output directory
-  FullPath_Temp_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
+  Temp_Dirname := (A_Temp "\" A_ScriptName "\" A_ThisFunc)
 
-  ; Build the output filename
+  ; Build a basename whose uniqueness is matched to both the uniqueness of [ the input executable's basename ] as well as the uniqueness of [ the argument(s) being passed to the executable ]
   SplitPath FullPath_RunExe, &OutFileName
-  
-  If (Exe_Args != "") {
-    SplitPath Exe_Args, &Args_FileName
-    MsgBox("Exe_Args = [ " Exe_Args " ]" "`n" "Args_FileName = [ " Args_FileName " ]")
-    ; Args_FileName := Args_FileName "_"
-  }
 
-  FullPath_Temp_VbsScript := (FullPath_Temp_Dirname "\"  OutFileName ".vbs")
+  Temp_VbsScript_Basename := (OutFileName "_" StringToUniqueInt(Exe_Args) ".vbs")
+
+  Temp_VbsScript_FullPath := (Temp_Dirname "\"  Temp_VbsScript_Basename)
 
   ; Create the VBS script file (if it doesn't already exist)
-  If (!FileExist(FullPath_Temp_VbsScript)) {
+  If (!FileExist(Temp_VbsScript_FullPath)) {
     ; Create the VBS script's directory (if it doesn't already exist)
-    If (!FileExist(FullPath_Temp_Dirname)) {
-      DirCreate FullPath_Temp_Dirname
+    If (!FileExist(Temp_Dirname)) {
+      DirCreate Temp_Dirname
     }
-    FileAppend VbsScript_Contents, FullPath_Temp_VbsScript
+    FileAppend VbsScript_Contents, Temp_VbsScript_FullPath
   }
 
   If (DebugMode == 1) {
@@ -3602,7 +3625,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   ; Run_PowerShellScript_NonAdmin := ("powershell.exe -WindowStyle Hidden -Command `"" PWSH_CLI "`"")
   ; Run Run_PowerShellScript_NonAdmin
 
-  Run_VbsScript_NonAdmin := ("C:\Windows\System32\wscript.exe `"" FullPath_Temp_VbsScript "`"")
+  Run_VbsScript_NonAdmin := ("C:\Windows\System32\wscript.exe `"" Temp_VbsScript_FullPath "`"")
   Run Run_VbsScript_NonAdmin
 
   Return
@@ -5711,6 +5734,7 @@ Youtube_EditDraft_Submit() {
 ;   |--> KeyWait:         https://www.autohotkey.com/docs/v2/lib/KeyWait.htm
 ;   |--> Loop Parse:      https://www.autohotkey.com/docs/v2/lib/LoopParse.htm
 ;   |--> Menu:            https://www.autohotkey.com/docs/v2/lib/Menu.htm
+;   |--> Ord:             https://www.autohotkey.com/docs/v2/lib/Ord.htm
 ;   |--> RegExReplace:    https://www.autohotkey.com/docs/v2/lib/RegExReplace.htm
 ;   |--> Run/RunWait:     https://www.autohotkey.com/docs/v2/lib/Run.htm
 ;   |--> SetTimer:        https://www.autohotkey.com/docs/v2/lib/SetTimer.htm

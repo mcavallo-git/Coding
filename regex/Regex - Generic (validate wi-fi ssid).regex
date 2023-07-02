@@ -1,4 +1,6 @@
 // ------------------------------------------------------------
+// Regex - Generic (validate wi-fi ssid)
+// ------------------------------------------------------------
 
 // I discovered that if any of these five characters:
 "<>'&

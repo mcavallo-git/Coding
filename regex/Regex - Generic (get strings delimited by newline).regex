@@ -1,5 +1,5 @@
 // ------------------------------------------------------------
-// Regex - Iterate by newline
+// Regex - Generic (get strings delimited by newline)
 // ------------------------------------------------------------
 //
 // Match anything except a newline char

@@ -1,8 +1,6 @@
 // ------------------------------------------------------------
-//
-//  Regex: SVG Path-Splitting
-//  	Designed to simplify SVG modification
-//
+// Regex - SVG (quick formatter)
+//   Designed to simplify SVG modification
 // ------------------------------------------------------------
 
 // Find:

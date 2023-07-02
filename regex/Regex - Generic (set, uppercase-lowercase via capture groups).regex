@@ -1,5 +1,5 @@
 // ------------------------------------------------------------
-// Regex - Lowercase, Uppercase (Set, Character Classes)
+// Regex - Generic (set, uppercase-lowercase via capture groups)
 // ------------------------------------------------------------
 //
 //   \U  -  Uppercase all letters in the following capture group. Example: \U$1

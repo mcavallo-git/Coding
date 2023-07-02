@@ -2269,7 +2269,7 @@ Duplicate_Keypress() {
       TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" )
       ; TooltipOutput := ( TooltipOutput "`n" "KeyPressed = [" KeyPressed "]" "`n" "ErrorLevel = [" ErrorLevel "]" )
     }
-    ; If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/commands/Input.htm#Error_Handling
+    ; If (ErrorLevel == "Max") {  ; Exhaustive list of values for [ ErrorLevel ] regarding the [ Input ] AHK command:  https://www.autohotkey.com/docs/v1/lib/Input.htm#Error_Handling
     ;   Break
     ; }
   }
@@ -2421,7 +2421,7 @@ GetNanoseconds() {
     vIntervals := 0
     DllCall("kernel32\GetSystemTimeAsFileTime", "Int64*",vIntervals)  ; 1 interval = 100 nanoseconds
     ; vDate := 1601
-    ; EnvAdd, vDate, vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/commands/EnvAdd.htm
+    ; EnvAdd, vDate, vIntervals//10000000, S  ; autohotkey.com  |  "EnvAdd"  |  https://www.autohotkey.com/docs/v2/lib/EnvAdd.htm
     ReturnedVal := Format("{:07}00", Mod(vIntervals, 10000000))
   } Else {
     ReturnedVal := (A_MSec * 1000 * 1000)
@@ -2730,7 +2730,7 @@ GetWindowSpecs(WinTitle:="A") {
     Gui_BackgroundColor := "1E1E1E"
     Gui_TextColor := "FFFFFF"
 
-    ; --- TABLE - FINAL CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/commands/ListView.htm#G-Label_Notifications_Secondary )
+    ; --- TABLE - FINAL CONFIG --- ( Gui Listview has many options under its "G-Label" callback - See more @ https://www.autohotkey.com/docs/v1/lib/ListView.htm#G-Label_Notifications_Secondary )
     Gui_Options := "r" Gui_RowCount
     Gui_Options := Gui_Options " w" Gui_Width
     ; Gui_Options := Gui_Options " gGetWindowSpecs_OnDoubleClick"
@@ -3045,7 +3045,7 @@ Open_Chrome(Url_Open:="") {
     If ((!WinExist(WinTitle)) && (FullPath_RunExe != "")) {
       ; Run a NON-admin version of target exe
       RunExe_NON_Admin(FullPath_RunExe, Url_Open)
-      WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+      WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
     }
     If (WinExist(WinTitle) || WinExist(WinTitle,WinText)) {   
       If (MonitorGetCount()==1) {
@@ -3054,9 +3054,9 @@ Open_Chrome(Url_Open:="") {
         WinSnap(WinTitle,,,,"Left","Half",2) ; Resize window to left half of monitor #2
       }
       If (WinExist(WinTitle,WinText)) {
-        WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+        WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
       } Else If (WinExist(WinTitle)) {
-        WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+        WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
       }
     } Else {
       TooltipOutput := A_ScriptName " - " A_ThisFunc "`n`n" "Error - No window found matching [ " WinTitle " ] "
@@ -3085,10 +3085,10 @@ Open_ControlPanel_NetworkConnections() {
     ; Run (":" ":" "{7007acc7-3202-11d1-aad2-00805fc1270e}")  ; CLSID (Windows Class Identifier) for 'View Network Connections'
     ; Run (EnvGet("WINDIR") "\System32\ncpa.cpl")
     Run (EnvGet("WINDIR") "\System32\control.exe ncpa.cpl")
-    WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
   }
   If (WinExist(WinTitle)) {
-    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
   }
   Return
 }
@@ -3130,10 +3130,10 @@ Open_ControlPanel_Sound(TabToOpen:="Playback") {
     Run (EnvGet("WINDIR") "\System32\control.exe" " " "mmsys.cpl,," Tab_Int)
     ; Run explorer shell:::{F2DDFC82-8F12-4CDD-B7DC-D4FE1425AA4D}  ; CLSID (Windows Class Identifier) for 'Sound Control Panel'
     ; Run control.exe /name Microsoft.Sound
-    WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait WinTitle,,10  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
   }
   If (WinExist(WinTitle)) {
-    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
   }
   Return
 }
@@ -3196,11 +3196,11 @@ Open_VisualStudioCode(FilePath_Open:="") {
   If (!WinExist(WinTitle) || (FilePath_Open != "")) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, FilePath_Open)
-    WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
   }
   WinSnap(WinTitle,,,,"Left","Half",1) ; Resize window to left half of monitor #1
   If (WinExist(WinTitle)) {
-    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
   }
   Return
 }
@@ -3231,13 +3231,13 @@ Open_WindowsTerminal() {
   If (!WinExist(WinTitle)) {
     ; Run a NON-admin version of target exe
     RunExe_NON_Admin(FullPath_RunExe, Win10_AppUnionPath)
-    WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/commands/WinWait.htm
+    WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
   }
   WinSnap(WinTitle,WinText,,,"Right","Half",1) ; Resize window to right half of monitor #1
   If (WinExist(WinTitle,WinText)) {
-    WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+    WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
   } Else If (WinExist(WinTitle)) {
-    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/commands/WinActivate.htm
+    WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
   }
   Return
 }
@@ -3576,10 +3576,10 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
   ; Build the output filename
   SplitPath FullPath_RunExe, &OutFileName
   
-  If (Exe_Args = "") {
-    SplitPath FullPath_RunExe, &OutFileName
-    MsgBox("Generate Random String (overwrites clipboard contents)?", A_ScriptName " - " A_ThisFunc,4)
-    ; OutFileName := OutFileName "_"
+  If (Exe_Args != "") {
+    SplitPath Exe_Args, &Args_FileName
+    MsgBox("Exe_Args = [ " Exe_Args " ]" "`n" "Args_FileName = [ " Args_FileName " ]")
+    ; Args_FileName := Args_FileName "_"
   }
 
   FullPath_Temp_VbsScript := (FullPath_Temp_Dirname "\"  OutFileName ".vbs")
@@ -3612,7 +3612,7 @@ RunExe_NON_Admin(FullPath_RunExe, Exe_Args:="") {
 ; ------------------------------
 ;
 ; RunWaitOne
-;   |--> Executes a single command through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;   |--> Executes a single command through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/v1/lib/Run.htm#StdOut
 ;   |--> Example-call:
 ;          MsgBox(RunWaitOne("dir " A_ScriptDir))
 ;
@@ -3633,7 +3633,7 @@ RunWaitOne(CMD_Command) {
 ; ------------------------------
 ;
 ; RunWaitMany
-;   |--> Executes multiple commands through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;   |--> Executes multiple commands through the current ComSpec (usually "cmd.exe")  |  https://www.autohotkey.com/docs/v1/lib/Run.htm#StdOut
 ;   |--> Example-call:
 ;          MsgBox(RunWaitMany("
 ;          (
@@ -5548,7 +5548,7 @@ Youtube_EditDraft_Submit() {
 ;   //   VK:    Refer to the "VK" column to acquire the "virtual key code" of any keys pressed (string, length 2)
 ;   //  Key:    Refer to the "Key" column to acquire the "Hotstring" of any keys pressed (string, length varies)
 ;
-;   //  NOTE:  If the above method fails, refer to: https://www.autohotkey.com/docs/commands/GetKey.htm
+;   //  NOTE:  If the above method fails, refer to: https://www.autohotkey.com/docs/v2/lib/GetKeyName.htm
 ;
 ; ------------------------------
 ;
@@ -5600,7 +5600,7 @@ Youtube_EditDraft_Submit() {
 ;
 ; ------------------------------
 ;
-; MsgBox has tons of options for confirmations on popups ( Manual @ https://www.autohotkey.com/docs/commands/MsgBox.htm )
+; MsgBox has tons of options for confirmations on popups ( Manual @ https://www.autohotkey.com/docs/v2/lib/MsgBox.htm )
 ; ...::
   ; WinGetActiveStats, WinTitle, Width, Height, X, Y
   ; WinGetText, WinText, A
@@ -5702,20 +5702,21 @@ Youtube_EditDraft_Submit() {
 ;
 ; ------------------------------
 ;
-; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/commands/
-;   |--> A_Clipboard:       https://www.autohotkey.com/docs/misc/Clipboard.htm
-;   |--> ControlGetText:  https://www.autohotkey.com/docs/commands/ControlGetText.htm
-;   |--> For Each:        https://www.autohotkey.com/docs/commands/For.htm
-;   |--> GetKeyState:     https://www.autohotkey.com/docs/commands/GetKeyState.htm
-;   |--> Hotkey:          https://www.autohotkey.com/docs/commands/Hotkey.htm#IfWin
-;   |--> KeyWait:         https://www.autohotkey.com/docs/commands/KeyWait.htm
-;   |--> Loop Parse:      https://www.autohotkey.com/docs/commands/LoopParse.htm
-;   |--> Menu:            https://www.autohotkey.com/docs/commands/Menu.htm
-;   |--> RegExReplace:    https://www.autohotkey.com/docs/commands/RegExReplace.htm
-;   |--> Run/RunWait:     https://www.autohotkey.com/docs/commands/Run.htm
-;   |--> SetTimer:        https://www.autohotkey.com/docs/commands/SetTimer.htm
-;   |--> SysGet:          https://www.autohotkey.com/docs/commands/SysGet.htm
-;   |--> SplitPath:       https://www.autohotkey.com/docs/commands/SplitPath.htm
+; Alphabetical Command and Function Index:  https://www.autohotkey.com/docs/v2/lib/
+;   |--> A_Clipboard:     https://www.autohotkey.com/docs/v2/lib/A_Clipboard.htm
+;   |--> ControlGetText:  https://www.autohotkey.com/docs/v2/lib/ControlGetText.htm
+;   |--> For Each:        https://www.autohotkey.com/docs/v2/lib/For.htm
+;   |--> GetKeyState:     https://www.autohotkey.com/docs/v2/lib/GetKeyState.htm
+;   |--> Hotkey:          https://www.autohotkey.com/docs/v2/lib/Hotkey.htm#IfWin
+;   |--> KeyWait:         https://www.autohotkey.com/docs/v2/lib/KeyWait.htm
+;   |--> Loop Parse:      https://www.autohotkey.com/docs/v2/lib/LoopParse.htm
+;   |--> Menu:            https://www.autohotkey.com/docs/v2/lib/Menu.htm
+;   |--> RegExReplace:    https://www.autohotkey.com/docs/v2/lib/RegExReplace.htm
+;   |--> Run/RunWait:     https://www.autohotkey.com/docs/v2/lib/Run.htm
+;   |--> SetTimer:        https://www.autohotkey.com/docs/v2/lib/SetTimer.htm
+;   |--> SysGet:          https://www.autohotkey.com/docs/v2/lib/SysGet.htm
+;   |--> SplitPath:       https://www.autohotkey.com/docs/v2/lib/SplitPath.htm
+;         |--> SplitPath A_ScriptDir, &OutFileName, &OutDir, &OutExtension, &OutNameNoExt, &OutDrive
 ;
 ; ------------------------------
 ;
@@ -5811,19 +5812,19 @@ Youtube_EditDraft_Submit() {
 ;
 ;   www.autohotkey.com  |  "If Expression check to see if value is in Array"  |  https://www.autohotkey.com/boards/viewtopic.php?p=52627&sid=4e5a541af8d29ab16154c5a6dd379620#p52627
 ;
-;   www.autohotkey.com  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/commands/ListView.htm#notify
+;   www.autohotkey.com  |  "ListView - G-Label Notifications (Primary)"  |  https://www.autohotkey.com/docs/v1/lib/ListView.htm#notify
 ;
 ;   www.autohotkey.com  |  "Move window to half / quarter of current monitor - Scripts and Functions - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/108780-move-window-to-half-quarter-of-current-monitor/?p=648327
 ;
 ;   www.autohotkey.com  |  "Optimize StrLen, Unicode Version"  |  https://www.autohotkey.com/boards/viewtopic.php?p=106284#p106284
 ;
-;   www.autohotkey.com  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/commands/ListView.htm#Options
+;   www.autohotkey.com  |  "Options and Styles for "Gui, Add, ListView, Options"  |  https://www.autohotkey.com/docs/v2/lib/ListView.htm#Options
 ;
-;   www.autohotkey.com  |  "PostMessage/SendMessage - #1: Press Win+O to turn off the monitor"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExMonitorPower
+;   www.autohotkey.com  |  "PostMessage/SendMessage - #1: Press Win+O to turn off the monitor"  |  https://www.autohotkey.com/docs/v1/lib/PostMessage.htm#ExMonitorPower
 ;
-;   www.autohotkey.com  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/commands/PostMessage.htm#ExScreenSave
+;   www.autohotkey.com  |  "PostMessage/SendMessage - #2: Start the user's chosen screen saver"  |  https://www.autohotkey.com/docs/v1/lib/PostMessage.htm#ExScreenSave
 ;
-;   www.autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/commands/Run.htm#StdOut
+;   www.autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/v1/lib/Run.htm#StdOut
 ;
 ;   www.autohotkey.com  |  "SendInput %Clipboard% adds double linebreaks for Multiline - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88346-sendinput-clipboard-adds-double-linebreaks-for-multiline/
 ;

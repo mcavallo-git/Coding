@@ -31,19 +31,31 @@
 
 ## Installation Steps
 1. Turn off the main breaker within the breaker box (for safety, if possible)
+
 1. Determine intended mount location for `FS140`
     - *This determines the length of conduit needed to cover all wires running between the `FS140` mount location and its associated knock-out panel on the breaker box*
+
 1. Knock out the breaker box knock-out panel (to run the `FS140` wires through shortly)
+
 1. Pass the `FS140` wires through a `3/4"` conduit adapter & screw the adapter into the `FS140`
+
 1. Cut a length of `3/4"` conduit which will be used to cover the `FS140` wires between the mount location and the breaker box knock-out panel
+
 1. Pass the `FS140` wires through the cut length of conduit & attach the length of conduit to the `FS140` conduit adapter once all wires are passed through
+
 1. Pass the `FS140` wires through a reversed, separate conduit adapter, and attach it to the unterminated end of the length of conduit
+
 1. Pass the `FS140` wires through the knock-out panel on the breaker box, then attach the second conduit adapter to said knock-out panel on the breaker box
+
 1. Wire the `FS140`'s `green wire` to the ground bar in the breaker box
+
 1. Wire the `FS140`'s `white wire` to the neutral bar in the breaker box
+
 1. Wire the `FS140`'s `black wires` to a spare `two-pole 20A or 30A breaker` in the breaker box
+
 1. Drill pilot holes into cinderblocks, making sure to hit cinderblock studs (middle `1"`, left `1"` or right `1"` of each cinderblock)
     - *If the drill quickly pushes through while drilling into the cinderblock then (similar to drywall) you know you've missed the stud & need to drill a new pilot hole*
+
 1. Mount `FS140` onto cinderblocks using tapcon anchors drilled into cinderblock pilot holes
 
 <!-- ------------------------------ -->

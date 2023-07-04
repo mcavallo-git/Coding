@@ -10,7 +10,7 @@
 
 ### Required Hardware <sup>`~ $350 (net)`</sup>
 1. #### Surge Protective Device <sup>`~ $250`</sup>
-    - `Siemens` `FS140` *(FirstSurge Pro 140 kA Surge Protective Device)*
+    - `Siemens` `FS140` *(FirstSurge Pro `140 kA` Surge Protective Device)*
       - [View Product (Amazon)](https://amazon.com/dp/B013WINMK6)
       - [View Product (Lowe's)](https://www.lowes.com/pd/Siemens-140-KA-Outdoor-Surge-Protective-Device/5002142149)
       - [View Product (Home Depot)](https://www.homedepot.com/p/Siemens-FirstSurge-Pro-140kA-Whole-House-Surge-Protection-Device-FS140/206560230)
@@ -68,9 +68,9 @@
 
 - [Service & Support (Manuals, Certificates, FAQs, etc.)	](https://support.industry.siemens.com/cs/products/us2-fs140/120v-50-60-hz-140ka-surge-protector?pid=579020&mlfb=US2:FS140&mfn=ps&lc=en-US)
 
-  - [User Manual - Siemens FS140](https://assets.new.siemens.com/siemens/assets/api/uuid:c739e929-d2e7-44ff-8258-fc55e06b54dc/firstsurge-installation-guide-lp-1414.pdf)
+  - [User Manual - Siemens FirstSurge](https://assets.new.siemens.com/siemens/assets/api/uuid:c739e929-d2e7-44ff-8258-fc55e06b54dc/firstsurge-installation-guide-lp-1414.pdf)
 
-  - [Device Catalog - Siemens Surge Protection Devices](https://assets.new.siemens.com/siemens/assets/api/uuid:b5e13ffe-4a75-4f74-a593-bae873f12b51/s09-surge-protection-devices.pdf)
+  - [Device Catalog - Siemens Surge Protection Devices (SPD)](https://assets.new.siemens.com/siemens/assets/api/uuid:b5e13ffe-4a75-4f74-a593-bae873f12b51/s09-surge-protection-devices.pdf)
 
   - ["What to do when" Flyer - Siemens FirstSurge](https://cache.industry.siemens.com/dl/files/793/109798793/att_1071143/v1/SIE_FL_FirstSurgeHomeownerFlyer.pdf)
 

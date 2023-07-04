@@ -34,23 +34,23 @@
 1. Turn off the main breaker within the breaker box (for safety, if possible)
 
 1. Determine intended mount location for `FS140`
-    - *This determines the length of conduit needed to cover all wires running between the `FS140` mount location and its associated knock-out panel on the breaker box*
+    - *This determines the length of conduit needed to cover all wires running between the `FS140`'s mount location and its associated knock-out panel on the breaker box*
 
-1. Knock out the breaker box knock-out panel (to run the `FS140` wires through shortly)
+1. Knock out the breaker box knock-out panel to run the `FS140` wires through shortly
 
-1. Pass the `FS140` wires through a `3/4"` conduit adapter & screw the adapter into the `FS140`
+1. Pass the `FS140`'s wires through a `3/4"` conduit adapter & screw the adapter into the `FS140`
 
-1. Cut a length of `3/4"` conduit which will be used to cover the `FS140` wires between the mount location and the breaker box knock-out panel
+1. Cut a length of `3/4"` conduit which will be used to cover the `FS140`'s wires between the mount location and the breaker box knock-out panel
 
-1. Pass the `FS140` wires through the cut length of conduit & attach the length of conduit to the `FS140` conduit adapter once all wires are passed through
+1. Pass the `FS140`'s wires through the cut length of conduit & attach the length of conduit to the `FS140`'s conduit adapter once all wires are passed through
 
-1. Pass the `FS140` wires through a reversed, separate conduit adapter, and attach it to the unterminated end of the length of conduit
+1. Pass the `FS140`'s wires through a reversed, separate conduit adapter, and attach it to the unterminated end of the length of conduit
 
-1. Pass the `FS140` wires through the knock-out panel on the breaker box, then attach the second conduit adapter to said knock-out panel on the breaker box
+1. Pass the `FS140`'s wires through the knock-out panel on the breaker box, then attach the second conduit adapter to said knock-out panel on the breaker box
 
-1. Wire the `FS140`'s `green wire` to the ground bar in the breaker box
+1. Wire the `FS140`'s `green wire` to the `ground bar` in the breaker box
 
-1. Wire the `FS140`'s `white wire` to the neutral bar in the breaker box
+1. Wire the `FS140`'s `white wire` to the `neutral bar` in the breaker box
 
 1. Wire the `FS140`'s `black wires` to a spare `two-pole 20A or 30A breaker` in the breaker box
 

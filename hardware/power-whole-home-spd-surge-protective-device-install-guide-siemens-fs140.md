@@ -34,12 +34,13 @@
 1. Turn off the main breaker within the breaker box (for safety, if possible)
 
 1. Determine intended mount location for `FS140`
-    - > *This determines the length of conduit needed to cover all wires running between the `FS140`'s mount location and its associated knock-out panel on the breaker box*
     - > *Ensure that the mount location allows the `FS140`'s wires, when ran through conduit through a knock-out panel on the breaker box, will have ample length to reach the `ground bar` (green `FS140` wire), `neutral bar` (white `FS140` wire) & spare `two-pole 20A or 30A breaker` (both black `FS140` wires).*
+    - > *The mount location determines the length of conduit needed to be cut (in order to cover the `FS140`'s wires running between the mount location and the knock-out panel on the breaker box)*
+
+1. Knock out the breaker box knock-out panel to run the `FS140`'s wires through will run through
+    - > *If you don't have any knock-out blanks, then wait to knock-out the panel as long as possible, and instead estimate the length of the wires carefully as you go, making sure to knock out the knock-out panel as late in the process as possible*
 
 1. Pass the `FS140`'s wires through a `3/4"` conduit adapter & screw the adapter into the `FS140`
-
-1. Knock out a breaker box knock-out panel (which the `FS140`'s wires will run through)
 
 1. Cut a length of `3/4"` conduit which will be used to cover the `FS140`'s wires between the mount location and the breaker box knock-out panel
 

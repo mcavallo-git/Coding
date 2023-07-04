@@ -69,7 +69,7 @@
 
 ***
 
-### Documentation & Reference
+## Documentation & Reference
 - [Product Overview](https://mall.industry.siemens.com/mall/EN/US/Catalog/Product/?mlfb=US2:FS140)
 - [Service & Support (Manuals, Certificates, FAQs, etc.)	](https://support.industry.siemens.com/cs/products/us2-fs140/120v-50-60-hz-140ka-surge-protector?pid=579020&mlfb=US2:FS140&mfn=ps&lc=en-US)
   - [Homeowner Flyer](https://cache.industry.siemens.com/dl/files/793/109798793/att_1071143/v1/SIE_FL_FirstSurgeHomeownerFlyer.pdf)

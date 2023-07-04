@@ -1,0 +1,92 @@
+<!-- ------------------------------ -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/power-whole-house-spd-surge-protective-device-install-guide-siemens-fs140.md -->
+<!-- ------------------------------ -->
+
+# Installation - Siemens FS140 Whole-House SPD (Surge Protective Device)
+
+<!-- ------------------------------ -->
+
+***
+
+### Description
+  - > Siemens FirstSurge Pro 140 kA (Model FS140)
+    > &nbsp;&nbsp;&nbsp;&nbsp; Commercial Class Whole House Surge Protection
+
+<!-- ------------------------------ -->
+
+***
+
+### Features
+> - FirstSurge type 2 surge protective device.
+> - UL 1449 Listed, Type 2, Surge Protective Device (SPD)
+> - Rated for 120/240V split phase panels up to 400A at 50/60Hz
+> - Surge Current (Spike) Capacity: `140,000 A`
+> - 3 Stage Commercial Grade Notification
+> - Ground Reference Monitoring (GRM)
+> - Installs onto any brand load center
+> - Type 4 rated outdoor enclosure
+> - 10 year product and connected equipment warranty
+
+<!-- ------------------------------ -->
+
+***
+
+### Required Items
+1. `Siemens FS140`
+    - [View Product (Amazon)](https://amazon.com/dp/B013WINMK6)
+    - [View Product (Lowe's)](https://www.lowes.com/pd/Siemens-140-KA-Outdoor-Surge-Protective-Device/5002142149)
+    - [View Product (Home Depot)](https://www.homedepot.com/p/Siemens-FirstSurge-Pro-140kA-Whole-House-Surge-Protection-Device-FS140/206560230)
+1. Spare Breaker
+    - [`Two-Pole`, `20A` or `30A` Breaker](https://amazon.com/gp/product/B0002YSMYK)
+      - > Recommended breaker size is 20A. *<sup>[(Citation)](https://cache.industry.siemens.com/dl/files/623/109793623/att_1054703/v1/SIE_CS_FS60_FS100_FS140.pdf)</sup>*
+1. Electrical Conduit & Conduit Adapters
+    - [`3/4"` Liquid-Tight Flexible Non-Metallic Electrical Conduit](https://amazon.com/gp/product/B0BQ3RYM3B)
+    - [`3/4"` Liquid-Tight Non-Metallic Conduit Adapters](https://amazon.com/gp/product/B0BQ3RYM3B)
+      - > Note: The `FS140` has a built-in `3/4"` conduit adapter (located where the wires leave its chassis)
+1. Mounting Screws
+   - [`3/16"` "Tapcon" Concrete Screw Anchors for Masonry](https://amazon.com/gp/product/B071LG9GYV)
+      - > The hole diameter for the FirsSurge mounting feet is `0.2"` ~ `#12` screw would be suitable to fasten the SPD to the wall.
+
+<!-- ------------------------------ -->
+
+***
+
+## Installation Steps
+1. Turn off the main breaker within the breaker box (for safety, if possible)
+1. Determine intended mount location for `FS140` - This determines the estimated length of each of the wires coming from the `FS140` into the conduit box
+1. Knock out the breaker box knock-out panel (to run the `FS140` wires through shortly)
+1. Pass the `FS140` wires through a `3/4"` conduit adapter & screw the adapter into the `FS140`
+1. Cut a length of `3/4"` conduit to cover the wires for the distance between the breaker box and your intended `FS140` mount location
+1. Pass the `FS140` wires through the cut length of conduit & attach the length of conduit to the `FS140` conduit adapter once all wires are passed through
+1. Pass the `FS140` wires through a reversed, separate conduit adapter, and attach it to the unterminated end of the length of conduit
+1. Pass the `FS140` wires through the knock-out panel on the breaker box, then attach the second conduit adapter to said knock-out panel on the breaker box
+1. Wire the `FS140`'s `green wire` to the ground bar in the breaker box
+1. Wire the `FS140`'s `white wire` to the neutral bar in the breaker box
+1. Wire the `FS140`'s `black wires` to a spare `two-pole 20A or 30A breaker` in the breaker box
+1. Drill pilot holes into cinderblocks, making sure to hit cinderblock studs (middle `1"`, left `1"` or right `1"` of each cinderblock)
+    - *If the drill quickly pushes through while drilling into the cinderblock then (similar to drywall) you know you've missed the stud & need to drill a new pilot hole*
+1. Mount `FS140` onto cinderblocks using tapcon anchors drilled into cinderblock pilot holes
+
+<!-- ------------------------------ -->
+
+***
+
+### Documentation & Reference
+- [Product Overview](https://mall.industry.siemens.com/mall/EN/US/Catalog/Product/?mlfb=US2:FS140)
+- [Service & Support (Manuals, Certificates, FAQs, etc.)	](https://support.industry.siemens.com/cs/products/us2-fs140/120v-50-60-hz-140ka-surge-protector?pid=579020&mlfb=US2:FS140&mfn=ps&lc=en-US)
+  - [Homeowner Flyer](https://cache.industry.siemens.com/dl/files/793/109798793/att_1071143/v1/SIE_FL_FirstSurgeHomeownerFlyer.pdf)
+  - [Installation Guide](https://assets.new.siemens.com/siemens/assets/api/uuid:c739e929-d2e7-44ff-8258-fc55e06b54dc/firstsurge-installation-guide-lp-1414.pdf)
+  - [Specifications](https://m.media-amazon.com/images/I/71gjTRXqRaL.pdf)
+  - [User Manual](https://cache.industry.siemens.com/dl/files/623/109793623/att_1054703/v1/SIE_CS_FS60_FS100_FS140.pdf)
+
+<!-- ------------------------------ -->
+
+***
+
+- # Citation(s)
+  - [support.industry.siemens.com | 120V 50-60 HZ 140KA SURGE PROTECTOR - US2:FS140 - Industry Support Siemens](https://support.industry.siemens.com/cs/products/us2-fs140/120v-50-60-hz-140ka-surge-protector?pid=579020&mlfb=US2:FS140&mfn=ps&lc=en-US)
+  - [www.youtube.com | You Want To Hang On Concrete Walls? Here's How To Drill Into Concrete the DIY way | GardenFork - YouTube](https://www.youtube.com/watch?v=VPz80DaOjcY)
+
+<!-- ------------------------------ -->
+
+***

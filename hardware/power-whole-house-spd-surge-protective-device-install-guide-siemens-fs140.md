@@ -28,10 +28,11 @@
 ***
 
 ### Required Hardware <sup>`💲330 (net)`</sup>
-1. `Siemens` `FS140` SPD <sup>`💲240`</sup>
-    - [View Product (Amazon)](https://amazon.com/dp/B013WINMK6)
-    - [View Product (Lowe's)](https://www.lowes.com/pd/Siemens-140-KA-Outdoor-Surge-Protective-Device/5002142149)
-    - [View Product (Home Depot)](https://www.homedepot.com/p/Siemens-FirstSurge-Pro-140kA-Whole-House-Surge-Protection-Device-FS140/206560230)
+1. SPD <sup>`💲240`</sup>
+    - `Siemens` `FS140`
+      - [View Product (Amazon)](https://amazon.com/dp/B013WINMK6)
+      - [View Product (Lowe's)](https://www.lowes.com/pd/Siemens-140-KA-Outdoor-Surge-Protective-Device/5002142149)
+      - [View Product (Home Depot)](https://www.homedepot.com/p/Siemens-FirstSurge-Pro-140kA-Whole-House-Surge-Protection-Device-FS140/206560230)
 1. Spare Breaker <sup>`💲25`</sup>
     - [`Two-Pole`, `20A` or `30A` Breaker](https://amazon.com/gp/product/B0002YSMYK)
       - > Recommended breaker size is 20A. *<sup>[(Citation)](https://cache.industry.siemens.com/dl/files/623/109793623/att_1054703/v1/SIE_CS_FS60_FS100_FS140.pdf)</sup>*

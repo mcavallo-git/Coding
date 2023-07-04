@@ -20,6 +20,7 @@
   ***
   - ### Measuring a Slotted Screwdriver
       ![facom-protwist-screw-driver-dimensions.jpg](images/facom-protwist-screw-driver-dimensions.jpg)
+      - ⚠️ TO DO ⚠️ Add `Blade Length` to the slotted screwdriver dimensions image (which measures the length of the sloped blade ("tip") of a slotted screwdriver - e.g. the length/distance from the start of the sloped tip of the blade until the very end/tip of the blade/screwdriver
       ***
       - #### <u>3-Value</u> Slotted Screwdriver Dimension Notation
         - Syntax:

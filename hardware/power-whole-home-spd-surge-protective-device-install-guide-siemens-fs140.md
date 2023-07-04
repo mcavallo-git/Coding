@@ -34,8 +34,8 @@
 1. Turn off the main breaker within the breaker box (for safety, if possible)
 
 1. Determine intended mount location for `FS140`
-    - *This determines the length of conduit needed to cover all wires running between the `FS140`'s mount location and its associated knock-out panel on the breaker box*
-    - *Ensure that the mount location allows the `FS140`'s wires, when ran through conduit through a knock-out panel on the breaker box, will have ample length to reach the `ground bar` (green `FS140` wire), `neutral bar` (white `FS140` wire) & spare `two-pole 20A or 30A breaker` (both black `FS140` wires).*
+    - > *This determines the length of conduit needed to cover all wires running between the `FS140`'s mount location and its associated knock-out panel on the breaker box*
+    - > *Ensure that the mount location allows the `FS140`'s wires, when ran through conduit through a knock-out panel on the breaker box, will have ample length to reach the `ground bar` (green `FS140` wire), `neutral bar` (white `FS140` wire) & spare `two-pole 20A or 30A breaker` (both black `FS140` wires).*
 
 1. Pass the `FS140`'s wires through a `3/4"` conduit adapter & screw the adapter into the `FS140`
 
@@ -56,7 +56,7 @@
 1. Wire the `FS140`'s `black wires` to a spare `two-pole 20A or 30A breaker` in the breaker box
 
 1. Drill pilot holes into cinderblocks, making sure to hit cinderblock studs (middle `1"`, left `1"` or right `1"` of each cinderblock)
-    - *If the drill quickly pushes through while drilling into the cinderblock then (similar to drywall) you know you've missed the stud & need to drill a new pilot hole*
+    - > *If the drill quickly pushes through while drilling into the cinderblock then (similar to drywall) you know you've missed the stud & need to drill a new pilot hole*
 
 1. Mount `FS140` onto cinderblocks using tapcon anchors drilled into cinderblock pilot holes
 

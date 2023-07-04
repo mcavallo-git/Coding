@@ -8,28 +8,9 @@
 
 ***
 
-## Product Info
-- ### SPD Make/Model
-  > - `Siemens` `FS140` *(FirstSurge Pro 140 kA)*
-- ### SPD Description
-  > - Commercial Class Whole House Surge Protective Device
-- ### SPD Features
-  > - `UL 1449` Listed, `Type 2`, Surge Protective Device (SPD)
-  > - Rated for `120/240V` split phase panels up to `400A` at `50/60Hz`
-  > - Surge Current (Spike) Capacity: `140,000 A` (`140 kA`)
-  > - `3 Stage` Commercial Grade Notification
-  > - Ground Reference Monitoring (GRM)
-  > - Installs onto any brand load center
-  > - `Type 4` rated outdoor enclosure
-  > - `10 year` product and connected equipment warranty
-
-<!-- ------------------------------ -->
-
-***
-
 ### Required Hardware <sup>`💲350 (net)`</sup>
 1. #### Surge Protective Device <sup>`💲250`</sup>
-    - `Siemens` `FS140`
+    - `Siemens` `FS140` *(FirstSurge Pro 140 kA Surge Protective Device)*
       - [View Product (Amazon)](https://amazon.com/dp/B013WINMK6)
       - [View Product (Lowe's)](https://www.lowes.com/pd/Siemens-140-KA-Outdoor-Surge-Protective-Device/5002142149)
       - [View Product (Home Depot)](https://www.homedepot.com/p/Siemens-FirstSurge-Pro-140kA-Whole-House-Surge-Protection-Device-FS140/206560230)

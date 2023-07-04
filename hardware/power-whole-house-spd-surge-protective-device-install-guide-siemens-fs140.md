@@ -28,7 +28,7 @@
 ***
 
 ### Required Hardware <sup>`💲350 (net)`</sup>
-1. SPD <sup>`💲250`</sup>
+1. Surge Protective Device <sup>`💲250`</sup>
     - `Siemens` `FS140`
       - [View Product (Amazon)](https://amazon.com/dp/B013WINMK6)
       - [View Product (Lowe's)](https://www.lowes.com/pd/Siemens-140-KA-Outdoor-Surge-Protective-Device/5002142149)

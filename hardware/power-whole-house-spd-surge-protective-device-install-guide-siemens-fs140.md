@@ -2,7 +2,7 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/power-whole-house-spd-surge-protective-device-install-guide-siemens-fs140.md -->
 <!-- ------------------------------ -->
 
-# Installing a Whole-House SPD (Surge Protective Device)
+# Installing a Whole-House Surge Protective Device (SPD)
 
 <!-- ------------------------------ -->
 

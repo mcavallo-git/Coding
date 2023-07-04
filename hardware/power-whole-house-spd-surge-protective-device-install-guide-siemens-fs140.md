@@ -2,36 +2,34 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/power-whole-house-spd-surge-protective-device-install-guide-siemens-fs140.md -->
 <!-- ------------------------------ -->
 
-# Installation - Siemens FS140 Whole-House SPD (Surge Protective Device)
+# Installing a Whole-House SPD (Surge Protective Device)
 
 <!-- ------------------------------ -->
 
 ***
 
-### Description
-  - > Siemens FirstSurge Pro 140 kA (Model FS140)
-    > &nbsp;&nbsp;&nbsp;&nbsp; Commercial Class Whole House Surge Protection
+## Product Info
+- ### SPD Manufacturer
+  - > Siemens FirstSurge Pro 140 kA (Model `FS140`)
+- ### SPD Name
+  - > Siemens FirstSurge Pro 140 kA (Model `FS140`)
+- ### SPD Description
+    > Commercial Class Whole House Surge Protection
+- ### SPD Features
+  > - `UL 1449` Listed, `Type 2`, Surge Protective Device (SPD)
+  > - Rated for `120/240V` split phase panels up to `400A` at `50/60Hz`
+  > - Surge Current (Spike) Capacity: `140,000 A` (`140 kA`)
+  > - `3 Stage` Commercial Grade Notification
+  > - Ground Reference Monitoring (GRM)
+  > - Installs onto any brand load center
+  > - `Type 4` rated outdoor enclosure
+  > - `10 year` product and connected equipment warranty
 
 <!-- ------------------------------ -->
 
 ***
 
-### Features
-> - FirstSurge type 2 surge protective device.
-> - UL 1449 Listed, Type 2, Surge Protective Device (SPD)
-> - Rated for 120/240V split phase panels up to 400A at 50/60Hz
-> - Surge Current (Spike) Capacity: `140,000 A`
-> - 3 Stage Commercial Grade Notification
-> - Ground Reference Monitoring (GRM)
-> - Installs onto any brand load center
-> - Type 4 rated outdoor enclosure
-> - 10 year product and connected equipment warranty
-
-<!-- ------------------------------ -->
-
-***
-
-### Required Items
+### Required Hardware
 1. `Siemens FS140`
     - [View Product (Amazon)](https://amazon.com/dp/B013WINMK6)
     - [View Product (Lowe's)](https://www.lowes.com/pd/Siemens-140-KA-Outdoor-Surge-Protective-Device/5002142149)

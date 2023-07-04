@@ -9,12 +9,10 @@
 ***
 
 ## Product Info
-- ### SPD Manufacturer
-  - > Siemens FirstSurge Pro 140 kA (Model `FS140`)
-- ### SPD Name
-  - > Siemens FirstSurge Pro 140 kA (Model `FS140`)
+- ### SPD Make/Model
+  > - `Siemens` `FS140` *(FirstSurge Pro 140 kA)*
 - ### SPD Description
-    > Commercial Class Whole House Surge Protection
+  > - Commercial Class Whole House Surge Protective Device
 - ### SPD Features
   > - `UL 1449` Listed, `Type 2`, Surge Protective Device (SPD)
   > - Rated for `120/240V` split phase panels up to `400A` at `50/60Hz`

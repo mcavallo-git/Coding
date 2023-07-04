@@ -30,6 +30,7 @@
 ***
 
 ## Installation Steps
+
 1. Turn off the main breaker within the breaker box (for safety, if possible)
 
 1. Determine intended mount location for `FS140`

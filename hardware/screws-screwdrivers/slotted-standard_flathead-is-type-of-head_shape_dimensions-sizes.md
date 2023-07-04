@@ -95,6 +95,7 @@
     - [www.reddit.com | Insulated screwdrivers : electricians](https://www.reddit.com/r/electricians/comments/1m664c/comment/cc6nlxq)
     - [www.toolcobber.com | Screwdriver Bits - The Ultimate Guide](https://www.toolcobber.com.au/power-tools/drilling/accessories/screwdriver-bits/)
     - [www.urreaprofessionaltools.com | Driver Tools - URREA](https://www.urreaprofessionaltools.com/catalog/07drivers.pdf)
+    - [www.wihatools.com | Wiha Slotted Screwdriver and Bit Sizes](https://www.wihatools.com/pages/slotted-sizes)
     - [www.wonkeedonkeetools.co.uk | What are the parts of a screw?](https://www.wonkeedonkeetools.co.uk/screws/what-are-the-parts-of-a-screw)
     
 ***

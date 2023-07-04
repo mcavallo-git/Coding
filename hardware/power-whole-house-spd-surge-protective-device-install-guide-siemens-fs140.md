@@ -51,7 +51,7 @@
 ## Installation Steps
 1. Turn off the main breaker within the breaker box (for safety, if possible)
 1. Determine intended mount location for `FS140`
-    - *This determines the estimated length for the wires coming from the `FS140` into the conduit box*
+    - *This determines the length conduit needed to cover all wires running between the `FS140` mount location and its associated knock-out panel on the breaker box*
 1. Knock out the breaker box knock-out panel (to run the `FS140` wires through shortly)
 1. Pass the `FS140` wires through a `3/4"` conduit adapter & screw the adapter into the `FS140`
 1. Cut a length of `3/4"` conduit which will be used to cover the `FS140` wires between the mount location and the breaker box knock-out panel

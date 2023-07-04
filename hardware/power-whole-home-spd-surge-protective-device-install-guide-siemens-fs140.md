@@ -16,7 +16,7 @@
       - [View Product (Home Depot)](https://www.homedepot.com/p/Siemens-FirstSurge-Pro-140kA-Whole-House-Surge-Protection-Device-FS140/206560230)
 1. #### Spare Breaker <sup>`~ $25`</sup>
     - [`Two-Pole`, `20A` or `30A` Breaker](https://amazon.com/gp/product/B0002YSMYK)
-      - > Recommended breaker size is 20A. *<sup>[(Citation)](https://cache.industry.siemens.com/dl/files/623/109793623/att_1054703/v1/SIE_CS_FS60_FS100_FS140.pdf)</sup>*
+      - > Recommended breaker size is `20A`. *<sup>[(Citation)](https://cache.industry.siemens.com/dl/files/623/109793623/att_1054703/v1/SIE_CS_FS60_FS100_FS140.pdf)</sup>*
 1. #### Electrical Conduit & Conduit Adapters <sup>`~ $50`</sup>
     - [`3/4"` Liquid-Tight Flexible Non-Metallic Electrical Conduit](https://amazon.com/gp/product/B0BQ3RYM3B)
     - [`3/4"` Liquid-Tight Non-Metallic Conduit Adapters](https://amazon.com/gp/product/B0BQ3RYM3B)
@@ -35,10 +35,11 @@
 
 1. Determine intended mount location for `FS140`
     - *This determines the length of conduit needed to cover all wires running between the `FS140`'s mount location and its associated knock-out panel on the breaker box*
-
-1. Knock out the breaker box knock-out panel to run the `FS140` wires through shortly
+    - *Ensure that the mount location allows the `FS140`'s wires, when ran through conduit through a knock-out panel on the breaker box, will have ample length to reach the `ground bar` (green `FS140` wire), `neutral bar` (white `FS140` wire) & spare `two-pole 20A or 30A breaker` (both black `FS140` wires).*
 
 1. Pass the `FS140`'s wires through a `3/4"` conduit adapter & screw the adapter into the `FS140`
+
+1. Knock out a breaker box knock-out panel (which the `FS140`'s wires will run through)
 
 1. Cut a length of `3/4"` conduit which will be used to cover the `FS140`'s wires between the mount location and the breaker box knock-out panel
 

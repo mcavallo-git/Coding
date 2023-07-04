@@ -27,19 +27,19 @@
 
 ***
 
-### Required Hardware
-1. `Siemens FS140`
+### Required Hardware <sup>`💲330 (net)`</sup>
+1. `Siemens` `FS140` SPD <sup>`💲240`</sup>
     - [View Product (Amazon)](https://amazon.com/dp/B013WINMK6)
     - [View Product (Lowe's)](https://www.lowes.com/pd/Siemens-140-KA-Outdoor-Surge-Protective-Device/5002142149)
     - [View Product (Home Depot)](https://www.homedepot.com/p/Siemens-FirstSurge-Pro-140kA-Whole-House-Surge-Protection-Device-FS140/206560230)
-1. Spare Breaker
+1. Spare Breaker <sup>`💲25`</sup>
     - [`Two-Pole`, `20A` or `30A` Breaker](https://amazon.com/gp/product/B0002YSMYK)
       - > Recommended breaker size is 20A. *<sup>[(Citation)](https://cache.industry.siemens.com/dl/files/623/109793623/att_1054703/v1/SIE_CS_FS60_FS100_FS140.pdf)</sup>*
-1. Electrical Conduit & Conduit Adapters
+1. Electrical Conduit & Conduit Adapters <sup>`💲45`</sup>
     - [`3/4"` Liquid-Tight Flexible Non-Metallic Electrical Conduit](https://amazon.com/gp/product/B0BQ3RYM3B)
     - [`3/4"` Liquid-Tight Non-Metallic Conduit Adapters](https://amazon.com/gp/product/B0BQ3RYM3B)
       - > Note: The `FS140` has a built-in `3/4"` conduit adapter (located where the wires leave its chassis)
-1. Mounting Screws
+1. Mounting Screws <sup>`💲20`</sup>
    - [`3/16"` "Tapcon" Concrete Screw Anchors for Masonry](https://amazon.com/gp/product/B071LG9GYV)
       - > The hole diameter for the FirsSurge mounting feet is `0.2"` ~ `#12` screw would be suitable to fasten the SPD to the wall.
 

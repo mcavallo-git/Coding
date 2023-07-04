@@ -86,8 +86,9 @@
     - [docs.rs-online.com | The Catalogue - Wera](https://docs.rs-online.com/736a/A700000008591758.pdf)
     - [en.wikipedia.org | List of screw drives](https://en.wikipedia.org/wiki/List_of_screw_drives)
     - [makezine.com | Quick Tip: Know Your Screwdrivers (Hint: It's Not a "Flathead!")](https://makezine.com/article/workshop/quick-tip-know-your-screwdrivers-hint-its-not-called-a-flathead/)
+    - [www.garagejournal.com | cabinet tip screwdriver](https://www.garagejournal.com/forum/threads/cabinet-tip-screwdriver.82051/#post-1184619)
     - [www.garagesanctum.com | Flat Head Screwdriver Sizes Chart](https://www.garagesanctum.com/size-chart/screwdriver-sizes-chart/#ftoc-heading-1)
-    - [www.garagetooladvisor.com | Parts of a Screwdriver (with Diagram) | Garage Tool Advisor](https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram/)
+    - [www.garagetooladvisor.com | Parts of a Screwdriver (with Diagram)](https://www.garagetooladvisor.com/hand-tools/parts-of-a-screwdriver-diagram/)
     - [www.garagetooladvisor.com | Screwdriver Sizes Guide (with Charts)](https://www.garagetooladvisor.com/hand-tools/screwdriver-sizes/)
     - [www.instructables.com | Types of Screw Heads/Screw Drives](https://www.instructables.com/Types-of-Screw-Heads/)
     - [www.linkedin.com | Types of Screw Heads and Their Uses](https://www.linkedin.com/pulse/types-screw-heads-uses-%C3%BCnal-sevim)
@@ -97,5 +98,6 @@
     - [www.urreaprofessionaltools.com | Driver Tools - URREA](https://www.urreaprofessionaltools.com/catalog/07drivers.pdf)
     - [www.wihatools.com | Wiha Slotted Screwdriver and Bit Sizes](https://www.wihatools.com/pages/slotted-sizes)
     - [www.wonkeedonkeetools.co.uk | What are the parts of a screw?](https://www.wonkeedonkeetools.co.uk/screws/what-are-the-parts-of-a-screw)
-    
+    - [www.bahco.com | ERGO VDE Insulated Slotted Screwdrivers with 3-Component Handle 2.5 mm-12 mm](https://www.bahco.com/int_en/ergotm-vde-insulated-slotted-screwdrivers-with-3-component-handle-2-5-mm-12-mm-pb_be-8010s---be-8065s_.html#technical-details)
+
 ***

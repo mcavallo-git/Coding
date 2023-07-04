@@ -68,13 +68,11 @@
 
 - [Service & Support (Manuals, Certificates, FAQs, etc.)	](https://support.industry.siemens.com/cs/products/us2-fs140/120v-50-60-hz-140ka-surge-protector?pid=579020&mlfb=US2:FS140&mfn=ps&lc=en-US)
 
-  - [Installation Guide](https://assets.new.siemens.com/siemens/assets/api/uuid:c739e929-d2e7-44ff-8258-fc55e06b54dc/firstsurge-installation-guide-lp-1414.pdf)
+  - [User Manual](https://assets.new.siemens.com/siemens/assets/api/uuid:c739e929-d2e7-44ff-8258-fc55e06b54dc/firstsurge-installation-guide-lp-1414.pdf)
 
-  - [User Manual](https://cache.industry.siemens.com/dl/files/623/109793623/att_1054703/v1/SIE_CS_FS60_FS100_FS140.pdf)
+  - [Surge Protection Devices Catalog](https://assets.new.siemens.com/siemens/assets/api/uuid:b5e13ffe-4a75-4f74-a593-bae873f12b51/s09-surge-protection-devices.pdf)
 
-  - [Siemen Surge Protection Devices Catalog](https://assets.new.siemens.com/siemens/assets/api/uuid:b5e13ffe-4a75-4f74-a593-bae873f12b51/s09-surge-protection-devices.pdf)
-
-  - [Homeowner Flyer](https://cache.industry.siemens.com/dl/files/793/109798793/att_1071143/v1/SIE_FL_FirstSurgeHomeownerFlyer.pdf)
+  - ["What to do when" Homeowner Flyer](https://cache.industry.siemens.com/dl/files/793/109798793/att_1071143/v1/SIE_FL_FirstSurgeHomeownerFlyer.pdf)
 
 <!-- ------------------------------ -->
 

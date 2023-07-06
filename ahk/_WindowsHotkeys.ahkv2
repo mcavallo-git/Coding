@@ -4,6 +4,14 @@
 ;
 ; ------------------------------------------------------------
 
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                       GLOBALS                        ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+; Define the version of AutoHotkey required to run this script
 #Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
 
 
@@ -18,7 +26,7 @@ DebugMode := 0
 
 ; ------------------------------
 ;
-; AHK - #Commands (Runtime-Configs)  ; https://www.autohotkey.com/docs/v2/lib/#hash
+; AHK Runtime Configs
 ;
 
 Persistent  ; https://www.autohotkey.com/docs/v2/lib/Persistent.htm
@@ -33,7 +41,8 @@ A_MaxHotkeysPerInterval := 2000  ; https://www.autohotkey.com/docs/v2/lib/A_MaxH
 
 DetectHiddenWindows 1  ; https://www.autohotkey.com/docs/v2/lib/DetectHiddenWindows.htm
 
-InstallKeybdHook  ; Keyboard hook is required to use variables `A_PriorHotkey` & `A_TimeSincePriorHotkey`  ; https://www.autohotkey.com/docs/v2/lib/InstallKeybdHook.htm
+; Keyboard hook is required to use variables "A_PriorHotkey" & "A_TimeSincePriorHotkey"
+InstallKeybdHook  ; https://www.autohotkey.com/docs/v2/lib/InstallKeybdHook.htm
 
 SetCapsLockState "Off"  ; https://www.autohotkey.com/docs/v2/lib/SetNumScrollCapsLockState.htm
 
@@ -49,10 +58,10 @@ SetWorkingDir A_ScriptDir  ; https://www.autohotkey.com/docs/v2/lib/SetWorkingDi
 ; Setup targeting for [ Windows Explorer ]-classed windows
 ;
 
+; Setup targeting for [ Windows Explorer ]-classed windows
 GroupAdd("Explorer", "ahk_class ExploreWClass") ; Unused on Vista and later
-
 GroupAdd("Explorer", "ahk_class CabinetWClass")
-
+; GroupClose "Explorer", "A"  ; Example - Close all members in a group
 
 ; ------------------------------
 ;
@@ -65,8 +74,9 @@ If (DebugMode == 1) {
 
 ; ------------------------------
 ;
-; Tray-Icon - Use a custom one instead of default AHK Icon (in Notification area next to clock, bottom-right)
+; Customize the tray icon & text 
 ;
+; Use a custom tray icon (instead of default AHK Icon)
 TrayIcon_Cached_Default := "_WindowsHotkeys.cached.ico"
 TrayIcon_Cached_Gray := "_WindowsHotkeys.gray.cached.ico"
 TrayIcon_Default := "_WindowsHotkeys.ico"
@@ -74,7 +84,7 @@ TrayIcon_Gray := "_WindowsHotkeys.gray.ico"
 If (FileExist(TrayIcon_Default)) {
   TraySetIcon(TrayIcon_Default)
 }
-
+; A_IconTip := "zzz"
 
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------

@@ -55,16 +55,6 @@ SetWorkingDir A_ScriptDir  ; https://www.autohotkey.com/docs/v2/lib/SetWorkingDi
 
 ; ------------------------------
 ;
-; Setup targeting for [ Windows Explorer ]-classed windows
-;
-
-; Setup targeting for [ Windows Explorer ]-classed windows
-GroupAdd("Explorer", "ahk_class ExploreWClass") ; Unused on Vista and later
-GroupAdd("Explorer", "ahk_class CabinetWClass")
-; GroupClose "Explorer", "A"  ; Example - Close all members in a group
-
-; ------------------------------
-;
 ; Show the Version of AHK currently being used to compile this code
 ;
 If (DebugMode == 1) {

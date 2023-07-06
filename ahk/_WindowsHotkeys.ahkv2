@@ -3952,13 +3952,14 @@ ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
 }
 ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_TickCount:=0) {
   global DebugMode
+  global ShowToolTip_Map_Text
   global ShowToolTip_Map_TickCounts
   CoordMode "Mouse", "Screen"
   CoordMode "ToolTip", "Screen"
   Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
   ; Handle multiple calls to the same function & only use the latest call (to allow tooltips to have their content updated but their display time also updated and not hidden shortly after their updated data is displayed due to the deprecated tooltip call clearing it early)
   If ((ShowToolTip_Map_TickCounts[WhichToolTip] != Start_TickCount) || (Remaining_TickCount <= 0)) {
-    ShowToolTip_Map_TickCounts[WhichToolTip] := ""  ; Reset this tooltip's value in the tickcount map
+    ShowToolTip_Map_Text[WhichToolTip] := ""  ; Reset this tooltip's value in the text map
     ClearTooltip(0,WhichToolTip)  ; Remove the tooltip
     SetTimer , 0  ; Mark the timer for deletion
   } Else {
@@ -3966,11 +3967,11 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
     If (0 = 1 ) {
       ;
       ; TO DO:
-      ;   Get the current data in the tooltip (to determine if it needs to be updated or not)
+      ;   Get the data/text currently displayed/contained in the associated tooltip (to determine if it needs to be updated or not)
       ;
-      ; Tooltip_CurrentText := ControlGetText(ahk_class tooltips_class32)
+      Tooltip_CurrentText := ControlGetText("ahk_class tooltips_class32")
       ;
-      ; Also see [ https://www.autohotkey.com/board/topic/53672-get-the-text-content-of-a-tool-tip-window ]
+      ; Also refer to [ https://www.autohotkey.com/board/topic/53672-get-the-text-content-of-a-tool-tip-window ]
       ;
       ; ------------------------------
     }
@@ -3979,9 +3980,13 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
     If (DebugMode == 1) {
       EachText := EachText "`n" Round((Remaining_TickCount/1000),3)
     }
-    If (ShowToolTip_Map_Text[WhichToolTip] != EachText) {
+    ; Only update the tooltip text if it doesn't already contain said the value of said text
+    If (ShowToolTip_Map_Text[WhichToolTip] == RegexConsolidateNewlines(EachText)) {
+      ; (Skipped) Tooltip already contains desired contents
+    } Else {
+      ; Update the tooltip contents
       If (IsInteger(X) && IsInteger(Y)) {
-          ShowToolTip_Map_Text[WhichToolTip] := EachText  ; Store the latest value of [ EachText ] into its associated map index
+          ShowToolTip_Map_Text[WhichToolTip] := RegexConsolidateNewlines(EachText)  ; Store the latest value of [ EachText ] into its associated map index
           ToolTip EachText, Format("{:d}",X), Format("{:d}",Y), WhichToolTip  ; Show the tooltip
         } Else {
           ; If X & Y are both non-integer values, then display the tooltip next to the mouse's current location
@@ -3991,7 +3996,7 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
         MouseGetPos &MouseX, &MouseY
         xpos := Floor( MouseX + ((WhichToolTip-0.5)/20)*(MonitorWidth) )
         ypos := Floor( MouseY + ((WhichToolTip-1)/20)*(MonitorHeight) )
-        ShowToolTip_Map_Text[WhichToolTip] := EachText  ; Store the latest value of [ EachText ] into its associated map index
+        ShowToolTip_Map_Text[WhichToolTip] := RegexConsolidateNewlines(EachText)  ; Store the latest value of [ EachText ] into its associated map index
         ToolTip EachText, xpos, ypos, WhichToolTip  ; Show the tooltip
       }
     }

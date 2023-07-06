@@ -11,7 +11,7 @@
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 
-; Define the version of AutoHotkey required to run this script
+; Set this script's required version of AutoHotkey - https://www.autohotkey.com/docs/v2/lib/_Requires.htm
 #Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
 
 
@@ -64,9 +64,10 @@ If (DebugMode == 1) {
 
 ; ------------------------------
 ;
-; Customize the tray icon & text 
+; Customize the tray icon/tooltip
 ;
-; Use a custom tray icon (instead of default AHK Icon)
+
+; Customize the tray icon (instead of default AHK Icon)
 TrayIcon_Cached_Default := "_WindowsHotkeys.cached.ico"
 TrayIcon_Cached_Gray := "_WindowsHotkeys.gray.cached.ico"
 TrayIcon_Default := "_WindowsHotkeys.ico"
@@ -74,7 +75,10 @@ TrayIcon_Gray := "_WindowsHotkeys.gray.ico"
 If (FileExist(TrayIcon_Default)) {
   TraySetIcon(TrayIcon_Default)
 }
-; A_IconTip := "zzz"
+
+; Customize the tray tooltip
+A_IconTip := ( A_ScriptName "`n" "   Started " FormatTime("","dd-MMM-yyyy @ HH:mm:ss"))
+
 
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------

@@ -3970,21 +3970,8 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
       ;
       ; Tooltip_CurrentText := ControlGetText(ahk_class tooltips_class32)
       ;
-      ; ------------------------------
-      ; https://www.autohotkey.com/board/topic/53672-get-the-text-content-of-a-tool-tip-window/
-      ; ;======== show the information from a multiple tooltips =========
-      ; WinGet, ID, LIST,ahk_class tooltips_class32
-      ; tt_text=
-      ; Loop, %id%
-      ; {
-        ;   this_id := id%A_Index%
-      ;   ControlGetText, tooltip2,,ahk_id %this_id%
-      ;   tt_text.= "******************`n" tooltip2 "`n******************`n"
-      ; }
-      ; ;tooltip, %tt_text%, 300, 300
-      ; msgbox, %tt_text%
-      ; ;sleep, 3000
-      ; ;tooltip
+      ; Also see [ https://www.autohotkey.com/board/topic/53672-get-the-text-content-of-a-tool-tip-window ]
+      ;
       ; ------------------------------
     }
     ; ------------------------------

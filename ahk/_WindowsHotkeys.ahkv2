@@ -3955,6 +3955,7 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
   CoordMode "Mouse", "Screen"
   CoordMode "ToolTip", "Screen"
   Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
+  ; Handle multiple calls to the same function & only use the latest call (to allow tooltips to have their content updated but their display time also updated and not hidden shortly after their updated data is displayed due to the deprecated tooltip call clearing it early)
   If ((ShowToolTip_TickCountsMap[WhichToolTip] != Start_TickCount) || (Remaining_TickCount <= 0)) {
     ClearTooltip(0,WhichToolTip)  ; Remove the tooltip
     SetTimer , 0  ; Mark the timer for deletion
@@ -4067,6 +4068,8 @@ ShowVolumeLevel() {
   ; ------------------------------
   ; Note: Windows default volume display shows for a total of 3.5 seconds (with the last 1.0 seconds being a fade out)
   ShowToolTip(Echo_Tooltip, ToolTip_XPos, ToolTip_YPos, ,1500)
+  ; ToolTip Echo_Tooltip, ToolTip_XPos, ToolTip_YPos
+  ; ClearTooltip(1500)  ; Note: Windows default volume display shows for a total of 3.5 seconds (with the last 1.0 seconds being a fade out)
   ; ------------------------------
   Return
 }

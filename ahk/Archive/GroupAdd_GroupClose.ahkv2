@@ -1,0 +1,22 @@
+
+#Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
+
+; ------------------------------
+;
+; Setup targeting for [ Windows Explorer ]-classed windows
+;
+
+; Setup targeting for [ Windows Explorer ]-classed windows
+GroupAdd("Explorer", "ahk_class ExploreWClass") ; Unused on Vista and later
+GroupAdd("Explorer", "ahk_class CabinetWClass")
+
+; ------------------------------
+
+; Example - Close all members in a group
+^#c::
+{
+  GroupClose "Explorer", "A"
+  Return
+}
+
+; ------------------------------

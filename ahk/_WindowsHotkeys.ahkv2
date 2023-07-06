@@ -46,7 +46,7 @@ SetWorkingDir A_ScriptDir  ; https://www.autohotkey.com/docs/v2/lib/SetWorkingDi
 
 ; ------------------------------
 ;
-; Global Variable(s)
+; Global Variables
 ;
 
 DebugMode := 0

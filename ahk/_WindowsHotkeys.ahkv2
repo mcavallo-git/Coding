@@ -4,15 +4,15 @@
 ;
 ; ------------------------------------------------------------
 
+; Required version of AutoHotkey - https://www.autohotkey.com/docs/v2/lib/_Requires.htm
+#Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
+
 
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
 ; ---                       GLOBALS                        ---
 ; ------------------------------------------------------------
 ; ------------------------------------------------------------
-
-; Required version of AutoHotkey - https://www.autohotkey.com/docs/v2/lib/_Requires.htm
-#Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
 
 
 ; ------------------------------
@@ -60,7 +60,7 @@ If (DebugMode == 1) {
 
 ; ------------------------------
 ;
-; Tray Icon (set a custom tray icon instead of using the default AHK tray icon)
+; Tray Icon
 ;
 TrayIcon_Cached_Default := "_WindowsHotkeys.cached.ico"
 TrayIcon_Cached_Gray := "_WindowsHotkeys.gray.cached.ico"
@@ -70,9 +70,10 @@ If (FileExist(TrayIcon_Default)) {
   TraySetIcon(TrayIcon_Default)
 }
 
+
 ; ------------------------------
 ;
-; Tray ToolTip (set to custom tray tooltip)
+; Tray ToolTip
 ;
 A_IconTip := ( A_ScriptName "`n" "   Started " FormatTime("","dd-MMM-yyyy @ HH:mm:ss"))
 

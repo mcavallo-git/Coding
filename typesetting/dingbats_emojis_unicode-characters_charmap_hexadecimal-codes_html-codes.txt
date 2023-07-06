@@ -224,8 +224,10 @@ Mostly Linux compatible:
 ⚠️				Warning Sign (Colored)  |  https://emojipedia.org/warning/  |  echo -e "\\xE2\\x9A\\xA0\\xEF\\xB8\\x8F";  |  "$([char]0x26A0+[char]0xFE0F)"
 ⛔				 No Entry  |  https://www.compart.com/en/unicode/U+26D4
 🚫				No Entry Sign  |  https://www.compart.com/en/unicode/U+1F6AB
-❕					White Exclamation Mark Ornament  (&#x2755;)  |  https://www.compart.com/en/unicode/U+2755
-❗					Heavy Exclamation Mark Symbol  (&#x2757;)  |  https://www.compart.com/en/unicode/U+2757
+ꜝ					Modifier Letter Raised Exclamation Mark  (&#xA71D;)  |  https://www.compart.com/en/unicode/U+A71D  |  echo -e "\\xEA\\x9C\\x9D";
+‼					Double Exclamation Mark  (&#x203C;)  |  https://www.compart.com/en/unicode/U+203C  |  echo -e "\\xE2\\x80\\xBC";
+❕					White Exclamation Mark Ornament  (&#x2755;)  |  https://www.compart.com/en/unicode/U+2755  |  echo -e "\\xE2\\x9D\\x95";
+❗					Heavy Exclamation Mark Symbol  (&#x2757;)  |  https://www.compart.com/en/unicode/U+2757  |  echo -e "\\xE2\\x9D\\x97";
 ❓					Black Question Mark Ornament  (&#x2753;)  |  https://www.compart.com/en/unicode/U+2753
 ❔					White Question Mark Ornament  (&#x2754;)  |  https://www.compart.com/en/unicode/U+2754
 

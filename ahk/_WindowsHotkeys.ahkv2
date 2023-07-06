@@ -18,30 +18,30 @@ DebugMode := 0
 
 ; ------------------------------
 ;
-; AHK - #Commands (Runtime-Configs)  ; https://lexikos.github.io/v2/docs/commands/#hash
+; AHK - #Commands (Runtime-Configs)  ; https://www.autohotkey.com/docs/v2/lib/#hash
 ;
 
-Persistent  ; https://lexikos.github.io/v2/docs/commands/Persistent.htm
+Persistent  ; https://www.autohotkey.com/docs/v2/lib/Persistent.htm
 
-A_HotkeyInterval := 2000  ; https://lexikos.github.io/v2/docs/misc/A_MaxHotkeysPerInterval.htm
+A_HotkeyInterval := 2000  ; https://www.autohotkey.com/docs/v2/lib/A_MaxHotkeysPerInterval.htm
 
-A_MaxHotkeysPerInterval := 2000  ; https://lexikos.github.io/v2/docs/misc/A_MaxHotkeysPerInterval.htm
+A_MaxHotkeysPerInterval := 2000  ; https://www.autohotkey.com/docs/v2/lib/A_MaxHotkeysPerInterval.htm
 
-#SingleInstance Force  ; https://lexikos.github.io/v2/docs/commands/_SingleInstance.htm
+#SingleInstance Force  ; https://www.autohotkey.com/docs/v2/lib/_SingleInstance.htm
 
-; DetectHiddenText 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenText.htm
+; DetectHiddenText 1  ; https://www.autohotkey.com/docs/v2/lib/DetectHiddenText.htm
 
-DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenWindows.htm
+DetectHiddenWindows 1  ; https://www.autohotkey.com/docs/v2/lib/DetectHiddenWindows.htm
 
-InstallKeybdHook  ; Keyboard hook is required to use variables `A_PriorHotkey` & `A_TimeSincePriorHotkey`  ; https://lexikos.github.io/v2/docs/commands/InstallKeybdHook.htm
+InstallKeybdHook  ; Keyboard hook is required to use variables `A_PriorHotkey` & `A_TimeSincePriorHotkey`  ; https://www.autohotkey.com/docs/v2/lib/InstallKeybdHook.htm
 
-SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
+SetCapsLockState "Off"  ; https://www.autohotkey.com/docs/v2/lib/SetNumScrollCapsLockState.htm
 
-SetNumLockState "On"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
+SetNumLockState "On"  ; https://www.autohotkey.com/docs/v2/lib/SetNumScrollCapsLockState.htm
 
-SetTitleMatchMode 2      ; Title must [ CONTAIN ] the given WinTitle  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
+SetTitleMatchMode 2      ; Title must [ CONTAIN ] the given WinTitle  -  https://www.autohotkey.com/docs/v2/lib/SetTitleMatchMode.htm
 
-SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
+SetWorkingDir A_ScriptDir  ; https://www.autohotkey.com/docs/v2/lib/SetWorkingDir.htm
 
 
 ; ------------------------------
@@ -91,7 +91,7 @@ If (FileExist(TrayIcon_Default)) {
 ~#Escape::
 {
   BlockInput("Off")  ;  Stop blocking input (e.g. restore full interaction)
-  Reload  ; Replaces the currently running instance of the script with a new one  -  https://lexikos.github.io/v2/docs/commands/Reload.htm
+  Reload  ; Replaces the currently running instance of the script with a new one  -  https://www.autohotkey.com/docs/v2/lib/Reload.htm
   Sleep 1000 ; If successful, the reload will close this instance during the sleep, so this line and everything below it will never be reached
   ; global DebugMode
   ; If (DebugMode == 1) {
@@ -598,15 +598,15 @@ Pause::
       SplitPath ExeToRequire_Fullpath, &OutFileName
       WinActivate ("ahk_exe " OutFileName)
       ; Free variables from memory (to avoid caching of secrets, sensitive paths or large files)
-      VarSetStrCapacity(&OutFileName,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+      VarSetStrCapacity(&OutFileName,0)  ; https://www.autohotkey.com/docs/v2/lib/VarSetStrCapacity.htm
     }
     ; Paste the contents of target file
     FileToPaste_Contents := FileRead(FileToPaste_Legend)
     SendInput FileToPaste_Contents
   }
   ; Free variables from memory (to avoid caching of secrets, sensitive paths or large files)
-  VarSetStrCapacity(&FileToPaste_Contents,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
-  VarSetStrCapacity(&ExeToRequire_Fullpath,0)  ; https://lexikos.github.io/v2/docs/commands/VarSetStrCapacity.htm
+  VarSetStrCapacity(&FileToPaste_Contents,0)  ; https://www.autohotkey.com/docs/v2/lib/VarSetStrCapacity.htm
+  VarSetStrCapacity(&ExeToRequire_Fullpath,0)  ; https://www.autohotkey.com/docs/v2/lib/VarSetStrCapacity.htm
   Return
 }
 
@@ -2041,7 +2041,7 @@ BrowserHover() {
 ;
 ; ClearTooltip
 ;   |--> If called with a positive [ Period ], wait [ Period ] milliseconds before clearing the given ToolTip, otherwise clear it immediately
-;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm#ExAutoHide
+;   |--> https://www.autohotkey.com/docs/v2/lib/ToolTip.htm#ExAutoHide
 ;
 ClearTooltip(Period:=0, WhichToolTip:=1) {
   If (Period > 0) {
@@ -2874,7 +2874,7 @@ IsArray(TestVar:="") {
 ;
 ; KeyWaitAny
 ;   |--> Waits for the user to press any single key (and returns it)
-;   |--> Source: https://lexikos.github.io/v2/docs/commands/InputHook.htm#ExKeyWaitAny
+;   |--> Source: https://www.autohotkey.com/docs/v2/lib/InputHook.htm#ExKeyWaitAny
 ;
 KeyWaitAny(Options:="")
 {
@@ -3399,7 +3399,7 @@ PrintEnv() {
   ;
   ; ------------------------------
   ;
-  ; https://lexikos.github.io/v2/docs/Variables.htm#CoordMode
+  ; https://www.autohotkey.com/docs/v2/Variables.htm#CoordMode
 
   MsgBoxOutput := MsgBoxOutput "`n"
   MsgBoxOutput := MsgBoxOutput "----------------------------- AHK Env-Vars -----------------------------" "`n"
@@ -3938,7 +3938,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ;
 ; ShowToolTip
 ;   |--> Show a tooltip & make said tooltip follow the mouse around for a given duration
-;   |--> https://lexikos.github.io/v2/docs/commands/ToolTip.htm
+;   |--> https://www.autohotkey.com/docs/v2/lib/ToolTip.htm
 ;
 ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
   global ShowToolTip_TickCountsMap
@@ -4316,7 +4316,7 @@ WinGet_MonitorIndex(WinTitle:="A",WinText:="") {
   ; Walk through each connected display
   Loop MonitorGetCount() {
     Each_MonitorIndex := A_Index
-    ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+    ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://www.autohotkey.com/docs/v2/lib/MonitorGetWorkArea.htm
     MonitorGetWorkArea(Each_MonitorIndex, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
     ; Determine if the center of target window is currently located within the bounds of this monitor's work area
     If ((Win_Center_XPos>=EachMonitor_LeftCoord) && (Win_Center_XPos<=EachMonitor_RightCoord)) {
@@ -4442,7 +4442,7 @@ WinSnap(WinTitle:="A",WinText:="",ExcludeTitle:="",ExcludeText:="",Destination_D
       Matched_MonitorNumber := -1
       Loop MonitorGetCount() {
         Each_MonitorIndex := A_Index
-        ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://lexikos.github.io/v2/docs/commands/MonitorGetWorkArea.htm
+        ; Docs: "Check if the specified monitor exists and optionally retrieve the bounding coordinates of its working area" - https://www.autohotkey.com/docs/v2/lib/MonitorGetWorkArea.htm
         MonitorGetWorkArea(Each_MonitorIndex, &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
         ; Determine if the current iteration's monitor is the destination monitor
         MoveTo_ThisMonitor := False
@@ -5163,13 +5163,13 @@ Xbox_ExportCaptures() {
     }
     ; ------------------------------
     ;
-    ; Count & timestamp files in the output directory then show the output directory  -  https://lexikos.github.io/v2/docs/commands/LoopFiles.htm
+    ; Count & timestamp files in the output directory then show the output directory  -  https://www.autohotkey.com/docs/v2/lib/LoopFiles.htm
     ;
     Count_FilesInOutputDir := 0
     Fullpath_Output_XboxCaptures := ( EnvGet("USERPROFILE") "\Videos\Captures" )
     Loop Files (Fullpath_Output_XboxCaptures "\*")
     {
-      ; Exclude files matching a given regex pattern - https://lexikos.github.io/v2/docs/commands/RegExMatch.htm
+      ; Exclude files matching a given regex pattern - https://www.autohotkey.com/docs/v2/lib/RegExMatch.htm
       RegexPattern_Exclude := "(.*).(ini|lnk)$"
       If (!RegExMatch(A_LoopFileFullPath, RegexPattern_Exclude)) {
         Count_FilesInOutputDir++

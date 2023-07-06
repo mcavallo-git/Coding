@@ -3942,9 +3942,9 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
 ;   |--> https://www.autohotkey.com/docs/v2/lib/ToolTip.htm
 ;
 ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
-  global ShowToolTip_TickCountsMap
+  global ShowToolTip_Map_TickCounts
   Start_TickCount := A_TickCount
-  ShowToolTip_TickCountsMap[WhichToolTip] := Start_TickCount
+  ShowToolTip_Map_TickCounts[WhichToolTip] := Start_TickCount  ; Store the latest value of [ Start_TickCount ] into its associated map index
   SetTimer () => ShowToolTip_Auto(Text, X, Y, WhichToolTip, Period, Start_TickCount), 50
   ; SetTimer () => ClearTooltip(0,WhichToolTip), (Period * -1)
   ; ClearTooltip(0,WhichToolTip)
@@ -3952,39 +3952,69 @@ ShowToolTip(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000) {
 }
 ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_TickCount:=0) {
   global DebugMode
-  global ShowToolTip_TickCountsMap
+  global ShowToolTip_Map_TickCounts
   CoordMode "Mouse", "Screen"
   CoordMode "ToolTip", "Screen"
   Remaining_TickCount := (Period-(A_TickCount-Start_TickCount))
   ; Handle multiple calls to the same function & only use the latest call (to allow tooltips to have their content updated but their display time also updated and not hidden shortly after their updated data is displayed due to the deprecated tooltip call clearing it early)
-  If ((ShowToolTip_TickCountsMap[WhichToolTip] != Start_TickCount) || (Remaining_TickCount <= 0)) {
-    ShowToolTip_TickCountsMap[WhichToolTip] := ""  ; Reset this tooltip's value in the tickcount map
+  If ((ShowToolTip_Map_TickCounts[WhichToolTip] != Start_TickCount) || (Remaining_TickCount <= 0)) {
+    ShowToolTip_Map_TickCounts[WhichToolTip] := ""  ; Reset this tooltip's value in the tickcount map
     ClearTooltip(0,WhichToolTip)  ; Remove the tooltip
     SetTimer , 0  ; Mark the timer for deletion
   } Else {
+    ; ------------------------------
+    If (0 = 1 ) {
+      ;
+      ; TO DO:
+      ;   Get the current data in the tooltip (to determine if it needs to be updated or not)
+      ;
+      ; Tooltip_CurrentText := ControlGetText(ahk_class tooltips_class32)
+      ;
+      ; ------------------------------
+      ; https://www.autohotkey.com/board/topic/53672-get-the-text-content-of-a-tool-tip-window/
+      ; ;======== show the information from a multiple tooltips =========
+      ; WinGet, ID, LIST,ahk_class tooltips_class32
+      ; tt_text=
+      ; Loop, %id%
+      ; {
+        ;   this_id := id%A_Index%
+      ;   ControlGetText, tooltip2,,ahk_id %this_id%
+      ;   tt_text.= "******************`n" tooltip2 "`n******************`n"
+      ; }
+      ; ;tooltip, %tt_text%, 300, 300
+      ; msgbox, %tt_text%
+      ; ;sleep, 3000
+      ; ;tooltip
+      ; ------------------------------
+    }
+    ; ------------------------------
     EachText := Text
     If (DebugMode == 1) {
       EachText := EachText "`n" Round((Remaining_TickCount/1000),3)
     }
-    If (IsInteger(X) && IsInteger(Y)) {
-      ; MsgBox(("Calling [ ToolTip _EachText_, " Format("{:d}",X) ", " Format("{:d}",Y) ", " WhichToolTip " ]..."), A_ScriptName " - " A_ThisFunc)
-      ToolTip EachText, Format("{:d}",X), Format("{:d}",Y), WhichToolTip  ; Show the tooltip
-    } Else {
-      ; If X & Y are both non-integer values, then display the tooltip next to the mouse's current location
-      MonitorGetWorkArea(, &MonitorLeft, &MonitorTop, &MonitorRight, &MonitorBottom)
-      MonitorWidth := (MonitorRight-MonitorLeft)
-      MonitorHeight := (MonitorBottom-MonitorTop)
-      MouseGetPos &MouseX, &MouseY
-      xpos := Floor( MouseX + ((WhichToolTip-0.5)/20)*(MonitorWidth) )
-      ypos := Floor( MouseY + ((WhichToolTip-1)/20)*(MonitorHeight) )
-      ; MsgBox(("Calling [ ToolTip _EachText_, " Format("{:d}",X) ", " Format("{:d}",Y) ", " WhichToolTip " ]..."), A_ScriptName " - " A_ThisFunc)
-      ToolTip EachText, xpos, ypos, WhichToolTip  ; Show the tooltip
+    If (ShowToolTip_Map_Text[WhichToolTip] != EachText) {
+      If (IsInteger(X) && IsInteger(Y)) {
+          ShowToolTip_Map_Text[WhichToolTip] := EachText  ; Store the latest value of [ EachText ] into its associated map index
+          ToolTip EachText, Format("{:d}",X), Format("{:d}",Y), WhichToolTip  ; Show the tooltip
+        } Else {
+          ; If X & Y are both non-integer values, then display the tooltip next to the mouse's current location
+        MonitorGetWorkArea(, &MonitorLeft, &MonitorTop, &MonitorRight, &MonitorBottom)
+        MonitorWidth := (MonitorRight-MonitorLeft)
+        MonitorHeight := (MonitorBottom-MonitorTop)
+        MouseGetPos &MouseX, &MouseY
+        xpos := Floor( MouseX + ((WhichToolTip-0.5)/20)*(MonitorWidth) )
+        ypos := Floor( MouseY + ((WhichToolTip-1)/20)*(MonitorHeight) )
+        ShowToolTip_Map_Text[WhichToolTip] := EachText  ; Store the latest value of [ EachText ] into its associated map index
+        ToolTip EachText, xpos, ypos, WhichToolTip  ; Show the tooltip
+      }
     }
+    ; ------------------------------
   }
   Return
 }
-; Map (associative array) used by parent functions "ShowToolTip" & "ShowToolTip_Auto" to store the latest updates for each "WhichToolTip" available window (out of 20)
-ShowToolTip_TickCountsMap := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
+; Maps (associative arrays) containing the latest data for each tooltip (1-20)
+ShowToolTip_Map_Text := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
+ShowToolTip_Map_TickCounts := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
 
 
 ; ------------------------------
@@ -5603,9 +5633,9 @@ Youtube_EditDraft_Submit() {
 ;
 ;   www.autohotkey.com  |  "CLSID List (Windows Class Identifiers)"  |  https://www.autohotkey.com/docs/misc/CLSID-List.htm  <-- Example)  ::{7007acc7-3202-11d1-aad2-00805fc1270e}
 ;
-;   www.autohotkey.com  |  "ControlGet List - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/7649-controlget-list/
+;   www.autohotkey.com  |  "ControlGet List - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/7649-controlget-list/
 ;
-;   www.autohotkey.com  |  "Detect Current Windows Domain - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/77940-detect-current-windows-domain/?p=495386
+;   www.autohotkey.com  |  "Detect Current Windows Domain - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/77940-detect-current-windows-domain/?p=495386
 ;
 ;   www.autohotkey.com  |  "determine if scaling is not 100% for monitor of a window, change PerMonitorSettings in registry, reflect change, verify - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=160615#p160615
 ;
@@ -5613,7 +5643,9 @@ Youtube_EditDraft_Submit() {
 ;
 ;   www.autohotkey.com  |  "Get Current Micro/Nano seconds"  |  https://www.autohotkey.com/boards/viewtopic.php?p=126168#p126168
 ;
-;   www.autohotkey.com  |  "Get Highest and Lowest value - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88376-get-highest-and-lowest-value/?p=560579
+;   www.autohotkey.com  |  "Get Highest and Lowest value - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/88376-get-highest-and-lowest-value/?p=560579
+;
+;   www.autohotkey.com  |  "Get the text content of a tool tip window - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/53672-get-the-text-content-of-a-tool-tip-window/
 ;
 ;   www.autohotkey.com  |  "How to make AHK to type braces (curly brackets) - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=346714&sid=cf868beb68d8b6fefc7e3e69e7cdaeea#p346714
 ;
@@ -5639,7 +5671,7 @@ Youtube_EditDraft_Submit() {
 ;
 ;   www.autohotkey.com  |  "Run[Wait] Example #2: The following can be used to run a command and retrieve its output:"  |  https://www.autohotkey.com/docs/v1/lib/Run.htm#StdOut
 ;
-;   www.autohotkey.com  |  "SendInput %Clipboard% adds double linebreaks for Multiline - Ask for Help - AutoHotkey Community"  |  https://autohotkey.com/board/topic/88346-sendinput-clipboard-adds-double-linebreaks-for-multiline/
+;   www.autohotkey.com  |  "SendInput %Clipboard% adds double linebreaks for Multiline - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/88346-sendinput-clipboard-adds-double-linebreaks-for-multiline/
 ;
 ;   www.autohotkey.com  |  "Single line if statements"  |  https://www.autohotkey.com/board/topic/74001-single-line-if-statements/?p=470078
 ;

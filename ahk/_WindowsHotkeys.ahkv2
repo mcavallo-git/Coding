@@ -5586,8 +5586,6 @@ Youtube_EditDraft_Submit() {
 ;
 ;   gist.github.com  |  "Media keys shortcuts for AutoHotkey · GitHub"  |  https://gist.github.com/mistic100/d3c0c1eb63fb7e4ee545
 ;
-;   github.com  |  "AutoHotkeyScripts/LaptopBrightnessSetter at master · qwerty12/AutoHotkeyScripts · GitHub"  |  https://github.com/qwerty12/AutoHotkeyScripts/tree/master/LaptopBrightnessSetter
-;
 ;   stackoverflow.com  |  "How can I set AutoHotKey's code to run only in chrome?"  |  https://stackoverflow.com/a/50180863
 ;
 ;   stackoverflow.com  |  "powershell - Setting screen resolution on Windows 10 - Stack Overflow"  |  https://stackoverflow.com/a/49375988
@@ -5643,8 +5641,6 @@ Youtube_EditDraft_Submit() {
 ;   www.autohotkey.com  |  "Windows 10? AutoHotkey Window Title, etc. - AutoHotkey Community"  |  https://www.autohotkey.com/boards/viewtopic.php?p=164262#p164262
 ;
 ;   www.autohotkey.com  |  "[HELP!] How to WinActivate without specifying window title? - Ask for Help - AutoHotkey Community"  |  https://www.autohotkey.com/board/topic/102763-help-how-to-winactivate-without-specifying-window-title/
-;
-;   www.reddit.com  |  "Brightness script? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/5u2lvi/brightness_script/
 ;
 ;   www.reddit.com  |  "Possible to do SubStr() on multiple lines at once? : AutoHotkey"  |  https://www.reddit.com/r/AutoHotkey/comments/9f0qan/possible_to_do_substr_on_multiple_lines_at_once/
 ;

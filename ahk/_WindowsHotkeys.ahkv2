@@ -60,10 +60,8 @@ If (DebugMode == 1) {
 
 ; ------------------------------
 ;
-; Customize the tray icon/tooltip
+; Tray Icon (set a custom tray icon instead of using the default AHK tray icon)
 ;
-
-; Customize the tray icon (instead of default AHK Icon)
 TrayIcon_Cached_Default := "_WindowsHotkeys.cached.ico"
 TrayIcon_Cached_Gray := "_WindowsHotkeys.gray.cached.ico"
 TrayIcon_Default := "_WindowsHotkeys.ico"
@@ -72,7 +70,10 @@ If (FileExist(TrayIcon_Default)) {
   TraySetIcon(TrayIcon_Default)
 }
 
-; Customize the tray tooltip
+; ------------------------------
+;
+; Tray ToolTip (set to custom tray tooltip)
+;
 A_IconTip := ( A_ScriptName "`n" "   Started " FormatTime("","dd-MMM-yyyy @ HH:mm:ss"))
 
 

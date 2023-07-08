@@ -1,6 +1,6 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Get-PSDrive (list filesystem drives).ps1
+# PowerShell - Get-PSDrive (list filesystem drives)
 #
 # ------------------------------------------------------------
 

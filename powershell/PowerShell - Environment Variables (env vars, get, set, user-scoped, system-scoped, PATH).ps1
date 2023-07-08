@@ -68,15 +68,35 @@ If ($True) {
 
 #   env:PATH   (System)
 If ($True) {
-  # Adds a directory to current system's PATH (if not already on current PATH variable)
+  # ------------------------------
+  # Add a directory to current system's PATH (if not already incluided)
   $AppendPath = "${env:ProgramFiles(x86)}\VMware\VMware Workstation";
-  $SystemPath = ((Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment").Path);
+  $SystemPath = (Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" | Select-Object -ExpandProperty 'Path');
   If (($False) -NE (Test-Path -Path ("${AppendPath}"))) {
     # Directory must exist
     If (((${SystemPath}).Split([String][Char]59) | Where-Object { $_ -Eq "${AppendPath}" }).Count -Eq 0) {
       # Directory must not already exist in the PATH environment variable
+      Write-Host "Info:  Appending `"${AppendPath}`" onto the System `"PATH`"...";
       Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "Path" -Value "${SystemPath};${AppendPath}";
       [System.Environment]::SetEnvironmentVariable("Path","${SystemPath};${AppendPath}",[System.EnvironmentVariableTarget]::Machine);
+    }
+  }
+}
+
+
+#   env:PSModulePath   (System)  - PowerShell Modules Source
+If ($True) {
+  # ------------------------------
+  # Add a directory to current system's PSModulePath (if not already incluided)
+  $Append_PSModulePath = "${env:ProgramFiles(x86)}\VMware\VMware Workstation";
+  $System_PSModulePath = (Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" | Select-Object -ExpandProperty 'PSModulePath');
+  If (($False) -NE (Test-Path -Path ("${Append_PSModulePath}"))) {
+    # Directory must exist
+    If (((${System_PSModulePath}).Split([String][Char]59) | Where-Object { $_ -Eq "${Append_PSModulePath}" }).Count -Eq 0) {
+      # Directory must not already exist in the PSModulePath environment variable
+      Write-Host "Info:  Appending `"${Append_PSModulePath}`" onto the System `"PSModulePath`"...";
+      Set-ItemProperty -Path 'Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment' -Name 'PSModulePath' -Value "${System_PSModulePath};${Append_PSModulePath}";
+      [System.Environment]::SetEnvironmentVariable('PSModulePath',"${System_PSModulePath};${Append_PSModulePath}",[System.EnvironmentVariableTarget]::Machine);
     }
   }
 }

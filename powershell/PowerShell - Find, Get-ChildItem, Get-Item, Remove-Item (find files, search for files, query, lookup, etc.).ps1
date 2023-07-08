@@ -36,6 +36,10 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Nam
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "*___") } | ForEach-Object { $_.FullName; };
 
 
+# Search all disk roots - Filename contains "___"
+Get-PSDrive -PSProvider "FileSystem" | Select-Object -ExpandProperty "Root" | ForEach-Object { $EachRoot="${_}"; Get-ChildItem -Path ("${EachRoot}") -File -Recurse -Force -EA:0 | Where-Object { $_.Name -Like "*___*" } | ForEach-Object { $_.FullName; }; };
+
+
 # Parent directory name equals "_____"
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Directory.Name -Eq "_____") } | ForEach-Object { $_.FullName; };
 

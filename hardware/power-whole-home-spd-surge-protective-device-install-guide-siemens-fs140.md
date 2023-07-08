@@ -82,6 +82,8 @@
 
 ## Citation(s)
 
+- [mrelectrician.tv | Electrical Conduit Hole Saw Sizes](https://mrelectrician.tv/electrical-conduit-hole-saw-sizes/)
+
 - [support.industry.siemens.com | 120V 50-60 HZ 140KA SURGE PROTECTOR - US2:FS140 - Industry Support Siemens](https://support.industry.siemens.com/cs/products/us2-fs140/120v-50-60-hz-140ka-surge-protector?pid=579020&mlfb=US2:FS140&mfn=ps&lc=en-US)
 
 - [www.youtube.com | You Want To Hang On Concrete Walls? Here's How To Drill Into Concrete the DIY way | GardenFork - YouTube](https://www.youtube.com/watch?v=VPz80DaOjcY)

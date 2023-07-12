@@ -87,7 +87,7 @@ INSPECT_GROUP_NAME="sudo";
 getent group ${INSPECT_GROUP_NAME};
 
 
-# ------------------------------------------------------------ #
+# ------------------------------------------------------------
 
 # Create a new group with a given name
 
@@ -96,8 +96,8 @@ NEW_GROUP_NAME="foo";
 groupadd ${NEW_GROUP_NAME};
 
 
-# ------------------------------------------------------------ #
-	
+# ------------------------------------------------------------
+
 # Create a new group with a given name & group-id
 
 NEW_GROUP_NAME="bar";
@@ -107,7 +107,7 @@ NEW_GROUP_ID=525;
 groupadd ${NEW_GROUP_NAME} --gid ${NEW_GROUP_ID};
 
 
-# ------------------------------------------------------------ #
+# ------------------------------------------------------------
 
 # Update the name of a given group
 
@@ -118,7 +118,7 @@ GROUP_NAME_UPDATED="bar";
 groupmod -n ${GROUP_NAME_UPDATED} ${GROUP_NAME_OLD};
 
 
-# ------------------------------------------------------------ #
+# ------------------------------------------------------------
 
 # Add user to group - this grants the user grouped access to any files which said group owns or can access
 
@@ -126,11 +126,20 @@ GROUP_NAME="foobar";
 
 USER_NAME="example_username";
 
-usermod -a -G ${GROUP_NAME} ${USER_NAME}
+usermod -a -G ${GROUP_NAME} ${USER_NAME};
 
 
-# ------------------------------------------------------------ #
-	
+# Example) Add user to the 'docker' group (allowing them to run commands against the docker daemon)
+
+GROUP_NAME="docker";
+
+USER_NAME="${SUDO_USER}";
+
+usermod -a -G ${GROUP_NAME} ${USER_NAME};
+
+
+# ------------------------------------------------------------
+
 # Update User's Primary/Default group (files created by user will now be associated to the given group)
 
 usermod -g [GROUPNAME] [USERNAME]
@@ -142,7 +151,7 @@ USER_NAME="example_username";
 usermod -g ${GROUP_NAME} ${USER_NAME}
 
 
-# ------------------------------------------------------------ #
+# ------------------------------------------------------------
 
 # Switch a groups identifier (gid) to a different value
 # WARNING - YOU MUST MANUALLY CALL [ CHOWN [USER_ID]:[NEW_GID] ... ] ON ALL FILES WHICH WERE OWNED BY GROUP, ONCE CHANGED

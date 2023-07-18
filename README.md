@@ -286,7 +286,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
     <tr height="20"><td><code>&gt;+notes:match1 +notes:match2</code></td><td>Search for <code>match1</code> <code>AND</code> <code>match2</code> in the <code>Notes</code> field</td></tr>
     <tr height="20"><td><code>&gt;+name:match1 +login.username:match2</code></td><td>Search for <code>Name</code>=<code>match1</code> <code>AND</code> <code>Username</code>=<code>match2</code></td></tr>
     <tr height="20"><td><code>&gt;+login.uris:*match1*</code></td><td>Search for <code>Domains</code> containing <code>match1</code></td></tr>
-    <tr height="20"><td><code>&gt;+fields:Note\ Type +fields:Software\ License\ Key/Product\ Key</code></td><td>Search for <code>fields</code> named <code>Note Type</code> <code>AND</code> <code>any text field</code> equal to <code>Software License Key/Product Key</code></td></tr>
+    <tr height="20"><td><code>&gt;+fields:Note\ Type +fields:Software\ License\ Key/Product\ Key</code></td><td>Search for <code>fields</code> named <code>Note Type</code> <code>AND</code> <code>any text field</code><br />equal to <code>Software License Key/Product Key</code></td></tr>
   </table>
   &nbsp;&nbsp;&nbsp;<a href="https://community.bitwarden.com/t/bitwarden-roadmap">View Docs (Bitwarden Feature Roadmap)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://bitwarden.com/help/folders/#nested-folders">View Docs (Nested Folders)</a></i></sub></td><td><a href="https://bitwarden.com/download">Download (source)</a></td></tr>
 <tr><td><strong>Dashlane</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Password Manager</i></sub></td><td><a href="https://support.dashlane.com/hc/en-us/articles/115005432325#step1">Download (source)</a></td></tr>

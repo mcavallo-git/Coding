@@ -287,6 +287,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
     <tr height="20"><td><code>&gt;+name:match1 +login.username:match2</code></td><td>Find <code>Name</code>=<code>match1</code> <code>AND</code> <code>Username</code>=<code>match2</code></td></tr>
     <tr height="20"><td><code>&gt;+login.uris:*match1*</code></td><td>Find <code>Domains</code> containing <code>match1</code></td></tr>
     <tr height="20"><td><code>&gt;+fields:software\ license\ key/product\ key</code></td><td>Find <code>software license key/product key</code> (exact) in <code>any</code> field</td></tr>
+    <tr height="20"><td><code>&gt;+fields:wi\-fi\ password</code></td><td>Find <code>wi-fi password</code> (exact) in <code>any</code> field</td></tr>
     <tr height="20"><td><code>&gt;+notes:notetype\:*</code></td><td>Find <code>deprecated/migrated notes</code></td></tr>
   </table>
   &nbsp;&nbsp;&nbsp;<a href="https://community.bitwarden.com/t/bitwarden-roadmap">View Docs (Bitwarden Feature Roadmap)</a><br />&nbsp;&nbsp;&nbsp;<a href="https://bitwarden.com/help/folders/#nested-folders">View Docs (Nested Folders)</a></i></sub></td><td><a href="https://bitwarden.com/download">Download (source)</a></td></tr>

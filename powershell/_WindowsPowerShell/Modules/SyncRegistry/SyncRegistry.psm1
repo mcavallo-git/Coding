@@ -353,6 +353,20 @@ function SyncRegistry {
         )
       };
 
+      # Desktop Search Bar for Microsoft Edge
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge";
+        Props=@(
+          @{
+            Description="Microsoft Edge - [ 0 ]=Disable, [ 1 ]=Enable the 'Microsoft Edge Desktop Search Bar' for All Users";
+            Name="WebWidgetAllowed";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+
       # Explorer Settings
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\Explorer";
@@ -2665,6 +2679,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.techsupportforum.com  |  "[SOLVED] Cleartype command??? does it exist? | Tech Support Forum"  |  https://www.techsupportforum.com/threads/solved-cleartype-command-does-it-exist.332657/
 #
 #   www.tenforums.com  |  "Add or Remove Scan with Microsoft Defender Context Menu in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/18145-add-remove-scan-microsoft-defender-context-menu-windows-10-a.html
+#
+#   www.tenforums.com  |  "Enable or Disable Microsoft Edge Desktop Search Bar in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/203446-enable-disable-microsoft-edge-desktop-search-bar-windows-10-a.html
 #
 #   www.tenforums.com  |  "How to Enable or Disable Aero Shake in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4417-how-enable-disable-aero-shake-windows-10-a.html
 #

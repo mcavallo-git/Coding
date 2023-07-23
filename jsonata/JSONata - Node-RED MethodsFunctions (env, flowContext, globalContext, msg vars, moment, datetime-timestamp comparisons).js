@@ -110,6 +110,20 @@ $$.payload
 //
 
 //
+// JSON concatenated output (strings & javascript datetime/timestamp) used for [ notify.DEVICE_NAME ]'s "data" input field
+//
+{
+  "message": $moment().format('YYYY-MM-DDTHH:mm:ss') & " - Action: Restart Server", 
+  "title": "Z-Wave JS detected as down"
+}
+
+
+// ------------------------------------------------------------
+//
+// J: expression  (jsonata expression)
+//
+
+//
 // more in-depth moment usage
 //
 (	    $b := $moment(timeB,['DD.MM.YYYY HH:mm:ss','x'],'de');	    $a := $moment(timeA,['DD.MM.YYYY HH:mm:ss','x'],'de');	    	    /* $b.diff($a) */	    /* $moment.duration($b.diff($a)); */	    	        /* Kein Zugriff auf duration  - also manuell berechnen*/	        	    $days := $b.diff($a, 'days');	    $hours := $b.diff($a, 'hours') - 24 * $b.diff($a, 'days');	    $minutes := $b.diff($a, 'minutes') - 60 * $b.diff($a, 'hours');	    $seconds := $b.diff($a, 'seconds') - 60 * $b.diff($a, 'minutes');	    	    $sec := $b.diff($a)/1000;	    		    	    $difference := {	        'days': $days,	        'hours':$hours,	        'minutes': $minutes,	        'seconds': $seconds	    }; 	    		)

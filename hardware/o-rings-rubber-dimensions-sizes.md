@@ -1,6 +1,6 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/o-rings-rubber-dimensions-sizes.md -->
 
-# O-Ring (Rubber) Size Chart w/ Dimensions
+# O-Ring (Rubber) Standard Dimensions/Sizes Reference Chart
 
 ***
 

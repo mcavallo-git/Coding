@@ -2,7 +2,6 @@
 
 # O-Ring (Rubber) Size Chart w/ Dimensions
 
-
 ***
 
 - ## Citation(s)

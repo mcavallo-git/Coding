@@ -2,9 +2,12 @@
 
 # Electrical Conduit Hole Saw & Knockout Equivalent Dimensions/Sizes
 
+NEMA Recommended Hole and Drill Sizes for Trade Dimension (Electrical Conduit Knockout Equivalent Dimensions/Sizes)
+
 ***
 
 - ## Citation(s)
-  - [mrelectrician.tv | Electrical Conduit Hole Saw Sizes](https://mrelectrician.tv/electrical-conduit-hole-saw-sizes/)
+  - [amftgs.com | NEMA Recommended Hole and Drill Sizes for Trade Dimension](https://amftgs.com/nema-recommended-hole-and-drill-sizes-for-trade-dimension/)
+  - [mrelectrician.tv | Electrical Conduit Hole Saw Sizes](https://mrelectrician.tv/electrical-conduit-hole-saw-sizes/#hole-saw-sizes-and-knockout-punch-equivalent)
 
 ***

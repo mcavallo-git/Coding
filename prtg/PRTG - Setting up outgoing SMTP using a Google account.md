@@ -11,7 +11,7 @@
 ***
 
 ### 2. Updating PRTG SMTP Settings
-- Open `Notification Delivery` settings
+- Open admin page `Notification Delivery`
   - Via the GUI:
     - → `Setup` <sub>*(top right tab)*</sub>
       - → `Notification Delivery` <sub>*(under `System Administration`)*</sub>
@@ -40,7 +40,7 @@
 
 ### 3. Debugging outgoing SMTP
 - Check outgoing SMTP logs
-  - Open `Log Entries Related To Notifications`
+  - Open debug page `Log Entries Related To Notifications`
     - Via the GUI:
       - → `Logs` <sub>*(hover, top right tab)*</sub>
         - → `System Events` <sub>*(hover, dropdown menu item)*</sub>

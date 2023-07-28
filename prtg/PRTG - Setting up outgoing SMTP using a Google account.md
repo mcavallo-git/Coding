@@ -4,6 +4,17 @@
 
 ***
 
+- ### Setting up Google Account `App Password`
+  - Prereq: `2FA` (`Two-Factor Authentication`) must be enabled for Google Account before `App Passwords` may be created
+  - Create an `App Password` for Google Account to use for outgoing SMTP (use the `App Password` as the `SMTP Relay Password` in PRTG)
+
+- ### Updating PRTG SMTP Settings
+  - Via the GUI:
+    - → `Setup` <sub>*(top right tab)*</sub>
+      - → `Notification Delivery` <sub>*(under `System Administration`)*</sub>
+
+***
+
 - ### Citation(s)
   - [kb.paessler.com | Can Gmail / Google Apps / G-Suite be used for SMTP relay? - Paessler Knowledge Base](https://kb.paessler.com/en/topic/2823-can-gmail-google-apps-g-suite-be-used-for-smtp-relay)
 

@@ -4,7 +4,7 @@
 
 ***
 
-- ## Citation(s)
+- ### Citation(s)
   - [kb.paessler.com | Can Gmail / Google Apps / G-Suite be used for SMTP relay? - Paessler Knowledge Base](https://kb.paessler.com/en/topic/2823-can-gmail-google-apps-g-suite-be-used-for-smtp-relay)
 
 ***

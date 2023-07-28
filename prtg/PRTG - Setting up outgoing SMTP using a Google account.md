@@ -11,12 +11,13 @@
 ***
 
 ### 2. Updating PRTG SMTP Settings
-- Via the GUI:
-  - → `Setup` <sub>*(top right tab)*</sub>
-    - → `Notification Delivery` <sub>*(under `System Administration`)*</sub>
-- Via URL:
-  - `<http(s)://your-prtg-fqdn>/systemsetup.htm?tabid=3`
-    - *Note: Replace `<http(s)://your-prtg-fqdn>` with your PRTG server's scheme & FQDN)*
+- Open `Notification Delivery` settings
+  - Via the GUI:
+    - → `Setup` <sub>*(top right tab)*</sub>
+      - → `Notification Delivery` <sub>*(under `System Administration`)*</sub>
+  - Via URL:
+    - `<http(s)://your-prtg-fqdn>/systemsetup.htm?tabid=3`
+      - *Note: Replace `<http(s)://your-prtg-fqdn>` with your PRTG server's scheme & FQDN)*
 - #### SMTP Delivery
   - | Setting        | Value to set                                    |
     | :-------------------------- | :--------------------------------------- |
@@ -39,13 +40,14 @@
 
 ### 3. Debugging outgoing SMTP
 - Check outgoing SMTP logs
-  - Via the GUI:
-    - → `Logs` <sub>*(hover, top right tab)*</sub>
-      - → `System Events` <sub>*(hover, dropdown menu item)*</sub>
-        - → `Notification Related` <sub>*(select, dropdown menu item)*</sub>
-  - Via URL:
-    - `<http(s)://your-prtg-fqdn>/log.htm?filter_status=13`
-      - *Note: Replace `<http(s)://your-prtg-fqdn>` with your PRTG server's scheme & FQDN)*
+  - Open `Log Entries Related To Notifications`
+    - Via the GUI:
+      - → `Logs` <sub>*(hover, top right tab)*</sub>
+        - → `System Events` <sub>*(hover, dropdown menu item)*</sub>
+          - → `Notification Related` <sub>*(select, dropdown menu item)*</sub>
+    - Via URL:
+      - `<http(s)://your-prtg-fqdn>/log.htm?filter_status=13`
+        - *Note: Replace `<http(s)://your-prtg-fqdn>` with your PRTG server's scheme & FQDN)*
 
 ***
 

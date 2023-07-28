@@ -6,9 +6,11 @@
 
 - ### Create a new snapshot (backup)
   - Via the GUI:
-    - `Setup` → `System Administration` → `Administrative Tools` → `Create Configuration Snapshot`
-  - Via an API call (replace `<your-prtg-server>` with your PRTG server's hostname/FQDN):
-    - ```http://<your-prtg-server>/api/savenow.htm?username=<admin username>&passhash=<admin passhash>```
+    - → `Setup` <sub>*(top right tab)*</sub>
+      - → `Administrative Tools` <sub>*(under `System Administration`)*</sub>
+        - → `Create Configuration Snapshot` <sub>*(top left option)*</sub>
+  - Via an API call (replace `<http(s)://your-prtg-fqdn>` with your PRTG server's scheme & FQDN):
+    - ```<http(s)://your-prtg-fqdn>/api/savenow.htm?username=<admin username>&passhash=<admin passhash>```
 
 - ## Snapshot output directory
   - `%ProgramData%\Paessler\PRTG Network Monitor\Configuration Auto-Backups`

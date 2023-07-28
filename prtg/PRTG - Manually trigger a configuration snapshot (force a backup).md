@@ -1,6 +1,4 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/main/prtg/PRTG%20-%20Manually%20trigger%20a%20configuration%20snapshot%20(force%20a%20backup).md -->
-<!-- https://github.com/mcavallo-git/Coding/blob/main/prtg/PRTG%20-%20Manually%20trigger%20a%20configuration%20snapshot%20%28force%20a%20backup%29.md -->
-<!-- https://github.com/mcavallo-git/Coding/blob/main/prtg/PRTG%20%2d%20Manually%20trigger%20a%20configuration%20snapshot%20%28force%20a%20backup%29.md -->
 
 ## PRTG - Manually trigger a configuration snapshot (force a backup)
 

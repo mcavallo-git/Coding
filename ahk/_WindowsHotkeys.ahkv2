@@ -273,13 +273,19 @@ NumLock::
 
 ; ------------------------------
 ;
-;   HOTKEY:  Scroll Lock / Scroll-Lock / ScrollLock
+;   HOTKEY:  Scroll Lock
 ;   ACTION:  Replace functionality with combo keypress  [ Alt + Shift + F10 ]  (set in GeForce Experience to hotkey "Toggle Instant Replay On/Off" (under "In-Game Overlay" > "Settings" (cog) > "Keyboard shortcuts"))
 ;
 ScrollLock::
 {
   ; Send "!^+Z"
   Send "!+{F10}"
+  Return
+}
++ScrollLock::
+{
+  ; Toggles ScrollLock to its opposite state
+  SetScrollLockState !GetKeyState("ScrollLock","T")
   Return
 }
 

@@ -22,7 +22,7 @@ du -b -d 0 "$(pwd)/"* 2>'/dev/null' | sort -n;  # Equivalent to  [ du --max-dept
 
 
 # Same as above but exclude [ .git/* ] nested directories
-du -b -d 0 "${REPOS_DIR}/"* --exclude='.git/**/*' 2>'/dev/null' | sort -n;
+du -b -d 0 "${REPOS_DIR}/"* --exclude=".git/"* 2>'/dev/null' | sort -n;
 
 
 # ------------------------------------------------------------

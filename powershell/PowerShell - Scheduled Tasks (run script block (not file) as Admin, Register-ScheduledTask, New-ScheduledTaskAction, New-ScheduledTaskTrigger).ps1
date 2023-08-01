@@ -2,12 +2,17 @@
 # PowerShell - Scheduled Tasks (run script block (not file) as Admin, Register-ScheduledTask, New-ScheduledTaskAction, New-ScheduledTaskTrigger)
 # ------------------------------------------------------------
 
-
+#
 # Template (NON-Admin)
+#  |-->  Replace ____TASKNAME_____ , ____DESCRIPTION_____ & ____POWERSHELL_CLI_____ with respective values
+#
 $Args_SchedTask=@{ TaskName="____TASKNAME_____"; Description="____DESCRIPTION_____"; Trigger=(New-ScheduledTaskTrigger -Once -At (Get-Date)); Action=(New-ScheduledTaskAction -Execute ((gcm powershell).Source) -Argument (("-Command `"Start-Process -Filepath ((gcm powershell).Source) -ArgumentList ('-Command ____POWERSHELL_CLI_____;') -Wait -PassThru | Out-Null;`""))); User="System";}; Register-ScheduledTask @Args_SchedTask;
 
 
+#
 # Template (ADMIN)
+#  |-->  Replace ____TASKNAME_____ , ____DESCRIPTION_____ & ____POWERSHELL_CLI_____ with respective values
+#
 $Args_SchedTask=@{ TaskName="____TASKNAME_____"; Description="____DESCRIPTION_____"; Trigger=(New-ScheduledTaskTrigger -Once -At (Get-Date)); Action=(New-ScheduledTaskAction -Execute ((gcm powershell).Source) -Argument (("-Command `"Start-Process -Filepath ((gcm powershell).Source) -ArgumentList ('-Command ____POWERSHELL_CLI_____') -Verb 'RunAs' -Wait -PassThru | Out-Null;`""))); User="System";}; Register-ScheduledTask @Args_SchedTask;
 
 

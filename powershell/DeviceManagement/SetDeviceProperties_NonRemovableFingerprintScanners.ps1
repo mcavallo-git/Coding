@@ -1,9 +1,8 @@
 #
-# C:\ISO\DeviceManagement\SetDeviceProperties_NonRemovableFingerprintScanners.ps1
+# C:\ISO\DeviceManagement\SetDeviceProperties_NonRemovableFingerprintScanners.min.ps1
 #
 If ($True) {
   Get-PnpDevice -Class 'Biometric' -FriendlyName '*Fingerprint*' -Status 'OK' -EA:0 | ForEach-Object {
-    # ------------------------------
     $InstanceId = (${_}.InstanceId);
     $RegEdit = @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\${InstanceId}"; Name="Capabilities"; };
     If ((Test-Path -Path (${RegEdit}.Path)) -Eq $True) {
@@ -15,7 +14,6 @@ If ($True) {
       If ((${GetEachItemProp}) -NE (${RegEdit}.Value)) {
         Set-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -Value (${RegEdit}.Value);
       }
-      # ------------------------------
       $ParentInstanceId = (Get-PnpDeviceProperty -KeyName 'DEVPKEY_Device_Parent' -InstanceId "${InstanceId}" | Select-Object -ExpandProperty "Data" -EA:0);
       $RegEditParent = @{ Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\${ParentInstanceId}"; Name="Capabilities"; };
       If ((Test-Path -Path (${RegEditParent}.Path)) -Eq $True) {
@@ -28,7 +26,6 @@ If ($True) {
           Set-ItemProperty -LiteralPath (${RegEditParent}.Path) -Name (${RegEditParent}.Name) -Value (${RegEditParent}.Value);
         }
       }
-      # ------------------------------
     }
   }
 }

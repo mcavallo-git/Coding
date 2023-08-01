@@ -14,7 +14,9 @@
 ' ============================================================
 '   Trigger:
 '
-'     At system startup (delay task for 30 seconds) - After triggered, repeat every 5 minutes for a duration of 1439 minutes
+'     Begin the task [ At system startup ]
+'       ↳ Delay task for [ 30 seconds ] 
+'       ↳ Repeat task every [ 5 minutes ] for a duration of [ Indefinitely ]
 '
 ' ============================================================
 '   Action:

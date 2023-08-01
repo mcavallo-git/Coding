@@ -5,13 +5,26 @@
 # GET WEB RESPONSE
 #
 
-# Invoke-WebRequest - Get a web response
+
+# Invoke-WebRequest (Ex 1) - Get the ISP for current WAN (internet) connection
 If ($True) {
-  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  $URL="https://ipinfo.io/org";
+  [System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  # Ensure TLS 1.2 exists amongst available HTTPS Protocols
   $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
-  $ResponseObj=(Invoke-WebRequest -UseBasicParsing -Uri ("https://storage.googleapis.com/kubernetes-release/release/stable.txt")); # Get the latest stable version of kubectl
-  $LatestVersion=(${ResponseObj}.Content);
-  Write-Host "Info:  kubectl - latest available version = [ ${LatestVersion} ]";
+  $ResponseObj=(Invoke-WebRequest -UseBasicParsing -Uri ("${URL}"));
+  $ResponseContent=([String](${ResponseObj} | Select-Object -ExpandProperty "Content")).Trim();
+  ${ResponseContent};
+}
+
+
+# Invoke-WebRequest (Ex 2) - Get the latest stable version of kubectl
+If ($True) {
+  $URL="https://storage.googleapis.com/kubernetes-release/release/stable.txt";
+  [System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  # Ensure TLS 1.2 exists amongst available HTTPS Protocols
+  $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
+  $ResponseObj=(Invoke-WebRequest -UseBasicParsing -Uri ("${URL}"));
+  $ResponseContent=([String](${ResponseObj} | Select-Object -ExpandProperty "Content")).Trim();
+  ${ResponseContent};
 }
 
 
@@ -22,7 +35,7 @@ If ($True) {
 
 # Invoke-WebRequest - Download a file
 If ($True) {
-  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  [System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  # Ensure TLS 1.2 exists amongst available HTTPS Protocols
   $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
   Invoke-WebRequest -UseBasicParsing -Uri ("https://aka.ms/installazurecliwindows") -OutFile ("${HOME}\Downloads\AzureCLI.msi"); # Download AZ CLI Installer
 }
@@ -30,14 +43,14 @@ If ($True) {
 
 # System.Net.WebClient - Download a file (ex 1)
 If ($True) {
-  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  [System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  # Ensure TLS 1.2 exists amongst available HTTPS Protocols
   $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
   $(New-Object System.Net.WebClient).DownloadFile(([System.Net.HttpWebRequest]::Create("https://github.com/winsw/winsw/releases/download/v2.7.0/WinSW.NET4.exe").GetResponse().ResponseUri.AbsoluteUri),"${HOME}\Downloads\AzureCLI.msi"); # Download AZ CLI Installer
 }
 
 # System.Net.WebClient - Download a file (ex 2)
 If ($True) {
-  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  [System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  # Ensure TLS 1.2 exists amongst available HTTPS Protocols
   $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
   $(New-Object System.Net.WebClient).DownloadFile(([System.Net.HttpWebRequest]::Create("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer").GetResponse().ResponseUri.AbsoluteUri),"${HOME}\Downloads\NotepadReplacerSetup.exe"); # Download "NotepadReplacer.exe"
 }
@@ -51,7 +64,7 @@ If ($True) {
 If ($True) {
 
   # Invoke-WebRequest - Get a web response
-  [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
+  [System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  # Ensure TLS 1.2 exists amongst available HTTPS Protocols
   $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
 
   $ResponseObj=(Invoke-WebRequest -UseBasicParsing -Uri ("https://storage.googleapis.com/kubernetes-release/release/stable.txt")); # Get the latest stable version of kubectl
@@ -109,6 +122,12 @@ Add-Type -AssemblyName ('System.IO.Compression.FileSystem');
 
 # Example 2 - Download Notepad Replacer
 Invoke-WebRequest -UseBasicParsing -Uri ("https://www.binaryfortress.com/Data/Download/?package=notepadreplacer") -OutFile ("${HOME}\Downloads\NotepadReplacerSetup.exe") -TimeoutSec (7.5);
+
+
+# ------------------------------------------------------------
+
+# Note: Windows Server 2016 and older OS'es may require TLS 1.2 to be forced (instead of appended) via:
+[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; # Force TLS1.2 (otherwise often throws error in Win2016)
 
 
 # ------------------------------------------------------------

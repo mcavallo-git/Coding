@@ -2,9 +2,67 @@
 
 # Screw Dimensions, Sizes
 
+<!-- ------------------------------ -->
+
+***
+## Preface
+  - > **Screws with a diameter smaller than ~1/4" have a nominal size indicated by a number (e.g. #8 or #10). 1/4" and larger diameters are shown as inches.**. <sup><a href="http://www.hurripanel.com/content/218822/pdf_docs/screw_size_chart.pdf">Citation</a></sup>
+
+<!-- ------------------------------ -->
+
+***
+## Imperial Screw Size Chart (UTS)
+  - | Screw Size<br />/ Gauge | Nearest Fraction<br />(SAE) | Thread Diameter<br />(SAE) | Thread Diameter<br />(Metric) |
+    | ----------------------: | --------------------------: | -------------------------: | ----------------------------: |
+    |                  `#000` |                     `1/32"` |                   `0.034"` |                    `0.860 mm` |
+    |                   `#00` |                     `3/64"` |                   `0.047"` |                    `1.190 mm` |
+    |                    `#0` |                     `1/16"` |                   `0.060"` |                    `1.524 mm` |
+    |                    `#1` |                     `5/64"` |                   `0.073"` |                    `1.854 mm` |
+    |                    `#2` |                     `3/32"` |                   `0.086"` |                    `2.184 mm` |
+    |                    `#3` |                     `3/32"` |                   `0.099"` |                    `2.515 mm` |
+    |                    `#4` |                     `7/64"` |                   `0.112"` |                    `2.845 mm` |
+    |                    `#5` |                      `1/8"` |                   `0.125"` |                    `3.175 mm` |
+    |                    `#6` |                     `9/64"` |                   `0.138"` |                    `3.500 mm` |
+    |                    `#8` |                     `5/32"` |                   `0.164"` |                    `4.166 mm` |
+    |                   `#10` |                     `3/16"` |                   `0.190"` |                    `4.826 mm` |
+    |                   `#12` |                     `7/32"` |                   `0.216"` |                    `5.486 mm` |
+    |                  `1/4"` |                         `-` |                   `0.250"` |                    `6.350 mm` |
+    |                 `5/16"` |                         `-` |                   `0.313"` |                    `7.940 mm` |
+    |                  `3/8"` |                         `-` |                   `0.375"` |                    `9.530 mm` |
+    |                  `1/8"` |                         `-` |                   `0.404"` |                   `10.271 mm` |
+    |                 `7/16"` |                         `-` |                   `0.438"` |                   `11.110 mm` |
+    |                  `1/2"` |                         `-` |                   `0.500"` |                   `12.700 mm` |
+    |                 `9/16"` |                         `-` |                   `0.563"` |                   `14.290 mm` |
+    |                  `5/8"` |                         `-` |                   `0.625"` |                   `15.880 mm` |
+    |                  `3/8"` |                         `-` |                   `0.671"` |                   `17.054 mm` |
+    |                `11/16"` |                         `-` |                   `0.688"` |                   `17.460 mm` |
+    |                  `3/4"` |                         `-` |                   `0.750"` |                   `19.050 mm` |
+    |                `13/16"` |                         `-` |                   `0.813"` |                   `20.640 mm` |
+    |                  `1/2"` |                         `-` |                   `0.836"` |                   `21.222 mm` |
+    |                  `7/8"` |                         `-` |                   `0.875"` |                   `22.230 mm` |
+    |                `15/16"` |                         `-` |                   `0.938"` |                   `23.810 mm` |
+    |                    `1"` |                         `-` |                   `1.000"` |                   `25.400 mm` |
+    |                `1-1/8"` |                         `-` |                   `1.125"` |                   `28.575 mm` |
+    |                `1-1/4"` |                         `-` |                   `1.250"` |                   `31.750 mm` |
+    |                `1-3/8"` |                         `-` |                   `1.375"` |                   `34.925 mm` |
+    |                `1-1/2"` |                         `-` |                   `1.500"` |                   `38.100 mm` |
+    |                `1-3/4"` |                         `-` |                   `1.750"` |                   `44.450 mm` |
+    |                    `2"` |                         `-` |                   `2.000"` |                   `50.800 mm` |
+    |                `2-1/4"` |                         `-` |                   `2.250"` |                   `57.150 mm` |
+    |                `2-3/2"` |                         `-` |                   `2.500"` |                   `63.500 mm` |
+    |                `2-3/4"` |                         `-` |                   `2.750"` |                   `69.850 mm` |
+    |                    `3"` |                         `-` |                   `3.000"` |                   `76.200 mm` |
+    |                `3-1/4"` |                         `-` |                   `3.250"` |                   `82.550 mm` |
+    |                `3-3/2"` |                         `-` |                   `3.500"` |                   `88.900 mm` |
+    |                `3-3/4"` |                         `-` |                   `3.750"` |                   `95.250 mm` |
+    |                    `4"` |                         `-` |                   `4.000"` |                  `101.600 mm` |
+
+
+
 ***
 
 - ## Citation(s)
+  - [homerepairgeek.com | Screw Size Chart: Find the Dimensions You Need - Home Repair Geek](https://homerepairgeek.com/tips/screw-size-chart.html)
   - [www.boltdepot.com | US Machine Screw Diameters](https://www.boltdepot.com/fastener-information/machine-screws/machine-screw-diameter.aspx)
   - [www.boltdepot.com | Wood Screw Diameters](https://www.boltdepot.com/fastener-information/wood-screws/Wood-Screw-Diameter.aspx)
   - [www.bsstainless.com | American Screw Sizes](https://www.bsstainless.com/american-screw-sizes)

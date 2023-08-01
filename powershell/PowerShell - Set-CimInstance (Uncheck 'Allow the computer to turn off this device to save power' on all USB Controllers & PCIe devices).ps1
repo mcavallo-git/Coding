@@ -28,6 +28,10 @@ $Args_SchedTask=@{ TaskName="SetDeviceProperties_DisableUsbPciePowerSaver"; Desc
 #
 # Citation(s)
 #
-#   www.reddit.com  |  "Uncheck "Allow the computer to turn off this device to save power" on all USB Controllers : PowerShell"  |  https://www.reddit.com/r/PowerShell/comments/lr5iyk/uncheck_allow_the_computer_to_turn_off_this/
+#   learn.microsoft.com  |  "Get-CimInstance (CimCmdlets) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/get-ciminstance
+#
+#   learn.microsoft.com  |  "Set-CimInstance (CimCmdlets) - PowerShell | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/cimcmdlets/set-ciminstance
+#
+#   www.reddit.com  |  "Uncheck 'Allow the computer to turn off this device to save power' on all USB Controllers : PowerShell"  |  https://www.reddit.com/r/PowerShell/comments/lr5iyk/uncheck_allow_the_computer_to_turn_off_this/
 #
 # ------------------------------------------------------------

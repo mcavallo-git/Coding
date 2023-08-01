@@ -4,9 +4,9 @@
 # Note: This script is intended to be triggered by a Scheduled Task every minute (to pull latest sensor data for upstream monitoring software)
 # ------------------------------------------------------------
 
-$Benchmark = New-Object System.Diagnostics.Stopwatch;
-$Benchmark.Reset(); # Reuse same benchmark/stopwatch object by resetting it
-$Benchmark.Start();
+# $Benchmark = New-Object System.Diagnostics.Stopwatch;
+# $Benchmark.Reset(); # Reuse same benchmark/stopwatch object by resetting it
+# $Benchmark.Start();
 
 $Delimiter = ([string][char]0x21FF);
 

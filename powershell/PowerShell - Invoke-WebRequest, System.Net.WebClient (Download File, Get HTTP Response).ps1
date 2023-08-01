@@ -6,9 +6,9 @@
 #
 
 
-# Invoke-WebRequest (Ex 1) - Get the ISP for current WAN (internet) connection
+# Invoke-WebRequest (Ex 1) - Get IP information for current WAN (internet) connection
 If ($True) {
-  $URL="https://ipinfo.io/org";
+  $URL="https://ipinfo.io/json";
   [System.Net.ServicePointManager]::SecurityProtocol=([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  # Ensure TLS 1.2 exists amongst available HTTPS Protocols
   $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
   $ResponseObj=(Invoke-WebRequest -UseBasicParsing -Uri ("${URL}"));

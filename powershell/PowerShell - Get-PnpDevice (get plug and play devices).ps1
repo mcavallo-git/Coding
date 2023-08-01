@@ -117,14 +117,14 @@ If ($True) {
         Description="Defines the capabilities for a given device. Citation [ https://github.com/tpn/winsdk-10/blob/master/Include/10.0.10240.0/um/cfgmgr32.h#1069 ]";
       };
       If ((Test-Path -Path (${RegEditParent}.Path)) -Eq $True) {
-        $GetEachItemProp = (Get-ItemPropertyValue -LiteralPath (${RegEditParent}.Path) -Name (${RegEditParent}.Name) -ErrorAction ("Stop"));
+        $GetEachParentItemProp = (Get-ItemPropertyValue -LiteralPath (${RegEditParent}.Path) -Name (${RegEditParent}.Name) -ErrorAction ("Stop"));
         ${RegEditParent}.Value = $GetEachItemProp;
         # Bitwise slice off any instances of the Capability to-remove
         ${RemoveCapabilities} | ForEach-Object {
           # Note that the bitwise AND will be zero if the value doesn't include the value to remove - it will only modify values which require an update.
           ${RegEditParent}.Value = ((${RegEditParent}.Value) - ((${RegEditParent}.Value) -band ${_}));
         }
-        If ((${GetEachItemProp}) -Eq (${RegEditParent}.Value)) {
+        If ((${GetEachParentItemProp}) -Eq (${RegEditParent}.Value)) {
           Write-Host "`nInfo:  (Skipped) Registry key `"$(${RegEditParent}.Path)`"'s property `"$(${RegEditParent}.Name)`" is already set to value `"$(${RegEditParent}.Value)`"`n";
         } Else {
           Write-Host "`nInfo:  Setting Registry key `"$(${RegEditParent}.Path)`"'s property `"$(${RegEditParent}.Name)`" to value `"$(${RegEditParent}.Value)`"...`n";

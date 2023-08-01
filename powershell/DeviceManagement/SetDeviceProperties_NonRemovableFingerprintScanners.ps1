@@ -1,5 +1,6 @@
 # ------------------------------------------------------------
-# PowerShell - Set Biometric Fingerprint Reader Devices as Non-Removable
+# SetDeviceProperties_NonRemovableFingerprintScanners
+#   |-->  PowerShell - Set Biometric Fingerprint Reader Devices as Non-Removable
 # ------------------------------------------------------------
 #
 # Disable the 'Safely Remove Hardware and Eject Media' capability for target Plug and Play (PnP) devices

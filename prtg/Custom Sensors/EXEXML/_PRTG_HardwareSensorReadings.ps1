@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# _HardwareSensorReadings.ps1
+# _PRTG_HardwareSensorReadings.ps1
 # ------------------------------------------------------------
 # Note: This script is intended to be ran as a Scheduled Task every minute
 # ------------------------------------------------------------
@@ -66,8 +66,8 @@ If ($True) {
   $Voltage_Motherboard_12V =  @{Avg="";Max="";Min="";Logfile="Voltage-Motherboard-12V";};
   $Voltage_Motherboard_VBAT = @{Avg="";Max="";Min="";Logfile="Voltage-Motherboard-CMOS-Battery";};
 
-  $Sensor_ErrorMessage_HWiNFO="ERROR - HWiNFO sensor reading returned a null or empty value";
-  $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor sensor reading returned a null or empty value";
+  $ErrorMessage_HWiNFO = "ERROR - HWiNFO sensor reading returned a null or empty value";
+  $ErrorMessage_OHW = "ERROR - Open Hardware Monitor sensor reading returned a null or empty value";
 
 }
 
@@ -83,7 +83,7 @@ If ($True) {
   $Logfile_Input_FullPath_HWiNFO = "${Logfile_Dirname_HWiNFO}\Reports\${Logfile_Input_StarsWith_HWiNFO}$(Get-Date -UFormat '%Y-%m-%d').csv";
   If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_HWiNFO}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 
-    $Sensor_ErrorMessage_OHW="ERROR - HWiNFO64 logfile not found: ${Logfile_Input_FullPath_HWiNFO}";
+    $ErrorMessage_OHW="ERROR - HWiNFO64 logfile not found: ${Logfile_Input_FullPath_HWiNFO}";
 
   } Else {
 
@@ -315,7 +315,7 @@ If ($True) {
 
         # Error - All values found to be empty, send error in the JSON body (instead of sending empty data)
         If (${EmptyValues} -GE 3) {
-          $Output_HashTable = @{"prtg"=@{"error"=1;"text"="${Sensor_ErrorMessage_HWiNFO}";};};
+          $Output_HashTable = @{"prtg"=@{"error"=1;"text"="${ErrorMessage_HWiNFO}";};};
         }
 
         $Output_Json = (${Output_HashTable} | ConvertTo-Json -Depth 50 -Compress);
@@ -703,7 +703,7 @@ If ($True) {
 #           $Results_Fullpath=("${RSM_Dirname}\Sensors\${Results_Basename}");
 #           # Output the results to sensor-specific files
 #           If ([String]::IsNullOrEmpty(${SensorValue})) {
-#             Set-Content -LiteralPath ("${Results_Fullpath}") -Value (":${Sensor_ErrorMessage_HWiNFO}") -NoNewline;
+#             Set-Content -LiteralPath ("${Results_Fullpath}") -Value (":${ErrorMessage_HWiNFO}") -NoNewline;
 #           } Else {
 #             Set-Content -LiteralPath ("${Results_Fullpath}") -Value ("${SensorValue}:OK") -NoNewline;
 #           }
@@ -739,7 +739,7 @@ If ($True) {
 #   $Logfile_Input_FullPath_OHW = "${Logfile_Dirname_OHW}\${Logfile_Input_StarsWith_OHW}$(Get-Date -UFormat '%Y-%m-%d').csv";
 #   If ((Test-Path -PathType "Leaf" -Path ("${Logfile_Input_FullPath_OHW}") -ErrorAction ("SilentlyContinue")) -Eq $False) {
 #
-#     $Sensor_ErrorMessage_OHW="ERROR - Open Hardware Monitor logfile not found: ${Logfile_Input_FullPath_OHW}";
+#     $ErrorMessage_OHW="ERROR - Open Hardware Monitor logfile not found: ${Logfile_Input_FullPath_OHW}";
 #
 #   } Else {
 #
@@ -767,7 +767,7 @@ If ($True) {
 #       # Reset any logged data from a previous run
 #       Get-ChildItem -Path ("${Logfile_Dirname_OHW}\Sensors") -File -Recurse -Force -EA:0 `
 #         | Where-Object { ($_.Name -Like "*.txt") } `
-#         | ForEach-Object { Set-Content -LiteralPath ($_.FullName) -Value (":${Sensor_ErrorMessage_OHW}") -NoNewline; } `
+#         | ForEach-Object { Set-Content -LiteralPath ($_.FullName) -Value (":${ErrorMessage_OHW}") -NoNewline; } `
 #       ;
 #       # Rename the logfile - Allow OHW to recreate the logfile with updated headers (including (namely) missing gpu header columns)
 #       $Dirname = [IO.Path]::GetDirectoryName("${Logfile_Input_FullPath_OHW}");
@@ -1085,14 +1085,14 @@ If ($True) {
 #   @("Avg","Max","Min") | ForEach-Object {
 #
 #     $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
-#     $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
+#     $Sensor_ErrorMessage = "${ErrorMessage_HWiNFO}";
 #
 #     # If (("${_}") -Eq "HWiNFO") {
 #     #   $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
-#     #   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
+#     #   $Sensor_ErrorMessage = "${ErrorMessage_HWiNFO}";
 #     # } Else {
 #     #   $Logfile_Dirname = "${Logfile_Dirname_OHW}\Sensors";
-#     #   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_OHW}";
+#     #   $Sensor_ErrorMessage = "${ErrorMessage_OHW}";
 #     # }
 #
 #     # Output the sensor values to each of their individual log files (intended for simplified PRTG parsing via batch file using [ TYPE ... .txt ])
@@ -1388,7 +1388,7 @@ If ($True) {
 # $Benchmark.Stop();
 # $RunDuration=("$(${Benchmark}.Elapsed)");
 # If ([String]::IsNullOrEmpty("${RunDuration}")) {
-#   Write-Output ":${Sensor_ErrorMessage_OHW}" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
+#   Write-Output ":${ErrorMessage_OHW}" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
 # } Else {
 #   Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
 # }

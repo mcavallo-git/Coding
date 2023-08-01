@@ -1,5 +1,5 @@
 # ------------------------------------------------------------
-# _IPinfoSensorReadings.ps1
+# _PRTG_IPinfoSensorReadings.ps1
 # ------------------------------------------------------------
 # Note: This script is intended to be ran as a Scheduled Task every minute
 # ------------------------------------------------------------
@@ -18,6 +18,11 @@ If ($True) {
   $IP_Address = "";
 
   $ISP_Name = "";
+
+  $ErrorMessage_IPinfo_EmptyValue = "ERROR - IPinfo API call returned a null or empty value";
+
+  $ErrorMessage_IPinfo_InvalidToken = "ERROR - Access token not found at filepath [ ${Filepath_AccessToken_IPinfo} ] - Create a token via [ https://ipinfo.io/account/token ]";
+
 
   # Ensure output directories exist
   If ((Test-Path "${Logfile_Dirname_IPinfo}\Sensors") -NE $True) {
@@ -70,10 +75,10 @@ If ($True) {
   # Check for errors
   If ([String]::IsNullOrEmpty("${AccessToken}")) {
     # Error - No API token has been setup (yet)
-    $Output_HashTable = @{"prtg"=@{"error"=1;"text"="ERROR - Access token not found at filepath [ ${Filepath_AccessToken_IPinfo} ] - Create a token via [ https://ipinfo.io/account/token ]";};};
+    $Output_HashTable = @{"prtg"=@{"error"=1;"text"="${ErrorMessage_IPinfo_InvalidToken}";};};
   } ElseIf (${EmptyValues} -GE 2) {
     # Error - All values found to be empty, send error in the JSON body (instead of sending empty data)
-    $Output_HashTable = @{"prtg"=@{"error"=1;"text"="ERROR - IPinfo sensor reading returned a null or empty value";};};
+    $Output_HashTable = @{"prtg"=@{"error"=1;"text"="${ErrorMessage_IPinfo_EmptyValue}";};};
   }
 
   $Output_Json = (${Output_HashTable} | ConvertTo-Json -Depth 50 -Compress);

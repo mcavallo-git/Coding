@@ -58,6 +58,9 @@ Get-PnpDevice -Class 'DiskDrive' -FriendlyName '*USB*Sandisk*' -Status 'OK';
 
 
 # ------------------------------------------------------------
+#
+# Disable the 'Safely Remove Hardware and Eject Media' capability for target Plug and Play (PnP) devices
+#
 
 If ($True) {
 

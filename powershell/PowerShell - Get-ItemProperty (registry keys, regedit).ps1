@@ -9,28 +9,28 @@
 
 If ($True) {
 
-$RegEdit = @{
-	Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
-	Name="BingSearchEnabled";
-	Type="DWord";
-	Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com. Set to '1' to resolve high-cpu bug from Windows-Update KB4512941 (2019-Sept) where Cortana is seen using high amounts (40%+) of CPU resources (under Task Manager).";
-	Value=0;
-};
+  $RegEdit = @{
+    Path="HKCU:\Software\Microsoft\Windows\CurrentVersion\Search";
+    Name="BingSearchEnabled";
+    Type="DWord";
+    Description="Enables (1) or Disables (0) Cortana's ability to send search-resutls to Bing.com. Set to '1' to resolve high-cpu bug from Windows-Update KB4512941 (2019-Sept) where Cortana is seen using high amounts (40%+) of CPU resources (under Task Manager).";
+    Value=0;
+  };
 
-If ((Test-Path -Path (${RegEdit}.Path)) -Eq $True) {
-	$GetEachItemProp = (Get-ItemPropertyValue -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -ErrorAction ("Stop"));
-	If ((${GetEachItemProp}) -Eq (${RegEdit}.Value)) {
-		Write-Host "`nInfo:  (Skipped) Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" is already set to value `"$(${RegEdit}.Value)`"";
-	} Else {
-		Write-Host "`nInfo:  Setting Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" to value `"$(${RegEdit}.Value)`"...";
-		Set-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -Value (${RegEdit}.Value);
-	}
-} Else {
-	Write-Host "`nInfo:  Creating Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" with type `"$(${RegEdit}.Type)`" and value `"$(${RegEdit}.Value)`"...";
-	New-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -PropertyType (${RegEdit}.Type) -Value (${RegEdit}.Value);
-}
-Write-Host "`nInfo:  Getting info for Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`"...";
-Get-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name);
+  If ((Test-Path -Path (${RegEdit}.Path)) -Eq $True) {
+    $GetEachItemProp = (Get-ItemPropertyValue -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -ErrorAction ("Stop"));
+    If ((${GetEachItemProp}) -Eq (${RegEdit}.Value)) {
+      Write-Host "`nInfo:  (Skipped) Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" is already set to value `"$(${RegEdit}.Value)`"";
+    } Else {
+      Write-Host "`nInfo:  Setting Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" to value `"$(${RegEdit}.Value)`"...";
+      Set-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -Value (${RegEdit}.Value);
+    }
+  } Else {
+    Write-Host "`nInfo:  Creating Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" with type `"$(${RegEdit}.Type)`" and value `"$(${RegEdit}.Value)`"...";
+    New-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -PropertyType (${RegEdit}.Type) -Value (${RegEdit}.Value);
+  }
+  Write-Host "`nInfo:  Getting info for Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`"...";
+  Get-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name);
 
 }
 

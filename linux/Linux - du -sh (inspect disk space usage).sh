@@ -14,14 +14,15 @@ du -d 0 "$(pwd)/"* 2>'/dev/null' | sort -n;
 
 # ------------------------------------------------------------
 #
-#  List files/directores sorted by filesize
+# Filesize of each directory in $(pwd) + sort
 #
 
 cd "/var/log";
-du -d 0 "$(pwd)/"* 2>'/dev/null' | sort -n;
+du -b -d 0 "$(pwd)/"* 2>'/dev/null' | sort -n;  # Equivalent to  [ du --max-depth=0 "$(pwd)/"* 2>'/dev/null' | sort --numeric-sort; ]
 
-# Equivalent to:
-# du --max-depth=0 "$(pwd)/"* 2>'/dev/null' | sort --numeric-sort;
+
+# Same as above but exclude [ .git/* ] nested directories
+du -b -d 0 "${REPOS_DIR}/Coding/"* --exclude='.git/**/*' 2>'/dev/null' | sort -n;
 
 
 # ------------------------------------------------------------

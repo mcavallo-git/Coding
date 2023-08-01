@@ -2,13 +2,23 @@
 # PowerShell - Set-CimInstance (Uncheck 'Allow the computer to turn off this device to save power' on all USB Controllers & PCIe devices)
 # ------------------------------------------------------------
 
-# Option 1 - WQL Query
+
+# GET  (WQL Query - Gets USB & PCI devices with UN-CHECKED option 'Allow the computer to turn off this device to save power')
+Get-CimInstance -Namespace root/WMI -Query 'SELECT * FROM MSPower_DeviceEnable WHERE ( ( InstanceName LIKE "USB\\%" ) OR ( InstanceName LIKE "PCI\\%" ) ) AND ( Enable="False" ) ';
+
+# GET  (WQL Query - Gets USB & PCI devices with CHECKED option 'Allow the computer to turn off this device to save power')
+Get-CimInstance -Namespace root/WMI -Query 'SELECT * FROM MSPower_DeviceEnable WHERE ( ( InstanceName LIKE "USB\\%" ) OR ( InstanceName LIKE "PCI\\%" ) ) AND ( Enable="True" ) ';
+
+
+# ------------------------------------------------------------
+
+# SET  (Option 1 - WQL Query)
 Set-CimInstance -Namespace root/WMI -Query 'SELECT * FROM MSPower_DeviceEnable WHERE InstanceName LIKE "USB\\%" OR InstanceName LIKE "PCI\\%"' -Property @{Enable=$false};
 
-# Option 1 - WQL Query (prepped for scheduled task)
+# SET  (Option 1 - WQL Query, prepped for scheduled task)
 Set-CimInstance -Namespace root/WMI -Query ((write SELECT` *` FROM` MSPower_DeviceEnable` WHERE` InstanceName` LIKE` )+([string][char]34)+(write USB\\%)+([string][char]34)+([string][char]32)+(write OR` InstanceName` LIKE` )+([string][char]34)+(write PCI\\%)+([string][char]34)) -Property @{Enable=((gv false).Value)};
 
-# Option 2 - For-Loop
+# SET  (Option 2 - For-Loop)
 foreach ($EACH_USB_PWR_MGMT in (Get-CimInstance -ClassName MSPower_DeviceEnable -Namespace root/WMI | Where-Object {($_.InstanceName -Like 'USB*') -Or ($_.InstanceName -Like 'PCI*')})) { ${EACH_USB_PWR_MGMT}.Enable=$false; Set-CimInstance -InputObject ${EACH_USB_PWR_MGMT}; };
 
 

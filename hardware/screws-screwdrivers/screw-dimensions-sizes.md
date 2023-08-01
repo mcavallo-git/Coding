@@ -6,7 +6,7 @@
 
 ***
 ## Preface
-  - > **Screws with a diameter smaller than ~1/4" have a nominal size indicated by a number (e.g. #8 or #10). 1/4" and larger diameters are shown as inches.**. <sup><a href="http://www.hurripanel.com/content/218822/pdf_docs/screw_size_chart.pdf">Citation</a></sup>
+  - > **Screws with a diameter smaller than ~1/4" have a nominal size indicated by a number (e.g. #8 or #10). 1/4" and larger diameters are shown as inches.** <sup><a href="http://www.hurripanel.com/content/218822/pdf_docs/screw_size_chart.pdf">Citation</a></sup>
 
 <!-- ------------------------------ -->
 

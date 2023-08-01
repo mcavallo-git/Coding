@@ -20,7 +20,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '     Run with highest privileges (CHECKED)
 '
 '   Trigger:
-'     At system startup (delay task for 30 seconds) - After triggered, repeat every 1 minute for a duration of 1439 minutes
+'     At system startup (delay task for 30 seconds) - After triggered, repeat every [ 1 minute ] for a duration of [ Indefinitely ]
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe

@@ -1,17 +1,23 @@
 # ------------------------------------------------------------
+# https://github.com/mcavallo-git/Coding/blob/main/powershell/DeviceManagement/SetDeviceProperties_NonRemovableFingerprintScanners.verbose.ps1
+# ------------------------------------------------------------
 #
 # Disable the 'Safely Remove Hardware and Eject Media' capability for target Plug and Play (PnP) devices
 #
 
 If ($True) {
 
-  # Set the list of capabilities to remove
+  # Set the class/friendlyname of devices to update
+  $PnP_Class = "Biometric";
+  $PnP_FriendlyName = "*Fingerprint*";
+
+  # Set the list of capabilities to remove (additional "capabilities bits" listed at the bottom of this script)
   $RemoveCapabilities = @()
-  $RemoveCapabilities += 0x00000002;  # "CM_DEVCAP_EJECTSUPPORTED" capability, e.g. flags the device as [ an ejectable device ]
-  $RemoveCapabilities += 0x00000004;  # "CM_DEVCAP_REMOVABLE" capability, e.g. flags the device as [ a removable device ]
+  $RemoveCapabilities += 0x00000002;    # CM_DEVCAP_EJECTSUPPORTED  (flags the device as ejectable)
+  $RemoveCapabilities += 0x00000004;    # CM_DEVCAP_REMOVABLE       (flags the device as removable)
 
   # Get the list of devices to remove capabilities from
-  Get-PnpDevice -Class 'Biometric' -FriendlyName '*Fingerprint*' -Status 'OK' -EA:0 | ForEach-Object {
+  Get-PnpDevice -Class "${PnP_Class}" -FriendlyName "${PnP_FriendlyName}" -Status 'OK' -EA:0 | ForEach-Object {
 
     $InstanceId = (${_}.InstanceId);
 
@@ -81,3 +87,39 @@ If ($True) {
   }
 
 }
+
+
+# ------------------------------------------------------------
+#
+# //
+# // Capabilities bits (the capability value is returned from calling
+# // CM_Get_DevInst_Registry_Property with CM_DRP_CAPABILITIES property)
+# //
+#
+# $RemoveCapabilities += 0x00000001;  # CM_DEVCAP_LOCKSUPPORTED
+# $RemoveCapabilities += 0x00000002;  # CM_DEVCAP_EJECTSUPPORTED
+# $RemoveCapabilities += 0x00000004;  # CM_DEVCAP_REMOVABLE
+# $RemoveCapabilities += 0x00000008;  # CM_DEVCAP_DOCKDEVICE
+# $RemoveCapabilities += 0x00000010;  # CM_DEVCAP_UNIQUEID
+# $RemoveCapabilities += 0x00000020;  # CM_DEVCAP_SILENTINSTALL
+# $RemoveCapabilities += 0x00000040;  # CM_DEVCAP_RAWDEVICEOK
+# $RemoveCapabilities += 0x00000080;  # CM_DEVCAP_SURPRISEREMOVALOK
+# $RemoveCapabilities += 0x00000100;  # CM_DEVCAP_HARDWAREDISABLED
+# $RemoveCapabilities += 0x00000200;  # CM_DEVCAP_NONDYNAMIC
+#
+#
+# ------------------------------------------------------------
+#
+# Citation(s)
+#
+#   github.com  |  "Capabilities bits (the capability value is returned from calling CM_Get_DevInst_Registry_Property with CM_DRP_CAPABILITIES property) · GitHub"  |  https://github.com/tpn/winsdk-10/blob/master/Include/10.0.10240.0/um/cfgmgr32.h#1069
+#
+#   learn.microsoft.com  |  "Get-PnpDevice (PnpDevice) | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/pnpdevice/get-pnpdevice
+#
+#   learn.microsoft.com  |  "Get-PnpDeviceProperty (PnpDevice) | Microsoft Learn"  |  https://learn.microsoft.com/en-us/powershell/module/pnpdevice/get-pnpdeviceproperty
+#
+#   learn.microsoft.com  |  "DEVPKEY_Device_Parent - Windows drivers | Microsoft Learn"  |  https://learn.microsoft.com/en-us/windows-hardware/drivers/install/devpkey-device-parent
+#
+#   superuser.com  |  "windows 10 - How to remove my mouse from the "Safely Remove Hardware" - Super User"  |  https://superuser.com/a/1676269
+#
+# ------------------------------------------------------------

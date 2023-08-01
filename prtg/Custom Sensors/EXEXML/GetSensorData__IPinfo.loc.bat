@@ -1,0 +1,1 @@
+TYPE C:\ISO\IPinfo\Sensors\IPinfo.loc.json

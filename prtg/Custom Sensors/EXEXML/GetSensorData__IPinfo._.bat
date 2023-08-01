@@ -1,1 +1,0 @@
-TYPE C:\ISO\IPinfo\Sensors\IPinfo._.json

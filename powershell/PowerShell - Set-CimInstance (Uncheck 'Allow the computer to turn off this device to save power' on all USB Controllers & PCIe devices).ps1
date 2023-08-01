@@ -1,7 +1,6 @@
 # ------------------------------------------------------------
-# PowerShell - Set-CimInstance (Uncheck 'Allow the computer to turn off this device to save power' on all USB Controllers & PCIe devices)
+# PowerShell - Get-CimInstance, Set-CimInstance (get, set device manager settings)
 # ------------------------------------------------------------
-
 
 # GET  (WQL Query - Gets USB & PCI devices with UN-CHECKED option 'Allow the computer to turn off this device to save power')
 Get-CimInstance -Namespace root/WMI -Query 'SELECT * FROM MSPower_DeviceEnable WHERE ( ( InstanceName LIKE "USB\\%" ) OR ( InstanceName LIKE "PCI\\%" ) ) AND ( Enable="False" ) ';

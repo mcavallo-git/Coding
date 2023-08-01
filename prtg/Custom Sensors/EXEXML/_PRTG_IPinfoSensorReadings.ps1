@@ -77,7 +77,7 @@ If ($True) {
       $Output_HashTable = @{"prtg"=@{"error"=1;"text"="${ErrorMessage_IPinfo_EmptyValue}";};};
     } Else {
       # Success - Use the sensor data in the results
-      $Output_HashTable.prtg.result += @{ "channel"="${Each_JsonProp}"; "decimalmode"=0; "float"=0; "limitmode"=0; "unit"="Percent"; "value"=100; };
+      $Output_HashTable.prtg.result += @{ "channel"="${Each_JsonValue}"; "decimalmode"=0; "float"=0; "limitmode"=0; "unit"="Percent"; "value"=100; };
     }
 
     # Convert the data to JSON

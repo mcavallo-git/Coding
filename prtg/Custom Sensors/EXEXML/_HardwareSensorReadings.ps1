@@ -221,7 +221,7 @@ If ($True) {
     If ($True) {
 
       ${MinMaxAvg_Results}.Keys | ForEach-Object {
-        
+
         $Each_Header_Name_Unique=("$_");
         $Each_Header_Name=(("${Each_Header_Name_Unique}").Split("${Delimiter}")[0]);
 
@@ -337,33 +337,33 @@ If ($True) {
     ##
     #
     # If ($True) {
-    # 
+    #
     #   ${MinMaxAvg_Results}.Keys | ForEach-Object {
     #     # Walk through the parsed min/max array
-    # 
+    #
     #     $Each_Header_Name_Unique=("$_");
     #     $Each_Header_Name=(("${Each_Header_Name_Unique}").Split("${Delimiter}")[0]);
-    # 
+    #
     #     $Each_MinMaxAvg=(${MinMaxAvg_Results}.(${Each_Header_Name_Unique}));
-    # 
+    #
     #     $Each_Header_Units=(${Each_MinMaxAvg}.Units);
-    # 
+    #
     #     $Each_Avg=(${Each_MinMaxAvg}.Avg);
     #     $Each_Max=(${Each_MinMaxAvg}.Max);
     #     $Each_Min=(${Each_MinMaxAvg}.Min);
-    # 
+    #
     #     # ------------------------------
-    # 
+    #
     #     @("Avg","Max","Min","Units","UnitCategory") | ForEach-Object {
-    # 
+    #
     #       # ---------------
-    # 
+    #
     #       If (${Each_Header_Units} -Eq "%") {
     #         #
     #         # Percentages
     #         #
     #         ${Each_MinMaxAvg}.("UnitCategory") = "Percent";
-    # 
+    #
     #               If (${Each_Header_Name} -Match "^Drive Remaining Life")         { ${Lifespan_SSD_RemainingLife}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU Core Load")                { ${Load_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU Memory Controller Load")   { ${Load_GPU_MemoryController}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -376,29 +376,29 @@ If ($True) {
     #         # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_CHA_FAN3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         # } ElseIf (${Each_Header_Name} -Eq "_____") { ${Speed_FAN_PRC_W_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         }
-    # 
+    #
     #       # ---------------
-    # 
+    #
     #       } ElseIf (${Each_Header_Units} -Eq "MHz") {
     #         #
     #         # MHz (Megahertz)
     #         #
     #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-    # 
+    #
     #               If (${Each_Header_Name} -Match "^Core Clocks \(avg\)$") { ${Clock_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU Clock$")           { ${Clock_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU Memory Clock$")    { ${Clock_GPU_Memory}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^Memory Clock$")        { ${Clock_RAM_DIMMS}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         }
-    # 
+    #
     #       # ---------------
-    # 
+    #
     #       } ElseIf (${Each_Header_Units} -Eq "RPM") {
     #         #
     #         # RPM (Rotations Per Minute)
     #         #
     #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-    # 
+    #
     #               If (${Each_Header_Name} -Match "^AIO Pump") { ${Speed_FAN_RPM_AIO_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^Chassis1$") { ${Speed_FAN_RPM_CHA_FAN1}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^Chassis2$") { ${Speed_FAN_RPM_CHA_FAN2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -408,15 +408,15 @@ If ($True) {
     #       # } ElseIf (${Each_Header_Name} -Match "^CPU_OPT$") { ${Speed_FAN_RPM_CHIPSET}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^W_PUMP\+$") { ${Speed_FAN_RPM_W_PUMP}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         }
-    # 
+    #
     #       # ---------------
-    # 
+    #
     #       } ElseIf (${Each_Header_Units} -Eq "V") {
     #         #
     #         # Voltages
     #         #
     #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-    # 
+    #
     #               If (${Each_Header_Name} -Match "^CPU Core Voltage") { ${Voltage_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU Core Voltage") { ${Voltage_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU PCIe")         { ${Voltage_GPU_PCIE_12V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -425,30 +425,30 @@ If ($True) {
     #         } ElseIf (${Each_Header_Name} -Match "^\+12V$")           { ${Voltage_Motherboard_12V}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^VBAT$")            { ${Voltage_Motherboard_VBAT}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         }
-    # 
+    #
     #       # ---------------
-    # 
+    #
     #       } ElseIf (${Each_Header_Units} -Eq "W") {
     #         #
     #         # Watts
     #         #
     #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-    # 
+    #
     #               If (${Each_Header_Name} -Match "^CPU Package Power") { ${Power_CPU_Package}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU Power")         { ${Power_GPU_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^UPS Load")          { ${Power_UPS_Total}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         }
-    # 
+    #
     #       # ---------------
-    # 
+    #
     #       } ElseIf (${Each_Header_Units} -Match ".+C") {
     #         #
     #         # Degrees Celsius
     #         #
     #         ${Each_MinMaxAvg}.("UnitCategory") = "Temperature";
-    # 
+    #
     #         $Each_Header_Units = (([string]([char]0xB0))+("C"));
-    # 
+    #
     #               If (${Each_Header_Name} -Match "^CPU Die \(average\)$")       { ${Temp_CPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU Temperature$")          { ${Temp_GPU_Core}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^GPU Hot Spot Temperature$") { ${Temp_GPU_Hotspot}.(${_}) = (${Each_MinMaxAvg}.(${_}));
@@ -460,25 +460,25 @@ If ($True) {
     #         } ElseIf (${Each_Header_Name} -Match "^DIMM\[2\] Temperature$")    { ${Temp_RAM_DIMM_2}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         } ElseIf (${Each_Header_Name} -Match "^DIMM\[3\] Temperature$")    { ${Temp_RAM_DIMM_3}.(${_}) = (${Each_MinMaxAvg}.(${_}));
     #         }
-    # 
+    #
     #       # ---------------
-    # 
+    #
     #       } Else {
     #         #
     #         # Fallthrough
     #         #
-    # 
+    #
     #         ${Each_MinMaxAvg}.("UnitCategory") = "Custom";
-    # 
-    # 
+    #
+    #
     #       }
-    # 
+    #
     #       # ------------------------------
-    # 
+    #
     #     }
-    # 
+    #
     #   }
-    # 
+    #
     # }
     #
     ## ------------------------------
@@ -1077,16 +1077,16 @@ If ($True) {
 ##
 ## Output results to logfile(s)
 ##
-# 
+#
 # If ($False) {
-# 
+#
 #   # @("Avg","Max","Min","HWiNFO") | ForEach-Object {
-# 
+#
 #   @("Avg","Max","Min") | ForEach-Object {
-# 
+#
 #     $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
 #     $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
-# 
+#
 #     # If (("${_}") -Eq "HWiNFO") {
 #     #   $Logfile_Dirname = "${Logfile_Dirname_HWiNFO}\Sensors";
 #     #   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_HWiNFO}";
@@ -1094,11 +1094,11 @@ If ($True) {
 #     #   $Logfile_Dirname = "${Logfile_Dirname_OHW}\Sensors";
 #     #   $Sensor_ErrorMessage = "${Sensor_ErrorMessage_OHW}";
 #     # }
-# 
+#
 #     # Output the sensor values to each of their individual log files (intended for simplified PRTG parsing via batch file using [ TYPE ... .txt ])
-# 
+#
 #     # ------------------------------
-# 
+#
 #     # Clock - CPU
 #     If ([Math]::Ceiling("$(${Clock_CPU_Core}.(${_}))") -Eq 0) {
 #       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_CPU_Core}.Logfile).${_}.txt";
@@ -1123,9 +1123,9 @@ If ($True) {
 #     } Else {
 #       Write-Output "$(${Clock_RAM_DIMMS}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Clock_RAM_DIMMS}.Logfile).${_}.txt";
 #     }
-# 
+#
 #     # ------------------------------
-# 
+#
 #     # Fan Speed (RPM) - AIO Pump
 #     If ([String]::IsNullOrEmpty(${Speed_FAN_RPM_AIO_PUMP}.(${_}))) {  # May equal zero without errors
 #       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_AIO_PUMP}.Logfile).${_}.txt";
@@ -1162,9 +1162,9 @@ If ($True) {
 #     } Else {
 #       Write-Output "$(${Speed_FAN_RPM_W_PUMP}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_RPM_W_PUMP}.Logfile).${_}.txt";
 #     }
-# 
+#
 #     # ------------------------------
-# 
+#
 #     # Fan Speed (%) - CHA_FAN1
 #     If ([String]::IsNullOrEmpty(${Speed_FAN_PRC_CHA_FAN1}.(${_}))) {  # May equal zero without errors
 #       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_CHA_FAN1}.Logfile).${_}.txt";
@@ -1189,16 +1189,16 @@ If ($True) {
 #     } Else {
 #       Write-Output "$(${Speed_FAN_PRC_W_PUMP}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Speed_FAN_PRC_W_PUMP}.Logfile).${_}.txt";
 #     }
-# 
+#
 #     # ------------------------------
-# 
+#
 #     # Load - CPU
 #     If ([String]::IsNullOrEmpty(${Load_CPU_Core}.(${_}))) {  # May equal zero without errors
 #       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU_Core}.Logfile).${_}.txt";
 #     } Else {
 #       Write-Output "$(${Load_CPU_Core}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_CPU_Core}.Logfile).${_}.txt";
 #     }
-# 
+#
 #     # Load - GPU
 #     If ([String]::IsNullOrEmpty(${Load_GPU_Core}.(${_}))) {  # May equal zero without errors
 #       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_Core}.Logfile).${_}.txt";
@@ -1217,9 +1217,9 @@ If ($True) {
 #     } Else {
 #       Write-Output "$(${Load_GPU_MemoryUsage}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Load_GPU_MemoryUsage}.Logfile).${_}.txt";
 #     }
-# 
+#
 #     # ------------------------------
-# 
+#
 #     # Power - CPU
 #     If ([Math]::Ceiling("$(${Power_CPU_Package}.(${_}))") -Eq 0) {
 #       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_CPU_Package}.Logfile).${_}.txt";
@@ -1232,9 +1232,9 @@ If ($True) {
 #     } Else {
 #       Write-Output "$(${Power_GPU_Total}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Power_GPU_Total}.Logfile).${_}.txt";
 #     }
-# 
+#
 #     # ------------------------------
-# 
+#
 #     # Temperature (°C) - CPU Core  (assume temperature will not reach 0°C, e.g. assume LN2 is not being used)
 #     If ([Math]::Ceiling("$(${Temp_CPU_Core}.(${_}))") -Eq 0) {
 #       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_CPU_Core}.Logfile).${_}.txt";
@@ -1295,9 +1295,9 @@ If ($True) {
 #     } Else {
 #       Write-Output "$(${Temp_SSD}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Temp_SSD}.Logfile).${_}.txt";
 #     }
-# 
+#
 #     # ------------------------------
-# 
+#
 #     # Voltage (V) - 3VCC (+ 3.3V PSU voltage)
 #     If ([Math]::Ceiling("$(${Voltage_Motherboard_03V}.(${_}))") -Eq 0) {
 #       Write-Output ":${Sensor_ErrorMessage}" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_03V}.Logfile).${_}.txt";
@@ -1340,13 +1340,13 @@ If ($True) {
 #     } Else {
 #       Write-Output "$(${Voltage_Motherboard_VBAT}.(${_})):OK" | Out-File -NoNewline "${Logfile_Dirname}\$(${Voltage_Motherboard_VBAT}.Logfile).${_}.txt";
 #     }
-# 
+#
 #     # ------------------------------
-# 
+#
 #   }
-# 
+#
 # }
-# 
+#
 # ------------------------------
 #
 # Cleanup Old Logfiles - HWiNFO
@@ -1367,7 +1367,7 @@ If ($True) {
 ##
 ## Cleanup Old Logfiles - OHW
 ##
-# 
+#
 # If ($True) {
 #   $Retention_Days = "7";
 #   $Retention_OldestAllowedDate = (Get-Date).AddDays([int]${Retention_Days} * -1);
@@ -1379,11 +1379,11 @@ If ($True) {
 #   ;
 #   $ErrorActionPreference = $EA_Bak;
 # }
-# 
+#
 # ------------------------------
-# 
+#
 # # Benchmark (KEEP AS FINAL RUNTIME (e.g. keep at the very very end of this script)
-# 
+#
 # $Benchmark.Stop();
 # $RunDuration=("$(${Benchmark}.Elapsed)");
 # If ([String]::IsNullOrEmpty("${RunDuration}")) {
@@ -1391,7 +1391,7 @@ If ($True) {
 # } Else {
 #   Write-Output "${RunDuration}:OK" | Out-File -NoNewline "${Logfile_Dirname_OHW}\Sensors\RunDuration.txt";
 # }
-# 
+#
 # ------------------------------------------------------------
 #
 # Citation(s)

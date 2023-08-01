@@ -8,7 +8,7 @@
 '   Security Options:
 '     Run only when user is logged on (UN-CHECKED)
 '     Run whether user is logged on or not (CHECKED)
-'     Run with highest privileges (CHECKED)
+'     Run with highest privileges (UN-CHECKED)
 '
 '   Trigger:
 '     On a schedule - At 00:00:45 every day - After triggered, repeat every 1 minute for a duration of 1439 minutes

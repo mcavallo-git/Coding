@@ -58,14 +58,14 @@ If ($True) {
   If ([String]::IsNullOrEmpty("${IP_Address}")) {
     $EmptyValues++;
   } Else {
-    $Output_HashTable.prtg.result += @{ "value"=1; "channel"="${IP_Address}"; "float"=0; "decimalmode"=0; };
+    $Output_HashTable.prtg.result += @{ "channel"="${IP_Address}"; "decimalmode"=0; "float"=0; "limitmode"=0; "unit"="Percent"; "value"=100; };
   }
 
   # ISP Name  -  Append to JSON output
   If ([String]::IsNullOrEmpty("${ISP_Name}")) {
     $EmptyValues++;
   } Else {
-    $Output_HashTable.prtg.result += @{ "value"=1; "channel"="${ISP_Name}"; "float"=0; "decimalmode"=0; };
+    $Output_HashTable.prtg.result += @{ "channel"="${ISP_Name}"; "decimalmode"=0; "float"=0; "limitmode"=0; "unit"="Percent"; "value"=100; };
   }
 
   # Check for errors

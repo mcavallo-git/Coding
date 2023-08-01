@@ -67,10 +67,15 @@ Mostly Linux compatible:
 ←					Leftwards Arrow  (Left Arrow)  (&larr;)  |  https://www.compart.com/en/unicode/U+2190
 →					Rightwards Arrow (Right Arrow) (&rarr;)  |  https://www.compart.com/en/unicode/U+2192
 
+
 ⇧					Upwards White Arrow (&#x21E7;)  |  https://www.compart.com/en/unicode/U+21E7
 ⇩					Downwards White Arrow (&#x21E9;)  |  https://www.compart.com/en/unicode/U+21E9
 ⇦					Leftwards White Arrow (&#x21E6;)  |  https://www.compart.com/en/unicode/U+21E6
 ⇨					Rightwards White Arrow (&#x21E8;)  |  https://www.compart.com/en/unicode/U+21E8
+
+
+↪					Rightwards Arrow with Hook  |  https://www.compart.com/en/unicode/U+21AA
+↳					Downwards Arrow with Tip Rightwards  |  https://www.compart.com/en/unicode/U+21B3
 
 
 ↕					Up Down Arrow   (&updownarrow;)  |  https://www.compart.com/en/unicode/U+2195
@@ -85,10 +90,6 @@ Mostly Linux compatible:
 ⭦					North West Triangle-Headed Arrow (&#x2B66;)  |  https://www.compart.com/en/unicode/U+2B66
 ⬉					North West Black Arrow (&#x2B09;)  |  https://www.compart.com/en/unicode/U+2B09
 ⬁					North West White Arrow (&#x2B01;)  |  https://www.compart.com/en/unicode/U+2B01
-
-
-↪					Rightwards Arrow with Hook  |  https://www.compart.com/en/unicode/U+21AA
-↳					Downwards Arrow with Tip Rightwards  |  https://www.compart.com/en/unicode/U+21B3
 
 
 ↴					Rightwards Arrow with Corner Downwards  |  https://www.compart.com/en/unicode/U+21B4

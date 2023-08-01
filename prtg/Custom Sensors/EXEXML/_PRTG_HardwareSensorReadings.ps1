@@ -88,12 +88,8 @@ If ($True) {
   } Else {
 
     # Ensure output directories exist
-    If ((Test-Path "${Logfile_Dirname_HWiNFO}\Sensors") -NE $True) {
-      If ((Test-Path "${Logfile_Dirname_HWiNFO}") -NE $True) {
-        New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}") | Out-Null;
-      }
-      New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_HWiNFO}\Sensors") | Out-Null;
-    }
+    $EnsureDirExists = "${Logfile_Dirname_HWiNFO}";         If ((Test-Path "${EnsureDirExists}") -NE $True) { New-Item -ItemType ("Directory") -Path ("${EnsureDirExists}") | Out-Null; };
+    $EnsureDirExists = "${Logfile_Dirname_HWiNFO}\Sensors"; If ((Test-Path "${EnsureDirExists}") -NE $True) { New-Item -ItemType ("Directory") -Path ("${EnsureDirExists}") | Out-Null; };
 
     If ($True) {
 
@@ -744,12 +740,8 @@ If ($True) {
 #   } Else {
 #
 #     # Ensure output directories exist
-#     If ((Test-Path "${Logfile_Dirname_OHW}\Sensors") -NE $True) {
-#       If ((Test-Path "${Logfile_Dirname_OHW}") -NE $True) {
-#         New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}") | Out-Null;
-#       }
-#       New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_OHW}\Sensors") | Out-Null;
-#     }
+#     $EnsureDirExists = "${Logfile_Dirname_OHW}";         If ((Test-Path "${EnsureDirExists}") -NE $True) { New-Item -ItemType ("Directory") -Path ("${EnsureDirExists}") | Out-Null; };
+#     $EnsureDirExists = "${Logfile_Dirname_OHW}\Sensors"; If ((Test-Path "${EnsureDirExists}") -NE $True) { New-Item -ItemType ("Directory") -Path ("${EnsureDirExists}") | Out-Null; };
 #
 #     $RowCount_HeaderRows=(2);
 #     $RowCount_DataRows=(60);

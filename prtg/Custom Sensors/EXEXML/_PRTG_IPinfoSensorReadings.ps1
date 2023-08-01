@@ -11,7 +11,7 @@ If ($True) {
 
   $Logfile_Dirname_IPinfo = "C:\ISO\IPinfo";
   
-  $Filepath_AccessToken_IPinfo = "${Logfile_Dirname_IPinfo}\access_token";
+  $Filepath_AccessToken_IPinfo = "${Logfile_Dirname_IPinfo}\Token\AccessToken";
 
   $AccessToken = "";
 
@@ -23,14 +23,10 @@ If ($True) {
 
   $ErrorMessage_IPinfo_InvalidToken = "ERROR - Access token not found at filepath [ ${Filepath_AccessToken_IPinfo} ] - Create a token via [ https://ipinfo.io/account/token ]";
 
-
   # Ensure output directories exist
-  If ((Test-Path "${Logfile_Dirname_IPinfo}\Sensors") -NE $True) {
-    If ((Test-Path "${Logfile_Dirname_IPinfo}") -NE $True) {
-      New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_IPinfo}") | Out-Null;
-    }
-    New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_IPinfo}\Sensors") | Out-Null;
-  }
+  $EnsureDirExists = "${Logfile_Dirname_IPinfo}";         If ((Test-Path "${EnsureDirExists}") -NE $True) { New-Item -ItemType ("Directory") -Path ("${EnsureDirExists}") | Out-Null; };
+  $EnsureDirExists = "${Logfile_Dirname_IPinfo}\Sensors"; If ((Test-Path "${EnsureDirExists}") -NE $True) { New-Item -ItemType ("Directory") -Path ("${EnsureDirExists}") | Out-Null; };
+  $EnsureDirExists = "${Logfile_Dirname_IPinfo}\Token";   If ((Test-Path "${EnsureDirExists}") -NE $True) { New-Item -ItemType ("Directory") -Path ("${EnsureDirExists}") | Out-Null; };
 
   If (Test-Path -PathType "Leaf" -Path ("${Filepath_AccessToken_IPinfo}")) {
     # Only make IPinfo API calls if an access token has been setup

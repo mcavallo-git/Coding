@@ -44,6 +44,7 @@ Get-PnpDevice | Select-Object -ExpandProperty "Class" -Unique | Sort-Object
 # WPD
 # WSDPrintDevice
 
+
 # ------------------------------------------------------------
 
 # Get devices by class & name - Biometric fingerprint readers
@@ -54,6 +55,7 @@ Get-PnpDevice -Class 'USB' -FriendlyName '*Storage*' -Status 'OK';
 
 # Get devices by class & name - Sandisk Disks (USB Flash Drives)
 Get-PnpDevice -Class 'DiskDrive' -FriendlyName '*USB*Sandisk*' -Status 'OK';
+
 
 # ------------------------------------------------------------
 
@@ -101,6 +103,7 @@ If ($True) {
   }
 
 }
+
 
 # ------------------------------------------------------------
 #

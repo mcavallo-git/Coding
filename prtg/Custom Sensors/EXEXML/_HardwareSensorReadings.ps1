@@ -1361,6 +1361,7 @@ If ($True) {
     | Where-Object { $_.LastWriteTime -LT ${Retention_OldestAllowedDate} } `
     | Remove-Item -Recurse -Force -Confirm:$False `
   ;
+  $ErrorActionPreference = $EA_Bak;
 }
 
 ## ------------------------------

@@ -11,7 +11,7 @@
 <!-- ------------------------------ -->
 
 ***
-## Imperial Screw Size Chart (UTS)
+## Screw Size Chart (Imperial)
   - | Screw Size<br />/ Gauge | Nearest Fraction<br />(SAE) | Thread Diameter<br />(SAE) | Thread Diameter<br />(Metric) |
     | ----------------------: | --------------------------: | -------------------------: | ----------------------------: |
     |                  `#000` |                     `1/32"` |                   `0.034"` |                    `0.860 mm` |

@@ -64,9 +64,6 @@ Get-PnpDevice -Class 'DiskDrive' -FriendlyName '*USB*Sandisk*' -Status 'OK';
 
 If ($True) {
 
-  $DryRun = $True;   # DON'T MAKE CHANGES
-  # $DryRun = $False;  # MAKE CHANGES
-
   # Set the list of capabilities to remove
   $RemoveCapabilities = @()
   $RemoveCapabilities += 0x00000002;  # "CM_DEVCAP_EJECTSUPPORTED" capability, e.g. flags the device as [ an ejectable device ]
@@ -99,9 +96,7 @@ If ($True) {
         Write-Host "`nInfo:  (Skipped) Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" is already set to value `"$(${RegEdit}.Value)`"`n";
       } Else {
         Write-Host "`nInfo:  Setting Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`" to value `"$(${RegEdit}.Value)`"...`n";
-        If ($False -Eq ${DryRun}) { 
-          Set-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -Value (${RegEdit}.Value);
-        }
+        Set-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name) -Value (${RegEdit}.Value);
       }
       Write-Host "`nInfo:  Confirming value for Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`"...";
       Get-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name);
@@ -128,9 +123,7 @@ If ($True) {
           Write-Host "`nInfo:  (Skipped) Registry key `"$(${RegEditParent}.Path)`"'s property `"$(${RegEditParent}.Name)`" is already set to value `"$(${RegEditParent}.Value)`"`n";
         } Else {
           Write-Host "`nInfo:  Setting Registry key `"$(${RegEditParent}.Path)`"'s property `"$(${RegEditParent}.Name)`" to value `"$(${RegEditParent}.Value)`"...`n";
-          If ($False -Eq ${DryRun}) { 
-            Set-ItemProperty -LiteralPath (${RegEditParent}.Path) -Name (${RegEditParent}.Name) -Value (${RegEditParent}.Value);
-          }
+          Set-ItemProperty -LiteralPath (${RegEditParent}.Path) -Name (${RegEditParent}.Name) -Value (${RegEditParent}.Value);
         }
         Write-Host "`nInfo:  Confirming value for Registry key `"$(${RegEditParent}.Path)`"'s property `"$(${RegEditParent}.Name)`"...";
         Get-ItemProperty -LiteralPath (${RegEditParent}.Path) -Name (${RegEditParent}.Name);

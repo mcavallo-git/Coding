@@ -73,7 +73,7 @@ If ($True) {
 
 # ------------------------------
 #
-# Get the latest sensor data from HWiNFO64 via its CSV logfile
+# Get the latest sensor data from HWiNFO64 (via its CSV logfile)
 #
 
 If ($True) {
@@ -313,12 +313,12 @@ If ($True) {
           $Output_HashTable.prtg.result += ${Append_Result};
         }
 
-        # Error - All of of avg/max/min values found to be empty, send error in the JSON body (instead of sending empty data)
+        # Error - All values found to be empty, send error in the JSON body (instead of sending empty data)
         If (${EmptyValues} -GE 3) {
           $Output_HashTable = @{"prtg"=@{"error"=1;"text"="${Sensor_ErrorMessage_HWiNFO}";};};
         }
 
-        $Output_Json = ($Output_HashTable | ConvertTo-Json -Depth 50 -Compress);
+        $Output_Json = (${Output_HashTable} | ConvertTo-Json -Depth 50 -Compress);
 
         # Handle invalid characters in sensor names - Note that PRTG does not function if certain unicode characters are in the filename (such as a degree symbol)
         $Output_Basename=(((("${Each_Header_Name}.${Each_Header_Units}.json").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_') -Replace "[^a-zA-Z0-9-_\[\]\(\)\+\.]","_") -Replace "\.\.",".");
@@ -484,6 +484,91 @@ If ($True) {
     ## ------------------------------
 
   }
+
+}
+
+
+# ------------------------------
+#
+# Get the latest IP address information from IPinfo.io (via an API call)
+#
+
+If ($True) {
+
+  $Logfile_Dirname_IPinfo = "C:\ISO\IPinfo";
+  
+  $Filepath_AccessToken_IPinfo = "${Logfile_Dirname_IPinfo}\access_token";
+
+  $AccessToken = "";
+
+  $IP_Address = "";
+
+  $ISP_Name = "";
+
+  # Ensure output directories exist
+  If ((Test-Path "${Logfile_Dirname_IPinfo}\Sensors") -NE $True) {
+    If ((Test-Path "${Logfile_Dirname_IPinfo}") -NE $True) {
+      New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_IPinfo}") | Out-Null;
+    }
+    New-Item -ItemType ("Directory") -Path ("${Logfile_Dirname_IPinfo}\Sensors") | Out-Null;
+  }
+
+  If (Test-Path -PathType "Leaf" -Path ("${Filepath_AccessToken_IPinfo}")) {
+    # Only make IPinfo API calls if an access token has been setup
+
+    $AccessToken = (([String](Get-Content -Path ("$Filepath_AccessToken_IPinfo"))).Trim());
+
+    $URL_Base_IPinfo = "https://ipinfo.io/json";
+    $URL_IPinfo = "${URL_Base_IPinfo}?token=${AccessToken}";
+
+    # Make the API call to get IP address information
+    [System.Net.ServicePointManager]::SecurityProtocol = ([System.Net.ServicePointManager]::SecurityProtocol -bor [System.Net.SecurityProtocolType]::Tls12);  # Ensure TLS 1.2 exists amongst available HTTPS Protocols
+    $ProgressPreference = 'SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
+    $ResponseObj = (Invoke-WebRequest -UseBasicParsing -Uri ("${URL_IPinfo}"));
+    $ResponseContent = (([String](${ResponseObj} | Select-Object -ExpandProperty "Content")).Trim());
+    $ResponseJson = (${ResponseContent} | ConvertFrom-Json);
+
+    $IP_Address = (([String](${ResponseJson} | Select-Object -ExpandProperty "ip")).Trim());
+
+    $ISP_Name = (([String](${ResponseJson} | Select-Object -ExpandProperty "org")).Trim());
+
+  }
+
+  # Build the output JSON as a hash table / arrays, then convert it to JSON afterward
+  $Output_HashTable = @{"prtg"=@{"result"=@();};};
+
+  $EmptyValues = 0;
+
+  # IP Address  -  Append to JSON output
+  If ([String]::IsNullOrEmpty("${IP_Address}")) {
+    $EmptyValues++;
+  } Else {
+    $Output_HashTable.prtg.result += @{ "value"=1; "channel"="${IP_Address}"; "float"=0; "decimalmode"=0; };
+  }
+
+  # ISP Name  -  Append to JSON output
+  If ([String]::IsNullOrEmpty("${ISP_Name}")) {
+    $EmptyValues++;
+  } Else {
+    $Output_HashTable.prtg.result += @{ "value"=1; "channel"="${ISP_Name}"; "float"=0; "decimalmode"=0; };
+  }
+
+  If ([String]::IsNullOrEmpty("${AccessToken}")) {
+    # Error - No API token has been setup (yet)
+    $Output_HashTable = @{"prtg"=@{"error"=1;"text"="ERROR - Access token not found at filepath [ ${Filepath_AccessToken_IPinfo} ] - Create a token via [ https://ipinfo.io/account/token ]";};};
+  } ElseIf (${EmptyValues} -GE 2) {
+    # Error - All values found to be empty, send error in the JSON body (instead of sending empty data)
+    $Output_HashTable = @{"prtg"=@{"error"=1;"text"="ERROR - IPinfo sensor reading returned a null or empty value";};};
+  }
+
+  $Output_Json = (${Output_HashTable} | ConvertTo-Json -Depth 50 -Compress);
+
+  # Handle invalid characters in sensor names - Note that PRTG does not function if certain unicode characters are in the filename (such as a degree symbol)
+  $Output_Basename=(((("IPinfo._.json").Split([System.IO.Path]::GetInvalidFileNameChars()) -join '_') -Replace "[^a-zA-Z0-9-_\[\]\(\)\+\.]","_") -Replace "\.\.",".");
+  $Output_Fullpath=("${Logfile_Dirname_IPinfo}\Sensors\${Output_Basename}");
+
+  # Output the results to sensor-specific files
+  Set-Content -LiteralPath ("${Output_Fullpath}") -Value ("${Output_Json}") -NoNewline;
 
 }
 

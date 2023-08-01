@@ -5,7 +5,7 @@
 '
 '     Task Name:    SetDeviceProperties_NonRemovableFingerprintScanners
 '
-'     Run as user:  SYSTEM
+'     Run as user:  [ UserSignedIn ]
 '
 '     ✔️ Run whether user is logged on or not (will be auto-selected after creation)
 '

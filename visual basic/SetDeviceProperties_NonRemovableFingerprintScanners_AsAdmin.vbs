@@ -1,9 +1,10 @@
 '=============================================================
 ' Open 'Task Scheduler' > 'Create Task' (top right)
 '=============================================================
+'
 '   General:
 '
-'     Task Name:    SetDeviceProperties_NonRemovableFingerprintScanners
+'     Task Name:  SetDeviceProperties_NonRemovableFingerprintScanners
 '
 '     Run as user:  [ UserSignedIn ]
 '
@@ -12,13 +13,15 @@
 '     ❌ Run with highest privileges (UN-CHECKED)
 '
 '=============================================================
+'
 '   Trigger:
 '
-'     At system startup (no delay, no repeat)
+'     At system startup  (no delay, no repeat)
 '
 '     At 00:00:30 every day - After triggered, repeat every [ 1 minute ] for a duration of [ 1439 minutes ]
 '
 '=============================================================
+'
 '   Action:
 '
 '     Program/script:

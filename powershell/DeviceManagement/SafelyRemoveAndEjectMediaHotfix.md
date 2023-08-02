@@ -13,28 +13,22 @@ If ($True) {
   #
   # Disable the 'Safely Remove Hardware and Eject Media' capability for target Plug and Play (PnP) devices
   #
-
   # Set the class/friendlyname of devices to update
   $PnP_Class = "Biometric";
   $PnP_FriendlyName = "*Fingerprint*";
-
   # Set the list of capabilities to remove (additional "capabilities bits" listed at the bottom of this script)
   $RemoveCapabilities = @()
   $RemoveCapabilities += 0x00000002;    # CM_DEVCAP_EJECTSUPPORTED  (flags the device as ejectable)
   $RemoveCapabilities += 0x00000004;    # CM_DEVCAP_REMOVABLE       (flags the device as removable)
-
   # Get the list of devices to remove capabilities from
   Get-PnpDevice -Class "${PnP_Class}" -FriendlyName "${PnP_FriendlyName}" -Status 'OK' -EA:0 | ForEach-Object {
-
     $InstanceId = (${_}.InstanceId);
-
     $RegEdit = @{
       Path="Registry::HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Enum\${InstanceId}";
       Name="Capabilities";
       Type="DWord";
       Description="Defines the capabilities for a given device. Citation [ https://github.com/tpn/winsdk-10/blob/master/Include/10.0.10240.0/um/cfgmgr32.h#L1067-L1076 ]";
     };
-
     # ------------------------------
     # Parse each device in question
     Write-Host "------------------------------------------------------------";
@@ -54,7 +48,6 @@ If ($True) {
       }
       Write-Host "`nInfo:  Confirming value for Registry key `"$(${RegEdit}.Path)`"'s property `"$(${RegEdit}.Name)`"...";
       Get-ItemProperty -LiteralPath (${RegEdit}.Path) -Name (${RegEdit}.Name);
-
       # ------------------------------
       # Repeat this process for the parent device
       Write-Host "------------------------------------------------------------";
@@ -86,13 +79,10 @@ If ($True) {
       }
       # End of parent device handling
       # ------------------------------
-
     } Else {
       Write-Host "`nInfo:  (Skipped) Registry key `"$(${RegEdit}.Path)`" not found to exist`n";
     }
-
   }
-
 }
 ```
 

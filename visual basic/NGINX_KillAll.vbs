@@ -17,7 +17,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Stop-Process -Name ng
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\NGINX_KillAll.vbs"
+'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\NGINX_KillAll.vbs"
 '
 ' ------------------------------------------------------------
 '

@@ -17,7 +17,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Start-Process -Filepa
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\GPU-Z_AsAdmin.vbs"
+'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GPU-Z_AsAdmin.vbs"
 '
 ' ------------------------------------------------------------
 '

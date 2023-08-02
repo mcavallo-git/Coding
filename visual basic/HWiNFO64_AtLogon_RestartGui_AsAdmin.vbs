@@ -24,7 +24,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\HWiNFO64_AtLogon_RestartGui_AsAdmin.vbs"
+'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\HWiNFO64_AtLogon_RestartGui_AsAdmin.vbs"
 '
 ' ------------------------------
 '

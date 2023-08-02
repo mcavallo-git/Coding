@@ -19,7 +19,7 @@
 '
 '   Action:
 '     Program/script:   %ProgramFiles%\AutoHotkey\v2\AutoHotkey.exe
-'     Add arguments:    %REPOS_DIR%\Coding\ahk\_WindowsHotkeys.ahkv2
+'     Add arguments:    %USERPROFILE%\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2
 '
 '   Conditions:
 '     (UN-CHECK) Start the task only if the computer is on AC power

@@ -18,7 +18,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\GitSyncAll-Pull_NonAdmin.vbs"
+'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\GitSyncAll-Pull_NonAdmin.vbs"
 '
 '   Conditions:
 '     (UN-CHECK) Start the task only if the computer is on AC power

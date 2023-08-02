@@ -1,12 +1,10 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HWiNFO64' -EA:0 | Stop-Process -Force; Get-Process -Name 'Remote Sensor Monitor' -EA:0 | Stop-Process -Force; Start-ScheduledTask -TaskName 'HWiNFO64_AtLogon_AsAdmin';"" ", 0, True
 
-' ------------------------------------------------------------
-'
-' ! ! Update to use the registry to detect if user is signed in or not
-'      |
-'      |--> Key:  HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer
-'      |--> Property:  UserSignedIn
-'
+
+'  !  Update to use the registry to detect if user is signed in or not
+'  !    Use:  HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer!UserSignedIn
+
+
 ' ------------------------------------------------------------
 '
 ' Create a Scheduled Task (which targets this script) by using the following values:

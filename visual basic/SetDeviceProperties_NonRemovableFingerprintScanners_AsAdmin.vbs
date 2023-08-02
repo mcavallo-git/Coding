@@ -25,6 +25,6 @@
 '       C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
 '
 '     Add arguments:
-'       -File "C:\ISO\DeviceManagement\SetDeviceProperties_NonRemovableFingerprintScanners.ps1"
+'       -File "%ISO_DIR%\DeviceManagement\SetDeviceProperties_NonRemovableFingerprintScanners.ps1"
 '
 ' ============================================================

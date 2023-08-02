@@ -1,5 +1,5 @@
 #
-# C:\ISO\DeviceManagement\SetDeviceProperties_NonRemovableFingerprintScanners.min.ps1
+# %ISO_DIR%\DeviceManagement\SetDeviceProperties_NonRemovableFingerprintScanners.ps1
 #
 If ($True) {
   Get-PnpDevice -Class 'Biometric' -FriendlyName '*Fingerprint*' -Status 'OK' -EA:0 | ForEach-Object {

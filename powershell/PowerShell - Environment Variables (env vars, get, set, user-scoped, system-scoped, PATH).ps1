@@ -56,6 +56,16 @@ If ($True) {
   [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
 }
 
+#   env:ISO_DIR   (System)
+If ($True) {
+  $Env_Name = "ISO_DIR";
+  $Env_Value = "C:\ISO";
+  If (Test-Path -PathType "Container" -Path ("${Env_Value}")) {
+    # Directory must exist
+    Set-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" -Name "${Env_Name}" -Value "${Env_Value}";
+    [System.Environment]::SetEnvironmentVariable("${Env_Name}","${Env_Value}",[System.EnvironmentVariableTarget]::Machine);
+  }
+}
 
 #   env:NG_CLI_ANALYTICS   (System)
 If ($True) {

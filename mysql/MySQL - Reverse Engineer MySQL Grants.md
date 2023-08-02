@@ -1,18 +1,27 @@
--- ------------------------------------------------------------
--- https://github.com/mcavallo-git/Coding/blob/main/mysql/MySQL%20-%20Reverse%20Engineer%20MySQL%20Grants.sql
--- ------------------------------------------------------------
--- MySQL Grant Rebuilder
---   |--> Reverse-engineer MySQL instance's user permissions (grants)
--- ------------------------------------------------------------
+<!-- ------------------------------ -->
+<!-- https://github.com/mcavallo-git/Coding/blob/main/mysql/MySQL%20-%20Reverse%20Engineer%20MySQL%20Grants.md -->
+<!-- https://dba.stackexchange.com/a/190852/138509 -->
+<!-- ------------------------------ -->
 
+If you can run the following SELECT statements *without* error:
+```sql
+/* User-Specific Grants     */   SELECT * FROM mysql.user;
+/* Database-Specific Grants */   SELECT * FROM mysql.db;
+/* Table-Specific Grants    */   SELECT * FROM mysql.tables_priv;
+/* Column-Specific Grants   */   SELECT * FROM mysql.columns_priv;
+```
+then feel free to use the below `MySQL Grant Rebuilder` script to expedite getting user permissions from a MySQL server.
+* I designed this query in an attempt to re-build `GRANT` statements for all existing permissions (for frequent upkeep during database migration).
+* There are a few issues to be handeld, such as user-password-linking, but because we frequently update passwords, that was not in the scope of this project.
+
+### *Edit (01-Aug-2023)*
+- Updated the `MySQL Grant Rebuilder` script (below) to the latest version I ended up with before taking a position at a different company (which didn't use `MySQL` at any capacity).
+- Adding a link to the script on GitHub: [`MySQL - Reverse Engineer MySQL Grants.sql`](https://github.com/mcavallo-git/Coding/blob/main/mysql/MySQL%20-%20Reverse%20Engineer%20MySQL%20Grants.sql)
+
+
+# MySQL Grant Rebuilder <sub>*(Reverse Engineer Grants)*</sub>
+```sql
 SET @SPECIFIC_USER := ''; /* If blank, show all user grants, otherwise show only target user's grants */
-
-/*
--- Remove the block-comment around these lines to create this lookup as a MySQL VIEW
-DROP VIEW `some_database`.grant_rebuilder;
-SELECT * FROM `some_database`.grant_rebuilder;
-CREATE VIEW `some_database`.grant_rebuilder AS
-*/
 
 /* Column-Specific Grants */
 SELECT
@@ -184,3 +193,7 @@ AND (usr.User=@SPECIFIC_USER OR 'show_all'=(IF(@SPECIFIC_USER<>'','single_user',
 
   /* To-Do (4): ??? Host-Specific Grants ??? */
   /* SELECT * FROM `mysql`.host ghs */
+
+```
+
+Happy to answer / verify any questions or concerns

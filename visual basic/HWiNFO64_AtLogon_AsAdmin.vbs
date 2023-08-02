@@ -23,7 +23,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '
 '   Trigger:
 '
-'     At log on of specific user: [ UserSignedIn ] (no delay, no repeat)
+'     At log on of specific user: [ UserSignedIn ]  (no delay, no repeat)
 '
 '     At 00:00:30 every day - After triggered, repeat every [ 1 minutes ] for a duration of [ 1439 minutes ]
 '

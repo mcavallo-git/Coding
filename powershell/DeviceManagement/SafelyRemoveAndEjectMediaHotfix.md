@@ -8,7 +8,7 @@ I solved the issue of improper devices showing up under `Safely Remove Hardware 
 ***
 
 ### [`SetDeviceProperties_NonRemovableFingerprintScanners.verbose.ps1`](https://github.com/mcavallo-git/Coding/blob/main/powershell/DeviceManagement/SetDeviceProperties_NonRemovableFingerprintScanners.verbose.ps1#L8-L89)
-```powershell
+```csharp
 If ($True) {
   #
   # Disable the 'Safely Remove Hardware and Eject Media' capability for target Plug and Play (PnP) devices
@@ -93,7 +93,7 @@ If ($True) {
 > Here's a thinned down version of the above script (intended for automation - to be ran through Task Scheduler)
 
 ### [`SetDeviceProperties_NonRemovableFingerprintScanners.ps1`](https://github.com/mcavallo-git/Coding/blob/main/powershell/DeviceManagement/SetDeviceProperties_NonRemovableFingerprintScanners.ps1#L4-L31)
-```powershell
+```csharp
 If ($True) {
   Get-PnpDevice -Class 'Biometric' -FriendlyName '*Fingerprint*' -Status 'OK' -EA:0 | ForEach-Object {
     $InstanceId = (${_}.InstanceId);

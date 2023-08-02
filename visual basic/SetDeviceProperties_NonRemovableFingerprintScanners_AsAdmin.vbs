@@ -14,9 +14,8 @@
 ' ============================================================
 '   Trigger:
 '
-'     Begin the task [ At system startup ]
-'       ↳ Delay task for [ 30 seconds ] 
-'       ↳ Repeat task every [ 5 minutes ] for a duration of [ Indefinitely ]
+'     At system startup (no delay, no repeat)
+'     At 00:00:30 every day - After triggered, repeat every [ 1 minute ] for a duration of [ 1439 minutes ]
 '
 ' ============================================================
 '   Action:

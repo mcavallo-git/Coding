@@ -66,10 +66,10 @@
 ' RUN THIS SCRIPT (VIA CMD):
 '
 ' NO ARGS
-'   "C:\Windows\System32\wscript.exe" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs"
+'   "C:\Windows\System32\wscript.exe" "%REPOS_DIR%\Coding\visual basic\VSCode-Redirect.vbs"
 '
 ' 1 ARGUMENT
-'   "C:\Windows\System32\wscript.exe" "%USERPROFILE%\Documents\GitHub\Coding\visual basic\VSCode-Redirect.vbs" "%USERPROFILE%\Desktop\test.txt"
+'   "C:\Windows\System32\wscript.exe" "%REPOS_DIR%\Coding\visual basic\VSCode-Redirect.vbs" "%USERPROFILE%\Desktop\test.txt"
 '
 ' ------------------------------------------------------------
 

@@ -17,7 +17,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\Greenshot_AsAdmin.vbs"
+'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\Greenshot_AsAdmin.vbs"
 '
 ' ------------------------------------------------------------
 '

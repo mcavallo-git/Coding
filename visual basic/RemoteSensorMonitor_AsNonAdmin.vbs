@@ -17,7 +17,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '
 '   Action:
 '     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%USERPROFILE%\Documents\GitHub\Coding\visual basic\RemoteSensorMonitor_AsNonAdmin.vbs"
+'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\RemoteSensorMonitor_AsNonAdmin.vbs"
 '
 ' ------------------------------
 '

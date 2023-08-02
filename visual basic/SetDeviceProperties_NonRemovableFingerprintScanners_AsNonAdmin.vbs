@@ -8,7 +8,7 @@
 '
 '     Run as user:  [ UserSignedIn ]
 '
-'     ✔️ Run whether user is logged on or not (CHECKED) (will be auto-selected after creation)
+'     ✔️ Run whether user is logged on or not (CHECKED)
 '
 '     ❌ Run with highest privileges (UN-CHECKED)
 '
@@ -18,7 +18,7 @@
 '
 '     At system startup  (no delay, no repeat)
 '
-'     At 00:00:30 every day - After triggered, repeat every [ 1 minute ] for a duration of [ 1439 minutes ]
+'     At 00:00:30 every day - Repeat task every [ 1 minute ] for a duration of [ 1439 minutes ]
 '
 '=============================================================
 '

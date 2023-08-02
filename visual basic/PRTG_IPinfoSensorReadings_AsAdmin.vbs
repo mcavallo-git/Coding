@@ -1,20 +1,31 @@
-' ------------------------------------------------------------
+'=============================================================
+' Open 'Task Scheduler' > 'Create Task' (top right)
+'=============================================================
 '
-' Create a Scheduled Task (which targets this script) by using the following values:
+'   General:
 '
-'   Name/Description:
-'     PRTG_IPinfoSensorReadings_AsAdmin
+'     Task Name:  PRTG_IPinfoSensorReadings_AsAdmin
 '
-'   Security Options:
-'     Run only when user is logged on (UN-CHECKED)
-'     Run whether user is logged on or not (CHECKED)
-'     Run with highest privileges (UN-CHECKED)
+'     Run as user:  [ UserSignedIn ]
+'
+'     ✔️ Run whether user is logged on or not (CHECKED)
+'
+'     ❌️ Run with highest privileges (UN-CHECKED)
+'
+'=============================================================
 '
 '   Trigger:
-'     On a schedule - At 00:00:45 every day - After triggered, repeat every 1 minute for a duration of 1439 minutes
+'
+'     At 00:00:45 every day - Repeat task every [ 1 minute ] for a duration of [ 1439 minutes ]
+'
+'=============================================================
 '
 '   Action:
-'     Program/script:   C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
-'     Add arguments:    -File "C:\Program Files (x86)\PRTG Network Monitor\Custom Sensors\EXEXML\_PRTG_IPinfoSensorReadings.ps1"
 '
-' ------------------------------------------------------------
+'     Program/script:
+'       C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+'
+'     Add arguments:
+'       -File "C:\Program Files (x86)\PRTG Network Monitor\Custom Sensors\EXEXML\_PRTG_IPinfoSensorReadings.ps1"
+'
+'=============================================================

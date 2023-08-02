@@ -27,7 +27,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If ((GV True).Value) 
 '
 '     At system startup - Delay task for 30 seconds  (no repeat)
 '
-'     At 00:00:30 every day - After triggered, repeat every [ 1 minute ] for a duration of [ 1439 minutes ]
+'     At 00:00:30 every day - Repeat task every [ 1 minute ] for a duration of [ 1439 minutes ]
 '
 '=============================================================
 '

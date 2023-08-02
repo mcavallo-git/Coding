@@ -5,26 +5,37 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 '  !    Use:  HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer!UserSignedIn
 
 
-' ------------------------------------------------------------
+'=============================================================
+' Open 'Task Scheduler' using 'Run as administrator' > 'Create Task' (top right)
+'=============================================================
 '
-' Create a Scheduled Task (which targets this script) by using the following values:
+'   General:
 '
-'   Name/Description:
-'     HWiNFO64_AtLogon_RestartGui_AsAdmin
+'     Task Name:  HWiNFO64_AtLogon_RestartGui_AsAdmin
 '
-'   Security Options:
-'     Run only when user is logged on (CHECKED)
-'     Run whether user is logged on or not (UN-CHECKED)
-'     Run with highest privileges (CHECKED)
+'     Run as user:  [ UserSignedIn ]
+'
+'     ✔️ Run only when user is logged on  (CHECKED)
+'
+'     ✔️ Run with highest privileges  (CHECKED)
+'
+'=============================================================
 '
 '   Trigger:
-'     At logon (of current user)
+'
+'     At log on of specific user: [ UserSignedIn ] (no delay, no repeat)
+'
+'=============================================================
 '
 '   Action:
-'     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\HWiNFO64_AtLogon_RestartGui_AsAdmin.vbs"
 '
-' ------------------------------
+'     Program/script:
+'       C:\Windows\System32\wscript.exe
+'
+'     Add arguments:
+'       "%USERPROFILE%\Documents\GitHub\Coding\visual basic\HWiNFO64_AtLogon_RestartGui_AsAdmin.vbs"
+'
+'=============================================================
 '
 '   Note(s):
 '     - Set Remote Sensor Monitor port in file "C:\ISO\RemoteSensorMonitor\DefaultPort.txt"
@@ -33,7 +44,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 '       - Config is reverse engineered from POST request to [ http://localhost:PORT/config ] in-browser
 '     - Remote Sensor Monitor requires a paid subscription to HWiNFO (for the "Shared Memory Support" feature)
 '
-' ------------------------------------------------------------
+'=============================================================
 '
 ' Citation(s)
 '
@@ -45,4 +56,4 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HW
 '
 '   www.techpowerup.com  |  "TechPowerUp GPU-Z (v2.50.0) Download | TechPowerUp"  |  https://www.techpowerup.com/download/techpowerup-gpu-z/
 '
-' ------------------------------------------------------------
+'=============================================================

@@ -1,35 +1,51 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/EnsureProcessIsRunning/EnsureProcessIsRunning.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'EnsureProcessIsRunning' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Coding\powershell\_WindowsPowerShell\Modules\EnsureProcessIsRunning\EnsureProcessIsRunning.psm1', (gc env:\\REPOS_DIR))); }; EnsureProcessIsRunning -Name 'Autohotkey' -Path 'C:\Program Files\AutoHotkey\v2\AutoHotkey.exe' -Args ((${env:REPOS_DIR})+('\Coding\ahk\_WindowsHotkeys.ahkv2')) -Quiet;"" ", 0, True
 
-' ------------------------------------------------------------
+'=============================================================
+' Open 'Task Scheduler' > 'Create Task' (top right)
+'=============================================================
 '
-' Create a Scheduled Task (which targets this script) by using the following values:
+'   General:
 '
-'   Name/Description:
-'     _WindowsHotkeys_NonAdmin
+'     Task Name:  _WindowsHotkeys_NonAdmin
 '
-'   Security Options:
-'     Run only when user is logged on (CHECKED)
-'     Run whether user is logged on or not (UN-CHECKED)
-'     Run with highest privileges (UN-CHECKED)
+'     Run as user:  [ UserSignedIn ]
+'
+'     ✔️ Run only when user is logged on (CHECKED)
+'
+'     ❌️ Run with highest privileges (UN-CHECKED)
+'
+'=============================================================
 '
 '   Trigger:
-'     At log on of [current user]
+'
+'     At log on of specific user: [ UserSignedIn ]  (no delay, no repeat)
+'
+'=============================================================
 '
 '   Action:
-'     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\_WindowsHotkeys_NonAdmin.vbs"
+'
+'     Program/script:
+'       C:\Windows\System32\wscript.exe
+'
+'     Add arguments:
+'       "%REPOS_DIR%\Coding\visual basic\_WindowsHotkeys_NonAdmin.vbs"
+'
+'=============================================================
 '
 '   Conditions:
-'     (UN-CHECK) Start the task only if the computer is on AC power
+'
+'     ❌️ Start the task only if the computer is on AC power (UN-CHECKED)
+'
+'       ❌️ Stop if the computer switches to battery power (UN-CHECKED)
+'
+'=============================================================
 '
 '   Settings:
-'     (UN-CHECK) Stop this task if it runs longer than:  (UN-CHECK)
-'     (CHECK)    If the task is already running, then the following rule applies: [ Do not start a new instance ]
 '
-' ------------------------------------------------------------
+'     ❌️ Run the task as soon as possible after a scheduled start is missed (UN-CHECKED)
 '
-' Citation(s)
+'     ❌️ Stop the task if it runs longer than: (UN-CHECKED)
 '
-'   www.autohotkey.com  |  "Autohotkey Version 2 Downloads"  |  https://www.autohotkey.com/download/2.0/
+'     ✔️ If the running task does not end when requested, force it to stop (CHECKED)
 '
-' ------------------------------------------------------------
+'=============================================================

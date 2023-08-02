@@ -29,3 +29,23 @@
 '       -File "C:\Program Files (x86)\PRTG Network Monitor\Custom Sensors\EXEXML\_PRTG_IPinfoSensorReadings.ps1"
 '
 '=============================================================
+'
+'   Conditions:
+'
+'     ❌️ Start the task only if the computer is on AC power (UN-CHECKED)
+'
+'       ❌️ Stop if the computer switches to battery power (UN-CHECKED)
+'
+'     ✔️ Start only if the following network connection is available:  [ Any connection ]
+'
+'=============================================================
+'
+'   Settings:
+'
+'     ❌️ Run the task as soon as possible after a scheduled start is missed (UN-CHECKED)
+'
+'     ✔️ Stop the task if it runs longer than:  [ 10 seconds ]
+'
+'     ✔️ If the running task does not end when requested, force it to stop (CHECKED)
+'
+'=============================================================

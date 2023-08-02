@@ -1,5 +1,5 @@
 '=============================================================
-' Open 'Task Scheduler' using 'Run as administrator' > 'Create Task' (top right)
+' Open 'Task Scheduler' > 'Create Task' (top right)
 '=============================================================
 '
 '   General:
@@ -27,5 +27,23 @@
 '
 '     Add arguments:
 '       -File "C:\Program Files (x86)\PRTG Network Monitor\Custom Sensors\EXEXML\_PRTG_HardwareSensorReadings.ps1"
+'
+'=============================================================
+'
+'   Conditions:
+'
+'     ❌️ Start the task only if the computer is on AC power (UN-CHECKED)
+'
+'       ❌️ Stop if the computer switches to battery power (UN-CHECKED)
+'
+'=============================================================
+'
+'   Settings:
+'
+'     ❌️ Run the task as soon as possible after a scheduled start is missed (UN-CHECKED)
+'
+'     ✔️ Stop the task if it runs longer than:  [ 30 seconds ]
+'
+'     ✔️ If the running task does not end when requested, force it to stop (CHECKED)
 '
 '=============================================================

@@ -1,38 +1,55 @@
 CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; $ProgressPreference='SilentlyContinue'; Clear-DnsClientCache; Set-ExecutionPolicy 'RemoteSigned' -Scope 'CurrentUser' -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ('https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/GitSyncAll/GitSyncAll.psm1') ).Content) } Catch {}; If (-Not (Get-Command -Name 'GitSyncAll' -ErrorAction 'SilentlyContinue')) { Import-Module ([String]::Format('{0}\Coding\powershell\_WindowsPowerShell\Modules\GitSyncAll\GitSyncAll.psm1', (gc env:\\REPOS_DIR))); }; GitSyncAll -Pull;"" ", 0, True
 
-' ------------------------------------------------------------
+'=============================================================
+' Open 'Task Scheduler' > 'Create Task' (top right)
+'=============================================================
 '
-' Create a Scheduled Task (which targets this script) by using the following values:
+'   General:
 '
-'   Name/Description:
-'     GitSyncAll-Pull_NonAdmin
+'     Task Name:  GitSyncAll-Pull_NonAdmin
 '
-'   Security Options:
-'     Run only when user is logged on (CHECKED)
-'     Run whether user is logged on or not (UN-CHECKED)
-'     Run with highest privileges (UN-CHECKED)
+'     Run as user:  [ UserSignedIn ]
+'
+'     ✔️ Run only when user is logged on (CHECKED)
+'
+'     ❌️ Run with highest privileges (UN-CHECKED)
+'
+'=============================================================
 '
 '   Trigger:
-'     At log on of [current user] (delay task for 15 seconds)
-'     On workstation unlock of [current user]  (no delay)
+'
+'     At log on of specific user: [ UserSignedIn ] - Delay for [ 15 seconds ]  (no repeat)
+'
+'     On workstation unlock of: [ UserSignedIn ]  (no delay, no repeat)
+'
+'=============================================================
 '
 '   Action:
-'     Program/script:   C:\Windows\System32\wscript.exe
-'     Add arguments:    "%REPOS_DIR%\Coding\visual basic\GitSyncAll-Pull_NonAdmin.vbs"
+'
+'     Program/script:
+'       C:\Windows\System32\wscript.exe
+'
+'     Add arguments:
+'       "%REPOS_DIR%\Coding\visual basic\GitSyncAll-Pull_NonAdmin.vbs"
+'
+'=============================================================
 '
 '   Conditions:
-'     (UN-CHECK) Start the task only if the computer is on AC power
-'     (CHECK)    Start only if the following network connection is available: [ Any connection ]
+'
+'     ❌️ Start the task only if the computer is on AC power (UN-CHECKED)
+'
+'       ❌️ Stop if the computer switches to battery power (UN-CHECKED)
+'
+'     ✔️ Start only if the following network connection is available:  [ Any connection ]
+'
+'=============================================================
 '
 '   Settings:
-'     (CHECK)    Stop this task if it runs longer than:  15 minutes
-'     (CHECK)    If the task is already running, then the following rule applies: [ Do not start a new instance ]
 '
+'     ❌️ Run the task as soon as possible after a scheduled start is missed (UN-CHECKED)
 '
-' ------------------------------------------------------------
+'     ✔️ Stop the task if it runs longer than:  [ 15 minutes ]
 '
-' Citation(s)
+'     ✔️ If the running task does not end when requested, force it to stop (CHECKED)
 '
-'   git-scm.com  |  "Git"  |  https://git-scm.com
-'
-' ------------------------------------------------------------
+'=============================================================

@@ -1,4 +1,4 @@
-CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name 'ONENOTEM' -ErrorAction 'SilentlyContinue') { Stop-Process -Name 'ONENOTEM' -Force -ErrorAction 'SilentlyContinue'; Start-Sleep 1; Remove-Item -Path ('~\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\Send to OneNote*') -Force; Start-Sleep 1; Remove-Item -Path ('~\Documents\OneNote Notebooks\Quick Notes*.one') -Force; Exit 200; } Else { Exit 404; }"" ", 0, True
+CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""Get-Process -Name 'HWiNFO64' -EA:0 | Stop-Process -Force; Get-Process -Name 'Remote Sensor Monitor' -EA:0 | Stop-Process -Force; Start-ScheduledTask -TaskName 'HWiNFO64_AtLogon_AsAdmin';"" ", 0, True
 
 '=============================================================
 ' Open 'Task Scheduler' > 'Create Task' (top right)
@@ -6,21 +6,19 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '
 '   General:
 '
-'     Task Name:  QuickNoteSniper_NonAdmin
+'     Task Name:  HWiNFO64_RestartGui_AtLogon_AsAdmin
 '
 '     Run as user:  [ UserSignedIn ]
 '
 '     ✔️ Run only when user is logged on (CHECKED)
 '
-'     ❌ Run with highest privileges (UN-CHECKED)
+'     ✔️ Run with highest privileges (CHECKED)
 '
 '=============================================================
 '
 '   Trigger:
 '
 '     At log on of specific user: [ UserSignedIn ]  (no delay, no repeat)
-'
-'     At 00:00:35 every day - Repeat task every [ 5 minutes ] for a duration of [ 1439 minutes ]
 '
 '=============================================================
 '
@@ -30,7 +28,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '       C:\Windows\System32\wscript.exe
 '
 '     Add arguments:
-'       "%USERPROFILE%\Documents\GitHub\Coding\visual basic\QuickNoteSniper_NonAdmin.vbs"
+'       "%USERPROFILE%\Documents\GitHub\Coding\visual basic\HWiNFO64_RestartGui_AtLogon_AsAdmin.vbs"
 '
 '=============================================================
 '
@@ -44,9 +42,9 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""If (Get-Process -Name
 '
 '   Settings:
 '
-'     ✔️ Run the task as soon as possible after a scheduled start is missed (CHECKED)
+'     ❌️ Run the task as soon as possible after a scheduled start is missed (UN-CHECKED)
 '
-'     ✔️ Stop the task if it runs longer than:  [ 10 seconds ]
+'     ✔️ Stop the task if it runs longer than:  [ 30 seconds ]
 '
 '     ✔️ If the running task does not end when requested, force it to stop (CHECKED)
 '

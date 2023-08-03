@@ -3,11 +3,10 @@
 // Get info regarding Node-RED's context stores
 //
 
-msg.contexts = {};
-msg.contexts.context = context;
-msg.contexts.node = node;
-msg.contexts.flow = flow;
-msg.contexts.global = global;
+msg.context = context;
+msg.node = node;
+msg.flow = flow;
+msg.global = global;
 
 // msg.homeassistant = homeassistant.homeAssistant.isConnected   // https://community.home-assistant.io/t/how-do-i-watch-for-ha-start-shutdown-events-in-node-red/96421/6
 

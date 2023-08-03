@@ -1,14 +1,13 @@
 // ------------------------------------------------------------
 //
-// While in Node-RED, press combo keypress [ CTRL + SHIFT + P ] and type "show system info" (ALL LOWERCASE), then select option "Show System Info" --> This will contain most of the ingested `settings.js` settings (applied at Node-RED spinup time)
+// Press [ CTRL + SHIFT + P ] in Node-RED & type "show system info" (ALL LOWERCASE)
+//  |
+//  |--> Select option "Show System Info" from the dropdown items, which will show a JSON response containing most of the ingested settings from "settings.js" (applied at Node-RED spinup time)
 //
-
-
 // ------------------------------------------------------------
 //
 // Get info regarding Node-RED's context stores
 //
-
 
 msg.variable_names = [];
 for (var each_varname in this) {

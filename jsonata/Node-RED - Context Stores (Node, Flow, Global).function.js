@@ -1,33 +1,52 @@
 // ------------------------------------------------------------
 //
+// While in Node-RED, press combo keypress [ CTRL + SHIFT + P ] and type "show system info" (ALL LOWERCASE), then select option "Show System Info" --> This will contain most of the ingested `settings.js` settings (applied at Node-RED spinup time)
+//
+
+
+// ------------------------------------------------------------
+//
 // Get info regarding Node-RED's context stores
 //
 
 
-msg.variable_names = "";
-for (var name in this) {
-  msg.variable_names += name + "\n";
+msg.variable_names = [];
+for (var each_varname in this) {
+  msg.variable_names.push(each_varname);
 }
 
+// RED.settings.get('userDir') returns undefined · Issue #1543 · node-red/node-red · GitHub
 
 msg.context = context;
+msg.env = env;
 msg.global = global;
 msg.flow = flow;
-msg.this = this;
 msg.node = node;
-msg.RED = RED;
-
+msg.parse_default = RED.util.parseContextStore("default");
+msg.parse_file = RED.util.parseContextStore("file");
+msg.parse_flow = RED.util.parseContextStore("flow");
+msg.parse_global = RED.util.parseContextStore("global");
+msg.this = this;
 
 msg.keys = {};
 msg.keys.node = context.keys();
 msg.keys.flow = flow.keys();
 msg.keys.global = global.keys();
+msg.keys.global_default = global.keys("default");
 msg.keys.global_file = global.keys("file");
-msg.keys.global_memoryOnly = global.keys("memoryOnly");
 
+// ------------------------------
 
-// msg.homeassistant = homeassistant.homeAssistant.isConnected   // https://community.home-assistant.io/t/how-do-i-watch-for-ha-start-shutdown-events-in-node-red/96421/6
+msg.RED = RED;
 
+// User settings are those provided by the settings file and are read-only.
+// RED.settings.userDir;
+
+// Runtime settings are ones that can change while node-red is running and need to be persisted.
+// RED.settings.get()
+// RED.settings.set()
+
+// ------------------------------
 
 return msg;
 
@@ -35,6 +54,8 @@ return msg;
 // ------------------------------------------------------------
 //
 // Citation(s)
+//
+//   github.com  |  "RED.settings.get('userDir') returns undefined · Issue #1543 · node-red/node-red · GitHub"  |  https://github.com/node-red/node-red/issues/1543
 //
 //   nodered.org  |  "Context Store API : Node-RED"  |  https://nodered.org/docs/api/context/methods
 //

@@ -29,7 +29,7 @@ moment().format('YYYY-MM-DD HH:mm:ss');
 //
 // moment.valueOf()  -  Get epoch seconds
 //
-moment("0000-01-01T00:00:00Z").valueOf();
+moment("0000-01-01T00:00:00Z").valueOf();   // Returns "-62167219200000", the epoch seconds for the start of AD
 
 
 // ------------------------------------------------------------

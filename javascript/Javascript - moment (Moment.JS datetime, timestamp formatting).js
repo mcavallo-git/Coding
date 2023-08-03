@@ -26,6 +26,12 @@ moment().add(30,'minutes');
 moment().format('YYYY-MM-DD HH:mm:ss');
 
 
+//
+// moment.valueOf()  -  Get epoch seconds
+//
+moment("0000-01-01T00:00:00Z").valueOf();
+
+
 // ------------------------------------------------------------
 //
 // Citation(s)

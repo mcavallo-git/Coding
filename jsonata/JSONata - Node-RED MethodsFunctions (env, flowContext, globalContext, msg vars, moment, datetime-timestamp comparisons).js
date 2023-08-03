@@ -110,7 +110,7 @@ $$.payload
 //
 
 //
-// JSON concatenated output (example)
+// String concatenated output (example)
 //
 "Z-WaveJS: " & msg.error_count & " of " & msg.node_count & " nodes are unavailable as of " & $moment().format('YYYY-MM-DDTHH:mm:ss') & " (restart threshold is " & $flowContext('error_threshold') & " or more unavailable nodes)"
 

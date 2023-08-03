@@ -2,15 +2,15 @@
 // JSONata - Node-Red Methods/Functions (env, flowContext, globalContext, msg vars, moment, datetime-timestamp_last_active comparisons).js
 // ------------------------------------------------------------
 //
-// ⚠️ Note that this is really just a big scratch pad used while practicing JSONata in Node-RED
+// ⚠️ Preface: This is really just a big scratch pad used while practicing JSONata in Node-RED
 //
 // ------------------------------------------------------------
-//
-// ⚠️ Note: 'storeName' argument is optional (specifies context store to use)
 //
 // var var_name=context.get('var_name','storeName') || 0;  // Node-Scoped Variable (Get)
 // var var_name=flow.get(   'var_name','storeName') || 0;  // Flow-Scoped Variable (Get)
 // var var_name=global.get( 'var_name','storeName') || 0;  // Global-Scoped Variable (Get)
+//
+//   ⚠️ Note: 'storeName' is an optional argument (specifies context store to use)
 //
 // context.set('var_name', value, 'storeName'); // Node-Scoped Variable (Set)
 // flow.set(   'var_name', value, 'storeName'); // Flow-Scoped Variable (Set)
@@ -184,5 +184,13 @@ $$.payload
 // Citation(s)
 //
 //   momentjs.com  |  "Moment.js | Docs"  |  https://momentjs.com/docs/#/displaying/format/
+//
+//   nodered.org  |  "Context Store API : Node-RED"  |  https://nodered.org/docs/api/context/methods
+//
+//   nodered.org  |  "Node context : Node-RED"  |  https://nodered.org/docs/creating-nodes/context
+//
+//   nodered.org  |  "Working with context : Node-RED"  |  https://nodered.org/docs/user-guide/context
+//
+//   nodered.org  |  "Writing Functions : Node-RED"  |  https://nodered.org/docs/user-guide/writing-functions#multiple-context-stores
 //
 // ------------------------------------------------------------

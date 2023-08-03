@@ -3,14 +3,20 @@
 // Get info regarding Node-RED's context stores
 //
 
+
+msg.variable_names = "";
+for (var name in this) {
+  msg.variable_names += name + "\n";
+}
+
+
 msg.context = context;
-msg.node = node;
-msg.flow = flow;
 msg.global = global;
-
-// msg.homeassistant = homeassistant.homeAssistant.isConnected   // https://community.home-assistant.io/t/how-do-i-watch-for-ha-start-shutdown-events-in-node-red/96421/6
-
+msg.flow = flow;
+msg.this = this;
+msg.node = node;
 msg.RED = RED;
+
 
 msg.keys = {};
 msg.keys.node = context.keys();
@@ -18,6 +24,9 @@ msg.keys.flow = flow.keys();
 msg.keys.global = global.keys();
 msg.keys.global_file = global.keys("file");
 msg.keys.global_memoryOnly = global.keys("memoryOnly");
+
+
+// msg.homeassistant = homeassistant.homeAssistant.isConnected   // https://community.home-assistant.io/t/how-do-i-watch-for-ha-start-shutdown-events-in-node-red/96421/6
 
 
 return msg;

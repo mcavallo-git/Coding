@@ -1,23 +1,15 @@
 // ------------------------------------------------------------
-// JSONata - Node-Red Methods/Functions (env, flowContext, globalContext, msg vars, moment, datetime-timestamp_last_active comparisons).js
+// Node-RED - JSONata (env, flowContext, globalContext, msg, variables, moment)
 // ------------------------------------------------------------
 //
-// ⚠️ Preface: This is really just a big scratch pad used while practicing JSONata in Node-RED
+//   ⚠️ JSONata Sandbox @ https://try.jsonata.org/  ⚠️
 //
 // ------------------------------------------------------------
 //
-// var var_name=env.get('var_name') || 0;  // Environment-Scoped Variable (Get)
-// var var_name=flow.get('var_name', 'storeName') || 0;  // Flow-Scoped Variable (Get)
-// var var_name=global.get('var_name', 'storeName') || 0;  // Global-Scoped Variable (Get)
-// var var_name=context.get('var_name', 'storeName') || 0;  // Node-Scoped Variable (Get)
-//
-// flow.set('var_name', value, 'storeName');  // Flow-Scoped Variable (Set)
-// global.set('var_name', value, 'storeName');  // Global-Scoped Variable (Set)
-// context.set('var_name', value, 'storeName');  // Node-Scoped Variable (Set)
-//
-//   ⚠️ Note: 'storeName' is an optional argument (specifies context store to use)
+//   Note: This script is really just a big scratch pad used while practicing JSONata in Node-RED
 //
 // ------------------------------------------------------------
+
 
 // JSONata Expression - Message Variables
 (payload)
@@ -159,13 +151,13 @@ $$.payload
 //   $sec := $b.diff($a)/1000;
 //   $difference := { 'days': $days, 'hours':$hours, 'minutes': $minutes, 'seconds': $seconds };
 // )
-
-
+//
+//
 // $moment(msg.payload).subtract(1,'w').format('x')
 //
 // $days := $moment().diff((flow.get('timestamp_last_active')),'seconds');
-
-
+//
+//
 // (
 //   $b := $moment(timeB,['DD.MM.YYYY HH:mm:ss','x'],'de');
 //   $a := $moment(timeA,['DD.MM.YYYY HH:mm:ss','x'],'de');
@@ -178,11 +170,13 @@ $$.payload
 //   $sec := $b.diff($a)/1000;
 //   $difference := { 'days': $days, 'hours':$hours, 'minutes': $minutes, 'seconds': $seconds };
 // )
-
-
+//
+//
 // ------------------------------------------------------------
 //
 // Citation(s)
+//
+//   docs.jsonata.org  |  "Comparison Operators · JSONata"  |  https://docs.jsonata.org/comparison-operators
 //
 //   momentjs.com  |  "Moment.js | Docs"  |  https://momentjs.com/docs/#/displaying/format/
 //
@@ -193,5 +187,7 @@ $$.payload
 //   nodered.org  |  "Working with context : Node-RED"  |  https://nodered.org/docs/user-guide/context
 //
 //   nodered.org  |  "Writing Functions : Node-RED"  |  https://nodered.org/docs/user-guide/writing-functions#multiple-context-stores
+//
+//   try.jsonata.org  |  "JSONata Exerciser (Sandbox)"  |  https://try.jsonata.org/
 //
 // ------------------------------------------------------------

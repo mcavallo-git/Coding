@@ -1,5 +1,5 @@
 function not_null(test_not_null) {
-  return_val = undefined;
+  var return_val = undefined;
   try {
     if (test_not_null == null) {
       return_val = false;

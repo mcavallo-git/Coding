@@ -6,13 +6,15 @@
 //
 // ------------------------------------------------------------
 //
-// var var_name=context.get('var_name') || 0; // Function-Scoped Variable (Get)
-// var var_name=flow.get('var_name') || 0;    // Flow-Scoped Variable (Get)
-// var var_name=global.get('var_name') || 0;  // Global-Scoped Variable (Get)
+// ⚠️ Note: 'storeName' argument is optional (specifies context store to use)
 //
-// context.set('var_name',var_name); // Function-Scoped Variable (Set)
-// flow.set('var_name',var_name);    // Flow-Scoped Variable (Set)
-// global.set('var_name',var_name);  // Global-Scoped Variable (Set)
+// var var_name=context.get('var_name','storeName') || 0;  // Node-Scoped Variable (Get)
+// var var_name=flow.get(   'var_name','storeName') || 0;  // Flow-Scoped Variable (Get)
+// var var_name=global.get( 'var_name','storeName') || 0;  // Global-Scoped Variable (Get)
+//
+// context.set('var_name', value, 'storeName'); // Node-Scoped Variable (Set)
+// flow.set(   'var_name', value, 'storeName'); // Flow-Scoped Variable (Set)
+// global.set( 'var_name', value, 'storeName'); // Global-Scoped Variable (Set)
 //
 // ------------------------------------------------------------
 

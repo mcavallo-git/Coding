@@ -1,5 +1,5 @@
 // ------------------------------------------------------------
-// Node-RED - Function Node - Context data stores (node, flow, global).js
+// Node-RED - Function Node - Context datastores (local filesystem, memory cache)
 // ------------------------------------------------------------
 //
 // Press [ CTRL + SHIFT + P ] in Node-RED & type "show system info" (ALL LOWERCASE)

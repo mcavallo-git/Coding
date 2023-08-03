@@ -26,6 +26,10 @@ $$.payload
 
 // JSONata Expression - Environment Variables
 ($env('timeout_minutes');)
+//   equivalent to
+"${timeout_minutes}"
+//   equivalent to
+"{{timeout_minutes}}"
 
 
 // JSONata Expression - Flow Variables

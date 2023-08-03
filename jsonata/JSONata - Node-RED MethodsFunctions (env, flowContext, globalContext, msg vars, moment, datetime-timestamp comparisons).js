@@ -110,7 +110,7 @@ $$.payload
 //
 
 //
-// String concatenated output (example)
+// Example (jsonata): Output a concatenated string
 //
 "Z-WaveJS: " & msg.error_count & " of " & msg.node_count & " nodes are unavailable as of " & $moment().format('YYYY-MM-DDTHH:mm:ss') & " (restart threshold is " & $flowContext('error_threshold') & " or more unavailable nodes)"
 
@@ -121,7 +121,7 @@ $$.payload
 //
 
 //
-// JSON concatenated output (strings & javascript datetime/timestamp) used for [ notify.DEVICE_NAME ]'s "data" input field
+// Example (jsonata): Output a JSON object (including concatenated strings & moment datetime/timestamp)
 //
 {
   "message": $moment().format('YYYY-MM-DDTHH:mm:ss') & " - Action: Restart Server", 
@@ -135,7 +135,7 @@ $$.payload
 //
 
 //
-// more in-depth moment usage
+// Example (jsonata): More in-depth/advanced usage of 'moment' (Moment.js)
 //
 (	    $b := $moment(timeB,['DD.MM.YYYY HH:mm:ss','x'],'de');	    $a := $moment(timeA,['DD.MM.YYYY HH:mm:ss','x'],'de');	    	    /* $b.diff($a) */	    /* $moment.duration($b.diff($a)); */	    	        /* Kein Zugriff auf duration  - also manuell berechnen*/	        	    $days := $b.diff($a, 'days');	    $hours := $b.diff($a, 'hours') - 24 * $b.diff($a, 'days');	    $minutes := $b.diff($a, 'minutes') - 60 * $b.diff($a, 'hours');	    $seconds := $b.diff($a, 'seconds') - 60 * $b.diff($a, 'minutes');	    	    $sec := $b.diff($a)/1000;	    		    	    $difference := {	        'days': $days,	        'hours':$hours,	        'minutes': $minutes,	        'seconds': $seconds	    }; 	    		)
 

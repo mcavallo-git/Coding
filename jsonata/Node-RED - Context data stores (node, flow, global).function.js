@@ -63,4 +63,6 @@ return msg;
 //
 //   nodered.org  |  "Working with context : Node-RED"  |  https://nodered.org/docs/user-guide/context
 //
+//   nodered.org  |  "Writing Functions : Node-RED"  |  https://nodered.org/docs/user-guide/writing-functions#multiple-context-stores
+//
 // ------------------------------------------------------------

@@ -2138,7 +2138,8 @@ CreateCitationsFooter() {
   SendInput LF
   SendInput "------------------------------------------------------------"
   SendInput "{LControl Down}{q}{LControl Up}"
-  SendInput "{Up 2}{Left 28}{Space 2}"
+  SendInput "{Up 2}{Left 26}{Space 2}"
+  ; SendInput "{Up 2}{Left 28}{Space 2}"
   SendInput "{End}{Shift Down}{Left 3}{Shift Up}"
   SetKeyDelay Revert_A_KeyDelay, -1
   Return

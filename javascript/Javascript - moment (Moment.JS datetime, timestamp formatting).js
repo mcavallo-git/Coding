@@ -27,9 +27,15 @@ moment().format('YYYY-MM-DD HH:mm:ss');
 
 
 //
-// moment.valueOf()  -  Get epoch seconds
+// moment.unix()  -  Get epoch seconds
 //
-moment("0000-01-01T00:00:00").valueOf();   // Returns "-62167219200000", the epoch seconds for the start of AD
+moment("0000-01-01T00:00:00").unix();   // Returns "-62167201438", the epoch seconds for the start of AD
+
+
+//
+// moment.valueOf()  -  Get epoch milliseconds
+//
+moment("0000-01-01T00:00:00").valueOf();   // Returns a massive negative number, such as "-62167201438000", the epoch milliseconds for the start of AD
 
 
 // ------------------------------------------------------------

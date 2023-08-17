@@ -1390,18 +1390,18 @@ AppsKey & WheelDown::
 ;     BoundsCenterVert = 0
 ;     Loop, DesktopMonitorCount {
 ;       SysGet MonitorWorkArea, MonitorWorkArea, A_Index
-;       ; If (MonitorWorkAreaLeft > BoundsLeft) {
-;       If (BoundsLeft < MonitorWorkAreaLeft)
+;       ; If (MonitorWorkArea_LeftCoord > BoundsLeft) {
+;       If (BoundsLeft < MonitorWorkArea_LeftCoord)
 ;       {
-;         ; MsgBox((Floor(BoundsLeft) < Floor(MonitorWorkAreaLeft)), A_ScriptName " - " A_ThisFunc)
+;         ; MsgBox((Floor(BoundsLeft) < Floor(MonitorWorkArea_LeftCoord)), A_ScriptName " - " A_ThisFunc)
 ;         ; Widths
-;         BoundsLeft := MonitorWorkAreaLeft
-;         BoundsRight := MonitorWorkAreaRight
+;         BoundsLeft := MonitorWorkArea_LeftCoord
+;         BoundsRight := MonitorWorkArea_RightCoord
 ;         ; Heights
-;         BoundsTop := MonitorWorkAreaTop
-;         BoundsBottom := MonitorWorkAreaBottom
+;         BoundsTop := MonitorWorkArea_TopCoord
+;         BoundsBottom := MonitorWorkArea_BottomCoord
 ;       } Else {
-;         ; MsgBox((Floor(BoundsLeft) >= Floor(MonitorWorkAreaLeft)), A_ScriptName " - " A_ThisFunc)
+;         ; MsgBox((Floor(BoundsLeft) >= Floor(MonitorWorkArea_LeftCoord)), A_ScriptName " - " A_ThisFunc)
 ;       }
 ;     }
 ;     ; Widths
@@ -3372,16 +3372,6 @@ PrintEnv() {
   USERPROFILE := EnvGet("USERPROFILE")
   WINDIR := EnvGet("WINDIR")
 
-  SM_CXSCREEN := SysGet(0)  ; SM_CXSCREEN
-  SM_CYSCREEN := SysGet(1)  ; SM_CYSCREEN
-  SM_XVIRTUALSCREEN := SysGet(76)  ; SM_XVIRTUALSCREEN
-  SM_YVIRTUALSCREEN := SysGet(77)  ; SM_YVIRTUALSCREEN
-  SM_CXVIRTUALSCREEN := SysGet(78)  ; SM_CXVIRTUALSCREEN
-  SM_CYVIRTUALSCREEN := SysGet(79)  ; SM_CYVIRTUALSCREEN
-  SM_CMONITORS := SysGet(80)  ; SM_CMONITORS
-
-  Mouse_MonitorIndex := MouseGet_MonitorIndex()
-
   MsgBoxOutput := ""
 
   ; ------------------------------
@@ -3480,14 +3470,13 @@ PrintEnv() {
   MsgBoxOutput := MsgBoxOutput "`n"
   MsgBoxOutput := MsgBoxOutput "----------------------------- SysGet Values -----------------------------" "`n"
   MsgBoxOutput := MsgBoxOutput "`n"
-  MsgBoxOutput := MsgBoxOutput "  - - Monitor Index:		" Mouse_MonitorIndex "`n"
-  MsgBoxOutput := MsgBoxOutput "  0 - SM_CXSCREEN:		" SM_CXSCREEN "	(A_ScreenWidth)`n"
-  MsgBoxOutput := MsgBoxOutput "  1 - SM_CYSCREEN:		" SM_CYSCREEN "	(A_ScreenHeight)`n"
-  MsgBoxOutput := MsgBoxOutput  "76 - SM_XVIRTUALSCREEN:		" SM_XVIRTUALSCREEN "	(Viewport Top-Left, X)`n"
-  MsgBoxOutput := MsgBoxOutput  "77 - SM_YVIRTUALSCREEN:		" SM_YVIRTUALSCREEN "	(Viewport Top-Left, Y)`n"
-  MsgBoxOutput := MsgBoxOutput  "78 - SM_CXVIRTUALSCREEN:		" SM_CXVIRTUALSCREEN "	(Viewport Width)`n"
-  MsgBoxOutput := MsgBoxOutput  "79 - SM_CYVIRTUALSCREEN:		" SM_CYVIRTUALSCREEN "	(Viewport Height)`n"
-  MsgBoxOutput := MsgBoxOutput  "80 - SM_CMONITORS:		" SM_CMONITORS "	(Monitor Count)`n"
+  MsgBoxOutput := MsgBoxOutput "  0 - SM_CXSCREEN:		" SysGet(0) "	(A_ScreenWidth)`n"
+  MsgBoxOutput := MsgBoxOutput "  1 - SM_CYSCREEN:		" SysGet(1) "	(A_ScreenHeight)`n"
+  MsgBoxOutput := MsgBoxOutput  "76 - SM_XVIRTUALSCREEN:		" SysGet(76) "	(Viewport Top-Left, X)`n"
+  MsgBoxOutput := MsgBoxOutput  "77 - SM_YVIRTUALSCREEN:		" SysGet(77) "	(Viewport Top-Left, Y)`n"
+  MsgBoxOutput := MsgBoxOutput  "78 - SM_CXVIRTUALSCREEN:		" SysGet(78) "	(Viewport Width)`n"
+  MsgBoxOutput := MsgBoxOutput  "79 - SM_CYVIRTUALSCREEN:		" SysGet(79) "	(Viewport Height)`n"
+  MsgBoxOutput := MsgBoxOutput  "80 - SM_CMONITORS:		" SysGet(80) "	(Monitor Count)`n"
   MsgBoxOutput := MsgBoxOutput "`n"
   MsgBoxOutput := MsgBoxOutput "--------------------------------------------------------------------------------------------" "`n"
 
@@ -3877,7 +3866,12 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     ;
     CoordMode "Mouse", "Screen"
     MouseGetPos &MouseX_Screen, &MouseY_Screen
+    ; Screen: Get active monitor coords/dimensions
     Mouse_MonitorIndex := MouseGet_MonitorIndex()
+    Mouse_MonitorIndex := MonitorGetCount()
+    MonitorGetWorkArea(Mouse_MonitorIndex, &MonitorWorkArea_LeftCoord, &MonitorWorkArea_TopCoord, &MonitorWorkArea_RightCoord, &MonitorWorkArea_BottomCoord)
+    Monitor_Width := (MonitorWorkArea_RightCoord - MonitorWorkArea_LeftCoord)
+    Monitor_Height := (MonitorWorkArea_BottomCoord - MonitorWorkArea_TopCoord)
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
@@ -3913,13 +3907,18 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     }
     TooltipOutput := ""
     TooltipOutput := TooltipOutput "Mouse Coords:" "`n"
-    TooltipOutput := TooltipOutput "  Monitor Index:  " Mouse_MonitorIndex "  (Screen)" "`n"
+    TooltipOutput := TooltipOutput "  x" MouseX_Screen "  y" MouseY_Screen "  (Screen)" "`n"
     TooltipOutput := TooltipOutput "  x" MouseX_Window "  y" MouseY_Window "  (Window)" "`n"
     TooltipOutput := TooltipOutput "  x" MouseX_Client "  y" MouseY_Client "  (Client)" "`n"
     TooltipOutput := TooltipOutput "`n"
     TooltipOutput := TooltipOutput "Pixel Color:" "`n"
     TooltipOutput := TooltipOutput "  " Color "  (Hex)" "`n"
     TooltipOutput := TooltipOutput "  rgb(" ColorComponent_Red "," ColorComponent_Green "," ColorComponent_Blue ")" "`n"
+    TooltipOutput := TooltipOutput "`n"
+    TooltipOutput := TooltipOutput "Monitor Coords:" "`n"
+    TooltipOutput := TooltipOutput "  " Mouse_MonitorIndex "`n"
+    TooltipOutput := TooltipOutput "  Index # " Mouse_MonitorIndex "  (Screen)" "`n"
+    TooltipOutput := TooltipOutput "  x" MouseX_Screen "  y" MouseY_Screen "  (Screen)" "`n"
     TooltipOutput := TooltipOutput "`n"
     If (Show_ResolvedColorName == 1) {
       TooltipOutput := TooltipOutput "Color_ResolvedName=[" Color_ResolvedName "] " "`n"
@@ -4734,7 +4733,7 @@ WinSnap_ToGrid(WinTitle:="A", WinText:="", numRows:=1, numCols:=1, row:=1, col:=
   ; Determine which monitor target window is located on
   Win_MonitorIndex := WinGet_MonitorIndex(Win_hwnd)
   ; Get target monitor's dimensions on-screen
-  MonitorGetWorkArea(Win_MonitorIndex, &MonitorWorkAreaLeft, &MonitorWorkAreaTop, &MonitorWorkAreaRight, &MonitorWorkAreaBottom)
+  MonitorGetWorkArea(Win_MonitorIndex, &MonitorWorkArea_LeftCoord, &MonitorWorkArea_TopCoord, &MonitorWorkArea_RightCoord, &MonitorWorkArea_BottomCoord)
   ; Get target window's dimensions on-screen
   WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, Win_hwnd)
   ; If Window is Maximized or Minimized, restore it
@@ -4742,11 +4741,11 @@ WinSnap_ToGrid(WinTitle:="A", WinText:="", numRows:=1, numCols:=1, row:=1, col:=
     WinRestore(Win_hwnd)
   }
   ; Determine the ColWidth and RowHeight of a grid cell
-  RowHeight := ((MonitorWorkAreaBottom - MonitorWorkAreaTop) / numRows)
-  ColWidth := ((MonitorWorkAreaRight - MonitorWorkAreaLeft) / numCols)
+  RowHeight := ((MonitorWorkArea_BottomCoord - MonitorWorkArea_TopCoord) / numRows)
+  ColWidth := ((MonitorWorkArea_RightCoord - MonitorWorkArea_LeftCoord) / numCols)
   ; Determine the x and y offsets
-  WinMove_XPos  := Floor(MonitorWorkAreaLeft + (col - 1) * ColWidth)
-  WinMove_YPos  := Floor(MonitorWorkAreaTop + (row - 1) * RowHeight)
+  WinMove_XPos  := Floor(MonitorWorkArea_LeftCoord + (col - 1) * ColWidth)
+  WinMove_YPos  := Floor(MonitorWorkArea_TopCoord + (row - 1) * RowHeight)
   ; Apply rowSpan/colSpan after determining offsets
   WinMove_Width := Floor(ColWidth * colSpan)
   WinMove_Height := Floor(RowHeight * rowSpan)

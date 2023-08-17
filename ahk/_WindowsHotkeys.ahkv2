@@ -49,8 +49,8 @@ SetWorkingDir A_ScriptDir  ; https://www.autohotkey.com/docs/v2/lib/SetWorkingDi
 ; Global Variables
 ;
 
-; DebugMode := 0
-DebugMode := 1
+DebugMode := 0
+; DebugMode := 1
 
 ; Show the Version of AHK currently being used to compile this code
 If (DebugMode == 1) {

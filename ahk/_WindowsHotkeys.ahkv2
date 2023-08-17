@@ -3991,18 +3991,18 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
       ; ------------------------------
     }
     ; ------------------------------
-    EachText := Text
+    TooltipOutput := Text
     If (DebugMode == 1) {
-      EachText := EachText "`n" Round((Remaining_TickCount/1000),3)
+      TooltipOutput := TooltipOutput "`n" Round((Remaining_TickCount/1000),3)
     }
     ; Only update the tooltip text if it doesn't already contain said the value of said text
-    If (ShowToolTip_Map_Text[WhichToolTip] == RegexConsolidateNewlines(EachText)) {
+    If (ShowToolTip_Map_Text[WhichToolTip] == RegexConsolidateNewlines(TooltipOutput)) {
       ; (Skipped) Tooltip already contains desired contents
     } Else {
       ; Update the tooltip contents
       If (IsInteger(X) && IsInteger(Y)) {
-          ShowToolTip_Map_Text[WhichToolTip] := RegexConsolidateNewlines(EachText)  ; Store the latest value of [ EachText ] into its associated map index
-          ToolTip EachText, Format("{:d}",X), Format("{:d}",Y), WhichToolTip  ; Show the tooltip
+          ShowToolTip_Map_Text[WhichToolTip] := RegexConsolidateNewlines(TooltipOutput)  ; Store the latest value of [ TooltipOutput ] into its associated map index
+          ToolTip TooltipOutput, Format("{:d}",X), Format("{:d}",Y), WhichToolTip  ; Show the tooltip
         } Else {
           ; If X & Y are both non-integer values, then display the tooltip next to the mouse's current location
         MonitorGetWorkArea(, &MonitorLeft, &MonitorTop, &MonitorRight, &MonitorBottom)
@@ -4011,8 +4011,8 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
         MouseGetPos &MouseX, &MouseY
         xpos := Floor( MouseX + ((WhichToolTip-0.5)/20)*(MonitorWidth) )
         ypos := Floor( MouseY + ((WhichToolTip-1)/20)*(MonitorHeight) )
-        ShowToolTip_Map_Text[WhichToolTip] := RegexConsolidateNewlines(EachText)  ; Store the latest value of [ EachText ] into its associated map index
-        ToolTip EachText, xpos, ypos, WhichToolTip  ; Show the tooltip
+        ShowToolTip_Map_Text[WhichToolTip] := RegexConsolidateNewlines(TooltipOutput)  ; Store the latest value of [ TooltipOutput ] into its associated map index
+        ToolTip TooltipOutput, xpos, ypos, WhichToolTip  ; Show the tooltip
       }
     }
     ; ------------------------------

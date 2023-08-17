@@ -4019,7 +4019,7 @@ ShowToolTip_Auto(Text:="", X:="", Y:="", WhichToolTip:=1, Period:=5000, Start_Ti
   }
   Return
 }
-; Maps (associative arrays) containing the latest data for each tooltip (1-20)
+; Maps (associative arrays) containing the latest data for every tooltip index (1-20)
 ShowToolTip_Map_Text := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
 ShowToolTip_Map_TickCounts := Map(1,"",2,"",3,"",4,"",5,"",6,"",7,"",8,"",9,"",10,"",11,"",12,"",13,"",14,"",15,"",16,"",17,"",18,"",19,"",20,"")
 

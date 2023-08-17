@@ -4099,11 +4099,11 @@ ShowVolumeLevel() {
   ToolTip_XPos := 50  ; Fallback/default values
   ToolTip_YPos := 50  ; Fallback/default values
   ; ------------------------------
-  MonitorGetWorkArea(MouseGet_MonitorIndex(), &EachMonitor_LeftCoord, &EachMonitor_TopCoord, &EachMonitor_RightCoord, &EachMonitor_BottomCoord)
-  EachMonitor_Width := (EachMonitor_RightCoord - EachMonitor_LeftCoord)
-  EachMonitor_Height := (EachMonitor_BottomCoord - EachMonitor_TopCoord)
-  ToolTip_XPos := Round(EachMonitor_LeftCoord+((EachMonitor_Width - ToolTip_Width) / 2))
-  ToolTip_YPos := Round(EachMonitor_Height - StartMenu_Height - (ToolTip_Height*2))
+  MonitorGetWorkArea(MouseGet_MonitorIndex(), &MonitorWorkArea_LeftCoord, &MonitorWorkArea_TopCoord, &MonitorWorkArea_RightCoord, &MonitorWorkArea_BottomCoord)
+  Monitor_Width := (MonitorWorkArea_RightCoord - MonitorWorkArea_LeftCoord)
+  Monitor_Height := (MonitorWorkArea_BottomCoord - MonitorWorkArea_TopCoord)
+  ToolTip_XPos := Round(MonitorWorkArea_LeftCoord+((Monitor_Width - ToolTip_Width) / 2))
+  ToolTip_YPos := Round(Monitor_Height - StartMenu_Height - (ToolTip_Height*2))
   ; ------------------------------
   ; Note: Windows default volume display shows for a total of 3.5 seconds (with the last 1.0 seconds being a fade out)
   ShowToolTip(Echo_Tooltip, ToolTip_XPos, ToolTip_YPos, ,1500)

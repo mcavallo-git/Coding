@@ -3868,7 +3868,6 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     MouseGetPos &MouseX_Screen, &MouseY_Screen
     ; Screen: Get active monitor coords/dimensions
     Mouse_MonitorIndex := MouseGet_MonitorIndex()
-    Mouse_MonitorIndex := MonitorGetCount()
     MonitorGetWorkArea(Mouse_MonitorIndex, &MonitorWorkArea_LeftCoord, &MonitorWorkArea_TopCoord, &MonitorWorkArea_RightCoord, &MonitorWorkArea_BottomCoord)
     Monitor_Width := (MonitorWorkArea_RightCoord - MonitorWorkArea_LeftCoord)
     Monitor_Height := (MonitorWorkArea_BottomCoord - MonitorWorkArea_TopCoord)
@@ -3915,10 +3914,11 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     TooltipOutput := TooltipOutput "  " Color "  (Hex)" "`n"
     TooltipOutput := TooltipOutput "  rgb(" ColorComponent_Red "," ColorComponent_Green "," ColorComponent_Blue ")" "`n"
     TooltipOutput := TooltipOutput "`n"
-    TooltipOutput := TooltipOutput "Monitor Coords:" "`n"
-    TooltipOutput := TooltipOutput "  " Mouse_MonitorIndex "`n"
-    TooltipOutput := TooltipOutput "  Index # " Mouse_MonitorIndex "  (Screen)" "`n"
-    TooltipOutput := TooltipOutput "  x" MouseX_Screen "  y" MouseY_Screen "  (Screen)" "`n"
+    TooltipOutput := TooltipOutput "Monitor (Current):" "`n"
+    TooltipOutput := TooltipOutput "  Index:  " Mouse_MonitorIndex "`n"
+    TooltipOutput := TooltipOutput "  Width:  " Monitor_Width "  /  Height:  " Monitor_Height "`n"
+    TooltipOutput := TooltipOutput "  x" MonitorWorkArea_LeftCoord "  y" MonitorWorkArea_TopCoord "  (Top-Left)" "`n"
+    TooltipOutput := TooltipOutput "  x" MonitorWorkArea_RightCoord "  y" MonitorWorkArea_BottomCoord "  (Bottom-Right)" "`n"
     TooltipOutput := TooltipOutput "`n"
     If (Show_ResolvedColorName == 1) {
       TooltipOutput := TooltipOutput "Color_ResolvedName=[" Color_ResolvedName "] " "`n"

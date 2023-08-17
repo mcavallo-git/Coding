@@ -49,8 +49,8 @@ SetWorkingDir A_ScriptDir  ; https://www.autohotkey.com/docs/v2/lib/SetWorkingDi
 ; Global Variables
 ;
 
-DebugMode := 0
-; DebugMode := 1
+; DebugMode := 0
+DebugMode := 1
 
 ; Show the Version of AHK currently being used to compile this code
 If (DebugMode == 1) {
@@ -1602,12 +1602,12 @@ AppsKey & WheelDown::
   LShift & RShift::
   RShift & LShift::
   {
-    Viewport_Width := SysGet(78)  ; SM_CXVIRTUALSCREEN
-    Viewport_Height := SysGet(79)  ; SM_CYVIRTUALSCREEN
+    SM_CXVIRTUALSCREEN := SysGet(78)  ; SM_CXVIRTUALSCREEN
+    SM_CYVIRTUALSCREEN := SysGet(79)  ; SM_CYVIRTUALSCREEN
     WinGetPos(&xpos, &ypos, &Win_width, &Win_height, "A")
-    If ((Win_width != Viewport_Width) || (Win_height != Viewport_Height)) {
+    If ((Win_width != SM_CXVIRTUALSCREEN) || (Win_height != SM_CYVIRTUALSCREEN)) {
       ; Mega maximize the window
-      WinMove(0, 0, Viewport_Width, Viewport_Height, "A")
+      WinMove(0, 0, SM_CXVIRTUALSCREEN, SM_CYVIRTUALSCREEN, "A")
     } Else {
       ; Window is already mega maximized - Restore it
       WinMove(Floor(0.01*A_ScreenWidth), Floor(0.025*A_ScreenHeight), Floor(0.48*A_ScreenWidth), Floor(0.90*A_ScreenHeight), "A")
@@ -3372,11 +3372,13 @@ PrintEnv() {
   USERPROFILE := EnvGet("USERPROFILE")
   WINDIR := EnvGet("WINDIR")
 
-  Viewport_TopLeft_Coords_X := SysGet(76)  ; SM_XVIRTUALSCREEN
-  Viewport_TopLeft_Coords_Y := SysGet(77)  ; SM_YVIRTUALSCREEN
-  Viewport_Width := SysGet(78)  ; SM_CXVIRTUALSCREEN
-  Viewport_Height := SysGet(79)  ; SM_CYVIRTUALSCREEN
-  Monitor_Count := SysGet(80)  ; SM_CMONITORS
+  SM_CXSCREEN := SysGet(0)  ; SM_CXSCREEN
+  SM_CYSCREEN := SysGet(1)  ; SM_CYSCREEN
+  SM_XVIRTUALSCREEN := SysGet(76)  ; SM_XVIRTUALSCREEN
+  SM_YVIRTUALSCREEN := SysGet(77)  ; SM_YVIRTUALSCREEN
+  SM_CXVIRTUALSCREEN := SysGet(78)  ; SM_CXVIRTUALSCREEN
+  SM_CYVIRTUALSCREEN := SysGet(79)  ; SM_CYVIRTUALSCREEN
+  SM_CMONITORS := SysGet(80)  ; SM_CMONITORS
 
   MsgBoxOutput := ""
 
@@ -3476,11 +3478,13 @@ PrintEnv() {
   MsgBoxOutput := MsgBoxOutput "`n"
   MsgBoxOutput := MsgBoxOutput "----------------------------- SysGet Values -----------------------------" "`n"
   MsgBoxOutput := MsgBoxOutput "`n"
-  MsgBoxOutput := MsgBoxOutput "76 - Viewport_TopLeft_Coords_X:	" Viewport_TopLeft_Coords_X "`n"
-  MsgBoxOutput := MsgBoxOutput "77 - Viewport_TopLeft_Coords_Y:	" Viewport_TopLeft_Coords_Y "`n"
-  MsgBoxOutput := MsgBoxOutput "78 - Viewport_Width:		" Viewport_Width "`n"
-  MsgBoxOutput := MsgBoxOutput "79 - Viewport_Height:		" Viewport_Height "`n"
-  MsgBoxOutput := MsgBoxOutput "80 - Monitor_Count:		" Monitor_Count "`n"
+  MsgBoxOutput := MsgBoxOutput " 0 - SM_CXSCREEN:		" SM_CXSCREEN "	(A_ScreenWidth)`n"
+  MsgBoxOutput := MsgBoxOutput " 1 - SM_CYSCREEN:			" SM_CYSCREEN "	(A_ScreenHeight)`n"
+  MsgBoxOutput := MsgBoxOutput "76 - SM_XVIRTUALSCREEN:	" SM_XVIRTUALSCREEN "	(Viewport Top-Left, X)`n"
+  MsgBoxOutput := MsgBoxOutput "77 - SM_YVIRTUALSCREEN:	" SM_YVIRTUALSCREEN "	(Viewport Top-Left, Y)`n"
+  MsgBoxOutput := MsgBoxOutput "78 - SM_CXVIRTUALSCREEN:		" SM_CXVIRTUALSCREEN "	(Viewport Width)`n"
+  MsgBoxOutput := MsgBoxOutput "79 - SM_CYVIRTUALSCREEN:		" SM_CYVIRTUALSCREEN "	(Viewport Height)`n"
+  MsgBoxOutput := MsgBoxOutput "80 - SM_CMONITORS:		" SM_CMONITORS "	(Monitor Count)`n"
   MsgBoxOutput := MsgBoxOutput "`n"
   MsgBoxOutput := MsgBoxOutput "--------------------------------------------------------------------------------------------" "`n"
 
@@ -3870,6 +3874,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     ;
     CoordMode "Mouse", "Screen"
     MouseGetPos &MouseX_Screen, &MouseY_Screen
+    Mouse_MonitorIndex := MouseGet_MonitorIndex()
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
@@ -3905,7 +3910,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     }
     TooltipOutput := ""
     TooltipOutput := TooltipOutput "Mouse Coords:" "`n"
-    TooltipOutput := TooltipOutput "  x" MouseX_Screen "  y" MouseY_Screen "  (Screen)" "`n"
+    TooltipOutput := TooltipOutput "  Monitor Index:  " Mouse_MonitorIndex "  (Screen)" "`n"
     TooltipOutput := TooltipOutput "  x" MouseX_Window "  y" MouseY_Window "  (Window)" "`n"
     TooltipOutput := TooltipOutput "  x" MouseX_Client "  y" MouseY_Client "  (Client)" "`n"
     TooltipOutput := TooltipOutput "`n"

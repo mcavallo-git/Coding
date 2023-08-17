@@ -3268,7 +3268,7 @@ PasteClipboardAsBinary() {
 ;
 PasteClipboardAsText(StringToPaste:="") {
   global DebugMode
-  SetKeyDelay 1, -1  ; A tiny delay between each keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
+  SetKeyDelay 1, -1  ; A tiny delay between every keypress is often required by anti-paste mechanisms on websites - Set the shortest delay to work around this
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
   Sleep 250
   StringToPaste := ((StrLen(StringToPaste)<=0)?(A_Clipboard):(StringToPaste))

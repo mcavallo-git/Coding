@@ -4725,8 +4725,8 @@ WinSnap_ToGrid(WinTitle:="A", WinText:="", numRows:=1, numCols:=1, row:=1, col:=
   Win_hwnd := ("ahk_id " WinGetID(WinTitle))
   ; Determine which monitor target window is located on
   Win_MonitorIndex := WinGet_MonitorIndex(Win_hwnd)
-  MonitorGetWorkArea(Win_MonitorIndex, &MonitorWorkAreaLeft, &MonitorWorkAreaTop, &MonitorWorkAreaRight, &MonitorWorkAreaBottom)
   ; Get target monitor's dimensions on-screen
+  MonitorGetWorkArea(Win_MonitorIndex, &MonitorWorkAreaLeft, &MonitorWorkAreaTop, &MonitorWorkAreaRight, &MonitorWorkAreaBottom)
   ; Get target window's dimensions on-screen
   WinGetPos(&Win_XPos, &Win_YPos, &Win_Width, &Win_Height, Win_hwnd)
   ; If Window is Maximized or Minimized, restore it

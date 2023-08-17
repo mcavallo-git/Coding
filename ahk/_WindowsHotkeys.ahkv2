@@ -4064,10 +4064,10 @@ ShowVolumeLevel() {
   Echo_TopBot_RightHalf := Echo_TopBot_RightHalf A_Space A_Space Icon_SpeakerHighVolume
   Echo_Middle_LeftHalf := Echo_TopBot_LeftHalf
   Echo_Middle_RightHalf := Echo_TopBot_RightHalf
-  IconSlice_Middle_EachSide := 3
+  IconSlice_Middle_EitherSide := 3
   Mute_AddSpaces := 2
-  Echo_Middle_LeftHalf := SubStr( Echo_TopBot_LeftHalf, 1, ( -1 * IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
-  Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconSlice_Middle_EachSide * StrLen( Icon_VolumeFilled )) )
+  Echo_Middle_LeftHalf := SubStr( Echo_TopBot_LeftHalf, 1, ( -1 * IconSlice_Middle_EitherSide * StrLen( Icon_VolumeFilled )) )
+  Echo_Middle_RightHalf := SubStr( Echo_TopBot_RightHalf, ( IconSlice_Middle_EitherSide * StrLen( Icon_VolumeFilled )) )
   ; Show mute status next to the integer volume level
   ;   |--> Replace mute-icon w/ whitespace if un-muted
   Mute_StatusIcon := ( ( MasterMute ) ? ( Icon_MutedSpeaker ) : ( StringRepeat( A_Space , 4 ) ) )

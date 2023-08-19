@@ -1,6 +1,6 @@
 <!-- https://github.com/mcavallo-git/Coding/blob/main/hardware/screws-screwdrivers/screw-dimensions-sizes.md -->
 
-# Screw Dimensions, Sizes
+# Screw Dimensions, Sizes (`Wood`/`Metal`/`Machine`/etc.)
 
 <!-- ------------------------------ -->
 
@@ -63,7 +63,6 @@
     |                  `4"` |                `4.000"` |               `101.600 mm` |                             |
 
 
-
 ***
 
 - ## Citation(s)
@@ -74,5 +73,6 @@
   - [www.design1st.com | Tap Drill & Clearance Holes for Screw Threads 0-80 to 0.5 inch](https://www.design1st.com/Design-Resource-Library/engineering_data/TapDrillClearanceHoles.pdf)
   - [www.hurripanel.com | Understanding Screw Sizes - Inch Standards](http://www.hurripanel.com/content/218822/pdf_docs/screw_size_chart.pdf)
   - [www.inchcalculator.com | Inch Fraction Calculator - Decimal to Inches - Inch Calculator](https://www.inchcalculator.com/inch-fraction-calculator/)
+  - [www.thespruce.com | 13 Types of Screws for Metal, Plastic, and More](https://www.thespruce.com/types-of-screws-6452621)
 
 ***

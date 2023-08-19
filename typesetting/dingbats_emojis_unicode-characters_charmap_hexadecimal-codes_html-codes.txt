@@ -483,7 +483,7 @@ Mostly Linux compatible:
 Whitespace Characters  (reference - https://jkorpela.fi/chars/spaces.html ):
 
 [﻿]					ZERO WIDTH NO-BREAK SPACE  |  https://www.compart.com/en/unicode/U+FEFF
-[​]					Zero Width Space  (&NegativeVeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200B
+[​]					Zero Width Space  (&NegativeVeryThinSpace;) (&#x200B;)  |  https://www.compart.com/en/unicode/U+200B
 [᠎]					MONGOLIAN VOWEL SEPARATOR  |  https://www.compart.com/en/unicode/U+180E
 [ ]					HAIR SPACE  (&VeryThinSpace;)  |  https://www.compart.com/en/unicode/U+200A
 [ ]					SIX-PER-EM SPACE  |  https://www.compart.com/en/unicode/U+2006

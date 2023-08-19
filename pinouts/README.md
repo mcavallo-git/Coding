@@ -6,7 +6,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/tree/main/pinout
 
 ***
 
-### Citation(s)
+### Pinouts - Common/Frequently Accessed Diagrams
 
 <hr />
 

@@ -10,11 +10,6 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/tree/main/pinout
 
 ***
 
-- ### [pinout - hdmi.jpg](https://www.veritlabs.com/itresources/diagrams/hdmi_pinout.gif)
-  - <img src="pinout - hdmi.jpg" />
-
-***
-
 - ### [pinout - mobo-headers.intel-nuc5i7ryh.png](https://www.intel.com/content/www/us/en/support/articles/000006933/intel-nuc.html)
   - <img src="https://github.com/mcavallo-git/Coding/raw/main/pinouts/pinout - mobo-headers.intel-nuc5i7ryh.png" />
 
@@ -77,5 +72,10 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/tree/main/pinout
 
 - ### [pinout - pc-usb-headers.type-c.jpg](https://en.wikipedia.org/wiki/USB#Connector_type_quick_reference)
   - <img src="https://github.com/mcavallo-git/Coding/raw/main/pinouts/pinout - pc-usb-headers.type-c.jpg" />
+
+***
+
+- ### [pinout - video.hdmi.jpg](https://www.veritlabs.com/itresources/diagrams/hdmi_pinout.gif)
+  - <img src="pinout - video.hdmi.jpg" />
 
 ***

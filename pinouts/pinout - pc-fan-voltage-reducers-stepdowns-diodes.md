@@ -1,6 +1,6 @@
 ***
 
-# Results - Voltage Step-Downs (on 3-/4-Pin Fans)
+# Results - Diode Voltage Step-Down Testing @ 5V/12V
 
 ***
 

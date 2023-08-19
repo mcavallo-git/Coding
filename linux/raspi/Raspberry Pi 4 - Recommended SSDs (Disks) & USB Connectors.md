@@ -8,6 +8,7 @@
 
   - #### [52Pi (GeeekPi on Amazon)](https://wiki.52pi.com/)
     - [Expansion Boards (Hats)](https://wiki.52pi.com/#Hat_Stack)
+      - [`EP-0171` - M.2 NVMe SSD Adapter Board (No UASP Support?)](https://wiki.52pi.com/index.php?title=EP-0171)
     ***
   - #### [GeekWorm](https://wiki.geekworm.com/Raspberry_Pi)
     - [Expansion Boards (Hats)](https://wiki.geekworm.com/Raspberry_Pi#Expansion_Board)

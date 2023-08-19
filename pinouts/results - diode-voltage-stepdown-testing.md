@@ -1,3 +1,9 @@
+<!-- ------------------------------------------------------------ ---
+
+This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/pinouts/results%20-%20diode-voltage-stepdown-testing.md
+
+--- ------------------------------------------------------------- -->
+
 ***
 
 # Results - Diode Voltage Step-Down Testing @ 5V/12V

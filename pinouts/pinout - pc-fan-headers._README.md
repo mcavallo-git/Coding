@@ -1,6 +1,12 @@
+<!-- ------------------------------------------------------------ ---
+
+This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/pinouts/pinout%20-%20pc-fan-headers._README.md
+
+--- ------------------------------------------------------------- -->
+
 ***
 
-## PC Motherboard Fan Headers - 3-pin/4-pin (PWM)
+## Pinout - PC Fan Headers (3-pin/4-pin (PWM))
 
 ***
 

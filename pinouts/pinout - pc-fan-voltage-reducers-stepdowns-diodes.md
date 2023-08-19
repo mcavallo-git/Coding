@@ -1,6 +1,6 @@
 ***
 
-# 3-/4-Pin PC Fan Voltage Step-Downs
+# Results - Voltage Step-Downs (on 3-/4-Pin Fans)
 
 ***
 

@@ -6,7 +6,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/pinout
 
 ***
 
-## PC Lighting Connector Housings (ARGB/RGB)
+## Pinout - Connector Housings (ARGB/RGB PC Lighting)
 
 ***
 

@@ -2,7 +2,7 @@
 
 ***
 
-## Pinouts - Power plugs/outlets (Americas & Japan)
+## Pinout - Power plugs/outlets (Americas & Japan)
 
 <!-- ------------------------------------------------------------ -->
 

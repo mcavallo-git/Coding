@@ -10,6 +10,11 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/pinout
 
 ***
 
+- ## Diodes act as resistors if the marking around the center of their body is closer to the Cathode side
+  ![pinout - diode_anode-cathode](pinout%20-%20diode_anode-cathode.svg)
+
+***
+
 - ## Voltage input/output across diodes in series
   | Test Case | Component | Count | Connection Type               | Resistance | Input (`5V`) | ⚠️ Output (`5V`) | Input (`12V`) | ⚠️ Output (`12V`) |
   | --------: | --------- | ----: | ----------------------------- | ---------: | -----------: | ---------------: | ------------: | -----------------: |
@@ -81,11 +86,6 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/pinout
 
   ```
   - > Note: Individual diode resistance measurements (used for averages) have their values in `MΩ` (Megaohms)
-
-***
-
-- ## Diodes act as resistors if the marking around the center of their body is closer to the Cathode side
-  ![pinout - diode_anode-cathode](pinout%20-%20diode_anode-cathode.svg)
 
 ***
 

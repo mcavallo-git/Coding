@@ -1,18 +1,21 @@
 # ------------------------------------------------------------
-# PowerShell - System.Web.HTTPUtility - UrlEncode, UrlDecode.ps1
+# PowerShell - System.Web.HTTPUtility, [uri]-EscapeDataString (UrlEncode, UrlDecode).ps1
 # ------------------------------------------------------------
 #
-# URL Encode
+# URL Encode  -  [uri]::EscapeDataString
 #
+[uri]::EscapeDataString("https://example.com");  # Output "https%3a%2f%2fexample.com"
 
-[System.Web.HTTPUtility]::UrlEncode("https://example.com");  # Output:  https%3a%2f%2fexample.com
+#
+# URL Encode  -  [System.Web.HTTPUtility]
+#
+[System.Web.HTTPUtility]::UrlEncode("https://example.com");  # Output "https%3a%2f%2fexample.com"  ⚠️ Note: System.Web.HTTPUtility doesn't seem to convert parenthesis to their respective URL encoded characters
 
 
 # ------------------------------------------------------------
 #
-# URL Decode
+# URL Decode  -  [System.Web.HTTPUtility]
 #
-
 [System.Web.HTTPUtility]::UrlDecode("https%3a%2f%2fexample.com");  # Output:  https://example.com
 
 

@@ -5,6 +5,7 @@
 - [pinout - mobo-headers.intel-nuc5i7ryh.png](https://www.intel.com/content/www/us/en/support/articles/000006933/intel-nuc.html)
 
 - [pinout - mobo-headers.raspi-raspberry-pi.gpio.png](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)
+  - ![pinout - mobo-headers.raspi-raspberry-pi.gpio.png](./pinout - mobo-headers.raspi-raspberry-pi.gpio.png)
 
 - [pinout - mobo-headers.raspi-raspberry-pi-zero.test-pads.jpg](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)
 

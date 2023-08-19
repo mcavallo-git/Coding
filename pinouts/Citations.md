@@ -4,7 +4,9 @@
 
 - [pinout - mobo-headers.intel-nuc5i7ryh.png](https://www.intel.com/content/www/us/en/support/articles/000006933/intel-nuc.html)
 
-- [pinout - mobo-headers.raspberry-pi.3b.jpg](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)
+- [pinout - mobo-headers.raspi-raspberry-pi.gpio.png](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)
+
+- [pinout - mobo-headers.raspi-raspberry-pi-zero.test-pads.jpg](https://www.raspberrypi.com/documentation/computers/raspberry-pi.html)
 
 - [pinout - pc-fan-headers.standard.molex-kk.3-pin.jpg](https://www.dell.com/community/image/serverpage/image-id/8636i1F8E1EC34080C415?v=1.0)
 

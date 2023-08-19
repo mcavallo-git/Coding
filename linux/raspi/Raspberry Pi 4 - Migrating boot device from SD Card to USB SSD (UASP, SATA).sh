@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# Raspberry Pi 4B & 400 - Migrating boot device from SD Card to USB SSD (UASP, SATA)
+# Raspberry Pi 4 (4B+/400) - Migrating boot device from SD Card to USB SSD (UASP, SATA)
 # ------------------------------------------------------------
 
 # Step 1 - Follow guide @ https://medium.com/xster-tech/move-your-existing-raspberry-pi-4-ubuntu-install-from-sd-card-to-usb-ssd-52e99723f07b

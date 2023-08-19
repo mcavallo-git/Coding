@@ -1,3 +1,9 @@
+<!-- ------------------------------------------------------------ ---
+
+This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/pinouts/pinout%20-%20pc-lighting-headers._README.md
+
+--- ------------------------------------------------------------- -->
+
 ***
 
 ## PC Lighting Connector Housings (ARGB/RGB)

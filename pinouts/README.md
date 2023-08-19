@@ -40,8 +40,13 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/tree/main/pinout
 
 <hr />
 
-- ### [pinout - pc-psu.24-pin-connector.jpg](https://www.lifewire.com/thmb/6YH6BMOfXnyhMgxQ-qU8yIOFqP4=/2200x1467/filters:fill(auto,1)/atx-24-pin-12v-power-supply-pinout-2624578-bd809482596447b7afa7c63232719560.png)
-  - <img src="https://github.com/mcavallo-git/Coding/raw/main/pinouts/pinout - pc-psu.24-pin-connector.jpg" />
+- ### [pinout - pc-psu.atx-4pin_eps-8pin_pcie-6pin-8pin.jpg](https://electronics.stackexchange.com/q/465726)
+  - <img src="https://github.com/mcavallo-git/Coding/raw/main/pinouts/pinout - pc-psu.atx-4pin_eps-8pin_pcie-6pin-8pin.jpg" />
+
+<hr />
+
+- ### [pinout - pc-psu.atx-24pin.jpg](https://www.lifewire.com/thmb/6YH6BMOfXnyhMgxQ-qU8yIOFqP4=/2200x1467/filters:fill(auto,1)/atx-24-pin-12v-power-supply-pinout-2624578-bd809482596447b7afa7c63232719560.png)
+  - <img src="https://github.com/mcavallo-git/Coding/raw/main/pinouts/pinout - pc-psu.atx-12v-24pin.jpg" />
 
 <hr />
 

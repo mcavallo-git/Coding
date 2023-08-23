@@ -5,7 +5,7 @@
 #
 # hdparm
 #        -t     Perform timings of device reads for benchmark and comparison purposes
-#        -T     Perform  timings of cache reads for benchmark and comparison purposes
+#        -T     Perform timings of cache reads for benchmark and comparison purposes
 #
 # ------------------------------------------------------------
 

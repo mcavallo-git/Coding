@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 
-hdparm (disk benchmark) - KingSpec 128GB M.2 NVMe SSD (via Geekworm X876 v1.1 USB 3.0 UASP NVMe HAT)
+hdparm (disk benchmark) - KingSpec NE-120 (via Geekworm X876 v1.1 USB 3.0 UASP NVMe HAT)
 
 ------------------------------------------------------------
 

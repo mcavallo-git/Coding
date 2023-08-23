@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 
-hdparm (disk benchmark) - Samsung 860 Pro 2.5in SSD in Sabrent USB 3.1 UASP Adapter
+hdparm (disk benchmark) - Samsung 860 Pro (in Sabrent USB 3.1 UASP Adapter)
 
 ------------------------------------------------------------
 

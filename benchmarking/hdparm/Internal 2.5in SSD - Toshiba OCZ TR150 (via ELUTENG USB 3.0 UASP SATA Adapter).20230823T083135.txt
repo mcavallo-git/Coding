@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 
-hdparm (disk benchmark) - Toshiba OCZ Trion 150 via ELUTENG USB 3.0 UASP SATA Adapter
+hdparm (disk benchmark) - Toshiba OCZ TR150 (via ELUTENG USB 3.0 UASP SATA Adapter)
 
 ------------------------------------------------------------
 

@@ -1,11 +1,11 @@
 ------------------------------------------------------------
 
-hdparm (disk benchmark) - Samsung BAR Plus 32GB USB 3.1 Flash Drive
+hdparm (disk benchmark) - Samsung MUF-32BE3-AM (BAR Plus USB 3.1 Flash Drive, 32GB)
 
 ------------------------------------------------------------
 
-Timing cached reads:         785.43 MB/sec
+Timing cached reads:         779.28 MB/sec
 
-Timing buffered disk reads:   66.43 MB/sec
+Timing buffered disk reads:   67.83 MB/sec
 
 ------------------------------------------------------------

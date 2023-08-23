@@ -1,6 +1,6 @@
 ------------------------------------------------------------
 
-hdparm (disk benchmark) - Samsung EVO Select 32GB MicroSD Card
+hdparm (disk benchmark) - Samsung MB-ME32GA (EVO Select MicroSD Card, 32GB)
 
 ------------------------------------------------------------
 

@@ -15,9 +15,9 @@
         - > ✔️ UASP supported
         - > ❌️ TRIM not supported
       - [`X760` - Power over Ethernet (PoE) Hat](https://wiki.geekworm.com/X760)
-        - Rests further to the Raspberry Pi than the `X765`, by design
+        - Rests further from the Raspberry Pi than the `X765` (by design)
       - [`X765` - Power over Ethernet (PoE) Hat](https://wiki.geekworm.com/X765)
-        - Rests closer to the Raspberry Pi than the `X760`, by design
+        - Rests closer to the Raspberry Pi than the `X760` (by design)
     ***
   - #### Cases - Single Device
     - [`P122` (13.6mm Height)](https://wiki.geekworm.com/P122)

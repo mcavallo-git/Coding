@@ -1,0 +1,11 @@
+------------------------------------------------------------
+
+hdparm (disk benchmark) - KingSpec 128GB M.2 NVMe SSD (via Geekworm X876 v1.1 USB 3.0 UASP NVMe HAT)
+
+------------------------------------------------------------
+
+Timing cached reads:   1534 MB in  2.00 seconds = 768.34 MB/sec
+
+Timing buffered disk reads: 728 MB in  3.01 seconds = 242.10 MB/sec
+
+------------------------------------------------------------

@@ -1,0 +1,11 @@
+------------------------------------------------------------
+
+hdparm (disk benchmark) - Toshiba OCZ Trion 150 via ELUTENG USB 3.0 UASP SATA Adapter
+
+------------------------------------------------------------
+
+Timing cached reads:   1682 MB in  2.00 seconds = 842.19 MB/sec
+
+Timing buffered disk reads: 1094 MB in  3.00 seconds = 364.66 MB/sec
+
+------------------------------------------------------------

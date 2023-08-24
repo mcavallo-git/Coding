@@ -1,6 +1,6 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# Linux - Decimal, Hexadecimal, Octal & ASCII character code conversion-converter
+# Linux - Number conversion-converter (Binary, Decimal, Hexadecimal, Octal & ASCII character codes)
 # ------------------------------------------------------------
 #
 # Octal (Base 8)
@@ -18,17 +18,21 @@ if [[ 1 -eq 1 ]]; then
 echo "";
 VALUE_OCTAL="0100"; echo "VALUE_OCTAL = \"${VALUE_OCTAL}\"";
 #
+# Octal --> Binary
+#
+perl -e 'printf "%b",'${VALUE_OCTAL}; echo "  (Octal --> Binary)";
+#
 # Octal --> Octal
 #
-echo -n "0"; printf '%o' "${VALUE_OCTAL}"; echo "   (Octal --> Octal)";
+echo -n "0"; printf '%o' "${VALUE_OCTAL}"; echo "     (Octal --> Octal)";
 #
 # Octal --> Decimal
 #
-printf '%d' "${VALUE_OCTAL}"; echo "     (Octal --> Decimal)";
+printf '%d' "${VALUE_OCTAL}"; echo "       (Octal --> Decimal)";
 #
 # Octal --> Hexadecimal
 #
-echo -n "0x"; printf '%x' "${VALUE_OCTAL}"; echo "   (Octal --> Hexadecimal)";
+echo -n "0x"; printf '%x' "${VALUE_OCTAL}"; echo "     (Octal --> Hexadecimal)";
 echo "";
 fi;
 
@@ -49,17 +53,21 @@ if [[ 1 -eq 1 ]]; then
 echo "";
 VALUE_DECIMAL="100"; echo "VALUE_DECIMAL = \"${VALUE_DECIMAL}\"";
 #
+# Decimal --> Binary
+#
+perl -e 'printf "%b",'${VALUE_DECIMAL}; echo "  (Decimal --> Binary)";
+#
 # Decimal --> Octal
 #
-echo -n "0"; printf '%o' "${VALUE_DECIMAL}"; echo "   (Decimal --> Octal)";
+echo -n "0"; printf '%o' "${VALUE_DECIMAL}"; echo "     (Decimal --> Octal)";
 #
 # Decimal --> Decimal
 #
-printf '%d' "${VALUE_DECIMAL}"; echo "    (Decimal --> Decimal)";
+printf '%d' "${VALUE_DECIMAL}"; echo "      (Decimal --> Decimal)";
 #
 # Decimal --> Hexadecimal
 #
-echo -n "0x"; printf '%x' "${VALUE_DECIMAL}"; echo "   (Decimal --> Hexadecimal)";
+echo -n "0x"; printf '%x' "${VALUE_DECIMAL}"; echo "     (Decimal --> Hexadecimal)";
 echo "";
 fi;
 
@@ -82,17 +90,21 @@ if [[ 1 -eq 1 ]]; then
 echo "";
 VALUE_HEXADECIMAL="0x100"; echo "VALUE_HEXADECIMAL = \"${VALUE_HEXADECIMAL}\"";
 #
+# Hexadecimal --> Binary
+#
+perl -e 'printf "%b",'${VALUE_HEXADECIMAL}; echo "  (Hexadecimal --> Binary)";
+#
 # Hexadecimal --> Octal
 #
-echo -n "0"; printf '%o' "${VALUE_HEXADECIMAL}"; echo "   (Hexadecimal --> Octal)";
+echo -n "0"; printf '%o' "${VALUE_HEXADECIMAL}"; echo "     (Hexadecimal --> Octal)";
 #
 # Hexadecimal --> Decimal
 #
-printf '%d' "${VALUE_HEXADECIMAL}"; echo "    (Hexadecimal --> Decimal)";
+printf '%d' "${VALUE_HEXADECIMAL}"; echo "      (Hexadecimal --> Decimal)";
 #
 # Hexadecimal --> Hexadecimal
 #
-echo -n "0x"; printf '%x' "${VALUE_HEXADECIMAL}"; echo "  (Hexadecimal --> Hexadecimal)";
+echo -n "0x"; printf '%x' "${VALUE_HEXADECIMAL}"; echo "    (Hexadecimal --> Hexadecimal)";
 echo "";
 fi;
 
@@ -149,15 +161,15 @@ if [[ 0 -eq 1 ]]; then
 printf \\%03o 63;  # Returns "\077"
 printf \\x%x 63;   # Returns "\077"
 printf $(printf \\%03o 63;);  # Returns "?"
-printf '\x3f';               # Returns "?"
-printf '%b' '\077';          # Returns "?"
-printf '\077';               # Returns "?"
+printf '\x3f';                # Returns "?"
+printf '%b' '\077';           # Returns "?"
+printf '\077';                # Returns "?"
 
 # Building the "@" character in a roundabout way
 printf $(printf \\%03o 64;);  # Returns "@"
-printf '\x40';               # Returns "@"
-printf '%b' '\100';          # Returns "@"
-printf '\100';               # Returns "@"
+printf '\x40';                # Returns "@"
+printf '%b' '\100';           # Returns "@"
+printf '\100';                # Returns "@"
 
 fi;
 

@@ -1,0 +1,11 @@
+------------------------------------------------------------
+
+hdparm (disk benchmark) - Toshiba OCZ TR150 (via Geekworm X825 v2.0 USB 3.0 UASP SATA HAT)
+
+------------------------------------------------------------
+
+Timing cached reads:   1750 MB in  2.00 seconds = 876.56 MB/sec
+
+Timing buffered disk reads: 1086 MB in  3.00 seconds = 361.75 MB/sec
+
+------------------------------------------------------------

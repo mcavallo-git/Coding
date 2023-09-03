@@ -9,13 +9,14 @@
 <br /><hr /><br />
 
 ## 0 - Tools
-- Prep your tools in one, known location and keep putting em back in that same spot (pure preference, there). Get the cardboard box out of your case and get the screw baggies out of it and familiarize yourself with ish-what is in there
+- Define a location to place your tools (screwdrivers, especially). Place them in said predefined location and keep returning them that same spot as the build goes on. Locate the included screwss inside the case, familiarize yourself with ish-what is in there.
 
 
 <br /><hr /><br />
 
 ## 1 - Case
-- Take both sides & top off your case. Lean them gently against a nearby wall (generally out-of-the-way).
+- Most cases have side walls which screw on at the back of the case. Remove said screws, and take off said walls - Lean them gently out of the way against a nearby wall (as to not scratch/marr their surfaces laying them down).
+- The top, front, and sometimes even bottom faces of the case are removable in many instances. If they're bolted on, or have more than 4 screws holding them on, don't bother to remove them, otherwise unscrew or simply "pop" them off (if they have plastic retaining clips).
 
 
 <br /><hr /><br />

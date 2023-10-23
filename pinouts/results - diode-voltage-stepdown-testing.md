@@ -93,5 +93,6 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/pinout
   - [en.wikipedia.org | Diode - Wikipedia](https://en.wikipedia.org/wiki/Diode)
   - [github.com | Coding/pinout - pc-fan-voltage-reducers-stepdowns-diodes](https://github.com/mcavallo-git/Coding/blob/main/pinouts/pinout%20-%20pc-fan-voltage-reducers-stepdowns-diodes.md)
   - [jeelabs.org | Easy Electrons – Diodes » JeeLabs](https://jeelabs.org/2011/01/09/easy-electrons-%E2%80%93-diodes/index.html)
+  - [www.helifreak.com | How can I reduce voltage - from 5V to 4V?](https://www.helifreak.com/showthread.php?t=650392#/topics/650392?page=4)
 
 ***

@@ -268,6 +268,14 @@ CIDR_ARR="$(curl -s "https://ip-ranges.atlassian.com" | jq -e '.items';)"; for E
 
 # ------------------------------------------------------------
 #
+# jq - Combine/Consolidate multiple JSON files into a single JSON file
+#
+
+jq -n '[ inputs[] ]' *.json > combined.json;
+
+
+# ------------------------------------------------------------
+#
 # jq - Collapse single elements to strings
 #
 
@@ -455,5 +463,7 @@ fi;
 #   stackoverflow.com  |  "json - jq not working on tag name with dashes and numbers - Stack Overflow"  |  https://stackoverflow.com/a/37344498
 #
 #   stackoverflow.com  |  "json - Select objects based on value of variable in object using jq - Stack Overflow"  |  https://stackoverflow.com/a/18608100
+#
+#   unix.stackexchange.com  |  "Merging multiple json file into one object using JQ with argument - Unix & Linux Stack Exchange"  |  https://unix.stackexchange.com/questions/588063
 #
 # ------------------------------------------------------------

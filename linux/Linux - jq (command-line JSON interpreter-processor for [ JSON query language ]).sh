@@ -268,6 +268,14 @@ CIDR_ARR="$(curl -s "https://ip-ranges.atlassian.com" | jq -e '.items';)"; for E
 
 # ------------------------------------------------------------
 #
+# jq - Collapse single elements to strings
+#
+
+JQ_QUERY='[.[] | .data = (.data | tostring)]'; cat data.json | jq "${JQ_QUERY}" > data-tostring.json;
+
+
+# ------------------------------------------------------------
+#
 # jq - Search a JSON array for a specific value
 #
 

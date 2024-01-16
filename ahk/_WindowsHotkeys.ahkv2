@@ -1305,7 +1305,7 @@ AppsKey & WheelDown::
 !^#c::
 {
 
-  KeypressLoop("e",100,2000,50)
+  KeypressLoop("e",50,3000,50)
 
   ; ClickLoop()
 

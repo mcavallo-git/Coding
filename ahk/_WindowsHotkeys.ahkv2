@@ -1305,9 +1305,9 @@ AppsKey & WheelDown::
 !^#c::
 {
 
-  ClickLoop()
-
-  ; Windows_RefreshTrayIcons()
+  KeypressLoop("{e}",1000)
+  
+  ; ClickLoop()
 
   ; ClickLoop(1247,1100,25)
 
@@ -2876,6 +2876,39 @@ ImplodeArray(Array:="",Delimiter:=",",ShowIndexes:=False) {
 IsArray(TestVar:="") {
   Return (IsObject(TestVar))  ; https://www.autohotkey.com/board/topic/70596-isarray/?p=447071
   ; Return (!ObjCount(TestArray) || ObjMinIndex(TestArray) == 1 && ObjMaxIndex(TestArray) == ObjCount(TestArray) && TestArray.Clone().Delete(1, TestArray.MaxIndex()) == ObjCount(TestArray))  ; https://www.autohotkey.com/boards/viewtopic.php?t=64332
+}
+
+
+; ------------------------------
+;
+; KeypressLoop
+;   |--> Keypress loop until script is cancelled (or after MaxLoopIterations loop iterations are reached if set to a value other than -1)
+;
+KeypressLoop(WhichKey:="{e}", Timeout:=1000, MaxLoopIterations:=-1) {
+  SetKeyDelay 0, -1
+  ; Do not click more often than a predefined lower limit
+  If (Timeout < 25) {
+    Timeout := 25
+  }
+  Loop {
+    ; Wait a given amount of time before each click
+    Sleep Timeout
+    If ((Mod((A_Index-1), 10)) == 0) {
+      ; Set a tooltip notifying the user that the script is clicking
+      TooltipOutput := "Sending keypress every " Timeout " ms..."
+      ShowToolTip(TooltipOutput,,,,(Timeout*10))
+    }
+    ; Send the keypress event
+    Send WhichKey
+    ; Stop looping after MaxLoopIterations iterations (if specified)
+    If (MaxLoopIterations != -1) {
+      If (A_Index > MaxLoopIterations) {
+        Break
+      }
+    }
+  }
+  ClearTooltip(0)
+  Return
 }
 
 

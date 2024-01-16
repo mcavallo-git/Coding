@@ -1305,7 +1305,7 @@ AppsKey & WheelDown::
 !^#c::
 {
 
-  KeypressLoop("e",100,6000,50)
+  KeypressLoop("e",100,600,50)
 
   ; ClickLoop()
 
@@ -2900,11 +2900,11 @@ KeypressLoop(WhichKey:="e", Timeout:=1000, MaxLoopIterations:=-1, DownUpDelay:=-
     }
     ; Send the keypress event
     If (DownUpDelay != -1) {
-      Send WhichKey
-    } Else {
       Send ("{" WhichKey " down}")
       Sleep DownUpDelay
       Send ("{" WhichKey " up}")
+    } Else {
+      Send WhichKey
     }
     ; Stop looping after MaxLoopIterations iterations (if specified)
     If (MaxLoopIterations != -1) {

@@ -1304,10 +1304,10 @@ AppsKey & WheelDown::
 ^#c::
 !^#c::
 {
-  
-  ClickLoop()
 
-  ; KeypressLoop("{e}",1000)
+  KeypressLoop("e",1000,,50)
+
+  ; ClickLoop()
 
   ; ClickLoop(1247,1100,25)
 
@@ -2884,7 +2884,7 @@ IsArray(TestVar:="") {
 ; KeypressLoop
 ;   |--> Keypress loop until script is cancelled (or after MaxLoopIterations loop iterations are reached if set to a value other than -1)
 ;
-KeypressLoop(WhichKey:="{e}", Timeout:=1000, MaxLoopIterations:=-1) {
+KeypressLoop(WhichKey:="e", Timeout:=1000, MaxLoopIterations:=-1, DownUpDelay:=-1) {
   SetKeyDelay 0, -1
   ; Do not click more often than a predefined lower limit
   If (Timeout < 25) {
@@ -2899,7 +2899,13 @@ KeypressLoop(WhichKey:="{e}", Timeout:=1000, MaxLoopIterations:=-1) {
       ShowToolTip(TooltipOutput,,,,(Timeout*10))
     }
     ; Send the keypress event
-    Send WhichKey
+    If (MaxLoopIterations != -1) {
+      Send WhichKey
+    } Else {
+      Send ("{" WhichKey " down}")
+      Sleep DownUpDelay
+      Send ("{" WhichKey " up}")
+    }
     ; Stop looping after MaxLoopIterations iterations (if specified)
     If (MaxLoopIterations != -1) {
       If (A_Index > MaxLoopIterations) {

@@ -1200,7 +1200,8 @@ AppsKey & WheelDown::
 #0::
 {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  WinMove(0,0,,"A")
+  ; WinMove(0,0,,,"A")
+  WinMove(0,-18,,,"A")
   Return
 }
 
@@ -5320,7 +5321,7 @@ Youtube_EditDraft_Submit() {
     If (A_MsgBoxResult = "Yes") {
       Sleep 100
       ; Move the window to specified x/y position and resize it to have specified width/height
-      WinMove(WinTitle,,-7,0,1734,1407)
+      WinMove(-7,0,1734,1407,WinTitle)
       Loop {
         Tooltip_Header := "Chrome - Click 'Refresh'"
         ToolTip ( Tooltip_Header ), 1, 112

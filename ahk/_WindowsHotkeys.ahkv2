@@ -1200,8 +1200,7 @@ AppsKey & WheelDown::
 #0::
 {
   AwaitModifierKeyup()  ; Wait until all modifier keys are released
-  ; WinMove(0,0,,,"A")
-  WinMove(0,-18,,,"A")
+  WinMove(0,0,,,"A")
   Return
 }
 

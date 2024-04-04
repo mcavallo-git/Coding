@@ -290,9 +290,8 @@ Mostly Linux compatible:
 
 
 ⛠					RESTRICTED LEFT ENTRY-1
+🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
 🔍				MAGNIFYING LENS (Bottom-Right to Top-Left)
-🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
-🔎				MAGNIFYING LENS (Bottom-Left to Top-Right)
 ⛺				 TENT
 ⛳				 FLAG IN HOLE
 ✆					TELEPHONE LOCATION SIGN

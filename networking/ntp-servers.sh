@@ -29,6 +29,17 @@ pool.ntp.org
 
 # ------------------------------------------------------------
 #
+# Test an NTP server using "ntpdate" (gets time offset between local and server clocks)
+#
+
+ntpdate -q 1.us.pool.ntp.org
+ntpdate -q pool.ntp.org
+ntpdate -q time-a-g.nist.gov
+ntpdate -q time.google.com
+
+
+# ------------------------------------------------------------
+#
 # Citation(s)
 #
 #   gist.github.com  |  "List of Top Public Time Servers · GitHub"  |  https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453

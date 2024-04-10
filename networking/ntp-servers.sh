@@ -44,6 +44,8 @@ ntpdate -q time.google.com
 #
 #   gist.github.com  |  "List of Top Public Time Servers · GitHub"  |  https://gist.github.com/mutin-sa/eea1c396b1e610a2da1e5550d94b0453
 #
+#   superuser.com  |  "redhat enterprise linux - how to test ntp servers as real servers - Super User"  |  https://superuser.com/a/1722743
+#
 #   tf.nist.gov  |  "NIST Internet Time Service"  |  https://tf.nist.gov/tf-cgi/servers.cgi
 #
 # ------------------------------------------------------------

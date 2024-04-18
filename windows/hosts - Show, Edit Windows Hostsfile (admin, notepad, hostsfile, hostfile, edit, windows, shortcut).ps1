@@ -1,28 +1,27 @@
 # ------------------------------------------------------------
-# hosts - Shortcut (admin, notepad, hostsfile, hostfile, edit, windows)
+# hosts - Shortcut (admin, notepad, hosts file, hostfile, edit, windows)
 # ------------------------------------------------------------
 
-#
-#   Show hostsfile
-#
+# Show hosts file's contents
 Get-Content "${env:windir}\System32\drivers\etc\hosts";
 
+# ------------------------------------------------------------
 
-#
-#   Edit hostsfile in:  [  Notepad ]  (AS ADMIN)
-#
+# Open hosts file in Notepad AS ADMIN (for editing)
 PowerShell -NoProfile "Start-Process -FilePath 'C:\Windows\System32\notepad.exe' -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Verb 'RunAs';"
 
-
-#
-#   Edit hostsfile in:  [  Notepad++ ]  (AS ADMIN)
-#
+# Open hosts file in NP++ AS ADMIN (for editing)
 PowerShell -NoProfile "If (Test-Path 'C:\Program Files\Notepad++\notepad++.exe') { SV NP_PATH 'C:\Program Files\Notepad++\notepad++.exe'; } ElseIf (Test-Path 'C:\Program Files (x86)\Notepad++\notepad++.exe') { SV NP_PATH 'C:\Program Files (x86)\Notepad++\notepad++.exe'; } Else { SV NP_PATH 'C:\Windows\System32\notepad.exe'; }; Start-Process -FilePath ((GV NP_PATH).Value) -ArgumentList 'C:\Windows\System32\drivers\etc\hosts' -Verb 'RunAs';"
+
+# ------------------------------------------------------------
+
+# Update hosts file - Append a IP+name pair to the hosts file
+Add-Content -Path "${env:windir}\System32\drivers\etc\hosts" -Value "`n127.0.0.1`tlocalhost`t${env:COMPUTERNAME}" -Force;
 
 
 # ------------------------------------------------------------
 #
-# Note:  To block an FQDN via the hostsfile, use up address "0.0.0.0" and not "127.0.0.1" (which could bombard any local server(s) you have running)
+# Note:  To block a FQDN via the hosts file, associated the FQDN with IP address "0.0.0.0" - avoid using "127.0.0.1", as this could bombard any services you have running & listening locally
 #
 # ------------------------------------------------------------
 #

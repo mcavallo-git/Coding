@@ -230,7 +230,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2" style="text-align:center;"><h2 id="network-tools"><br />Networking<br /><br /></h2></th></tr>
-<tr><td><strong>Bufferbloat & ISP Speed Test</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Waveform</i></sub></td><td><a href="https://www.waveform.com/tools/bufferbloat">View (source)</a></td></tr>
+<tr><td><strong>Bufferbloat & ISP Speedtest</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;by Waveform</i></sub></td><td><a href="https://www.waveform.com/tools/bufferbloat">View (source)</a></td></tr>
 <tr><td><strong>Burp Suite</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Manual Toolkit for Exploring Web Security</i></sub></td><td><a href="https://portswigger.net/burp/releases/community/latest">Download (source)</a></td></tr>
 <tr><td><strong>Cipher Suites in TLS/SSL (Schannel SSP)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;A cipher suite must have algorithms for the tasks:<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;Key exchange<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;Bulk encryption<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&bull;&nbsp;Message authentication</i></sub></td><td><a href="https://docs.microsoft.com/en-us/windows/win32/secauthn/cipher-suites-in-schannel">Download (source)</a></td></tr>
 <tr><td><strong>DigiCert Certificate Utility</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Certificate Inspection Tool (DigiCertUtil.exe)</i></sub></td><td><a href="https://www.digicert.com/util/">Download (source)</a></td></tr>

@@ -33,5 +33,11 @@
     - For each Queue, create a respective Rule via  `Firewall` > `Shaper` > `Rules`
     - [View documenation](https://docs.opnsense.org/manual/how-tos/shaper.html)
 
+#### DDNS
+  - Setup DDNS via `Services` > `Dynamic DNS` > `Settings`
+    - Set `Username` as the `domain name (domain.tld)`
+    - Set `Hostname(s)` as the `FQDN (subdomain.domain.tld)`
+    - Set `Check ip method` to `Interface`, then select respective WAN interface to monitor
+
 ***
 <!-- ------------------------------------------------------------ -->

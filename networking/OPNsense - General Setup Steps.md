@@ -21,11 +21,16 @@
 
 #### Interfaces
   - Setup interfaces via `Interfaces` > `Assignments`
-  - Setup failover WAN ([View documentation](https://docs.opnsense.org/manual/how-tos/multiwan.html))
-
+  - Setup failover WAN
+    - > ⚠️ Todo: Add steps here ⚠️
+    - [View documentation](https://docs.opnsense.org/manual/how-tos/multiwan.html)
 
 #### QoS
-  - Setup traffic shaping ([View documenation](https://docs.opnsense.org/manual/how-tos/shaper.html))
+  - Setup traffic shaping
+    - For each WAN interface, create two Pipes (one for download & one for upload) via `Firewall` > `Shaper` > `Pipes`
+    - For each Pipe, create a respective Queue via  `Firewall` > `Shaper` > `Queues`
+    - For each Queue, create a respective Rule via  `Firewall` > `Shaper` > `Rules`
+    - [View documenation](https://docs.opnsense.org/manual/how-tos/shaper.html)
 
 ***
 <!-- ------------------------------------------------------------ -->

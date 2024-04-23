@@ -45,8 +45,8 @@
           - Note: Changing this value will require reconnecting to the OPNsense router
       - Set `IPv6 Configuration Type` to `None` (unless IPv6 is desired)
     - For each **WAN** interface:
-      - Enable `Block private networks`
-      - Enable `Block bogon networks`
+      - Set `Block private networks` to `✔️ (checked)`
+      - Set `Block bogon networks` to `✔️ (checked)`
       - Set `IPv4 Configuration Type` to `DHCP` (unless IPv4 address from ISP is static)
       - Set `IPv6 Configuration Type` to `None` (unless IPv6 is desired)
     - Note: You can rename the `Identifier` for a given interface by downloading a backup of OPNsense, then carefully replacing instances of the given identifier everywhere it is used with a different, unique identifier (followed by a reupload of the modified backup back to OPNsense)
@@ -65,18 +65,18 @@
 
   - #### Gateways
     - Setup WAN gateways via `System` > `Gateways` > `Configuration`
-    - Add IPv4/IPv6 gateways for any WAN interfaces which are missing gateways
-    - For each WAN gateway:
-      - Select `Upstream Gateway`
-      - Set a **unique** `Monitor IP`
-      - Set the `Priority` to:
-        -  `1` for your primary WAN gateway (primary ISP)
-        -  `2` for your secondary WAN gateway (secondary/redundant/failover ISP)
-        -  `3 or higher` for any additional fallback WAN gateways
-      - [View documentation (Multi WAN)](https://docs.opnsense.org/manual/how-tos/multiwan.html)
-    - Disable IPv6
-      - Optionally, for each IPv6 gateway, select `Disabled` (if IPv6 is not desired)
-    - Enable automatic WAN failover
+      - Add IPv4/IPv6 gateways for any WAN interfaces which are missing gateways
+      - For each WAN gateway:
+        - Set `Upstream Gateway` to `✔️ (checked)`
+        - Set a **unique** `Monitor IP`
+        - Set the `Priority` to:
+          -  `1` for your primary WAN gateway (primary ISP)
+          -  `2` for your secondary WAN gateway (secondary/redundant/failover ISP)
+          -  `3 or higher` for any additional fallback WAN gateways
+        - [View documentation (Multi WAN)](https://docs.opnsense.org/manual/how-tos/multiwan.html)
+      - Disable IPv6
+        - Optionally, for each IPv6 gateway, select `Disabled` (if IPv6 is not desired)
+    - Setup automatic WAN failover
       - Browse to `System` > `Settings` > `General`
         - Set `Gateway switching` to `✔️ Allow default gateway switching`
     - [View documentation (Gateways)](https://docs.opnsense.org/manual/gateways.html)

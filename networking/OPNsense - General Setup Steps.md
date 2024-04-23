@@ -4,8 +4,8 @@
 <!-- ------------------------------------------------------------ -->
 
 ### Installation
-- [Download OPNsense (select "vga" image type)](https://opnsense.org/download/)
-  - Format image onto flash drive using a tool such as [balenaEtcher](https://etcher.balena.io/) or [Rufus](https://rufus.ie/downloads/)
+- [Download OPNsense](https://opnsense.org/download/) (select "vga" image type)
+  - Format the downloaded image onto a flash drive using a disk formatting tool such as [balenaEtcher](https://etcher.balena.io/) or [Rufus](https://rufus.ie/downloads/)
 
 ***
 <!-- ------------------------------------------------------------ -->

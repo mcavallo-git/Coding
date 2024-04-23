@@ -103,6 +103,12 @@
         - Enable `Force SSL`
     - [View documenation (Dynamic DNS)](https://docs.opnsense.org/manual/dynamic_dns.html)
 
+  - #### Users
+    - Browse to `System` > `Access` > `Users`
+      - Add a non-root user to login with
+        - Set `Group Memberships` > `Member Of` to `admins`
+    - [View documenation (Users & Groups)](https://docs.opnsense.org/manual/how-tos/user-local.html)
+
   - #### Backup/Restore
     - Browse to `System` > `Configuration` > `Backup`
       - Download a backup of the current OPNsense configuration

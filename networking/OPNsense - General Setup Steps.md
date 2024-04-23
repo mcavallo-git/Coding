@@ -57,6 +57,7 @@
       - Set `Range` `from` and `to` values to the desired start/end ranges of your DHCP server
       - Set `DNS servers` to desired DHCP DNS servers
       - Set `Domain name` to desired DHCP domain name
+        - Also set value under `System` > `Settings` > `General` > `Domain`
       - Set `Static ARP` to `✔️ Enable Static ARP entries`
       - Set Static IPs under `DHCP Static Mappings for this interface`
         - For bulk adding of static IPv4 addresses, download a backup configuration from OPNsense, and manually add the JSON values in bulk (followed by a reupload of the modified backup back to OPNsense)
@@ -66,7 +67,7 @@
     - Setup WAN gateways via `System` > `Gateways` > `Configuration`
     - Add IPv4/IPv6 gateways for any WAN interfaces which are missing gateways
     - For each WAN gateway:
-      - Select `Upsream Gateway`
+      - Select `Upstream Gateway`
       - Set a **unique** `Monitor IP`
       - Set the `Priority` to:
         -  `1` for your primary WAN gateway (primary ISP)
@@ -75,6 +76,9 @@
       - [View documentation (Multi WAN)](https://docs.opnsense.org/manual/how-tos/multiwan.html)
     - Disable IPv6
       - Optionally, for each IPv6 gateway, select `Disabled` (if IPv6 is not desired)
+    - Enable automatic WAN failover
+      - Browse to `System` > `Settings` > `General`
+        - Set `Gateway switching` to `✔️ Allow default gateway switching`
     - [View documentation (Gateways)](https://docs.opnsense.org/manual/gateways.html)
 
   - #### QoS
@@ -95,6 +99,7 @@
         - Set `Check ip method` to `Interface`
           - Set `Interface to monitor` to the desired WAN interface whose WAN IPv4 should be used
         - Enable `Force SSL`
+    - [View documenation (Dynamic DNS)](https://docs.opnsense.org/manual/dynamic_dns.html)
 
   - #### Backup/Restore
     - Browse to `System` > `Configuration` > `Backup`
@@ -102,6 +107,7 @@
         - Under `Download`, select `Download configuration`
       - Upload an OPNsense configuration
         - Under `Restore`, select `Choose File` and select the backup file to restore from, then select `Restore configuration`
+    - [View documenation (Backup)](https://docs.opnsense.org/manual/backups.html)
 
 ***
 <!-- ------------------------------------------------------------ -->

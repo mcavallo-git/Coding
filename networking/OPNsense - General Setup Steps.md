@@ -28,6 +28,7 @@
 #### QoS
   - Setup traffic shaping
     - For each WAN interface, create two Pipes (one for download & one for upload) via `Firewall` > `Shaper` > `Pipes`
+      - Recommended to set download pipe to 90% of ISP download rate to avoid [bufferbloat](https://www.waveform.com/tools/bufferbloat)
     - For each Pipe, create a respective Queue via  `Firewall` > `Shaper` > `Queues`
     - For each Queue, create a respective Rule via  `Firewall` > `Shaper` > `Rules`
     - [View documenation](https://docs.opnsense.org/manual/how-tos/shaper.html)

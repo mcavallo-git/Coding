@@ -1305,7 +1305,16 @@ AppsKey & WheelDown::
 !^#c::
 {
 
-  KeypressLoop("e",50,50000,50)
+  Loop 5000 {
+    Send ("{2 down}")
+    Sleep Random(250,375)
+    Send ("{2 up}")
+    Sleep 4000
+    RandomSleep := Random(1500,2000)
+    Sleep RandomSleep
+  }
+
+  ; KeypressLoop("e",50,50000,50)
 
   ; ClickLoop()
 

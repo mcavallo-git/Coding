@@ -112,7 +112,7 @@
   - #### NAT
     - `Setup Open NAT for Xbox Live (Port Forwarding, Outbound NAT)`
       - `⚠️ TODO - Add Steps Here ⚠️`
-    - [View documenation (Xbox open NAT)](https://niallbest.com/achieve-full-open-nat-with-port-forwarding-for-xbox-live-via-opnsense/)
+    - [View documenation (Xbox Live - Open NAT)](https://niallbest.com/achieve-full-open-nat-with-port-forwarding-for-xbox-live-via-opnsense/)
 
   - #### Backup/Restore
     - Browse to `System` > `Configuration` > `Backup`

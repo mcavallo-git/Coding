@@ -109,6 +109,10 @@
         - Set `Group Memberships` > `Member Of` to `admins`
     - [View documenation (Users & Groups)](https://docs.opnsense.org/manual/how-tos/user-local.html)
 
+  - #### Port Forwarding
+    - `⚠️ TODO - Add Steps Here ⚠️`
+    - [View documenation (Xbox open NAT)](https://niallbest.com/achieve-full-open-nat-with-port-forwarding-for-xbox-live-via-opnsense/)
+
   - #### Backup/Restore
     - Browse to `System` > `Configuration` > `Backup`
       - Download a backup of the current OPNsense configuration

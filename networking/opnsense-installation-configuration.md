@@ -109,7 +109,8 @@
         - Set `Group Memberships` > `Member Of` to `admins`
     - [View documenation (Users & Groups)](https://docs.opnsense.org/manual/how-tos/user-local.html)
 
-  - #### Port Forwarding
+  - #### NAT
+    - `Setup Open NAT for Xbox Live (Port Forwarding, Outbound NAT)`
     - `⚠️ TODO - Add Steps Here ⚠️`
     - [View documenation (Xbox open NAT)](https://niallbest.com/achieve-full-open-nat-with-port-forwarding-for-xbox-live-via-opnsense/)
 

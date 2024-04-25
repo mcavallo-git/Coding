@@ -22,6 +22,7 @@
 	<ExpandFolderLinks value="0"/>
 	<ShowNextToTaskbar value="0"/>
 	<SearchInternet value="0"/>
+	<SmallIconSize value="18"/>
 	<MainMenuAnimate value="0"/>
 	<MainMenuAnimation value="None"/>
 	<SubMenuAnimation value="None"/>

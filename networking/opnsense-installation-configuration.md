@@ -8,9 +8,12 @@
 ### Installation
 
   - #### Create Boot Media
-    - [Download OPNsense](https://opnsense.org/download/) (select "vga" image type)
-      - If using a hardware router: Format the downloaded image onto a flash drive using a disk formatting tool such as [balenaEtcher](https://etcher.balena.io/) or [Rufus](https://rufus.ie/downloads/)
-      - If using a software router: Mount the image as a bootable drive for target VM
+    - [Download OPNsense](https://opnsense.org/download/)
+      - Select `vga` image type
+      - *If using a hardware router:*
+        - Format the downloaded image onto a flash drive using a disk formatting tool such as [balenaEtcher](https://etcher.balena.io/) or [Rufus](https://rufus.ie/downloads/)
+      - *If using a software router:*
+        - Mount the image as a bootable drive onto target VM/environment
   - #### Format the OS
     - Boot the device using the OPNsense bootable media, wait for OPNsense to install drivers as necessary
       - When prompted for login credentials, use the following:

@@ -15,13 +15,62 @@
       - *If using a software router:*
         - Mount the image as a bootable drive onto target VM/environment
   - #### Format the OS
-    - Boot the device using the OPNsense bootable media, wait for OPNsense to install drivers as necessary
-      - When prompted for login credentials, use the following:
-        - Default username: `root`
-        - Default password: `opnsense`
-          - You will be required to change the password for the root user
+    - Boot the device to the OPNsense bootable media, wait for OPNsense to install drivers as necessary
+      <details><summary><code>Step-by-step installation guide (Show/Hide)</code></summary><p>
+
+      >
+      > *\*Allow OPNsense to automatically boot into the default selection at the initial top-level menu\**
+      >
+      > *\*Await the following line before pressing any keys:\**
+      >
+      > Press any key to start the manual interface assignment: `*Press Enter*`
+      >
+      > > Do you want to configure LAGGs now? `n`
+      > >
+      > > Do you want to configure VLANs now? `n`
+      > >
+      > > Enter the WAN interface name or ‘a’ for auto-detection: `*Type interface name*`
+      > >
+      > > Enter the LAN interface name or ‘a’ for auto-detection (or nothing if finished): `*Type interface name*`
+      > >
+      > > *\*Skip/Accept remaining interface options\**
+      > >
+      > > Configuring interfaces, firewall, GUI, etc…
+      >
+      > login:   `installer`
+      > Password:   `opnsense`
+      >
+      > > Select `Continue with default keymap`
+      > >
+      > > Select `Install (UFS)`
+      > >
+      > > Select `[Disk to install OPNsense OS onto]`
+      > >
+      > > Select `yes` to accept default swap partition sizing
+      > >
+      > > Last chance! Are you sure you want to destroy the current contents of the following disks:
+      > >
+      > > > Select `YES`
+      > >
+      > > *\*Wait for OPNsense installer to finish\**
+      >
+      > Select `Root Password`
+      >
+      > > Type `[New Root Password]` twice
+      >
+      > Select `Complete Install`
+      >
+      > > Shell begins running shutdown commands to prepare for reboot
+      > >
+      > > Unplug/Remove install media as soon as screen goes black for reboot
+      >
+      > *\*Device should restart back into OPNsense OS (rolling shell logs as it starts its services)\**
+      >
+
+      </p></details>
+
   - #### Connect to OPNsense
-    - Once installation is complete, on a separate device which is connected to the OPNsense router's LAN network, browse to the OPNsense dashboard at `192.168.1.1` (default IPv4 address for OPNsense)
+    - Once installation is complete and your device is booting into the OPNsense OS, go to a separate device which is connected to the OPNsense router's LAN network, browse to the OPNsense dashboard at `192.168.1.1` (default IPv4 address for OPNsense)
       - Assign a static IPv4 address on the device accessing OPNsense from `192.168.1.2`-`192.168.1.254` (such as `192.168.1.100`)
       - Determining which ethernet port is used for the LAN network may require iteratively testing port-by-port on the OPNsense router
     - [View documentation (Quickstart / getting started)](https://docs.opnsense.org/hardware/quickstart.html)

@@ -150,8 +150,8 @@
         - Set `Service` to the DDNS `service provider's name`
         - Set `Username` to the DDNS `domain name (domain.tld)`
         - Set `Hostname(s)` to the DDNS `FQDN (subdomain.domain.tld)`
-        - Set `Check ip method` to `Interface`
-          - Set `Interface to monitor` to the desired WAN interface whose WAN IPv4 should be used
+        - Set `Check ip method` to `Interface` (if connected to a modem) or `icanhazip` (if connected to a modem-router supplying a LAN subnet)
+        - Set `Interface to monitor` to the desired WAN interface whose WAN IPv4 should be used
         - Enable `Force SSL`
     - [View documenation (Dynamic DNS)](https://docs.opnsense.org/manual/dynamic_dns.html)
 

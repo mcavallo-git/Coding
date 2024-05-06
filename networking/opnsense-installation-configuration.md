@@ -127,7 +127,7 @@
           -  `1` for your primary WAN gateway (primary ISP)
           -  `2` for your secondary WAN gateway (secondary/redundant/failover ISP)
           -  `3 or higher` for any additional fallback WAN gateways
-        - [View documentation (Multi WAN)](https://docs.opnsense.org/manual/how-tos/multiwan.html)
+        - *[View documentation (Multi WAN)](https://docs.opnsense.org/manual/how-tos/multiwan.html)*
       - Disable IPv6
         - Optionally, for each IPv6 gateway, select `Disabled` (if IPv6 is not desired)
     - Setup automatic WAN failover

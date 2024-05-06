@@ -141,6 +141,8 @@
         - Recommended to set download pipe to 90% of ISP download rate to avoid [bufferbloat](https://www.waveform.com/tools/bufferbloat)
       - For each Pipe, create a respective Queue via  `Firewall` > `Shaper` > `Queues`
       - For each Queue, create a respective Rule via  `Firewall` > `Shaper` > `Rules`
+    - Set firewall optimization via `Firewall` > `Settings` > `Advanced`
+      - Set `Firewall Optimization` to `conservative` *(unless the `default` setting is already pushing the CPU/Memory as-is)*
     - [View documenation (Setup Traffic Shaping)](https://docs.opnsense.org/manual/how-tos/shaper.html)
 
   - #### DDNS

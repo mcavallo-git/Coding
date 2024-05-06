@@ -165,7 +165,7 @@
 
   - #### NTP
     - Browse to `Services` > `Network Time` > `General`
-      - Next to `Time servers`, set your desired NTP servers
+      - Next to `Time servers`, set/add your desired NTP servers
         - Set the `Prefer` checkbox to `✔️ (checked)` for preferred NTP server(s)
     - *[View documenation (Network Time)](https://docs.opnsense.org/manual/ntpd.html)*
 

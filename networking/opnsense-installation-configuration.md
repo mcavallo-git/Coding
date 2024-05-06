@@ -73,7 +73,7 @@
     - Once installation is complete and your device is booting into the OPNsense OS, go to a separate device which is connected to the OPNsense router's LAN network, browse to the OPNsense dashboard at `192.168.1.1` (default IPv4 address for OPNsense)
       - Assign a static IPv4 address on the device accessing OPNsense from `192.168.1.2`-`192.168.1.254` (such as `192.168.1.100`)
       - Determining which ethernet port is used for the LAN network may require iteratively testing port-by-port on the OPNsense router
-    - [View documentation (Quickstart / getting started)](https://docs.opnsense.org/hardware/quickstart.html)
+    - *[View documentation (Quickstart / getting started)](https://docs.opnsense.org/hardware/quickstart.html)*
 
 ***
 <!-- ------------------------------------------------------------ -->
@@ -104,7 +104,7 @@
       - Set `IPv4 Configuration Type` to `DHCP` (unless IPv4 address from ISP is static)
       - Set `IPv6 Configuration Type` to `None` (unless IPv6 is desired)
     - Note: You can rename the `Identifier` for a given interface by downloading a backup of OPNsense, then carefully replacing instances of the given identifier everywhere it is used with a different, unique identifier (followed by a reupload of the modified backup back to OPNsense)
-    - [View documentation (Interface configuration)](https://docs.opnsense.org/manual/interfaces.html)
+    - *[View documentation (Interface configuration)](https://docs.opnsense.org/manual/interfaces.html)*
 
   - #### DHCP & Static IPs
     - Browse to `Services` > `ISC DHCPv4` > `[LAN]`
@@ -115,7 +115,7 @@
       - Set `Static ARP` to `✔️ Enable Static ARP entries`
       - Set Static IPs under `DHCP Static Mappings for this interface`
         - For bulk adding of static IPv4 addresses, download a backup configuration from OPNsense, and manually add the JSON values in bulk (followed by a reupload of the modified backup back to OPNsense)
-    - [View documentation (DHCP)](https://docs.opnsense.org/manual/dhcp.html)
+    - *[View documentation (DHCP)](https://docs.opnsense.org/manual/dhcp.html)*
 
   - #### Gateways
     - Setup WAN gateways via `System` > `Gateways` > `Configuration`
@@ -133,7 +133,7 @@
     - Setup automatic WAN failover
       - Browse to `System` > `Settings` > `General`
         - Set `Gateway switching` to `✔️ Allow default gateway switching`
-    - [View documentation (Gateways)](https://docs.opnsense.org/manual/gateways.html)
+    - *[View documentation (Gateways)](https://docs.opnsense.org/manual/gateways.html)*
 
   - #### QoS
     - Setup traffic shaping
@@ -143,7 +143,7 @@
       - For each Queue, create a respective Rule via  `Firewall` > `Shaper` > `Rules`
     - Set firewall optimization via `Firewall` > `Settings` > `Advanced`
       - Set `Firewall Optimization` to `conservative` *(unless the `default` setting is already pushing the CPU/Memory as-is)*
-    - [View documenation (Setup Traffic Shaping)](https://docs.opnsense.org/manual/how-tos/shaper.html)
+    - *[View documenation (Setup Traffic Shaping)](https://docs.opnsense.org/manual/how-tos/shaper.html)*
 
   - #### DDNS
     - Install plugin `os-ddclient`
@@ -155,18 +155,24 @@
         - Set `Check ip method` to `Interface` (if connected to a modem) or `icanhazip` (if connected to a modem-router supplying a LAN subnet)
         - Set `Interface to monitor` to the desired WAN interface whose WAN IPv4 should be used
         - Enable `Force SSL`
-    - [View documenation (Dynamic DNS)](https://docs.opnsense.org/manual/dynamic_dns.html)
+    - *[View documenation (Dynamic DNS)](https://docs.opnsense.org/manual/dynamic_dns.html)*
 
   - #### Users
     - Browse to `System` > `Access` > `Users`
       - Add a non-root user to login with
         - Set `Group Memberships` > `Member Of` to `admins`
-    - [View documenation (Users & Groups)](https://docs.opnsense.org/manual/how-tos/user-local.html)
+    - *[View documenation (Users & Groups)](https://docs.opnsense.org/manual/how-tos/user-local.html)*
+
+  - #### NTP
+    - Browse to `Services` > `Network Time` > `General`
+      - Next to `Time servers`, set your desired NTP servers
+        - Set the `Prefer` checkbox to `✔️ (checked)` for preferred NTP server(s)
+    - *[View documenation (Network Time)](https://docs.opnsense.org/manual/ntpd.html)*
 
   - #### NAT
     - `Setup Open NAT for Xbox Live (Port Forwarding, Outbound NAT)`
       - `⚠️ TODO - Add Steps Here ⚠️`
-    - [View documenation (Xbox Live - Open NAT)](https://niallbest.com/achieve-full-open-nat-with-port-forwarding-for-xbox-live-via-opnsense/)
+    - *[View documenation (Xbox Live - Open NAT)](https://niallbest.com/achieve-full-open-nat-with-port-forwarding-for-xbox-live-via-opnsense/)*
 
   - #### Backup/Restore
     - Browse to `System` > `Configuration` > `Backup`
@@ -174,7 +180,7 @@
         - Under `Download`, select `Download configuration`
       - Upload an OPNsense configuration
         - Under `Restore`, select `Choose File` and select the backup file to restore from, then select `Restore configuration`
-    - [View documenation (Backup)](https://docs.opnsense.org/manual/backups.html)
+    - *[View documenation (Backup)](https://docs.opnsense.org/manual/backups.html)*
 
 ***
 <!-- ------------------------------------------------------------ -->

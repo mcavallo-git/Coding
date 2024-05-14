@@ -171,8 +171,63 @@
 
   - #### NAT
     - `Setup Open NAT for Xbox Live (Port Forwarding, Outbound NAT)`
-      - `⚠️ TODO - Add Steps Here ⚠️`
-    - *[View documenation (Xbox Live - Open NAT)](https://niallbest.com/achieve-full-open-nat-with-port-forwarding-for-xbox-live-via-opnsense/)*
+      1. Set static IPv4 address
+        - Browse to `Services` > `ISC DHCPv4` > `[LAN]`
+        - Under `DHCP Static Mappings`, add Xbox's MAC address and Static IP reservation under 
+      2. Create alias (ports)
+        - Browse to `Firewall` > `Aliases`
+        - Add an alias with the following values:
+          - Set `Name` to `Alias_Ports_XboxLive`
+          - Set `Type` to `Port(s)`
+          - Set `Content` to `3074`
+      3. Create alias (hosts)
+        - Browse to `Firewall` > `Aliases`
+        - Add an alias with the following values:
+          - Set `Name` to `Alias_Hosts_Xbox`
+          - Set `Type` to `Host(s)`
+          - Set `Content` to `[IPv4 Address of Xbox]`
+      4. Create port forward entry (ingress)
+        - Browse to `Firewall` > `NAT` > `Port Forward`
+        - Add a redirect entry with the following values:
+          - Set `Interface` to `WAN`
+          - Set `TCP/IP Version` to `IPv4`
+          - Set `Protocol` to `TCP/UDP`
+          - Set `Destination` to `WAN address`
+          - Set `Destination port range` `from` and `to` values to `Alias_Ports_XboxLive`
+          - Set `Redirect target IP` to `Alias_Hosts_Xbox`
+          - Set `Redirect target port` to `Alias_Ports_XboxLive`
+          - Set `Description` to `Xbox Live - Open NAT (WAN, Ingress)`
+          - Set `NAT reflection` to `Enable`
+        - Clone the above entry for other WAN interfaces, updating their values respectively
+      5. Create outbound NAT rule (egress)
+        - Browse to `Firewall` > `NAT` > `Outbound`
+        - Set to `Mode` to `Hybrid outbound NAT rule generation`
+        - Add a manual rule with the following values:
+          - Set `Interface` to `WAN`
+          - Set `TCP/IP Version` to `IPv4`
+          - Set `Protocol` to `TCP/UDP`
+          - Set `Source address` to `Alias_Hosts_Xbox`
+          - Set `Source port` to `Alias_Ports_XboxLive`
+          - Set `Static-port` to `✔️ (checked)`
+          - Set `Description` to `Xbox Live - Open NAT (WAN, Egress)`
+        - Clone the above rule for other WAN interfaces, updating their values respectively
+    - *[View documenation (Network Address Translation)](https://docs.opnsense.org/manual/nat.html)*
+    - *[View example (Xbox Live - Open NAT)](https://niallbest.com/achieve-full-open-nat-with-port-forwarding-for-xbox-live-via-opnsense/)*
+
+  - #### UPNP
+    - Install plugin `os-upnp`
+    - Browse to `Services` > `Universal Plug and Play` > `Settings`
+      - Set `Enable` to `✔️ (checked)`
+      - Set `Allow UPnP IGD Port Mapping` to `✔️ (checked)`
+      - Set `Allow PCP/NAT-PMP Port Mapping` to `✔️ (checked)`
+      - Set `External Interface` to `WAN` *(or your primary external interface, only one can be selected)*
+      - Set `Interfaces (generally LAN)	` to `[all internal (LAN) interface(s)]`
+      - Set `Default deny` to `✔️ (checked)`
+      - Set `Entry 1` to `allow 1024-65535 X.X.X.X/32 1024-65535` *(where `X.X.X.X` is the IPv4 address of a device to whitelist for uPnP)*
+      - Set `Entry 2...` similar to `Entry 1` for additional IPv4 addresses
+    - *[View documenation (Strict NAT Gaming - Enable UPNP plugin the way to go?)](https://forum.opnsense.org/index.php?topic=22591.0)*
+    - *[View documenation (Cant seen to get UPNP Working correctly for gaming?)](https://www.reddit.com/r/opnsense/comments/16r71y0/cant_seen_to_get_upnp_working_correctly_for_gaming)*
+    - *[View documenation (Opnsense for a gaming network?)](https://www.reddit.com/r/opnsense/comments/zkbks5/opnsense_for_a_gaming_network)*
 
   - #### Backup/Restore
     - Browse to `System` > `Configuration` > `Backup`

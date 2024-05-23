@@ -141,8 +141,9 @@
         - Recommended to set download pipe to 90% of ISP download rate to avoid [bufferbloat](https://www.waveform.com/tools/bufferbloat)
       - For each Pipe, create a respective Queue via  `Firewall` > `Shaper` > `Queues`
       - For each Queue, create a respective Rule via  `Firewall` > `Shaper` > `Rules`
-    - Set firewall optimization via `Firewall` > `Settings` > `Advanced`
-      - Set `Firewall Optimization` to `conservative` *(unless the `default` setting is already pushing the CPU/Memory as-is)*
+    - Set CPU/RAM optimizations
+      - Browse to `Firewall` > `Settings` > `Advanced`
+        - Set `Firewall Optimization` to `conservative` *(unless the `default` setting is already pushing the CPU/Memory as-is)*
     - *[View documenation (Setup Traffic Shaping)](https://docs.opnsense.org/manual/how-tos/shaper.html)*
 
   - #### DDNS
@@ -228,6 +229,14 @@
     - *[View documenation (Strict NAT Gaming - Enable UPNP plugin the way to go?)](https://forum.opnsense.org/index.php?topic=22591.0)*
     - *[View documenation (Cant seen to get UPNP Working correctly for gaming?)](https://www.reddit.com/r/opnsense/comments/16r71y0/cant_seen_to_get_upnp_working_correctly_for_gaming)*
     - *[View documenation (Opnsense for a gaming network?)](https://www.reddit.com/r/opnsense/comments/zkbks5/opnsense_for_a_gaming_network)*
+
+  - #### NAT Reflection
+    - Browse to `Firewall` > `Settings` > `Advanced`
+      - Set `Reflection for port forwards` to `✔️ (checked)`
+      - Set `Automatic outbound NAT for Reflection` to `✔️ (checked)`
+      - Restart `pfSense` box in order to "flush routes"
+    - *[View documenation (pfSense: Step by Step Guide to Multiple Xbox One's Open NAT + Play Together (2.3.x))](https://digiex.net/threads/pfsense-step-by-step-guide-to-multiple-xbox-ones-open-nat-play-together-2-3-x.15094/)*
+    - *[View documenation (Reflection and Hairpin NAT)](https://docs.opnsense.org/manual/how-tos/nat_reflection.html#nat-method3)*
 
   - #### Backup/Restore
     - Browse to `System` > `Configuration` > `Backup`

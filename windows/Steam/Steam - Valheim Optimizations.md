@@ -1,5 +1,3 @@
-<!-- https://github.com/mcavallo-git/Coding/blob/main/windows/Steam/Steam%20-%20Valheim%20Optimizations.md -->
-
 ## Valheim Optimizations (+20 free fps)
 
 - Open `Steam` → Right-click `Valheim` → Select `Properties`

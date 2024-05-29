@@ -4,6 +4,8 @@
       - `%command% -gfx-enable-gfx-jobs 1 -gfx-enable-native-gfx-jobs 1 -scripting-runtime-version latest -vr-enabled 0 -gc-max-time-slice 8`
         - Replace the rightmost `8` with the number of threads on your CPU
           - Enjoy the free frames in Valheim 👍
+  - If you're unsure of how many threads your CPU has, open CMD or PowerShell and run the following:
+    - `PowerShell [Environment]::ProcessorCount`
 
 ## Rambling about `boot.config`
   - Editing the Steam game's `Properties` is superior to the common practice of editing Valheim's `boot.config` file for one primary reason:

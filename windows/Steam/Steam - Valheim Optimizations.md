@@ -1,4 +1,4 @@
-## Valheim Optimizations (+20 free fps)
+## Valheim Optimizations (+10~20 free fps)
   - Open `Steam` → Right-click `Valheim` → Select `Properties`
     - Under the `General` tab, paste the following under `Launch Options`:
       - `%command% -gfx-enable-gfx-jobs 1 -gfx-enable-native-gfx-jobs 1 -scripting-runtime-version latest -vr-enabled 0 -gc-max-time-slice 8`

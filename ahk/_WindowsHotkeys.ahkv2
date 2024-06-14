@@ -2922,7 +2922,7 @@ KeypressLoop(WhichKey:="e", Timeout:=1000, MaxLoopIterations:=-1, DownUpDelay:=-
     }
     ; Stop looping after MaxLoopIterations iterations (if specified)
     If (MaxLoopIterations != -1) {
-      If (A_Index > MaxLoopIterations) {
+      If (A_Index >= MaxLoopIterations) {
         Break
       }
     }

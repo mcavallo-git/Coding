@@ -14,6 +14,19 @@ parameter="12345"; echo "${#parameter}";
 parameter="1234567890"; echo "${#parameter}";
 ###  Outputs "10"
 
+
+# ------------------------------------------------------------
+#
+# IO Redirection (output to file, read from file)  -  https://www.gnu.org/software/bash/manual/html_node/Redirections.html
+#
+
+# General Syntax (Redirecting Output)
+echo "content" > filename;  # Creates a file named "filename" containing content "content"
+
+# General Syntax (Redirecting Input)
+echo "$(0<filename)";  # Gets the content (standard input, 0) from file "filename" and echoes it
+
+
 # ------------------------------------------------------------
 #
 # Shell Parameter Expansion (e.g. "Substring Expansion")  -  https://www.gnu.org/software/bash/manual/html_node/Shell-Parameter-Expansion.html

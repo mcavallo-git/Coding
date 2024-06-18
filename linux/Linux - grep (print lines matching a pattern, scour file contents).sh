@@ -92,12 +92,9 @@ grep --exclude-dir={dir1,dir2,*.dst} -rnw '/path/to/somewhere/' -e "pattern"
 
 # For more options check man grep.
 
-
-
-#  Thanks to rakib_ from StackOverflow
+# Thanks to rakib_ from StackOverflow
 
 # http://stackoverflow.com/questions/16956810/how-to-find-all-files-containing-specific-text-on-linux
-
 
 
 # ------------------------------------------------------------

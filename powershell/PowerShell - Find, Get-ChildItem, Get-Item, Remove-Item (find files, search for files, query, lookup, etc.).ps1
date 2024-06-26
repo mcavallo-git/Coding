@@ -25,7 +25,7 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Nam
 
 
 # Filename equals (matches regex) "PATTERN"
-Get-ChildItem -Path ("${HOME}") -File -Recurse -Force -EA:0 | Where-Object { ([Regex]::Match($_.FullName,"^C:\\Users\\${env:USERNAME}\\[^\\]*$")).Success; } | ForEach-Object { $_.FullName; };  <# Gets all files 0 levels deep in current userprofile dir #>
+Get-ChildItem -Path ("${HOME}") -File -Recurse -Force -EA:0 | Where-Object { ([Regex]::Match($_.FullName,"^$("${HOME}".Replace("\","\\");)\\[^\\]*$")).Success; } | ForEach-Object { $_.FullName; };  <# Gets all files 0 levels deep in current userprofile dir #>
 
 
 # Filename starts with "___"

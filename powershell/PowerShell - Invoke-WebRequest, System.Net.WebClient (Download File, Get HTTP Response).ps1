@@ -58,6 +58,50 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
+# WAIT UNTIL 200 HTTP STATUS CODE IS RETURNED
+#
+If ($True) {
+
+  $Uri = 'https://example.com'; # URI to poll the status of
+
+  $DesiredCode = 200;  # Continue polling until this status code is returned or the timeout is reached
+
+  $TimeoutAfterSeconds = 60;  # Stop retrying after this many seconds
+
+  $RetryWaitSeconds = 2;  # Wait in seconds between each retry
+
+  # Begin polling the URI
+  $StartDate = (Get-Date);
+  $ProgressPreference='SilentlyContinue'; # Hide Invoke-WebRequest's progress bar
+  Write-Host "Polling endpoint Uri `"${Uri}`"...";
+  While (((Get-Date) – ${StartDate}).seconds -LE ${TimeoutAfterSeconds}) {
+    Try {
+      $ResponseCode = ((Invoke-WebRequest -UseBasicParsing -Uri "${Uri}" -EA:0).StatusCode);
+    } Catch {
+      $ResponseCode = 500;
+    }
+    Write-Host "  [DEBUG] ResponseCode=[${ResponseCode}]";
+    If (${ResponseCode} -EQ ${DesiredCode}) {
+      Break;
+    } Else {
+      Start-Sleep -Seconds ${RetryWaitSeconds};
+    }
+  }
+
+  # Report the final status code
+  If (${ResponseCode} -NE ${DesiredCode}) {
+    Write-Error "  [ERROR] Non-${DesiredCode} HTTP status code(s) received";
+    # Exit 1;
+  } Else {
+    Write-Host "  [SUCCESS] ${DesiredCode} HTTP status code received";
+    # Exit 0;
+  }
+
+}
+
+
+# ------------------------------------------------------------
+#
 # Ex) Determine latest stable version of utility "kubectl" via web request, then download the latest binary for it
 #
 

@@ -87,11 +87,14 @@ Mostly Linux compatible:
 
 ↻					Clockwise Open Circle Arrow (Refresh Icon) (&circlearrowright;)  |  https://www.compart.com/en/unicode/U+21BB
 ⮤					Leftwards Triangle-Headed Arrow with Long Tip Upwards (&#x2BA4;)  |  https://www.compart.com/en/unicode/U+2BA4
+⬑					Leftwards Arrow with Tip Upwards (&#x2B11;)  |  https://www.compart.com/en/unicode/U+2B11
 ⭦					North West Triangle-Headed Arrow (&#x2B66;)  |  https://www.compart.com/en/unicode/U+2B66
 ⬉					North West Black Arrow (&#x2B09;)  |  https://www.compart.com/en/unicode/U+2B09
 ⬁					North West White Arrow (&#x2B01;)  |  https://www.compart.com/en/unicode/U+2B01
 
 
+⮥					Rightwards Triangle-Headed Arrow with Long Tip Upwards  |  https://www.compart.com/en/unicode/U+2BA5
+⬏					Rightwards Arrow with Tip Upwards  |  https://www.compart.com/en/unicode/U+2B0F
 ↴					Rightwards Arrow with Corner Downwards  |  https://www.compart.com/en/unicode/U+21B4
 ↷					Clockwise Top Semicircle Arrow  (&curvearrowright;)  |  https://www.compart.com/en/unicode/U+21B7
 

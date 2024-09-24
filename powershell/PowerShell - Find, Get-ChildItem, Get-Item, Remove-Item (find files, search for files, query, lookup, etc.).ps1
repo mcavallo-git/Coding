@@ -36,6 +36,10 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Nam
 Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { ($_.Name -Like "*___") } | ForEach-Object { $_.FullName; };
 
 
+# Filename + Dirname + Root-Dir Match - Searches a given directory for a basename + dirname within the top-leve dir, then stores it into a variable to be called inline
+$FullPath_FuncExe = ( Get-ChildItem -Path ("C:\hostedtoolcache\windows\func\") -Depth 2 -File -Recurse -Force -EA:0 | Where-Object { $_.Name -Eq "func.exe" } | Where-Object { $_.Directory.Name -Eq "x64" } | Select-Object -First 1 | ForEach-Object { $_.FullName; } );  <# Locate the Azure Functions Core Tools' executable (func.exe), intended for direct calls or for adding to the PATH (via dirname) #>
+
+
 # Search all disk roots - Filename contains "___"
 Get-PSDrive -PSProvider "FileSystem" | Select-Object -ExpandProperty "Root" | ForEach-Object { $EachRoot="${_}"; Get-ChildItem -Path ("${EachRoot}") -File -Recurse -Force -EA:0 | Where-Object { $_.Name -Like "*___*" } | ForEach-Object { $_.FullName; }; };
 

@@ -1317,7 +1317,7 @@ AppsKey & WheelDown::
 
   ; VH
 
-  ; KeypressLoop("e",50,50000,50)
+  KeypressLoop("e",50,50000,50)
 
   ; Loop {
   ;   KeypressLoop("e",50,5,50)
@@ -1327,7 +1327,6 @@ AppsKey & WheelDown::
   ; }
 
   ; ClickLoop("Right",,,50,50000)
-  ClickLoop("Left",,,50,50000)
 
   ; ClickLoop()
 

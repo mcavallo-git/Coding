@@ -1317,7 +1317,7 @@ AppsKey & WheelDown::
 
   ; VH
 
-  KeypressLoop("e",50,50000,50)
+  ; KeypressLoop("e",50,50000,50)
 
   ; Loop {
   ;   KeypressLoop("e",50,5,50)
@@ -1326,9 +1326,10 @@ AppsKey & WheelDown::
   ;   Sleep 52000
   ; }
 
-  ; ClickLoop("Right",,,50,50000)
+  ; ClickLoop("Right",,,50,,50000)
 
-  ; ClickLoop()
+  ; ClickLoop(,,,100)
+  ClickLoop(,,,100,10)
 
   ; ClickLoop(1247,1100,25)
 
@@ -2087,7 +2088,7 @@ ClearTooltip(Period:=0, WhichToolTip:=1) {
 ; ClickLoop
 ;   |--> Click loop until script is cancelled (or after MaxLoopIterations loop iterations are reached if set to a value other than -1)
 ;
-ClickLoop(WhichButton:="Left", MouseX:=-1, MouseY:=-1, Timeout:=1000, MaxLoopIterations:=-1) {
+ClickLoop(WhichButton:="Left", MouseX:=-1, MouseY:=-1, Timeout:=1000, DownUpDelay:=0, MaxLoopIterations:=-1) {
   CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetKeyDelay 0, -1
@@ -2098,6 +2099,11 @@ ClickLoop(WhichButton:="Left", MouseX:=-1, MouseY:=-1, Timeout:=1000, MaxLoopIte
   Loop {
     ; Wait a given amount of time before each click
     Sleep Timeout
+    If ((Mod((A_Index-1), 10)) == 0) {
+      ; Display a tooltip notifying the user that the script is clicking
+      TooltipOutput := "Clicking every " Timeout " ms..."
+      ShowToolTip(TooltipOutput,,,,(Timeout*10))
+    }
     If ((MouseX == -1) && (MouseY == -1)) {
       ; Use mouse coordinates
       MouseGetPos &Click_MouseX, &Click_MouseY
@@ -2106,13 +2112,14 @@ ClickLoop(WhichButton:="Left", MouseX:=-1, MouseY:=-1, Timeout:=1000, MaxLoopIte
       Click_MouseX := MouseX
       Click_MouseY := MouseY
     }
-    If ((Mod((A_Index-1), 10)) == 0) {
-      ; Display a tooltip notifying the user that the script is clicking
-      TooltipOutput := "Clicking every " Timeout " ms..."
-      ShowToolTip(TooltipOutput,,,,(Timeout*10))
-    }
     ; Send the click event
-    MouseClick WhichButton, Click_MouseX, Click_MouseY
+    If (DownUpDelay > 0) {
+      MouseClick WhichButton, Click_MouseX, Click_MouseY,,,"D"
+      Sleep DownUpDelay
+      MouseClick WhichButton, Click_MouseX, Click_MouseY,,,"U"
+    } Else {
+      MouseClick WhichButton, Click_MouseX, Click_MouseY
+    }
     ; Stop looping after MaxLoopIterations iterations (if specified)
     If (MaxLoopIterations != -1) {
       If (A_Index > MaxLoopIterations) {

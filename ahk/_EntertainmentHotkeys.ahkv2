@@ -317,15 +317,15 @@ If (DebugMode == 1) {
       MouseClick "Right",,,,,"D"
       Sleep 2000
       MouseClick "Right",,,,,"U"
-      Sleep 1000
-      Send ("{r down}")
       Sleep 500
+      Send ("{r down}")
+      Sleep 250
       Send ("{r up}")
-      Sleep 1000
+      Sleep 500
       MouseClick "Left",,,,,"D"
       Sleep 35000
       MouseClick "Left",,,,,"U"
-      Sleep 1000
+      Sleep 500
     }
     Return
   }

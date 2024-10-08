@@ -307,26 +307,33 @@ If (DebugMode == 1) {
 ; ------------------------------
 ;
 ;   HOTKEY:  WinKey + F5  (while [ TCG Card Shop Simulator ] is active)
-;   ACTION:  Continuously open card packs
+;   ACTION:  Open card packs
 ;
 ; #HotIf WinActive("ahk_exe UnityWndClass")
 #HotIf WinActive("ahk_exe Card Shop Simulator.exe")
   #F5::
   {
-    Loop {
-      MouseClick "Right",,,,,"D"
-      Sleep 2000
-      MouseClick "Right",,,,,"U"
+    Loop 3 { ; Repeat for 3 boxes (open 3 boxes and place them side-by-side on the checkout counter - stand infront of middle box, aim at leftmost box, then use hotkey)
+      MoveMouseX := ( 100 * A_Index )
+      MouseMove MoveMouseX, 0, 10, "R"
       Sleep 500
-      Send ("{r down}")
-      Sleep 250
-      Send ("{r up}")
-      Sleep 500
-      MouseClick "Left",,,,,"D"
-      Sleep 35000
-      MouseClick "Left",,,,,"U"
-      Sleep 500
+      ; Loop 4 {  ; Open 32 card packs (4 handfuls of 8 packs)
+      Loop 8 {  ; Open 64 card packs (8 handfuls of 8 packs)
+        MouseClick "Right",,,,,"D"
+        Sleep 2000
+        MouseClick "Right",,,,,"U"
+        Sleep 500
+        Send ("{r down}")
+        Sleep 250
+        Send ("{r up}")
+        Sleep 500
+        MouseClick "Left",,,,,"D"
+        Sleep 37500
+        MouseClick "Left",,,,,"U"
+        Sleep 500
+      }
     }
+
     Return
   }
 #HotIf

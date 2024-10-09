@@ -39,7 +39,16 @@ $Pattern_UUID='^{[0-9A-Fa-f]{8}\b-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-\
 
 # ------------------------------------------------------------
 #
-# Ex 1)  Hello World
+# Ex 1)  Parse a file and get a specific substring from a specific line in the file
+#
+
+# Get the "FROM image_url as base” line from a Dockerfile and returns only the value of “image_url”
+( Get-Content "_PATH_TO\Dockerfile" | Select-String -Pattern '^FROM (.+) as base' | Select-Object -First 1 | ForEach-Object { ${_}.Matches.Captures.Groups[1].Value } );
+
+
+# ------------------------------------------------------------
+#
+# Ex 2)  Hello World
 #
 
 If ($True) {
@@ -59,7 +68,7 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-# Ex 2)  Obtain the version of local Azure-CLI Module
+# Ex 3)  Obtain the version of local Azure-CLI Module
 #
 
 If ($True) {
@@ -86,7 +95,7 @@ If ($True) {
 
 # ------------------------------------------------------------
 #
-# Ex 3) String & Integer regex-matching
+# Ex 4) String & Integer regex-matching
 #
 
 If ($True) {

@@ -1329,7 +1329,7 @@ AppsKey & WheelDown::
   ; ClickLoop("Right",,,50,,50000)
 
   ; ClickLoop(,,,100)
-  ClickLoop(,,,100,10)
+  ClickLoop(,,,20,10,50)
 
   ; ClickLoop(1247,1100,25)
 

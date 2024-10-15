@@ -315,7 +315,8 @@ If (DebugMode == 1) {
     ; OpeningBoxes := 0
     OpeningBoxes := 1
     CoordMode "Mouse", "Client"
-    WinTitle := WinGetTitle("ahk_exe Card Shop Simulator.exe")
+    Win_ahk_exe := "Card Shop Simulator.exe"
+    WinTitle := ("ahk_exe " Win_ahk_exe)
     Loop 3 { ; Repeat for 1 day's worth of opening packs, stored on 2 side-by-side huge personal shelves filled on the same vertical row with 3 * 48 packs. Start hotkey while aiming at the center of the leftmost shelf on the leftmost cabinet. 
       Loop 6 {  ; Open 48 card packs (6 handfuls of 8 packs)
         If (OpeningBoxes == 1) { ; Opening boxes containing packs

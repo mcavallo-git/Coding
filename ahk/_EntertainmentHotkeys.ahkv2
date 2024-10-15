@@ -313,48 +313,48 @@ If (DebugMode == 1) {
 #HotIf WinActive("ahk_exe Card Shop Simulator.exe")
   #F5::
   {
-    ; OpeningBoxes := 0
-    OpeningBoxes := 1
+    OpeningBoxes := 0
+    ; OpeningBoxes := 1
     CoordMode "Mouse", "Client"
+    WinTitle := WinGetTitle("A")
     Loop 3 { ; Repeat for 2 huge personal shelves, each side-by-side, and each filled with 48 packs times 2 on the same vertical level. Start hotkey while aiming at the center of the leftmost shelf on the leftmost cabinet
     ; Loop 4 { ; Repeat for 2 huge personal shelves, each side-by-side, and each filled with 48 packs times 2 on the same vertical level. Start hotkey while aiming at the center of the leftmost shelf on the leftmost cabinet
       Loop 6 {  ; Open 48 card packs (6 handfuls of 8 packs)
         If (OpeningBoxes == 1) {
           ; Ooening boxes containing packs
-          MouseClick "Right",,,,,"D"
+          ControlClick("x-1 y-1", WinTitle,,"Right",,"D")
           Sleep 500
-          MouseClick "Right",,,,,"U"
+          ControlClick("x-1 y-1", WinTitle,,"Right",,"U")
           Sleep 500
-          Send ("{r down}")
+          ControlSend("{r down}",,WinTitle)
           Sleep 100
-          Send ("{r up}")
+          ControlSend("{r up}",,WinTitle)
           Sleep 2000
-          Send ("{r down}")
+          ControlSend("{r down}",,WinTitle)
           Sleep 100
-          Send ("{r up}")
+          ControlSend("{r up}",,WinTitle)
           Sleep 1000
         } Else {
           ; Opening packs directly
-          MouseClick "Right",,,,,"D"
+          ControlClick("x-1 y-1", WinTitle,,"Right",,"D")
           Sleep 2000
-          MouseClick "Right",,,,,"U"
+          ControlClick("x-1 y-1", WinTitle,,"Right",,"U")
           Sleep 500
-          Send ("{r down}")
+          ControlSend("{r down}",,WinTitle)
           Sleep 250
-          Send ("{r up}")
+          ControlSend("{r up}",,WinTitle)
           Sleep 500
         }
-        MouseClick "Left",,,,,"D"
+        ControlClick("x-1 y-1", WinTitle,,"Left",,"D")
         Sleep 37500
-        MouseClick "Left",,,,,"U"
+        ControlClick("x-1 y-1", WinTitle,,"Left",,"U")
         Sleep 500
       }
-      Send ("{d down}")
+      ControlSend("{d down}",,WinTitle)
       Sleep 150
-      Send ("{d up}")
-      Sleep 1000
+      ControlSend("{d up}",,WinTitle)
+      Sleep 250
     }
-
     Return
   }
 #HotIf

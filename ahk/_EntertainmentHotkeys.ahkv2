@@ -317,7 +317,7 @@ If (DebugMode == 1) {
     ; OpeningBoxes := 1
     CoordMode "Mouse", "Client"
     WinTitle := WinGetTitle("A")
-    Loop 3 { ; Repeat for 2 huge personal shelves filled on the same vertical row with 3 * 48 packs. Start hotkey while aiming at the center of the leftmost shelf on the leftmost cabinet
+    Loop 3 { ; Repeat for 1 day's worth of opening packs, stored on 2 side-by-side huge personal shelves filled on the same vertical row with 3 * 48 packs. Start hotkey while aiming at the center of the leftmost shelf on the leftmost cabinet. 
       Loop 6 {  ; Open 48 card packs (6 handfuls of 8 packs)
         If (OpeningBoxes == 1) { ; Opening boxes containing packs
           ; Pick 1 box up

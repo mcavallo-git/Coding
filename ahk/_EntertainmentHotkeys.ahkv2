@@ -318,7 +318,6 @@ If (DebugMode == 1) {
     CoordMode "Mouse", "Client"
     WinTitle := WinGetTitle("A")
     Loop 3 { ; Repeat for 2 huge personal shelves, each side-by-side, and each filled with 48 packs times 2 on the same vertical level. Start hotkey while aiming at the center of the leftmost shelf on the leftmost cabinet
-    ; Loop 4 { ; Repeat for 2 huge personal shelves, each side-by-side, and each filled with 48 packs times 2 on the same vertical level. Start hotkey while aiming at the center of the leftmost shelf on the leftmost cabinet
       Loop 6 {  ; Open 48 card packs (6 handfuls of 8 packs)
         If (OpeningBoxes == 1) {
           ; Ooening boxes containing packs

@@ -228,6 +228,13 @@ file -bi '/var/log/nginx/error.log';
 
 # ------------------------------
 
+# Find NPM logs & show their contents
+
+find "${HOME}/.npm/_logs" -type 'f' -iname "*-debug-0.log" -exec echo -e "\n\nShowing contents of file [{}]" \; -exec cat '{}' \; ;
+
+
+# ------------------------------
+
 # Get all config.xml files within the "Jenkins" user's home-directory (job to backup/export jenkins-config)
 
 if [[ 1 -eq 1 ]]; then

@@ -328,6 +328,10 @@ FILE_TO_UPDATE="./docker-compose.yml"; sed -re "s/^(\s+(hostname|container_name)
 sed -e 's/\r$//' -i".$(date +'%Y%m%d_%H%M%S').bak" "~/sftp/uploaded_file";
 
 
+# sed -i (modify file)  -  Replace Dockerfile FROM image target
+sed -re "s/^(FROM )(.+)\$/\1${REGISTRY_NAME}\/${IMAGE_NAME}:${IMAGE_TAG}/" -i "Dockerfile";
+
+
 # sed -i (modify file)  -  MySQL: Replace Function definers with 'CURRENT_USER()' --> Note: Pipes '|' do not require slashes '/' or '\' to be escaped
 sed 's|DEFINER=[^ ]* FUNCTION|DEFINER=CURRENT_USER() FUNCTION|g' -i "Functions.sql";
 

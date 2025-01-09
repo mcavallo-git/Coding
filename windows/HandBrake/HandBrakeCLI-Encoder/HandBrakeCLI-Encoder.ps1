@@ -242,7 +242,8 @@ If ((Test-Path -Path ("${FullPath_HandBrakeCLI_Exe}")) -Eq $False) {
     # Download HandBrakeCLI.exe zip-archive from GitHub Repo "HandBrake/HandBrake"'s releases section
     #
 
-    $URL_HandBrakeCLI_Zip="https://github.com/HandBrake/HandBrake/releases/download/1.4.2/HandBrakeCLI-1.4.2-win-x86_64.zip";
+    $URL_HandBrakeCLI_Zip="https://github.com/HandBrake/HandBrake/releases/download/1.9.0/HandBrakeCLI-1.9.0-win-x86_64.zip";
+    # $URL_HandBrakeCLI_Zip="https://github.com/HandBrake/HandBrake/releases/download/1.4.2/HandBrakeCLI-1.4.2-win-x86_64.zip";
     # $URL_HandBrakeCLI_Zip="https://github.com/HandBrake/HandBrake/releases/download/1.3.3/HandBrakeCLI-1.3.3-win-x86_64.zip";
     # $URL_HandBrakeCLI_Zip="https://download.handbrake.fr/releases/1.3.0/HandBrakeCLI-1.3.0-win-x86_64.zip";
 

@@ -1,9 +1,24 @@
 # ------------------------------------------------------------
 #
-# PowerShell - Get-Set Metadata on File(s) (last-modified date)
+# PowerShell - Get-Set Metadata on file(s) using exiftool (last-modified date, media created date)
 #
+# ------------------------------------------------------------
 
-# Find files (in the current directory) matching "*.mov" and mirror their creation & modified dates onto a neighboring "*.mp4" file with the same basename
+# exiftool - Bulk set date-created (expects files to be in terminal's working directory)
+If ($True) {
+  $FN="1950 - Filename"; $MCD="1950:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
+  $FN="1960 - Filename"; $MCD="1960:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
+  $FN="1970 - Filename"; $MCD="1970:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
+  $FN="1980 - Filename"; $MCD="1980:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
+  $FN="1990 - Filename"; $MCD="1990:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
+  $FN="2000 - Filename"; $MCD="2000:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
+}
+
+
+# ------------------------------
+
+# exiftool - Match dates between filetypes (same name)
+#  |-> Finds files (in the current directory) matching "*.mov" and mirror their creation & modified dates onto a neighboring "*.mp4" file with the same basename
 If ($True) {
   $FromExtension = "mov";
   $ToExtension = "mp4";

@@ -6,12 +6,12 @@
 
 # exiftool - Bulk set date-created (expects files to be in terminal's working directory)
 If ($True) {
-  $FN="1950 - Filename"; $MCD="1950:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
-  $FN="1960 - Filename"; $MCD="1960:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
-  $FN="1970 - Filename"; $MCD="1970:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
-  $FN="1980 - Filename"; $MCD="1980:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
-  $FN="1990 - Filename"; $MCD="1990:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
-  $FN="2000 - Filename"; $MCD="2000:06:01 12:00:00"; exiftool -overwrite_original -createdate="${MCD}" "${FN}";
+  $FN="1950 - Filename"; $YY="1950"; $MM="06"; $DD="01"; Get-ChildItem "${FN}" | % { $_.LastWriteTime = "${MM}/${DD}/${YY} 12:00:00"; }; exiftool -overwrite_original -createdate="${YY}:${MM}:${DD} 12:00:00" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" "${FN}";
+  $FN="1960 - Filename"; $YY="1960"; $MM="06"; $DD="01"; Get-ChildItem "${FN}" | % { $_.LastWriteTime = "${MM}/${DD}/${YY} 12:00:00"; }; exiftool -overwrite_original -createdate="${YY}:${MM}:${DD} 12:00:00" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" "${FN}";
+  $FN="1970 - Filename"; $YY="1970"; $MM="06"; $DD="01"; Get-ChildItem "${FN}" | % { $_.LastWriteTime = "${MM}/${DD}/${YY} 12:00:00"; }; exiftool -overwrite_original -createdate="${YY}:${MM}:${DD} 12:00:00" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" "${FN}";
+  $FN="1980 - Filename"; $YY="1980"; $MM="06"; $DD="01"; Get-ChildItem "${FN}" | % { $_.LastWriteTime = "${MM}/${DD}/${YY} 12:00:00"; }; exiftool -overwrite_original -createdate="${YY}:${MM}:${DD} 12:00:00" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" "${FN}";
+  $FN="1990 - Filename"; $YY="1990"; $MM="06"; $DD="01"; Get-ChildItem "${FN}" | % { $_.LastWriteTime = "${MM}/${DD}/${YY} 12:00:00"; }; exiftool -overwrite_original -createdate="${YY}:${MM}:${DD} 12:00:00" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" "${FN}";
+  $FN="2000 - Filename"; $YY="2000"; $MM="06"; $DD="01"; Get-ChildItem "${FN}" | % { $_.LastWriteTime = "${MM}/${DD}/${YY} 12:00:00"; }; exiftool -overwrite_original -createdate="${YY}:${MM}:${DD} 12:00:00" "-FileCreateDate<FileModifyDate" "-FileModifyDate<FileModifyDate" "${FN}";
 }
 
 

@@ -8,6 +8,8 @@ function SyncRegistry {
     [ValidateSet('Ctrl+Shift','Left-Alt+Shift','Thai')]
     [String]$Hotkey_SwitchInputLanguage="",
 
+    [Switch]$LockWin10Version,  <# Only allow Windows Updates which keep the Operating System at its current version (Windows 10 only) #>
+
     [Switch]$SkipPowercfgUpdates,  <# Skips powercfg updates which [ disable hibernation mode, disable sleep mode, and set the monitor idle timeout ] #>
 
     [String]$UserSID="",   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[SID]) <-- To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])  #>
@@ -1873,37 +1875,39 @@ function SyncRegistry {
         };
       };
 
-      # Windows Update - Block update to Windows 11
-      $Windows_CurrentVersion = (Get-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion") -Name ("DisplayVersion") -EA:0 | Select-Object -ExpandProperty "DisplayVersion" -EA:0);
-      If ("${Windows_CurrentVersion}".Length -Eq 0) {
-        $Windows_CurrentVersion = "22H2";
+      # Windows Update - Only allow Updates which keep the Operating System at its current version (Windows 10 only)
+      If ($PSBoundParameters.ContainsKey('LockWin10Version')) {
+        $Windows_CurrentVersion = (Get-ItemProperty -LiteralPath ("Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion") -Name ("DisplayVersion") -EA:0 | Select-Object -ExpandProperty "DisplayVersion" -EA:0);
+        If ("${Windows_CurrentVersion}".Length -Eq 0) {
+          $Windows_CurrentVersion = "22H2";
+        }
+        $RegEdits += @{
+          Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
+          Props=@(
+            @{
+              Description="Version of Windows to get updates for";
+              Name="ProductVersion";
+              Type="String";
+              Value="Windows 10";
+              Delete=$False;
+            },
+            @{
+              Description="[ 0 ]=Disable, [ 1 ]=Enable option 'only pull updates for a specific type/version of Windows'";
+              Name="TargetReleaseVersion";
+              Type="DWord";
+              Value=1;
+              Delete=$False;
+            },
+            @{
+              Description="Set this value to the specific release/version of Windows which you want to get updates for";
+              Name="TargetReleaseVersionInfo";
+              Type="String";
+              Value="${Windows_CurrentVersion}";
+              Delete=$False;
+            }
+          )
+        };
       }
-      $RegEdits += @{
-        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate";
-        Props=@(
-          @{
-            Description="Version of Windows to get updates for";
-            Name="ProductVersion";
-            Type="String";
-            Value="Windows 10";
-            Delete=$False;
-          },
-          @{
-            Description="[ 0 ]=Disable, [ 1 ]=Enable option 'only pull updates for a specific type/version of Windows'";
-            Name="TargetReleaseVersion";
-            Type="DWord";
-            Value=1;
-            Delete=$False;
-          },
-          @{
-            Description="Set this value to the specific release/version of Windows which you want to get updates for";
-            Name="TargetReleaseVersionInfo";
-            Type="String";
-            Value="${Windows_CurrentVersion}";
-            Delete=$False;
-          }
-        )
-      };
 
       # Windows Update - Active Hours
       $RegEdits += @{

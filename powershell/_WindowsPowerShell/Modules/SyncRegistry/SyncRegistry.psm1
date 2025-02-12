@@ -600,7 +600,7 @@ function SyncRegistry {
             @{
               Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has an Image file extension (.bmp, .jpeg, .jpg, .png, ...), then selects the `"Edit`" command from the dropdown context menu.";
               Name="(Default)";
-              Type="REG_EXPAND_SZ";
+              Type="ExpandString";
               Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
               Value="`"${DefaultPictureEditor}`" `"%1`"";
               Delete=$False;
@@ -613,7 +613,7 @@ function SyncRegistry {
             @{
               Description="Explorer Settings - Defines the application opened when a user right-clicks a file (in Windows Explorer) which has an Image file extension (.bmp, .jpeg, .jpg, .png, ...), then selects the `"Edit`" command from the dropdown context menu.";
               Name="(Default)";
-              Type="REG_EXPAND_SZ";
+              Type="ExpandString";
               Val_Default="`"%systemroot%\system32\mspaint.exe`" `"%1`"";
               Value="`"${DefaultPictureEditor}`" `"%1`"";
               Delete=$False;
@@ -975,7 +975,7 @@ function SyncRegistry {
           @{
             Description="Explorer Settings - Defines the text shown on the right-click context menu for associated file type(s) - when this text is clicked (from the context menu) it will run CLI script contained in the nested `"Command`" registry key's `"(Default)`" property";
             Name="MUIVerb";
-            Type="REG_EXPAND_SZ";
+            Type="ExpandString";
             Val_Default="@`"%systemroot%\system32\windowspowershell\v1.0\powershell.exe `",-108";
             Value="";
             Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>

@@ -3944,6 +3944,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     MonitorGet(Mouse_MonitorIndex, &MonitorWorkArea_LeftCoord, &MonitorWorkArea_TopCoord, &MonitorWorkArea_RightCoord, &MonitorWorkArea_BottomCoord)
     Monitor_Width := (MonitorWorkArea_RightCoord - MonitorWorkArea_LeftCoord)
     Monitor_Height := (MonitorWorkArea_BottomCoord - MonitorWorkArea_TopCoord)
+    ; Determine whether current monitor is the primary monitor or not
     PrimaryMonitor_Append := ""
     If (Mouse_MonitorIndex == MonitorGetPrimary()) {
       PrimaryMonitor_Append := "  (Primary)"

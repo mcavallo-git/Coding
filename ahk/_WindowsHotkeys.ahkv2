@@ -3947,7 +3947,6 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     If (Mouse_MonitorIndex == MonitorGetPrimary()) {
       PrimaryMonitor_Append := "  (Primary)"
     }
-    
     ;
     ; Window: "Coordinates are relative to the active window."
     ;

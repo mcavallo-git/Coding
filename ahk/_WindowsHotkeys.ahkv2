@@ -3115,7 +3115,9 @@ Open_Chrome(Url_Open:="", Force_RunExe:=0) {
         If (MonitorGetCount()==1) {
           WinSnap(WinTitle,,,,"Right","Half",MonitorGetPrimary()) ; Resize window to right half of the primary monitor
         } Else {
-          WinSnap(WinTitle,,,,"Left","Half",2) ; Resize window to left half of monitor #2
+          Secondary_MonitorNumber := (MonitorGetPrimary()==1) ? 2 : 1
+          WinSnap(WinTitle,,,,"Left","Half",Secondary_MonitorNumber) ; Resize window to left half of monitor #2
+
         }
       }
       If (WinExist(WinTitle,WinText)) {

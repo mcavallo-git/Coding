@@ -1544,7 +1544,7 @@ AppsKey & WheelDown::
 {
   WinTitle := WinGetTitle("A")
   If (WinExist(WinTitle)) {
-    WinSnap(WinTitle,,,,"Left","Half",1)
+    WinSnap(WinTitle,,,,"Left","Half",MonitorGetPrimary())
   }
   Return
 }
@@ -3113,7 +3113,7 @@ Open_Chrome(Url_Open:="", Force_RunExe:=0) {
       ; Skip snapping the window if it was already open yet we forced rerunning its executable (use case for New Tab(s) in chrome)
       If ( ! ((PreExisting_Win_hwnd != 0) && (Force_RunExe != 0)) ) {
         If (MonitorGetCount()==1) {
-          WinSnap(WinTitle,,,,"Right","Half",1) ; Resize window to right half of monitor #1
+          WinSnap(WinTitle,,,,"Right","Half",MonitorGetPrimary()) ; Resize window to right half of the primary monitor
         } Else {
           WinSnap(WinTitle,,,,"Left","Half",2) ; Resize window to left half of monitor #2
         }
@@ -3265,7 +3265,7 @@ Open_VisualStudioCode(FilePath_Open:="") {
     RunExe_NON_Admin(FullPath_RunExe, FilePath_Open)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
   }
-  WinSnap(WinTitle,,,,"Left","Half",1) ; Resize window to left half of monitor #1
+  WinSnap(WinTitle,,,,"Left","Half",MonitorGetPrimary()) ; Resize window to left half of the primary monitor
   If (WinExist(WinTitle)) {
     WinActivate(WinTitle)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
   }
@@ -3300,7 +3300,7 @@ Open_WindowsTerminal() {
     RunExe_NON_Admin(FullPath_RunExe, Win10_AppUnionPath)
     WinWait WinTitle,,WinWait_TimeoutSeconds  ; Wait until the specified window exists  |  https://www.autohotkey.com/docs/v2/lib/WinWait.htm
   }
-  WinSnap(WinTitle,WinText,,,"Right","Half",1) ; Resize window to right half of monitor #1
+  WinSnap(WinTitle,WinText,,,"Right","Half",MonitorGetPrimary()) ; Resize window to right half of the primary monitor
   If (WinExist(WinTitle,WinText)) {
     WinActivate(WinTitle,WinText)  ;  Activate the specified window  |  https://www.autohotkey.com/docs/v2/lib/WinActivate.htm
   } Else If (WinExist(WinTitle)) {
@@ -3943,6 +3943,11 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     MonitorGet(Mouse_MonitorIndex, &MonitorWorkArea_LeftCoord, &MonitorWorkArea_TopCoord, &MonitorWorkArea_RightCoord, &MonitorWorkArea_BottomCoord)
     Monitor_Width := (MonitorWorkArea_RightCoord - MonitorWorkArea_LeftCoord)
     Monitor_Height := (MonitorWorkArea_BottomCoord - MonitorWorkArea_TopCoord)
+    PrimaryMonitor_Append := ""
+    If (Mouse_MonitorIndex == MonitorGetPrimary()) {
+      PrimaryMonitor_Append := "  (Primary)"
+    }
+    
     ;
     ; Window: "Coordinates are relative to the active window."
     ;
@@ -3987,7 +3992,7 @@ ShowCursorPixelColor(FollowDuration_Seconds:=10) {
     TooltipOutput := TooltipOutput "  rgb(" ColorComponent_Red "," ColorComponent_Green "," ColorComponent_Blue ")" "`n"
     TooltipOutput := TooltipOutput "`n"
     TooltipOutput := TooltipOutput "Monitor (Current):" "`n"
-    TooltipOutput := TooltipOutput "  Index:  " Mouse_MonitorIndex "`n"
+    TooltipOutput := TooltipOutput "  Index:  " Mouse_MonitorIndex PrimaryMonitor_Append "`n"
     TooltipOutput := TooltipOutput "  Width:  " Monitor_Width "  /  Height:  " Monitor_Height "`n"
     TooltipOutput := TooltipOutput "  x" MonitorWorkArea_LeftCoord "  y" MonitorWorkArea_TopCoord "  (Top-Left)" "`n"
     TooltipOutput := TooltipOutput "  x" MonitorWorkArea_RightCoord "  y" MonitorWorkArea_BottomCoord "  (Bottom-Right)" "`n"

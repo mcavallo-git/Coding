@@ -1,10 +1,12 @@
 #!/bin/bash
 # ------------------------------------------------------------
-# Linux - sqlite3 (get schema for database table).sh
+# Linux - sqlite3 (get schema for database table)
 # ------------------------------------------------------------
 
 
-TABLE_NAME="domainlist"; FULLPATH_DATABASE="/etc/pihole/gravity.db"; sqlite3 "${FULLPATH_DATABASE}" ".schema ${TABLE_NAME}";
+FULLPATH_DATABASE="/etc/pihole/gravity.db";
+SQL_QUERY=".tables";
+sqlite3 "${FULLPATH_DATABASE}" "${SQL_QUERY}";
 
 
 # ------------------------------------------------------------

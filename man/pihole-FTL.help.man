@@ -2,7 +2,7 @@
 
 > pihole-FTL --help
 
-The Pi-hole FTL engine - v5.23
+The Pi-hole FTL engine - v6.0.4
 
 Typically, pihole-FTL runs as a system service and is controlled
 by sudo service pihole-FTL <action> where <action> is one out
@@ -47,15 +47,14 @@ Embedded Lua engine:
       the script.
 
 Embedded SQLite3 shell:
-        sql [-h], sqlite3 [-h]        FTL's SQLite3 shell
-        -h starts a special human-readable mode
-
-    Usage: pihole-FTL sqlite3 [-h] [OPTIONS] [FILENAME] [SQL]
+        sql, sqlite3                      FTL's SQLite3 shell
+    Usage:  sqlite3 [OPTIONS] [FILENAME] [SQL]
 
     Options:
 
     - [OPTIONS] is an optional set of options. All available
-      options can be found in pihole-FTL sqlite3 --help
+      options can be found in pihole-FTL sqlite3 --help.
+      The first option can be either -h or -ni, see below.
     - [FILENAME] is the optional name of an SQLite database.
       A new database is created if the file does not previously
       exist. If this argument is omitted, SQLite3 will use a
@@ -63,18 +62,136 @@ Embedded SQLite3 shell:
     - [SQL] is an optional SQL statement to be executed. If
       omitted, an interactive shell is started instead.
 
+    There are two special pihole-FTL sqlite3 mode switches:
+    -h  human-readable mode:
+        In this mode, the output of the shell is formatted in
+        a human-readable way. This is especially useful for
+        debugging purposes. -h is a shortcut for
+        pihole-FTL sqlite3 -column -header -nullvalue '(null)'
+
+    -ni non-interative mode
+        In this mode, batch mode is enforced and any possibly
+        existing .sqliterc file is ignored. -ni is a shortcut
+        for pihole-FTL sqlite3 -batch -init /dev/null
+
+    Usage: pihole-FTL sqlite3 -ni [OPTIONS] [FILENAME] [SQL]
+
+sqlite3_rsync tool:
+        sqlite3_rsync           Synchronize SQLite3 databases
+    Usage: pihole-FTL sqlite3_rsync ORIGIN REPLICA [OPTIONS]
+
+    This tool is used to synchronize a local database with a
+    remote one. The remote database is accessed via an SSH
+    connection. The main difference to rsync is that this
+    tool using SQLite3 transactions and, hence, can
+    synchronize the local database with the remote one in a
+    safe way, preventing data corruption. Both databases must
+    be using WAL mode.
+
+    For more information, see pihole-FTL sqlite3_rsync --help
+
 Embedded dnsmasq options:
         dnsmasq-test        Test syntax of dnsmasq's config
         --list-dhcp4        List known DHCPv4 config options
         --list-dhcp6        List known DHCPv6 config options
 
 Debugging and special use:
-        d, debug            Enter debugging mode
+        d, debug            Enter debugging mode: Don't go into
+                            daemon mode and verbose logging
         test                Don't start pihole-FTL but instead
-                            quit immediately
+                            process everything and quit immediately
         -f, no-daemon       Don't go into daemon mode
 
+Config options:
+        --config key        Get current value of config item key
+        --config key value  Set new value of config item key
+
+Embedded GZIP un-/compressor:
+    A simple but fast in-memory gzip compressor
+
+    Usage: pihole-FTL --gzip infile [outfile]
+
+    - infile is the file to be processed. If the filename ends
+      in .gz, FTL will uncompress, otherwise it will compress
+
+    - [outfile] is the optional target file.
+      If omitted, FTL will try to derive the target file from
+      the source file.
+
+    Examples:
+      - pihole-FTL --gzip file.txt
+        compresses file.txt to file.txt.gz
+
+      -  --gzip pihole-FTLfile.txt.gz
+        uncompresses file.txt.gz to file.txt
+
+Teleporter:
+        --teleporter        Create a Teleporter archive in the
+                            current directory and print its name
+        --teleporter file   Import the Teleporter archive file
+
+TLS X.509 certificate generator:
+    Generate a self-signed certificate suitable for SSL/TLS
+    and store it in outfile.
+
+    By default, this new certificate is based on the elliptic
+    curve secp521r1. If the optional flag [rsa] is specified,
+    an RSA (4096 bit) key will be generated instead.
+
+    An optional [domain] can be given to specify the domain
+    for which the certificate is valid. If omitted, the domain
+    is set to pi.hole.
+
+    Usage: pihole-FTL --gen-x509 outfile [domain] [rsa]
+
+TLS X.509 certificate parser:
+    Parse the given X.509 certificate and optionally check if
+    it matches a given domain. If no domain is given, only a
+    human-readable output string is printed.
+
+    If no certificate file is given, the one from the config
+    is used (if applicable). If --read-x509-key is used, details
+    about the private key are printed as well.
+
+    Usage: pihole-FTL --read-x509 [certfile] [domain]
+    Usage: pihole-FTL --read-x509-key [certfile] [domain]
+
+Gravity tools:
+    Check domains in a given file for validity using Pi-hole's
+    gravity filters. The expected input format is one domain
+    per line (no HOSTS lists, etc.)
+
+    Usage: pihole-FTL gravity checkList infile
+
+IDN2 conversion:
+    Convert a given internationalized domain name (IDN) to
+    punycode or vice versa.
+
+    Encoding: pihole-FTL idn2 domain
+    Decoding: pihole-FTL idn2 -d punycode
+
+NTP client:
+    Query an NTP server for the current time and print the
+    result in human-readable format. An optional server may be
+    as argument. If the server is omitted, 127.0.0.1 is used.
+
+    The system time is updated on the system when the optional
+    --update flag is given.
+
+    Usage: pihole-FTL ntp [server] [--update]
+
+SHA256 checksum tools:
+    Calculates the SHA256 checksum of a file. The checksum is
+    computed as described in FIPS-180-2 and uses streaming
+    to allow processing arbitrary large files with a small
+    memory footprint.
+
+    Usage: pihole-FTL sha256sum file
+
 Other:
+        verify              Verify the integrity of the FTL binary
+        ptr IP [tcp]        Resolve IP address to hostname
+                            Append tcp to use TCP instead of UDP
         dhcp-discover       Discover DHCP servers in the local
                             network
         arp-scan [-a/-x]    Use ARP to scan local network for
@@ -83,6 +200,11 @@ Other:
                             interfaces
                             Append -x to force scan on all
                             interfaces and scan 10x more often
+        --totp              Generate valid TOTP token for 2FA
+                            authentication (if enabled)
+        --perf              Run performance-tests based on the
+                            BALLOON password-hashing algorithm
+        -- [OPTIONS]        Pass OPTIONS to internal dnsmasq resolver
         -h, help            Display this help and exit
 
 ------------------------------------------------------------

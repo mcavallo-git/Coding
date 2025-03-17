@@ -3,33 +3,34 @@
 > pihole --help
 
 Usage: pihole [options]
-Example: 'pihole -w -h'
+Example: 'pihole allow -h'
 Add '-h' after specific commands for more information on usage
 
-Whitelist/Blacklist Options:
-  -w, whitelist       Whitelist domain(s)
-  -b, blacklist       Blacklist domain(s)
-  --regex, regex      Regex blacklist domains(s)
-  --white-regex       Regex whitelist domains(s)
-  --wild, wildcard    Wildcard blacklist domain(s)
-  --white-wild        Wildcard whitelist domain(s)
-                        Add '-h' for more info on whitelist/blacklist usage
+Domain Options:
+  allow, allowlist    Allow domain(s)
+  deny, denylist      Deny domain(s)
+  --regex, regex      Regex deny domains(s)
+  --allow-regex       Regex allow domains(s)
+  --wild, wildcard    Wildcard deny domain(s)
+  --allow-wild        Wildcard allow domain(s)
+                        Add '-h' for more info on allow/deny usage
 
 Debugging Options:
   -d, debug           Start a debugging session
+                        Add '-c' or '--check-database' to include a Pi-hole database integrity check
                         Add '-a' to automatically upload the log to tricorder.pi-hole.net
   -f, flush           Flush the Pi-hole log
-  -r, reconfigure     Reconfigure or Repair Pi-hole subsystems
+  -r, repair          Repair Pi-hole subsystems
   -t, tail [arg]      View the live output of the Pi-hole log.
                       Add an optional argument to filter the log
                       (regular expressions are supported)
+  api <endpoint>      Query the Pi-hole API at <endpoint>
 
 
 Options:
-  -a, admin           Web interface options
-                        Add '-h' for more info on Web Interface usage
-  -c, chronometer     Calculates stats and displays to an LCD
-                        Add '-h' for more info on chronometer usage
+  setpassword [pwd]   Set the password for the web interface
+                        Without optional argument, password is read interactively.
+                        When specifying a password directly, enclose it in single quotes.
   -g, updateGravity   Update the list of ad-serving domains
   -h, --help, help    Show this help dialog
   -l, logging         Specify whether the Pi-hole log should be used
@@ -39,33 +40,17 @@ Options:
   -up, updatePihole   Update Pi-hole subsystems
                         Add '--check-only' to exit script before update is performed.
   -v, version         Show installed versions of Pi-hole, Web Interface & FTL
-                        Add '-h' for more info on version usage
   uninstall           Uninstall Pi-hole from your system
   status              Display the running status of Pi-hole subsystems
   enable              Enable Pi-hole subsystems
+                        Add '-h' for more info on enable usage
   disable             Disable Pi-hole subsystems
                         Add '-h' for more info on disable usage
-  restartdns          Full restart Pi-hole subsystems
-                        Add 'reload' to update the lists and flush the cache without restarting the DNS server
-                        Add 'reload-lists' to only update the lists WITHOUT flushing the cache or restarting the DNS server
+  reloaddns           Update the lists and flush the cache without restarting the DNS server
+  reloadlists         Update the lists WITHOUT flushing the cache or restarting the DNS server
   checkout            Switch Pi-hole subsystems to a different GitHub branch
                         Add '-h' for more info on checkout usage
   arpflush            Flush information stored in Pi-hole's network tables
-------------------------------------------------------------
-Usage: pihole -a [options]
-Example: pihole -a -p password
-Set options for the Admin Console
-
-Options:
-  -p, password        Set Admin Console password
-  -c, celsius         Set Celsius as preferred temperature unit
-  -f, fahrenheit      Set Fahrenheit as preferred temperature unit
-  -k, kelvin          Set Kelvin as preferred temperature unit
-  -e, email           Set an administrative contact address for the Block Page
-  -h, --help          Show this help dialog
-  -i, interface       Specify dnsmasq's interface listening behavior
-  -l, privacylevel    Set privacy level (0 = lowest, 3 = highest)
-  -t, teleporter      Backup configuration as an archive
 ------------------------------------------------------------
 Usage: pihole -c [options]
 Example: 'pihole -c -j'
@@ -82,6 +67,7 @@ Update domains from blocklists specified in adlists.list
 
 Options:
   -f, --force          Force the download of all specified blocklists
+  -t, --timeit         Time the gravity update process
   -h, --help           Show this help dialog
 ------------------------------------------------------------
 Usage: pihole logging [options]
@@ -89,34 +75,16 @@ Example: 'pihole logging on'
 Specify whether the Pi-hole log should be used
 
 Options:
-  on                  Enable the Pi-hole log at /var/log/pihole.log
-  off                 Disable and flush the Pi-hole log at /var/log/pihole.log
-  off noflush         Disable the Pi-hole log at /var/log/pihole.log
+  on                  Enable the Pi-hole log at /var/log/pihole/pihole.log
+  off                 Disable and flush the Pi-hole log at /var/log/pihole/pihole.log
+  off noflush         Disable the Pi-hole log at /var/log/pihole/pihole.log
 ------------------------------------------------------------
 Usage: pihole -q [option] <domain>
-Example: 'pihole -q -exact domain.com'
+Example: 'pihole -q --partial domain.com'
 Query the adlists for a specified domain
 
 Options:
-  -exact              Search the block lists for exact domain matches
-  -all                Return all query matches within a block list
-  -h, --help          Show this help dialog
-------------------------------------------------------------
-Usage: pihole -up [option]
-Function not supported in Docker images
-------------------------------------------------------------
-Usage: pihole -v [repo | option] [option]
-Example: 'pihole -v -p -l'
-Show Pi-hole, Admin Console & FTL versions
-
-Repositories:
-  -p, --pihole         Only retrieve info regarding Pi-hole repository
-  -a, --admin          Only retrieve info regarding AdminLTE repository
-  -f, --ftl            Only retrieve info regarding FTL repository
-
-Options:
-  -c, --current        Return the current version
-  -l, --latest         Return the latest version
-  --hash               Return the GitHub hash from your local repositories
+  --partial            Search the adlists for partially matching domains
+  --all                Return all query matches within the adlists
   -h, --help           Show this help dialog
 ------------------------------------------------------------

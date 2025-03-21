@@ -4,13 +4,11 @@
 
 1. Open `Microsoft Word`
 
-2. Click `File` at the top-left   *shows 'Home' screen*
+2. Press `ALT F -> T` (to open `File` > `Options`)
 
-3. Click `Options` at the bottom-left   *window 'Word Options' opens*
+3. On the first tab (`General`), scroll all the way to the bottom
 
-4. On the first tab (`General`), scroll all the way to the bottom
-
-5. Disable/Uncheck option `Show the Start screen when this application starts` at the very bottom, under category `Start up options`
+4. Disable/Uncheck option `Show the Start screen when this application starts` at the very bottom, under category `Start up options`
 
 
 ***

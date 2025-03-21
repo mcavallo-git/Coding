@@ -4,17 +4,15 @@
 
 1. Open `Microsoft Word`
 
-2. Click `File` at the top-left   *shows 'Home' screen*
+2. Press `ALT F -> T` (to open `File` > `Options`)
 
-3. Click `Options` at the bottom-left   *window 'Word Options' opens*
+3. Click the `Save` category on the left
 
-4. Click the `Save` category on the left
+4. Enable/Check option `Save to Computer by default`
 
-5. Enable/Check option `Save to Computer by default`
+5. Optionally, set a value for `Default local file location:` (the next option down) to always start the save prompt at the folder of your choice
 
-6. Optionally, set a value for `Default local file location:` (the next option down) to always start the save prompt at the folder of your choice
-
-7. Click `OK` to confirm the change and close the options window
+6. Click `OK` to confirm the change and close the options window
 
 
 ***

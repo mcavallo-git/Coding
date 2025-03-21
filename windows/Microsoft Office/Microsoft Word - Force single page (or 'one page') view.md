@@ -3,21 +3,20 @@
 # Microsoft Word - Force single page (or 'one page') view
 
 1. Create & Save the Template File
-   - Open `Microsoft Word`
-   - Open the default template file #1 (if exists) @ [ %APPDATA%\Microsoft\Templates\Normal.dotm ]
-   - On the view tab, click `Print Layout`
-   - In the zoom panel, click `One Page`
-   - Save and close the template file(s)
-   - You can change a lot of other default settings here, too, such as font size, style, etc
-   - Repeat above steps for default template file #2 (if exists) @ [ %APPDATA%\Microsoft\Templates\Normal.dotx ]
+    - Open `Microsoft Word`
+    - Open the default template file #1 (if exists) @ [ %APPDATA%\Microsoft\Templates\Normal.dotm ]
+    - On the view tab, click `Print Layout`
+    - In the zoom panel, click `One Page`
+    - Save and close the template file(s)
+    - You can change a lot of other default settings here, too, such as font size, style, etc
+    - Repeat above steps for default template file #2 (if exists) @ [ %APPDATA%\Microsoft\Templates\Normal.dotx ]
 
 2. Reference the Template File as the default Template (opened when Word opens)
-   - Open `Microsoft Word`
-   - Click `File` at the top-left   *shows 'Home' screen*
-   - Click `Options` at the bottom-left   *window 'Word Options' opens*
-   - Click the `Save` category on the left
-   - Enter your templates directory into the `Default personal templates location` field
-   - Click `OK` to confirm the change and close the options window
+    - Open `Microsoft Word`
+    - Press `ALT F -> T` (to open `File` > `Options`)
+    - Click the `Save` category on the left
+    - Enter your templates directory into the `Default personal templates location` field
+    - Click `OK` to confirm the change and close the options window
 
 
 ***

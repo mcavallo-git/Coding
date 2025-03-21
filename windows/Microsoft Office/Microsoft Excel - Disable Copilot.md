@@ -2,7 +2,7 @@
 ***
 # Microsoft Excel - Disable Copilot
 
-1. Open `Microsoft Word`
+1. Open `Microsoft Excel`
 
 2. Click `File` at the top-left   *shows 'Home' screen*
 

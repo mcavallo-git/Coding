@@ -10,7 +10,7 @@
 
 4. Click the `Save` category on the left
 
-5. Enable/Check option `Save to Computer by defaul`
+5. Enable/Check option `Save to Computer by default`
 
 6. Optionally, set a value for `Default local file location:` (the next option down) to always start the save prompt at the folder of your choice
 

@@ -1,0 +1,1 @@
+TYPE C:\ISO\HWiNFO64\Sensors\Average_Effective_Clock.MHz.json

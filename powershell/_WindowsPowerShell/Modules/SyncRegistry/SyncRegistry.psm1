@@ -33,7 +33,7 @@ function SyncRegistry {
   }
   # ------------------------------------------------------------
   #
-  # TODO:
+  # To Do ( features/functionality to add ):
   #
   #  - Dark Mode
   #    - `Settings` > `Personalization` > `Colors`

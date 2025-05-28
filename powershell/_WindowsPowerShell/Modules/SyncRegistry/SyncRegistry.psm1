@@ -37,15 +37,74 @@ function SyncRegistry {
   #
   #  - Themes > Desktop Icon Settings > Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
   #
-  #  - Themes > Desktop Icon Settings > Uncheck "Allow themes to change desktop icons"
+  #  - Themes > Desktop Icon Settings > Uncheck "Allow themes to change desktop icons"  (Windows 11 / Win11)
   #
-  #  - Change system sounds > Set "Sound Scheme" to "No Sounds"
+  #  - Sounds > Set "Sound Scheme" to "No Sounds"
+  #
+  #  - Sounds > Disable "Play Windows Startup Sound"  (Windows 11 / Win11)
+  #
+  #  - Add `Windows Fax and Scan` automatically (done manually via Settings > System > `Add an optional feature` > View features > `Windows Fax and Scan` > Next > Add)  (Windows 11 / Win11)
   #
   #  - File Explorer Options > General > Uncheck "Show recently used files in Quick Access"
   #     |--> Key="HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer"; Property="ShowRecent"; Type="DWord"; Value=0;
   #
   #  - File Explorer Options > General > Uncheck "Show frequently used folders in Quick Access"
   #     |--> Key="HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer"; Property="ShowFrequent"; Type="DWord"; Value=0;
+  #
+  #  - File Explorer right-click context menu rollback (always `Show more options` by default)  (Windows 11 / Win11)
+  #    - https://answers.microsoft.com/en-us/windows/forum/all/restore-old-right-click-context-menu-in-windows-11/a62e797c-eaf3-411b-aeec-e460e6e5a82a
+  #      - ```reg.exe add `HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32` /f /ve```
+  #
+  #  - Notifications  (Windows 11 / Win11)
+  #    - `Settings` > `System` > `Notifications`
+  #      - `Notifications` (section/dropdown)
+  #        - Disable `Show notifications on lock screen`
+  #
+  #  - Notepad.exe rollback  (Windows 11 / Win11)
+  #    - Remove `App execution aliases` from `Notepad.exe` pointing to the `notepad` app ( https://www.winhelponline.com/blog/restore-old-classic-notepad-windows )
+  #    - Fix error `Cannot associate file type with this program` when trying to open files in `Notepad.exe` ( https://superuser.com/a/1750238 )
+  #        - Key: `HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Applications\notepad.exe`
+  #        - Prop: `NoOpenWith`
+  #        - Type: `REG_SZ` (String)
+  #        - ^ Delete this property
+  #
+  #  - Screenshot (PrintScreen) - If `Greenshot` is installed, disable Snipping Tool PrintScreen hotkey
+  #    - `Settings` > `Accessibility` > `Keyboard`
+  #      - `On-screen keyboard, access keys, and Print screen` (section)
+  #        - Disable `Use the Print screen key to open screen capture`
+  #
+  #  - Dark Mode
+  #    - `Settings` > `Personalization` > `Colors`
+  #      - Set `Choose your mode` to `Dark`
+  #      - Set Accent Color to `#4D4DFF`
+  #      - Disable `Transparency effects`
+  #      - Disable `Show accent color on title bars and window borders`
+  #
+  #  - Window Snapping  (Windows 11 / Win11)
+  #    - `Settings` > `System` > `Multitasking`
+  #      - Enable top level `Snap windows`  (`Snap windows to automatically resize and arrange them into layouts`)
+  #      - (Done) Disable `When I snap a window, suggest what I can snap next to it`
+  #      - Disable `Show snap layouts when I hover over a window's maximize button`
+  #      - Disable `Show snap layouts when I drag a window to the top of my screen`
+  #      - Disable `Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab`
+  #      - Disable `When I drag a window, let me snap it without dragging it all the way to the screen edge`
+  #
+  #  - Taskbar (Start Menu)  (Windows 11 / Win11)
+  #    - `Settings` > `Personalization` > `Taskbar`
+  #      - Align start menu to the left side of start menu
+  #      - `Taskbar behaviors` (section/dropdown)
+  #        - Set `Taskbar alignment` to `Left`
+  #        - Disable `Select the far corner of the taskbar to show the desktop`
+  #      - `Taskbar items` (section/dropdown)
+  #        - Set `Search` to `Hide`
+  #        - Disable `Task View`
+  #        - Disable `Widgets`
+  #
+  #  - Lock Screen  (Windows 11 / Win11)
+  #    - `Settings` > `Personalization` > `Lock screen`
+  #      - `Personalize your lock screen` (section) - *Note: This can be automatically updated via the [Dynamic Theme](https://apps.microsoft.com/detail/9nblggh1zbkw) app*
+  #        - Disable `Get fun facts, tips, tricks, and more on your lock screen`
+  #      - Set `Lock screen status` to `None`
   #
   # ------------------------------------------------------------
 

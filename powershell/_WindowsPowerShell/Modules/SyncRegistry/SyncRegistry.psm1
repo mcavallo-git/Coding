@@ -43,7 +43,7 @@ function SyncRegistry {
   #
   #  - Sounds > Disable "Play Windows Startup Sound"  (Windows 11 / Win11)
   #
-  #  - Add `Windows Fax and Scan` automatically (done manually via Settings > System > `Add an optional feature` > View features > `Windows Fax and Scan` > Next > Add)  (Windows 11 / Win11)
+  #  - Add `Windows Fax and Scan` automatically (done manually via `Settings` > `System` > `Add an optional feature` > `View features` > `Windows Fax and Scan` > `Next` > `Add`)
   #
   #  - File Explorer Options > General > Uncheck "Show recently used files in Quick Access"
   #     |--> Key="HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer"; Property="ShowRecent"; Type="DWord"; Value=0;

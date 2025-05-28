@@ -64,10 +64,12 @@ Get-WindowsOptionalFeature -Online | Where-Object { $_.State -Eq "Enabled" } | S
 # DISM /Online /Get-Features /Format:Table | More > "${ENV:USERPROFILE}\Desktop\DISM Online Get-Features.${ENV:USERDOMAIN}.${ENV:COMPUTERNAME}.log";
 #
 
-If ( ((Get-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux").State) -Eq "Disabled" ) {
-	# If the WSL Feature is currently set to Disabled, Enable it
-	Enable-WindowsOptionalFeature -Online -FeatureName "Microsoft-Windows-Subsystem-Linux";
-}
+# If the WSL optional feature is not enabled, enable it (popup admin request)
+
+$OptFeature="Microsoft-Windows-Subsystem-Linux"; Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ("-Command Get-WindowsOptionalFeature -Online -FeatureName (write ${OptFeature}) | Where-Object { `$_.State -NE (write Enabled) } | Enable-WindowsOptionalFeature -Online;") -Verb RunAs -Wait -PassThru | Out-Null;
+
+$OptFeature="TelnetClient"; Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ("-Command Get-WindowsOptionalFeature -Online -FeatureName (write ${OptFeature}) | Where-Object { `$_.State -NE (write Enabled) } | Enable-WindowsOptionalFeature -Online;") -Verb RunAs -Wait -PassThru | Out-Null;
+
 
 # ------------------------------------------------------------
 #

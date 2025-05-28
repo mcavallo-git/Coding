@@ -12,7 +12,7 @@ function SyncRegistry {
 
     [Switch]$SkipPowercfgUpdates,  <# Skips powercfg updates which [ disable hibernation mode, disable sleep mode, and set the monitor idle timeout ] #>
 
-    [Switch]$UseLegacyNotepad,  <# Windows 11 - Disable notepad app and use legacy notepad.exe, instead #>
+    [Switch]$SkipLegacyNotepad,  <# Windows 11 - If SkipLegacyNotepad is not set, then disable the notepad app and use legacy notepad.exe, instead #>
 
     [String]$UserSID="",   <# Allow user to pass a user SID to modify locally (via HKEY_USERS/[SID]) <-- To acquire a user's SID, open a powershell terminal as that user & run the following command:   (((whoami /user /fo table /nh) -split ' ')[1])  #>
 
@@ -903,7 +903,7 @@ function SyncRegistry {
       };
 
 
-      If ($PSBoundParameters.ContainsKey('UseLegacyNotepad')) {
+      If (-Not $PSBoundParameters.ContainsKey('SkipLegacyNotepad')) {
         # Explorer Settings ('Open With' right-click context menu option(s)) (notepad.exe)
         $RegEdits += @{
           Path="Registry::HKEY_CLASSES_ROOT\Applications\notepad.exe";
@@ -966,8 +966,6 @@ function SyncRegistry {
           )
         };
       }
-
-      # Explorer Settings ('Open With' right-click context menu option(s)) (notepad.exe)
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\notepad.exe";
         Props=@(
@@ -978,6 +976,18 @@ function SyncRegistry {
             Val_Default="";
             Value="";
             Delete=$False;
+          }
+        )
+      };
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Applications\notepad.exe";
+        Props=@(
+          @{
+            Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
+            Name="NoOpenWith";
+            Type="String";
+            Value="";
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
           }
         )
       };

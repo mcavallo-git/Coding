@@ -35,25 +35,16 @@ function SyncRegistry {
   #
   # TODO:
   #
-  #  - Themes > Desktop Icon Settings > Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
+  #  - Desktop Icons
+  #   - `Settings` > `Themes` > `Desktop Icon Settings`
+  #     - Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
+  #     - Uncheck "Allow themes to change desktop icons"  (Windows 11 / Win11)
   #
-  #  - Themes > Desktop Icon Settings > Uncheck "Allow themes to change desktop icons"  (Windows 11 / Win11)
-  #
-  #  - Sounds > Set "Sound Scheme" to "No Sounds"
-  #
-  #  - Sounds > Disable "Play Windows Startup Sound"  (Windows 11 / Win11)
+  #  - Sounds
+  #    - Set "Sound Scheme" to "No Sounds"
+  #    - Disable "Play Windows Startup Sound"  (Windows 11 / Win11)
   #
   #  - Add `Windows Fax and Scan` automatically (done manually via `Settings` > `System` > `Add an optional feature` > `View features` > `Windows Fax and Scan` > `Next` > `Add`)
-  #
-  #  - File Explorer Options > General > Uncheck "Show recently used files in Quick Access"
-  #     |--> Key="HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer"; Property="ShowRecent"; Type="DWord"; Value=0;
-  #
-  #  - File Explorer Options > General > Uncheck "Show frequently used folders in Quick Access"
-  #     |--> Key="HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer"; Property="ShowFrequent"; Type="DWord"; Value=0;
-  #
-  #  - File Explorer right-click context menu rollback (always `Show more options` by default)  (Windows 11 / Win11)
-  #    - https://answers.microsoft.com/en-us/windows/forum/all/restore-old-right-click-context-menu-in-windows-11/a62e797c-eaf3-411b-aeec-e460e6e5a82a
-  #      - ```reg.exe add `HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32` /f /ve```
   #
   #  - Notifications  (Windows 11 / Win11)
   #    - `Settings` > `System` > `Notifications`
@@ -62,11 +53,6 @@ function SyncRegistry {
   #
   #  - Notepad.exe rollback  (Windows 11 / Win11)
   #    - Remove `App execution aliases` from `Notepad.exe` pointing to the `notepad` app ( https://www.winhelponline.com/blog/restore-old-classic-notepad-windows )
-  #    - Fix error `Cannot associate file type with this program` when trying to open files in `Notepad.exe` ( https://superuser.com/a/1750238 )
-  #        - Key: `HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Applications\notepad.exe`
-  #        - Prop: `NoOpenWith`
-  #        - Type: `REG_SZ` (String)
-  #        - ^ Delete this property
   #
   #  - Screenshot (PrintScreen) - If `Greenshot` is installed, disable Snipping Tool PrintScreen hotkey
   #    - `Settings` > `Accessibility` > `Keyboard`
@@ -446,6 +432,37 @@ function SyncRegistry {
 
       # Explorer Settings (cont.)
       $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer";
+        Props=@(
+          @{
+            Description="Notification Area - [ 1 ]=Disable, [ 0 ]=Enable option 'Always show all icons in the notification area' (located under 'Windows Settings' -> 'Personalization' -> 'Taskbar' -> 'Select which icons appear on the taskbar'). Note that if this key/property is not set, the default value (defined under HKLM) will be used, instead.";
+            Hotfix=$Null;
+            Name="EnableAutoTray";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="File Explorer Options - [ 1 ]=Check (Enable), [ 0 ]=Uncheck (Disable) option 'Show frequently used folders in Quick Access'.";
+            Hotfix=$Null;
+            Name="ShowFrequent";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="File Explorer Options - [ 1 ]=Check (Enable), [ 0 ]=Uncheck (Disable) option 'Show recently used files in Quick Access'.";
+            Hotfix=$Null;
+            Name="ShowRecent";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+
+      # Explorer Settings (cont.)
+      $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
         Props=@(
           @{
@@ -648,6 +665,20 @@ function SyncRegistry {
             Type="String";
             Value="";
             Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          }
+        )
+      };
+
+      # Explorer Settings (roll back Windows 11 right-click functionality)
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32";
+        Props=@(
+          @{
+            Description="Explorer Settings - (Windows 11 / Win11) Set right-click context menu to show `Show more options` menu by default";
+            Name="(Default)";
+            Type="String";
+            Value="";
+            Delete=$False;
           }
         )
       };
@@ -1542,21 +1573,6 @@ function SyncRegistry {
             Description="Multitasking - [ 1 ]=Disable, [ 0 ]=Enable feature 'Show suggestions in your timeline'";
             Name="SubscribedContent-353698Enabled";
             Type="String";
-            Value=0;
-            Delete=$False;
-          }
-        )
-      };
-
-      # Notification Area Icons
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer";
-        Props=@(
-          @{
-            Description="Notification Area - [ 1 ]=Disable, [ 0 ]=Enable option 'Always show all icons in the notification area' (located under 'Windows Settings' -> 'Personalization' -> 'Taskbar' -> 'Select which icons appear on the taskbar'). Note that if this key/property is not set, the default value (defined under HKLM) will be used, instead.";
-            Hotfix=$Null;
-            Name="EnableAutoTray";
-            Type="DWord";
             Value=0;
             Delete=$False;
           }

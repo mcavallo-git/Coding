@@ -40,7 +40,7 @@
       - Check `Log all values for Report (consumes memory)`  (bottom left)
       - Click `Change Font`  (bottom right)
         - Set `Font` to `Fira Code Retina`, `Medium`, `16pt`
-    - Tab: `System Tray`
+    - Tab: `Tray Icon`
       - Click sensor `CPU Die (average)` in the device list settings  (should be the top sensor under the `CPU [#0]: ...` device)
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)

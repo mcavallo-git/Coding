@@ -10,7 +10,7 @@ $OptFeature="Microsoft-Windows-Subsystem-Linux"; Start-Process -Filepath ((GCM p
 
 
 # Run the following command(s) in a non-admin PowerShell terminal (installs the Ubuntu-22.04 WSL distro (Windows Subsystem for Linux distribution)):
-Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu-22.04") -Verb RunAs;
+Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu") -Verb RunAs;
 
 
 # Verify that the installed Linux distro is using WSL version 2:

@@ -53,11 +53,10 @@
     },
     "list": [
       {
-        "commandline": "%windir%\\System32\\wsl.exe -d Ubuntu",
-        "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
+        "guid": "{e893d572-923a-5b22-956d-42ddc6a67083}",
         "hidden": false,
-        "name": "Ubuntu-22.04",
-        "source": "Windows.Terminal.Wsl"
+        "name": "Ubuntu",
+        "source": "Microsoft.WSL"
       },
       {
         "commandline": "%ProgramFiles%\\Git\\bin\\bash.exe --login -i",

@@ -18,7 +18,7 @@
 '
 '   Trigger:
 '
-'     At log on of specific user: [ UserSignedIn ]  (no delay, no repeat)
+'     At log on of specific user: [ UserSignedIn ] - Delay for [ 5 seconds ]  (no repeat)
 '
 '=============================================================
 '

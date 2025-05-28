@@ -67,6 +67,7 @@ function SyncRegistry {
   #      - `Settings` > `Accessibility` > `Keyboard`
   #        - `On-screen keyboard, access keys, and Print screen` (section)
   #          - Disable `Use the Print screen key to open screen capture`
+  #            - Note: Restart is required to release keybind (e.g. for setting to take effect)
   #
   #  - Sounds
   #    - Set "Sound Scheme" to "No Sounds"

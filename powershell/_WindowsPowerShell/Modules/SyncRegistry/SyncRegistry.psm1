@@ -35,30 +35,6 @@ function SyncRegistry {
   #
   # TODO:
   #
-  #  - Desktop Icons
-  #   - `Settings` > `Themes` > `Desktop Icon Settings`
-  #     - Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
-  #     - Uncheck "Allow themes to change desktop icons"  (Windows 11 / Win11)
-  #
-  #  - Sounds
-  #    - Set "Sound Scheme" to "No Sounds"
-  #    - Disable "Play Windows Startup Sound"  (Windows 11 / Win11)
-  #
-  #  - Add `Windows Fax and Scan` automatically (done manually via `Settings` > `System` > `Add an optional feature` > `View features` > `Windows Fax and Scan` > `Next` > `Add`)
-  #
-  #  - Notifications  (Windows 11 / Win11)
-  #    - `Settings` > `System` > `Notifications`
-  #      - `Notifications` (section/dropdown)
-  #        - Disable `Show notifications on lock screen`
-  #
-  #  - Notepad.exe rollback  (Windows 11 / Win11)
-  #    - Remove `App execution aliases` from `Notepad.exe` pointing to the `notepad` app ( https://www.winhelponline.com/blog/restore-old-classic-notepad-windows )
-  #
-  #  - Screenshot (PrintScreen) - If `Greenshot` is installed, disable Snipping Tool PrintScreen hotkey
-  #    - `Settings` > `Accessibility` > `Keyboard`
-  #      - `On-screen keyboard, access keys, and Print screen` (section)
-  #        - Disable `Use the Print screen key to open screen capture`
-  #
   #  - Dark Mode
   #    - `Settings` > `Personalization` > `Colors`
   #      - Set `Choose your mode` to `Dark`
@@ -66,14 +42,35 @@ function SyncRegistry {
   #      - Disable `Transparency effects`
   #      - Disable `Show accent color on title bars and window borders`
   #
-  #  - Window Snapping  (Windows 11 / Win11)
-  #    - `Settings` > `System` > `Multitasking`
-  #      - Enable top level `Snap windows`  (`Snap windows to automatically resize and arrange them into layouts`)
-  #      - (Done) Disable `When I snap a window, suggest what I can snap next to it`
-  #      - Disable `Show snap layouts when I hover over a window's maximize button`
-  #      - Disable `Show snap layouts when I drag a window to the top of my screen`
-  #      - Disable `Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab`
-  #      - Disable `When I drag a window, let me snap it without dragging it all the way to the screen edge`
+  #  - Desktop Icons
+  #   - `Settings` > `Themes` > `Desktop Icon Settings`
+  #     - Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
+  #     - Uncheck "Allow themes to change desktop icons"  (Windows 11 / Win11)
+  #
+  #  - Lock Screen  (Windows 11 / Win11)
+  #    - `Settings` > `Personalization` > `Lock screen`
+  #      - `Personalize your lock screen` (section)
+  #        - Disable `Get fun facts, tips, tricks, and more on your lock screen`
+  #      - Set `Lock screen status` to `None`
+  #      - *Note: Use [Dynamic Theme](https://apps.microsoft.com/detail/9nblggh1zbkw) to rotate lock screen wallpapers*
+  #
+  #  - Notepad.exe rollback  (Windows 11 / Win11)
+  #    - Remove `App execution aliases` from `Notepad.exe` pointing to the `notepad` app ( https://www.winhelponline.com/blog/restore-old-classic-notepad-windows )
+  #
+  #  - Notifications  (Windows 11 / Win11)
+  #    - `Settings` > `System` > `Notifications`
+  #      - `Notifications` (section/dropdown)
+  #        - Disable `Show notifications on lock screen`
+  #
+  #  - Screenshot (PrintScreen)
+  #    - If `Greenshot` is installed, disable Snipping Tool PrintScreen hotkey:
+  #      - `Settings` > `Accessibility` > `Keyboard`
+  #        - `On-screen keyboard, access keys, and Print screen` (section)
+  #          - Disable `Use the Print screen key to open screen capture`
+  #
+  #  - Sounds
+  #    - Set "Sound Scheme" to "No Sounds"
+  #    - Disable "Play Windows Startup Sound"  (Windows 11 / Win11)
   #
   #  - Taskbar (Start Menu)  (Windows 11 / Win11)
   #    - `Settings` > `Personalization` > `Taskbar`
@@ -86,11 +83,18 @@ function SyncRegistry {
   #        - Disable `Task View`
   #        - Disable `Widgets`
   #
-  #  - Lock Screen  (Windows 11 / Win11)
-  #    - `Settings` > `Personalization` > `Lock screen`
-  #      - `Personalize your lock screen` (section) - *Note: This can be automatically updated via the [Dynamic Theme](https://apps.microsoft.com/detail/9nblggh1zbkw) app*
-  #        - Disable `Get fun facts, tips, tricks, and more on your lock screen`
-  #      - Set `Lock screen status` to `None`
+  #  - Windows Fax and Scan
+  #    - Enable `Windows Fax and Scan` optional feature automatically ( not found in Get-WindowsOptionalFeature )
+  #      - Done manually via `Settings` > `System` > `Add an optional feature` > `View features` > `Windows Fax and Scan` > `Next` > `Add`
+  #
+  #  - Window Snapping  (Windows 11 / Win11)
+  #    - `Settings` > `System` > `Multitasking`
+  #      - Enable top level `Snap windows`  (`Snap windows to automatically resize and arrange them into layouts`)
+  #      - (Done) Disable `When I snap a window, suggest what I can snap next to it`
+  #      - Disable `Show snap layouts when I hover over a window's maximize button`
+  #      - Disable `Show snap layouts when I drag a window to the top of my screen`
+  #      - Disable `Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab`
+  #      - Disable `When I drag a window, let me snap it without dragging it all the way to the screen edge`
   #
   # ------------------------------------------------------------
 

@@ -32,6 +32,8 @@
 '
 ' [Step 2/3] Install & configure "Notepad Replacer" to redirect from [ notepad.exe ] towards [ this-script ]
 '   |
+'   |--> Set environment variable REPOS_DIR to the directory filepath (dirname) of the parent directory containing the Coding repo's codebase
+'   |
 '   |--> Automatically via PowerShell convenience-script (some click-through & license acceptance still req'd):
 '   |      Get-ChildItem -Path ("${Home}\Downloads\NotepadReplacerSetup*.exe") | ForEach-Object { Start-Process -Filepath ("$_") -ArgumentList (@("/NOTEPAD=`"${env:REPOS_DIR}\Coding\visual basic\VSCode-Redirect.vbs`"")) -NoNewWindow -Wait -PassThru -ErrorAction ("SilentlyContinue"); Break; };
 '   |

@@ -940,7 +940,7 @@ function SyncRegistry {
 
 
       If (-Not $PSBoundParameters.ContainsKey('SkipLegacyNotepad')) {
-        # Explorer Settings ('Open With' right-click context menu option(s)) (notepad.exe)
+        # Explorer Settings ('Open With' right-click context menu option(s)) (notepad.exe) (Windows 11 / Win11)
         $RegEdits += @{
           Path="Registry::HKEY_CLASSES_ROOT\Applications\notepad.exe";
           Props=@(

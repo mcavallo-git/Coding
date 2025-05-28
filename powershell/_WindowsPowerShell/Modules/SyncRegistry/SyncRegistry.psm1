@@ -63,7 +63,7 @@ function SyncRegistry {
   #        - Disable `Show notifications on lock screen`
   #
   #  - Screenshot (PrintScreen)
-  #    - If `Greenshot` is installed, disable Snipping Tool PrintScreen hotkey:
+  #    - If `Greenshot` (or another app which should reserve the PrintScreen hotkey, other than Snipping tool) is installed, stop Snipping Tool from reserving the PrintScreen hotkey
   #      - `Settings` > `Accessibility` > `Keyboard`
   #        - `On-screen keyboard, access keys, and Print screen` (section)
   #          - Disable `Use the Print screen key to open screen capture`

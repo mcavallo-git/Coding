@@ -4,7 +4,9 @@
 #		|
 #		|--> Description:  Gets hardware specs for current device
 #		|
-#		|--> Example:     PowerShell -Command ("Get-SystemSpecs")
+#		|--> Example:     PowerShell -Command ("Get-SystemSpecs");
+#
+#                     Import-Module "${env:REPOS_DIR}\Coding\powershell\_WindowsPowerShell\Modules\Get-SystemSpecs\Get-SystemSpecs.psm1"; Get-SystemSpecs;
 #
 # ------------------------------------------------------------
 Function Get-SystemSpecs() {

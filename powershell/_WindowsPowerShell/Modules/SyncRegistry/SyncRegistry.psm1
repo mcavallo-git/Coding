@@ -42,10 +42,7 @@ function SyncRegistry {
   #
   #  - Lock Screen  (Windows 11 / Win11)
   #    - `Settings` > `Personalization` > `Lock screen`
-  #      - `Personalize your lock screen` (section)
-  #        - Disable `Get fun facts, tips, tricks, and more on your lock screen`
   #      - Set `Lock screen status` to `None`
-  #      - *Note: Use [Dynamic Theme](https://apps.microsoft.com/detail/9nblggh1zbkw) to rotate lock screen wallpapers*
   #
   #  - Windows Fax and Scan
   #    - Enable `Windows Fax and Scan` optional feature automatically ( not found in Get-WindowsOptionalFeature )
@@ -575,6 +572,13 @@ function SyncRegistry {
             Name="SnapFill";
             Type="DWord";
             Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Personalization > Start - [ 0 ]=Disable, [ 1 ]=Enable option 'Show recommendarions for tips, app promotions, and more (Win11).";
+            Name="Start_IrisRecommendations";
+            Type="DWord";
+            Value=0;
             Delete=$False;
           },
           @{
@@ -1466,6 +1470,18 @@ function SyncRegistry {
           }
         )
       };
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\CloudContent";
+        Props=@(
+          @{
+            Description="Group Policy - [ 0 ]=Enable, [ 1 ]=Disable group policy 'Turn off Spotlight collection on Desktop' (Win11).";
+            Name="DisableSpotlightCollectionOnDesktop";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          }
+        )
+      };
 
       # Mouse - Cursor/Pointer Appearance
       $RegEdits += @{
@@ -1668,20 +1684,6 @@ function SyncRegistry {
             Name="Wallpaper";
             Type="DWord";
             Value=1;
-            Delete=$False;
-          }
-        )
-      };
-
-      # Multitasking - Timeline
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
-        Props=@(
-          @{
-            Description="Multitasking - [ 1 ]=Disable, [ 0 ]=Enable feature 'Show suggestions in your timeline'";
-            Name="SubscribedContent-353698Enabled";
-            Type="String";
-            Value=0;
             Delete=$False;
           }
         )
@@ -2026,6 +2028,55 @@ function SyncRegistry {
             }
           )
         };
+      };
+
+      # Suggestion/Ad Disabling
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
+        Props=@(
+          @{
+            Description="Personalization > Lock Screen - [ 0 ]=Disable, [ 1 ]=Enable option 'Get fun facts, tips, tricks, and more on your lock screen' (part 2) (Win11).";
+            Name="RotatingLockScreenOverlayEnabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Personalization > Lock Screen - [ 0 ]=Disable, [ 1 ]=Enable option 'Get fun facts, tips, tricks, and more on your lock screen' (part 2) (Win11).";
+            Name="SubscribedContent-338387Enabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Privacy & Security > General - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 1 of 3) (Win11).";
+            Name="SubscribedContent-338393Enabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Privacy & Security > General - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 2 of 3) (Win11).";
+            Name="SubscribedContent-353694Enabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Privacy & Security > General - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 3 of 3) (Win11).";
+            Name="SubscribedContent-353696Enabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Multitasking - [ 0 ]=Disable, [ 1 ]=Enable option 'Show suggestions in your timeline'";
+            Name="SubscribedContent-353698Enabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
       };
 
       # Taskbar - Hide News & Interests
@@ -2961,6 +3012,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.makeuseof.com  |  "How to Change the Lock Screen and Screen Saver Timeout Settings on Windows"  |  https://www.makeuseof.com/windows-lock-screen-saver-timeout/
 #
 #   www.microsoft.com  |  "Group Policy Settings Reference for Windows and Windows Server"  |  https://www.microsoft.com/en-us/download/confirmation.aspx?id=25250
+#
+#   www.pdq.com  |  "How to disable ads on Windows OS | PDQ"  |  https://www.pdq.com/blog/how-to-disable-ads-on-windows/
 #
 #   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
 #

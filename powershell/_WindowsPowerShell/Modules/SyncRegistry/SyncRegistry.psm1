@@ -50,22 +50,6 @@ function SyncRegistry {
   #  - Notepad.exe rollback  (Windows 11 / Win11)
   #    - Remove `App execution aliases` from `Notepad.exe` pointing to the `notepad` app ( https://www.winhelponline.com/blog/restore-old-classic-notepad-windows )
   #
-  #  - Notifications  (Windows 11 / Win11)
-  #    - `Settings` > `System` > `Notifications`
-  #      - `Notifications` (section/dropdown)
-  #        - Disable `Show notifications on lock screen`
-  #
-  #  - Taskbar (Start Menu)  (Windows 11 / Win11)
-  #    - `Settings` > `Personalization` > `Taskbar`
-  #      - Align start menu to the left side of start menu
-  #      - `Taskbar behaviors` (section/dropdown)
-  #        - Set `Taskbar alignment` to `Left`
-  #        - Disable `Select the far corner of the taskbar to show the desktop`
-  #      - `Taskbar items` (section/dropdown)
-  #        - Set `Search` to `Hide`
-  #        - Disable `Task View`
-  #        - Disable `Widgets`
-  #
   #  - Windows Fax and Scan
   #    - Enable `Windows Fax and Scan` optional feature automatically ( not found in Get-WindowsOptionalFeature )
   #      - Done manually via `Settings` > `System` > `Add an optional feature` > `View features` > `Windows Fax and Scan` > `Next` > `Add`
@@ -190,6 +174,13 @@ function SyncRegistry {
           @{
             Description=$Null;
             Name="CortanaConsent";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Personalization > Taskbar - Set Taskbar item 'Search' to: [ 0 ]='Hide', [ 1 ]='Search icon only', [ 2 ]='Search box', [ 3 ]='Search icon and label' (Win11).";
+            Name="SearchboxTaskbarMode";
             Type="DWord";
             Value=0;
             Delete=$False;
@@ -568,6 +559,14 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
+            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable Taskbar item 'Task view' (Win11)";
+            Name="ShowTaskViewButton";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
+            Delete=$False;
+          },
+          @{
             Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, suggest what I can snap next to it' (Win11), 'When I snap a window, show what I can snap next to it' (Win10)";
             Name="SnapAssist";
             Type="DWord";
@@ -579,6 +578,46 @@ function SyncRegistry {
             Name="SnapFill";
             Type="DWord";
             Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Personalization > Taskbar - Set 'Taskbar alignment' to: [ 0 ]=Left, [ 1 ]=Center (Win11).";
+            Name="TaskbarAl";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable option 'Show badges on taskbar apps' (Win11)";
+            Name="TaskbarBadges";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable Taskbar item 'Widgets' (Win11)";
+            Name="TaskbarDa";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable option 'Show flashing on taskbar apps' (Win11)";
+            Name="TaskbarFlashing";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable option 'Select the far corner of the taskbar to show the desktop' (Win11)";
+            Name="TaskbarSd";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
             Delete=$False;
           }
         )
@@ -1398,6 +1437,32 @@ function SyncRegistry {
           @{
             Description="Lock Workstation - [ 0 ]=Disable, [ 1 ]=Enable the setting 'Remove Lock Computer'. If you enable this policy setting, users cannot lock the computer from the keyboard using WinKey+L or Ctrl+Alt+Del. If you disable or do not configure this policy setting, users will be able to lock the computer from the keyboard using WinKey+L or Ctrl+Alt+Del.";
             Name="DisableLockWorkstation";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+
+      # Notifications - Lock Screen
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings";
+        Props=@(
+          @{
+            Description="System > Notifications - [ 0 ]=Disable, [ (deleted) ]=Enable option 'Show notifications on lock screen' (part 1 of 2) (Win11).";
+            Name="NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications";
+        Props=@(
+          @{
+            Description="System > Notifications - [ 0 ]=Disable, [ 1 ]=Enable option 'Show notifications on lock screen' (part 2 of 2) (Win11).";
+            Name="LockScreenToastEnabled";
             Type="DWord";
             Value=0;
             Delete=$False;
@@ -2768,7 +2833,11 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   answers.microsoft.com  |  "Automatic files - Automatic file downloads"  |  https://answers.microsoft.com/en-us/windows/forum/all/automatic-files/91b91138-0096-4fbc-a3e2-5de5176a6ca5
 #
+#   answers.microsoft.com  |  "Hide or UnHide Widgets on Taskbar in Windows 11 insider preview build - Microsoft Community"  |  https://answers.microsoft.com/en-us/insider/forum/all/hide-or-unhide-widgets-on-taskbar-in-windows-11/e08804e8-72e6-4e65-bdf6-0e1c3f2c4d8b
+#
 #   answers.microsoft.com  |  "Microsoft Meet Now fouled up my microphone settings - Microsoft Community"  |  https://answers.microsoft.com/en-us/skype/forum/all/microsoft-meet-now-fouled-up-my-microphone/1b6e05a8-b651-4404-89a7-b24c83403c1e
+#
+#   answers.microsoft.com  |  "Search on taskbar set to search box but still icon - Microsoft Community"  |  https://answers.microsoft.com/en-us/windows/forum/all/search-on-taskbar-set-to-search-box-but-still-icon/b872a909-c5a4-4a89-b83f-680fc9a1f2cc
 #
 #   appuals.com  |  "How to Increase Windows 10 Lock Screen Timeout Settings - Appuals.com"  |  https://appuals.com/increase-windows-10-lock-screen-timeout-settings/
 #
@@ -2803,6 +2872,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   learn.microsoft.com  |  "HKEY_CLASSES_ROOT Key - Win32 apps | Microsoft Docs"  |  https://learn.microsoft.com/en-us/windows/win32/sysinfo/hkey-classes-root-key
 #
 #   learn.microsoft.com  |  "Hotkey | Microsoft Learn"  |  https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-2000-server/cc976564(v=technet.10)?redirectedfrom=MSDN
+#
+#   learn.microsoft.com  |  "How to Hide the TaskView thing - Microsoft Q&A"  |  https://learn.microsoft.com/en-us/answers/questions/444840/how-to-hide-the-taskview-thing
 #
 #   learn.microsoft.com  |  "Manage connections from Windows 10 and Windows 11 operating system components to Microsoft services - Windows Privacy | Microsoft Docs"  |  https://learn.microsoft.com/en-us/windows/privacy/manage-connections-from-windows-operating-system-components-to-microsoft-services#1816-feedback--diagnostics
 #
@@ -2882,6 +2953,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   www.elevenforum.com  |  "Change Accent Color in Windows 11 Tutorial | Windows 11 Forum"  |  https://www.elevenforum.com/t/change-accent-color-in-windows-11.1146/
 #
+#   www.elevenforum.com  |  "Enable or Disable Notifications on Lock Screen in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/enable-or-disable-notifications-on-lock-screen-in-windows-11.823/
+#
 #   www.ghacks.net  |  "Remove Windows 10 Context Menu bloat - gHacks Tech News"  |  https://www.ghacks.net/2017/07/09/remove-windows-10-context-menu-bloat/
 #
 #   www.howtogeek.com  |  "How to Make Windows 10’s Taskbar Clock Display Seconds"  |  https://www.howtogeek.com/325096/how-to-make-windows-10s-taskbar-clock-display-seconds/
@@ -2895,6 +2968,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
 #
 #   www.reddit.com  |  "How to Disable Default Windows Snipping Tool : r/Intune"  |  https://www.reddit.com/r/Intune/comments/1dp6ggy/how_to_disable_default_windows_snipping_tool/
+#
+#   www.reddit.com  |  "I've went and found the registry key for taskbar alignment in W11, for anyone who doesn't like the centered shenanigans. : r/PowerShell"  |  https://www.reddit.com/r/PowerShell/comments/o7jk51/ive_went_and_found_the_registry_key_for_taskbar/
 #
 #   www.reddit.com  |  "The quest for removing the yellow warning sign on the Windows Defender Security Center icon : Windows10"  |  https://www.reddit.com/r/Windows10/comments/6v532u/the_quest_for_removing_the_yellow_warning_sign_on/
 #

@@ -28,7 +28,7 @@
 '       %ProgramFiles%\AutoHotkey\v2\AutoHotkey.exe
 '
 '     Add arguments:
-'       "%USERPROFILE%\Documents\GitHub\Coding\ahk\_WindowsHotkeys.ahkv2"
+'       "%REPOS_DIR%\Coding\ahk\_WindowsHotkeys.ahkv2"
 '
 '=============================================================
 '

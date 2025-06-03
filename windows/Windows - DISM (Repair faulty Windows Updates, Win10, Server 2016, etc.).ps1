@@ -31,11 +31,17 @@ If ($True) {
 
   $Windows_Iso_FullPath=[string]"C:\ISO\Windows.iso";
   $Input_Esd_FullPath=[string]"C:\ISO\install.esd";
+  $Input_Wim_FullPath=[string]"C:\ISO\install.wim";
 
   Mount-DiskImage -ImagePath ("${Windows_Iso_FullPath}");  # Mount the ISO
   $Iso_Esd_FullPath=[string]"D:\sources\install.esd";  # Locate the "install.esd" on the ISO
+  $Iso_Wim_FullPath=[string]"D:\sources\install.wim";  # Locate the "install.esd" on the ISO
 
-  Copy-Item -Path ("${Iso_Esd_FullPath}") -Destination ("${Input_Esd_FullPath}") -Force;  # Extract ISO file's "sources/install.esd"
+  If (Test-Path "${Iso_Esd_FullPath}") {
+    Copy-Item -Path ("${Iso_Esd_FullPath}") -Destination ("${Input_Esd_FullPath}") -Force;  # Extract ISO file's "sources/install.esd"
+  } Else {
+    Copy-Item -Path ("${Iso_Wim_FullPath}") -Destination ("${Input_Wim_FullPath}") -Force;  # Extract ISO file's "sources/install.esd"
+  }
   Dismount-DiskImage -ImagePath ("${Windows_Iso_FullPath}");  # Unmount the ISO
 }
 
@@ -49,8 +55,13 @@ If ($True) {
   #
 
   $Input_Esd_FullPath=[string]"C:\ISO\install.esd";
+  $Input_Wim_FullPath=[string]"C:\ISO\install.wim";
 
-  DISM /Get-WimInfo /WimFile:"${Input_Esd_FullPath}"
+  If (Test-Path "${Input_Esd_FullPath}") {
+    DISM /Get-WimInfo /WimFile:"${Input_Esd_FullPath}"
+  } Else {
+    DISM /Get-WimInfo /WimFile:"${Input_Wim_FullPath}"
+  }
 
   #
   # Example output (find OS list that matches your OS - use that index, below)
@@ -63,28 +74,36 @@ If ($True) {
 
 
 
-
 If ($True) {
   #
   # Step 3: Convert "install.esd" + [index] into "install.wim"  (will output with a single index of 1)
   #
 
-  $Input_Esd_Index=[int](6);
+  $Image_Index=[int](6);
   $Input_Esd_FullPath=[string]"C:\ISO\install.esd";
-  $Output_Wim_FullPath=[string]"C:\ISO\install.wim";
+  $Input_Wim_FullPath=[string]"C:\ISO\install.wim";
+  $Output_Wim_FullPath=[string]"C:\ISO\install_singledistro.wim";
 
-  DISM /Export-Image /SourceImageFile:"${Input_Esd_FullPath}" /SourceIndex:"${Input_Esd_Index}" /DestinationImageFile:"${Output_Wim_FullPath}" /Compress:none /CheckIntegrity
+  If (Test-Path "${Input_Esd_FullPath}") {
+    DISM /Export-Image /SourceImageFile:"${Input_Esd_FullPath}" /SourceIndex:"${Image_Index}" /DestinationImageFile:"${Output_Wim_FullPath}" /Compress:none /CheckIntegrity
+  } Else {
+    DISM /Export-Image /SourceImageFile:"${Input_Wim_FullPath}" /SourceIndex:"${Image_Index}" /DestinationImageFile:"${Output_Wim_FullPath}" /Compress:none /CheckIntegrity
+  }
 
 }
 
-#
-# Step 4: Reference the "install.wim" (with index of 1) as a source file for DISM to repair the current OS image off-of
-#
+
 
 If ($True) {
-  $Output_Wim_FullPath=[string]"C:\ISO\install.wim";
+  #
+  # Step 4: Reference the "install.wim" (with index of 1) as a source file for DISM to repair the current OS image off-of
+  #
+
+  $Output_Wim_FullPath=[string]"C:\ISO\install_singledistro.wim";
   $Output_Wim_Index=[int](1);
+
   DISM /Online /Cleanup-Image /RestoreHealth /source:WIM:${Output_Wim_FullPath}:${Output_Wim_Index} /LimitAccess
+
 }
 
 

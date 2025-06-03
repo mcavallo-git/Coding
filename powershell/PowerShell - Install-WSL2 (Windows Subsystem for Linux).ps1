@@ -9,8 +9,12 @@
 $OptFeature="Microsoft-Windows-Subsystem-Linux"; Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ("-Command Get-WindowsOptionalFeature -Online -FeatureName (write ${OptFeature}) | Where-Object { `$_.State -NE (write Enabled) } | Enable-WindowsOptionalFeature -Online;") -Verb RunAs -Wait -PassThru | Out-Null;
 
 
+# Ensure Windows Optional Feature "Hyper-V" is enabled (Note: nothing under it needs to be enabled)
+$OptFeature="Microsoft-Hyper-V-All"; Start-Process -Filepath ((GCM powershell).Source) -ArgumentList ("-Command Get-WindowsOptionalFeature -Online -FeatureName (write ${OptFeature}) | Where-Object { `$_.State -NE (write Enabled) } | Enable-WindowsOptionalFeature -Online;") -Verb RunAs -Wait -PassThru | Out-Null;
+
+
 # Run the following command(s) in a non-admin PowerShell terminal (installs the Ubuntu-22.04 WSL distro (Windows Subsystem for Linux distribution)):
-Start-Process -Filepath ("${env:windir}\System32\wsl.exe") -ArgumentList ("--install --distribution Ubuntu") -Verb RunAs;
+wsl --install --distribution Ubuntu;
 
 
 # Verify that the installed Linux distro is using WSL version 2:

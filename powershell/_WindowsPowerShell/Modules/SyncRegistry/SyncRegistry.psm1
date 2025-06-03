@@ -40,10 +40,6 @@ function SyncRegistry {
   #     - Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
   #     - Uncheck "Allow themes to change desktop icons"  (Windows 11 / Win11)
   #
-  #  - Lock Screen  (Windows 11 / Win11)
-  #    - `Settings` > `Personalization` > `Lock screen`
-  #      - Set `Lock screen status` to `None`
-  #
   #  - Windows Fax and Scan
   #    - Enable `Windows Fax and Scan` optional feature automatically ( not found in Get-WindowsOptionalFeature )
   #      - Done manually via `Settings` > `System` > `Add an optional feature` > `View features` > `Windows Fax and Scan` > `Next` > `Add`

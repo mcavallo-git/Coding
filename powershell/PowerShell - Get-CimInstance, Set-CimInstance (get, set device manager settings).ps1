@@ -1,6 +1,12 @@
 # ------------------------------------------------------------
 # PowerShell - Get-CimInstance, Set-CimInstance (get, set device manager settings)
 # ------------------------------------------------------------
+#
+# Note: Requires the "WMIC" Optional Feature to be enabled
+#
+#   In Windows 11, add "WMIC" manually via "Settings" > "System" > "Add an optional feature" > "View features" > "WMIC" > "Next" > "Add"
+#
+# ------------------------------------------------------------
 
 # GET  (WQL Query - Gets USB & PCI devices with UN-CHECKED option 'Allow the computer to turn off this device to save power')
 Get-CimInstance -Namespace root/WMI -Query 'SELECT * FROM MSPower_DeviceEnable WHERE ( ( InstanceName LIKE "USB\\%" ) OR ( InstanceName LIKE "PCI\\%" ) ) AND ( Enable="False" ) ';

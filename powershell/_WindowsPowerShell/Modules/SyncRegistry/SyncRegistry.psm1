@@ -32,28 +32,6 @@ function SyncRegistry {
 
   }
   # ------------------------------------------------------------
-  #
-  # To Do ( features/functionality to add ):
-  #
-  #  - Desktop Icons
-  #   - `Settings` > `Themes` > `Desktop Icon Settings`
-  #     - Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
-  #     - Uncheck "Allow themes to change desktop icons"  (Windows 11 / Win11)
-  #
-  #  - Windows Fax and Scan
-  #    - Enable `Windows Fax and Scan` optional feature automatically ( not found in Get-WindowsOptionalFeature )
-  #      - Done manually via `Settings` > `System` > `Add an optional feature` > `View features` > `Windows Fax and Scan` > `Next` > `Add`
-  #
-  #  - Window Snapping  (Windows 11 / Win11)
-  #    - `Settings` > `System` > `Multitasking`
-  #      - Enable top level `Snap windows`  (`Snap windows to automatically resize and arrange them into layouts`)
-  #      - (Done) Disable `When I snap a window, suggest what I can snap next to it`
-  #      - Disable `Show snap layouts when I hover over a window's maximize button`
-  #      - Disable `Show snap layouts when I drag a window to the top of my screen`
-  #      - Disable `Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab`
-  #      - Disable `When I drag a window, let me snap it without dragging it all the way to the screen edge`
-  #
-  # ------------------------------------------------------------
 
   $EXIT_CODE=0;
 

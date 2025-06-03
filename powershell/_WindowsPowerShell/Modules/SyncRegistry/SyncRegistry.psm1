@@ -398,6 +398,60 @@ function SyncRegistry {
         )
       };
 
+      # Desktop Icon Settings
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\HideDesktopIcons\NewStartPanel";
+        Props=@(
+          @{
+            Description="Desktop Icon Settings - [ 0 ]=Show, [ 1 ]=Hide the Desktop Icon for 'Computer'";
+            Name="{20D04FE0-3AEA-1069-A2D8-08002B30309D}";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Desktop Icon Settings - [ 0 ]=Show, [ 1 ]=Hide the Desktop Icon for 'Control Panel'";
+            Name="{5399E694-6CE5-4D6C-8FCE-1D8870FDCBA0}";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Desktop Icon Settings - [ 0 ]=Show, [ 1 ]=Hide the Desktop Icon for 'Network'";
+            Name="{F02C1A0D-BE21-4350-88B0-7367FC96EF3C}";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Desktop Icon Settings - [ 0 ]=Show, [ 1 ]=Hide the Desktop Icon for 'Recycle Bin'";
+            Name="{645FF040-5081-101B-9F08-00AA002F954E}";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Desktop Icon Settings - [ 0 ]=Show, [ 1 ]=Hide the Desktop Icon for 'User's Files'";
+            Name="{59031a47-3f72-44a7-89c5-5595fe6b30ee}";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          }
+        )
+      };
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes";
+        Props=@(
+          @{
+            Description="Desktop Icon Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Allow themes to change desktop icons'";
+            Name="ThemeChangesDesktopIcons";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+
       # Desktop Search Bar for Microsoft Edge
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge";

@@ -502,28 +502,28 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'When I drag a window, let me snap it without dragging all the way to the screen edge'";
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'When I drag a window, let me snap it without dragging all the way to the screen edge' (Win11)";
             Name="DITest";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I hover over a window's maximize button'";
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I hover over a window's maximize button' (Win11)";
             Name="EnableSnapAssistFlyout";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I drag a window to the top of my screen'";
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I drag a window to the top of my screen' (Win11)";
             Name="EnableSnapBar";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab'";
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab' (Win11)";
             Name="EnableTaskGroups";
             Type="DWord";
             Value=0;

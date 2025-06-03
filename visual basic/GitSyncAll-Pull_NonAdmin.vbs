@@ -20,7 +20,7 @@ CreateObject( "WScript.Shell" ).Run "PowerShell -Command ""[System.Net.ServicePo
 '
 '     At log on of specific user: [ UserSignedIn ] - Delay for [ 15 seconds ]  (no repeat)
 '
-'     On workstation unlock of: [ UserSignedIn ]  (no delay, no repeat)
+'     On workstation unlock of: [ UserSignedIn ] - Delay for [ 5 seconds ]  (no repeat)1
 '
 '=============================================================
 '

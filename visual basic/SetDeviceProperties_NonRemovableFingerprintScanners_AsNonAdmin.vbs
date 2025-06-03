@@ -20,7 +20,7 @@
 '
 '     At log on of any user  (no delay, no repeat)
 '
-'     At 00:00:30 every day - Repeat task every [ 1 minute ] for a duration of [ 1439 minutes ]
+'     At 00:00:30 every day - Repeat task every [ 5 minutes ] for a duration of [ 1439 minutes ]
 '
 '=============================================================
 '

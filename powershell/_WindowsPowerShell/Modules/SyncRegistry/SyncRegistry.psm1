@@ -47,9 +47,6 @@ function SyncRegistry {
   #      - Set `Lock screen status` to `None`
   #      - *Note: Use [Dynamic Theme](https://apps.microsoft.com/detail/9nblggh1zbkw) to rotate lock screen wallpapers*
   #
-  #  - Notepad.exe rollback  (Windows 11 / Win11)
-  #    - Remove `App execution aliases` from `Notepad.exe` pointing to the `notepad` app ( https://www.winhelponline.com/blog/restore-old-classic-notepad-windows )
-  #
   #  - Windows Fax and Scan
   #    - Enable `Windows Fax and Scan` optional feature automatically ( not found in Get-WindowsOptionalFeature )
   #      - Done manually via `Settings` > `System` > `Add an optional feature` > `View features` > `Windows Fax and Scan` > `Next` > `Add`
@@ -1045,7 +1042,7 @@ function SyncRegistry {
           Path="Registry::HKEY_CLASSES_ROOT\Applications\notepad.exe";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
+              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu (Win11)";
               Name="NoOpenWith";
               Type="String";
               Value="";
@@ -1057,7 +1054,7 @@ function SyncRegistry {
           Path="Registry::HKEY_CLASSES_ROOT\txtfilelegacy\DefaultIcon";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
+              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu (Win11)";
               Name="(Default)";
               Type="String";
               Value="imageres.dll,-102";
@@ -1069,7 +1066,7 @@ function SyncRegistry {
           Path="Registry::HKEY_CLASSES_ROOT\txtfilelegacy\shell\open\command";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
+              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu (Win11)";
               Name="(Default)";
               Type="String";
               Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
@@ -1081,7 +1078,7 @@ function SyncRegistry {
           Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
+              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu (Win11)";
               Name="UseFilter";
               Type="DWord";
               Value=0;
@@ -1093,7 +1090,7 @@ function SyncRegistry {
           Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Microsoft\Windows\CurrentVersion\App Paths\notepad.exe";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
+              Description="Apps > Advanced app settings > App execution aliases - [ (deleted) ]=Disable, [ (exe-filepath) ]=Enable the app execution alias for 'Notepad.exe'";
               Name="(Default)";
               Type="String";
               Value="";
@@ -2996,5 +2993,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.windows-security.org  |  "Configure compression for RemoteFX data | Windows security encyclopedia"  |  https://www.windows-security.org/e1ff617ad228f804ca6ac298beee92a1/configure-compression-for-remotefx-data
 #
 #   www.winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
+#
+#   www.winhelponline.com  |  "How to Restore Old Classic Notepad in Windows 11 » Winhelponline"  |  https://www.winhelponline.com/blog/restore-old-classic-notepad-windows
 #
 # ------------------------------------------------------------

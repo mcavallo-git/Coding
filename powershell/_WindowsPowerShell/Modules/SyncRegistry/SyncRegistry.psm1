@@ -35,13 +35,6 @@ function SyncRegistry {
   #
   # To Do ( features/functionality to add ):
   #
-  #  - Dark Mode
-  #    - `Settings` > `Personalization` > `Colors`
-  #      - Set `Choose your mode` to `Dark`
-  #      - Set Accent Color to `#4D4DFF`
-  #      - Disable `Transparency effects`
-  #      - Disable `Show accent color on title bars and window borders`
-  #
   #  - Desktop Icons
   #   - `Settings` > `Themes` > `Desktop Icon Settings`
   #     - Uncheck all "Desktop icons" options, including "Computer", "User's Files", "Network", "Recycle Bin", & "Control Panel"
@@ -354,7 +347,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Show accent color on the following surfaces: Title bars'";
+            Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Show accent color on title bars and window borders' (Win11), 'Show accent color on the following surfaces: Title bars' (Win10)";
             Name="ColorPrevalence";
             Type="DWord";
             Val_Default="";
@@ -376,11 +369,35 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize";
         Props=@(
           @{
+            Description="Explorer Settings - Sets [ 0 ]=Dark Mode, [ 1 ]=Light Mode view for explorer and apps";
+            Name="AppsUseLightTheme";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
+            Delete=$False;
+          },
+          @{
             Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Show accent color on the following surfaces: Start, taskbar, and action center'";
             Name="ColorPrevalence";
             Type="DWord";
             Val_Default="";
             Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Explorer Settings - [ 0 ]=Disables, [ 1 ]=Enables 'Transparency Effects' for 'windows and surfaces'";
+            Name="EnableTransparency";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Explorer Settings - Sets [ 0 ]=Dark Mode, [ 1 ]=Light Mode view for explorer and apps";
+            Name="SystemUsesLightTheme";
+            Type="DWord";
+            Val_Default=1;
+            Value=0;
             Delete=$False;
           }
         )
@@ -485,6 +502,34 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'When I drag a window, let me snap it without dragging all the way to the screen edge'";
+            Name="DITest";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I hover over a window's maximize button'";
+            Name="EnableSnapAssistFlyout";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I drag a window to the top of my screen'";
+            Name="EnableSnapBar";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab'";
+            Name="EnableTaskGroups";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
             Description="Explorer option 'Hidden files and folders' - Set to [ 0 ]='Show hidden files, folders, and drives', [ 1 ]='Dont show hidden files, folders, or drives'";
             Name="Hidden";
             Type="DWord";
@@ -513,8 +558,36 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I resize a snapped window, simultaneously resize any adjacent snapped window'";
+            Name="JointResize";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Alt + Tab - Set 'Pressing Alt + Tab shows' to: [ 0 ]='Open windows and all tabs in Edge', [ 1 ]='Open windows and 5 most recent tabs in Edge', [ 2 ]='Open windows and 3 most recent tabs in Edge' or [ 3 ]='Open windows only'.";
+            Name="MultiTaskingAltTabFilter";
+            Type="DWord";
+            Value=3;
+            Delete=$False;
+          },
+          @{
             Description="Taskbar Clock - [ 0 ]=Disable, [ 1 ]=Enable displaying of seconds on the system tray clock.";
             Name="ShowSecondsInSystemClock";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          },
+          @{
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, suggest what I can snap next to it' (Win11), 'When I snap a window, show what I can snap next to it' (Win10)";
+            Name="SnapAssist";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, automatically size it to fill available space'";
+            Name="SnapFill";
             Type="DWord";
             Value=1;
             Delete=$False;
@@ -1421,43 +1494,9 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Desktop";
         Props=@(
           @{
-            Description="Multitasking - [ 0 ]=Disable, [ 1 ]=Enable the 'Snap windows' Multitasking feature";
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the 'Snap windows' Multitasking feature";
             Name="WindowArrangementActive";
             Type="String";
-            Value=1;
-            Delete=$False;
-          }
-        )
-      };
-      # Multitasking - Snap windows (cont.)
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced";
-        Props=@(
-          @{
-            Description="Alt + Tab - Set 'Pressing Alt + Tab shows' to: [ 0 ]='Open windows and all tabs in Edge', [ 1 ]='Open windows and 5 most recent tabs in Edge', [ 2 ]='Open windows and 3 most recent tabs in Edge' or [ 3 ]='Open windows only'.";
-            Name="MultiTaskingAltTabFilter";
-            Type="DWord";
-            Value=3;
-            Delete=$False;
-          },
-          @{
-            Description="Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I resize a snapped window, simultaneously resize any adjacent snapped window'";
-            Name="JointResize";
-            Type="DWord";
-            Value=1;
-            Delete=$False;
-          },
-          @{
-            Description="Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, show what I can snap next to it'";
-            Name="SnapAssist";
-            Type="DWord";
-            Value=0;
-            Delete=$False;
-          },
-          @{
-            Description="Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, automatically size it to fill available space'";
-            Name="SnapFill";
-            Type="DWord";
             Value=1;
             Delete=$False;
           }

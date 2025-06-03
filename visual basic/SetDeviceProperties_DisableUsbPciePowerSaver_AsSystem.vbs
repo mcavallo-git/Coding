@@ -2,7 +2,7 @@
 '
 ' ⚠️ Requires the "WMIC" Optional Feature to be enabled
 '
-'   In Windows 11, add "WMIC" manually via "Settings" > "System" > "Add an optional feature" > "View features" > "WMIC" > "Next" > "Add"
+'         Add-WindowsCapability -Online -Name "WMIC";
 '
 '=============================================================
 ' Open 'Task Scheduler' > 'Create Task' (top right)

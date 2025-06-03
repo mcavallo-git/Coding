@@ -571,8 +571,15 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Personalization > Start - [ 0 ]=Disable, [ 1 ]=Enable option 'Show recommendarions for tips, app promotions, and more (Win11).";
+            Description="Personalization > Start - [ 0 ]=Disable, [ 1 ]=Enable option 'Show recommendarions for tips, app promotions, and more' (Win11).";
             Name="Start_IrisRecommendations";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
+            Description="Privacy & Security > General - [ 0 ]=Disable, [ 1 ]=Enable option 'Let Windows improve start and search results by tracking app launches' (Win11).";
+            Name="Start_TrackProgs";
             Type="DWord";
             Value=0;
             Delete=$False;
@@ -2027,6 +2034,18 @@ function SyncRegistry {
       };
 
       # Suggestion/Ad Disabling
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\International\User Profile";
+        Props=@(
+          @{
+            Description="Privacy & Security > General - [ (deleted) ]=Enable, [ 1 ]=Disable option 'Let websites show me locally relevant content by accessing my language list' (Win11).";
+            Name="HttpAcceptLanguageOptOut";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          }
+        )
+      }
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
         Props=@(

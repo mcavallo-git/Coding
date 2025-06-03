@@ -98,6 +98,10 @@ function SyncRegistry {
     If ($EXIT_CODE -Eq 0) {
 
       # ------------------------------------------------------------
+      # Determine if running Windows 11 or not
+      $OS_Caption = ((Get-WmiObject Win32_OperatingSystem).Caption);
+
+      # ------------------------------------------------------------
       # Define any Network Maps which will be required during the runtime
       #  (Registry Root-Keys are actually Network Maps to the "Registry" PSProvider)
 
@@ -2095,18 +2099,20 @@ function SyncRegistry {
       };
 
       # Taskbar - Hide News & Interests
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds";
-        Props=@(
-          @{
-            Description="News & Interests on Taskbar in Windows 10 (Show/Hide). Set to [ 0 ] for 'Show icon and text (Default)', set to [ 1 ] for 'Show icon only', set to [ 2 ] for 'Turn off'.";
-            Name="ShellFeedsTaskbarViewMode";
-            Type="DWord";
-            Value=2;
-            Delete=$False;
-          }
-        )
-      };
+      If ("${OS_Caption}" -Match "Windows 10") { # Win10 Only
+        $RegEdits += @{
+          Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds";
+          Props=@(
+            @{
+              Description="News & Interests on Taskbar in Windows 10 (Show/Hide). Set to [ 0 ] for 'Show icon and text (Default)', set to [ 1 ] for 'Show icon only', set to [ 2 ] for 'Turn off'.";
+              Name="ShellFeedsTaskbarViewMode";
+              Type="DWord";
+              Value=2;
+              Delete=$False;
+            }
+          )
+        };
+      }
 
       # Telemetry - Disable (as much as possible)  -  https://admx.help/?Category=Windows_11_2022&Policy=Microsoft.Policies.DataCollection::AllowTelemetry
       $RegEdits += @{

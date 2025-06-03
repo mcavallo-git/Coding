@@ -53,7 +53,7 @@
     },
     "list": [
       {
-        "guid": "{e893d572-923a-5b22-956d-42ddc6a67083}",
+        "guid": "{cbd2a207-bb59-5431-b5c6-5c2145e1aa9d}",
         "hidden": false,
         "name": "Ubuntu",
         "source": "Microsoft.WSL"

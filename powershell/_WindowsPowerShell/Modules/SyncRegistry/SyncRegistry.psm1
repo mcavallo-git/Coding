@@ -55,17 +55,6 @@ function SyncRegistry {
   #      - `Notifications` (section/dropdown)
   #        - Disable `Show notifications on lock screen`
   #
-  #  - Screenshot (PrintScreen)
-  #    - If `Greenshot` (or another app which should reserve the PrintScreen hotkey, other than Snipping tool) is installed, stop Snipping Tool from reserving the PrintScreen hotkey
-  #      - `Settings` > `Accessibility` > `Keyboard`
-  #        - `On-screen keyboard, access keys, and Print screen` (section)
-  #          - Disable `Use the Print screen key to open screen capture`
-  #            - Note: Restart is required to release keybind (e.g. for setting to take effect)
-  #
-  #  - Sounds
-  #    - Set "Sound Scheme" to "No Sounds"
-  #    - Disable "Play Windows Startup Sound"  (Windows 11 / Win11)
-  #
   #  - Taskbar (Start Menu)  (Windows 11 / Win11)
   #    - `Settings` > `Personalization` > `Taskbar`
   #      - Align start menu to the left side of start menu
@@ -1360,6 +1349,20 @@ function SyncRegistry {
         )
       };
 
+      # Keyboard - Print Screen key (Disable 'Snipping Tool' from reserving hotkey)
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Keyboard";
+        Props=@(
+          @{
+            Description="Accessibility > Keyboard - [ 1 ]=Enable, [ 0 ]=Disable the 'Use the Print screen key to open screen capture' to free up the Print screen hotkey for other apps to use (Win11)";
+            Name="PrintScreenKeyForSnippingEnabled";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+
       # Keyboard - Sticky Keys (Enable/Disable)
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Accessibility\StickyKeys";
@@ -1774,6 +1777,35 @@ function SyncRegistry {
             Name="(Default)";
             Type="String";
             Value="rundll32";
+            Delete=$False;
+          }
+        )
+      };
+
+      # Sounds - Sound Scheme
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\AppEvents\Schemes";
+        Props=@(
+          @{
+            Description="Sound > Sound Scheme - Set Sound Scheme to [ .Default ]='Windows Default', [ .None ]='No Sounds'.";
+            Name="(Default)";
+            Type="String";
+            Value=".None";
+            Delete=$False;
+          }
+        )
+      };
+
+      # Sounds - Windows Startup sound
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation";
+        Props=@(
+          @{
+            Description="Sound > Sound Scheme - [ 0 ]=Enable, [ 1 ]=Disable option 'Play Windows Startup sound' (Win11).";
+            Name="DisableStartupSound";
+            Type="DWord";
+            Val_Default=0;
+            Value=1;
             Delete=$False;
           }
         )
@@ -2808,6 +2840,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   stackoverflow.com  |  "windows - How do you disable the office 2013 clipboard? - Stack Overflow"  |  https://stackoverflow.com/a/53070256
 #
+#   superuser.com  |  "Change sound scheme in windows via Windows Registry - Super User"  |  https://superuser.com/a/1397681
+#
 #   superuser.com  |  "How do I disable specific windows 10/Office Keyboard Shortcut (CTRL+SHIFT+WIN+ALT+D) - Super User"  |  https://superuser.com/a/1484507
 #
 #   superuser.com  |  "keyboard shortcuts - How to disable Windows Gamebar mapping? - Super User"  |  https://superuser.com/a/1097169
@@ -2860,6 +2894,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   www.reddit.com  |  "Dramatically increased FPS with this guide : RingOfElysium"  |  https://www.reddit.com/r/RingOfElysium/comments/aiwm2r/dramatically_increased_fps_with_this_guide/
 #
+#   www.reddit.com  |  "How to Disable Default Windows Snipping Tool : r/Intune"  |  https://www.reddit.com/r/Intune/comments/1dp6ggy/how_to_disable_default_windows_snipping_tool/
+#
 #   www.reddit.com  |  "The quest for removing the yellow warning sign on the Windows Defender Security Center icon : Windows10"  |  https://www.reddit.com/r/Windows10/comments/6v532u/the_quest_for_removing_the_yellow_warning_sign_on/
 #
 #   www.techsupportforum.com  |  "[SOLVED] Cleartype command??? does it exist? | Tech Support Forum"  |  https://www.techsupportforum.com/threads/solved-cleartype-command-does-it-exist.332657/
@@ -2873,6 +2909,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.tenforums.com  |  "How to Specify Target Feature Update Version in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/159624-how-specify-target-feature-update-version-windows-10-a.html#6
 #
 #   www.tenforums.com  |  "Turn On or Off Snap Windows in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/4343-turn-off-snap-windows-windows-10-a.html
+#
+#   www.tenforums.com  |  "Turn On or Off Startup Sound in Windows 10 | Tutorials"  |  https://www.tenforums.com/tutorials/61302-turn-off-startup-sound-windows-10-a.html
 #
 #   www.thewindowsclub.net  |  "Enable or Disable Game DVR or Game Bar in Windows 11/10"  |  https://www.thewindowsclub.com/enable-disable-game-dvr-windows-10
 #

@@ -12,9 +12,9 @@ echo "Error:  Response timed out after ${READ_TIMEOUT}s";
 elif [[ -z "${PAT_TOKEN_PLAINTEXT}" ]]; then
 echo "Error:  Empty response received";
 else
-ORGANIZATION_NAME="softprocorp";
-PROJECT_NAME="SaaS";
-ARTIFACT_FEED="SoftPro-SaaS-Private";
+ORGANIZATION_NAME="DEVOPS_ORG_NAME";
+PROJECT_NAME="DEVOPS_PROJ_NAME";
+ARTIFACT_FEED="DEVOPS_ARTIFACT_FEED_NAME";
 PAT_TOKEN_BASE64=$(echo -n ${PAT_TOKEN_PLAINTEXT} | base64 --wrap=0;);
 OUTFILE="${HOME}/.npmrc";
 if [[ -f "${OUTFILE}" ]]; then

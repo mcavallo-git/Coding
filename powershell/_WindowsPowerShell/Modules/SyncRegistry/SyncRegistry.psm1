@@ -843,6 +843,18 @@ function SyncRegistry {
         )
       };
       $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}";
+        Props=@(
+          @{
+            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'Home' shortcut (above Quick Access on the top-left of Windows explorer).";
+            Name="System.IsPinnedToNameSpaceTree";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+
       # Explorer Settings ('Edit' right-click context menu option(s)) (Image file extension (.bmp, .jpeg, .jpg, .png, ...))
       $DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
       If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {
@@ -3048,7 +3060,9 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   support.microsoft.com  |  "How to change the logon screen saver in Windows - Microsoft Support"  |  https://support.microsoft.com/en-us/topic/how-to-change-the-logon-screen-saver-in-windows-ab28d230-ffb9-65f8-74a9-c26c5e00ec73
 #
-#   winaero.org  |  "Disable Windows Update Active hours in Windows 10"  |  https://winaero.com/disable-windows-update-active-hours-in-windows-10/
+#   winaero.com  |  "Disable Windows Update Active hours in Windows 10"  |  https://winaero.com/disable-windows-update-active-hours-in-windows-10/
+#
+#   winaero.com  |  "How to Remove Home from File Explorer in Windows 11"  |  https://winaero.com/remove-home-from-file-explorer/
 #
 #   winaero.com  |  "How To Remove Pin to Quick Access Context Menu in Windows 10"  |  https://winaero.com/remove-pin-quick-access-menu-windows-10/
 #
@@ -3065,6 +3079,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.askvg.com  |  "[Windows 10 Tip] Disable Data Collection and Telemetry in Windows Defender – AskVG"  |  https://www.askvg.com/windows-10-tip-disable-data-collection-and-telemetry-in-windows-defender/
 #
 #   www.askvg.com  |  "[Windows 10 Tip] Registry Tweaks to Customize UI of Alt+Tab, Task View and Snap Assistant Screens – AskVG"  |  https://www.askvg.com/windows-10-tip-registry-tweaks-to-customize-ui-of-alttab-task-view-and-snap-assistant-screens/
+#
+#   www.elevenforum.com  |  "Add or Remove Gallery in File Explorer Navigation Pane in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-gallery-in-file-explorer-navigation-pane-in-windows-11.14178/#Two
 #
 #   www.elevenforum.com  |  "Change Accent Color in Windows 11 Tutorial | Windows 11 Forum"  |  https://www.elevenforum.com/t/change-accent-color-in-windows-11.1146/
 #

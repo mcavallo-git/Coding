@@ -1947,7 +1947,7 @@ function SyncRegistry {
             @{
               Description="Microsoft PowerPoint 2016/2019 - [ 0 ]=Disable, [ 1 ]=Enable Copilot.";
               Hotfix=$Null;
-              Name="EnableCopilot";
+              Name="Enable Copilot in Settings";
               Type="DWord";
               Value=0;
               Delete=$False;

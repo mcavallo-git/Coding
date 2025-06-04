@@ -831,7 +831,7 @@ function SyncRegistry {
 
       # Explorer Settings - Top-Left Shortcuts (Above Quick Access)
       $RegEdits += @{
-        Path="HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+        Path="Registry::HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
         Props=@(
           @{
             Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
@@ -843,7 +843,7 @@ function SyncRegistry {
         )
       };
       $RegEdits += @{
-        Path="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
         Props=@(
           @{
             Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
@@ -855,7 +855,7 @@ function SyncRegistry {
         )
       };
       $RegEdits += @{
-        Path="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum";
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum";
         Props=@(
           @{
             Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";

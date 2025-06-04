@@ -829,6 +829,20 @@ function SyncRegistry {
         )
       };
 
+      # Explorer Settings - Top-Left Shortcuts (Above Quick Access)
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}";
+        Props=@(
+          @{
+            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'Gallery' shortcut (above Quick Access on the top-left of Windows explorer).";
+            Name="System.IsPinnedToNameSpaceTree";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+      $RegEdits += @{
       # Explorer Settings ('Edit' right-click context menu option(s)) (Image file extension (.bmp, .jpeg, .jpg, .png, ...))
       $DefaultPictureEditor="C:\Program Files\paint.net\PaintDotNet.exe";
       If ((Test-Path -Path "${DefaultPictureEditor}") -Eq $True) {

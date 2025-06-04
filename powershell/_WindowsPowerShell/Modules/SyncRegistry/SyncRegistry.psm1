@@ -631,7 +631,7 @@ function SyncRegistry {
             Description="Privacy & Security > General (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Let Windows improve start and search results by tracking app launches'.";
             Name="Start_TrackProgs";
             Type="DWord";
-            Value=0;
+            Value=1;
             Delete=$False;
           },
           @{

@@ -831,10 +831,10 @@ function SyncRegistry {
 
       # Explorer Settings - Top-Left Shortcuts (Above Quick Access)
       $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+        Path="HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
         Props=@(
           @{
-            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' (part 1 of 2) shortcut (above Quick Access on the top-left of Windows explorer).";
+            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
             Name="System.IsPinnedToNameSpaceTree";
             Type="DWord";
             Value=0;
@@ -843,10 +843,46 @@ function SyncRegistry {
         )
       };
       $RegEdits += @{
+        Path="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+        Props=@(
+          @{
+            Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
+            Name="HiddenByDefault";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          }
+        )
+      };
+      $RegEdits += @{
+        Path="HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum";
+        Props=@(
+          @{
+            Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
+            Name="{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          }
+        )
+      };
+      # $RegEdits += @{
+      #   Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+      #   Props=@(
+      #     @{
+      #       Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
+      #       Name="System.IsPinnedToNameSpaceTree";
+      #       Type="DWord";
+      #       Value=0;
+      #       Delete=$False;
+      #     }
+      #   )
+      # };
+      $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{04271989-C4D2-666C-5D5F-83CC6A1281B8}";
         Props=@(
           @{
-            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' (part 2 of 2) shortcut (above Quick Access on the top-left of Windows explorer).";
+            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
             Name="System.IsPinnedToNameSpaceTree";
             Type="DWord";
             Value=0;

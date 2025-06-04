@@ -1813,9 +1813,9 @@ function SyncRegistry {
           Path="${Office_2016_2019_Key}\Common";
           Props=@(
             @{
-              Description="Office 2016/2019 Telemetry - [ 0 ]=Disable, [ 1 ]=Enable the Customer Experience Improvement Program (CEIP). Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_EnableCustomerExperienceImprovementProgram]";
+              Description="Office 2016/2019 LinkedIn - [ 0 ]=Disable, [ 1 ]=Enable LinkedIn features in Office applications. Citation=[https://admx.help/?Category=Office2016&Policy=office16.Office.Microsoft.Policies.Windows::L_AllowLinkedInFeatures]";
               Hotfix=$Null;
-              Name="QMEnable";
+              Name="LinkedIn";
               Type="DWord";
               Value=0;
               Delete=$False;

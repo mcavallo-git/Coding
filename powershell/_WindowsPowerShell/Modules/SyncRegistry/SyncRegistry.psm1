@@ -117,6 +117,20 @@ function SyncRegistry {
         )
       };
 
+      # Copilot
+      $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot";
+        Props=@(
+          @{
+            Description="Copilot Settings - [ 0 ]=Enable, [ 1 ]=Disable Copilot.";
+            Name="TurnOffWindowsCopilot";
+            Type="DWord";
+            Value=1;
+            Delete=$False;
+          }
+        )
+      };
+
       # Cortana/Search Settings
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Search";
@@ -2981,6 +2995,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   answers.microsoft.com  |  "Automatic files - Automatic file downloads"  |  https://answers.microsoft.com/en-us/windows/forum/all/automatic-files/91b91138-0096-4fbc-a3e2-5de5176a6ca5
 #
 #   answers.microsoft.com  |  "Hide or UnHide Widgets on Taskbar in Windows 11 insider preview build - Microsoft Community"  |  https://answers.microsoft.com/en-us/insider/forum/all/hide-or-unhide-widgets-on-taskbar-in-windows-11/e08804e8-72e6-4e65-bdf6-0e1c3f2c4d8b
+#
+#   answers.microsoft.com  |  "How do I disable Copilot and all Other AI functionality in Windows 11 - Microsoft Community"  |  https://answers.microsoft.com/en-us/windows/forum/all/how-do-i-disable-copilot-and-all-other-ai/e74a841f-794c-48d2-9a8a-e3ccfac8ea86
 #
 #   answers.microsoft.com  |  "Microsoft Meet Now fouled up my microphone settings - Microsoft Community"  |  https://answers.microsoft.com/en-us/skype/forum/all/microsoft-meet-now-fouled-up-my-microphone/1b6e05a8-b651-4404-89a7-b24c83403c1e
 #

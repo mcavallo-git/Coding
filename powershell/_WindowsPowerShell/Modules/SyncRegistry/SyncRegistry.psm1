@@ -1916,14 +1916,53 @@ function SyncRegistry {
           )
         };
         $RegEdits += @{
+          Path="${Office_2016_2019_Key}\Excel\Options";
+          Props=@(
+            @{
+              Description="Microsoft Excel 2016/2019 - [ 0 ]=Disable, [ 1 ]=Enable Copilot.";
+              Hotfix=$Null;
+              Name="EnableCopilot";
+              Type="DWord";
+              Value=0;
+              Delete=$False;
+            }
+          )
+        };
+        $RegEdits += @{
           Path="${Office_2016_2019_Key}\Outlook\Options\Mail";
           Props=@(
             @{
-              Description="Outlook 2016/2019 - Set the limit for (or hide, disable) the 'Recent Items' when adding an attachment";
+              Description="Microsoft Outlook 2016/2019 - Set the limit for (or hide, disable) the 'Recent Items' when adding an attachment";
               Hotfix=$Null;
               Name="MaxAttachmentMenuItems";
               Type="DWord";
               Value=00000000;
+              Delete=$False;
+            }
+          )
+        };
+        $RegEdits += @{
+          Path="${Office_2016_2019_Key}\PowerPoint\Options";
+          Props=@(
+            @{
+              Description="Microsoft PowerPoint 2016/2019 - [ 0 ]=Disable, [ 1 ]=Enable Copilot.";
+              Hotfix=$Null;
+              Name="EnableCopilot";
+              Type="DWord";
+              Value=0;
+              Delete=$False;
+            }
+          )
+        };
+        $RegEdits += @{
+          Path="${Office_2016_2019_Key}\Word\Options";
+          Props=@(
+            @{
+              Description="Microsoft Word 2016/2019 - [ 0 ]=Disable, [ 1 ]=Enable Copilot.";
+              Hotfix=$Null;
+              Name="EnableCopilot";
+              Type="DWord";
+              Value=0;
               Delete=$False;
             }
           )

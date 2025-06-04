@@ -831,6 +831,18 @@ function SyncRegistry {
 
       # Explorer Settings - Top-Left Shortcuts (Above Quick Access)
       $RegEdits += @{
+        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
+        Props=@(
+          @{
+            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
+            Name="System.IsPinnedToNameSpaceTree";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          }
+        )
+      };
+      $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}";
         Props=@(
           @{
@@ -3081,6 +3093,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.askvg.com  |  "[Windows 10 Tip] Registry Tweaks to Customize UI of Alt+Tab, Task View and Snap Assistant Screens – AskVG"  |  https://www.askvg.com/windows-10-tip-registry-tweaks-to-customize-ui-of-alttab-task-view-and-snap-assistant-screens/
 #
 #   www.elevenforum.com  |  "Add or Remove Gallery in File Explorer Navigation Pane in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-gallery-in-file-explorer-navigation-pane-in-windows-11.14178/#Two
+#
+#   www.elevenforum.com  |  "Add or Remove OneDrive in Navigation Pane of File Explorer in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-onedrive-in-navigation-pane-of-file-explorer-in-windows-11.2478/
 #
 #   www.elevenforum.com  |  "Change Accent Color in Windows 11 Tutorial | Windows 11 Forum"  |  https://www.elevenforum.com/t/change-accent-color-in-windows-11.1146/
 #

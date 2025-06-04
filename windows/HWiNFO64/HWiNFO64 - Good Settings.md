@@ -36,6 +36,7 @@
         - Click the bottom-right `⚙️ (Configure Sensors)` button
   - Update `HWiNFO64 Sensor Settings`
     - Tab: `General`
+      - Under `Polling Period` (top left), set `Global` to `1000` ms
       - Check `Minimize Graphs with Sensors Window`  (bottom left)
       - Check `Log all values for Report (consumes memory)`  (bottom left)
       - Click `Change Font`  (bottom right)

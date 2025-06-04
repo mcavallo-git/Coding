@@ -829,90 +829,50 @@ function SyncRegistry {
         )
       };
 
-      # Explorer Settings - Top-Left Shortcuts (Above Quick Access)
-      $RegEdits += @{
-        Path="Registry::HKEY_CLASSES_ROOT\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
-        Props=@(
-          @{
-            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
-            Name="System.IsPinnedToNameSpaceTree";
-            Type="DWord";
-            Value=0;
-            Delete=$False;
-          }
-        )
-      };
-      $RegEdits += @{
-        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
-        Props=@(
-          @{
-            Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
-            Name="HiddenByDefault";
-            Type="DWord";
-            Value=1;
-            Delete=$False;
-          }
-        )
-      };
-      $RegEdits += @{
-        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum";
-        Props=@(
-          @{
-            Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
-            Name="{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
-            Type="DWord";
-            Value=1;
-            Delete=$False;
-          }
-        )
-      };
-      # $RegEdits += @{
-      #   Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{018D5C66-4533-4307-9B53-224DE2ED1FE6}";
-      #   Props=@(
-      #     @{
-      #       Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
-      #       Name="System.IsPinnedToNameSpaceTree";
-      #       Type="DWord";
-      #       Value=0;
-      #       Delete=$False;
-      #     }
-      #   )
-      # };
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{04271989-C4D2-666C-5D5F-83CC6A1281B8}";
-        Props=@(
-          @{
-            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'OneDrive' shortcut (above Quick Access on the top-left of Windows explorer).";
-            Name="System.IsPinnedToNameSpaceTree";
-            Type="DWord";
-            Value=0;
-            Delete=$False;
-          }
-        )
-      };
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}";
-        Props=@(
-          @{
-            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'Gallery' shortcut (above Quick Access on the top-left of Windows explorer).";
-            Name="System.IsPinnedToNameSpaceTree";
-            Type="DWord";
-            Value=0;
-            Delete=$False;
-          }
-        )
-      };
-      $RegEdits += @{
-        Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{f874310e-b6b7-47dc-bc84-b9e6b38f5903}";
-        Props=@(
-          @{
-            Description="Explorer Settings (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the 'Home' shortcut (above Quick Access on the top-left of Windows explorer).";
-            Name="System.IsPinnedToNameSpaceTree";
-            Type="DWord";
-            Value=0;
-            Delete=$False;
-          }
-        )
+      # Explorer Settings - Top-left shortcuts in Explorer (above Quick Access)
+      @(
+        "{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}",  # Gallery
+        "{f874310e-b6b7-47dc-bc84-b9e6b38f5903}",  # Home
+        "{018D5C66-4533-4307-9B53-224DE2ED1FE6}",  # OneDrive (Part 1 of 2)
+        "{04271989-C4D2-666C-5D5F-83CC6A1281B8}"   # OneDrive (Part 2 of 2)
+      ) | ForEach-Object {
+        $Each_CLSID_ToHide = "${_}";
+        $RegEdits += @{
+          Path="Registry::HKEY_CLASSES_ROOT\CLSID\${Each_CLSID_ToHide}";
+          Props=@(
+            @{
+              Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the shortcut on the top-left of Windows explorer (above Quick Access).";
+              Name="System.IsPinnedToNameSpaceTree";
+              Type="DWord";
+              Value=0;
+              Delete=$False;
+            }
+          )
+        };
+        $RegEdits += @{
+          Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Desktop\NameSpace\${Each_CLSID_ToHide}";
+          Props=@(
+            @{
+              Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the shortcut on the top-left of Windows explorer (above Quick Access).";
+              Name="HiddenByDefault";
+              Type="DWord";
+              Value=1;
+              Delete=$False;
+            }
+          )
+        };
+        $RegEdits += @{
+          Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\NonEnum";
+          Props=@(
+            @{
+              Description="Explorer Settings (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable the shortcut on the top-left of Windows explorer (above Quick Access).";
+              Name="${Each_CLSID_ToHide}";
+              Type="DWord";
+              Value=1;
+              Delete=$False;
+            }
+          )
+        };
       };
 
       # Explorer Settings ('Edit' right-click context menu option(s)) (Image file extension (.bmp, .jpeg, .jpg, .png, ...))

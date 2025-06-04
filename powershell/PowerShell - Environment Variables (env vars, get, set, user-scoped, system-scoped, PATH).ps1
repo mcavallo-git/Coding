@@ -98,7 +98,7 @@ If ($True) {
 If ($True) {
   # ------------------------------
   # Add a directory to current system's PSModulePath (if not already incluided)
-  $Append_PSModulePath = "${env:ProgramFiles(x86)}\VMware\VMware Workstation";
+  $Append_PSModulePath = "${env:REPOS_DIR}\Coding\powershell\_WindowsPowerShell\Modules";
   $System_PSModulePath = (Get-ItemProperty -Path "Registry::HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\Session Manager\Environment" | Select-Object -ExpandProperty 'PSModulePath');
   If (($False) -NE (Test-Path -Path ("${Append_PSModulePath}"))) {
     # Directory must exist

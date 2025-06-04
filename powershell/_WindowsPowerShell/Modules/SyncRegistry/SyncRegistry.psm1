@@ -151,7 +151,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Personalization > Taskbar - Set Taskbar item 'Search' to: [ 0 ]='Hide', [ 1 ]='Search icon only', [ 2 ]='Search box', [ 3 ]='Search icon and label' (Win11).";
+            Description="Personalization > Taskbar (Windows 11) - Set Taskbar item 'Search' to: [ 0 ]='Hide', [ 1 ]='Search icon only', [ 2 ]='Search box', [ 3 ]='Search icon and label'.";
             Name="SearchboxTaskbarMode";
             Type="DWord";
             Value=0;
@@ -299,7 +299,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Show accent color on title bars and window borders' (Win11), 'Show accent color on the following surfaces: Title bars' (Win10)";
+            Description="Explorer Settings - [ 0 ]=Disable, [ 1 ]=Enable option 'Show accent color on title bars and window borders' (Windows 11), 'Show accent color on the following surfaces: Title bars' (Windows 10)";
             Name="ColorPrevalence";
             Type="DWord";
             Val_Default="";
@@ -508,28 +508,28 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'When I drag a window, let me snap it without dragging all the way to the screen edge' (Win11)";
+            Description="Multitasking > Snap windows (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'When I drag a window, let me snap it without dragging all the way to the screen edge'";
             Name="DITest";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I hover over a window's maximize button' (Win11)";
+            Description="Multitasking > Snap windows (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I hover over a window's maximize button'";
             Name="EnableSnapAssistFlyout";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I drag a window to the top of my screen' (Win11)";
+            Description="Multitasking > Snap windows (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show snap layouts when I drag a window to the top of my screen'";
             Name="EnableSnapBar";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab' (Win11)";
+            Description="Multitasking > Snap windows (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable the Snap windows option 'Show my snapped windows when I hover over taskbar apps, in Task View, and when I press Alt+Tab'";
             Name="EnableTaskGroups";
             Type="DWord";
             Value=0;
@@ -585,7 +585,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable Taskbar item 'Task view' (Win11)";
+            Description="Personalization > Taskbar (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable Taskbar item 'Task view'";
             Name="ShowTaskViewButton";
             Type="DWord";
             Val_Default=1;
@@ -593,7 +593,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, suggest what I can snap next to it' (Win11), 'When I snap a window, show what I can snap next to it' (Win10)";
+            Description="Multitasking > Snap windows - [ 0 ]=Disable, [ 1 ]=Enable option 'When I snap a window, suggest what I can snap next to it' (Windows 11), 'When I snap a window, show what I can snap next to it' (Windows 10)";
             Name="SnapAssist";
             Type="DWord";
             Value=0;
@@ -607,21 +607,21 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Personalization > Start - [ 0 ]=Disable, [ 1 ]=Enable option 'Show recommendarions for tips, app promotions, and more' (Win11).";
+            Description="Personalization > Start (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Show recommendarions for tips, app promotions, and more'.";
             Name="Start_IrisRecommendations";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Privacy & Security > General - [ 0 ]=Disable, [ 1 ]=Enable option 'Let Windows improve start and search results by tracking app launches' (Win11).";
+            Description="Privacy & Security > General (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Let Windows improve start and search results by tracking app launches'.";
             Name="Start_TrackProgs";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Personalization > Taskbar - Set 'Taskbar alignment' to: [ 0 ]=Left, [ 1 ]=Center (Win11).";
+            Description="Personalization > Taskbar (Windows 11) - Set 'Taskbar alignment' to: [ 0 ]=Left, [ 1 ]=Center.";
             Name="TaskbarAl";
             Type="DWord";
             Val_Default=1;
@@ -629,7 +629,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable option 'Show badges on taskbar apps' (Win11)";
+            Description="Personalization > Taskbar (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Show badges on taskbar apps'";
             Name="TaskbarBadges";
             Type="DWord";
             Val_Default=1;
@@ -637,7 +637,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable Taskbar item 'Widgets' (Win11)";
+            Description="Personalization > Taskbar (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable Taskbar item 'Widgets'.";
             Name="TaskbarDa";
             Type="DWord";
             Val_Default=1;
@@ -645,7 +645,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable option 'Show flashing on taskbar apps' (Win11)";
+            Description="Personalization > Taskbar (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Show flashing on taskbar apps'.";
             Name="TaskbarFlashing";
             Type="DWord";
             Val_Default=1;
@@ -653,7 +653,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Personalization > Taskbar - [ 0 ]=Disable, [ 1 ]=Enable option 'Select the far corner of the taskbar to show the desktop' (Win11)";
+            Description="Personalization > Taskbar (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Select the far corner of the taskbar to show the desktop'.";
             Name="TaskbarSd";
             Type="DWord";
             Val_Default=1;
@@ -820,7 +820,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}\InprocServer32";
         Props=@(
           @{
-            Description="Explorer Settings - (Windows 11 / Win11) Set right-click context menu to show `Show more options` menu by default";
+            Description="Explorer Settings (Windows 11) - Set right-click context menu to show `Show more options` menu by default";
             Name="(Default)";
             Type="String";
             Value="";
@@ -1080,12 +1080,12 @@ function SyncRegistry {
       };
 
       If (-Not $PSBoundParameters.ContainsKey('SkipLegacyNotepad')) {
-        # Explorer Settings ('Open With' right-click context menu option(s)) (notepad.exe) (Windows 11 / Win11)
+        # Explorer Settings ('Open With' right-click context menu option(s)) (notepad.exe) (Windows 11)
         $RegEdits += @{
           Path="Registry::HKEY_CLASSES_ROOT\Applications\notepad.exe";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu (Win11)";
+              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
               Name="NoOpenWith";
               Type="String";
               Value="";
@@ -1097,7 +1097,7 @@ function SyncRegistry {
           Path="Registry::HKEY_CLASSES_ROOT\txtfilelegacy\DefaultIcon";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu (Win11)";
+              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
               Name="(Default)";
               Type="String";
               Value="imageres.dll,-102";
@@ -1109,7 +1109,7 @@ function SyncRegistry {
           Path="Registry::HKEY_CLASSES_ROOT\txtfilelegacy\shell\open\command";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu (Win11)";
+              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
               Name="(Default)";
               Type="String";
               Value="`"C:\Windows\System32\notepad.exe`" `"%1`"";
@@ -1121,7 +1121,7 @@ function SyncRegistry {
           Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe";
           Props=@(
             @{
-              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu (Win11)";
+              Description="Explorer Settings (Windows 11) - Replace notepad app with legacy notepad.exe & unblock notepad.exe from being added to the 'Open With' right-click context menu";
               Name="UseFilter";
               Type="DWord";
               Value=0;
@@ -1433,7 +1433,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\Keyboard";
         Props=@(
           @{
-            Description="Accessibility > Keyboard - [ 1 ]=Enable, [ 0 ]=Disable the 'Use the Print screen key to open screen capture' to free up the Print screen hotkey for other apps to use (Win11)";
+            Description="Accessibility > Keyboard (Windows 11) - [ 1 ]=Enable, [ 0 ]=Disable the 'Use the Print screen key to open screen capture' to free up the Print screen hotkey for other apps to use";
             Name="PrintScreenKeyForSnippingEnabled";
             Type="DWord";
             Value=0;
@@ -1489,7 +1489,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Notifications\Settings";
         Props=@(
           @{
-            Description="System > Notifications - [ 0 ]=Disable, [ (deleted) ]=Enable option 'Show notifications on lock screen' (part 1 of 2) (Win11).";
+            Description="System > Notifications (Windows 11) - [ 0 ]=Disable, [ (deleted) ]=Enable option 'Show notifications on lock screen' (part 1 of 2).";
             Name="NOC_GLOBAL_SETTING_ALLOW_TOASTS_ABOVE_LOCK";
             Type="DWord";
             Value=0;
@@ -1501,7 +1501,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\PushNotifications";
         Props=@(
           @{
-            Description="System > Notifications - [ 0 ]=Disable, [ 1 ]=Enable option 'Show notifications on lock screen' (part 2 of 2) (Win11).";
+            Description="System > Notifications (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Show notifications on lock screen' (part 2 of 2).";
             Name="LockScreenToastEnabled";
             Type="DWord";
             Value=0;
@@ -1513,7 +1513,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\CloudContent";
         Props=@(
           @{
-            Description="Group Policy - [ 0 ]=Enable, [ 1 ]=Disable group policy 'Turn off Spotlight collection on Desktop' (Win11).";
+            Description="Group Policy (Windows 11) - [ 0 ]=Enable, [ 1 ]=Disable group policy 'Turn off Spotlight collection on Desktop'.";
             Name="DisableSpotlightCollectionOnDesktop";
             Type="DWord";
             Value=1;
@@ -1904,7 +1904,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Authentication\LogonUI\BootAnimation";
         Props=@(
           @{
-            Description="Sound > Sound Scheme - [ 0 ]=Enable, [ 1 ]=Disable option 'Play Windows Startup sound' (Win11).";
+            Description="Sound > Sound Scheme - [ 0 ]=Enable, [ 1 ]=Disable option 'Play Windows Startup sound'.";
             Name="DisableStartupSound";
             Type="DWord";
             Val_Default=0;
@@ -2074,7 +2074,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Control Panel\International\User Profile";
         Props=@(
           @{
-            Description="Privacy & Security > General - [ (deleted) ]=Enable, [ 1 ]=Disable option 'Let websites show me locally relevant content by accessing my language list' (Win11).";
+            Description="Privacy & Security > General (Windows 11) - [ (deleted) ]=Enable, [ 1 ]=Disable option 'Let websites show me locally relevant content by accessing my language list'.";
             Name="HttpAcceptLanguageOptOut";
             Type="DWord";
             Value=1;
@@ -2086,35 +2086,35 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager";
         Props=@(
           @{
-            Description="Personalization > Lock Screen - [ 0 ]=Disable, [ 1 ]=Enable option 'Get fun facts, tips, tricks, and more on your lock screen' (part 2) (Win11).";
+            Description="Personalization > Lock Screen (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Get fun facts, tips, tricks, and more on your lock screen' (part 2).";
             Name="RotatingLockScreenOverlayEnabled";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Personalization > Lock Screen - [ 0 ]=Disable, [ 1 ]=Enable option 'Get fun facts, tips, tricks, and more on your lock screen' (part 2) (Win11).";
+            Description="Personalization > Lock Screen (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Get fun facts, tips, tricks, and more on your lock screen' (part 2).";
             Name="SubscribedContent-338387Enabled";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Privacy & Security > General - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 1 of 3) (Win11).";
+            Description="Privacy & Security > General (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 1 of 3).";
             Name="SubscribedContent-338393Enabled";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Privacy & Security > General - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 2 of 3) (Win11).";
+            Description="Privacy & Security > General (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 2 of 3).";
             Name="SubscribedContent-353694Enabled";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Privacy & Security > General - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 3 of 3) (Win11).";
+            Description="Privacy & Security > General (Windows 11) - [ 0 ]=Disable, [ 1 ]=Enable option 'Show me suggested content in the Settings app' (part 3 of 3).";
             Name="SubscribedContent-353696Enabled";
             Type="DWord";
             Value=0;
@@ -2131,7 +2131,7 @@ function SyncRegistry {
       };
 
       # Taskbar - Hide News & Interests
-      If ("${OS_Caption}" -Match "Windows 10") { # Win10 Only
+      If ("${OS_Caption}" -Match "Windows 10") { # Windows 10 Only
         $RegEdits += @{
           Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds";
           Props=@(
@@ -2308,7 +2308,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Microsoft\Windows\CurrentVersion\GameDVR";
         Props=@(
           @{
-            Description="Xbox Game Bar - [ 0 ]=Disable, [ 1 ]=Enable option 'Enable Xbox Game Bar for things like recording game clips, chatting with friends, and receiving game invites. (Some games require Xbox Game Bar for receiving game invites.)' under Win10 Settings > Home > Gaming > Xbox Game Bar";
+            Description="Xbox Game Bar - [ 0 ]=Disable, [ 1 ]=Enable option 'Enable Xbox Game Bar for things like recording game clips, chatting with friends, and receiving game invites. (Some games require Xbox Game Bar for receiving game invites.)' under Settings > Home > Gaming > Xbox Game Bar";
             Name="AppCaptureEnabled";
             Type="DWord";
             Value=0;

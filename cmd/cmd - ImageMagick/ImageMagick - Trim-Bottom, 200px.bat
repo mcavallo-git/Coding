@@ -15,7 +15,7 @@ ECHO.
 
 REM		Trim the following off each side of the image:
 SET TrimTop=0
-SET TrimBottom=225
+SET TrimBottom=200
 SET TrimRight=0
 SET TrimLeft=0
 

@@ -22,13 +22,14 @@ function SyncRegistry {
   # ------------------------------------------------------------
   If ($False) { # RUN THIS SCRIPT:
 
-    <# Run SyncRegistry - Update current user's context (HKEY_CURRENT_USER) #>
+    <# Run SyncRegistry (Download) - Update current user's context (HKEY_CURRENT_USER) #>
     PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/SyncRegistry/SyncRegistry.psm1)) ).Content) } Catch {}; If (-Not (Get-Command -Name (Write-Output SyncRegistry) -ErrorAction SilentlyContinue)) { Import-Module ([String]::Format((((GV HOME).Value)+(Write-Output \Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\SyncRegistry\SyncRegistry.psm1)), ((GV HOME).Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value); SyncRegistry;') -Verb RunAs -Wait -PassThru | Out-Null;";
 
-    <# Run SyncRegistry - Update target user's context (HKEY_USERS\[SID]) #>
+    <# Run SyncRegistry (Download) - Update target user's context (HKEY_USERS\[SID]) #>
     $MODULE_ARGS="-UserSID $(((whoami /user /fo table /nh) -split ' ')[1];)"; PowerShell -Command "If (GCM pwsh -ErrorAction SilentlyContinue) { SV PS ((GCM pwsh).Source); } Else { SV PS ((GCM powershell).Source); }; Start-Process -Filepath ((GV PS).Value) -ArgumentList ('-Command SV ProtoBak ([System.Net.ServicePointManager]::SecurityProtocol); [System.Net.ServicePointManager]::SecurityProtocol=[System.Net.SecurityProtocolType]::Tls12; SV ProgressPreference SilentlyContinue; Clear-DnsClientCache; Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Try { Invoke-Expression ((Invoke-WebRequest -UseBasicParsing -TimeoutSec (7.5) -Uri ((Write-Output https://raw.githubusercontent.com/mcavallo-git/Coding/main/powershell/_WindowsPowerShell/Modules/SyncRegistry/SyncRegistry.psm1)) ).Content) } Catch {}; If (-Not (Get-Command -Name (Write-Output SyncRegistry) -ErrorAction SilentlyContinue)) { Import-Module ([String]::Format((((GV HOME).Value)+(Write-Output \Documents\GitHub\Coding\powershell\_WindowsPowerShell\Modules\SyncRegistry\SyncRegistry.psm1)), ((GV HOME).Value))); }; [System.Net.ServicePointManager]::SecurityProtocol=((GV ProtoBak).Value); SyncRegistry ${MODULE_ARGS};') -Verb RunAs -Wait -PassThru | Out-Null;";
-
-    # Import-Module "${env:REPOS_DIR}\Coding\powershell\_WindowsPowerShell\Modules\SyncRegistry\SyncRegistry.psm1"; SyncRegistry -UserSID (((whoami /user /fo table /nh) -split ' ')[1]);
+    
+    <# Run SyncRegistry (Local Repo) - Update target user's context (HKEY_USERS\[SID]) #>
+    Import-Module "${env:REPOS_DIR}\Coding\powershell\_WindowsPowerShell\Modules\SyncRegistry\SyncRegistry.psm1"; SyncRegistry -UserSID (((whoami /user /fo table /nh) -split ' ')[1]);
 
   }
   # ------------------------------------------------------------

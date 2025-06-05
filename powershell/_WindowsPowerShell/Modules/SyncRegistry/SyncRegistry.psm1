@@ -1201,6 +1201,30 @@ function SyncRegistry {
             }
           )
         };
+        $RegEdits += @{
+          Path="Registry::HKEY_CLASSES_ROOT\.txt\ShellNew";
+          Props=@(
+            @{
+              Description="Explorer Settings - Ensure 'New > Text File' exists as a right-click option in Windows explorer.";
+              Name="NullFile";
+              Type="String";
+              Value="";
+              Delete=$False;
+            }
+          )
+        };
+        $RegEdits += @{
+          Path="Registry::HKEY_CLASSES_ROOT\txtfilelegacy";
+          Props=@(
+            @{
+              Description="Explorer Settings - Ensure 'New > Text File' exists as a right-click option in Windows explorer.";
+              Name="(Default)";
+              Type="String";
+              Value="Text File";
+              Delete=$False;
+            }
+          )
+        };
       }
       $RegEdits += @{
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Classes\*\OpenWithList\notepad.exe";
@@ -3124,6 +3148,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "powershell - How to get the windows version with command line? - Super User"  |  https://superuser.com/a/1640261
 #
 #   superuser.com  |  "Query current power config settings on Windows 7 - Super User"  |  https://superuser.com/a/1156120
+#
+#   superuser.com  |  "Re-add "create new text file" to Windows 11 context menu - Super User"  |  https://superuser.com/questions/1685353
 #
 #   superuser.com  |  "windows 7 - How to disable sleep mode via CMD? - Super User"  |  https://superuser.com/a/1330613
 #

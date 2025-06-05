@@ -11,6 +11,8 @@
  <br /><li>Browse to <code>chrome://settings/content/popups</code><ul><li>Enable ✔️ <code>"Don't allow sites to send pop-ups or use redirects"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/system</code><ul><li>Disable ❌️ <code>"Continue running background apps when Google Chrome is closed"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/system</code><ul><li>Disable ❌️ <code>"Show system notifications about Chrome features and tips"</code></li></ul></li>
+ <br /><li>Browse to <code>chrome://settings/ai/helpMeWrite</code><ul><li>Disable ❌️ <code>"Offer writing help"</code></li></ul></li>
+ <br /><li>Browse to <code>chrome://settings/ai/historySearch</code><ul><li>Disable ❌️ <code>"History search, powered by AI"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/adPrivacy/interests</code><ul><li>Disable ❌️ <code>"Ad topics"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/adPrivacy/measurement</code><ul><li>Disable ❌️ <code>"Ad measurement"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/adPrivacy/sites</code><ul><li>Disable ❌️ <code>"Site-suggested ads"</code></li></ul></li>

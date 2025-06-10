@@ -1463,7 +1463,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
         Props=@(
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Troubleshoot compatibility'.";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Troubleshoot compatibility' (Windows 10).";
             Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
             Type="String";
             Val_Default="";
@@ -1471,7 +1471,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Restore previous versions'.";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Restore previous versions' (Windows 10).";
             Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
             Type="String";
             Val_Default="";
@@ -1479,7 +1479,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Cast to Device'.";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Cast to Device' (Windows 10).";
             Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
             Type="String";
             Val_Default="";
@@ -1487,7 +1487,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Open in Terminal'.";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Open in Terminal' (Windows 11).";
             Name="{9F156763-7844-4DC4-B2B1-901F640F5155}";
             Type="String";
             Val_Default="";
@@ -1495,7 +1495,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive'.";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive' (Windows 10).";
             Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
             Type="String";
             Val_Default="";
@@ -1503,7 +1503,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Give access to'.";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Give access to' (Windows 10).";
             Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
             Type="String";
             Val_Default="";
@@ -3241,6 +3241,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.elevenforum.com  |  "Add or Remove Gallery in File Explorer Navigation Pane in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-gallery-in-file-explorer-navigation-pane-in-windows-11.14178/#Two
 #
 #   www.elevenforum.com  |  "Add or Remove OneDrive in Navigation Pane of File Explorer in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-onedrive-in-navigation-pane-of-file-explorer-in-windows-11.2478/
+#
+#   www.elevenforum.com  |  "Add or Remove "Open in Terminal" context menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-open-in-terminal-context-menu-in-windows-11.2479/
 #
 #   www.elevenforum.com  |  "Change Accent Color in Windows 11 Tutorial | Windows 11 Forum"  |  https://www.elevenforum.com/t/change-accent-color-in-windows-11.1146/
 #

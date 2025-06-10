@@ -16,7 +16,6 @@
       <li>Disable ❌️ <code>"Show system notifications about Chrome features and tips"</code></li>
     </ul>
   </li>
- <br /><li>Browse to <code>chrome://settings/system</code><ul></ul></li>
  <br /><li>Browse to <code>chrome://settings/ai/helpMeWrite</code><ul><li>Disable ❌️ <code>"Offer writing help"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/ai/historySearch</code><ul><li>Disable ❌️ <code>"History search, powered by AI"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/adPrivacy/interests</code><ul><li>Disable ❌️ <code>"Ad topics"</code></li></ul></li>

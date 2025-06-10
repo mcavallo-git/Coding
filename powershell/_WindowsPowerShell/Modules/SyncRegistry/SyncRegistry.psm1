@@ -851,6 +851,20 @@ function SyncRegistry {
         )
       };
 
+      # Explorer Settings - Remove "Add to favorites" right-click context menu option
+      $RegEdits += @{
+        Path="Registry::HKEY_CLASSES_ROOT\*\shell\pintohomefile";
+        Props=@(
+          @{
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Show, [ Deleted ]=Hide Windows Explorer context menu (right-click) option 'Add to favorites'.";
+            Name="(Default)";
+            Type="String";
+            Value="";
+            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+          }
+        )
+      };
+
       # Explorer Settings - Top-left shortcuts in Explorer (above Quick Access) - Hide the following
       @(
         "{e88865ea-0e1c-4e20-9aa6-edcd0212c87c}",  # Gallery
@@ -3285,6 +3299,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.elevenforum.com  |  "Add or Remove Gallery in File Explorer Navigation Pane in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-gallery-in-file-explorer-navigation-pane-in-windows-11.14178/#Two
 #
 #   www.elevenforum.com  |  "Add or Remove OneDrive in Navigation Pane of File Explorer in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-onedrive-in-navigation-pane-of-file-explorer-in-windows-11.2478/
+#
+#   www.elevenforum.com  |  "Add or Remove "Add to Favorites" Context Menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-add-to-favorites-context-menu-in-windows-11.6795/
 #
 #   www.elevenforum.com  |  "Add or Remove "Edit with Paint" Context Menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-edit-with-paint-context-menu-in-windows-11.30357/
 #

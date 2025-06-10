@@ -1463,28 +1463,12 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
         Props=@(
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Cast to Device'.";
-            Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
-            Type="String";
-            Val_Default="";
-            Value="Play to menu";
-            Delete=$False;
-          },
-          @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Give access to'.";
-            Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
-            Type="String";
-            Val_Default="";
-            Value="Play to menu";
-            Delete=$False;
-          },
-          @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive'.";
-            Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Troubleshoot compatibility'.";
+            Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
             Type="String";
             Val_Default="";
             Value="";
-            Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
+            Delete=$False;
           },
           @{
             Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Restore previous versions'.";
@@ -1495,11 +1479,35 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Troubleshoot compatibility'.";
-            Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Cast to Device'.";
+            Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
+            Type="String";
+            Val_Default="";
+            Value="Play to menu";
+            Delete=$False;
+          },
+          @{
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Open in Terminal'.";
+            Name="{9F156763-7844-4DC4-B2B1-901F640F5155}";
             Type="String";
             Val_Default="";
             Value="";
+            Delete=$False;
+          },
+          @{
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive'.";
+            Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
+            Type="String";
+            Val_Default="";
+            Value="";
+            Delete=$False;
+          },
+          @{
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Give access to'.";
+            Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
+            Type="String";
+            Val_Default="";
+            Value="Play to menu";
             Delete=$False;
           }
         )

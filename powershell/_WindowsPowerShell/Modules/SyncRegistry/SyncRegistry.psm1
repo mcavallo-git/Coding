@@ -593,6 +593,13 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
+            Description="Explorer > Folder Options - [ 0 ]=Disable, [ 1 ]=Enable option 'Expand to open folder'.";
+            Name="NavPaneExpandToCurrentFolder";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
+          },
+          @{
             Description="Taskbar Clock - [ 0 ]=Disable, [ 1 ]=Enable displaying of seconds on the system tray clock.";
             Name="ShowSecondsInSystemClock";
             Type="DWord";

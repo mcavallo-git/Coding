@@ -1506,6 +1506,13 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive' (Windows 11).";
+            Name="{1FA0E654-C9F2-4A1F-9800-B9A75D744B00}";
+            Type="String";
+            Value="OneDrive";
+            Delete=$False;
+          },
+          @{
             Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Edit with Paint' (Windows 11).";
             Name="{2430F218-B743-4FD6-97BF-5C76541B4AE9}";
             Type="String";
@@ -3276,6 +3283,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   superuser.com  |  "windows 7 - How to disable sleep mode via CMD? - Super User"  |  https://superuser.com/a/1330613
 #
 #   superuser.com  |  "windows 10 - Registry keys to change personalization settings? - Super User"  |  https://superuser.com/a/1395560
+#
+#   superuser.com  |  "windows 11 - How can I remove 'Move to OneDrive' from the context menu? - Super User"  |  https://superuser.com/a/1771832
 #
 #   support-splashtopbusiness.splashtop.com  |  "What are the Windows Streamer registry settings? – Splashtop Business - Support"  |  https://support-splashtopbusiness.splashtop.com/hc/en-us/articles/360030993692
 #

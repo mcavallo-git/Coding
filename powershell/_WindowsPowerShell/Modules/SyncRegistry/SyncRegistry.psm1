@@ -1492,91 +1492,91 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
         Props=@(
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Erase Object with Photos' (Windows 11).";
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Erase Object with Photos'.";
             Name="{1100CBCD-B822-43F0-84CB-16814C2F6B44}";
             Type="String";
             Value="Erase Object with Photos";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Troubleshoot compatibility' (Windows 10).";
+            Description="Explorer Settings (Windows 10) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Troubleshoot compatibility'.";
             Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
             Type="String";
             Value="";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive' (Windows 11).";
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive'.";
             Name="{1FA0E654-C9F2-4A1F-9800-B9A75D744B00}";
             Type="String";
             Value="OneDrive";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Edit with Paint' (Windows 11).";
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Edit with Paint'.";
             Name="{2430F218-B743-4FD6-97BF-5C76541B4AE9}";
             Type="String";
             Value="Edit with Paint";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Restore previous versions' (Windows 10).";
+            Description="Explorer Settings (Windows 10) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Restore previous versions'.";
             Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
             Type="String";
             Value="";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Create with Designer' (Windows 11).";
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Create with Designer'.";
             Name="{7A53B94A-4E6E-4826-B48E-535020B264E5}";
             Type="String";
             Value="Create with Designer";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Cast to Device' (Windows 10).";
+            Description="Explorer Settings (Windows 10) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Cast to Device'.";
             Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
             Type="String";
             Value="Play to menu";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Visual Search with Bing' (Windows 11).";
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Visual Search with Bing'.";
             Name="{9AAFEDA2-97B6-43EA-9466-9DE90501B1B6}";
             Type="String";
             Value="Visual Search with Bing";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Open in Terminal' (Windows 11).";
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Open in Terminal'.";
             Name="{9F156763-7844-4DC4-B2B1-901F640F5155}";
             Type="String";
             Value="";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Edit with Photos' (Windows 11).";
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Edit with Photos'.";
             Name="{BFE0E2A4-C70C-4AD7-AC3D-10D1ECEBB5B4}";
             Type="String";
             Value="Edit with Photos";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive' (Windows 10).";
+            Description="Explorer Settings (Windows 10) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive'.";
             Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
             Type="String";
             Value="";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Share' (Onedrive) (Windows 11).";
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Share' (Onedrive).";
             Name="{E2BF9676-5F8F-435C-97EB-11607A5BEDF7}";
             Type="String";
             Value="Share";
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Give access to' (Windows 10).";
+            Description="Explorer Settings (Windows 10) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Give access to'.";
             Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
             Type="String";
             Value="Play to menu";

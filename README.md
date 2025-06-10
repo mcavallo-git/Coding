@@ -398,19 +398,7 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <tr><td><strong>NuGet</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source Package Manager designed for the<br />&nbsp;&nbsp;&nbsp;Microsoft development platform</i></sub></td><td><a href="https://dist.nuget.org/win-x86-commandline/latest/nuget.exe">Download (source)</a></td></tr>
 <tr><td><strong>PoshGui</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Open Source tools & cmdlets for SysAdmins</i></sub></td><td><a href="https://poshgui.com/">Download (source)</a></td></tr>
 <tr><td><strong>Regex Basics</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Guide for understanding Regular Expressions, e.g. Regex Queries</i></sub></td><td><a href="regex/Regex-Basics.md">View (source)</a></td></tr>
-<tr><td><strong>Tortoise Git</strong> <sub><i>
-  <br />&nbsp;&nbsp;&nbsp;Git merge conflict resolution tool
-  <br />&nbsp;&nbsp;&nbsp;Tip #1: To prevent high CPU usage, disable the <code>Status Cache</code>&nbsp;<sup><a href="https://stackoverflow.com/a/16921151">[Citation]</a></sup>
-    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Open <code>Tortoise Git Settings</code>
-    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Select <code>Icon Overlays</code> (left menu item)
-    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Under <code>Status Cache</code> header, select <code>None</code>
-  <br />&nbsp;&nbsp;&nbsp;Tip #2: Set desired context menu items:
-    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Open <code>Tortoise Git Settings</code>
-    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Select <code>Context Menu</code> (left menu item) > Set shown dropdown items
-    <br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Select <code>Context Menu 2</code> (left menu item) > Set hidden dropdown items
-  </i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
-
-
+<tr><td><strong>Tortoise Git</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Git merge conflict resolution tool<br />&nbsp;&nbsp;&nbsp;Tip #1: To prevent high CPU usage, disable the <code>Status Cache</code>&nbsp;<sup><a href="https://stackoverflow.com/a/16921151">[Citation]</a></sup><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Open <code>Tortoise Git Settings</code><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Select <code>Icon Overlays</code> (left menu item)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Under <code>Status Cache</code> header, select <code>None</code><br />&nbsp;&nbsp;&nbsp;Tip #2: Set desired context menu items<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. Open <code>Tortoise Git Settings</code><br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;2. Select <code>Context Menu</code> (left menu item) > Set shown dropdown items<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. Select <code>Context Menu 2</code> (left menu item) > Set hidden dropdown items</i></sub></td><td><a href="https://tortoisegit.org/download">Download (source)</a></td></tr>
 <tr><td><strong>Typora</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Markdown editing/reading utility (GUI-based)<br />&nbsp;&nbsp;&nbsp;Paid Software (Closed Source)</i></sub></td><td><a href="https://typora.io/">View (source)</a><sub><br />&nbsp;&nbsp;&nbsp;<a href="https://typora.io/windows/typora-setup-x64.exe">Download (direct)</a></sub></td></tr>
 <tr><td><strong>Windows ADK</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft Windows Assessment and Deployment Kit (ADK)<br />&nbsp;&nbsp;&nbsp;Includes Deployment Tools (Windows image/.iso tools):<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISM, DISM API, & OSCDIMG</i></sub></td><td><a href="https://learn.microsoft.com/en-us/windows-hardware/get-started/adk-install">Download (source)</a></td></tr>
 <tr><td><strong>Windows SDK</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Microsoft Windows Software Development Kit (SDK)<blockquote cite="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/"><pre>Provides headers, libraries, metadata, and<br />tools for building Windows applications.</pre></blockquote></i></sub></td><td><a href="https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/">Download (source)</a></td></tr>

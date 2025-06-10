@@ -1562,6 +1562,13 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Share' (Onedrive) (Windows 11).";
+            Name="{E2BF9676-5F8F-435C-97EB-11607A5BEDF7}";
+            Type="String";
+            Value="Share";
+            Delete=$False;
+          },
+          @{
             Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Give access to' (Windows 10).";
             Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
             Type="String";
@@ -3299,6 +3306,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.elevenforum.com  |  "Add or Remove Gallery in File Explorer Navigation Pane in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-gallery-in-file-explorer-navigation-pane-in-windows-11.14178/#Two
 #
 #   www.elevenforum.com  |  "Add or Remove OneDrive in Navigation Pane of File Explorer in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-onedrive-in-navigation-pane-of-file-explorer-in-windows-11.2478/
+#
+#   www.elevenforum.com  |  "Add or Remove Share Context Menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-share-context-menu-in-windows-11.1690/
 #
 #   www.elevenforum.com  |  "Add or Remove "Add to Favorites" Context Menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-add-to-favorites-context-menu-in-windows-11.6795/
 #

@@ -1463,7 +1463,7 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Shell Extensions\Blocked";
         Props=@(
           @{
-            Description="Explorer Settings - If this property exists: [ hide 'Cast to Device' context menu option(s) in Windows Explorer's right-click dropdown menu ] - If property is deleted: [ show aforementioned context menu option(s) ]";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Cast to Device'.";
             Name="{7AD84985-87B4-4a16-BE58-8B72A5B390F7}";
             Type="String";
             Val_Default="";
@@ -1471,7 +1471,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - If this property exists: [ hide 'Give access to' context menu option(s) in Windows Explorer's right-click dropdown menu ] - If property is deleted: [ show aforementioned context menu option(s) ]";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Give access to'.";
             Name="{F81E9010-6EA4-11CE-A7FF-00AA003CA9F6}";
             Type="String";
             Val_Default="";
@@ -1479,7 +1479,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - If this property exists: [ hide 'Move to OneDrive' context menu option(s) in Windows Explorer's right-click dropdown menu ] - If property is deleted: [ show aforementioned context menu option(s) ]";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Move to OneDrive'.";
             Name="{CB3D0F55-BC2C-4C1A-85ED-23ED75B5106B}";
             Type="String";
             Val_Default="";
@@ -1487,7 +1487,7 @@ function SyncRegistry {
             Delete=$True; <#  !!!  Delete this Property ( deletes entire Key if Name="(Default)" )  !!!  #>
           },
           @{
-            Description="Explorer Settings - If this property exists: [ hide 'Restore previous versions' context menu option(s) in Windows Explorer's right-click dropdown menu ] - If property is deleted: [ show aforementioned context menu option(s) ]";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Restore previous versions'.";
             Name="{596AB062-B4D2-4215-9F74-E9109B0A8153}";
             Type="String";
             Val_Default="";
@@ -1495,7 +1495,7 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
-            Description="Explorer Settings - If this property exists: [ hide 'Troubleshoot compatibility' context menu option(s) in Windows Explorer's right-click dropdown menu ] - If property is deleted: [ show aforementioned context menu option(s) ]";
+            Description="Explorer Settings - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Troubleshoot compatibility'.";
             Name="{1D27F844-3A1F-4410-85AC-14651078412D}";
             Type="String";
             Val_Default="";

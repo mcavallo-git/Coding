@@ -1541,6 +1541,13 @@ function SyncRegistry {
             Delete=$False;
           },
           @{
+            Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Edit with Clipchamp'.";
+            Name="{8AB635F8-9A67-4698-AB99-784AD929F3B4}";
+            Type="String";
+            Value="";
+            Delete=$False;
+          },
+          @{
             Description="Explorer Settings (Windows 11) - [ Exists ]=Hide, [ Deleted ]=Show Windows Explorer context menu (right-click) option 'Visual Search with Bing'.";
             Name="{9AAFEDA2-97B6-43EA-9466-9DE90501B1B6}";
             Type="String";
@@ -3321,6 +3328,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.elevenforum.com  |  "Add or Remove "Add to Favorites" Context Menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-add-to-favorites-context-menu-in-windows-11.6795/
 #
 #   www.elevenforum.com  |  "Add or Remove "Edit with Paint" Context Menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-edit-with-paint-context-menu-in-windows-11.30357/
+#
+#   www.elevenforum.com  |  "Add or Remove "Edit with Clipchamp" Context Menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-edit-with-clipchamp-context-menu-in-windows-11.6882/
 #
 #   www.elevenforum.com  |  "Add or Remove "Open in Terminal" context menu in Windows 11 | Windows 11 Forum"  |  https://www.elevenforum.com/t/add-or-remove-open-in-terminal-context-menu-in-windows-11.2479/
 #

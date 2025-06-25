@@ -3174,7 +3174,6 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #         - Disable "When using an app in full-screen mode (priority notification banners are also hidden)"
 #         - Disable "For the first hour after a Windows feature update"
 #
-#
 # ------------------------------------------------------------
 #
 # Note: Registry Value Data-Types

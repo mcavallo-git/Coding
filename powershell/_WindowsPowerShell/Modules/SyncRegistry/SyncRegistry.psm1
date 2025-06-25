@@ -3165,6 +3165,18 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 
 # ------------------------------------------------------------
 #
+# TODO:
+#   - Automate Do Not Disturb settings
+#     - Windows Settings > "System" > "Notifications"
+#       - Under dropdown section "Turn on do not disturb automatically"
+#         - Disable "When duplicating your display (priority notification banners are also hidden)"
+#         - Disable "When playing a game"
+#         - Disable "When using an app in full-screen mode (priority notification banners are also hidden)"
+#         - Disable "For the first hour after a Windows feature update"
+#
+#
+# ------------------------------------------------------------
+#
 # Note: Registry Value Data-Types
 #
 #    REG_SZ         |  A null-terminated string
@@ -3173,7 +3185,6 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #    REG_QWORD      |  A 64-bit number
 #    REG_MULTI_SZ   |  A sequence of null-terminated strings, terminated by a null value
 #    REG_EXPAND_SZ  |  A null-terminated string that contains unexpanded references to environment variables (like %PATH%)
-#
 #
 # ------------------------------------------------------------
 #

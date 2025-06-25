@@ -180,42 +180,42 @@ function SyncRegistry {
         Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search";
         Props=@(
           @{
-            Description="Cortana/Search Settings - TODO";
+            Description="Cortana/Search Settings - TBD";
             Name="AllowCortana";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Cortana/Search Settings - TODO";
+            Description="Cortana/Search Settings - TBD";
             Name="AllowSearchToUseLocation";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Cortana/Search Settings - TODO";
+            Description="Cortana/Search Settings - TBD";
             Name="ConnectedSearchUseWeb";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Cortana/Search Settings - TODO";
+            Description="Cortana/Search Settings - TBD";
             Name="ConnectedSearchUseWebOverMeteredConnections";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description=$Null;
+            Description="Cortana/Search Settings - TBD";
             Name="CortanaConsent";
             Type="DWord";
             Value=0;
             Delete=$False;
           },
           @{
-            Description="Cortana/Search Settings - TODO";
+            Description="Cortana/Search Settings - TBD";
             Name="DisableWebSearch";
             Type="DWord";
             Value=1;

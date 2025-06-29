@@ -3166,6 +3166,9 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # ------------------------------------------------------------
 #
 # TODO:
+#   - Automate Multiple Monitor Settings
+#     - Windows Settings > "Accessibility" > "Visual effects"
+#       - Disable "Animation effects"  (Disables animation when connecting a new monitor)
 #   - Automate Do Not Disturb settings
 #     - Windows Settings > "System" > "Notifications"
 #       - Under dropdown section "Turn on do not disturb automatically"

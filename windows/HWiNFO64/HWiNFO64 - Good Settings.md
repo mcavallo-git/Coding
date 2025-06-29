@@ -48,7 +48,7 @@
         - Set `Font` to `Fira Sans`, `Regular`, `14pt`
         - Set `Background Color` to: { `Red`=`0`, `Green`=`0`, `Blue`=`0` }
         - Set `Text Color` to: { `Red`=`0`, `Green`=`255`, `Blue`=`255` }
-      - Click sensor `GPU Temperature` in the device list settings  (!!SHORTCUT: Click anywhere in the scroll area, press the `G` key (on your keyboard))
+      - Click sensor `GPU Temperature` in the device list settings  (should be the top sensor under the `GPU [#0]: ...` device)
         - Check `Show in Tray`
         - Set `Truncate to:` to `2` (digits)
         - Set `Font` to `Fira Sans`, `Regular`, `14pt`

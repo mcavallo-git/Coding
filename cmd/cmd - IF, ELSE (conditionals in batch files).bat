@@ -58,11 +58,18 @@ ECHO -3
 
 REM ------------------------------------------------------------
 REM
-REM Use Case (Conditionals)  -  Create directory (if it doesn't already exist)
+REM Use Case (Conditionals)
 REM
 
+
+REM Create directory (if it doesn't already exist)
 SET "DIRNAME=C:\temp\"
 IF NOT EXIST "%DIRNAME%" MKDIR "%DIRNAME%"
+
+
+REM Start an exe (if it exists)
+SET "_StartExe=C:\temp\temp.exe"
+IF EXIST "%_StartExe%" cmd.exe /c start "WindowTitle" "%_StartExe%"
 
 
 REM ------------------------------------------------------------

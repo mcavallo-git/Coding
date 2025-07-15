@@ -1727,10 +1727,10 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   WINDOW:  [ VS Code ]
+;   WINDOW:  [ VS Code ] or [ Cursor ]
 ;   STATUS:  [ NOT active ]
 ;
-#HotIf !WinActive("ahk_exe Code.exe")
+#HotIf !WinActive("ahk_exe Code.exe") && !WinActive("ahk_exe Cursor.exe")
   ;
   ;   HOTKEY:  Alt + Z  (while [ VS Code ] is NOT active)
   ;   ACTION:  Open NVIDIA GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])

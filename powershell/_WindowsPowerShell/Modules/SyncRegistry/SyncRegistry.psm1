@@ -3166,6 +3166,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # ------------------------------------------------------------
 #
 # TODO:
+#   - Automate Disabling OneDrive Folder Sync
+#     - Explorer > Go to Desktop > Disable the "Start backup" option shown in the filepath bar
 #   - Automate Multiple Monitor Settings
 #     - Windows Settings > "Accessibility" > "Visual effects"
 #       - Disable "Animation effects"  (Disables animation when connecting a new monitor)

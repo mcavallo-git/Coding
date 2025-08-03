@@ -681,6 +681,13 @@ function SyncRegistry {
             Val_Default=1;
             Value=0;
             Delete=$False;
+          },
+          @{
+            Description="Explorer option 'Sort > 'Group by' - Set to [ 0 ]='Disable grouping', [ 1 ]='Enable grouping'.";
+            Name="UseAutoGrouping";
+            Type="DWord";
+            Value=0;
+            Delete=$False;
           }
         )
       };
@@ -3166,6 +3173,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # ------------------------------------------------------------
 #
 # TODO:
+#   - Automate Disabling "Grouping" in Explorer Sorting
 #   - Automate Disabling OneDrive Folder Sync
 #     - Explorer > Go to Desktop > Disable the "Start backup" option shown in the filepath bar
 #   - Automate Multiple Monitor Settings
@@ -3313,6 +3321,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   support.microsoft.com  |  "Guidance for configuring IPv6 in Windows for advanced users"  |  https://support.microsoft.com/en-us/help/929852/guidance-for-configuring-ipv6-in-windows-for-advanced-users
 #
 #   support.microsoft.com  |  "How to change the logon screen saver in Windows - Microsoft Support"  |  https://support.microsoft.com/en-us/topic/how-to-change-the-logon-screen-saver-in-windows-ab28d230-ffb9-65f8-74a9-c26c5e00ec73
+#
+#   techcommunity.microsoft.com  |  "Completely get rid of 'Group By' anywhere in File Explorer | Microsoft Community Hub"  |  https://techcommunity.microsoft.com/discussions/windowsinsiderprogram/completely-get-rid-of-group-by-anywhere-in-file-explorer/4361496
 #
 #   winaero.com  |  "Disable Windows Update Active hours in Windows 10"  |  https://winaero.com/disable-windows-update-active-hours-in-windows-10/
 #

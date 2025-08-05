@@ -13,8 +13,8 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
     <th width="400" style="text-align:center;">
       <br />
       <a href="https://github.com/mcavallo-git">
-        <div><img width="100" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/mtrip.281px-borderless.bluepurp.png" /></div>
-        <div><i><h6>by MCavallo</h6></i></div>
+        <div><img width="100" src="https://github.com/mcavallo-git/Coding/raw/main/images/icons-avatars/c-logo.transparent-bak.281px.png" /></div>
+        <div><i><h6>by Cavallo</h6></i></div>
       </a>
     </th>
   </tr>

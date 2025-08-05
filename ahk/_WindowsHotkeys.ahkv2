@@ -62,8 +62,7 @@ If (DebugMode == 1) {
 ;
 ; Tray Icon
 ;
-TrayIcon_Cached_Default := "_WindowsHotkeys.cached.ico"
-TrayIcon_Cached_Gray := "_WindowsHotkeys.gray.cached.ico"
+TrayIcon_Black := "_WindowsHotkeys.black.ico"
 TrayIcon_Default := "_WindowsHotkeys.ico"
 TrayIcon_Gray := "_WindowsHotkeys.gray.ico"
 If (FileExist(TrayIcon_Default)) {
@@ -2020,20 +2019,19 @@ AwaitModifierKeyup() {
 ;   |--> Hover the mouse over a target area to trigger specific browser-based effects (Javascript on-hover, on cursor entry, on cursor exit, etc.)
 ;
 BrowserHover() {
-  global TrayIcon_Cached_Default
-  global TrayIcon_Cached_Gray
+  global TrayIcon_Black
   global TrayIcon_Default
   global TrayIcon_Gray
   CoordMode "Mouse", "Screen"
   SetDefaultMouseSpeed 0
   SetControlDelay -1
   AwaitModifierKeyup()
-  TrayIcon := TrayIcon_Cached_Gray
+  TrayIcon := TrayIcon_Black
   MoveDistance := 1
   Updated_TrayIcon := 0
   HoverAfter_Seconds := 240
-  If (FileExist(TrayIcon_Cached_Gray)) {
-    BusyIcon := TrayIcon_Cached_Gray
+  If (FileExist(TrayIcon_Black)) {
+    BusyIcon := TrayIcon_Black
   } Else {
     BusyIcon := TrayIcon_Default
   }

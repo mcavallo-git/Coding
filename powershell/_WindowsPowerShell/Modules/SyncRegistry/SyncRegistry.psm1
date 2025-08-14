@@ -3174,6 +3174,9 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 # TODO:
 #   - Automate Disabling "Grouping" in Explorer Sorting
+#   - Automate Disabling Resume
+#     - Windows Settings > "Apps" > "Resume"
+#       - Disable "Resume" (Start something on one device and continue on this PC)
 #   - Automate Disabling OneDrive Folder Sync
 #     - Explorer > Go to Desktop > Disable the "Start backup" option shown in the filepath bar
 #   - Automate Multiple Monitor Settings

@@ -3173,8 +3173,13 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # ------------------------------------------------------------
 #
 # TODO:
-#   - Automate Disabling "Grouping" in Explorer Sorting
-#   - Automate Disabling Resume
+#   - Automate Disabling "Grouping" in Explorer Sorting (Win11)
+#     - Open Windows Explorer > Right click a blank area > Group by > "(None)"
+#     - Alternatively, Open Windows Explorer > Select "⇅ Sort" (top bar) > "Group by" > "(None)"
+#   - Automate Disabling "Printer Auto-Selection"
+#     - Windows Settings > "Bluetooth & devices" > "Printers & scanners"
+#       - Disable "Let Windows manage my default printer" (Microsoft Excel crashes on startup when a label printer is the default printer)
+#   - Automate Disabling "Resume"
 #     - Windows Settings > "Apps" > "Resume"
 #       - Disable "Resume" (Start something on one device and continue on this PC)
 #   - Automate Disabling OneDrive Folder Sync
@@ -3254,6 +3259,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   learn.microsoft.com  |  "Configure Windows Defender SmartScreen"  |  https://learn.microsoft.com/en-us/microsoft-edge/deploy/available-policies#configure-windows-defender-smartscreen
 #
 #   learn.microsoft.com  |  "Disabling Stickey Dialog - Microsoft Q&A"  |  https://learn.microsoft.com/en-us/answers/questions/151522/disabling-stickey-dialog
+#
+#   learn.microsoft.com  |  "Documenting a fix for "Margins do not fit page size" error - Microsoft Q&A"  |  https://learn.microsoft.com/en-us/answers/questions/5316045/documenting-a-fix-for-margins-do-not-fit-page-size
 #
 #   learn.microsoft.com  |  "Get-PSProvider - Gets information about the specified PowerShell provider"  |  https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.management/get-psprovider
 #

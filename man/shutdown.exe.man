@@ -1,4 +1,4 @@
-Usage: shutdown [/i | /l | /s | /sg | /r | /g | /a | /p | /h | /e | /o] [/hybrid] [/soft] [/fw] [/f]
+Usage: C:\WINDOWS\system32\shutdown.exe [/i | /l | /s | /sg | /r | /g | /a | /p | /h | /e | /o] [/hybrid] [/soft] [/fw] [/f]
     [/m \\computer][/t xxx][/d [p|u:]xx:yy [/c "comment"]]
 
     No args    Display help. This is the same as typing /?.
@@ -49,36 +49,36 @@ Usage: shutdown [/i | /l | /s | /sg | /r | /g | /a | /p | /h | /e | /o] [/hybrid
 
 Reasons on this computer:
 (E = Expected U = Unexpected P = planned, C = customer defined)
-Type	Major	Minor	Title
+Type    Major   Minor   Title
 
- U  	0	0	Other (Unplanned)
-E   	0	0	Other (Unplanned)
-E P 	0	0	Other (Planned)
- U  	0	5	Other Failure: System Unresponsive
-E   	1	1	Hardware: Maintenance (Unplanned)
-E P 	1	1	Hardware: Maintenance (Planned)
-E   	1	2	Hardware: Installation (Unplanned)
-E P 	1	2	Hardware: Installation (Planned)
-E   	2	2	Operating System: Recovery (Unplanned)
-E P 	2	2	Operating System: Recovery (Planned)
-  P 	2	3	Operating System: Upgrade (Planned)
-E   	2	4	Operating System: Reconfiguration (Unplanned)
-E P 	2	4	Operating System: Reconfiguration (Planned)
-  P 	2	16	Operating System: Service pack (Planned)
-    	2	17	Operating System: Hot fix (Unplanned)
-  P 	2	17	Operating System: Hot fix (Planned)
-    	2	18	Operating System: Security fix (Unplanned)
-  P 	2	18	Operating System: Security fix (Planned)
-E   	4	1	Application: Maintenance (Unplanned)
-E P 	4	1	Application: Maintenance (Planned)
-E P 	4	2	Application: Installation (Planned)
-E   	4	5	Application: Unresponsive
-E   	4	6	Application: Unstable
- U  	5	15	System Failure: Stop error
- U  	5	19	Security issue (Unplanned)
-E   	5	19	Security issue (Unplanned)
-E P 	5	19	Security issue (Planned)
-E   	5	20	Loss of network connectivity (Unplanned)
- U  	6	11	Power Failure: Cord Unplugged
- U  	6	12	Power Failure: Environment
-  P 	7	0	Legacy API shutdown
+ U      0       0       Other (Unplanned)
+E       0       0       Other (Unplanned)
+E P     0       0       Other (Planned)
+ U      0       5       Other Failure: System Unresponsive
+E       1       1       Hardware: Maintenance (Unplanned)
+E P     1       1       Hardware: Maintenance (Planned)
+E       1       2       Hardware: Installation (Unplanned)
+E P     1       2       Hardware: Installation (Planned)
+E       2       2       Operating System: Recovery (Unplanned)
+E P     2       2       Operating System: Recovery (Planned)
+  P     2       3       Operating System: Upgrade (Planned)
+E       2       4       Operating System: Reconfiguration (Unplanned)
+E P     2       4       Operating System: Reconfiguration (Planned)
+  P     2       16      Operating System: Service pack (Planned)
+        2       17      Operating System: Hot fix (Unplanned)
+  P     2       17      Operating System: Hot fix (Planned)
+        2       18      Operating System: Security fix (Unplanned)
+  P     2       18      Operating System: Security fix (Planned)
+E       4       1       Application: Maintenance (Unplanned)
+E P     4       1       Application: Maintenance (Planned)
+E P     4       2       Application: Installation (Planned)
+E       4       5       Application: Unresponsive
+E       4       6       Application: Unstable
+ U      5       15      System Failure: Stop error
+ U      5       19      Security issue (Unplanned)
+E       5       19      Security issue (Unplanned)
+E P     5       19      Security issue (Planned)
+E       5       20      Loss of network connectivity (Unplanned)
+ U      6       11      Power Failure: Cord Unplugged
+ U      6       12      Power Failure: Environment
+  P     7       0       Legacy API shutdown

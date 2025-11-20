@@ -342,6 +342,18 @@ Pause::
 
 ; ------------------------------
 ;
+;   HOTKEY:  WinKey + F5
+;   ACTION:  Refresh a page to keep the latest information visually available
+;
+#F5::
+{
+  KeypressLoop("f5", 10000, 50000, 50)
+  Return
+}
+
+
+; ------------------------------
+;
 ;   HOTKEY:  WinKey + Minus-Key                      ( - )
 ;            WinKey + Numpad-Minus-Key               ( - )
 ;            Alt + WinKey + Minus-Key                ( - )

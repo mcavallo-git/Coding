@@ -1340,7 +1340,11 @@ AppsKey & WheelDown::
 
   ; ClickLoop("Right",,,50,,50000)
 
-  ClickLoop(,,,1000)
+  ; MouseClick "L", -1,-1,,,"d"
+  ; ", Click_MouseX, Click_MouseY,,,"D"
+
+  ClickLoop(,,,500)
+  ; ClickLoop(,,,1000)
   ; ClickLoop(,,,100,10)
   ; ClickLoop(,,,20,10,50)
 
@@ -2097,21 +2101,27 @@ ClickLoop(WhichButton:="Left", MouseX:=-1, MouseY:=-1, Timeout:=1000, DownUpDela
       TooltipOutput := "Clicking every " Timeout " ms..."
       ShowToolTip(TooltipOutput,,,,(Timeout*10))
     }
-    If ((MouseX == -1) && (MouseY == -1)) {
-      ; Use mouse coordinates
-      MouseGetPos &Click_MouseX, &Click_MouseY
-    } Else {
-      ; Use predefined coordinates
-      Click_MouseX := MouseX
-      Click_MouseY := MouseY
-    }
     ; Send the click event
     If (DownUpDelay > 0) {
-      MouseClick WhichButton, Click_MouseX, Click_MouseY,,,"D"
-      Sleep DownUpDelay
-      MouseClick WhichButton, Click_MouseX, Click_MouseY,,,"U"
+      If ((MouseX == -1) && (MouseY == -1)) {
+        ; Use mouse coordinates
+        MouseClick WhichButton,,,,,"D"
+        Sleep DownUpDelay
+        MouseClick WhichButton,,,,,"U"
+      } Else {
+        ; Use predefined coordinates
+        MouseClick WhichButton, MouseX, MouseY,,,"D"
+        Sleep DownUpDelay
+        MouseClick WhichButton, MouseX, MouseY,,,"U"
+      }
     } Else {
-      MouseClick WhichButton, Click_MouseX, Click_MouseY
+      If ((MouseX == -1) && (MouseY == -1)) {
+        ; Use mouse coordinates
+        MouseClick WhichButton
+      } Else {
+        ; Use predefined coordinates
+        MouseClick WhichButton, MouseX, MouseY
+      }
     }
     ; Stop looping after MaxLoopIterations iterations (if specified)
     If (MaxLoopIterations != -1) {

@@ -332,6 +332,7 @@ Mostly Linux compatible:
 ▴					Black Up-Pointing Small Triangle  |  https://www.compart.com/en/unicode/U+25B4
 ▼					Black Down-Pointing Triangle  |  https://www.compart.com/en/unicode/U+25BC
 ▾					Black Down-Pointing Small Triangle  |  https://www.compart.com/en/unicode/U+25BE
+⌄					Down Arrowhead (Down Caret)  |  https://www.compart.com/en/unicode/U+2304
 
 
 🌡️				 Thermometer Emoji  |  https://emojipedia.org/thermometer/  |   "$([char]0xD83C+[char]0xDF21+[char]0xFE0F)"

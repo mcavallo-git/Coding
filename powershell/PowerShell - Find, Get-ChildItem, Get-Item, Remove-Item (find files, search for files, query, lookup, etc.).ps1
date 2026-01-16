@@ -181,6 +181,14 @@ Get-ChildItem -Path ("C:\") -File -Recurse -Force -EA:0 | Where-Object { @("deve
 
 # ------------------------------------------------------------
 #
+# Sort files in a directory by filesize (including files in nested directories)
+#
+
+Get-ChildItem -Path ("${env:windir}\System32\drivers\etc") -File -Recurse -Force -EA:0 | Select-Object -Property Name,Length | Sort-Object -Property Length;
+
+
+# ------------------------------------------------------------
+#
 # Remove files (after verifying that they exist)
 #
 

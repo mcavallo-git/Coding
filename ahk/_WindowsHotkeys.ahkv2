@@ -1340,10 +1340,10 @@ AppsKey & WheelDown::
 
   ; ClickLoop("Right",,,50,,50000)
 
-  ; MouseClick "L", -1,-1,,,"d"
+  MouseClick "L",,,,,"d"
   ; ", Click_MouseX, Click_MouseY,,,"D"
 
-  ClickLoop(,,,500)
+  ; ClickLoop(,,,500)
   ; ClickLoop(,,,1000)
   ; ClickLoop(,,,100,10)
   ; ClickLoop(,,,20,10,50)

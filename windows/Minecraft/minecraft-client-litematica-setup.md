@@ -75,9 +75,11 @@
 # Xaero's Minimap (Mod) - Setup/Usage
 
 - ### Hotkeys
-  - View/set all hotkeys
+  - View/Set Hotkeys
     - Press "ESC" > "Options..." > "Controls" > "Key Binds..." > Scroll down to "Xaero's Minimap"
-  - Open Xaero Minimap Settings
+      - Set "Toggle In-World Waypoints" to "Z"
+      - Set "Toggle Minimap" to "Z"
+  - Open Settings
     - Press "Y" to open Xaero Minimap Settings (Default Hotkey)
   - Create a waypoint
     - Press "B" to create a waypoint (Default Hotkey)

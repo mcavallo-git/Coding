@@ -77,6 +77,8 @@
 - ### Hotkeys
   - View/set all hotkeys
     - Press "ESC" > "Options..." > "Controls" > "Key Binds..." > Scroll down to "Xaero's Minimap"
+  - Open Xaero Minimap Settings
+    - Press "Y" to open Xaero Minimap Settings (Default Hotkey)
   - Create a waypoint
     - Press "B" to create a waypoint (Default Hotkey)
   - View Waypoints

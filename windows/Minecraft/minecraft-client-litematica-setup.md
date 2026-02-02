@@ -60,6 +60,14 @@
       - Left-clicking "+/-" increases it
       - Right-clicking "+/-" decreases it
 
+- ### Replace parts in a schematic
+  - Run Minecraft using Fabric
+    - Hold a stick in your hand
+      - Press CTRL + Mouse-Scroll until "Mode [9/9]: Edit Schematic" is shown at the bottom left
+    - Press "M" to open Litematica, then select "Configuration Menu"
+      - Set a hotkey for "schematicEditReplaceall"
+    - Look at the block in the schematic to replace, hold the desired replacment block in your hand, then hold the "schematicEditReplaceall" hotkey and right click to replace all target blocks in schematic with held block
+
 
 ***
 <!-- ------------------------------------------------------------ -->

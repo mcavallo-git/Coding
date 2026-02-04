@@ -28,6 +28,10 @@
   - [Download](https://modrinth.com/mod/litematica) | [Source Code](https://github.com/maruohon/litematica/)
     - Place downloaded `.jar` file into Fabric mods directory at `%APPDATA%\.minecraft\mods`
 
+- ### Litematica Printer (Mod)
+  - [Download](https://modrinth.com/mod/litematica-printer) | [Source Code](https://github.com/aleksilassila/litematica-printer)
+    - Place downloaded `.jar` file into Fabric mods directory at `%APPDATA%\.minecraft\mods`
+
 # Litematica (Mod) - Setup/Usage
 
 - ### Download Schematic

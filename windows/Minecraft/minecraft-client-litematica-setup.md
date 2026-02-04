@@ -68,6 +68,14 @@
       - Set a hotkey for "schematicEditReplaceall"
     - Look at the block in the schematic to replace, hold the desired replacment block in your hand, then hold the "schematicEditReplaceall" hotkey and right click to replace all target blocks in schematic with held block
 
+- ### EasyPlace Setup
+  - Run Minecraft using Fabric
+    - Press "M" to open Litematica, then select "Configuration Menu"
+      - Select "Hotkeys" at the top
+        - Next to "easyPlaceToggle", press the "NONE" button to set the hotkey
+          - Set the hotkey to "`" (the key to the left of "1" and above "Tab") to set it to "GRAVE_ACCENT"
+            - Whenever building a template, press the grave "`" key to go into EasyPlace mode
+
 
 ***
 <!-- ------------------------------------------------------------ -->

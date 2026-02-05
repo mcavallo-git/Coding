@@ -77,8 +77,16 @@
     - Press "M" to open Litematica, then select "Configuration Menu"
       - Select "Hotkeys" at the top
         - Next to "easyPlaceToggle", press the "NONE" button to set the hotkey
-          - Set the hotkey to "`" (the key to the left of "1" and above "Tab") to set it to "GRAVE_ACCENT"
-            - Whenever building a template, press the grave "`" key to go into EasyPlace mode
+          - Set the hotkey to "PERIOD" (the "." key)
+
+- ### Toggle Printing (auto-place blocks near you)
+  - Note: Printing places templated stairs in the correct orientation ✔️
+  - Run Minecraft using Fabric
+    - Press "M" to open Litematica, then select "Configuration Menu"
+      - Select "Hotkeys" at the top
+        - Next to "togglePrintingMode", press the "NONE" button to set the hotkey
+          - Set the hotkey to "GRAVE_ACCENT" (the "`" key to the left of "1" and above "Tab")
+
 
 
 ***

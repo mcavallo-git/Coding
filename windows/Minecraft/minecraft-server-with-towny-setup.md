@@ -56,7 +56,7 @@
           war_allowed: 'false'
         jailing_enabled: 'false'
         plot_management:
-          block_delete:
+          block_delete:  # Toggle manually via "/tw world toggle unclaimblockdelete"
             enabled: 'false'
             unclaim_delete: NONE
           mayor_plotblock_delete:

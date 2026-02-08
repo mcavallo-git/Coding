@@ -54,11 +54,16 @@
         pvp:
           world_pvp: 'false'
           war_allowed: 'false'
-        plot_management:
-          revert_on_unclaim:
-            enabled: 'false'
         jailing_enabled: 'false'
         plot_management:
+          block_delete:
+            enabled: 'false'
+            unclaim_delete: NONE
+          mayor_plotblock_delete:
+            enabled: 'false'
+            mayor_plot_delete: NONE
+          revert_on_unclaim:
+            enabled: 'false'
           wild_revert_on_mob_explosion:
             enabled: 'false'
           wild_revert_on_block_explosion:

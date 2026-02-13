@@ -6,8 +6,15 @@
 - ### Step 1) Install & Configure HACS (Home Assistant Community Store)
   - [View Docs (HACS Installation Guide)](https://hacs.xyz/docs/setup/download/)
   - [View Docs (HACS Configuration Guide)](https://hacs.xyz/docs/configuration/basic)
-- ### Step 2) Install 'PhX-Sense' from the HACS Store
+- ### Step 2) Install 'X-Sense' from the HACS Store
   - Follow steps in [English Readme Doc](https://github.com/Jarnsen/ha-xsense-component_test/blob/main/readme/README_en.md)
+  - Add custom repository:
+    - Repository: `https://github.com/Jarnsen/ha-xsense-component_test`
+    - Type: `Integration`
+  - Download integration `xsense` via HACS (once custom repository is added)
+  - Install integration `X-Sense Home Security` (once HACS integration is downloaded and HomeAssistant is restarted)
+  - Create a secondary X-Sense account (designated for HomeAssistant) via the X-Sense mobile app
+    - Use this secondary account's username/password to log into the HomeAssistant Integration
 
 ***
 

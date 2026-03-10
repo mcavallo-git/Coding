@@ -22,9 +22,9 @@
  <br /><li>Browse to <code>chrome://settings/adPrivacy/measurement</code><ul><li>Disable ❌️ <code>"Ad measurement"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/adPrivacy/sites</code><ul><li>Disable ❌️ <code>"Site-suggested ads"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/content/federatedIdentityApi</code><ul><li>Enable ✔️ <code>"Block sign-in prompts from identity services"</code></li></ul></li>
+ <br /><li>Browse to <code>chrome://settings/searchEngines</code><ul><li>Under "Site search" deactivate <code>"AI Mode"</code> and <code>"Gemini"</code></li></ul></li>
  <br /><li>Browse to <code>https://myaccount.google.com/connections/settings</code><ul><li>Disable ❌️ <code>"Sign-in prompts"</code></li></ul></li>
- <br />
-  <li>Browse to <code>chrome://settings/syncSetup</code>
+ <br /><li>Browse to <code>chrome://settings/syncSetup</code>
     <ul>
       <li>Set <code>"Sign in to Chrome when you sign in to other Google services</code> to <code>"Don't sign in"</code></li>
       <li>Enable ✔️ <code>"Allow Chrome sign-in"</code></li>
@@ -34,8 +34,7 @@
       <li>Disable ❌️ <code>"Improve search suggestions"</code></li>
     </ul>
   </li>
- <br />
-  <li>Open a New Tab (<kbd>CTRL</kbd>+<kbd>T</kbd>) then select <code>"Customize Chrome"</code> at the bottom right of the page
+ <br /><li>Open a New Tab (<kbd>CTRL</kbd>+<kbd>T</kbd>) then select <code>"Customize Chrome"</code> at the bottom right of the page
     <ul>
       <li>Disable ❌️ <code>"Show shortcuts"</code></li>
       <li>Disable ❌️ <code>"Show cards"</code></li>

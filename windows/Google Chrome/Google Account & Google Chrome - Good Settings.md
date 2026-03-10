@@ -23,6 +23,7 @@
  <br /><li>Browse to <code>chrome://settings/adPrivacy/sites</code><ul><li>Disable ❌️ <code>"Site-suggested ads"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/content/federatedIdentityApi</code><ul><li>Enable ✔️ <code>"Block sign-in prompts from identity services"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/searchEngines</code><ul><li>Under "Site search" deactivate <code>"AI Mode"</code> and <code>"Gemini"</code></li></ul></li>
+ <br /><li>Browse to <code>https://myactivity.google.com/product/gemini</code><ul><li>Disable ❌️ <code>"Keep activity"</code></li></ul></li>
  <br /><li>Browse to <code>https://myaccount.google.com/connections/settings</code><ul><li>Disable ❌️ <code>"Sign-in prompts"</code></li></ul></li>
  <br /><li>Browse to <code>chrome://settings/syncSetup</code>
     <ul>

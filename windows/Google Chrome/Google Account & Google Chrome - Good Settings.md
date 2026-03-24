@@ -9,6 +9,7 @@
   <br /><li>Browse to <code>chrome://settings/content/microphone</code><ul><li>Enable ✔️ <code>"Don't allow sites to use your microphone"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/notifications</code><ul><li>Enable ✔️ <code>"Don't allow sites to send notifications"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/popups</code><ul><li>Enable ✔️ <code>"Don't allow sites to send pop-ups or use redirects"</code></li></ul></li>
+  <br /><li>Browse to <code>chrome://settings/content/storageAccess</code><ul><li>Enable ✔️ <code>"Sites are blocked from asking you to use information they've saved about you"</code></li></ul></li>
   <br />
     <li>Browse to <code>chrome://settings/system</code>
       <ul>
@@ -16,14 +17,10 @@
         <li>Disable ❌️ <code>"Show system notifications about Chrome features and tips"</code></li>
       </ul>
     </li>
-  <br /><li>Browse to <code>chrome://settings/ai/helpMeWrite</code><ul><li>Disable ❌️ <code>"Offer writing help"</code></li></ul></li>
-  <br /><li>Browse to <code>chrome://settings/ai/historySearch</code><ul><li>Disable ❌️ <code>"History search, powered by AI"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/adPrivacy/interests</code><ul><li>Disable ❌️ <code>"Ad topics"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/adPrivacy/measurement</code><ul><li>Disable ❌️ <code>"Ad measurement"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/adPrivacy/sites</code><ul><li>Disable ❌️ <code>"Site-suggested ads"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/federatedIdentityApi</code><ul><li>Enable ✔️ <code>"Block sign-in prompts from identity services"</code></li></ul></li>
-  <br /><li>Browse to <code>chrome://settings/searchEngines</code><ul><li>Under "Site search" deactivate <code>"AI Mode"</code> and <code>"Gemini"</code></li></ul></li>
-  <br /><li>Browse to <code>https://myactivity.google.com/product/gemini</code><ul><li>Disable ❌️ <code>"Keep activity"</code></li></ul></li>
   <br /><li>Browse to <code>https://myaccount.google.com/connections/settings</code><ul><li>Disable ❌️ <code>"Sign-in prompts"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://flags</code><ul><li>Search for <code>"omnibox contextual"</code> and Disable all options shown</li></ul></li>
   <br /><li>Browse to <code>chrome://settings/syncSetup</code>
@@ -42,4 +39,8 @@
         <li>Disable ❌️ <code>"Show cards"</code></li>
       </ul>
     </li>
+  <br /><li>Browse to <code>chrome://settings/ai/helpMeWrite</code><ul><li>Disable ❌️ <code>"Offer writing help"</code></li></ul></li>
+  <br /><li>Browse to <code>chrome://settings/ai/historySearch</code><ul><li>Disable ❌️ <code>"History search, powered by AI"</code></li></ul></li>
+  <br /><li>Browse to <code>chrome://settings/searchEngines</code><ul><li>Under "Site search" deactivate <code>"AI Mode"</code> and <code>"Gemini"</code></li></ul></li>
+  <br /><li>Browse to <code>https://myactivity.google.com/product/gemini</code><ul><li>Disable ❌️ <code>"Keep activity"</code></li></ul></li>
 </ol>

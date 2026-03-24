@@ -23,7 +23,7 @@
   <br /><li>Browse to <code>chrome://settings/content/federatedIdentityApi</code><ul><li>Enable ✔️ <code>"Block sign-in prompts from identity services"</code></li></ul></li>
   <br /><li>Browse to <code>https://myaccount.google.com/connections/settings</code><ul><li>Disable ❌️ <code>"Sign-in prompts"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://flags</code><ul><li>Search for <code>"omnibox contextual"</code> and Disable all options shown</li></ul></li>
-  <br /><li>Browse to <code>chrome://settings/syncSetup</code>
+  <br /><li>Browse to <code><a href="chrome://settings/syncSetup">chrome://settings/syncSetup</a></code>
       <ul>
         <li>Set <code>"Sign in to Chrome when you sign in to other Google services</code> to <code>"Don't sign in"</code></li>
         <li>Enable ✔️ <code>"Allow Chrome sign-in"</code></li>

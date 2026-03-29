@@ -551,7 +551,8 @@ RuneScapeRev2_MineIron(WinTitle:="") {
     Sleep 50000
     ; ------------------------------
   }
-  ClearTooltip(5000)
+  ClearTooltip(0)
+  DllCall("LockWorkStation")
   Return
 }
 
@@ -593,6 +594,7 @@ RuneScapeRev2_MineCoal(WinTitle:="") {
     full_inventory := 0
     current_node_clicks := 0
     maxclicks_currentnode := Random(100,150)
+    ; maxclicks_currentnode := Random(2,3)
     xpos_walknext := 340  ; One step south
     ypos_walknext := 345  ; One step south
     While ((full_inventory == 0) && (RuneScapeRev2_FatigueBarIsFull() == False)) {
@@ -615,7 +617,7 @@ RuneScapeRev2_MineCoal(WinTitle:="") {
       }
       Sleep Random(300,500)
       ; Walk one step to the side to avoid AFK'ing
-      If (current_node_clicks >= maxclicks_currentnode) {
+      If ((current_node_clicks >= maxclicks_currentnode) && (full_inventory == 0)) {
         ToolTip "Switching ore nodes", 275, 775
         Sleep 6000
         ; MouseClick "Left", xpos_walknext, ypos_walknext  ; Walk one step to the side
@@ -637,6 +639,7 @@ RuneScapeRev2_MineCoal(WinTitle:="") {
         }
         current_node_clicks := 0
         maxclicks_currentnode := Random(100,150)
+        ; maxclicks_currentnode := Random(2,3)
         Sleep Random(2000,2250)
       }
     }
@@ -700,7 +703,8 @@ RuneScapeRev2_MineCoal(WinTitle:="") {
     }
     ; ------------------------------
   }
-  ClearTooltip(5000)
+  ClearTooltip(0)
+  DllCall("LockWorkStation")
   Return
 }
 

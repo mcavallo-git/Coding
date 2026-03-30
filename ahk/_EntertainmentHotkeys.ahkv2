@@ -454,15 +454,33 @@ RuneScapeRev2_MineIron(WinTitle:="") {
   SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
   WinMove(100, 100, 800, 800, WinTitle)
   WinActivate WinTitle
-  MouseMove 100, 100
+  ; Zoom camera in fully
   Tooltip "Zooming camera in", 275, 775
   Loop 125 {
-    MouseClick "WheelUp", 100, 100
+    MouseClick "WheelUp", 400, 400
     Sleep 10
   }
   Sleep 1000
+  ; Make sure inventory is locked-open
+  MouseMove 400, 400
+  Sleep 500
+  Color := PixelGetColor(750, 30) ; Get the color of the pixel from where the inventory header should be (if it is open)
+  ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+  ColorComponent_Green := ((Color & 0xFF00) >> 8)
+  ColorComponent_Blue := (Color & 0xFF)
+  ; Iron in slot 30 while fully zoomed in with auto camera rotate should be rgb(39,39,39)
+  If ((ColorComponent_Red==0) && (ColorComponent_Green==0) && (ColorComponent_Blue==131)) {
+    Tooltip "Inventory already locked-open", 275, 775
+  } Else {
+    Tooltip "Locking inventory open", 275, 775
+    MouseClick "Right", 750, 30 ; Right click the inventory icon (top right)
+    Sleep 250
+    MouseClick "Left", 750, 44  ; Click "Lock inventory"
+  }
+  Sleep 1000
+  ; Loop until fatigue bar is full
   mainloopiterations := 0
-  While ((RuneScapeRev2_FatigueBarIsFull() == False) && (mainloopiterations <= 20)) { ; Loop until fatigue bar is full
+  While ((RuneScapeRev2_FatigueBarIsFull() == False) && (mainloopiterations <= 20)) {
     mainloopiterations++
     ; ------------------------------
     ; Mining Iron
@@ -485,12 +503,12 @@ RuneScapeRev2_MineIron(WinTitle:="") {
     }
     ; ------------------------------
     ; Banking the Iron
-    ToolTip "Walking to Waypoint 1" "`n" "(West Varrock Bank)", 275, 775 ; West Varrock Bank
+    ToolTip "Walking to Waypoint 1" "`n" "(West Varrock Bank)", 275, 775 ;  Coords=[150, 501] - West Varrock Bank
     MouseMove 730, 15 ; Hover over Map Icon (Top Left)
     Sleep 250
     MouseClick "Left", 700, 200 ; Click "World map" (Open the world map)
     Sleep 250
-    MouseClick "Left", 560, 265 ; Click "WBank" waypoint in map
+    MouseClick "Left", 560, 265 ; Click "Waypoint 1" waypoint in map
     Sleep 50000
     banker_active := 0
     While (banker_active == 0) {
@@ -501,10 +519,11 @@ RuneScapeRev2_MineIron(WinTitle:="") {
       If ((OutputVarX != "") && (OutputVarY != "")) {
         MouseClick "Left", OutputVarX, OutputVarY
         ToolTip "Accessing bank account via banker", 275, 775
+        Sleep 2000
       } Else {
-        Tooltip "Unable to locate banker - Retrying after 5s", 275, 775
+        Tooltip "Unable to locate banker", 275, 775
+        Sleep 1000
       }
-      Sleep 5000
       ; Check if banking window is open
       Color := PixelGetColor(440, 220) ; Get the color of the pixel where the bank window title should be
       ColorComponent_Red := ((Color & 0xFF0000) >> 16)
@@ -523,7 +542,7 @@ RuneScapeRev2_MineIron(WinTitle:="") {
         banker_active := 0
       }
       ToolTip TooltipOutput, 275, 775
-      Sleep Random(1750,2250)
+      Sleep 1000
     }
     ToolTip "Depositing all ore & gems", 275, 775
     Loop 3 {
@@ -542,12 +561,12 @@ RuneScapeRev2_MineIron(WinTitle:="") {
       WinClose WinTitle
     }
     ; ------------------------------
-    ToolTip "Walking to Waypoint 2" "`n" "(West Varrock Iron Node)", 275, 775 ; Southmost Ore Node in West Varrock Mine
+    ToolTip "Walking to Waypoint 2" "`n" "(West Varrock Iron Node)", 275, 775 ; Coords=[163, 545] - Southmost Ore Node in West Varrock Mine
     MouseMove 730, 15 ; Hover over Map Icon (Top Left)
     Sleep 250
     MouseClick "Left", 700, 200 ; Click "World map" (Open the world map)
     Sleep 250
-    MouseClick "Left", 560, 295 ; Click "WIron" waypoint in map
+    MouseClick "Left", 560, 295 ; Click "Wayppoint 2" waypoint in map
     Sleep 50000
     ; ------------------------------
   }
@@ -570,19 +589,37 @@ RuneScapeRev2_MineCoal(WinTitle:="") {
   SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
   WinMove(100, 100, 800, 800, WinTitle)
   WinActivate WinTitle
-  MouseMove 100, 100
+  ; Zoom camera in fully
   Tooltip "Zooming camera in", 275, 775
   Loop 125 {
-    MouseClick "WheelUp", 100, 100
+    MouseClick "WheelUp", 400, 400
     Sleep 10
   }
   Sleep 1000
+  ; Make sure inventory is locked-open
+  MouseMove 400, 400
+  Sleep 500
+  Color := PixelGetColor(750, 30) ; Get the color of the pixel from where the inventory header should be (if it is open)
+  ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+  ColorComponent_Green := ((Color & 0xFF00) >> 8)
+  ColorComponent_Blue := (Color & 0xFF)
+  ; Iron in slot 30 while fully zoomed in with auto camera rotate should be rgb(39,39,39)
+  If ((ColorComponent_Red==0) && (ColorComponent_Green==0) && (ColorComponent_Blue==131)) {
+    Tooltip "Inventory already locked-open", 275, 775
+  } Else {
+    Tooltip "Locking inventory open", 275, 775
+    MouseClick "Right", 750, 30 ; Right click the inventory icon (top right)
+    Sleep 250
+    MouseClick "Left", 750, 44  ; Click "Lock inventory"
+  }
+  Sleep 1000
+  ; Loop until fatigue bar is full
   mainloopiterations := 0
-  While ((RuneScapeRev2_FatigueBarIsFull() == False) && (mainloopiterations <= 20)) { ; Loop until fatigue bar is full
+  While ((RuneScapeRev2_FatigueBarIsFull() == False) && (mainloopiterations <= 20)) {
     mainloopiterations++
     ; ------------------------------
     ; Walk to the mine
-    ToolTip "Walking to Waypoint 4" "`n" "(Barbarian Village Coal Node)", 275, 775 ; Barbarian village easternmost coal ore (north node of the 2, 1 step to the east of it)
+    ToolTip "Walking to Waypoint 4" "`n" "(Barbarian Village Coal Node)", 275, 775 ; Coords=[223, 504] - Barbarian village easternmost coal ore (north node of the 2, 1 step to the east of it)
     MouseMove 730, 15 ; Hover over Map Icon (Top Left)
     Sleep 250
     MouseClick "Left", 700, 200 ; Click "World map" (Open the world map)
@@ -645,7 +682,7 @@ RuneScapeRev2_MineCoal(WinTitle:="") {
     }
     ; ------------------------------
     ; Banking the Coal
-    ToolTip "Walking to Waypoint 3" "`n" "(Edgeville Bank)", 275, 775 ; Edgeville Bank - Right in the center of it
+    ToolTip "Walking to Waypoint 3" "`n" "(Edgeville Bank)", 275, 775 ; Coords=[216, 449] - Edgeville Bank - Right in the center of it
     MouseMove 730, 15 ; Hover over Map Icon (Top Left)
     Sleep 250
     MouseClick "Left", 700, 200 ; Click "World map" (Open the world map)
@@ -657,14 +694,14 @@ RuneScapeRev2_MineCoal(WinTitle:="") {
       BankerShirtColor := 0x000001
       BankerPantsColor := 0x000002
       ColorVariation := 0
-      PixelSearch(&OutputVarX, &OutputVarY, 0, 350, 780, 740, BankerPantsColor )
+      PixelSearch(&OutputVarX, &OutputVarY, 0, 350, 780, 740, BankerPantsColor)
       If ((OutputVarX != "") && (OutputVarY != "")) {
         MouseClick "Left", OutputVarX, OutputVarY
         ToolTip "Accessing bank account via banker", 275, 775
       } Else {
-        Tooltip "Unable to locate banker - Retrying after 5s", 275, 775
+        Tooltip "Unable to locate banker", 275, 775
       }
-      Sleep 5000
+      Sleep 1500
       ; Check if banking window is open
       Color := PixelGetColor(440, 220) ; Get the color of the pixel where the bank window title should be
       ColorComponent_Red := ((Color & 0xFF0000) >> 16)

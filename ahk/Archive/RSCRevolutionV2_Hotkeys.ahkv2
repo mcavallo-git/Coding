@@ -1,0 +1,445 @@
+﻿; ------------------------------------------------------------
+;
+; _EntertainmentHotkeys.ahkv2, by Cavalol  -  https://raw.githubusercontent.com/mcavallo-git/Coding/main/ahk/_EntertainmentHotkeys.ahkv2
+;
+; ------------------------------------------------------------
+
+#Requires AutoHotkey v2.0.2  ; https://www.autohotkey.com/download/2.0/AutoHotkey_2.0.2.zip
+
+; ------------------------------------------------------------
+;
+; Global Variables - User-Defined
+;
+
+DebugMode := 0
+; DebugMode := 1
+
+; ------------------------------------------------------------
+;
+; AHK - #Commands (Runtime-Configs)  ; https://lexikos.github.io/v2/docs/commands/#hash
+;
+
+Persistent  ; https://lexikos.github.io/v2/docs/commands/Persistent.htm
+
+A_HotkeyInterval := 2000  ; https://lexikos.github.io/v2/docs/misc/A_MaxHotkeysPerInterval.htm
+
+A_MaxHotkeysPerInterval := 2000  ; https://lexikos.github.io/v2/docs/misc/A_MaxHotkeysPerInterval.htm
+
+#SingleInstance Force  ; https://lexikos.github.io/v2/docs/commands/_SingleInstance.htm
+
+; DetectHiddenText 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenText.htm
+
+DetectHiddenWindows 1  ; https://lexikos.github.io/v2/docs/commands/DetectHiddenWindows.htm
+
+InstallKeybdHook  ; Keyboard hook is required to use variables `A_PriorHotkey` & `A_TimeSincePriorHotkey`  ; https://lexikos.github.io/v2/docs/commands/InstallKeybdHook.htm
+
+SetCapsLockState "Off"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
+
+SetNumLockState "On"  ; https://lexikos.github.io/v2/docs/commands/SetNumScrollCapsLockState.htm
+
+SetTitleMatchMode 2      ; Title must [ CONTAIN ] the given WinTitle  -  https://lexikos.github.io/v2/docs/commands/SetTitleMatchMode.htm
+
+SetWorkingDir A_ScriptDir  ; https://lexikos.github.io/v2/docs/commands/SetWorkingDir.htm
+
+
+; ------------------------------------------------------------
+;
+; Show the Version of AHK currently being used to compile this code
+;
+If (DebugMode == 1) {
+  TrayTip "AHK", ("Version:  v" A_AhkVersion)  ; Toast Notification
+}
+
+
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+; ---                   HOTKEY LISTENERS                   ---
+; ------------------------------------------------------------
+; ------------------------------------------------------------
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + Esc
+;   ACTION:  Refresh This Script  ::: Closes then re-opens this script (Allows saved changes to THIS script (file) to be tested/applied on the fly)
+;
+~#Escape::
+{
+  BlockInput("Off")  ;  Stop blocking input (e.g. restore full interaction)
+  Reload  ; Replaces the currently running instance of the script with a new one  -  https://lexikos.github.io/v2/docs/commands/Reload.htm
+  Return
+}
+
+
+; ------------------------------
+;
+;   HOTKEY:  WinKey + F5          (while [ RuneScape ] is active)
+;   ACTION:  Farm XP
+;
+#HotIf WinExist("RSCRevolution2")
+  #F6::
+  {
+    ; ------------------------------
+    Global DebugMode
+    CoordMode "Mouse", "Client"
+    SetControlDelay -1
+    SetDefaultMouseSpeed 0
+    SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+    WinTitle := ("RSCRevolution2")
+    ; ------------------------------
+    RuneScapeRev2_MineIron(WinTitle)
+    ; ------------------------------
+    Return
+  }
+  #F7::
+  {
+    ; ------------------------------
+    Global DebugMode
+    CoordMode "Mouse", "Client"
+    SetControlDelay -1
+    SetDefaultMouseSpeed 0
+    SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+    WinTitle := ("RSCRevolution2")
+    ; ------------------------------
+    RuneScapeRev2_MineCoal(WinTitle)
+    ; ------------------------------
+    Return
+  }
+#HotIf
+
+
+; ------------------------------
+;
+; RuneScapeRev2_MineIron
+;   |--> Farm Iron at West Varrock
+;
+RuneScapeRev2_MineIron(WinTitle:="") {
+  Global DebugMode
+  CoordMode "Mouse", "Client"
+  SetControlDelay -1
+  SetDefaultMouseSpeed 0
+  SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+  WinMove(100, 100, 800, 800, WinTitle)
+  WinActivate WinTitle
+  ; Zoom camera in fully
+  Tooltip "Zooming camera in", 275, 775
+  Loop 125 {
+    MouseClick "WheelUp", 400, 400
+    Sleep 10
+  }
+  Sleep 1000
+  ; Make sure inventory is locked-open
+  MouseMove 400, 400
+  Sleep 500
+  Color := PixelGetColor(750, 30) ; Get the color of the pixel from where the inventory header should be (if it is open)
+  ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+  ColorComponent_Green := ((Color & 0xFF00) >> 8)
+  ColorComponent_Blue := (Color & 0xFF)
+  ; Iron in slot 30 while fully zoomed in with auto camera rotate should be rgb(39,39,39)
+  If ((ColorComponent_Red==0) && (ColorComponent_Green==0) && (ColorComponent_Blue==131)) {
+    Tooltip "Inventory already locked-open", 275, 775
+  } Else {
+    Tooltip "Locking inventory open", 275, 775
+    MouseClick "Right", 750, 30 ; Right click the inventory icon (top right)
+    Sleep 250
+    MouseClick "Left", 750, 44  ; Click "Lock inventory"
+  }
+  Sleep 1000
+  ; Loop until fatigue bar is full
+  mainloopiterations := 0
+  While ((RuneScapeRev2_FatigueBarIsFull() == False) && (mainloopiterations <= 20)) {
+    mainloopiterations++
+    ; ------------------------------
+    ; Mining Iron
+    full_inventory := 0
+    While ((full_inventory == 0) && (A_Index<=500) && (RuneScapeRev2_FatigueBarIsFull()==False)) {
+      Color := PixelGetColor(747, 223) ; Get the color of the pixel where the bottom-left inventory slot
+      ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+      ColorComponent_Green := ((Color & 0xFF00) >> 8)
+      ColorComponent_Blue := (Color & 0xFF)
+      ; Iron in slot 30 while fully zoomed in with auto camera rotate should be rgb(85,52,2)
+      If ((ColorComponent_Red<=100) && (ColorComponent_Green<=100) && (ColorComponent_Blue<=20)) {
+        Tooltip ("Full inventory detected (loop " A_Index " of 500) "), 275, 775
+        full_inventory := 1  ; Full inventory of iron
+      } Else {
+        Tooltip ("Mining ore (loop " A_Index " of 500)"), 275, 775
+        full_inventory := 0
+        MouseClick "Left", 289, 317  ; Click the iron ore
+      }
+      Sleep Random(400,600)
+    }
+    ; ------------------------------
+    ; Banking the Iron
+    ToolTip "Walking to Waypoint 1" "`n" "(West Varrock Bank)", 275, 775 ;  Coords=[150, 501] - West Varrock Bank
+    MouseMove 730, 15 ; Hover over Map Icon (Top Left)
+    Sleep 250
+    MouseClick "Left", 700, 200 ; Click "World map" (Open the world map)
+    Sleep 250
+    MouseClick "Left", 560, 265 ; Click "Waypoint 1" waypoint in map
+    Sleep 50000
+    banker_active := 0
+    While (banker_active == 0) {
+      BankerShirtColor := 0x000001
+      BankerPantsColor := 0x000002
+      ColorVariation := 0
+      PixelSearch(&OutputVarX, &OutputVarY, 0, 350, 780, 740, BankerPantsColor )
+      If ((OutputVarX != "") && (OutputVarY != "")) {
+        MouseClick "Left", OutputVarX, OutputVarY
+        ToolTip "Accessing bank account via banker", 275, 775
+        Sleep 2000
+      } Else {
+        Tooltip "Unable to locate banker", 275, 775
+        Sleep 1000
+      }
+      ; Check if banking window is open
+      Color := PixelGetColor(440, 220) ; Get the color of the pixel where the bank window title should be
+      ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+      ColorComponent_Green := ((Color & 0xFF00) >> 8)
+      ColorComponent_Blue := (Color & 0xFF)
+      TooltipOutput := ""
+      TooltipOutput := TooltipOutput "Pixel Color:" "`n"
+      TooltipOutput := TooltipOutput "  " Color "  (Hex)" "`n"
+      TooltipOutput := TooltipOutput "  rgb(" ColorComponent_Red "," ColorComponent_Green "," ColorComponent_Blue ")" "`n"
+      TooltipOutput := TooltipOutput "`n"
+      If ((ColorComponent_Red<=50) && (ColorComponent_Green<=50) && (ColorComponent_Blue>=130)) {
+        TooltipOutput := TooltipOutput "Status:  Banker Active"
+        banker_active := 1
+      } Else {
+        TooltipOutput := TooltipOutput "Status:  Banker Not Found"
+        banker_active := 0
+      }
+      ToolTip TooltipOutput, 275, 775
+      Sleep 1000
+    }
+    ToolTip "Depositing all ore & gems", 275, 775
+    Loop 3 {
+      MouseClick "Right", 220, 450 ; Right click inventory slot 2 while banking
+      Sleep 250
+      MouseClick "Left", 245, 525 ; Select "Deposit All" for ore
+      Sleep 1000
+    }
+    MouseClick "Left", 587, 217 ; Click "Close window" on banking window
+    Sleep 500
+    ; ------------------------------
+    ; If fatigue bar is full, stop the loop and close the game
+    If (RuneScapeRev2_FatigueBarIsFull() == True) {
+      ToolTip "Fatigue bar is full. Ending session and closing RuneScape runtime", 275, 775
+      Sleep 5000
+      WinClose WinTitle
+    }
+    ; ------------------------------
+    ToolTip "Walking to Waypoint 2" "`n" "(West Varrock Iron Node)", 275, 775 ; Coords=[163, 545] - Southmost Ore Node in West Varrock Mine
+    MouseMove 730, 15 ; Hover over Map Icon (Top Left)
+    Sleep 250
+    MouseClick "Left", 700, 200 ; Click "World map" (Open the world map)
+    Sleep 250
+    MouseClick "Left", 560, 295 ; Click "Wayppoint 2" waypoint in map
+    Sleep 50000
+    ; ------------------------------
+  }
+  ToolTip()
+  DllCall("LockWorkStation")
+  Return
+}
+
+
+; ------------------------------
+;
+; RuneScapeRev2_MineCoal
+;   |--> Farm Coal at Barbarians
+;
+RuneScapeRev2_MineCoal(WinTitle:="") {
+  Global DebugMode
+  CoordMode "Mouse", "Client"
+  SetControlDelay -1
+  SetDefaultMouseSpeed 0
+  SetTitleMatchMode 3  ; Title must [ EXACTLY MATCH ] the given WinTitle
+  WinMove(100, 100, 800, 800, WinTitle)
+  WinActivate WinTitle
+  ; Zoom camera in fully
+  Tooltip "Zooming camera in", 275, 775
+  Loop 125 {
+    MouseClick "WheelUp", 400, 400
+    Sleep 10
+  }
+  Sleep 1000
+  ; Make sure inventory is locked-open
+  MouseMove 400, 400
+  Sleep 500
+  Color := PixelGetColor(750, 30) ; Get the color of the pixel from where the inventory header should be (if it is open)
+  ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+  ColorComponent_Green := ((Color & 0xFF00) >> 8)
+  ColorComponent_Blue := (Color & 0xFF)
+  ; Iron in slot 30 while fully zoomed in with auto camera rotate should be rgb(39,39,39)
+  If ((ColorComponent_Red==0) && (ColorComponent_Green==0) && (ColorComponent_Blue==131)) {
+    Tooltip "Inventory already locked-open", 275, 775
+  } Else {
+    Tooltip "Locking inventory open", 275, 775
+    MouseClick "Right", 750, 30 ; Right click the inventory icon (top right)
+    Sleep 250
+    MouseClick "Left", 750, 44  ; Click "Lock inventory"
+  }
+  Sleep 1000
+  ; Loop until fatigue bar is full
+  mainloopiterations := 0
+  While ((RuneScapeRev2_FatigueBarIsFull() == False) && (mainloopiterations <= 20)) {
+    mainloopiterations++
+    ; ------------------------------
+    ; Walk to the mine
+    ToolTip "Walking to Waypoint 4" "`n" "(Barbarian Village Coal Node)", 275, 775 ; Coords=[223, 504] - Barbarian village easternmost coal ore (north node of the 2, 1 step to the east of it)
+    MouseMove 730, 15 ; Hover over Map Icon (Top Left)
+    Sleep 250
+    MouseClick "Left", 700, 200 ; Click "World map" (Open the world map)
+    Sleep 250
+    MouseClick "Left", 560, 360 ; Click "Waypoint 4" waypoint in map
+    Sleep 50000
+    ; ------------------------------
+    ; Mining Coal
+    full_inventory := 0
+    current_node_clicks := 0
+    maxclicks_currentnode := Random(100,150)
+    ; maxclicks_currentnode := Random(2,3)
+    currentiterations_miningloops := 0
+    maxiterations_miningloops := 10
+    xpos_walknext := 340  ; One step south
+    ypos_walknext := 345  ; One step south
+    While ((full_inventory == 0) && (RuneScapeRev2_FatigueBarIsFull() == False) && (currentiterations_miningloops <= maxiterations_miningloops)) {
+      current_node_clicks++
+      Color := PixelGetColor(747, 223) ; Get the color of the pixel where the bottom-left inventory slot
+      ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+      ColorComponent_Green := ((Color & 0xFF00) >> 8)
+      ColorComponent_Blue := (Color & 0xFF)
+      ; Iron in slot 30 while fully zoomed in with auto camera rotate should be rgb(39,39,39)
+      If ((ColorComponent_Red==39) && (ColorComponent_Green==39) && (ColorComponent_Blue==39)) {
+        Tooltip ("Full inventory detected (loop " current_node_clicks " of " maxclicks_currentnode ") "), 275, 775
+        full_inventory := 1  ; Full inventory of iron
+      } Else {
+        Tooltip ("Mining ore (loop " current_node_clicks " of " maxclicks_currentnode ")"), 275, 775
+        full_inventory := 0
+        ; MouseClick "Left", 445, 295  ; Left click the ore
+        MouseClick "Right", 448, 272  ; Right click the ore
+        Sleep Random(250,275)
+        MouseClick "Left", 448, 286 ; Select "mine rock"
+      }
+      Sleep Random(300,500)
+      ; Walk one step to the side to avoid AFK'ing
+      If ((current_node_clicks >= maxclicks_currentnode) && (full_inventory == 0)) {
+        ToolTip "Switching ore nodes", 275, 775
+        Sleep 6000
+        ; MouseClick "Left", xpos_walknext, ypos_walknext  ; Walk one step to the side
+        ; Flip back and forth between walking one step north and one step south
+        If (xpos_walknext==340) {
+          MouseClick "Right", 364, 271 ; Right Click ore (on ore to the west of one step to the south)
+          Sleep Random(250,275)
+          MouseClick "Left", 364, 285 ; Select "mine rock"
+          ; Make next step to be one step north
+          xpos_walknext := 502  ; One step north
+          ypos_walknext := 438  ; One step north
+        } Else {
+          MouseClick "Right", 586, 284 ; Right Click ore (on ore to the west of one step to the north)
+          Sleep Random(250,275)
+          MouseClick "Left", 586, 298 ; Select "mine rock"
+          ; Make next step to be one step south
+          xpos_walknext := 340  ; One step south
+          ypos_walknext := 345  ; One step south
+        }
+        current_node_clicks := 0
+        currentiterations_miningloops++
+        maxclicks_currentnode := Random(100,150)
+        ; maxclicks_currentnode := Random(2,3)
+        Sleep Random(2000,2250)
+      }
+    }
+    ; ------------------------------
+    ; Banking the Coal
+    ToolTip "Walking to Waypoint 3" "`n" "(Edgeville Bank)", 275, 775 ; Coords=[216, 449] - Edgeville Bank - Right in the center of it
+    MouseMove 730, 15 ; Hover over Map Icon (Top Left)
+    Sleep 250
+    MouseClick "Left", 700, 200 ; Click "World map" (Open the world map)
+    Sleep 250
+    MouseClick "Left", 560, 325 ; Click "Waypoint 3" waypoint in map
+    Sleep 50000
+    banker_active := 0
+    While (banker_active == 0) {
+      BankerShirtColor := 0x000001
+      BankerPantsColor := 0x000002
+      ColorVariation := 0
+      PixelSearch(&OutputVarX, &OutputVarY, 0, 350, 780, 740, BankerPantsColor)
+      If ((OutputVarX != "") && (OutputVarY != "")) {
+        MouseClick "Left", OutputVarX, OutputVarY
+        ToolTip "Accessing bank account via banker", 275, 775
+      } Else {
+        Tooltip "Unable to locate banker", 275, 775
+      }
+      Sleep 1500
+      ; Check if banking window is open
+      Color := PixelGetColor(440, 220) ; Get the color of the pixel where the bank window title should be
+      ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+      ColorComponent_Green := ((Color & 0xFF00) >> 8)
+      ColorComponent_Blue := (Color & 0xFF)
+      TooltipOutput := ""
+      TooltipOutput := TooltipOutput "Pixel Color:" "`n"
+      TooltipOutput := TooltipOutput "  " Color "  (Hex)" "`n"
+      TooltipOutput := TooltipOutput "  rgb(" ColorComponent_Red "," ColorComponent_Green "," ColorComponent_Blue ")" "`n"
+      TooltipOutput := TooltipOutput "`n"
+      If ((ColorComponent_Red<=50) && (ColorComponent_Green<=50) && (ColorComponent_Blue>=130)) {
+        TooltipOutput := TooltipOutput "Status:  Banker Active"
+        banker_active := 1
+      } Else {
+        TooltipOutput := TooltipOutput "Status:  Banker Not Found"
+        banker_active := 0
+      }
+      ToolTip TooltipOutput, 275, 775
+      Sleep Random(1750,2250)
+    }
+    ToolTip "Depositing all ore & gems", 275, 775
+    Loop 3 {
+      MouseClick "Right", 220, 450 ; Right click inventory slot 2 while banking
+      Sleep 250
+      MouseClick "Left", 245, 525 ; Select "Deposit All" for ore
+      Sleep 1000
+    }
+    MouseClick "Left", 587, 217 ; Click "Close window" on banking window
+    Sleep 500
+    ; ------------------------------
+    ; If fatigue bar is full, stop the loop and close the game
+    If (RuneScapeRev2_FatigueBarIsFull() == True) {
+      ToolTip "Fatigue bar is full. Ending session and closing RuneScape runtime", 275, 775
+      Sleep 5000
+      WinClose WinTitle
+    }
+    ; ------------------------------
+  }
+  ToolTip()
+  DllCall("LockWorkStation")
+  Return
+}
+
+
+; ------------------------------
+;
+; RuneScapeRev2_FatigueBarIsFull
+;   |--> Check fatigue bar
+;
+RuneScapeRev2_FatigueBarIsFull() {
+  Global DebugMode
+  CoordMode "Mouse", "Client"
+  SetDefaultMouseSpeed 0
+  Color := PixelGetColor(82, 161) ; Get the color of the rightmost pixel of the fatigue bar
+  ColorComponent_Red := ((Color & 0xFF0000) >> 16)
+  ColorComponent_Green := ((Color & 0xFF00) >> 8)
+  ColorComponent_Blue := (Color & 0xFF)
+  FatigueBarIsFull := False
+  If ((ColorComponent_Red<=50) && (ColorComponent_Green<=50) && (ColorComponent_Blue<=50)) {
+    FatigueBarIsFull := True
+  }
+  Return FatigueBarIsFull
+}
+
+
+; ------------------------------------------------------------
+;
+; Citation(s)
+;
+;   www.autohotkey.com  |  "Quick Reference | AutoHotkey v2"  |  https://www.autohotkey.com/docs/v2/
+;
+; ------------------------------------------------------------

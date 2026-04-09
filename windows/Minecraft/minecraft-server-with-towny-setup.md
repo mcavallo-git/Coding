@@ -76,8 +76,8 @@
           default:
             pvp: 'false'
       claiming:
-        town_block_ratio: '64'
-        town_block_limit: '64'
+        town_block_ratio: '128'
+        town_block_limit: '128'
         distance_rules:
           min_plot_distance_from_town_plot: '4'
           min_distance_from_town_homeblock: '4'

@@ -3413,6 +3413,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #
 #   www.reddit.com  |  "I've went and found the registry key for taskbar alignment in W11, for anyone who doesn't like the centered shenanigans. : r/PowerShell"  |  https://www.reddit.com/r/PowerShell/comments/o7jk51/ive_went_and_found_the_registry_key_for_taskbar/
 #
+#   www.reddit.com  |  "Permanently disable Chrome search bar's stupid AI Mode setting : r/chrome"  |  https://www.reddit.com/r/chrome/comments/1q888nr/permanently_disable_chrome_search_bars_stupid_ai/
+#
 #   www.reddit.com  |  "The quest for removing the yellow warning sign on the Windows Defender Security Center icon : Windows10"  |  https://www.reddit.com/r/Windows10/comments/6v532u/the_quest_for_removing_the_yellow_warning_sign_on/
 #
 #   www.techsupportforum.com  |  "[SOLVED] Cleartype command??? does it exist? | Tech Support Forum"  |  https://www.techsupportforum.com/threads/solved-cleartype-command-does-it-exist.332657/

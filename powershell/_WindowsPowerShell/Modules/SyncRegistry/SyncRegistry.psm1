@@ -1599,6 +1599,27 @@ function SyncRegistry {
         )
       };
 
+      # Google Chrome
+      $RegEdits += @{
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge";
+        Props=@(
+          @{
+            Description="Google Chrome - [ 2 ]=Disable, [ ? ]=Enable the 'AI Mode'";
+            Name="AIModeSettings";
+            Type="DWord";
+            Value=2;
+            Delete=$False;
+          },
+          @{
+            Description="Google Chrome - [ 2 ]=Disable, [ ? ]=Enable the 'Gen AI' Default Settings";
+            Name="GenAiDefaultSettings";
+            Type="DWord";
+            Value=2;
+            Delete=$False;
+          }
+        )
+      };
+
       # Hotkey - Language Switching
       $RegEdits += @{
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\Keyboard Layout\Toggle";

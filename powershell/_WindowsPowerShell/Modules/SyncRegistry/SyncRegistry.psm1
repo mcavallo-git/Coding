@@ -1601,7 +1601,7 @@ function SyncRegistry {
 
       # Google Chrome
       $RegEdits += @{
-        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Edge";
+        Path="Registry::HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome";
         Props=@(
           @{
             Description="Google Chrome - [ 2 ]=Disable, [ ? ]=Enable the 'AI Mode'";

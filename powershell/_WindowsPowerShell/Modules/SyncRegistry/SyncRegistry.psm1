@@ -123,7 +123,7 @@ function SyncRegistry {
         Path="Registry::${HKEY_USERS_SID_OR_CURRENT_USER}\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot";
         Props=@(
           @{
-            Description="Copilot Settings - [ 0 ]=Enable, [ 1 ]=Disable Copilot.";
+            Description="Copilot Settings - [ 0 ]=Enable, [ 1 ]=Disable Copilot. Also enables/disables 'AI Actions' functionality in Windows Explorer.";
             Name="TurnOffWindowsCopilot";
             Type="DWord";
             Value=1;

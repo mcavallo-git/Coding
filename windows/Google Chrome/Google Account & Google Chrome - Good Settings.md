@@ -3,6 +3,9 @@
 ## Google Account & Google Chrome - Good Settings
 
 <ol>
+  <br /><li>Browse to <a href="https://myaccount.google.com/connections/settings">Google linked app settings</a><ul><li>Disable ❌️ <code>"Sign-in prompts"</code></li></ul></li>
+  <br /><li>Browse to <a href="https://adssettings.google.com/partnerads">Partner ad settings</a><ul><li>Disable ❌️ <code>"Help advertisers select ads for you"</code></li></ul></li>
+  <br /><li>Browse to <a href="https://myadcenter.google.com/personalizationoff">My Ad Center preferences</a><ul><li>Set <code>"Personalized ads"</code> to <code>"Off"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/appearance</code><ul><li>Disable ❌️ <code>"Show tab groups in bookmarks bar"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/camera</code><ul><li>Enable ✔️ <code>"Don't allow sites to use your camera"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/location</code><ul><li>Enable ✔️ <code>"Don't allow sites to see your location"</code></li></ul></li>
@@ -21,7 +24,6 @@
   <br /><li>Browse to <code>chrome://settings/adPrivacy/measurement</code><ul><li>Disable ❌️ <code>"Ad measurement"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/adPrivacy/sites</code><ul><li>Disable ❌️ <code>"Site-suggested ads"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/federatedIdentityApi</code><ul><li>Enable ✔️ <code>"Block sign-in prompts from identity services"</code></li></ul></li>
-  <br /><li>Browse to <code>https://myaccount.google.com/connections/settings</code><ul><li>Disable ❌️ <code>"Sign-in prompts"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://flags</code><ul><li>Search for <code>"Omnibox Contextual"</code> and Disable all options shown</li></ul></li>
   <br /><li>Browse to <code>chrome://flags</code><ul><li>Search for <code>"Omnibox Entrypoint"</code> and Disable all options shown</li></ul></li>
   <br /><li>Browse to <code>chrome://flags</code><ul><li>Search for <code>"Optimization Filter"</code> and Disable all options shown</li></ul></li>

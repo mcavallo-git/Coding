@@ -3194,7 +3194,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # ------------------------------------------------------------
 #
 # TODO:
-#   - Automate Disabling "Grouping" in Explorer Sorting (Win11)
+#   - Automate Disabling "Grouping" in Explorer Sorting (Windows 11)
 #     - Open Windows Explorer > Right click a blank area > Group by > "(None)"
 #     - Alternatively, Open Windows Explorer > Select "⇅ Sort" (top bar) > "Group by" > "(None)"
 #   - Automate Disabling "Printer Auto-Selection"
@@ -3207,7 +3207,7 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #     - Explorer > Go to Desktop > Disable the "Start backup" option shown in the filepath bar
 #   - Automate Multiple Monitor Settings
 #     - Windows Settings > "Accessibility" > "Visual effects"
-#       - Disable "Animation effects"  (Disables animation when connecting a new monitor)
+#       - Disable "Animation effects"  (Disables shrink/enlarge animation when connecting a new monitor)
 #   - Automate Do Not Disturb settings
 #     - Windows Settings > "System" > "Notifications"
 #       - Under dropdown section "Turn on do not disturb automatically"

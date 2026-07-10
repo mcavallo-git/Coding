@@ -3194,6 +3194,14 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 # ------------------------------------------------------------
 #
 # TODO:
+#   - Automate disabling various "Privacy & Security" settings (Windows 11)
+#     - Windows Settings > "Privacy & Security" > "Recommendations & offers"
+#       - Disable "Improve Start and search results"
+#       - Disable "Show notifications in Settings"
+#     - Windows Settings > "Privacy & Security" > "Search"
+#       - Disable "Search History"
+#       - Disable "Search my accounts > Microsoft account"
+#       - Disable "Search my accounts > Work or School account"
 #   - Automate Disabling "Grouping" in Explorer Sorting (Windows 11)
 #     - Open Windows Explorer > Right click a blank area > Group by > "(None)"
 #     - Alternatively, Open Windows Explorer > Select "⇅ Sort" (top bar) > "Group by" > "(None)"
@@ -3438,6 +3446,8 @@ If (($MyInvocation.GetType()) -Eq ("System.Management.Automation.InvocationInfo"
 #   www.thewindowsclub.net  |  "Processor Scheduling in Windows 10 for better performance"  |  https://www.thewindowsclub.com/processor-scheduling-in-windows-7-8
 #
 #   www.windows-security.org  |  "Configure compression for RemoteFX data | Windows security encyclopedia"  |  https://www.windows-security.org/e1ff617ad228f804ca6ac298beee92a1/configure-compression-for-remotefx-data
+#
+#   www.windowslatest.com  |  "Microsoft admits Windows 11 has a GDID tracker with no off switch, first documented publicly in an FBI hacker complaint"  |  https://www.windowslatest.com/2026/07/10/you-cant-fully-disable-microsofts-gdid-windows-11-tracker-but-these-settings-limit-what-it-captures/
 #
 #   www.winhelponline.com  |  "Change the Default Image Editor Linked to Edit command in Right-click Menu for Image Files"  |  https://www.winhelponline.com/blog/change-default-image-editor-edit-command-right-click-image/
 #

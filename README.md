@@ -167,11 +167,13 @@ This file (on GitHub):   https://github.com/mcavallo-git/Coding/blob/main/README
 <!-- ------------------------------------------------------------ -->
 <!-- -->
 <tr><th colspan="2" style="text-align:center;"><h2 id="mfa"><br />MFA / OTP</h2><sub>Multifactor Authentication (MFA)<br />Two-Factor Authentication (2FA)<br />One Time Passcode (OTP)</sub><br /><br /></th></tr>
+<tr><td><strong>2FA Authenticator (2FAS) (iOS)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;MFA/2FA (Two-factor Authentication) App</i></sub></td><td><a href="https://apps.apple.com/us/app/2fa-authenticator-2fas/id1217793794">Download (source)</a></td></tr>
+<tr><td><strong>2FA Authenticator (2FAS) (Android)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;MFA/2FA (Two-factor Authentication) App</i></sub></td><td><a href="https://play.google.com/store/apps/details?id=com.twofasapp">Download (source)</a></td></tr>
 <tr><td><strong>Authy</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Two-factor Authentication (2FA) App</i></sub></td><td><a href="https://authy.com/">Download (source)</a></td></tr>
 <tr><td><strong>Duo Security</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Two-Factor Authentication & Endpoint Security</i></sub></td><td><a href="https://duo.com/">Download (source)</a></td></tr>
 <tr><td><strong>Okta</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;Identity-as-a-Service (IDaaS)</i></sub></td><td><a href="https://www.okta.com/">Download (source)</a></td></tr>
 <tr><td><strong>OTP Auth (iOS)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;MFA/2FA code storage/backup utility w/ widget</i></sub></td><td><a href="https://apps.apple.com/us/app/otp-auth/id659877384">Download (source)</a></td></tr>
-<tr><td><strong>OTP Authenticator (Android)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;MFA/2FA code storage/backup utility w/ widget</i></sub></td><td><a href="https://play.google.com/store/apps/details?id=com.authenticator.authservice2&hl=en_US&gl=US">Download (source)</a></td></tr>
+<tr><td><strong>TOTP Authenticator (Android)</strong> <sub><i><br />&nbsp;&nbsp;&nbsp;MFA/2FA code storage/backup utility w/ widget</i></sub></td><td><a href="https://play.google.com/store/apps/details?id=com.authenticator.authservice2">Download (source)</a></td></tr>
 <!-- -->
 <!-- ------------------------------------------------------------ -->
 <!-- -->

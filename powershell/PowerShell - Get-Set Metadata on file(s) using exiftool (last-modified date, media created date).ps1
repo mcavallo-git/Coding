@@ -43,6 +43,29 @@ If ($True) {
 }
 
 
+# ------------------------------
+
+# exiftool - Update photos to use their "Date taken" as their "Date modified" and "Date created" dates
+If ($True) {
+  $FileExtension = "jpg";
+  Get-ChildItem -File | Where-Object { ($_.Name -Like "*.${FileExtension}") } | ForEach-Object {
+    $Basename=($_.BaseName);
+    $LastAccessTime=($_.LastAccessTime);
+    $LastWriteTime=($_.LastWriteTime);
+    $MediaCreatedDate_Colons=(exiftool -s -s -s -createdate "${Basename}.${FileExtension}");
+    $MediaCreatedDate_Dashes=([System.Text.RegularExpressions.Regex]::Replace(${MediaCreatedDate_Colons}, '(\d{4}):(\d{2}):(\d{2}) (\d{2}):(\d{2}):(\d{2})', '$1-$2-$3 $4:$5:$6'));
+    If ("${MediaCreatedDate}" -Ne "") {
+      Write-Host "Updating photo dates for `"${Basename}.${FileExtension}`" to use date [ ${MediaCreatedDate_Dashes} ]...";
+      Get-ChildItem "${Basename}.${FileExtension}" | % {
+        $_.CreationTime = ${MediaCreatedDate_Dashes};
+        $_.LastWriteTime = ${MediaCreatedDate_Dashes};
+        $_.LastAccessTime = ${MediaCreatedDate_Dashes};
+      };
+    }
+  };
+}
+
+
 # ------------------------------------------------------------
 #
 # Citation(s)

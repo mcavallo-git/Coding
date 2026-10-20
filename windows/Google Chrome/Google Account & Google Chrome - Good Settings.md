@@ -24,8 +24,13 @@
   <br /><li>Browse to <code>chrome://settings/adPrivacy/measurement</code><ul><li>Disable ❌️ <code>"Ad measurement"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/adPrivacy/sites</code><ul><li>Disable ❌️ <code>"Site-suggested ads"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/federatedIdentityApi</code><ul><li>Enable ✔️ <code>"Block sign-in prompts from identity services"</code></li></ul></li>
-  <br /><li>Browse to <code>chrome://flags</code><ul><li>Search for <code>"AI Mode"</code> and Disable all options shown</li></ul></li>
-  <br /><li>Browse to <code>chrome://flags</code><ul><li>Search for <code>"NTP composebox"</code> and Disable all options shown</li></ul></li>
+  <br />
+    <li>Browse to <code>chrome://flags</code>
+      <ul>
+        <li>Search for <code>"AI Mode"</code> and Disable ❌️ all options shown</li>
+        <li>Search for <code>"NTP composebox"</code> and Disable ❌️ all options shown</li>
+      </ul>
+    </li>
   <br /><li>Browse to <code>chrome://settings/syncSetup</code>
       <ul>
         <li>Set <code>"Sign in to Chrome when you sign in to other Google services</code> to <code>"Don't sign in"</code></li>

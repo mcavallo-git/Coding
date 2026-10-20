@@ -28,6 +28,10 @@
     <li>Browse to <code>chrome://flags</code>
       <ul>
         <li>Search for <code>"AI Mode"</code> and Disable ❌️ all options shown</li>
+        <li>Search for <code>"AI Overlay"</code> and Disable ❌️ all options shown</li>
+        <li>Search for <code>"AI-"</code> and Disable ❌️ all options shown</li>
+        <li>Search for <code>"AIM-"</code> and Disable ❌️ all options shown</li>
+        <li>Search for <code>"Built-In AI"</code> and Disable ❌️ all options shown</li>
         <li>Search for <code>"NTP composebox"</code> and Disable ❌️ all options shown</li>
       </ul>
     </li>
@@ -47,8 +51,10 @@
         <li>Disable ❌️ <code>"Show cards"</code></li>
       </ul>
     </li>
+  <br /><li>Browse to <code>chrome://settings/ai</code><ul><li>Disable ❌️ <code>"On-device AI"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/ai/helpMeWrite</code><ul><li>Disable ❌️ <code>"Offer writing help"</code></li></ul></li>
-  <br /><li>Browse to <code>chrome://settings/ai/historySearch</code><ul><li>Disable ❌️ <code>"History search, powered by AI"</code></li></ul></li>
+  <br /><li>Browse to <code>chrome://settings/ai/helpMeWrite</code><ul><li>Disable ❌️ <code>"Offer writing help"</code></li></ul></li>
+  <br /><li>Browse to <code>chrome://settings/ai/skills</code><ul><li>Disable ❌️ <code>"Enable Skills in Chrome"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/searchEngines</code><ul><li>Under "Site search" deactivate <code>"AI Mode"</code> and <code>"Gemini"</code></li></ul></li>
   <br /><li>Browse to <code>https://myactivity.google.com/product/gemini</code><ul><li>Disable ❌️ <code>"Keep activity"</code></li></ul></li>
 </ol>

@@ -79,12 +79,12 @@ If ($True) {
 
   ForEach ($EachLine in ${Haystack}){
     $Needle = [Regex]::Match(${EachLine}, ${RegexPattern});
-    If (${Needle}.Success -eq $True) {
+    If ($True -eq ${Needle}.Success) {
       Break;
     }
   }
 
-  If (${Needle}.Success -eq $True) {
+  If ($True -eq ${Needle}.Success) {
     Write-Host (("Found local install: `"")+(${Needle}.Groups[1].Value) + ("`" v") + (${Needle}.Groups[2].Value));
   } Else {
     Write-Host ("No matches found");

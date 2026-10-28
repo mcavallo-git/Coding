@@ -87,7 +87,7 @@ Function TaskSnipe {
 			$Proc_RegexPattern = "^((?:[a-zA-Z\.]\ ?)+)(?<!\ )${SEPR8}([0-9]+)${SEPR8}([a-zA-Z]+)${SEPR8}([0-9]+)${SEPR8}([0-9\,]+\ [a-zA-Z])${SEPEND}$";
 			$Proc_Needle = [Regex]::Match($Proc_Haystack, $Proc_RegexPattern);
 			# Perform regular expression (Regex) capture-group matching to neatly recombine each line of space-delimited output into a workable form
-			If ($Proc_Needle.Success -ne $False) {
+			If ($False -ne $Proc_Needle.Success) {
 				$Each_ImageName = $Proc_Needle.Groups[1].Value;
 				# Case sensitive check
 				If ($PSBoundParameters.ContainsKey('CaseSensitive') -Eq $False) {

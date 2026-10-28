@@ -211,7 +211,7 @@ If ($True) {
 			$DateComponent_yyyy=1970;
 			$DateComponent_mm=1;
 			$DateComponent_dd=1;
-			If ($Needle.Success -ne $False) {
+			If ($False -ne $Needle.Success) {
 				$DateComponent_yyyy=($Needle.Groups[1]).Value;
 				$DateComponent_mm=($Needle.Groups[2]).Value;
 				$DateComponent_dd=($Needle.Groups[3]).Value;

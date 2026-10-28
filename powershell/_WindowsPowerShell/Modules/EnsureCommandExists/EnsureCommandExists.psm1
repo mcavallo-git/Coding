@@ -66,12 +66,12 @@ function EnsureCommandExists {
 						$CurrentVersion += [String]$Needle.Groups[$EachKey].Value;
 						If ($null -eq $LeftmostIndexExceeded) { # If a previous (more-leftmost) index has a higher version, don't worry any to the right of it being lower-or-not
 							If (([int]$Needle.Groups[$EachKey].Value) -gt ([int]$VersionMinLevels[$EachKey])) {
-								If ($ValidLevels -ne $False) { # Leave fail-out status as False if its already False
+								If ($False -ne $ValidLevels) { # Leave fail-out status as False if its already False
 									$ValidLevels = $True; # Require at least one minimum-version-level to be matched (if we're performing matching)
 									$LeftmostIndexExceeded = $EachKey; # Save the highest index which was greater-than the required version
 								}
 							} ElseIf (([int]$Needle.Groups[$EachKey].Value) -eq ([int]$VersionMinLevels[$EachKey])) {
-								If ($ValidLevels -ne $False) {
+								If ($False -ne $ValidLevels) {
 									$ValidLevels = $True; # Require at least one minimum-version-level to be matched (if we're performing matching)
 								}
 							} Else {
@@ -85,7 +85,7 @@ function EnsureCommandExists {
 # Write-Host ("CurrentVersion");
 # Write-Host ($CurrentVersion);
 
-					If (($ValidLevels -ne $Null) -and ($ValidLevels -ne $False)) {
+					If (($ValidLevels -ne $Null) -and ($False -ne $ValidLevels)) {
 						Write-Host "Found local install:   $Name v$CurrentVersion";
 						$CommandExists ;
 					} Else {

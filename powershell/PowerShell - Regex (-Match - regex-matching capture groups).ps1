@@ -56,7 +56,7 @@ If ($True) {
   $Haystack = 'hello world'; # "Haystack", aka the string to parse (may have newlines aplenty)
   $Pattern  = '^(hello)\s(world)$'; # Regex pattern which defines the "Needle" to match while parsing the through the "Haystack"
   $Needle   = [Regex]::Match(${Haystack}, ${Pattern}); # Parse through the "Haystack", looking for the "Needle"
-  If (${Needle}.Success -ne $False) {
+  If ($False -ne ${Needle}.Success) {
     Write-Output "`n`${Needle}.Groups[0].Value: $(${Needle}.Groups[0].Value)"; # 'hello world'   (regex capture group 0, e.g. whole string)
     Write-Output "`n`${Needle}.Groups[0].Value: $(${Needle}.Groups[1].Value)"; # 'hello'  (regex capture group 1)
     Write-Output "`n`${Needle}.Groups[0].Value: $(${Needle}.Groups[2].Value)"; # 'world'  (regex capture group 2)

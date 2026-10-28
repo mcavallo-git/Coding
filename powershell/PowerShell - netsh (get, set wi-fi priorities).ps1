@@ -45,7 +45,7 @@ $Each_NIC_WMIC = @{};
 
 $Interfaces_NIC_WMIC | ForEach {
 	$Matches_NIC_WMIC = [Regex]::Match($_, $RegexPattern_NIC_WMIC);
-	If ($Matches_NIC_WMIC.Success -Ne $False) {
+	If ($False -Ne $Matches_NIC_WMIC.Success) {
 		$EachKey = $Matches_NIC_WMIC.Groups[1].Value;
 		$EachVal = $Matches_NIC_WMIC.Groups[2].Value;
 		$Each_NIC_WMIC.($EachKey) = $EachVal;
@@ -59,7 +59,7 @@ $Interfaces_NIC_WMIC | ForEach {
 
 $Interfaces_NIC_NETSH | ForEach {
 	$Matches_NIC_NETSH = [Regex]::Match($_, $RegexPattern_NIC_NETSH);
-	If ($Matches_NIC_NETSH.Success -Ne $False) {
+	If ($False -Ne $Matches_NIC_NETSH.Success) {
 		$Idx_NIC = $Matches_NIC_NETSH.Groups[1].Value;
 		$State_NIC = $Matches_NIC_NETSH.Groups[4].Value;
 		$Name_NIC = $Matches_NIC_NETSH.Groups[5].Value;
@@ -74,13 +74,13 @@ $Interfaces_NIC_NETSH | ForEach {
 				$Matches_WLAN_Name = [Regex]::Match($_, $RegexPattern_WLAN_NETSH_Name);
 				$Matches_WLAN_MAC = [Regex]::Match($_, $RegexPattern_WLAN_NETSH_MAC);
 				$Matches_WLAN_State = [Regex]::Match($_, $RegexPattern_WLAN_NETSH_State);
-				If ($Matches_WLAN_Description.Success -Ne $False) {
+				If ($False -Ne $Matches_WLAN_Description.Success) {
 					$Description_WLAN = $Matches_WLAN_Description.Groups[1].Value;
-				} ElseIf ($Matches_WLAN_Name.Success -Ne $False) {
+				} ElseIf ($False -Ne $Matches_WLAN_Name.Success) {
 					$Name_WLAN = $Matches_WLAN_Name.Groups[1].Value;
-				} ElseIf ($Matches_WLAN_MAC.Success -Ne $False) {
+				} ElseIf ($False -Ne $Matches_WLAN_MAC.Success) {
 					$MAC_WLAN = $Matches_WLAN_MAC.Groups[1].Value;
-				} ElseIf ($Matches_WLAN_State.Success -Ne $False) {
+				} ElseIf ($False -Ne $Matches_WLAN_State.Success) {
 					$State_WLAN = $Matches_WLAN_State.Groups[1].Value;
 				} 
 			}

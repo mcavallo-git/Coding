@@ -2,6 +2,10 @@
 
 ## Google Account & Google Chrome - Good Settings
 
+<br /><hr /><br />
+
+## Google Account Settings
+
 <ol>
   <br />
     <li>Browse to <a href="https://mail.google.com/mail/u/0/#settings/general">Gmail > ⚙️ > See all settings</a>
@@ -21,6 +25,13 @@
   <br /><li>Browse to <a href="https://myaccount.google.com/connections/settings">Google Account > Linked App Settings</a><ul><li>Disable ❌️ <code>"Sign-in prompts"</code></li></ul></li>
   <br /><li>Browse to <a href="https://adssettings.google.com/partnerads">Google Account > Gemini Apps Activity</a><ul><li>Disable ❌️ <code>"Help advertisers select ads for you"</code></li></ul></li>
   <br /><li>Browse to <a href="https://myactivity.google.com/product/gemini">Google Account > Partner ad settings</a><ul><li>Disable ❌️ <code>"Keep activity"</code></li></ul></li>
+</ol>
+
+<br /><hr /><br />
+
+## Google Chrome Settings
+
+<ol>
   <br /><li>Browse to <code>chrome://settings/appearance</code><ul><li>Disable ❌️ <code>"Show tab groups in bookmarks bar"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/camera</code><ul><li>Enable ✔️ <code>"Don't allow sites to use your camera"</code></li></ul></li>
   <br /><li>Browse to <code>chrome://settings/content/location</code><ul><li>Enable ✔️ <code>"Don't allow sites to see your location"</code></li></ul></li>
@@ -72,3 +83,5 @@
       </ul>
     </li>
 </ol>
+
+<br /><hr /><br />

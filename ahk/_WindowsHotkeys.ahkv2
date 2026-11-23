@@ -1344,7 +1344,7 @@ AppsKey & WheelDown::
   ; ", Click_MouseX, Click_MouseY,,,"D"
 
   ; ClickLoop(,,,500)
-  ClickLoop(,,,750)
+  ; ClickLoop(,,,750)
   ; ClickLoop(,,,1000)
   ; ClickLoop(,,,100,10)
   ; ClickLoop(,,,20,10,50)
@@ -1355,6 +1355,19 @@ AppsKey & WheelDown::
   ;   TooltipOutput := "[" A_Index "] GetNanoseconds:  "  GetNanoseconds()
   ;   ShowToolTip(TooltipOutput,,,A_Index,10000)
   ; }
+
+  SetKeyDelay 1, -1
+  Sleep Random(576,773)
+  Loop 50 {
+    SendInput "{Shift Down}{Rbutton}{Shift Up}"
+    Sleep Random(92,137)
+    SendInput "{2}"
+    Sleep Random(75,201)
+    SendInput "{0}"
+    Sleep Random(52,176)
+    SendInput "{Enter}"
+    Sleep Random(525,725)
+  }
 
   Return
 }
@@ -1743,10 +1756,10 @@ AppsKey & WheelDown::
 
 ; ------------------------------
 ;
-;   WINDOW:  [ VS Code ] or [ Cursor ]
+;   WINDOW:  [ VS Code ] or [ Cursor ] or [ Wow ]
 ;   STATUS:  [ NOT active ]
 ;
-#HotIf !WinActive("ahk_exe Code.exe") && !WinActive("ahk_exe Cursor.exe")
+#HotIf !WinActive("ahk_exe Code.exe") && !WinActive("ahk_exe Cursor.exe") && !WinActive("ahk_exe Wow.exe")
   ;
   ;   HOTKEY:  Alt + Z  (while [ VS Code ] is NOT active)
   ;   ACTION:  Open NVIDIA GeForce Experience Overlay  -  Configure via "GeForce Experience Overlay" > "⚙️" > "Keyboard shortcuts" > "Open/close in-game overlay" (set to [ Shift + Alt + z ])
